@@ -1,0 +1,13 @@
+[main]
+host = https://www.transifex.com
+type = YML
+
+[hitobito_insieme.views-cevi]
+file_filter = config/locales/views.insieme.<lang>.yml
+source_file = config/locales/views.insieme.de.yml
+source_lang = de
+
+[hitobito_insieme.models-cevi]
+file_filter = config/locales/models.insieme.<lang>.yml
+source_file = config/locales/models.insieme.de.yml
+source_lang = de

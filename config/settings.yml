@@ -1,0 +1,15 @@
+# Settings relevant for the insieme wagon
+# Overrides settings from the main application
+application:
+  #name: insieme
+
+  languages:
+    de: Deutsch
+
+
+
+
+# The person with this email has root access to everything
+# This person should only be used by the operators of the application, not the customers.
+# Initially, a password reset token may be mailed from the application to this address to set a password.
+root_email: hitobito-insieme@puzzle.ch
