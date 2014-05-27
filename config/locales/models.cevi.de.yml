@@ -3,4 +3,115 @@
 
 
 de:
-  dummy: Dummy
+  activerecord:
+    models:
+
+      ### GROUPS
+      group/dachverband:
+        one: Dachverband
+        other: Dachverbände
+        long: Dachverband
+      group/dachverband_liste:
+        one: Liste
+        other: Listen
+        long: Dachverband Liste
+      group/dachverband_gremium:
+        one: Gremium
+        other: Gremien
+        long: Dachverband Gremium
+      group/mitgliederverband:
+        one: Mitgliederverband
+        other: Mitgliederverbände
+        long: Mitgliederverband
+      group/aktivmitglieder:
+        one: Aktivmitglieder
+        other: Aktivmitglieder
+        long: Mitgliederorganisation Aktivmitglieder
+      group/passivmitglieder:
+        one: Passivmitglieder
+        other: Passivmitglieder
+        long: Mitgliederorganisation Passivmitglieder
+      group/kollektivmitglieder:
+        one: Kollektivmitglieder
+        other: Kollektivmitglieder
+        long: Mitgliederorganisation Kollektivmitglieder
+      group/mitgliederverband_liste:
+        one: Liste
+        other: Listen
+        long: Mitgliederorganisation Liste
+      group/mitgliederverband_gremium:
+        one: Gremium
+        other: Gremien
+        long: MitgliederorganisationGremium
+
+
+      ### ROLES
+      group/dachverband/geschaeftsfuehrung:
+        one: Geschäftsführung
+        description:
+      group/dachverband/sekretariat:
+        one: Sekretariat
+        description:
+      group/dachverband/adressverwaltung:
+        one: Adressverwaltung
+        description:
+
+      group/dachverband_liste/listenverwaltung:
+        one: Listenverwaltung
+        description:
+      group/dachverband_liste/person:
+        one: Person
+        description:
+
+      group/dachverband_gremium/leitung:
+        one: Leitung
+        description:
+      group/dachverband_gremium/mitglied:
+        one: Mitglied
+        description:
+
+      group/mitgliederverband/praesident:
+        one: PräsidentIn
+        description:
+      group/mitgliederverband/geschaeftsfuehrung:
+        one: Geschäftsführung
+        description:
+      group/mitgliederverband/sekretariat:
+        one: Sekretariat
+        description:
+      group/mitgliederverband/adressverwaltung:
+        one: Adressverwaltung
+        description:
+      group/mitgliederverband/versandadresse:
+        one: Versandadresse
+        description:
+      group/mitgliederverband/rechnungsadresse:
+        one: Rechnungsadresse
+        description:
+      group/mitgliederverband/controlling:
+        one: Controlling
+        description:
+
+      group/aktivmitglieder/aktivmitglied:
+        one: Aktivmitglied
+        description:
+      group/aktivmitglieder/aktivmitglied_ohne_abo:
+        one: Aktivmitglied ohne Abo
+        description:
+      group/aktivmitglieder/zweitmitgliedschaft:
+        one: Zweitmitgliedschaft
+        description:
+
+      group/passivmitglieder/passivmitglied:
+        one: Passivmitglied
+        description:
+      group/passivmitglieder/passivmitglied_mit_abo:
+        one: Passivmitglied mit Abo
+        description:
+
+      group/kollektivmitglieder/kollektivmitglied:
+        one: Kollektivmitglied
+        description:
+      group/kollektivmitglieder/kollektivmitglied_mit_abo:
+        one: Kollektivmitglied mit Abo
+        description:

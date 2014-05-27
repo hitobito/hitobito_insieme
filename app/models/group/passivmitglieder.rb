@@ -7,11 +7,11 @@ class Group::Passivmitglieder < Group
 
   ### ROLES
 
-  class PassivesMitglied < ::Role; end
+  class Passivmitglied < ::Role; end
 
-  class PassivesMitgliedOhneAbo < ::Role; end
+  class PassivmitgliedMitAbo < ::Role; end
 
-  roles PassivesMitglied,
-        PassivesMitgliedOhneAbo
+  roles Passivmitglied,
+        PassivmitgliedMitAbo
 
 end

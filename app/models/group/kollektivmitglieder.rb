@@ -9,9 +9,9 @@ class Group::Kollektivmitglieder < Group
 
   class Kollektivmitglied < ::Role; end
 
-  class KollektivmitgliedOhneAbo < ::Role; end
+  class KollektivmitgliedMitAbo < ::Role; end
 
   roles Kollektivmitglied,
-        KollektivmitgliedOhneAbo
+        KollektivmitgliedMitAbo
 
 end

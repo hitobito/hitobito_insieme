@@ -7,13 +7,13 @@ class Group::Aktivmitglieder < Group
 
   ### ROLES
 
-  class AktivesMitglied < ::Role; end
+  class Aktivmitglied < ::Role; end
 
-  class AktivesMitgliedOhneAbo < ::Role; end
+  class AktivmitgliedOhneAbo < ::Role; end
 
   class Zweitmitgliedschaft < ::Role; end
 
-  roles AktivesMitglied,
-        AktivesMitgliedOhneAbo,
+  roles Aktivmitglied,
+        AktivmitgliedOhneAbo,
         Zweitmitgliedschaft
 end
