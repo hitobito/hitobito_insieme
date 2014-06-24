@@ -43,7 +43,7 @@ class Group::Dachverband < Group
   ### ROLES
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:layer_full, :contact_data]
+    self.permissions = [:admin, :layer_full, :contact_data]
   end
 
   class Sekretariat < ::Role
