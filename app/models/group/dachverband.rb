@@ -34,6 +34,7 @@
 class Group::Dachverband < Group
 
   self.layer = true
+  self.event_types = [Event, Event::Course]
 
   children Group::DachverbandListe,
            Group::DachverbandGremium,

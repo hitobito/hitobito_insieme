@@ -34,6 +34,7 @@
 class Group::Mitgliederverband < Group
 
   self.layer = true
+  self.event_types = [Event, Event::Course]
 
   children Group::Mitgliederverband,
            Group::Aktivmitglieder,
