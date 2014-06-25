@@ -33,8 +33,6 @@
 
 class Group::Passivmitglieder < Group
 
-  self.layer = true
-
   children Group::Passivmitglieder
 
 

@@ -33,8 +33,6 @@
 
 class Group::Aktivmitglieder < Group
 
-  self.layer = true
-
   children Group::Aktivmitglieder
 
 
