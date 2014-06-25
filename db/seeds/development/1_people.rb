@@ -41,15 +41,26 @@ devs.each do |name, email|
   seeder.seed_developer(name, email, root, Group::Dachverband::Geschaeftsfuehrung)
 end
 
-insieme_emails = %w(cschoenbaechler@insieme.ch)
+insieme_users = [
+  { email: 'cschoenbaechler@insieme.ch',
+    role: Group::Dachverband::Geschaeftsfuehrung,
+    group: root },
+  { email: 'sekretariat@insieme-kantonbern.ch',
+    role: Group::Mitgliederverband::Geschaeftsfuehrung,
+    group: Group.where(name: 'Kanton Bern').first },
+  { email: 'info@insieme-bern.ch',
+    role: Group::Mitgliederverband::Geschaeftsfuehrung,
+    group: Group.where(name: 'Region Bern').first }
+]
 
 insieme_password = BCrypt::Password.create("insieme14insieme", cost: 1)
-insieme_emails.each do |email|
-  role_type = Group::Dachverband::Geschaeftsfuehrung
-  attrs = seeder.person_attributes(role_type).merge(email: email,
+insieme_users.each do |user|
+  attrs = seeder.person_attributes(user[:role]).merge(email: user[:email],
                                                     encrypted_password: insieme_password )
   Person.seed_once(:email, attrs)
   person = Person.find_by_email(attrs[:email])
-  role_attrs = { person_id: person.id, group_id: root.id, type: role_type.sti_name }
+  role_attrs = { person_id: person.id,
+                 group_id: user[:group].id,
+                 type: user[:role].sti_name }
   Role.seed_once(*role_attrs.keys, role_attrs)
 end

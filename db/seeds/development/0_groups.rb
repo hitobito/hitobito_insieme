@@ -56,7 +56,7 @@ be, fr = seed_group(Group::Mitgliederverband,
    email: 'fr@example.com',
    parent_id: dachverband.id})
 
-oberland, seeland = seed_group(Group::Mitgliederverband,
+oberland, seeland, bern = seed_group(Group::Mitgliederverband,
   {name: 'Thun Oberland',
    short_name: 'BEO',
    address: 'Im Gwatt 12',
@@ -64,7 +64,7 @@ oberland, seeland = seed_group(Group::Mitgliederverband,
    town: 'Thun',
    country: 'Schweiz',
    email: 'beo@example.com',
-   parent_id: be.id, },
+   parent_id: be.id},
 
   {name: 'Biel-Seeland',
    short_name: 'BNC',
@@ -73,9 +73,18 @@ oberland, seeland = seed_group(Group::Mitgliederverband,
    town: 'Biel/Bienne',
    country: 'Schweiz',
    email: 'bnc@example.com',
+   parent_id: be.id},
+
+  {name: 'Region Bern',
+   short_name: 'RBE',
+   address: 'Effingerstrasse 123',
+   zip_code: 3000,
+   town: 'Bern',
+   country: 'Schweiz',
+   email: 'rbe@example.com',
    parent_id: be.id})
 
-[be, fr, oberland, seeland].each do |s|
+[be, fr, oberland, seeland, bern].each do |s|
   $seeder.seed_social_accounts(s)
 end
 
