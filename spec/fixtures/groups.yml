@@ -102,7 +102,7 @@ aktiv:
   rgt: 11
   name: Aktivmitglieder
   type: Group::Aktivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:aktiv) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 aktiv_eltern:
   parent_id: aktiv
@@ -110,7 +110,7 @@ aktiv_eltern:
   rgt: 10
   name: Elternmitglieder
   type: Group::Aktivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:aktiv_eltern) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 aktiv_behinderte:
   parent_id: aktiv
@@ -118,7 +118,7 @@ aktiv_behinderte:
   rgt: 8
   name: Behindertenmitglieder
   type: Group::Aktivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:aktiv_behinderte) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 passiv:
   parent_id: seeland
@@ -126,7 +126,7 @@ passiv:
   rgt: 19
   name: Passivmitglieder
   type: Group::Passivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:passiv) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 passiv_ehren:
   parent_id: passiv
@@ -134,7 +134,7 @@ passiv_ehren:
   rgt: 18
   name: Ehrenmitglieder
   type: Group::Passivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:passiv_ehren) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 kollektiv:
   parent_id: seeland
@@ -142,7 +142,7 @@ kollektiv:
   rgt: 13
   name: Kollektivmitglieder
   type: Group::Kollektivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:kollektiv) %>
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 kursbetreuer:
   parent_id: seeland
