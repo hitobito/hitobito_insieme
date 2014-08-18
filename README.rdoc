@@ -1,3 +1,9 @@
-=== Hitobito insieme
+=== Hitobito Insieme
 
-This hitobito wagon defines the organization hierarchy with groups and roles of insieme Schweiz.
+This hitobito wagon defines the organization hierarchy with groups and roles of Insieme Schweiz.
+
+
+=== Insieme Organization Hierarchy
+
+
+(Output of rake app:hitobito:roles)
