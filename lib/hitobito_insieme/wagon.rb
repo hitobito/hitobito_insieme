@@ -8,7 +8,7 @@
 module HitobitoInsieme
   class Wagon < Rails::Engine
     include Wagons::Wagon
-    
+
     # Set the required application version.
     app_requirement '>= 0'
 
@@ -22,8 +22,14 @@ module HitobitoInsieme
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
       Group.send        :include, Insieme::Group
+      Person.send       :include, Insieme::Person
+
+      PersonSerializer.send :include, Insieme::PersonSerializer
+
+      PeopleController.permitted_attrs +=
+        [:salutation, :canton, :language, :correspondence_language, :number]
       # rubocop:enable SingleSpaceBeforeFirstArg
-    end 
+    end
 
     initializer 'insieme.add_settings' do |_app|
       Settings.add_source!(File.join(paths['config'].existent, 'settings.yml'))
