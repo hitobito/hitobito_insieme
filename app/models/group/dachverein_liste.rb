@@ -31,32 +31,20 @@
 #  deleter_id     :integer
 #
 
-class Group::Dachverband < Group
+class Group::DachvereinListe < Group
 
-  self.layer = true
-  self.event_types = [Event, Event::Course]
-
-  children Group::DachverbandListe,
-           Group::DachverbandGremium,
-           Group::Mitgliederverband
+  children Group::DachvereinListe
 
 
   ### ROLES
 
-  class Geschaeftsfuehrung < ::Role
-    self.permissions = [:admin, :layer_full, :contact_data]
+  class Listenverwaltung < ::Role
+    self.permissions = [:group_full]
   end
 
-  class Sekretariat < ::Role
-    self.permissions = [:layer_full, :contact_data]
-  end
+  class Person < ::Role; end
 
-  class Adressverwaltung < ::Role
-    self.permissions = [:layer_full, :contact_data]
-  end
-
-  roles Geschaeftsfuehrung,
-        Sekretariat,
-        Adressverwaltung
+  roles Listenverwaltung,
+        Person
 
 end

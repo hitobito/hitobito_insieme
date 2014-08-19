@@ -35,6 +35,6 @@ module Insieme::Group
   extend ActiveSupport::Concern
 
   included do
-    root_types Group::Dachverband
+    root_types Group::Dachverein
   end
 end

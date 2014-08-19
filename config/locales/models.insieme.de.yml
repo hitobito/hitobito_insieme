@@ -12,88 +12,88 @@ de:
     models:
 
       ### GROUPS
-      group/dachverband:
-        one: Dachverband
-        other: Dachverbände
-        long: Dachverband
-      group/dachverband_liste:
+      group/dachverein:
+        one: Dachverein
+        other: Dachvereine
+        long: Dachverein
+      group/dachverein_liste:
         one: Liste
         other: Listen
-        long: Dachverband Liste
-      group/dachverband_gremium:
+        long: Dachverein Liste
+      group/dachverein_gremium:
         one: Gremium
         other: Gremien
-        long: Dachverband Gremium
-      group/mitgliederverband:
-        one: Mitgliederverband
-        other: Mitgliederverbände
-        long: Mitgliederverband
+        long: Dachverein Gremium
+      group/regionalverein:
+        one: Regionalverein
+        other: Regionalvereine
+        long: Regionalverein
       group/aktivmitglieder:
         one: Aktivmitglieder
         other: Aktivmitglieder
-        long: Mitgliederorganisation Aktivmitglieder
+        long: Aktivmitglieder
       group/passivmitglieder:
         one: Passivmitglieder
         other: Passivmitglieder
-        long: Mitgliederorganisation Passivmitglieder
+        long: Passivmitglieder
       group/kollektivmitglieder:
         one: Kollektivmitglieder
         other: Kollektivmitglieder
-        long: Mitgliederorganisation Kollektivmitglieder
-      group/mitgliederverband_liste:
+        long: Kollektivmitglieder
+      group/regionalverein_liste:
         one: Liste
         other: Listen
-        long: Mitgliederorganisation Liste
-      group/mitgliederverband_gremium:
+        long: Regionalverein Liste
+      group/regionalverein_gremium:
         one: Gremium
         other: Gremien
-        long: MitgliederorganisationGremium
+        long: Regionalverein Gremium
 
 
       ### ROLES
-      group/dachverband/geschaeftsfuehrung:
+      group/dachverein/geschaeftsfuehrung:
         one: Geschäftsführung
         description:
-      group/dachverband/sekretariat:
+      group/dachverein/sekretariat:
         one: Sekretariat
         description:
-      group/dachverband/adressverwaltung:
+      group/dachverein/adressverwaltung:
         one: Adressverwaltung
         description:
 
-      group/dachverband_liste/listenverwaltung:
+      group/dachverein_liste/listenverwaltung:
         one: Listenverwaltung
         description:
-      group/dachverband_liste/person:
+      group/dachverein_liste/person:
         one: Person
         description:
 
-      group/dachverband_gremium/leitung:
+      group/dachverein_gremium/leitung:
         one: Leitung
         description:
-      group/dachverband_gremium/mitglied:
+      group/dachverein_gremium/mitglied:
         one: Mitglied
         description:
 
-      group/mitgliederverband/praesident:
+      group/regionalverein/praesident:
         one: PräsidentIn
         description:
-      group/mitgliederverband/geschaeftsfuehrung:
+      group/regionalverein/geschaeftsfuehrung:
         one: Geschäftsführung
         description:
-      group/mitgliederverband/sekretariat:
+      group/regionalverein/sekretariat:
         one: Sekretariat
         description:
-      group/mitgliederverband/adressverwaltung:
+      group/regionalverein/adressverwaltung:
         one: Adressverwaltung
         description:
-      group/mitgliederverband/versandadresse:
+      group/regionalverein/versandadresse:
         one: Versandadresse
         description:
-      group/mitgliederverband/rechnungsadresse:
+      group/regionalverein/rechnungsadresse:
         one: Rechnungsadresse
         description:
-      group/mitgliederverband/controlling:
+      group/regionalverein/controlling:
         one: Controlling
         description:
 
@@ -160,6 +160,7 @@ de:
           de: Deutsch
           fr: Französisch
           it: Italienisch
+          en: Englisch
           andere: Andere
 
         correspondence_language: Korrespondenzsprache

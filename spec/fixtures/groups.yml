@@ -29,52 +29,52 @@
 #  deleter_id     :integer
 #
 
-dachverband:
+dachverein:
   lft: 1
   rgt: 30
   name: insieme Schweiz
-  type: Group::Dachverband
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverband) %>
+  type: Group::Dachverein
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
 partner:
-  parent_id: dachverband
+  parent_id: dachverein
   lft: 26
   rgt: 27
   name: Partnerorganisationen
-  type: Group::DachverbandListe
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverband) %>
+  type: Group::DachvereinListe
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
 uebersetzer:
-  parent_id: dachverband
+  parent_id: dachverein
   lft: 28
   rgt: 29
   name: Übersetzer
-  type: Group::DachverbandListe
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverband) %>
+  type: Group::DachvereinListe
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
 kommission74:
-  parent_id: dachverband
+  parent_id: dachverein
   lft: 24
   rgt: 25
   name: Kommission 74
-  type: Group::DachverbandGremium
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverband) %>
+  type: Group::DachvereinGremium
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
 be:
-  parent_id: dachverband
+  parent_id: dachverein
   lft: 4
   rgt: 23
   name: Kanton Bern
-  type: Group::Mitgliederverband
+  type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:be) %>
 
 fr:
-  parent_id: dachverband
+  parent_id: dachverein
   lft: 2
   rgt: 3
   name: Freiburg
-  type: Group::Mitgliederverband
+  type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:fr) %>
 
@@ -83,7 +83,7 @@ oberland:
   lft: 21
   rgt: 22
   name: Thun Oberland
-  type: Group::Mitgliederverband
+  type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:oberland) %>
 
@@ -92,7 +92,7 @@ seeland:
   lft: 5
   rgt: 20
   name: Biel-Seeland
-  type: Group::Mitgliederverband
+  type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
@@ -149,5 +149,5 @@ kursbetreuer:
   lft: 14
   rgt: 15
   name: Kursbetreuer
-  type: Group::MitgliederverbandListe
+  type: Group::RegionalvereinListe
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>

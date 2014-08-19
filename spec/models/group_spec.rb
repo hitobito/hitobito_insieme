@@ -42,15 +42,15 @@ describe Group do
 
     it 'is in hierarchical order' do
       expect(subject.collect(&:name)).to eq(
-        [Group::Dachverband,
-         Group::DachverbandListe,
-         Group::DachverbandGremium,
-         Group::Mitgliederverband,
+        [Group::Dachverein,
+         Group::DachvereinListe,
+         Group::DachvereinGremium,
+         Group::Regionalverein,
          Group::Aktivmitglieder,
          Group::Passivmitglieder,
          Group::Kollektivmitglieder,
-         Group::MitgliederverbandListe,
-         Group::MitgliederverbandGremium].collect(&:name))
+         Group::RegionalvereinListe,
+         Group::RegionalvereinGremium].collect(&:name))
     end
   end
 

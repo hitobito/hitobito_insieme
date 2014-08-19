@@ -11,8 +11,8 @@ class InsiemePersonSeeder < PersonSeeder
 
   def amount(role_type)
     case role_type.name.demodulize
-    when 'DachverbandListe', 'Aktivmitglieder', 'Passivmitglieder', 'Kollektivmitglieder',
-      'MitgliederverbandListe' then 5
+    when 'DachvereinListe', 'Aktivmitglieder', 'Passivmitglieder', 'Kollektivmitglieder',
+      'RegionalvereinListe' then 5
     else 1
     end
   end
@@ -38,18 +38,18 @@ seeder.seed_all_roles
 
 root = Group.root
 devs.each do |name, email|
-  seeder.seed_developer(name, email, root, Group::Dachverband::Geschaeftsfuehrung)
+  seeder.seed_developer(name, email, root, Group::Dachverein::Geschaeftsfuehrung)
 end
 
 insieme_users = [
   { email: 'cschoenbaechler@insieme.ch',
-    role: Group::Dachverband::Geschaeftsfuehrung,
+    role: Group::Dachverein::Geschaeftsfuehrung,
     group: root },
   { email: 'sekretariat@insieme-kantonbern.ch',
-    role: Group::Mitgliederverband::Geschaeftsfuehrung,
+    role: Group::Regionalverein::Geschaeftsfuehrung,
     group: Group.where(name: 'Kanton Bern').first },
   { email: 'info@insieme-bern.ch',
-    role: Group::Mitgliederverband::Geschaeftsfuehrung,
+    role: Group::Regionalverein::Geschaeftsfuehrung,
     group: Group.where(name: 'Region Bern').first }
 ]
 

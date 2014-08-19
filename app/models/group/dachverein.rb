@@ -31,27 +31,20 @@
 #  deleter_id     :integer
 #
 
-class Group::Mitgliederverband < Group
+class Group::Dachverein < Group
 
   self.layer = true
   self.event_types = [Event, Event::Course]
 
-  children Group::Mitgliederverband,
-           Group::Aktivmitglieder,
-           Group::Passivmitglieder,
-           Group::Kollektivmitglieder,
-           Group::MitgliederverbandListe,
-           Group::MitgliederverbandGremium
+  children Group::DachvereinListe,
+           Group::DachvereinGremium,
+           Group::Regionalverein
 
 
   ### ROLES
 
-  class Praesident < ::Role
-    self.permissions = [:contact_data]
-  end
-
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:layer_full, :contact_data]
+    self.permissions = [:admin, :layer_full, :contact_data]
   end
 
   class Sekretariat < ::Role
@@ -62,24 +55,8 @@ class Group::Mitgliederverband < Group
     self.permissions = [:layer_full, :contact_data]
   end
 
-  class Versandadresse < ::Role
-    self.permissions = [:contact_data]
-  end
-
-  class Rechnungsadresse < ::Role
-    self.permissions = [:contact_data]
-  end
-
-  class Controlling < ::Role
-    self.permissions = [:contact_data]
-  end
-
-  roles Praesident,
-        Geschaeftsfuehrung,
+  roles Geschaeftsfuehrung,
         Sekretariat,
-        Adressverwaltung,
-        Versandadresse,
-        Rechnungsadresse,
-        Controlling
+        Adressverwaltung
 
 end

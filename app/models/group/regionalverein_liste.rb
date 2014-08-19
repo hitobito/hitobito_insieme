@@ -31,4 +31,4 @@
 #  deleter_id     :integer
 #
 
-class Group::MitgliederverbandGremium < Group; end
+class Group::RegionalvereinListe < Group; end

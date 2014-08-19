@@ -10,12 +10,12 @@ require Rails.root.join('db', 'seeds', 'support', 'group_seeder')
 
 $seeder = GroupSeeder.new
 
-dachverband = Group.roots.first
+dachverein = Group.roots.first
 srand(42)
 
-unless dachverband.address.present?
- dachverband.update_attributes($seeder.group_attributes)
- dachverband.default_children.each do |child_class|
+unless dachverein.address.present?
+ dachverein.update_attributes($seeder.group_attributes)
+ dachverein.default_children.each do |child_class|
    child_class.first.update_attributes($seeder.group_attributes)
  end
 end
@@ -25,19 +25,19 @@ def seed_group(group, *attrs)
   group.seed(:name, :parent_id, *with_group_attributes)
 end
 
-seed_group(Group::DachverbandListe,
+seed_group(Group::DachvereinListe,
   {name: 'Partnerorganisationen',
-   parent_id: dachverband.id},
+   parent_id: dachverein.id},
   {name: 'Übersetzer',
-   parent_id: dachverband.id}
+   parent_id: dachverein.id}
 )
 
-seed_group(Group::DachverbandGremium, {
+seed_group(Group::DachvereinGremium, {
   name: 'Kommission 74',
-  parent_id: dachverband.id
+  parent_id: dachverein.id
 })
 
-be, fr = seed_group(Group::Mitgliederverband,
+be, fr = seed_group(Group::Regionalverein,
   {name: 'Kanton Bern',
    short_name: 'BE',
    address: 'Seilerstr. 27',
@@ -45,7 +45,7 @@ be, fr = seed_group(Group::Mitgliederverband,
    town: 'Bern',
    country: 'Schweiz',
    email: 'be@example.com',
-   parent_id: dachverband.id, },
+   parent_id: dachverein.id, },
 
   {name: 'Freiburg',
    short_name: 'FR',
@@ -54,9 +54,9 @@ be, fr = seed_group(Group::Mitgliederverband,
    town: 'Fribourg',
    country: 'Schweiz',
    email: 'fr@example.com',
-   parent_id: dachverband.id})
+   parent_id: dachverein.id})
 
-oberland, seeland, bern = seed_group(Group::Mitgliederverband,
+oberland, seeland, bern = seed_group(Group::Regionalverein,
   {name: 'Thun Oberland',
    short_name: 'BEO',
    address: 'Im Gwatt 12',
@@ -110,7 +110,7 @@ seed_group(Group::Kollektivmitglieder, {
   name: 'Kollektivmitglieder',
   parent_id: seeland.id})
 
-seed_group(Group::MitgliederverbandListe, {
+seed_group(Group::RegionalvereinListe, {
   name: 'Kursbetreuer',
   parent_id: seeland.id})
 

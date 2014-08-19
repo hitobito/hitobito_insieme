@@ -31,9 +31,9 @@
 #  deleter_id     :integer
 #
 
-class Group::DachverbandGremium < Group
+class Group::DachvereinGremium < Group
 
-  children Group::DachverbandGremium
+  children Group::DachvereinGremium
 
 
   ### ROLES
