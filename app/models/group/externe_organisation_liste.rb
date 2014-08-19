@@ -31,4 +31,20 @@
 #  deleter_id     :integer
 #
 
-class Group::ExterneOrganisationListe < Group; end
+class Group::ExterneOrganisationListe < Group
+
+  children Group::ExterneOrganisationListe
+
+
+  ### ROLES
+
+  class Listenverwaltung < ::Role
+    self.permissions = [:group_full]
+  end
+
+  class Person < ::Role; end
+
+  roles Listenverwaltung,
+        Person
+
+end

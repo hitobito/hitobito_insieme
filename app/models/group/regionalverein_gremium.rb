@@ -31,4 +31,22 @@
 #  deleter_id     :integer
 #
 
-class Group::RegionalvereinGremium < Group; end
+class Group::RegionalvereinGremium < Group
+
+  children Group::RegionalvereinGremium
+
+
+  ### ROLES
+
+  class Leitung < ::Role
+    self.permissions = [:group_full, :contact_data]
+  end
+
+  class Mitglied < ::Role
+    self.permissions = [:group_read]
+  end
+
+  roles Leitung,
+        Mitglied
+
+end

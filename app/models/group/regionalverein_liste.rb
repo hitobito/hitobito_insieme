@@ -31,4 +31,20 @@
 #  deleter_id     :integer
 #
 
-class Group::RegionalvereinListe < Group; end
+class Group::RegionalvereinListe < Group
+
+  children Group::RegionalvereinListe
+
+
+  ### ROLES
+
+  class Listenverwaltung < ::Role
+    self.permissions = [:group_full]
+  end
+
+  class Person < ::Role; end
+
+  roles Listenverwaltung,
+        Person
+
+end
