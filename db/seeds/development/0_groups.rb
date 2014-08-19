@@ -88,6 +88,11 @@ oberland, seeland, bern = seed_group(Group::Regionalverein,
   $seeder.seed_social_accounts(s)
 end
 
+seed_group(Group::ExterneOrganisation,
+  {name: 'Stiftung Arkadis',
+   short_name: 'SA',
+   parent_id: dachverein.id})
+
 aktiv = seed_group(Group::Aktivmitglieder, {
   name: 'Aktivmitglieder',
   parent_id: seeland.id})[0]

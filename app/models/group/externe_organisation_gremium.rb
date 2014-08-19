@@ -31,32 +31,4 @@
 #  deleter_id     :integer
 #
 
-require 'spec_helper'
-
-describe Group do
-  include_examples 'group types'
-
-
-  describe '#all_types' do
-    subject { Group.all_types }
-
-    it 'is in hierarchical order' do
-      expect(subject.collect(&:name)).to eq(
-        [Group::Dachverein,
-         Group::DachvereinListe,
-         Group::DachvereinGremium,
-         Group::Regionalverein,
-         Group::RegionalvereinListe,
-         Group::RegionalvereinGremium,
-         Group::ExterneOrganisation,
-         Group::Aktivmitglieder,
-         Group::Passivmitglieder,
-         Group::Kollektivmitglieder,
-         Group::ExterneOrganisationListe,
-         Group::ExterneOrganisationGremium
-         ].collect(&:name))
-    end
-  end
-
-
-end
+class Group::ExterneOrganisationGremium < Group; end

@@ -48,7 +48,18 @@ de:
         one: Gremium
         other: Gremien
         long: Regionalverein Gremium
-
+      group/externe_organisation:
+        one: Externe Organisation
+        other: Externe Organisationen
+        long: Externe Organisation
+      group/externe_organisation_liste:
+        one: Liste
+        other: Listen
+        long: Externe Organisation Liste
+      group/externe_organisation_gremium:
+        one: Gremium
+        other: Gremien
+        long: Externe Organisation Gremium
 
       ### ROLES
       group/dachverein/geschaeftsfuehrung:
@@ -119,6 +130,28 @@ de:
         description:
       group/kollektivmitglieder/kollektivmitglied_mit_abo:
         one: Kollektivmitglied mit Abo
+        description:
+
+      group/externe_organisation/praesident:
+        one: PräsidentIn
+        description:
+      group/externe_organisation/geschaeftsfuehrung:
+        one: Geschäftsführung
+        description:
+      group/externe_organisation/sekretariat:
+        one: Sekretariat
+        description:
+      group/externe_organisation/adressverwaltung:
+        one: Adressverwaltung
+        description:
+      group/externe_organisation/versandadresse:
+        one: Versandadresse
+        description:
+      group/externe_organisation/rechnungsadresse:
+        one: Rechnungsadresse
+        description:
+      group/externe_organisation/controlling:
+        one: Controlling
         description:
 
     attributes:

@@ -38,7 +38,8 @@ class Group::Dachverein < Group
 
   children Group::DachvereinListe,
            Group::DachvereinGremium,
-           Group::Regionalverein
+           Group::Regionalverein,
+           Group::ExterneOrganisation
 
 
   ### ROLES
