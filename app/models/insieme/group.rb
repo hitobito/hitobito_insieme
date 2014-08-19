@@ -37,4 +37,18 @@ module Insieme::Group
   included do
     root_types Group::Dachverein
   end
+
+  def canton_value
+    value_from_i18n(:canton)
+  end
+
+  private
+
+  def value_from_i18n(key)
+    value = send(key)
+
+    if value.present?
+      I18n.t("activerecord.attributes.group.#{key.to_s.pluralize}.#{value}")
+    end
+  end
 end

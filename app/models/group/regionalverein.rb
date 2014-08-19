@@ -34,6 +34,7 @@
 class Group::Regionalverein < Group
 
   self.layer = true
+  self.used_attributes += [:full_name, :vid, :bsv_number, :canton]
   self.event_types = [Event, Event::Course]
 
   children Group::Regionalverein,
