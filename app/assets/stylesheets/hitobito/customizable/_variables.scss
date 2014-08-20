@@ -1,0 +1,104 @@
+//  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+//  hitobito_insieme and licensed under the Affero General Public License version 3
+//  or later. See the COPYING file at the top-level directory or at
+//  https://github.com/hitobito/hitobito_insieme.
+
+$insieme_color_a: #0074a2;
+$insieme_color_b: #004764;
+$insieme_color_c: #00b3fa;
+$insieme_color_d: #cdf1ff;
+$insieme_color_e: #a30075;
+$insieme_color_f: #760054;
+
+
+/* Bootstrap variable definition here */
+
+// GLOBAL VALUES
+// --------------------------------------------------
+
+// Grays
+// -------------------------
+$black:                 #474E5D !default;
+$grayDarker:            #797E89 !default;
+$grayDark:              #8b8b8b !default;
+$gray:                  #979CA6 !default;
+$grayLight:             #E8EBF0 !default;
+$grayLighter:           #F8F9FA !default;
+$white:                 #fff !default;
+
+// Colors
+// ----------------------------
+$blue:                  $insieme_color_a !default;
+$blueDark:              darken($blue, 10%) !default;
+$green:                 #8DB850 !default;
+$greenDark:             darken($green, 10%) !default;
+
+$orange:                #DC795B;
+$orangeDark:            #C75B3B;
+$purple:                $insieme_color_e;
+$purpleDark:            $insieme_color_f;
+
+$red:                   $orange !default;
+
+$textColor:             $black !default;
+$borderColor:           $grayLight !default;
+
+$pageBackground:        $insieme_color_a;
+$contentBackground:     $grayLight;
+$footerBackground:      $insieme_color_d;
+$bodyBackground:        $footerBackground !default;
+
+$focusColor:            $purple;
+$shadowColor:           $insieme_color_b;
+$linkColor:             $insieme_color_a !default;
+$linkColorHover:        $insieme_color_e !default;
+
+$footerColor:           $insieme_color_a;
+$footerColorHover:      $insieme_color_e;
+
+$tableColorHover:       $insieme_color_d;
+
+// Typography
+// -------------------------
+$sansFontFamily:        Helvetica, Arial, sans-serif !default;
+$headingFontFamily:     'Quicksand', $sansFontFamily !default;
+$baseFontFamily:        'Varela Round', $sansFontFamily !default;
+$headingsFontWeight:    normal !default; // instead of browser default, bold
+
+// Decoration
+// -------------------------
+$borderRadius:           6px;
+
+// Rhythm
+// -------------------------
+$vSpace:                24px;
+
+
+// FLUID GRID
+// --------------------------------------------------
+
+// Default
+// -------------------------
+$fluidGridColumnWidth:         6.382978723% !default;
+$fluidGridGutterWidth:         2.127659574% !default;
+
+// Portrait tablet to default desktop
+// -------------------------
+$fluidGridColumnWidthTablet:   5.801104972% !default;
+$fluidGridGutterWidthTablet:   2.762430939% !default;
+
+// Large desktop and up
+// -------------------------
+$fluidGridColumnWidthLarge:    5.982905983% !default;
+$fluidGridGutterWidthLarge:    2.564102564% !default;
+
+
+// RESPONSIVE DESIGN
+// --------------------------------------------------
+
+// Media widths
+// -------------------------
+$mediaPhone:              480px !default;
+$mediaTablet:             768px !default;
+$mediaDesktop:            980px !default;
+$mediaLarge:              1200px !default; // and upper

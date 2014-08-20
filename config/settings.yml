@@ -6,7 +6,7 @@
 # Settings relevant for the insieme wagon
 # Overrides settings from the main application
 application:
-  #name: insieme
+  name: insieme desk
 
   languages:
     de: Deutsch
