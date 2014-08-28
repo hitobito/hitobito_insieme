@@ -48,6 +48,12 @@
   }
 }
 
+.alert.alert-success {
+  background-color: $insieme_color_d;
+  border-color: $insieme_color_d;
+  color: $insieme_color_a;
+}
+
 .cost_accounting {
   .subtotal {
     background-color: $grayLighter;
@@ -57,3 +63,4 @@
     padding-left: 4px;
   }
 }
+
