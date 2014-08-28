@@ -1,0 +1,9 @@
+
+- content_for :content do
+  .row
+    .span2
+      = render 'layouts/reporting_menu'
+    .span10
+      = yield
+
+= render template: "layouts/application"

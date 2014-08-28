@@ -11,6 +11,8 @@ class CostAccountingController < ApplicationController
 
   before_action :authorize
 
+  layout 'reporting'
+
   decorates :group
 
   helper_method :record, :report, :group
