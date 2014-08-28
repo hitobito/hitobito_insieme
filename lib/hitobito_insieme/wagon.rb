@@ -25,7 +25,7 @@ module HitobitoInsieme
       Person.send       :include, Insieme::Person
 
       PersonSerializer.send :include, Insieme::PersonSerializer
-      GroupSerializer.send :include, Insieme::GroupSerializer
+      GroupSerializer.send  :include, Insieme::GroupSerializer
 
       PeopleController.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language, :number]

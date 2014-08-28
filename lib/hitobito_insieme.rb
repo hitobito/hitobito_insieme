@@ -12,3 +12,8 @@ require 'hitobito_insieme/wagon'
 module HitobitoInsieme
 end
 
+class NilClass
+  def to_d
+    BigDecimal.new(0)
+  end
+end
