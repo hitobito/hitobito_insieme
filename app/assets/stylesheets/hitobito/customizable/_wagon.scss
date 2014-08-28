@@ -42,3 +42,9 @@
     background-image: image-url("glyphicons-halflings-blue.png");
   }
 }
+
+.alert.alert-success {
+  background-color: $insieme_color_d;
+  border-color: $insieme_color_d;
+  color: $insieme_color_a;
+}
