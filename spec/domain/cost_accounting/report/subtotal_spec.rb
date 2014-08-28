@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe CostAccounting::Report::TimeDistributed do
+describe CostAccounting::Report::Subtotal do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
   let(:table) { CostAccounting::Table.new(group, year) }
-  let(:report) { CostAccounting::Report::Lohnaufwand.new(table) }
+  let(:report) { table.reports.fetch('total_personalaufwand') }
 
   before do
     CostAccountingRecord.create!(group_id: group.id,
@@ -14,26 +14,43 @@ describe CostAccounting::Report::TimeDistributed do
                                  aufwand_ertrag_fibu: 1050,
                                  abgrenzung_fibu: 50)
 
+    CostAccountingRecord.create!(group_id: group.id,
+                                 year: year,
+                                 report: 'sozialversicherungsaufwand',
+                                 aufwand_ertrag_fibu: 2000)
+
     TimeRecord.create!(group_id: group.id,
                        year: year,
                        verwaltung: 50,
                        mittelbeschaffung: 30,
                        newsletter: 20)
+
   end
 
-  context 'time accessors' do
+
+  context 'summed fields' do
+    it 'works for fibu' do
+      report.aufwand_ertrag_fibu.to_f.should eq 3050
+    end
+
     it 'works for simple' do
-      report.verwaltung.to_f.should eq 500
+      report.verwaltung.to_f.should eq 1500
     end
 
     it 'works for lufeb' do
-      report.lufeb.to_f.should eq 200
+      report.lufeb.to_f.should eq 600
+    end
+  end
+
+  context '#aufwand_ertrag_ko_re' do
+    it 'is calculated correctly' do
+      report.aufwand_ertrag_ko_re.to_f.should eq(3000.0)
     end
   end
 
   context '#total' do
     it 'is calculated correctly' do
-      report.total.to_f.should eq(1000.0)
+      report.total.to_f.should eq(3000.0)
     end
   end
 

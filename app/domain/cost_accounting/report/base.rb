@@ -1,8 +1,8 @@
 module CostAccounting
   module Report
     class Base
-      FIELDS =  %w(kontengruppe
-                   aufwand_ertrag_fibu
+
+      FIELDS =  %w(aufwand_ertrag_fibu
                    abgrenzung_fibu
                    abgrenzung_dachorganisation
                    aufwand_ertrag_ko_re
@@ -20,20 +20,56 @@ module CostAccounting
                    total
                    kontrolle)
 
+      # The fields displayed in the detail view of the report.
       class_attribute :used_fields
-      self.used_fields = []
+      # Most commonly used fields, override in subclasses
+      self.used_fields = %w(aufwand_ertrag_fibu
+                            abgrenzung_fibu
+                            abgrenzung_dachorganisation
+                            aufwand_ertrag_ko_re
 
+                            beratung
+                            treffpunkte
+                            blockkurse
+                            tageskurse
+                            jahreskurse
+                            lufeb
+                            mittelbeschaffung
+                            total
+                            kontrolle)
+
+      # The editable fields of this report.
+      class_attribute :editable_fields
+      self.editable_fields = []
+
+      # The kind of the report, e.g. subtotal, total.
+      class_attribute :kind
+
+      # The kontengruppe of this report.
       class_attribute :kontengruppe
-
-      class_attribute :editable
-
-      attr_reader :table
 
       class << self
         def key
           name.demodulize.underscore
         end
+
+        def human_name
+          I18n.t("cost_accounting.report.#{key}.name")
+        end
+
+        def set_editable_fields(fields)
+          self.editable_fields = fields
+          delegate *fields, to: :record
+        end
+
+        def editable?
+          editable_fields.present?
+        end
       end
+
+      attr_reader :table
+
+      delegate :key, :human_name, :editable?, to: :class
 
       def initialize(table)
         @table = table
@@ -67,6 +103,10 @@ module CostAccounting
 
       def kontrolle
         total - aufwand_ertrag_ko_re
+      end
+
+      def record
+        @record ||= table.cost_record(key)
       end
 
     end

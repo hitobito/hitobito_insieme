@@ -27,6 +27,8 @@ module HitobitoInsieme
       PersonSerializer.send :include, Insieme::PersonSerializer
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
+      GroupAbility.send :include, Insieme::GroupAbility
+
       PeopleController.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language, :number]
       # rubocop:enable SingleSpaceBeforeFirstArg

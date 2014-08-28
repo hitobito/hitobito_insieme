@@ -1,11 +1,11 @@
 module CostAccounting
   class Table
 
-    REPORTS =  [CostAccounting::Report::Lohnaufwand
-                #CostAccounting::Report::Sozialversicherungsaufwand
-                #CostAccounting::Report::UebrigerPersonalaufwand
-                #  honorare
-                #  total_personalaufwand
+    REPORTS =  [CostAccounting::Report::Lohnaufwand,
+                CostAccounting::Report::Sozialversicherungsaufwand,
+                CostAccounting::Report::UebrigerPersonalaufwand,
+                CostAccounting::Report::Honorare,
+                CostAccounting::Report::TotalPersonalaufwand
                 #  raumaufwand
                 #  uebriger_sachaufwand
                 #  abschreibungen
@@ -26,12 +26,16 @@ module CostAccounting
                 #  deckungsbeitrag2
                 #  deckungsbeitrag3
                 #  deckungsbeitrag4
-              ]
-
-
+              ].each_with_object({}) { |r, hash| hash[r.key] = r }
 
 
     attr_reader :group, :year
+
+    class << self
+      def fields
+        CostAccounting::Report::Base::FIELDS
+      end
+    end
 
     def initialize(group, year)
       @group = group
@@ -43,11 +47,13 @@ module CostAccounting
     end
 
     def reports
-      @reports ||= REPORTS.each_with_object({}) { |r, hash| hash[r.key] = r.new(self) }
+      @reports ||= REPORTS.each_with_object({}) do |entry, hash|
+        hash[entry.first] = entry.last.new(self)
+      end
     end
 
     def value_of(report, field)
-      reports[report].send(field)
+      reports.fetch(report).send(field)
     end
 
     def cost_record(report_key)

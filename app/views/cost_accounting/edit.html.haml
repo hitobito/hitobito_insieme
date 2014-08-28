@@ -1,0 +1,31 @@
+- title t('.title', report: report.human_name)
+
+- section_fields = %w(raeumlichkeiten
+-                     verwaltung
+-                     beratung
+-                     treffpunkte
+-                     blockkurse
+-                     tageskurse
+-                     jahreskurse
+-                     lufeb
+-                     mittelbeschaffung)
+
+= crud_form(record, url: cost_accounting_report_group_path(group, year, record.report),
+                     cancel_url: cost_accounting_group_path(group, year),
+                     buttons_bottom: true,
+                     method: :put) do |f|
+
+  = cost_accounting_input_fields(f, :aufwand_ertrag_fibu)
+
+  - if report.editable_fields.include?('aufteilung_kontengruppen')
+    = f.labeled_input_field(:aufteilung_kontengruppen,
+                            help: t('.aufteilung_kontengruppen', kontengruppen: report.kontengruppe))
+
+  = cost_accounting_input_fields(f,
+                                 :abgrenzung_fibu,
+                                 :abgrenzung_dachorganisation)
+
+  - if (report.editable_fields & section_fields).present?
+    %hr/
+
+    = cost_accounting_input_fields(f, *section_fields)

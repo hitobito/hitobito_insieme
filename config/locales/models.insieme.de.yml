@@ -182,7 +182,36 @@ de:
         one: Mitglied
         description:
 
+
+      cost_accounting_record:
+        one: Kostenrechnungsreport
+        other: Kostenrechnungsreporte
+
     attributes:
+
+      cost_accounting_record:
+        group_id: Gruppe
+        group: Gruppe
+        year: Jahr
+        report: Report
+        kontengruppen: Kontengruppe
+        aufwand_ertrag_fibu: Aufwand / Ertrag FIBU
+        abgrenzung_fibu: Abgrenzungen FIBU
+        abgrenzung_dachorganisation: Abgrenzung Dachorganisation
+        aufwand_ertrag_ko_re: Kosten / Ertrag KoRe
+        personal: Personal
+        raeumlichkeiten: Räumlichkeiten
+        verwaltung: Geschäftsführung # Verwaltung und Organe
+        beratung: Beratung #und Betreuung Behinderte und Angehörige
+        treffpunkte: Treffpunkte
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        jahreskurse: Jahreskurse
+        lufeb: LUFEB
+        mittelbeschaffung: Mittelbeschaffung
+        total: Total
+        kontrolle: Kontrolle
+        aufteilung_kontengruppen: Aufteilung auf Kontengruppen
 
       group:
         full_name: Vollständiger Name
@@ -264,3 +293,23 @@ de:
           fr: Französisch
 
         number: Personnr.
+
+    errors:
+      models:
+        cost_accounting_record:
+          attributes:
+            group_id:
+              is_not_allowed: kann nicht für das Reporting verwendet werden.
+
+  cost_accounting:
+    report:
+      lohnaufwand:
+        name: Lohnaufwand
+      sozialversicherungsaufwand:
+        name: Sozialversicherungsaufwand
+      uebriger_personalaufwand:
+        name: Übriger Personalaufwand
+      honorare:
+        name: Honorare
+      total_personalaufwand:
+        name: Total Personalaufwand/-kosten

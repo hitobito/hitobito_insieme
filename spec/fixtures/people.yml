@@ -1,0 +1,26 @@
+#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+#  hitobito_jubla and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_jubla.
+
+top_leader:
+  first_name: Top
+  last_name: Leader
+  email: top.leader@insieme.example.com
+  contact_data_visible: true
+
+regio_leader:
+  first_name: Flock
+  last_name: Leader
+  email: regio.leader@insieme.example.com
+  contact_data_visible: true
+
+regio_aktiv:
+  first_name: Active
+  last_name: Person
+  email: child1@insieme.example.com
+
+root:
+  company_name: 'Puzzle ITC'
+  company: true
+  email: <%= Settings.root_email %>

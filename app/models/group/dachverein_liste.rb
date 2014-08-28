@@ -4,7 +4,6 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: groups
@@ -29,6 +28,10 @@
 #  creator_id     :integer
 #  updater_id     :integer
 #  deleter_id     :integer
+#  full_name      :string(255)
+#  vid            :integer
+#  bsv_number     :integer
+#  canton         :string(255)
 #
 
 class Group::DachvereinListe < Group

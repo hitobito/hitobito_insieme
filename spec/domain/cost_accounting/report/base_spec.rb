@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe CostAccounting::Report::Base do
@@ -38,5 +40,22 @@ describe CostAccounting::Report::Base do
       report.raeumlichkeiten.should be_nil
     end
   end
+
+  CostAccounting::Table::REPORTS.each do |key, report|
+    context key do
+      it 'has valid used fields' do
+        (report.used_fields - CostAccounting::Report::Base::FIELDS).should eq []
+      end
+
+      it 'has valid editable fields' do
+        (report.editable_fields - report.used_fields - %w(aufteilung_kontengruppen)).should eq []
+      end
+
+      it 'has human name' do
+        report.human_name.should match(/^[A-ZÖÄÜ]/)
+      end
+    end
+  end
+
 
 end

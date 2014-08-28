@@ -4,7 +4,15 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 de:
-  dummy: Dummy
-
   navigation:
     groups: 'Vereine'
+
+  cost_accounting:
+    index:
+      title: Kostenrechnung
+    edit:
+      title: "%{report} bearbeiten"
+      aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
+    update:
+      flash:
+        success: "%{report} wurde erfolgreich aktualisiert."

@@ -1,0 +1,24 @@
+- title t('.title')
+
+.table-responsive
+  %table.table.table-hover.cost_accounting
+    %thead
+      %tr
+        %th
+        %th= CostAccountingRecord.human_attribute_name(:kontengruppe)
+        - @table.class.fields.each do |f|
+          %th{class: cost_account_field_class(f)}
+            = CostAccountingRecord.human_attribute_name(f)
+
+    %tbody
+      - @table.reports.values.each do |report|
+        %tr{class: report.kind}
+          %th
+            = link_to_if report.editable?,
+                         report.human_name,
+                         edit_cost_accounting_report_group_path(group, year, report.key)
+
+          %td.center= report.kontengruppe
+          - @table.class.fields.each do |f|
+            %td.right{class: cost_account_field_class(f)}
+              = f(report.send(f))

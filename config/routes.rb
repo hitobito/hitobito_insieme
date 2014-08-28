@@ -11,5 +11,15 @@ Rails.application.routes.draw do
 
   language_scope do
 
+    resources :groups do
+      member do
+        scope 'cost_accounting' do
+          get '(:year)' => 'cost_accounting#index', as: :cost_accounting
+          get ':year/:report/edit' => 'cost_accounting#edit', as: :edit_cost_accounting_report
+          put ':year/:report' => 'cost_accounting#update', as: :cost_accounting_report
+        end
+      end
+    end
   end
+
 end

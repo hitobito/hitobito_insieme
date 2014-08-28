@@ -42,3 +42,13 @@
     background-image: image-url("glyphicons-halflings-blue.png");
   }
 }
+
+.cost_accounting {
+  .subtotal {
+    background-color: $grayLighter;
+  }
+
+  td, th {
+    padding-left: 4px;
+  }
+}
