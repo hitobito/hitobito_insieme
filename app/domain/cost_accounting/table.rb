@@ -13,27 +13,27 @@ module CostAccounting
                 CostAccounting::Report::UebrigerPersonalaufwand,
                 CostAccounting::Report::Honorare,
                 CostAccounting::Report::TotalPersonalaufwand
-                #  raumaufwand
-                #  uebriger_sachaufwand
-                #  abschreibungen
-                #  total_aufwand
-                #  umlage_personal
-                #  umlage_raeumlichkeiten
-                #  umlage_verwaltung
-                #  total_umlagen
-                #  vollkosten
-                #  leistungsertrag
-                #  beitraege_iv
-                #  sonstige_beitraege
-                #  direkte_spenden
-                #  indirekte_spenden
-                #  direkte_spenden_ausserhalb
-                #  total_direkte_ertraege
-                #  deckungsbeitrag1
-                #  deckungsbeitrag2
-                #  deckungsbeitrag3
-                #  deckungsbeitrag4
-              ].each_with_object({}) { |r, hash| hash[r.key] = r }
+                 #  raumaufwand
+                 #  uebriger_sachaufwand
+                 #  abschreibungen
+                 #  total_aufwand
+                 #  umlage_personal
+                 #  umlage_raeumlichkeiten
+                 #  umlage_verwaltung
+                 #  total_umlagen
+                 #  vollkosten
+                 #  leistungsertrag
+                 #  beitraege_iv
+                 #  sonstige_beitraege
+                 #  direkte_spenden
+                 #  indirekte_spenden
+                 #  direkte_spenden_ausserhalb
+                 #  total_direkte_ertraege
+                 #  deckungsbeitrag1
+                 #  deckungsbeitrag2
+                 #  deckungsbeitrag3
+                 #  deckungsbeitrag4
+               ].each_with_object({}) { |r, hash| hash[r.key] = r }
 
 
     attr_reader :group, :year

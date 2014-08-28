@@ -16,7 +16,7 @@ module HitobitoInsieme
     config.autoload_paths += %W( #{config.root}/app/abilities
                                  #{config.root}/app/domain
                                  #{config.root}/app/jobs
-                               )
+                             )
 
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg

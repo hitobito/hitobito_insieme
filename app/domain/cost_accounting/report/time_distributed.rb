@@ -20,9 +20,9 @@ module CostAccounting
 
       self.used_fields += %w(verwaltung)
 
-      set_editable_fields  %w(aufwand_ertrag_fibu
-                              abgrenzung_fibu
-                              abgrenzung_dachorganisation)
+      delegate_editable_fields %w(aufwand_ertrag_fibu
+                                  abgrenzung_fibu
+                                  abgrenzung_dachorganisation)
 
       delegate :time_record, to: :table
 
@@ -38,4 +38,3 @@ module CostAccounting
     end
   end
 end
-

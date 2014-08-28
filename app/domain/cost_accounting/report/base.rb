@@ -64,9 +64,9 @@ module CostAccounting
           I18n.t("cost_accounting.report.#{key}.name")
         end
 
-        def set_editable_fields(fields)
+        def delegate_editable_fields(fields)
           self.editable_fields = fields
-          delegate *fields, to: :record
+          delegate(*fields, to: :record)
         end
 
         def editable?

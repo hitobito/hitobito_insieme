@@ -9,7 +9,7 @@ class CostAccountingController < ApplicationController
 
   include YearBasedPaging
 
-  before_filter :authorize
+  before_action :authorize
 
   decorates :group
 
@@ -27,8 +27,9 @@ class CostAccountingController < ApplicationController
 
   def update
     record.attributes = permitted_params
-    success = record.save
-    flash[:notice] = I18n.t('cost_accounting.update.flash.success', report: report.human_name) if success
+    if record.save
+      flash[:notice] = I18n.t('cost_accounting.update.flash.success', report: report.human_name)
+    end
     respond_with(record, location: cost_accounting_group_path(group, year: year))
   end
 
