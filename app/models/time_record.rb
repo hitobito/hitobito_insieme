@@ -1,3 +1,10 @@
+# encoding: utf-8
+
+#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 # == Schema Information
 #
 # Table name: time_records
@@ -46,6 +53,7 @@ class TimeRecord < ActiveRecord::Base
 
   validates :year, uniqueness: { scope: [:group_id] }
 
+  # rubocop:disable MethodLength
   def lufeb
     @lufeb ||= begin
       kontakte_medien.to_i +
@@ -79,9 +87,12 @@ class TimeRecord < ActiveRecord::Base
       unterstuetzung_behindertenhilfe.to_i
     end
   end
+  # rubocop:enable MethodLength
 
   def total
-    @total ||= (self.class.column_names - %w(id group_id year)).collect { |c| send(c).to_i }.sum
+    @total ||= (self.class.column_names - %w(id group_id year)).
+                 collect { |c| send(c).to_i }.
+                 sum
   end
 
 end
