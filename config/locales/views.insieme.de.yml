@@ -4,6 +4,9 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 de:
+  global:
+    currency: CHF
+
   navigation:
     groups: 'Vereine'
 
