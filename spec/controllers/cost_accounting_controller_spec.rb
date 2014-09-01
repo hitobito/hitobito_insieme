@@ -5,8 +5,15 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Sheet
-  class CostAccounting < Base
-    self.parent_sheet = Sheet::Group
+require 'spec_helper'
+
+describe CostAccountingController do
+
+  before { sign_in(people(:top_leader)) }
+
+  it 'raises 404 for unsupported group type' do
+    expect do
+      get :index, id: groups(:partner).id
+    end.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

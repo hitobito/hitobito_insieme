@@ -9,6 +9,9 @@ class CostAccountingController < ApplicationController
 
   include YearBasedPaging
 
+  SUPPORTED_GROUPS = [Group::Dachverein,
+                      Group::Regionalverein]
+
   before_action :authorize
 
   layout 'reporting'
@@ -47,7 +50,7 @@ class CostAccountingController < ApplicationController
   end
 
   def group
-    @group ||= Group.find(params[:id])
+    @group ||= Group.where(type: SUPPORTED_GROUPS).find(params[:id])
   end
 
   def permitted_params
