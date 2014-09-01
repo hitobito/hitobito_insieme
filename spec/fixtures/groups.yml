@@ -5,46 +5,30 @@
 
 dachverein:
   lft: 1
-  rgt: 30
+  rgt: 12
   name: insieme Schweiz
   type: Group::Dachverein
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
-partner:
-  parent_id: dachverein
-  lft: 26
-  rgt: 27
-  name: Partnerorganisationen
-  type: Group::DachvereinListe
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
-
-uebersetzer:
-  parent_id: dachverein
-  lft: 28
-  rgt: 29
-  name: Übersetzer
-  type: Group::DachvereinListe
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
-
 kommission74:
-  parent_id: dachverein
-  lft: 24
-  rgt: 25
+  parent: dachverein
+  lft: 10
+  rgt: 11
   name: Kommission 74
   type: Group::DachvereinGremium
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
 
 be:
-  parent_id: dachverein
+  parent: dachverein
   lft: 4
-  rgt: 23
+  rgt: 9
   name: Kanton Bern
   type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:be) %>
 
 fr:
-  parent_id: dachverein
+  parent: dachverein
   lft: 2
   rgt: 3
   name: Freiburg
@@ -52,76 +36,20 @@ fr:
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:fr) %>
 
-oberland:
-  parent_id: be
-  lft: 21
-  rgt: 22
-  name: Thun Oberland
-  type: Group::Regionalverein
-  country: Schweiz
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:oberland) %>
-
 seeland:
-  parent_id: be
+  parent: be
   lft: 5
-  rgt: 20
+  rgt: 8
   name: Biel-Seeland
   type: Group::Regionalverein
   country: Schweiz
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 aktiv:
-  parent_id: seeland
+  parent: seeland
   lft: 6
-  rgt: 11
+  rgt: 7
   name: Aktivmitglieder
   type: Group::Aktivmitglieder
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
-aktiv_eltern:
-  parent_id: aktiv
-  lft: 9
-  rgt: 10
-  name: Elternmitglieder
-  type: Group::Aktivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
-
-aktiv_behinderte:
-  parent_id: aktiv
-  lft: 7
-  rgt: 8
-  name: Behindertenmitglieder
-  type: Group::Aktivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
-
-passiv:
-  parent_id: seeland
-  lft: 16
-  rgt: 19
-  name: Passivmitglieder
-  type: Group::Passivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
-
-passiv_ehren:
-  parent_id: passiv
-  lft: 17
-  rgt: 18
-  name: Ehrenmitglieder
-  type: Group::Passivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
-
-kollektiv:
-  parent_id: seeland
-  lft: 12
-  rgt: 13
-  name: Kollektivmitglieder
-  type: Group::Kollektivmitglieder
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
-
-kursbetreuer:
-  parent_id: seeland
-  lft: 14
-  rgt: 15
-  name: Kursbetreuer
-  type: Group::RegionalvereinListe
-  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>

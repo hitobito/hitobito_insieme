@@ -16,18 +16,17 @@ class TarantulaTest < ActionDispatch::IntegrationTest
 
   reset_fixture_path File.expand_path('../../../spec/fixtures', __FILE__)
 
+  def test_tarantula_as_verbandsleitung
+    crawl_as(people(:top_leader))
+  end
 
-  # def test_tarantula_as_bundesleitung
-  #   crawl_as(people(:bulei))
-  # end
+  def test_tarantula_as_regionalleitung
+    crawl_as(people(:regio_leader))
+  end
 
-  # def test_tarantula_as_abteilungsleiter
-  #   crawl_as(people(:al_schekka))
-  # end
-
-  # def test_tarantula_as_child
-  #   crawl_as(people(:child))
-  # end
+  def test_tarantula_as_aktivmitglied
+    crawl_as(people(:regio_aktiv))
+  end
 
   def crawl_as(person)
     person.password = 'foobar'
@@ -41,7 +40,7 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     # some links use example.com as a domain, allow them
     t.skip_uri_patterns.delete(/^http/)
     t.skip_uri_patterns << /^http(?!:\/\/www\.example\.com)/
-    t.skip_uri_patterns << /year=201[0-15-9]/ # only 2012 - 2014
+    t.skip_uri_patterns << /year=201[0-26-9]/ # only 2013 - 2015
     t.skip_uri_patterns << /year=200[0-9]/
     t.skip_uri_patterns << /year=202[0-9]/
     t.skip_uri_patterns << /users\/sign_out/
@@ -49,6 +48,7 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     t.skip_uri_patterns << /groups\/\d+\/roles\/(#{person.roles.collect(&:id).join("|")})$/
     # no ajax links in application market
     t.skip_uri_patterns << /groups\/\d+\/events\/\d+\/application_market\/\d+\/participant$/
+    t.skip_uri_patterns << /groups\/\d+\/events\/\d+\/application_market\/\d+\/waiting_list$/
 
     # The type or merge_group_id tarantula generates is not from the
     # given selection, thus producing 404s.
@@ -62,6 +62,7 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     t.allow_404_for /groups\/\d+\/events\/\d+$/
     t.allow_404_for /groups\/\d+\/events\/\d+\/roles$/
     t.allow_404_for /groups\/\d+\/events\/\d+\/roles\/\d+$/
+    t.allow_404_for /groups\/\d+\/events\/\d+\/participations\/\d+$/
     t.allow_404_for /groups\/\d+\/mailing_lists\/\d+\/subscriptions\/person$/
     t.allow_404_for /groups\/\d+\/mailing_lists\/\d+\/subscriptions\/event$/
     t.allow_404_for /groups\/\d+\/mailing_lists\/\d+\/subscriptions\/exclude_person$/
@@ -80,11 +81,6 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     t.allow_500_for /full$/
     # delete qualification is not allowed after role was removed from person
     t.allow_500_for /groups\/\d+\/people\/\d+\/qualifications\/\d+$/
-    # delete not allowed - not completely clarified - investigate later
-    t.allow_500_for /groups\/\d+\/events\/\d+\/roles\/\d+$/
-    # roles with invalid created_at and deleted_at values may generate 500 :(
-    t.allow_500_for /groups\/\d+\/roles(\/\d+)?$/
-
 
     t.crawl_timeout = 20.minutes
     t.crawl

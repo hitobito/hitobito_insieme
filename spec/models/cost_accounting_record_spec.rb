@@ -23,7 +23,7 @@ describe CostAccountingRecord do
     end
 
     it 'fails for invalid group' do
-      r = CostAccountingRecord.new(group: groups(:passiv), year: 2014, report: 'lohnaufwand')
+      r = CostAccountingRecord.new(group: groups(:aktiv), year: 2014, report: 'lohnaufwand')
       r.should_not be_valid
     end
   end

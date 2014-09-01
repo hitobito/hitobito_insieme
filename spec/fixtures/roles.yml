@@ -13,7 +13,7 @@ regio_leader:
   group: be
   type: Group::Regionalverein::Geschaeftsfuehrung
 
-regio_active:
-  person: regio_active
+regio_aktiv:
+  person: regio_aktiv
   group: aktiv
   type: Group::Aktivmitglieder::Aktivmitglied

@@ -13,7 +13,7 @@ describe CostAccountingController do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :index, id: groups(:partner).id
+      get :index, id: groups(:aktiv).id
     end.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

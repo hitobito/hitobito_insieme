@@ -8,17 +8,20 @@ top_leader:
   last_name: Leader
   email: top.leader@insieme.example.com
   contact_data_visible: true
+  primary_group: dachverein
 
 regio_leader:
   first_name: Flock
   last_name: Leader
   email: regio.leader@insieme.example.com
   contact_data_visible: true
+  primary_group: be
 
 regio_aktiv:
   first_name: Active
   last_name: Person
   email: child1@insieme.example.com
+  primary_group: aktiv
 
 root:
   company_name: 'Puzzle ITC'
