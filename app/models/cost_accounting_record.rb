@@ -42,6 +42,10 @@ class CostAccountingRecord < ActiveRecord::Base
     CostAccounting::Table::REPORTS[report]
   end
 
+  def to_s
+    [report_class.human_name, group, year].join(' ')
+  end
+
   private
 
   def assert_group_has_reporting

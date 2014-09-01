@@ -36,6 +36,8 @@ module Insieme::Group
 
   included do
     root_types Group::Dachverein
+
+    has_many :time_records
   end
 
   def canton_value

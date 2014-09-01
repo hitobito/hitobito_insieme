@@ -9,6 +9,7 @@ de:
 
   layouts:
     reporting_menu:
+      time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
       general: Allgemeines
       overview: Übersicht
@@ -19,13 +20,20 @@ de:
   reporting:
     title: Reporting
 
+
+  time_records:
+    edit:
+      general: Leistungen Allgemein
+      lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung Behinderter (LUFEB)
+      lufeb_general : Allgemeine Medien- und Öffentlichkeitsarbeit
+      lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
+      lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
+      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
+      procurement: Mittelbeschaffung
+
   cost_accounting:
     edit:
-      title: "%{report} bearbeiten"
       aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
-    update:
-      flash:
-        success: "%{report} wurde erfolgreich aktualisiert."
 
   people:
     fields_insieme:

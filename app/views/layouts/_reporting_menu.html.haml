@@ -1,6 +1,9 @@
 
 %ul.nav.nav-list.cost-accounting-menu
   %li.nav-header= t('.general')
+  %li{class: current_page?(edit_time_record_group_path(group, year)) && 'active'}
+    = link_to  t('.time_records'), edit_time_record_group_path(group, year)
+
 
   %li.nav-header= t('.cost_accounting')
   %li{class: current_page?(cost_accounting_group_path(group, year)) && 'active'}

@@ -5,37 +5,12 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class CostAccountingController < ApplicationController
+class CostAccountingController < ReportingBaseController
 
-  include YearBasedPaging
-
-  SUPPORTED_GROUPS = [Group::Dachverein,
-                      Group::Regionalverein]
-
-  before_action :authorize
-
-  layout 'reporting'
-
-  decorates :group
-
-  helper_method :record, :report, :group
-
-  respond_to :html
+  helper_method :report
 
   def index
     @table = CostAccounting::Table.new(group, year)
-  end
-
-  def edit
-    record
-  end
-
-  def update
-    record.attributes = permitted_params
-    if record.save
-      flash[:notice] = I18n.t('cost_accounting.update.flash.success', report: report.human_name)
-    end
-    respond_with(record, location: cost_accounting_group_path(group, year: year))
   end
 
   private
@@ -49,16 +24,8 @@ class CostAccountingController < ApplicationController
     @report ||= record.report_class || fail(ActiveRecord::RecordNotFound)
   end
 
-  def group
-    @group ||= Group.where(type: SUPPORTED_GROUPS).find(params[:id])
-  end
-
   def permitted_params
     params.require(:cost_accounting_record).permit(report.editable_fields)
-  end
-
-  def authorize
-    authorize!(:reporting, group)
   end
 
 end

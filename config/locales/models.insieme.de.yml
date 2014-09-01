@@ -186,6 +186,9 @@ de:
       cost_accounting_record:
         one: Kostenrechnungsreport
         other: Kostenrechnungsreporte
+      time_record:
+        one: Zeiterfassung
+        other: Zeiterfassungen
 
     attributes:
 

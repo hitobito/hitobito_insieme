@@ -13,6 +13,11 @@ Rails.application.routes.draw do
 
     resources :groups do
       member do
+        scope 'time_record' do
+          get ':year/edit' => 'time_records#edit', as: :edit_time_record
+          put ':year' => 'time_records#update', as: :time_record
+        end
+
         scope 'cost_accounting' do
           get '(:year)' => 'cost_accounting#index', as: :cost_accounting
           get ':year/:report/edit' => 'cost_accounting#edit', as: :edit_cost_accounting_report

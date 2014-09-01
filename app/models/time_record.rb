@@ -95,4 +95,8 @@ class TimeRecord < ActiveRecord::Base
                  sum
   end
 
+  def to_s
+    [self.class.model_name.human, group, year].join(' ')
+  end
+
 end

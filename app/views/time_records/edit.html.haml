@@ -1,0 +1,38 @@
+- title @title
+
+= crud_form(record,
+            url: time_record_group_path(group, year),
+            cancel_url: time_record_group_path(group, year),
+            buttons_bottom: true,
+            method: :put) do |f|
+
+  = f.hidden_field(:year)
+  = f.hidden_field(:group_id)
+
+  = field_set_tag do
+    %h2= t('.general')
+    = f.labeled_input_fields  :verwaltung, :beratung, :treffpunkte, :blockkurse, :tageskurse, :jahreskurse
+
+  %h2= t('.lufeb')
+  = field_set_tag do
+    %h3= t('.lufeb_general')
+    = f.labeled_input_fields :kontakte_medien , :interviews , :publikationen , :referate ,
+      :medienkonferenzen , :informationsveranstaltungen, :sensibilisierungskampagnen,
+      :auskunftserteilung, :kontakte_meinungsbildner, :beratung_medien
+
+  = field_set_tag do
+    %h3= t('.lufeb_private')
+    = f.labeled_input_fields :eigene_zeitschriften, :newsletter, :informationsbroschueren, :eigene_webseite
+
+  = field_set_tag do
+    %h3= t('.lufeb_specific')
+    = f.labeled_input_fields :erarbeitung_instrumente, :erarbeitung_grundlagen, :projekte, :vernehmlassungen, :gremien
+
+  = field_set_tag do
+    %h3= t('.lufeb_promoting')
+    = f.labeled_input_fields :auskunftserteilung, :vermittlung_kontakte, :unterstuetzung_selbsthilfeorganisationen,
+      :koordination_selbsthilfe, :treffen_meinungsaustausch, :beratung_fachhilfeorganisationen, :unterstuetzung_behindertenhilfe
+
+  = field_set_tag do
+    %h2= t('.procurement')
+    = f.labeled_input_fields :mittelbeschaffung
