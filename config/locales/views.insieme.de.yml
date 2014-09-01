@@ -20,3 +20,12 @@ de:
     update:
       flash:
         success: "%{report} wurde erfolgreich aktualisiert."
+
+  people:
+    fields_insieme:
+      correspondence_general: Korrespondenzadresse allgemein
+      billing_general: Rechnungsadresse allgemein
+      correspondence_course: Korrespondenzadresse Kurs
+      billing_course: Rechnungsadresse Kurs
+
+      zip_town: PLZ/Ort
