@@ -31,6 +31,8 @@ module HitobitoInsieme
 
       PeopleController.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language, :number]
+
+      Sheet::Group.send :include, Insieme::Sheet::Group
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 

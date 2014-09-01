@@ -10,6 +10,9 @@ de:
   navigation:
     groups: 'Vereine'
 
+  reporting:
+    title: 'Reporting'
+
   cost_accounting:
     index:
       title: Kostenrechnung

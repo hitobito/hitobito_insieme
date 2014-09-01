@@ -10,10 +10,30 @@ module Insieme::GroupAbility
 
   included do
     on(Group) do
-      # TODO: implement defined ability
-      permission(:layer_full).may(:reporting).in_same_layer_or_below
-
+      permission(:layer_full).may(:reporting).if_dachverein_member
+      permission(:any).may(:reporting).if_regionalverein_member_in_same_group
     end
+  end
+
+  def if_regionalverein_member_in_same_group
+    user_context.user.roles
+      .select { |role| role.group_id == group.id  }
+      .any?   { |role| is_role?(role, Group::Regionalverein::Geschaeftsfuehrung,
+                                      Group::Regionalverein::Sekretariat,
+                                      Group::Regionalverein::Adressverwaltung,
+                                      Group::Regionalverein::Controlling) }
+  end
+
+  def if_dachverein_member
+    user_context.user.roles.any? { |role| is_role?(role, Group::Dachverein::Geschaeftsfuehrung,
+                                                         Group::Dachverein::Sekretariat,
+                                                         Group::Dachverein::Adressverwaltung) }
+  end
+
+  private
+
+  def is_role?(role, *candiates)
+    candiates.any? { |candiate| role.is_a?(candiate) }
   end
 
 end
