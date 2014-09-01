@@ -18,21 +18,27 @@ module Insieme::GroupAbility
   def if_regionalverein_member_in_same_group
     user_context.user.roles
       .select { |role| role.group_id == group.id  }
-      .any?   { |role| is_role?(role, Group::Regionalverein::Geschaeftsfuehrung,
-                                      Group::Regionalverein::Sekretariat,
-                                      Group::Regionalverein::Adressverwaltung,
-                                      Group::Regionalverein::Controlling) }
+      .any? do |role|
+        role?(role,
+              Group::Regionalverein::Geschaeftsfuehrung,
+              Group::Regionalverein::Sekretariat,
+              Group::Regionalverein::Adressverwaltung,
+              Group::Regionalverein::Controlling)
+    end
   end
 
   def if_dachverein_member
-    user_context.user.roles.any? { |role| is_role?(role, Group::Dachverein::Geschaeftsfuehrung,
-                                                         Group::Dachverein::Sekretariat,
-                                                         Group::Dachverein::Adressverwaltung) }
+    user_context.user.roles.any? do |role|
+      role?(role,
+            Group::Dachverein::Geschaeftsfuehrung,
+            Group::Dachverein::Sekretariat,
+            Group::Dachverein::Adressverwaltung)
+    end
   end
 
   private
 
-  def is_role?(role, *candiates)
+  def role?(role, *candiates)
     candiates.any? { |candiate| role.is_a?(candiate) }
   end
 
