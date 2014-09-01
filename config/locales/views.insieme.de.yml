@@ -14,8 +14,6 @@ de:
     title: 'Reporting'
 
   cost_accounting:
-    index:
-      title: Kostenrechnung
     edit:
       title: "%{report} bearbeiten"
       aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
