@@ -36,7 +36,7 @@ class CostAccountingRecord < ActiveRecord::Base
                      inclusion: CostAccounting::Table::REPORTS.keys
   validate :assert_group_has_reporting
 
-  scope :calculation_fields, -> { select(column_names - %w(aufteilung_kostengruppe)) }
+  scope :calculation_fields, -> { select(column_names - %w(aufteilung_kontengruppen)) }
 
   def report_class
     CostAccounting::Table::REPORTS[report]
