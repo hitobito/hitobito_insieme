@@ -1,0 +1,198 @@
+fr:
+  activerecord:
+    models:
+      group/dachverein:
+        one: Organisation faîtière
+        other: Organisations faîtières
+        long: Organisation faîtière
+      group/dachverein_liste:
+        one: Liste
+        other: Listes
+        long: Liste organisation faîtière
+      group/dachverein_gremium:
+        one: Comité
+        other: Comités
+        long: Comité organisation faîtière
+      group/regionalverein:
+        one: Association régionale
+        other: Associations régionales
+        long: Association régionale
+      group/aktivmitglieder:
+        one: Membre actif
+        other: Membres actifs
+        long: Membre actif
+      group/passivmitglieder:
+        one: Membre passif
+        other: Membres passifs
+        long: Membre passif
+      group/kollektivmitglieder:
+        one: Membre collectif
+        other: Membres collectifs
+        long: Membre collectif
+      group/regionalverein_liste:
+        one: Liste
+        other: Listes
+        long: Liste association régionale
+      group/regionalverein_gremium:
+        one: Comité
+        other: Comités
+        long: Comité association régionale
+      group/externe_organisation:
+        one: Organisation externe
+        other: Organisations externes
+        long: Organisation externe
+      group/externe_organisation_liste:
+        one: Liste
+        other: Listes
+        long: Liste organisation externe
+      group/externe_organisation_gremium:
+        one: Comité
+        other: Comités
+        long: Comité organisation externe
+      group/dachverein/geschaeftsfuehrung:
+        one: Direction
+      group/dachverein/sekretariat:
+        one: Secrétariat
+      group/dachverein/adressverwaltung:
+        one: Gestion des adresses
+      group/dachverein_liste/listenverwaltung:
+        one: Gestion des listes
+      group/dachverein_liste/person:
+        one: Personne
+      group/dachverein_gremium/leitung:
+        one: Direction
+      group/dachverein_gremium/mitglied:
+        one: Membre
+      group/regionalverein/praesident:
+        one: Président-e
+      group/regionalverein/geschaeftsfuehrung:
+        one: Direction
+      group/regionalverein/sekretariat:
+        one: Secrétariat
+      group/regionalverein/adressverwaltung:
+        one: Gestion des adresses
+      group/regionalverein/versandadresse:
+        one: Adresse de correspondance
+      group/regionalverein/rechnungsadresse:
+        one: Adresse de facturation
+      group/regionalverein/controlling:
+        one: Controlling
+      group/regionalverein_liste/listenverwaltung:
+        one: Gestion des listes
+      group/regionalverein_liste/person:
+        one: Personne
+      group/regionalverein_gremium/leitung:
+        one: Direction
+      group/regionalverein_gremium/mitglied:
+        one: Membre
+      group/aktivmitglieder/aktivmitglied:
+        one: Membre actif
+      group/aktivmitglieder/aktivmitglied_ohne_abo:
+        one: Membre actif sans abo
+      group/aktivmitglieder/zweitmitgliedschaft:
+        one: 'Double appartenance '
+      group/passivmitglieder/passivmitglied:
+        one: Membre passif
+      group/passivmitglieder/passivmitglied_mit_abo:
+        one: Membre passif avec abo
+      group/kollektivmitglieder/kollektivmitglied:
+        one: Membre collectif
+      group/kollektivmitglieder/kollektivmitglied_mit_abo:
+        one: Membre collectif avec abo
+      group/externe_organisation/praesident:
+        one: Président-e
+      group/externe_organisation/geschaeftsfuehrung:
+        one: Direction
+      group/externe_organisation/sekretariat:
+        one: Secrétariat
+      group/externe_organisation/adressverwaltung:
+        one: Gestion des adresses
+      group/externe_organisation/versandadresse:
+        one: Adresse de correspondance
+      group/externe_organisation/rechnungsadresse:
+        one: Adresse de facturation
+      group/externe_organisation/controlling:
+        one: Controlling
+      group/externe_organisation_liste/listenverwaltung:
+        one: Gestion des listes
+      group/externe_organisation_liste/person:
+        one: Personne
+      group/externe_organisation_gremium/leitung:
+        one: Direction
+      group/externe_organisation_gremium/mitglied:
+        one: Membre
+    attributes:
+      group:
+        full_name: Nom complet
+        vid: ??????????????????
+        bsv_number: Numéro OFAS
+        canton: Canton
+        cantons:
+          ag: Aargau
+          ai: Appenzell Innerrhoden
+          ar: Appenzell Ausserrhoden
+          be: Berne
+          bl: Basel-Land
+          bs: Basel-Stadt
+          fr: Fribourg
+          ge: Genève
+          gl: Glarus
+          gr: Graubünden
+          ju: Jura
+          lu: Luzern
+          ne: 'Neuchâtel '
+          nw: Nidwalden
+          ow: Obwalden
+          sg: St. Gallen
+          sh: Schaffhausen
+          so: Solothurn
+          sz: Schwyz
+          tg: Thurgau
+          ti: Tessin
+          ur: Uri
+          vd: Vaud
+          vs: Valais
+          zg: Zug
+          zh: Zürich
+      person:
+        salutation: Titre
+        canton: Canton
+        cantons:
+          ag: Aargau
+          ai: Appenzell Innerrhoden
+          ar: Appenzell Ausserrhoden
+          be: Berne
+          bl: Basel-Land
+          bs: Basel-Stadt
+          fr: Fribourg
+          ge: Genève
+          gl: Glarus
+          gr: Graubünden
+          ju: Jura
+          lu: Luzern
+          ne: 'Neuchâtel '
+          nw: Nidwalden
+          ow: Obwalden
+          sg: St. Gallen
+          sh: Schaffhausen
+          so: Solothurn
+          sz: Schwyz
+          tg: Thurgau
+          ti: Tessin
+          ur: Uri
+          vd: Vaud
+          vs: Valais
+          zg: Zug
+          zh: Zürich
+        language: Langue
+        languages:
+          de: Allemand
+          fr: Français
+          it: Italien
+          en: Anglais
+          andere: Autres
+        correspondence_language: Langue de correspondance
+        correspondence_languages:
+          de: Allemand
+          fr: Français
+        number: Numéro personnel
