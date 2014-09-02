@@ -9,6 +9,7 @@ top_leader:
   email: top.leader@insieme.example.com
   contact_data_visible: true
   primary_group: dachverein
+  full_name: Top Leader
 
 regio_leader:
   first_name: Flock
