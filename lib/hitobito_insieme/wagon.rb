@@ -30,14 +30,14 @@ module HitobitoInsieme
       GroupAbility.send :include, Insieme::GroupAbility
 
       PeopleController.permitted_attrs +=
-        [:salutation, :canton, :language, :correspondence_language, :number, :name]
+        [:salutation, :canton, :language, :correspondence_language, :number, :full_name]
 
       # Permit person address fields
       %w( correspondence_general
           billing_general
           correspondence_course
           billing_course ).each do |prefix|
-        %w( name company_name company address zip_code town country).each do |field|
+        %w( full_name company_name company address zip_code town country).each do |field|
           PeopleController.permitted_attrs << :"#{prefix}_#{field}"
         end
       end

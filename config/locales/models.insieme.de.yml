@@ -294,9 +294,9 @@ de:
 
         number: Personnr.
 
-        name: Name
+        full_name: Name
 
-        correspondence_general_name: Name Korrespondenzadresse allgemein
+        correspondence_general_full_name: Name Korrespondenzadresse allgemein
         correspondence_general_company_name: Firmenname Korrespondenzadresse allgemein
         correspondence_general_company: Firma Korrespondenzadresse allgemein
         correspondence_general_address: Adresse Korrespondenzadresse allgemein
@@ -304,7 +304,7 @@ de:
         correspondence_general_town: Ort Korrespondenzadresse allgemein
         correspondence_general_country: Land Korrespondenzadresse allgemein
 
-        billing_general_name: Name Rechnungsadresse allgemein
+        billing_general_full_name: Name Rechnungsadresse allgemein
         billing_general_company_name: Firmenname Rechnungsadresse allgemein
         billing_general_company: Firma Rechnungsadresse allgemein
         billing_general_address: Adresse Rechnungsadresse allgemein
@@ -312,7 +312,7 @@ de:
         billing_general_town: Ort Rechnungsadresse allgemein
         billing_general_country: Land Rechnungsadresse allgemein
 
-        correspondence_course_name: Name Korrespondenzadresse Kurs
+        correspondence_course_full_name: Name Korrespondenzadresse Kurs
         correspondence_course_company_name: Firmenname Korrespondenzadresse Kurs
         correspondence_course_company: Firma Korrespondenzadresse Kurs
         correspondence_course_address: Adresse Korrespondenzadresse Kurs
@@ -320,7 +320,7 @@ de:
         correspondence_course_town: Ort Korrespondenzadresse Kurs
         correspondence_course_country: Land Korrespondenzadresse Kurs
 
-        billing_course_name: Name Rechnungsadresse Kurs
+        billing_course_full_name: Name Rechnungsadresse Kurs
         billing_course_company_name: Firmenname Rechnungsadresse Kurs
         billing_course_company: Firma Rechnungsadresse Kurs
         billing_course_address: Adresse Rechnungsadresse Kurs

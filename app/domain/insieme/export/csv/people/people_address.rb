@@ -13,11 +13,11 @@ module Insieme
           extend ActiveSupport::Concern
 
           included do
-            alias_method_chain :person_attributes, :name
+            alias_method_chain :person_attributes, :full_name
           end
 
-          def person_attributes_with_name
-            person_attributes_without_name + [:name]
+          def person_attributes_with_full_name
+            person_attributes_without_full_name + [:full_name]
           end
         end
       end

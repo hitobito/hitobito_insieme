@@ -32,11 +32,11 @@
 -# Additional addresses
 - %w( correspondence_general billing_general correspondence_course billing_course ).each do |prefix|
   = field_set_tag(t(".#{prefix}")) do
-    = f.labeled_input_field(:"#{prefix}_name", caption: t('activerecord.attributes.person.name'))
+    = f.labeled_input_field(:"#{prefix}_full_name", caption: t('activerecord.attributes.person.full_name'))
     = f.labeled_input_field(:"#{prefix}_company_name", caption: t('activerecord.attributes.person.company_name'))
     = f.labeled_input_field(:"#{prefix}_company", caption: t('activerecord.attributes.person.company'))
-    = f.labeled_text_area(:"#{prefix}_name", caption: t('activerecord.attributes.person.address'))
+    = f.labeled_text_area(:"#{prefix}_address", caption: t('activerecord.attributes.person.address'))
     = f.labeled(:"#{prefix}_zip_town", t('.zip_town'), nil, class: 'controls-row') do
       = f.integer_field("#{prefix}_zip_code", class: 'span2', maxlenght: 10)
       = f.string_field("#{prefix}_town", class: 'span4')
-    = f.labeled_input_field(:"#{prefix}_name", caption: t('activerecord.attributes.person.country'))
+    = f.labeled_input_field(:"#{prefix}_country", caption: t('activerecord.attributes.person.country'))
