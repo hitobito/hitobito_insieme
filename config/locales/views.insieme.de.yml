@@ -7,11 +7,17 @@ de:
   global:
     currency: CHF
 
+  layouts:
+    reporting_menu:
+      cost_accounting: Kostenrechnung
+      general: Allgemeines
+      overview: Übersicht
+
   navigation:
-    groups: 'Vereine'
+    groups: Vereine
 
   reporting:
-    title: 'Reporting'
+    title: Reporting
 
   cost_accounting:
     edit:

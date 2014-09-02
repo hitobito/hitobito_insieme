@@ -22,4 +22,8 @@ module CostAccountingHelper
   def cost_account_field_class(field)
     'subtotal' if %w(aufwand_ertrag_ko_re total).include?(field)
   end
+
+  def cost_accounting_reports
+    CostAccounting::Table::REPORTS.values
+  end
 end

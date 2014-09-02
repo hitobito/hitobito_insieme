@@ -54,6 +54,10 @@
   color: $insieme_color_a;
 }
 
+.reporting-content {
+  overflow-x: scroll;
+}
+
 .cost_accounting {
   .subtotal {
     background-color: $grayLighter;
@@ -68,3 +72,15 @@
   }
 }
 
+.cost-accounting-menu {
+  .nav-header {
+    color: $gray;
+    @include text-shadow(none);
+  }
+
+  .nav-header,
+  li a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
