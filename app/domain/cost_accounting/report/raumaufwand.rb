@@ -7,7 +7,7 @@
 
 module CostAccounting
   module Report
-    class Raumaufwand < TimeDistributed
+    class Raumaufwand < Base
 
       self.kontengruppe = '600'
 
@@ -18,7 +18,7 @@ module CostAccounting
                                   abgrenzung_fibu
                                   abgrenzung_dachorganisation
 
-                                  verwaltung
+                                  raeumlichkeiten
                                   beratung
                                   treffpunkte
                                   blockkurse
