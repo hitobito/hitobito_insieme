@@ -1,13 +1,17 @@
 - title @title
 
+
 = crud_form(record,
             url: time_record_group_path(group, year),
             cancel_url: time_record_group_path(group, year),
             buttons_bottom: true,
-            method: :put) do |f|
+            method: :put,
+            html: { class: 'time-record' }) do |f|
 
   = f.hidden_field(:year)
   = f.hidden_field(:group_id)
+
+  %p= t('.comment')
 
   = field_set_tag do
     %h2= t('.general')
@@ -16,9 +20,13 @@
   %h2= t('.lufeb')
   = field_set_tag do
     %h3= t('.lufeb_general')
-    = f.labeled_input_fields :kontakte_medien , :interviews , :publikationen , :referate ,
-      :medienkonferenzen , :informationsveranstaltungen, :sensibilisierungskampagnen,
-      :auskunftserteilung, :kontakte_meinungsbildner, :beratung_medien
+    = f.labeled_input_fields :kontakte_medien, :interviews
+    = f.labeled_input_field :publikationen, help_inline: t('.help_publikationen')
+    = f.labeled_input_fields :referate
+    = f.labeled_input_field :medienkonferenzen, help_inline: t('.help_medienkonferenzen')
+    = f.labeled_input_fields :informationsveranstaltungen, :sensibilisierungskampagnen, :allgemeine_auskunftserteilung
+    = f.labeled_input_field :kontakte_meinungsbildner, help_inline: t('.help_kontakte_meinungsbildner')
+    = f.labeled_input_fields :beratung_medien
 
   = field_set_tag do
     %h3= t('.lufeb_private')
@@ -26,12 +34,20 @@
 
   = field_set_tag do
     %h3= t('.lufeb_specific')
-    = f.labeled_input_fields :erarbeitung_instrumente, :erarbeitung_grundlagen, :projekte, :vernehmlassungen, :gremien
+    = f.labeled_input_field :erarbeitung_instrumente, help_inline: t('.help_erarbeitung_instrumente')
+    = f.labeled_input_field :erarbeitung_grundlagen, help_inline: t('.help_erarbeitung_grundlagen')
+    = f.labeled_input_fields :projekte, :vernehmlassungen
+    = f.labeled_input_field :gremien, help_inline: t('.help_gremien')
 
   = field_set_tag do
     %h3= t('.lufeb_promoting')
-    = f.labeled_input_fields :auskunftserteilung, :vermittlung_kontakte, :unterstuetzung_selbsthilfeorganisationen,
-      :koordination_selbsthilfe, :treffen_meinungsaustausch, :beratung_fachhilfeorganisationen, :unterstuetzung_behindertenhilfe
+    = f.labeled_input_field :auskunftserteilung, help_inline: t('.help_auskunftserteilung')
+    = f.labeled_input_field :vermittlung_kontakte, help_inline: t('.help_vermittlung_kontakte')
+    = f.labeled_input_field :unterstuetzung_selbsthilfeorganisationen, help_inline: t('.help_unterstuetzung_selbsthilfeorganisationen')
+    = f.labeled_input_field :koordination_selbsthilfe, help_inline: t('.help_koordination_selbsthilfe')
+    = f.labeled_input_field :treffen_meinungsaustausch, help_inline: t('.help_treffen_meinungsaustausch')
+    = f.labeled_input_field :beratung_fachhilfeorganisationen
+    = f.labeled_input_field :unterstuetzung_behindertenhilfe, help_inline: t('.help_unterstuetzung_behindertenhilfe')
 
   = field_set_tag do
     %h2= t('.procurement')

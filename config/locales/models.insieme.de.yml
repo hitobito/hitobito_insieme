@@ -331,6 +331,45 @@ de:
         billing_course_town: Ort Rechnungsadresse Kurs
         billing_course_country: Land Rechnungsadresse Kurs
 
+      time_record:
+        verwaltung:  Vereinsführung und Verwaltung
+        beratung: Sozialberatung
+        treffpunkte: Betreuung in Treffpunkten
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        jahreskurse: Semester-/Jahreskurse
+
+        kontakte_medien: Kontakte zu Medien, zu Medienschaffenden
+        interviews: Erteilen von Interviews
+        publikationen: Publikation
+        referate: Vorträge, Referate
+        medienkonferenzen: Medienkonferenzen
+        informationsveranstaltungen: Informationsveranstaltungen
+        sensibilisierungskampagnen: Sensibilisierungs- und Entstigmatisierungskampagnen
+        allgemeine_auskunftserteilung: Allgemeine Auskunftserteilung und Triage
+        kontakte_meinungsbildner: Kontakte zu MeinungsbildnerInnen
+        beratung_medien: Beratung von Medienschaffenden
+
+        eigene_zeitschriften: Eigene Zeitschriften
+        newsletter: Periodisch erscheinende Rundbriefe / Newsletter
+        informationsbroschueren: Informationsbroschüren, Informationsblätter, Merkblätter
+        eigene_webseite: Eigene Website und Social Media
+
+        erarbeitung_instrumente: Erarbeiten von Arbeitsinstrumenten und Konzepten
+        erarbeitung_grundlagen: Erarbeiten von qualitativen Grundlagen
+        projekte: Initiierung, Leitung und Durchführung von Projekten
+        vernehmlassungen: Mitarbeit bei Vernehmlassungen
+        gremien: Mitgliedschaft bzw. Mitarbeit in Gremien
+
+        auskunftserteilung: Auskunftserteilung / Kurzberatung
+        vermittlung_kontakte: Vermittlung von Kontakten
+        unterstuetzung_selbsthilfeorganisationen:  Beratung und fachliche Begleitung
+        koordination_selbsthilfe: Koordination von Selbsthilfeaktivitäten
+        treffen_meinungsaustausch: Planung, Organisation und Durchführung von informellen Treffen
+        beratung_fachhilfeorganisationen: Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe
+        unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
+
+        mittelbeschaffung: Mittelbeschaffung
     errors:
       models:
         cost_accounting_record:
