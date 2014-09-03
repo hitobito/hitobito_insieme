@@ -8,6 +8,10 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
+  included do
+    before_save :add_insieme_full_name
+  end
+
   def canton_value
     value_from_i18n(:canton)
   end
@@ -27,6 +31,12 @@ module Insieme::Person
 
     if value.present?
       I18n.t("activerecord.attributes.person.#{key.to_s.pluralize}.#{value}")
+    end
+  end
+
+  def add_insieme_full_name
+    if insieme_full_name.nil? || insieme_full_name.empty?
+      self.insieme_full_name = "#{first_name} #{last_name}"
     end
   end
 end

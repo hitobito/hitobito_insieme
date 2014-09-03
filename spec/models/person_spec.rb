@@ -24,4 +24,61 @@ describe Person do
     end
   end
 
+  context 'insieme_full_name' do
+    it 'can be custom defined' do
+      person = Person.new
+      person.first_name = 'John'
+      person.last_name = 'Lennon'
+      person.insieme_full_name.should be_blank
+      person.insieme_full_name = 'George Harrison'
+      person.save!
+      person.insieme_full_name.should eq 'George Harrison'
+    end
+
+    it 'falls back to first_name + last_name if blank' do
+      person = Person.new
+      person.first_name = 'John'
+      person.last_name = 'Lennon'
+      person.save!
+      person.insieme_full_name.should eq 'John Lennon'
+    end
+
+    it 'can be updated and falls back to first_name + last_name when changed to blank' do
+      person = Person.new
+      person.first_name = 'John'
+      person.last_name = 'Lennon'
+      person.save!
+      person.insieme_full_name.should eq 'John Lennon'
+
+      person.insieme_full_name = 'George Harrison'
+      person.save!
+      person.insieme_full_name.should eq 'George Harrison'
+
+      person.insieme_full_name = ''
+      person.save!
+      person.insieme_full_name.should eq 'John Lennon'
+    end
+
+    it 'doesn\'t update if defined' do
+      person = Person.new
+      person.first_name = 'John'
+      person.last_name = 'Lennon'
+      person.save!
+      person.insieme_full_name.should eq 'John Lennon'
+
+      person.first_name = 'Paul'
+      person.last_name = 'McCartney'
+      person.save!
+      person.insieme_full_name.should eq 'John Lennon'
+
+      person.insieme_full_name = 'Ringo Starr'
+      person.save!
+
+      person.first_name = 'Brian'
+      person.last_name = 'Epstein'
+      person.save!
+      person.insieme_full_name.should eq 'Ringo Starr'
+    end
+  end
+
 end
