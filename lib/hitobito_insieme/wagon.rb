@@ -30,7 +30,7 @@ module HitobitoInsieme
       GroupAbility.send :include, Insieme::GroupAbility
 
       PeopleController.permitted_attrs +=
-        [:salutation, :canton, :language, :correspondence_language, :number, :full_name]
+        [:salutation, :canton, :language, :correspondence_language, :number, :insieme_full_name]
 
       # Permit person address fields
       %w( correspondence_general

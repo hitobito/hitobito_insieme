@@ -17,7 +17,7 @@ module Insieme
           end
 
           def person_attributes_with_full_name
-            person_attributes_without_full_name + [:full_name]
+            person_attributes_without_full_name + [:insieme_full_name]
           end
         end
       end

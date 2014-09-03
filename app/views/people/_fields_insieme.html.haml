@@ -32,7 +32,7 @@
 -# Additional addresses
 - %w( correspondence_general billing_general correspondence_course billing_course ).each do |prefix|
   = field_set_tag(t(".#{prefix}")) do
-    = f.labeled_input_field(:"#{prefix}_full_name", caption: t('activerecord.attributes.person.full_name'))
+    = f.labeled_input_field(:"#{prefix}_full_name", caption: t('activerecord.attributes.person.insieme_full_name'))
     = f.labeled_input_field(:"#{prefix}_company_name", caption: t('activerecord.attributes.person.company_name'))
     = f.labeled_input_field(:"#{prefix}_company", caption: t('activerecord.attributes.person.company'))
     = f.labeled_text_area(:"#{prefix}_address", caption: t('activerecord.attributes.person.address'))
