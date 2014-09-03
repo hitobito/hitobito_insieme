@@ -6,46 +6,58 @@
             cancel_url: time_record_group_path(group, year),
             buttons_bottom: true,
             method: :put,
-            html: { class: 'time-record' }) do |f|
+            html: { class: 'time-record report' }) do |f|
 
   %p= t('.comment')
 
   = field_set_tag do
     %h2= t('.general')
-    = f.labeled_input_fields  :verwaltung, :beratung, :treffpunkte, :blockkurse, :tageskurse, :jahreskurse
+    = f.labeled_input_field :verwaltung, addon: t('global.hours_short')
+    = f.labeled_input_field :beratung, addon: t('global.hours_short')
+    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short')
+    = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
+    = f.labeled_input_field :tageskurse, addon: t('global.hours_short')
+    = f.labeled_input_field :jahreskurse, addon: t('global.hours_short')
 
   %h2= t('.lufeb')
   = field_set_tag do
     %h3= t('.lufeb_general')
-    = f.labeled_input_fields :kontakte_medien, :interviews
-    = f.labeled_input_field :publikationen, help_inline: t('.help_publikationen')
-    = f.labeled_input_fields :referate
-    = f.labeled_input_field :medienkonferenzen, help_inline: t('.help_medienkonferenzen')
-    = f.labeled_input_fields :informationsveranstaltungen, :sensibilisierungskampagnen, :allgemeine_auskunftserteilung
-    = f.labeled_input_field :kontakte_meinungsbildner, help_inline: t('.help_kontakte_meinungsbildner')
-    = f.labeled_input_fields :beratung_medien
+    = f.labeled_input_fields :kontakte_medien, addon: t('global.hours_short')
+    = f.labeled_input_field :interviews, addon: t('global.hours_short')
+    = f.labeled_input_field :publikationen, addon: t('global.hours_short'), help_inline: t('.help_publikationen')
+    = f.labeled_input_fields :referate, addon: t('global.hours_short')
+    = f.labeled_input_field :medienkonferenzen, addon: t('global.hours_short'), help_inline: t('.help_medienkonferenzen')
+    = f.labeled_input_fields :informationsveranstaltungen, addon: t('global.hours_short')
+    = f.labeled_input_field :sensibilisierungskampagnen, addon: t('global.hours_short')
+    = f.labeled_input_field :allgemeine_auskunftserteilung, addon: t('global.hours_short')
+    = f.labeled_input_field :kontakte_meinungsbildner, addon: t('global.hours_short'), help_inline: t('.help_kontakte_meinungsbildner')
+    = f.labeled_input_fields :beratung_medien, addon: t('global.hours_short')
 
   = field_set_tag do
     %h3= t('.lufeb_private')
-    = f.labeled_input_fields :eigene_zeitschriften, :newsletter, :informationsbroschueren, :eigene_webseite
+    = f.labeled_input_fields :eigene_zeitschriften, addon: t('global.hours_short')
+    = f.labeled_input_field :newsletter, addon: t('global.hours_short')
+    = f.labeled_input_field :informationsbroschueren, addon: t('global.hours_short')
+    = f.labeled_input_field :eigene_webseite, addon: t('global.hours_short')
 
   = field_set_tag do
     %h3= t('.lufeb_specific')
-    = f.labeled_input_field :erarbeitung_instrumente, help_inline: t('.help_erarbeitung_instrumente')
-    = f.labeled_input_field :erarbeitung_grundlagen, help_inline: t('.help_erarbeitung_grundlagen')
-    = f.labeled_input_fields :projekte, :vernehmlassungen
-    = f.labeled_input_field :gremien, help_inline: t('.help_gremien')
+    = f.labeled_input_field :erarbeitung_instrumente, addon: t('global.hours_short'), help_inline: t('.help_erarbeitung_instrumente')
+    = f.labeled_input_field :erarbeitung_grundlagen, addon: t('global.hours_short'), help_inline: t('.help_erarbeitung_grundlagen')
+    = f.labeled_input_fields :projekte, addon: t('global.hours_short')
+    = f.labeled_input_field :vernehmlassungen, addon: t('global.hours_short')
+    = f.labeled_input_field :gremien, addon: t('global.hours_short'), help_inline: t('.help_gremien')
 
   = field_set_tag do
     %h3= t('.lufeb_promoting')
-    = f.labeled_input_field :auskunftserteilung, help_inline: t('.help_auskunftserteilung')
-    = f.labeled_input_field :vermittlung_kontakte, help_inline: t('.help_vermittlung_kontakte')
-    = f.labeled_input_field :unterstuetzung_selbsthilfeorganisationen, help_inline: t('.help_unterstuetzung_selbsthilfeorganisationen')
-    = f.labeled_input_field :koordination_selbsthilfe, help_inline: t('.help_koordination_selbsthilfe')
-    = f.labeled_input_field :treffen_meinungsaustausch, help_inline: t('.help_treffen_meinungsaustausch')
-    = f.labeled_input_field :beratung_fachhilfeorganisationen
-    = f.labeled_input_field :unterstuetzung_behindertenhilfe, help_inline: t('.help_unterstuetzung_behindertenhilfe')
+    = f.labeled_input_field :auskunftserteilung, addon: t('global.hours_short'), help_inline: t('.help_auskunftserteilung')
+    = f.labeled_input_field :vermittlung_kontakte, addon: t('global.hours_short'), help_inline: t('.help_vermittlung_kontakte')
+    = f.labeled_input_field :unterstuetzung_selbsthilfeorganisationen, addon: t('global.hours_short'), help_inline: t('.help_unterstuetzung_selbsthilfeorganisationen')
+    = f.labeled_input_field :koordination_selbsthilfe, addon: t('global.hours_short'), help_inline: t('.help_koordination_selbsthilfe')
+    = f.labeled_input_field :treffen_meinungsaustausch, addon: t('global.hours_short'), help_inline: t('.help_treffen_meinungsaustausch')
+    = f.labeled_input_field :beratung_fachhilfeorganisationen, addon: t('global.hours_short')
+    = f.labeled_input_field :unterstuetzung_behindertenhilfe, addon: t('global.hours_short'), help_inline: t('.help_unterstuetzung_behindertenhilfe')
 
   = field_set_tag do
     %h2= t('.procurement')
-    = f.labeled_input_fields :mittelbeschaffung
+    = f.labeled_input_fields :mittelbeschaffung, addon: t('global.hours_short')

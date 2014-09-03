@@ -6,6 +6,9 @@
 de:
   global:
     currency: CHF
+    hours_short: Std.
+    days_short: Tg.
+    persons_short: Pers.
 
   layouts:
     reporting_menu:
@@ -46,6 +49,15 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
+
+  event:
+    course_records:
+      edit:
+        effektiv_teilnehmende: Effektiv Teilnehmende
+        absenztage: Absenztage
+        betreuerinnen: BetreuerInnen
+        aufwand: Aufwand
+        ertrag: Ertrag
 
   cost_accounting:
     edit:

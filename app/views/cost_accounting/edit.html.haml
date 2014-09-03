@@ -18,7 +18,8 @@
 = crud_form(record, url: cost_accounting_report_group_path(group, year, record.report),
                      cancel_url: cost_accounting_group_path(group, year),
                      buttons_bottom: true,
-                     method: :put) do |f|
+                     method: :put,
+                     html: { class: 'report' }) do |f|
 
   = cost_accounting_input_fields(f, :aufwand_ertrag_fibu)
 

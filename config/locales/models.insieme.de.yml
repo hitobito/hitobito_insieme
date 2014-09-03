@@ -189,6 +189,9 @@ de:
       time_record:
         one: Zeiterfassung
         other: Zeiterfassungen
+      event/course_record:
+        one: Einzelkursreport
+        other: Einzelkursreporte
 
     attributes:
 
@@ -215,6 +218,37 @@ de:
         total: Total
         kontrolle: Kontrolle
         aufteilung_kontengruppen: Aufteilung auf Kontengruppen
+
+      event/course_record:
+        event_id: Kurs
+        event: Kurs
+        inputkriterien: Inputkriterien
+        subventioniert: Subventioniert
+        kursart: Kursart
+        kurstage: Anzahl Kurstage pro TN
+        teilnehmende_behinderte: Behinderte
+        teilnehmende_angehoerige: Angehörige
+        teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
+        absenztage_behinderte: Behinderte
+        absenztage_angehoerige: Angehörige
+        absenztage_weitere: Weitere, nicht Beitragsberechtigt
+        leiterinnen: LeiterInnen
+        fachpersonen: Fachpersonen hochqualifiziert
+        hilfspersonal_ohne_honorar: Hilfspersonal ohne Honorar
+        hilfspersonal_mit_honorar: Hilfspersonal mit Honorar
+        kuechenpersonal: Anzahl Küchenpersonal
+        honorare_inkl_sozialversicherung: Honorare inkl. Sozialversicherung
+        unterkunft: Unterkunft / Raumaufwand
+        uebriges: Übriges inkl. Verpflegung
+        beitraege_teilnehmende: Beiträge TN
+
+        kursarten:
+          weiterbildung: Weiterbildung
+          freizeit_und_sport: Freizeit und Sport
+
+        subventionen:
+          mit: mit Subventionen
+          ohne: ohne Subventionen
 
       group:
         full_name: Vollständiger Name

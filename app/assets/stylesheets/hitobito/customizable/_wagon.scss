@@ -54,21 +54,23 @@
   color: $insieme_color_a;
 }
 
-.reporting-content {
-  overflow-x: scroll;
-}
-
 .cost_accounting {
-  .subtotal {
-    background-color: $grayLighter;
+  &.table-responsive {
+    overflow-x: auto;
   }
 
-  td, th {
-    padding-left: 4px;
-  }
+  table {
+    .subtotal {
+      background-color: $grayLighter;
+    }
 
-  td {
-    min-width: 90px;
+    td, th {
+      padding-left: 4px;
+    }
+
+    td {
+      min-width: 90px;
+    }
   }
 }
 
@@ -90,5 +92,11 @@
   }
   .controls {
     margin-left: 280px;
+  }
+}
+
+form.report {
+  .input-append input {
+    width: auto;
   }
 }

@@ -25,7 +25,19 @@ Rails.application.routes.draw do
           put ':year/:report' => 'cost_accounting#update', as: :cost_accounting_report
         end
       end
+
+      resources :events do
+        collection do
+          get 'simple' => 'events#index'
+          get 'course' => 'events#index', type: 'Event::Course'
+        end
+
+        scope module: 'event' do
+          resource :course_record, only: [:edit, :update]
+        end
+      end
     end
+
   end
 
 end

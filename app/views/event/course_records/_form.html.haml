@@ -1,0 +1,53 @@
+= crud_form(entry,
+            url: edit_path,
+            cancel_url: edit_path,
+            buttons_bottom: true,
+            method: :put,
+            html: { class: 'course-record report' }) do |f|
+
+  = f.hidden_field(:event_id)
+
+  = field_set_tag do
+    = f.labeled(:inputkriterien) do
+      - [:a, :b, :c].each do |key|
+        = f.inline_radio_button(:inputkriterien, key, key.to_s.upcase)
+
+    = f.labeled(:subventioniert) do
+      = f.inline_radio_button(:subventioniert, true, t('activerecord.attributes.event/course_record.subventionen.mit'))
+      = f.inline_radio_button(:subventioniert, false, t('activerecord.attributes.event/course_record.subventionen.ohne'))
+
+    = f.labeled(:kursart) do
+      - [:weiterbildung, :freizeit_und_sport].each do |key|
+        = f.inline_radio_button(:kursart, key, kursart_label(key))
+
+    = f.labeled_input_field :kurstage, addon: t('global.days_short')
+
+  = field_set_tag do
+    %h3= t('.effektiv_teilnehmende')
+    = f.labeled_input_field :teilnehmende_behinderte, addon: t('global.persons_short')
+    = f.labeled_input_field :teilnehmende_angehoerige, addon: t('global.persons_short')
+    = f.labeled_input_field :teilnehmende_weitere, addon: t('global.persons_short')
+
+  = field_set_tag do
+    %h3= t('.absenztage')
+    = f.labeled_input_field :absenztage_behinderte, addon: t('global.persons_short')
+    = f.labeled_input_field :absenztage_angehoerige, addon: t('global.persons_short')
+    = f.labeled_input_field :absenztage_weitere, addon: t('global.persons_short')
+
+  = field_set_tag do
+    %h3= t('.betreuerinnen')
+    = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')
+    = f.labeled_input_field :fachpersonen, addon: t('global.persons_short')
+    = f.labeled_input_field :hilfspersonal_ohne_honorar, addon: t('global.persons_short')
+    = f.labeled_input_field :hilfspersonal_mit_honorar, addon: t('global.persons_short')
+    = f.labeled_input_field :kuechenpersonal, addon: t('global.persons_short')
+
+  = field_set_tag do
+    %h3= t('.aufwand')
+    = f.labeled_input_field :honorare_inkl_sozialversicherung, addon: t('global.currency')
+    = f.labeled_input_field :unterkunft, addon: t('global.currency')
+    = f.labeled_input_field :uebriges, addon: t('global.currency')
+
+  = field_set_tag do
+    %h3= t('.ertrag')
+    = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency')

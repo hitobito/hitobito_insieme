@@ -28,6 +28,7 @@ module HitobitoInsieme
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
       GroupAbility.send :include, Insieme::GroupAbility
+      Ability.store.register Event::CourseRecordAbility
 
       PeopleController.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language, :number, :insieme_full_name]
@@ -42,7 +43,9 @@ module HitobitoInsieme
         end
       end
 
+      Sheet::Base.send :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
+      Sheet::Event.send :include, Insieme::Sheet::Event
 
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
       # rubocop:enable SingleSpaceBeforeFirstArg
