@@ -393,3 +393,5 @@ de:
         name: Raumaufwand
       uebriger_sachaufwand:
         name: Übriger Sachaufwand
+      abschreibungen:
+        name: Abschreibungen (exkl. Liegenschaften)
