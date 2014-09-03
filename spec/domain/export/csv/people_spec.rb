@@ -13,7 +13,21 @@ describe Export::Csv::People do
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
     %w(Vorname Nachname Übername Firmenname Firma Haupt-E-Mail Adresse PLZ Ort Land
-       Geschlecht Geburtstag Rollen Name)
+       Geschlecht Geburtstag Rollen Name ) +
+      ['Name Korrespondenzadresse allgemein', 'Firmenname Korrespondenzadresse allgemein',
+       'Firma Korrespondenzadresse allgemein', 'Adresse Korrespondenzadresse allgemein',
+       'PLZ Korrespondenzadresse allgemein', 'Ort Korrespondenzadresse allgemein',
+       'Land Korrespondenzadresse allgemein', 'Name Rechnungsadresse allgemein',
+       'Firmenname Rechnungsadresse allgemein', 'Firma Rechnungsadresse allgemein',
+       'Adresse Rechnungsadresse allgemein', 'PLZ Rechnungsadresse allgemein',
+       'Ort Rechnungsadresse allgemein', 'Land Rechnungsadresse allgemein',
+       'Name Korrespondenzadresse Kurs', 'Firmenname Korrespondenzadresse Kurs',
+       'Firma Korrespondenzadresse Kurs', 'Adresse Korrespondenzadresse Kurs',
+       'PLZ Korrespondenzadresse Kurs', 'Ort Korrespondenzadresse Kurs',
+       'Land Korrespondenzadresse Kurs', 'Name Rechnungsadresse Kurs',
+       'Firmenname Rechnungsadresse Kurs', 'Firma Rechnungsadresse Kurs',
+       'Adresse Rechnungsadresse Kurs', 'PLZ Rechnungsadresse Kurs', 'Ort Rechnungsadresse Kurs',
+       'Land Rechnungsadresse Kurs']
   end
 
   describe Export::Csv::People do
