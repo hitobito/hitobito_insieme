@@ -389,3 +389,5 @@ de:
         name: Honorare
       total_personalaufwand:
         name: Total Personalaufwand/-kosten
+      raumaufwand:
+        name: Raumaufwand

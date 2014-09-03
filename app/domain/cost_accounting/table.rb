@@ -12,8 +12,8 @@ module CostAccounting
                 CostAccounting::Report::Sozialversicherungsaufwand,
                 CostAccounting::Report::UebrigerPersonalaufwand,
                 CostAccounting::Report::Honorare,
-                CostAccounting::Report::TotalPersonalaufwand
-                 #  raumaufwand
+                CostAccounting::Report::TotalPersonalaufwand,
+                CostAccounting::Report::Raumaufwand,
                  #  uebriger_sachaufwand
                  #  abschreibungen
                  #  total_aufwand
