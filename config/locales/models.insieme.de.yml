@@ -395,3 +395,5 @@ de:
         name: Übriger Sachaufwand
       abschreibungen:
         name: Abschreibungen (exkl. Liegenschaften)
+      total_aufwand:
+        name: Total Aufwand/-kosten
