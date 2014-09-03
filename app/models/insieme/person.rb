@@ -9,6 +9,17 @@ module Insieme::Person
   extend ActiveSupport::Concern
 
   included do
+    Person::PUBLIC_ATTRS << :insieme_full_name
+
+    %w( correspondence_general
+        billing_general
+        correspondence_course
+        billing_course ).each do |prefix|
+      %w( full_name company_name company address zip_code town country).each do |field|
+        Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"
+      end
+    end
+
     before_save :add_insieme_full_name
   end
 

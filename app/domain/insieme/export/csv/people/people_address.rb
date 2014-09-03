@@ -13,12 +13,26 @@ module Insieme
           extend ActiveSupport::Concern
 
           included do
-            alias_method_chain :person_attributes, :full_name
+            alias_method_chain :person_attributes, :insieme_attrs
           end
 
-          def person_attributes_with_full_name
-            person_attributes_without_full_name + [:insieme_full_name]
+          def person_attributes_with_insieme_attrs
+            person_attributes_without_insieme_attrs + additional_addresses_attributes
           end
+
+          def additional_addresses_attributes
+            attrs = [:insieme_full_name]
+            %w( correspondence_general
+                billing_general
+                correspondence_course
+                billing_course ).each do |prefix|
+              %w( full_name company_name company address zip_code town country).each do |field|
+                attrs << :"#{prefix}_#{field}"
+              end
+            end
+            attrs
+          end
+
         end
       end
     end
