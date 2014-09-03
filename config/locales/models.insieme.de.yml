@@ -391,3 +391,5 @@ de:
         name: Total Personalaufwand/-kosten
       raumaufwand:
         name: Raumaufwand
+      uebriger_sachaufwand:
+        name: Übriger Sachaufwand

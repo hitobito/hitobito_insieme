@@ -14,7 +14,7 @@ module CostAccounting
                 CostAccounting::Report::Honorare,
                 CostAccounting::Report::TotalPersonalaufwand,
                 CostAccounting::Report::Raumaufwand,
-                 #  uebriger_sachaufwand
+                CostAccounting::Report::UebrigerSachaufwand,
                  #  abschreibungen
                  #  total_aufwand
                  #  umlage_personal
