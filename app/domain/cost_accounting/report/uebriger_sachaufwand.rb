@@ -7,7 +7,7 @@
 
 module CostAccounting
   module Report
-    class UebrigerSachaufwand < TimeDistributed
+    class UebrigerSachaufwand < Base
 
       self.kontengruppe = '40-43/61-67'
 
