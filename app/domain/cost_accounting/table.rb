@@ -25,7 +25,7 @@ module CostAccounting
                 CostAccounting::Report::Leistungsertrag,
                 CostAccounting::Report::BeitraegeIV,
                 CostAccounting::Report::SonstigeBeitraege,
-                 #  direkte_spenden
+                CostAccounting::Report::DirekteSpenden,
                  #  indirekte_spenden
                  #  direkte_spenden_ausserhalb
                  #  total_direkte_ertraege
