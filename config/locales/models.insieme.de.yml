@@ -401,3 +401,5 @@ de:
         name: Leistungsertrag
       beitraege_iv:
         name: Beiträge IV
+      sonstige_beitraege:
+        name: Sonstige Beiträge Bund, Beiträge Kantone/Gemeinden
