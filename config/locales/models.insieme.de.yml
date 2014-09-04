@@ -399,3 +399,5 @@ de:
         name: Total Aufwand/-kosten
       leistungsertrag:
         name: Leistungsertrag
+      beitraege_iv:
+        name: Beiträge IV
