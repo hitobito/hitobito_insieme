@@ -8,9 +8,6 @@
             method: :put,
             html: { class: 'time-record' }) do |f|
 
-  = f.hidden_field(:year)
-  = f.hidden_field(:group_id)
-
   %p= t('.comment')
 
   = field_set_tag do
