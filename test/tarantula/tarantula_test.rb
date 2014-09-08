@@ -19,11 +19,11 @@ class TarantulaTest < ActionDispatch::IntegrationTest
 
   include TarantulaConfig
 
-  def xtest_tarantula_as_verbandsleitung
+  def test_tarantula_as_verbandsleitung
     crawl_as(people(:top_leader))
   end
 
-  def xtest_tarantula_as_regionalleitung
+  def test_tarantula_as_regionalleitung
     crawl_as(people(:regio_leader))
   end
 
