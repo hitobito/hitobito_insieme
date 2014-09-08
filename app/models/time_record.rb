@@ -96,7 +96,7 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def to_s
-    [self.class.model_name.human, group, year].join(' ')
+    self.class.model_name.human
   end
 
 end

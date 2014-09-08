@@ -43,7 +43,7 @@ class CostAccountingRecord < ActiveRecord::Base
   end
 
   def to_s
-    [report_class.human_name, group, year].join(' ')
+    report_class.human_name
   end
 
   private
