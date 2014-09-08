@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         scope 'time_record' do
           get ':year/edit' => 'time_records#edit', as: :edit_time_record
           put ':year' => 'time_records#update', as: :time_record
+          get ':year' => 'time_records#edit' # route required for language switch
         end
 
         scope 'cost_accounting' do
