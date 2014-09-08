@@ -11,28 +11,29 @@ module CostAccounting
 
       delegate :time_record, to: :table
 
-      def self.define_allocated_fields(field, fields)
+      def self.define_allocated_fields(fields)
         fields.each do |f|
           define_method(f) do
             @allocated_fields ||= {}
-            if time_record.total > 0 # Umlagemethode 1
-              @allocated_fields[f] ||= (raumaufwand * time_record.send(f).to_d) / (time_record.total - time_record.verwaltung)
-            else # TODO: Umlagemethode 2
-              0.00
+
+            if time_record.total > 0
+              @allocated_fields[f] ||= allocated_with_time_record(f)
+            else
+              @allocated_fields[f] ||= allocated_without_time_record(f)
             end
           end
         end
       end
 
-      define_allocated_fields 'raeumlichkeiten', %w(verwaltung
-                                                beratung
-                                                treffpunkte
-                                                blockkurse
-                                                tageskurse
-                                                jahreskurse
-                                                lufeb
-                                                mittelbeschaffung
-                                                total)
+      define_allocated_fields %w(verwaltung
+                                 beratung
+                                 treffpunkte
+                                 blockkurse
+                                 tageskurse
+                                 jahreskurse
+                                 lufeb
+                                 mittelbeschaffung
+                                 total)
 
 
 
@@ -40,6 +41,13 @@ module CostAccounting
         table.value_of('raumaufwand', 'raeumlichkeiten').to_d
       end
 
+      def allocated_with_time_record(field)
+        (raumaufwand * time_record.send(field).to_d) / (time_record.total - time_record.verwaltung)
+      end
+
+      def allocated_without_time_record(_field)
+        0.00
+      end
     end
   end
 end
