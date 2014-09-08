@@ -4,7 +4,6 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: time_records
@@ -44,6 +43,7 @@
 #  beratung_fachhilfeorganisationen         :integer
 #  unterstuetzung_behindertenhilfe          :integer
 #  mittelbeschaffung                        :integer
+#  allgemeine_auskunftserteilung            :integer
 #
 
 require 'spec_helper'
