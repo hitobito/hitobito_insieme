@@ -9,7 +9,7 @@ class Event::CourseRecordsController < CrudController
 
   decorates :event
 
-  helper_method :edit_path
+  helper_method :edit_path, :update_path
 
   self.nesting = Group, Event
 
@@ -47,6 +47,10 @@ class Event::CourseRecordsController < CrudController
 
   def edit_path
     edit_group_event_course_record_path(*parents)
+  end
+
+  def update_path
+    group_event_course_record_path(*parents)
   end
 
   def self.model_class
