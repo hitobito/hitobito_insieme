@@ -23,6 +23,7 @@ Rails.application.routes.draw do
           get '(:year)' => 'cost_accounting#index', as: :cost_accounting
           get ':year/:report/edit' => 'cost_accounting#edit', as: :edit_cost_accounting_report
           put ':year/:report' => 'cost_accounting#update', as: :cost_accounting_report
+          get ':year/:report' => 'cost_accounting#edit' # route required for language switch
         end
       end
 
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
 
         scope module: 'event' do
           resource :course_record, only: [:edit, :update]
+          get 'course_record' => 'course_records#edit' # route required for language switch
         end
       end
     end

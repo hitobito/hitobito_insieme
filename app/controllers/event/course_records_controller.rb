@@ -9,8 +9,6 @@ class Event::CourseRecordsController < CrudController
 
   decorates :event
 
-  helper_method :edit_path, :update_path
-
   self.nesting = Group, Event
 
   self.permitted_attrs = [:inputkriterien,
@@ -45,12 +43,8 @@ class Event::CourseRecordsController < CrudController
     Event::CourseRecord.where(event_id: parent.id).first_or_initialize
   end
 
-  def edit_path
+  def return_path
     edit_group_event_course_record_path(*parents)
-  end
-
-  def update_path
-    group_event_course_record_path(*parents)
   end
 
   def self.model_class

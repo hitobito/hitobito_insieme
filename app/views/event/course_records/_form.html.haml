@@ -1,6 +1,6 @@
 = crud_form(entry,
-            url: update_path,
-            cancel_url: edit_path,
+            url: group_event_course_record_path(*parents),
+            cancel_url: group_event_path(*parents),
             buttons_bottom: true,
             method: :put,
             html: { class: 'course-record report' }) do |f|
@@ -22,32 +22,27 @@
 
     = f.labeled_input_field :kurstage, addon: t('global.days_short')
 
-  = field_set_tag do
-    %h3= t('.effektiv_teilnehmende')
+  = field_set_tag(t('.effektiv_teilnehmende')) do
     = f.labeled_input_field :teilnehmende_behinderte, addon: t('global.persons_short')
     = f.labeled_input_field :teilnehmende_angehoerige, addon: t('global.persons_short')
     = f.labeled_input_field :teilnehmende_weitere, addon: t('global.persons_short')
 
-  = field_set_tag do
-    %h3= t('.absenztage')
+  = field_set_tag(t('.absenztage')) do
     = f.labeled_input_field :absenztage_behinderte, addon: t('global.persons_short')
     = f.labeled_input_field :absenztage_angehoerige, addon: t('global.persons_short')
     = f.labeled_input_field :absenztage_weitere, addon: t('global.persons_short')
 
-  = field_set_tag do
-    %h3= t('.betreuerinnen')
+  = field_set_tag(t('.betreuerinnen')) do
     = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')
     = f.labeled_input_field :fachpersonen, addon: t('global.persons_short')
     = f.labeled_input_field :hilfspersonal_ohne_honorar, addon: t('global.persons_short')
     = f.labeled_input_field :hilfspersonal_mit_honorar, addon: t('global.persons_short')
     = f.labeled_input_field :kuechenpersonal, addon: t('global.persons_short')
 
-  = field_set_tag do
-    %h3= t('.aufwand')
+  = field_set_tag(t('.aufwand')) do
     = f.labeled_input_field :honorare_inkl_sozialversicherung, addon: t('global.currency')
     = f.labeled_input_field :unterkunft, addon: t('global.currency')
     = f.labeled_input_field :uebriges, addon: t('global.currency')
 
-  = field_set_tag do
-    %h3= t('.ertrag')
+  = field_set_tag(t('.ertrag')) do
     = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency')
