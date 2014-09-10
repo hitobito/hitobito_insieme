@@ -65,8 +65,8 @@ de:
     edit:
       aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
 
-  people:
-    fields_insieme:
+  contactable:
+    address_fields_insieme:
       correspondence_general: Korrespondenzadresse allgemein
       billing_general: Rechnungsadresse allgemein
       correspondence_course: Korrespondenzadresse Kurs
