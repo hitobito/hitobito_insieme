@@ -22,7 +22,7 @@ module CostAccountingHelper
     CostAccounting::Table::REPORTS.values
   end
 
-  def base_time_record_group_path(group, params = {})
+  def base_time_record_group_path(group, _params = {})
     group_path(group) + '/time_record'
   end
 end
