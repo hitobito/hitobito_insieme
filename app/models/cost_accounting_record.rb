@@ -49,7 +49,7 @@ class CostAccountingRecord < ActiveRecord::Base
   private
 
   def assert_group_has_reporting
-    unless [Group::Dachverein, Group::Regionalverein].include?(group.class)
+    unless group.reporting?
       errors.add(:group_id, :is_not_allowed)
     end
   end

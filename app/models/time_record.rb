@@ -52,6 +52,7 @@ class TimeRecord < ActiveRecord::Base
 
 
   validates :year, uniqueness: { scope: [:group_id] }
+  validate :assert_group_has_reporting
 
   # rubocop:disable MethodLength
   def lufeb
@@ -99,4 +100,11 @@ class TimeRecord < ActiveRecord::Base
     self.class.model_name.human
   end
 
+  private
+
+  def assert_group_has_reporting
+    unless group.reporting?
+      errors.add(:group_id, :is_not_allowed)
+    end
+  end
 end

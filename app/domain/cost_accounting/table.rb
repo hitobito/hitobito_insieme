@@ -17,7 +17,7 @@ module CostAccounting
                 CostAccounting::Report::UebrigerSachaufwand,
                 CostAccounting::Report::Abschreibungen,
                 CostAccounting::Report::TotalAufwand,
-                CostAccounting::Report::UmlageRaeumlichkeiten,
+                #CostAccounting::Report::UmlageRaeumlichkeiten,
                  #  umlage_personal
                  #  umlage_raeumlichkeiten
                  #  umlage_verwaltung

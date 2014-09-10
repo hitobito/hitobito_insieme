@@ -60,6 +60,8 @@ de:
         ertrag: Ertrag
 
   cost_accounting:
+    index:
+      title: Übersicht Kostenrechnung
     edit:
       aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
 

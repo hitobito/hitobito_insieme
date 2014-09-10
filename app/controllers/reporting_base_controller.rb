@@ -8,10 +8,6 @@
 class ReportingBaseController < ApplicationController
   include YearBasedPaging
 
-  SUPPORTED_GROUPS = [Group::Dachverein,
-                      Group::Regionalverein]
-
-
   before_action :authorize
 
   layout 'reporting'
@@ -20,10 +16,11 @@ class ReportingBaseController < ApplicationController
 
   helper_method :record, :group
 
+  before_action :record
+
   respond_to :html
 
   def edit
-    @title = I18n.t('crud.edit.title', model: record)
   end
 
   def update
@@ -38,7 +35,7 @@ class ReportingBaseController < ApplicationController
   private
 
   def group
-    @group ||= Group.where(type: SUPPORTED_GROUPS).find(params[:id])
+    @group ||= Group.find(params[:id])
   end
 
   def authorize

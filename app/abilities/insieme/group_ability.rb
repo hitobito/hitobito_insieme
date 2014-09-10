@@ -12,6 +12,8 @@ module Insieme::GroupAbility
     on(Group) do
       permission(:layer_full).may(:reporting).if_dachverein_member
       permission(:any).may(:reporting).if_regionalverein_member_in_same_group
+
+      general(:reporting).is_reporting_group
     end
   end
 
@@ -23,7 +25,11 @@ module Insieme::GroupAbility
               Group::Regionalverein::Geschaeftsfuehrung,
               Group::Regionalverein::Sekretariat,
               Group::Regionalverein::Adressverwaltung,
-              Group::Regionalverein::Controlling)
+              Group::Regionalverein::Controlling,
+              Group::ExterneOrganisation::Geschaeftsfuehrung,
+              Group::ExterneOrganisation::Sekretariat,
+              Group::ExterneOrganisation::Adressverwaltung,
+              Group::ExterneOrganisation::Controlling)
     end
   end
 
@@ -34,6 +40,10 @@ module Insieme::GroupAbility
             Group::Dachverein::Sekretariat,
             Group::Dachverein::Adressverwaltung)
     end
+  end
+
+  def is_reporting_group
+    group.reporting?
   end
 
   private

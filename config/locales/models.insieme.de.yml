@@ -404,12 +404,12 @@ de:
         unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
 
         mittelbeschaffung: Mittelbeschaffung
-    errors:
-      models:
-        cost_accounting_record:
-          attributes:
-            group_id:
-              is_not_allowed: kann nicht für das Reporting verwendet werden.
+
+
+  errors:
+    attributes:
+      group_id:
+        is_not_allowed: kann nicht für das Reporting verwendet werden.
 
   cost_accounting:
     report:

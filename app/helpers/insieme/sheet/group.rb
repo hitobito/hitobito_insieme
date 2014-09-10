@@ -13,10 +13,9 @@ module Insieme::Sheet::Group
     tabs.insert(-2,
                 Sheet::Tab.new('reporting.title',
                                :cost_accounting_group_path,
+                               alt: [:base_time_record_group_path],
                                if: lambda do |view, group|
-                                 [Group::Dachverein, Group::Regionalverein].any? do |c|
-                                   group.is_a?(c) && view.can?(:reporting, group)
-                                 end
+                                 group.reporting? && view.can?(:reporting, group)
                                end))
   end
 

@@ -14,16 +14,8 @@ module Insieme::Sheet::Event
                 Sheet::Tab.new('reporting.title',
                                :edit_group_event_course_record_path,
                                if: lambda do |view, group, event|
-                                 report_groups = [Group::Dachverein, Group::Regionalverein]
-                                 valid_group = report_groups.any? do |c|
-                                   group.is_a?(c) && view.can?(:reporting, group)
-                                 end
-
-                                 valid_event = event.type == Event::Course.sti_name
-                                 # TODO: ensure that event is "blockkurs" and maybe also if
-                                 #       it is terminated
-
-                                 valid_group && valid_event
+                                 event.is_a?(Event::Course) &&
+                                 view.can?(:update, Event::CourseRecord.new(event: event))
                                end))
   end
 

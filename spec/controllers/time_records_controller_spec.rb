@@ -14,7 +14,7 @@ describe TimeRecordsController do
     sign_in(people(:top_leader))
     expect do
       get :edit, id: groups(:kommission74).id, year: 2014
-    end.to raise_error(ActiveRecord::RecordNotFound)
+    end.to raise_error(CanCan::AccessDenied)
   end
 
   context 'authorization' do
@@ -37,6 +37,7 @@ describe TimeRecordsController do
 
     it 'builds new time_record based on group and year' do
       get :edit, id: group.id, year: 2014
+      response.status.should eq(200)
 
       assigns(:record).should_not be_persisted
       assigns(:record).group.should eq group

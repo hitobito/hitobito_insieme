@@ -35,6 +35,10 @@ module Insieme::Group
   extend ActiveSupport::Concern
 
   included do
+    # Flag whether this group has reporting or not
+    class_attribute :reporting
+    self.reporting = false
+
     root_types Group::Dachverein
 
     has_many :time_records

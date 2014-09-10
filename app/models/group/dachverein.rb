@@ -39,6 +39,7 @@ class Group::Dachverein < Group
   self.layer = true
   self.used_attributes += [:full_name, :vid, :bsv_number, :canton]
   self.event_types = [Event, Event::Course]
+  self.reporting = true
 
   children Group::DachvereinListe,
            Group::DachvereinGremium,
