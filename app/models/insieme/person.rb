@@ -46,7 +46,8 @@ module Insieme::Person
   end
 
   def add_insieme_full_name
-    if insieme_full_name.nil? || insieme_full_name.empty?
+    # when seeding the root user, insieme migrations are not loaded yet, thus we check respond_to.
+    if respond_to?(:insieme_full_name) && insieme_full_name.blank?
       self.insieme_full_name = "#{first_name} #{last_name}"
     end
   end
