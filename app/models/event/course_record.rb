@@ -13,7 +13,7 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
 
   def to_s
-    [self.class.model_name.human, event].join(' ')
+    ''
   end
 
 end
