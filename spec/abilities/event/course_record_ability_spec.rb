@@ -11,7 +11,7 @@ describe Event::CourseRecordAbility do
 
   let(:user)    { role.person }
   let(:group)   { role.group }
-  let(:event)   { Fabricate(:event, groups: [group]) }
+  let(:event)   { Fabricate(:course, groups: [group], kind: Event::Kind.first) }
   let(:record)  { Event::CourseRecord.new(event: event) }
 
   subject { Ability.new(user.reload) }
@@ -21,7 +21,7 @@ describe Event::CourseRecordAbility do
       Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
     end
 
-    context Event do
+    context Event::Course do
       it 'may update report of event in his group' do
         should be_able_to(:update, record)
       end
@@ -31,7 +31,9 @@ describe Event::CourseRecordAbility do
       end
 
       it 'may update report of event in lower layer' do
-        other = Event::CourseRecord.new(event: Fabricate(:event, groups: [groups(:seeland)]))
+        other = Event::CourseRecord.new(event: Fabricate(:course,
+                                                         groups: [groups(:seeland)],
+                                                         kind: Event::Kind.first))
         should be_able_to(:update, other)
       end
 
@@ -42,37 +44,26 @@ describe Event::CourseRecordAbility do
         end
 
         it 'may not update report of event' do
-          other = Event::CourseRecord.new(event: Fabricate(:event, groups: [groups(:be)]))
+          other = Event::CourseRecord.new(event: Fabricate(:course,
+                                                           groups: [groups(:be)],
+                                                           kind: Event::Kind.first))
           should_not be_able_to(:update, other)
         end
       end
     end
   end
 
-  context :group_full do
-    let(:role) do
-      Fabricate(Group::DachvereinGremium::Leitung.name.to_sym,
-                group: groups(:kommission74))
-    end
-
-    context Event do
-      it 'may update report of event in his group' do
-        should be_able_to(:update, event)
-      end
-
-      it 'may not update event in other group' do
-        other = Event::CourseRecord.new(event: Fabricate(:event, groups: [groups(:dachverein)]))
-        should_not be_able_to(:update, other)
-      end
-    end
-  end
+  # The following scenarios are not testable with the insieme group structure, since there
+  # is no role with permission :group_full in a group that allows Event::Course:
+  #  * :group_full may update report of event in his group
+  #  * :group_full may not update event in other group
 
   context :any do
     let(:role) do
       Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:be))
     end
 
-    context Event do
+    context Event::Course do
       it 'may update report of event he manages' do
         Fabricate(Event::Role::Leader.name.to_sym,
                   participation: Fabricate(:event_participation,
