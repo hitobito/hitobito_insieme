@@ -11,7 +11,7 @@ describe Event::CourseRecordAbility do
 
   let(:user)    { role.person }
   let(:group)   { role.group }
-  let(:event)   { Fabricate(:course, groups: [group], kind: Event::Kind.first) }
+  let(:event)   { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
   let(:record)  { Event::CourseRecord.new(event: event) }
 
   subject { Ability.new(user.reload) }
@@ -33,7 +33,7 @@ describe Event::CourseRecordAbility do
       it 'may update report of event in lower layer' do
         other = Event::CourseRecord.new(event: Fabricate(:course,
                                                          groups: [groups(:seeland)],
-                                                         kind: Event::Kind.first))
+                                                         leistungskategorie: 'bk'))
         should be_able_to(:update, other)
       end
 
@@ -46,7 +46,7 @@ describe Event::CourseRecordAbility do
         it 'may not update report of event' do
           other = Event::CourseRecord.new(event: Fabricate(:course,
                                                            groups: [groups(:be)],
-                                                           kind: Event::Kind.first))
+                                                           leistungskategorie: 'bk'))
           should_not be_able_to(:update, other)
         end
       end

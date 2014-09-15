@@ -18,6 +18,21 @@ module Insieme
                            ::Event::Course::Role::Kitchen,
                            ::Event::Course::Role::Challenged]
 
+        self.used_attributes -= [:kind_id]
+        self.used_attributes += [:leistungskategorie]
+
+        attr_readonly :leistungskategorie
+
+        LEISTUNGSKATEGORIEN = %w(bk tk sk)
+        validates_presence_of :leistungskategorie
+        validates_inclusion_of :leistungskategorie, in: LEISTUNGSKATEGORIEN, allow_blank: true
+
+
+        def self.available_leistungskategorien
+          LEISTUNGSKATEGORIEN.map do |period|
+            [period, I18n.t("activerecord.attributes.event/course.leistungskategorien.#{period}")]
+          end
+        end
       end
     end
   end

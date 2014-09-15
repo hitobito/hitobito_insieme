@@ -26,12 +26,15 @@ module HitobitoInsieme
       Event::Course.send :include, Insieme::Event::Course
       Event::Role::Permissions << :reporting
 
+      Event::Course.send    :include, Insieme::Event::Course
+
       PersonSerializer.send :include, Insieme::PersonSerializer
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
       GroupAbility.send :include, Insieme::GroupAbility
       VariousAbility.send :include, Insieme::VariousAbility
       Ability.store.register Event::CourseRecordAbility
+
 
       PeopleController.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language, :number, :insieme_full_name]

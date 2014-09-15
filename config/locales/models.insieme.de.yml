@@ -203,6 +203,8 @@ de:
       time_record:
         one: Zeiterfassung
         other: Zeiterfassungen
+      event:
+        period: Leistungskategorie
       event/course_record:
         one: Einzelkursreport
         other: Einzelkursreporte
@@ -232,6 +234,13 @@ de:
         total: Total
         kontrolle: Kontrolle
         aufteilung_kontengruppen: Aufteilung auf Kontengruppen
+
+      event/course:
+        leistungskategorie: Leistungskategorie
+        leistungskategorien:
+          bk: Blockkurs
+          tk: Tageskurs
+          sk: Semester / Jahreskurs
 
       event/course_record:
         event_id: Kurs

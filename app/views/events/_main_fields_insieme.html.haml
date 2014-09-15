@@ -1,0 +1,4 @@
+- if entry.is_a?(Event::Course) && entry.new_record?
+  = f.labeled_collection_select(:leistungskategorie,
+                                Event::Course.available_leistungskategorien,
+                                :first, :second, {prompt: true}, class: 'span6')

@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe Event::CourseRecordsController do
   let(:group) { groups(:be) }
-  let(:event) { Fabricate(:course, groups: [group], kind: Event::Kind.first) }
+  let(:event) { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
 
   context 'authorization' do
     context 'simple event (not course)' do
