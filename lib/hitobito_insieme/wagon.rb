@@ -24,6 +24,9 @@ module HitobitoInsieme
       Group.send        :include, Insieme::Group
       Person.send       :include, Insieme::Person
 
+      Event::Course.send :include, Insieme::Event::Course
+      Event::Role::Permissions << :reporting
+
       PersonSerializer.send :include, Insieme::PersonSerializer
       GroupSerializer.send  :include, Insieme::GroupSerializer
 

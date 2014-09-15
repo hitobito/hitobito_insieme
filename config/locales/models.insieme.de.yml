@@ -183,6 +183,20 @@ de:
         description:
 
 
+      event/course/role/leader_admin:
+        one: Leitung (Administration)
+      event/course/role/leader_reporting:
+        one: Leitung (Reporting)
+      event/course/role/leader_basic:
+        one: Leitung
+      event/course/role/caregiver:
+        one: Betreuung
+      event/course/role/kitchen:
+        one: Küche
+      event/course/role/challenged:
+        one: Behinderter
+
+
       cost_accounting_record:
         one: Kostenrechnungsreport
         other: Kostenrechnungsreporte
