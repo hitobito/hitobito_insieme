@@ -18,7 +18,7 @@ class Event::CourseRecordAbility < AbilityDsl::Base
   end
 
   def for_course_event
-    event.class == Event::Course
+    event.is_a?(Event::Course)
   end
 
   private

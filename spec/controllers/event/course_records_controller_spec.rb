@@ -83,8 +83,8 @@ describe Event::CourseRecordsController do
       get :edit, group_id: group.id, event_id: event.id
       response.status.should eq(200)
 
-      assigns(:record).should_not be_persisted
-      assigns(:record).event.should eq event
+      assigns(:course_record).should_not be_persisted
+      assigns(:course_record).event.should eq event
     end
 
     it 'reuses existing course_record based on group and event' do
@@ -96,9 +96,9 @@ describe Event::CourseRecordsController do
       get :edit, group_id: group.id, event_id: event.id
       response.status.should eq(200)
 
-      assigns(:record).should eq record
-      assigns(:record).event.should eq event
-      assigns(:record).should be_persisted
+      assigns(:course_record).should eq record
+      assigns(:course_record).event.should eq event
+      assigns(:course_record).should be_persisted
     end
   end
 

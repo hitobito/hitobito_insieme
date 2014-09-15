@@ -9,6 +9,8 @@ class Event::CourseRecordsController < CrudController
 
   decorates :event
 
+  authorize_resource except: :index, singleton: true
+
   self.nesting = Group, Event
 
   self.permitted_attrs = [:inputkriterien,
@@ -40,12 +42,7 @@ class Event::CourseRecordsController < CrudController
   end
 
   def find_entry
-    authorize!(:update, record)
-    record
-  end
-
-  def record
-    @record ||= Event::CourseRecord.where(event_id: parent.id).first_or_initialize
+    Event::CourseRecord.where(event_id: parent.id).first_or_initialize
   end
 
   def return_path
