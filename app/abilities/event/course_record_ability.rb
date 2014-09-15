@@ -13,6 +13,12 @@ class Event::CourseRecordAbility < AbilityDsl::Base
     permission(:any).may(:update).for_managed_events
     permission(:group_full).may(:update).in_same_group
     permission(:layer_full).may(:update).in_same_layer_or_below
+
+    general(:update).for_course_event
+  end
+
+  def for_course_event
+    event.class == Event::Course
   end
 
   private

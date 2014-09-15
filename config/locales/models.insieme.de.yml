@@ -406,10 +406,16 @@ de:
         mittelbeschaffung: Mittelbeschaffung
 
 
-  errors:
-    attributes:
-      group_id:
-        is_not_allowed: kann nicht für das Reporting verwendet werden.
+    errors:
+      attributes:
+        group_id:
+          is_not_allowed: kann nicht für das Reporting verwendet werden.
+
+      models:
+        event/course_record:
+          attributes:
+            event:
+              is_not_allowed: kann nicht für das Reporting verwendet werden.
 
   cost_accounting:
     report:

@@ -40,7 +40,12 @@ class Event::CourseRecordsController < CrudController
   end
 
   def find_entry
-    Event::CourseRecord.where(event_id: parent.id).first_or_initialize
+    authorize!(:update, record)
+    record
+  end
+
+  def record
+    @record ||= Event::CourseRecord.where(event_id: parent.id).first_or_initialize
   end
 
   def return_path
@@ -50,5 +55,4 @@ class Event::CourseRecordsController < CrudController
   def self.model_class
     Event::CourseRecord
   end
-
 end

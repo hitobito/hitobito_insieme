@@ -9,11 +9,20 @@ class Event::CourseRecord < ActiveRecord::Base
 
   belongs_to :event
 
+  validate :assert_event_is_course, on: :create
   validates :inputkriterien, inclusion: { in: %w(a b c) }
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
 
   def to_s
     ''
+  end
+
+  private
+
+  def assert_event_is_course
+    if event && event.class != Event::Course
+      errors.add(:event, :not_course)
+    end
   end
 
 end
