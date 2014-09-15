@@ -23,7 +23,6 @@ module HitobitoInsieme
       # extend application classes here
       Group.send        :include, Insieme::Group
       Person.send       :include, Insieme::Person
-
       Event::Course.send :include, Insieme::Event::Course
       Event::Role::Permissions << :reporting
 
@@ -31,6 +30,7 @@ module HitobitoInsieme
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
       GroupAbility.send :include, Insieme::GroupAbility
+      VariousAbility.send :include, Insieme::VariousAbility
       Ability.store.register Event::CourseRecordAbility
 
       PeopleController.permitted_attrs +=
