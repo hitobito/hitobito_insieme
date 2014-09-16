@@ -249,21 +249,22 @@ de:
       event/course_record:
         event_id: Kurs
         event: Kurs
-        inputkriterien: Inputkriterien
         subventioniert: Subventioniert
+        inputkriterien: Inputkriterien
         kursart: Kursart
-        kurstage: Anzahl Kurstage pro TN
+        spezielle_unterkunft: Spezielle Unterkunft
+        kursdauer: Kursdauer
         teilnehmende_behinderte: Behinderte
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
-        absenztage_behinderte: Behinderte
-        absenztage_angehoerige: Angehörige
-        absenztage_weitere: Weitere, nicht Beitragsberechtigt
+        absenzen_behinderte: Behinderte
+        absenzen_angehoerige: Angehörige
+        absenzen_weitere: Weitere, nicht Beitragsberechtigt
         leiterinnen: LeiterInnen
         fachpersonen: Fachpersonen hochqualifiziert
         hilfspersonal_ohne_honorar: Hilfspersonal ohne Honorar
         hilfspersonal_mit_honorar: Hilfspersonal mit Honorar
-        kuechenpersonal: Anzahl Küchenpersonal
+        kuechenpersonal: Küchenpersonal
         honorare_inkl_sozialversicherung: Honorare inkl. Sozialversicherung
         unterkunft: Unterkunft / Raumaufwand
         uebriges: Übriges inkl. Verpflegung
@@ -272,10 +273,6 @@ de:
         kursarten:
           weiterbildung: Weiterbildung
           freizeit_und_sport: Freizeit und Sport
-
-        subventionen:
-          mit: mit Subventionen
-          ohne: ohne Subventionen
 
       group:
         full_name: Vollständiger Name
@@ -438,11 +435,17 @@ de:
         group_id:
           is_not_allowed: kann nicht für das Reporting verwendet werden.
 
+      messages:
+        must_be_multiple_of: muss ein vielfaches von %{multiple} sein
+
       models:
         event/course_record:
           attributes:
             event:
               is_not_allowed: kann nicht für das Reporting verwendet werden.
+            inputkriterien:
+              must_be_a_not_subsidized: müssen A sein bei Kursen ohne Subventionen
+              must_be_a_sk: müssen A sein bei Semester-/Jahreskursen
 
   cost_accounting:
     report:
