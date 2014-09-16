@@ -13,8 +13,9 @@ class Event::CourseRecord < ActiveRecord::Base
   validate :check_inputkriterien_a
   validates :inputkriterien, inclusion: { in: %w(a b c) }
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
-  validates :kurstage, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-            modulus:  { multiple: 0.5 }
+  validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+            modulus:  { multiple: 0.5, if: :not_sk? },
+            numericality: { only_integer: true, allow_nil: true, if: :sk? }
 
   def to_s
     ''
@@ -30,6 +31,26 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def kursart
     super || 'weiterbildung'
+  end
+
+  def spezielle_unterkunft
+    event.leistungskategorie != 'sk' && super || false
+  end
+
+  def bk?
+    event.leistungskategorie == 'bk'
+  end
+
+  def tk?
+    event.leistungskategorie == 'tk'
+  end
+
+  def sk?
+    event.leistungskategorie == 'sk'
+  end
+
+  def not_sk?
+    event.leistungskategorie != 'sk'
   end
 
   private

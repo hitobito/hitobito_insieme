@@ -110,7 +110,7 @@ describe Event::CourseRecordsController do
         inputkriterien: :a,
         kursart: :weiterbildung,
         spezielle_unterkunft: false,
-        kurstage: 10,
+        kursdauer: 10,
         teilnehmende_behinderte: 10,
         teilnehmende_angehoerige: 10,
         teilnehmende_weitere: 10,

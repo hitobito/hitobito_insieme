@@ -55,9 +55,14 @@ de:
       edit:
         effektiv_teilnehmende: Effektiv Teilnehmende
         absenztage: Absenztage
+        absenzstunden: Absenzstunden
         betreuerinnen: BetreuerInnen
         aufwand: Aufwand
         ertrag: Ertrag
+      form:
+        kursdauer_d: Kurstage pro TN
+        kursdauer_h: Kursstunden pro TN
+
 
   cost_accounting:
     index:

@@ -17,7 +17,7 @@ class Event::CourseRecordsController < CrudController
                           :inputkriterien,
                           :kursart,
                           :spezielle_unterkunft,
-                          :kurstage,
+                          :kursdauer,
                           :teilnehmende_behinderte,
                           :teilnehmende_angehoerige,
                           :teilnehmende_weitere,

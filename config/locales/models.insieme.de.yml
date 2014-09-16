@@ -249,7 +249,7 @@ de:
         inputkriterien: Inputkriterien
         kursart: Kursart
         spezielle_unterkunft: Spezielle Unterkunft
-        kurstage: Anzahl Kurstage pro TN
+        kursdauer: Kursdauer
         teilnehmende_behinderte: Behinderte
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
@@ -260,7 +260,7 @@ de:
         fachpersonen: Fachpersonen hochqualifiziert
         hilfspersonal_ohne_honorar: Hilfspersonal ohne Honorar
         hilfspersonal_mit_honorar: Hilfspersonal mit Honorar
-        kuechenpersonal: Anzahl Küchenpersonal
+        kuechenpersonal: Küchenpersonal
         honorare_inkl_sozialversicherung: Honorare inkl. Sozialversicherung
         unterkunft: Unterkunft / Raumaufwand
         uebriges: Übriges inkl. Verpflegung

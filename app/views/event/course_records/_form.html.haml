@@ -12,27 +12,29 @@
   = field_set_tag do
     = f.labeled_input_field :subventioniert
 
-    = f.labeled(:inputkriterien) do
-      - [:a, :b, :c].each do |key|
-        = f.inline_radio_button(:inputkriterien, key, key.to_s.upcase)
+    - unless entry.sk?
+      = f.labeled(:inputkriterien) do
+        - [:a, :b, :c].each do |key|
+          = f.inline_radio_button(:inputkriterien, key, key.to_s.upcase)
 
     = f.labeled(:kursart) do
       - [:weiterbildung, :freizeit_und_sport].each do |key|
         = f.inline_radio_button(:kursart, key, kursart_label(key))
 
-    = f.labeled_input_field :spezielle_unterkunft
+    - unless entry.sk?
+      = f.labeled_input_field :spezielle_unterkunft
 
-    = f.labeled_input_field :kurstage, addon: t('global.days_short')
+    = f.labeled_input_field :kursdauer, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short'), caption: t(entry.sk? && '.kursdauer_h' || '.kursdauer_d')
 
   = field_set_tag(t('.effektiv_teilnehmende')) do
     = f.labeled_input_field :teilnehmende_behinderte, addon: t('global.persons_short')
     = f.labeled_input_field :teilnehmende_angehoerige, addon: t('global.persons_short')
     = f.labeled_input_field :teilnehmende_weitere, addon: t('global.persons_short')
 
-  = field_set_tag(t('.absenztage')) do
-    = f.labeled_input_field :absenzen_behinderte, addon: t('global.days_short')
-    = f.labeled_input_field :absenzen_angehoerige, addon: t('global.days_short')
-    = f.labeled_input_field :absenzen_weitere, addon: t('global.days_short')
+  = field_set_tag(t(entry.sk? && '.absenzstunden' || '.absenztage')) do
+    = f.labeled_input_field :absenzen_behinderte, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
+    = f.labeled_input_field :absenzen_angehoerige, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
+    = f.labeled_input_field :absenzen_weitere, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
 
   = field_set_tag(t('.betreuerinnen')) do
     = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')
