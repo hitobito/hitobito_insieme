@@ -13,16 +13,17 @@ class Event::CourseRecordsController < CrudController
 
   self.nesting = Group, Event
 
-  self.permitted_attrs = [:inputkriterien,
-                          :subventioniert,
+  self.permitted_attrs = [:subventioniert,
+                          :inputkriterien,
                           :kursart,
+                          :spezielle_unterkunft,
                           :kurstage,
                           :teilnehmende_behinderte,
                           :teilnehmende_angehoerige,
                           :teilnehmende_weitere,
-                          :absenztage_behinderte,
-                          :absenztage_angehoerige,
-                          :absenztage_weitere,
+                          :absenzen_behinderte,
+                          :absenzen_angehoerige,
+                          :absenzen_weitere,
                           :leiterinnen,
                           :fachpersonen,
                           :hilfspersonal_ohne_honorar,

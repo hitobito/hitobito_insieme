@@ -10,17 +10,17 @@
   = f.hidden_field(:event_id)
 
   = field_set_tag do
+    = f.labeled_input_field :subventioniert
+
     = f.labeled(:inputkriterien) do
       - [:a, :b, :c].each do |key|
         = f.inline_radio_button(:inputkriterien, key, key.to_s.upcase)
 
-    = f.labeled(:subventioniert) do
-      = f.inline_radio_button(:subventioniert, true, t('activerecord.attributes.event/course_record.subventionen.mit'))
-      = f.inline_radio_button(:subventioniert, false, t('activerecord.attributes.event/course_record.subventionen.ohne'))
-
     = f.labeled(:kursart) do
       - [:weiterbildung, :freizeit_und_sport].each do |key|
         = f.inline_radio_button(:kursart, key, kursart_label(key))
+
+    = f.labeled_input_field :spezielle_unterkunft
 
     = f.labeled_input_field :kurstage, addon: t('global.days_short')
 
@@ -30,9 +30,9 @@
     = f.labeled_input_field :teilnehmende_weitere, addon: t('global.persons_short')
 
   = field_set_tag(t('.absenztage')) do
-    = f.labeled_input_field :absenztage_behinderte, addon: t('global.persons_short')
-    = f.labeled_input_field :absenztage_angehoerige, addon: t('global.persons_short')
-    = f.labeled_input_field :absenztage_weitere, addon: t('global.persons_short')
+    = f.labeled_input_field :absenzen_behinderte, addon: t('global.days_short')
+    = f.labeled_input_field :absenzen_angehoerige, addon: t('global.days_short')
+    = f.labeled_input_field :absenzen_weitere, addon: t('global.days_short')
 
   = field_set_tag(t('.betreuerinnen')) do
     = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')

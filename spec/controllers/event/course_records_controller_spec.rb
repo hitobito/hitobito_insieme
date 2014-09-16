@@ -106,16 +106,17 @@ describe Event::CourseRecordsController do
     before { sign_in(people(:top_leader)) }
 
     let(:attrs) do
-      { inputkriterien: :a,
-        subventioniert: true,
+      { subventioniert: true,
+        inputkriterien: :a,
         kursart: :weiterbildung,
+        spezielle_unterkunft: false,
         kurstage: 10,
         teilnehmende_behinderte: 10,
         teilnehmende_angehoerige: 10,
         teilnehmende_weitere: 10,
-        absenztage_behinderte: 10,
-        absenztage_angehoerige: 10,
-        absenztage_weitere: 10,
+        absenzen_behinderte: 10,
+        absenzen_angehoerige: 10,
+        absenzen_weitere: 10,
         leiterinnen: 10,
         fachpersonen: 10,
         hilfspersonal_ohne_honorar: 10,
