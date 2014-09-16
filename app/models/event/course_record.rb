@@ -20,6 +20,10 @@ class Event::CourseRecord < ActiveRecord::Base
     ''
   end
 
+  def subventioniert
+    super.nil? && true || super
+  end
+
   def inputkriterien
     super || 'a'
   end

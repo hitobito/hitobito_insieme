@@ -22,20 +22,20 @@ describe Event::CourseRecord do
     end
 
     it 'fails for inputkriterien other than \'a\', \'b\' or \'c\'' do
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'a', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'a')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'b', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'b')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'c', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'c')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'd', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'd')
       r.should_not be_valid
 
       # fallback to default
-      r = Event::CourseRecord.new(event: event, subventioniert: true)
+      r = Event::CourseRecord.new(event: event)
       r.should be_valid
       r.inputkriterien.should eq('a')
     end
@@ -58,16 +58,16 @@ describe Event::CourseRecord do
       event_sk = Fabricate(:course, groups: [group], kind: Event::Kind.first,
                            leistungskategorie: 'sk')
 
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'a', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'a')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event, inputkriterien: 'b', subventioniert: true)
+      r = Event::CourseRecord.new(event: event, inputkriterien: 'b')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event_sk, inputkriterien: 'a', subventioniert: true)
+      r = Event::CourseRecord.new(event: event_sk, inputkriterien: 'a')
       r.should be_valid
 
-      r = Event::CourseRecord.new(event: event_sk, inputkriterien: 'b', subventioniert: true)
+      r = Event::CourseRecord.new(event: event_sk, inputkriterien: 'b')
       r.should_not be_valid
     end
 
