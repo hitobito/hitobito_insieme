@@ -441,7 +441,7 @@ de:
               is_not_allowed: kann nicht für das Reporting verwendet werden.
             inputkriterien:
               must_be_a_not_subsidized: müssen A sein bei Kursen ohne Subventionen
-              must_be_a_semester_jahreskurs: müssen A sein bei Semester-/Jahreskursen
+              must_be_a_sk: müssen A sein bei Semester-/Jahreskursen
 
   cost_accounting:
     report:

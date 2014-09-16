@@ -16,10 +16,16 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :kurstage, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
             modulus:  { multiple: 0.5 }
 
-  before_validation :set_defaults
-
   def to_s
     ''
+  end
+
+  def inputkriterien
+    super || 'a'
+  end
+
+  def kursart
+    super || 'weiterbildung'
   end
 
   private
@@ -32,19 +38,14 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def check_inputkriterien_a
     if inputkriterien != 'a'
-      if !subventioniert
+      unless subventioniert
         errors.add(:inputkriterien, :must_be_a_not_subsidized)
-      # TODO: add the following check if 'leistungskategorie' is available:
-      # elsif event.leistungskategorie == 'semester_jahreskurs'
-      #   errors.add(:inputkriterien, :must_be_a_semester_jahreskurs)
+      end
+      if event.leistungskategorie == 'sk'
+        errors.add(:inputkriterien, :must_be_a_sk)
       end
     end
   end
 
-  def set_defaults
-    if inputkriterien.nil? || inputkriterien.empty?
-      self.inputkriterien = 'a'
-    end
-  end
 
 end
