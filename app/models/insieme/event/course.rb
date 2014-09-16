@@ -16,7 +16,9 @@ module Insieme
                            ::Event::Course::Role::LeaderBasic,
                            ::Event::Course::Role::Caregiver,
                            ::Event::Course::Role::Kitchen,
-                           ::Event::Course::Role::Challenged]
+                           ::Event::Course::Role::Challenged,
+                           ::Event::Course::Role::Affiliated,
+                           ::Event::Course::Role::NotEntitledForBenefit]
 
         self.used_attributes -= [:kind_id]
         self.used_attributes += [:leistungskategorie]
@@ -24,8 +26,7 @@ module Insieme
         attr_readonly :leistungskategorie
 
         LEISTUNGSKATEGORIEN = %w(bk tk sk)
-        validates_presence_of :leistungskategorie
-        validates_inclusion_of :leistungskategorie, in: LEISTUNGSKATEGORIEN, allow_blank: true
+        validates :leistungskategorie, inclusion: LEISTUNGSKATEGORIEN
 
 
         def self.available_leistungskategorien

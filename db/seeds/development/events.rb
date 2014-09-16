@@ -9,7 +9,19 @@ require Rails.root.join('db', 'seeds', 'support', 'event_seeder')
 
 srand(42)
 
-seeder = EventSeeder.new
+class InsiemeEventSeeder < EventSeeder
+
+  def course_attributes(values)
+    attrs = super(values)
+    attrs[:leistungskategorie] = Insieme::Event::Course::LEISTUNGSKATEGORIEN.shuffle.first
+    attrs
+  end
+
+end
+
+
+
+seeder = InsiemeEventSeeder.new
 
 layer_types = Group.all_types.select(&:layer).collect(&:sti_name)
 Group.where(type: layer_types).pluck(:id).each do |group_id|

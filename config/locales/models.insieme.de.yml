@@ -194,7 +194,11 @@ de:
       event/course/role/kitchen:
         one: Küche
       event/course/role/challenged:
-        one: Behinderter
+        one: Behinderte(r)
+      event/course/role/affiliated:
+        one: Angehörige(r)
+      event/course/role/not_entitled_for_benefit:
+        one: Nicht Bezugsberechtigt
 
 
       cost_accounting_record:
