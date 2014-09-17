@@ -10,4 +10,3 @@ module EventsInsiemeHelper
     I18n.t("activerecord.attributes.event/course.leistungskategorien.#{entry.leistungskategorie}")
   end
 end
-

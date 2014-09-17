@@ -15,4 +15,3 @@ module Insieme::VariousAbility
   end
 
 end
-
