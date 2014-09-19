@@ -20,7 +20,7 @@ module Insieme
                            ::Event::Course::Role::Affiliated,
                            ::Event::Course::Role::NotEntitledForBenefit]
 
-        self.used_attributes -= [:kind_id]
+        self.used_attributes -= [:kind_id, :group_id, :priorization]
         self.used_attributes += [:leistungskategorie]
 
         attr_readonly :leistungskategorie
