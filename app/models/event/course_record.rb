@@ -48,7 +48,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def check_inputkriterien_a
     if inputkriterien != 'a'
-      errors.add(:inputkriterien, :must_be_a_not_subsidized) if !subventioniert
+      errors.add(:inputkriterien, :must_be_a_not_subsidized) unless subventioniert
       errors.add(:inputkriterien, :must_be_a_sk) if sk?
     end
   end
