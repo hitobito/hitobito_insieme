@@ -33,7 +33,7 @@ class Event::CourseRecord < ActiveRecord::Base
     self[:inputkriterien] ||= 'a'
     self[:kursart] ||= 'weiterbildung'
     self[:subventioniert] ||= true if subventioniert.nil?
-    self[:spezielle_unterkunft] = false if event.leistungskategorie == 'sk'
+    self[:spezielle_unterkunft] = false if sk?
 
     true # ensure callback chain continues
   end
@@ -48,14 +48,9 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def check_inputkriterien_a
     if inputkriterien != 'a'
-      unless subventioniert
-        errors.add(:inputkriterien, :must_be_a_not_subsidized)
-      end
-      if event.leistungskategorie == 'sk'
-        errors.add(:inputkriterien, :must_be_a_sk)
-      end
+      errors.add(:inputkriterien, :must_be_a_not_subsidized) if !subventioniert
+      errors.add(:inputkriterien, :must_be_a_sk) if sk?
     end
   end
-
 
 end
