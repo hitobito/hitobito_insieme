@@ -49,6 +49,8 @@ module HitobitoInsieme
         end
       end
 
+      EventsController.send :include, Insieme::EventsController
+
       Sheet::Base.send :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event

@@ -14,7 +14,8 @@ module Insieme::Sheet::Event
                 Sheet::Tab.new('reporting.title',
                                :group_event_course_record_path,
                                if: lambda do |view, _group, event|
-                                 view.can?(:update, Event::CourseRecord.new(event: event))
+                                 event.is_a?(Event::Course) &&
+                                   view.can?(:update, Event::CourseRecord.new(event: event))
                                end))
   end
 

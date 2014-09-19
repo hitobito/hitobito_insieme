@@ -7,10 +7,9 @@
 
 class Event::CourseRecord < ActiveRecord::Base
 
-  belongs_to :event
+  belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
 
-  validate :assert_event_is_course, on: :create
-  validate :check_inputkriterien_a
+  validate :must_be_a_not_subsidized
   validates :inputkriterien, inclusion: { in: %w(a b c) }
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
   validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
@@ -21,7 +20,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
-      event.leistungskategorie && event.leistungskategorie == kategorie
+      event.leistungskategorie == kategorie
     end
   end
 
@@ -30,10 +29,14 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def set_defaults
-    self[:inputkriterien] ||= 'a'
     self[:kursart] ||= 'weiterbildung'
+    self[:inputkriterien] ||= 'a'
     self[:subventioniert] ||= true if subventioniert.nil?
-    self[:spezielle_unterkunft] = false if sk?
+
+    if sk?
+      self[:spezielle_unterkunft] = false
+      self[:inputkriterien] = 'a'
+    end
 
     true # ensure callback chain continues
   end
@@ -46,10 +49,9 @@ class Event::CourseRecord < ActiveRecord::Base
     end
   end
 
-  def check_inputkriterien_a
+  def must_be_a_not_subsidized
     if inputkriterien != 'a'
       errors.add(:inputkriterien, :must_be_a_not_subsidized) unless subventioniert
-      errors.add(:inputkriterien, :must_be_a_sk) if sk?
     end
   end
 

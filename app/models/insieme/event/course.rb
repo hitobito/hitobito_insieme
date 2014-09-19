@@ -23,10 +23,14 @@ module Insieme
         self.used_attributes -= [:kind_id, :group_id, :priorization]
         self.used_attributes += [:leistungskategorie]
 
+        has_one :course_record, foreign_key: :event_id, dependent: :destroy, inverse_of: :event
+        accepts_nested_attributes_for :course_record
+
         attr_readonly :leistungskategorie
 
         LEISTUNGSKATEGORIEN = %w(bk tk sk)
         validates :leistungskategorie, inclusion: LEISTUNGSKATEGORIEN
+
 
 
         def self.available_leistungskategorien

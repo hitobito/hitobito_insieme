@@ -1,0 +1,5 @@
+- if entry.is_a?(Event::Course)
+  = field_set_tag Event::CourseRecord.model_name.human do
+    #course_record_fields
+      = f.fields_for(:course_record) do |nf|
+        = render 'event/course_records/main_fields', f: nf, sk: entry.leistungskategorie == 'sk'

@@ -22,10 +22,6 @@ describe Event::CourseRecord do
   end
 
   context 'validation' do
-    it 'fails for invalid event' do
-      new_record(events(:top_event)).should have(1).error
-    end
-
     it 'is fine with empty fields' do
       new_record(event_bk).should be_valid
     end
@@ -44,9 +40,8 @@ describe Event::CourseRecord do
       new_record(event_bk, inputkriterien: 'b', subventioniert: false).should_not be_valid
     end
 
-    it 'fails for semester-/jahreskurs with inputkriterien not being a' do
-      new_record(event_sk, inputkriterien: 'a').should be_valid
-      new_record(event_sk, inputkriterien: 'b').should_not be_valid
+    it 'sets inputkriterien to a for semester-/jahreskurs' do
+      new_record(event_sk, inputkriterien: 'b').inputkriterien.should eq 'a'
     end
 
     it 'fails for kursart other than weiterbildung or freizeit_und_sport' do
