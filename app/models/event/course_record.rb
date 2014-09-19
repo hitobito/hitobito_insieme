@@ -14,46 +14,32 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :inputkriterien, inclusion: { in: %w(a b c) }
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
   validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-            modulus:  { multiple: 0.5, if: :not_sk? },
+            modulus:  { multiple: 0.5, if: -> { !sk? } },
             numericality: { only_integer: true, allow_nil: true, if: :sk? }
+
+  before_validation :set_defaults
+
+  Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
+    define_method(:"#{kategorie}?") do
+      event.leistungskategorie && event.leistungskategorie == kategorie
+    end
+  end
 
   def to_s
     ''
   end
 
-  def subventioniert
-    super.nil? && true || super
-  end
-
-  def inputkriterien
-    super || 'a'
-  end
-
-  def kursart
-    super || 'weiterbildung'
-  end
-
-  def spezielle_unterkunft
-    event.leistungskategorie != 'sk' && super || false
-  end
-
-  def bk?
-    event.leistungskategorie == 'bk'
-  end
-
-  def tk?
-    event.leistungskategorie == 'tk'
-  end
-
-  def sk?
-    event.leistungskategorie == 'sk'
-  end
-
-  def not_sk?
-    event.leistungskategorie != 'sk'
-  end
-
   private
+
+  def set_defaults
+    self[:inputkriterien] ||= 'a'
+    self[:kursart] ||= 'weiterbildung'
+    self[:subventioniert] ||= true if subventioniert.nil?
+    self[:spezielle_unterkunft] = false if event.leistungskategorie == 'sk'
+
+    true # ensure callback chain continues
+  end
+
 
   def assert_event_is_course
     if event && event.class != Event::Course
