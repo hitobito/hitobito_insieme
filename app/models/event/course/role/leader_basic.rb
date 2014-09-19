@@ -7,6 +7,6 @@
 
 class Event::Course::Role::LeaderBasic < Event::Role::Leader
 
-  self.permissions = [:contact_data]
+  self.permissions = [:participation_read]
 
 end

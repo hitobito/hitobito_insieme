@@ -64,10 +64,10 @@ describe Event::CourseRecordAbility do
     end
 
     context Event::Course do
+
       it 'may update report of event he manages' do
-        Fabricate(Event::Role::Leader.name.to_sym,
-                  participation: Fabricate(:event_participation,
-                                           event: event, person: user))
+        participation = Fabricate(:event_participation, event: event, person: user)
+        Event::Course::Role::LeaderAdmin.create!(participation: participation)
         should be_able_to(:update, event)
       end
 

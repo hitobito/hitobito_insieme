@@ -32,6 +32,8 @@ module HitobitoInsieme
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
       GroupAbility.send :include, Insieme::GroupAbility
+      EventAbility.send :include, Insieme::EventAbility
+      AbilityDsl::Constraints::Event.send :include, Insieme::AbilityDsl::Constraints::Event
       VariousAbility.send :include, Insieme::VariousAbility
       Ability.store.register Event::CourseRecordAbility
 

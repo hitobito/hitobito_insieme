@@ -5,8 +5,16 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class Event::Course::Role::LeaderReporting < Event::Role::Leader
+module Insieme::EventAbility
+  extend ActiveSupport::Concern
 
-  self.permissions = [:participation_read, :reporting]
+  included do
+    on(Event) do
+      permission(:any).may(:report).for_reporting_event
+    end
+  end
 
+  def for_reporting_event
+    permission_in_event?(:reporting)
+  end
 end

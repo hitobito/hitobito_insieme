@@ -7,6 +7,6 @@
 
 class Event::Course::Role::Caregiver < Event::Role
 
-  self.permissions = [:contact_data]
+  self.permissions = [:participation_read]
 
 end

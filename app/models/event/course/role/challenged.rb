@@ -7,6 +7,6 @@
 
 class Event::Course::Role::Challenged <  Event::Course::Role::Participant
 
-  self.permissions = []
+  self.permissions = [:participation_read]
 
 end

@@ -11,7 +11,6 @@ top_course:
   name: Top Course
   groups: be
   type: Event::Course
-  kind: dummy
   priorization: true
   requires_approval: true
   external_applications: true
