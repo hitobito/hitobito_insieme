@@ -9,16 +9,14 @@ require 'spec_helper'
 
 describe Event::CourseRecordsController do
   let(:group) { groups(:be) }
-  let(:event) { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
+  let(:event) { events(:top_course) }
+  let(:role)  { roles(:regio_leader) }
+
+  before { sign_in(role.person) }
 
   context 'authorization' do
     context 'simple event (not course)' do
-      let(:role) do
-        Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: group)
-      end
-
       it 'denies access' do
-        sign_in(role.person)
         simple_event = Fabricate(:event, groups: [group])
 
         expect do
@@ -28,12 +26,7 @@ describe Event::CourseRecordsController do
     end
 
     context :layer_full do
-      let(:role) do
-        Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: group)
-      end
-
       it 'is allowed to update course record of regionalverein' do
-        sign_in(role.person)
         get :edit, group_id: group.id, event_id: event.id
         response.should be_ok
       end
@@ -49,7 +42,6 @@ describe Event::CourseRecordsController do
       end
 
       it 'is allowed to update course record of regionalverein' do
-        sign_in(role.person)
         get :edit, group_id: group.id, event_id: event.id
         response.should be_ok
       end
@@ -66,7 +58,6 @@ describe Event::CourseRecordsController do
 
       it 'is not allowed to update course record of regionalverein' do
         expect do
-          sign_in(role.person)
           get :edit, group_id: group.id, event_id: event.id
         end.to raise_error(CanCan::AccessDenied)
       end
@@ -74,12 +65,7 @@ describe Event::CourseRecordsController do
   end
 
   context '#edit' do
-    let(:role) do
-      Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: group)
-    end
-
     it 'builds new course_record based on group and event' do
-      sign_in(role.person)
       get :edit, group_id: group.id, event_id: event.id
       response.status.should eq(200)
 
@@ -87,8 +73,16 @@ describe Event::CourseRecordsController do
       assigns(:course_record).event.should eq event
     end
 
+    it 'assigns default values' do
+      get :edit, group_id: group.id, event_id: event.id
+
+      assigns(:course_record).inputkriterien.should eq 'a'
+      assigns(:course_record).kursart.should eq 'weiterbildung'
+      assigns(:course_record).subventioniert.should eq true
+      assigns(:course_record).spezielle_unterkunft.should be_nil
+    end
+
     it 'reuses existing course_record based on group and event' do
-      sign_in(role.person)
       record = Event::CourseRecord.create!(event: event,
                                            inputkriterien: 'a',
                                            kursart: 'weiterbildung')
@@ -103,8 +97,6 @@ describe Event::CourseRecordsController do
   end
 
   context '#update' do
-    before { sign_in(people(:top_leader)) }
-
     let(:attrs) do
       { subventioniert: true,
         inputkriterien: :a,

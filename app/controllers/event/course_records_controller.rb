@@ -35,8 +35,13 @@ class Event::CourseRecordsController < CrudController
                           :beitraege_teilnehmende
                          ]
 
+  before_render_form :set_defaults
 
   private
+
+  def set_defaults
+    entry.set_defaults
+  end
 
   def entry
     model_ivar_get || model_ivar_set(find_entry)

@@ -29,8 +29,6 @@ class Event::CourseRecord < ActiveRecord::Base
     ''
   end
 
-  private
-
   def set_defaults
     self[:inputkriterien] ||= 'a'
     self[:kursart] ||= 'weiterbildung'
@@ -40,6 +38,7 @@ class Event::CourseRecord < ActiveRecord::Base
     true # ensure callback chain continues
   end
 
+  private
 
   def assert_event_is_course
     if event && event.class != Event::Course
