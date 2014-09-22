@@ -17,8 +17,14 @@ class InsiemeEventSeeder < EventSeeder
     attrs
   end
 
-end
+  def seed_course(values)
+    seed_course_record(super(values))
+  end
 
+  def seed_course_record(event)
+    Event::CourseRecord.seed(:event_id, event_id: event.id).first
+  end
+end
 
 
 seeder = InsiemeEventSeeder.new
