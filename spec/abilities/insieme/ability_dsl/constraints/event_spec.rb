@@ -52,6 +52,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
       let(:model) { create_role(Event::Course::Role::Affiliated) }
       may_execute(:create, :update, :show, :destroy)
     end
+
+    context 'course_record' do
+      let(:model) { event.create_course_record! }
+      may_execute(:update)
+    end
   end
 
   context Event::Course::Role::LeaderReporting do
@@ -72,6 +77,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
     context 'role' do
       let(:model) { create_role(Event::Course::Role::Affiliated) }
       may_not_execute(:create, :update, :show, :destroy)
+    end
+
+    context 'course_record' do
+      let(:model) { event.create_course_record! }
+      may_execute(:update)
     end
   end
 
@@ -95,6 +105,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
       let(:model) { create_role(Event::Course::Role::Affiliated) }
       may_not_execute(:create, :update, :show, :destroy)
     end
+
+    context 'course_record' do
+      let(:model) { event.create_course_record! }
+      may_not_execute(:update)
+    end
   end
 
 
@@ -117,6 +132,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
       let(:model) { create_role(Event::Course::Role::Affiliated) }
       may_not_execute(:create, :update, :show, :destroy)
     end
+
+    context 'course_record' do
+      let(:model) { event.create_course_record! }
+      may_not_execute(:update)
+    end
   end
 
   context Event::Course::Role::Kitchen do
@@ -135,6 +155,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
     context 'role' do
       let(:model) { create_role(Event::Course::Role::Affiliated) }
       may_not_execute(:create, :update, :show, :destroy)
+    end
+
+    context 'course_record' do
+      let(:model) { event.create_course_record! }
+      may_not_execute(:update)
     end
   end
 
@@ -161,6 +186,11 @@ describe Insieme::AbilityDsl::Constraints::Event do
       context 'role' do
         let(:model) { create_role(Event::Course::Role::Affiliated) }
         may_not_execute(:create, :update, :show, :destroy)
+      end
+
+      context 'course_record' do
+        let(:model) { event.create_course_record! }
+        may_not_execute(:update)
       end
      end
    end
