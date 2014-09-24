@@ -61,7 +61,7 @@ describe EventsController do
   context 'PUT#update' do
     let(:event) { events(:top_course) }
 
-    it 'ignores chanages to leistungskategorie' do
+    it 'ignores changes to leistungskategorie' do
       put :update, group_id: groups(:be).id, id: event.id,
         event: { leistungskategorie: 'sk' }
 
@@ -79,6 +79,18 @@ describe EventsController do
       it 'validates course record attributes' do
         update(inputkriterien: 'b', subventioniert: 0)
         assigns(:event).errors.keys.should eq [:"course_record.inputkriterien"]
+      end
+
+      it 'only updates, does not change missing fields' do
+        event.course_record.update_attribute(:kursdauer, 1)
+        update(id: event.course_record.id, inputkriterien: 'b')
+
+        event.reload.course_record.kursdauer.should eq 1
+      end
+
+      it 'raises not_found when trying to update different course_record' do
+        other = Fabricate(:course, groups: [groups(:be)], leistungskategorie: 'sk', course_record_attributes: { kursdauer: 10 } )
+        expect { update(id: other.course_record.id, kursdauer: 1) }.to raise_error ActiveRecord::RecordNotFound
       end
 
       def update(course_record_attributes = {})

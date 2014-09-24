@@ -9,7 +9,7 @@ module Insieme
   module EventsController
     extend ActiveSupport::Concern
 
-    COURSE_RECORD_ATTRIBUTES = [:subventioniert, :inputkriterien, :spezielle_unterkunft, :kursart]
+    COURSE_RECORD_ATTRIBUTES = [:id, :subventioniert, :inputkriterien, :spezielle_unterkunft, :kursart]
 
 
     included do
