@@ -40,7 +40,7 @@ describe Insieme::AbilityDsl::Constraints::Event do
 
     context 'event' do
       let(:model) { event }
-      may_execute(:update, :report, :index_participations)
+      may_execute(:update, :index_participations, :application_market)
     end
 
     context 'participation' do
@@ -64,8 +64,8 @@ describe Insieme::AbilityDsl::Constraints::Event do
 
     context 'event' do
       let(:model) { event }
-      may_execute(:report, :index_participations)
-      may_not_execute(:update)
+      may_execute(:index_participations)
+      may_not_execute(:update, :application_market)
     end
 
     context 'participation' do
@@ -92,7 +92,7 @@ describe Insieme::AbilityDsl::Constraints::Event do
     context 'event' do
       let(:model) { event }
       may_execute(:index_participations)
-      may_not_execute(:update, :report)
+      may_not_execute(:update, :application_market)
     end
 
     context 'participation' do
@@ -119,7 +119,7 @@ describe Insieme::AbilityDsl::Constraints::Event do
     context 'event' do
       let(:model) { event }
       may_execute(:index_participations)
-      may_not_execute(:update, :report)
+      may_not_execute(:update, :application_market)
     end
 
     context 'participation' do
@@ -144,7 +144,7 @@ describe Insieme::AbilityDsl::Constraints::Event do
 
     context 'event' do
       let(:model) { event }
-      may_not_execute(:index_participations, :update, :report)
+      may_not_execute(:index_participations, :update, :application_market)
     end
 
     context 'participation' do
@@ -174,7 +174,7 @@ describe Insieme::AbilityDsl::Constraints::Event do
       context 'event' do
         let(:model) { event }
         may_execute(:index_participations)
-        may_not_execute(:update, :report)
+        may_not_execute(:update, :application_market)
       end
 
       context 'participation' do

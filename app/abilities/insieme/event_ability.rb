@@ -10,11 +10,7 @@ module Insieme::EventAbility
 
   included do
     on(Event) do
-      permission(:any).may(:report).for_reporting_event
+      permission(:any).may(:application_market).for_managed_events
     end
-  end
-
-  def for_reporting_event
-    permission_in_event?(:reporting)
   end
 end
