@@ -189,8 +189,12 @@ de:
         one: Leitung (Reporting)
       event/course/role/leader_basic:
         one: Leitung
-      event/course/role/caregiver:
-        one: Betreuung
+      event/course/role/expert:
+        one: Fachperson hochqualifiziert
+      event/course/role/helper_paid:
+        one: Hilfspersonal mit Honorar
+      event/course/role/helper_unpaid:
+        one: Hilfspersonal ohne Honorar
       event/course/role/kitchen:
         one: Küche
       event/course/role/challenged:

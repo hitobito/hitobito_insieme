@@ -86,58 +86,37 @@ describe Insieme::AbilityDsl::Constraints::Event do
   end
 
 
-  context Event::Course::Role::LeaderBasic do
-    let(:role_type) { Event::Course::Role::LeaderBasic }
+  [Event::Course::Role::LeaderBasic,
+   Event::Course::Role::Expert,
+   Event::Course::Role::HelperPaid,
+   Event::Course::Role::HelperUnpaid].each do |leader_type|
+    context leader_type do
+      let(:role_type) { leader_type }
 
-    context 'event' do
-      let(:model) { event }
-      may_execute(:index_participations)
-      may_not_execute(:update, :application_market)
+      context 'event' do
+        let(:model) { event }
+        may_execute(:index_participations)
+        may_not_execute(:update, :application_market)
+      end
+
+      context 'participation' do
+        let(:model) { create_role(Event::Course::Role::Affiliated).participation }
+        may_execute(:show)
+        may_not_execute(:update, :show_details)
+      end
+
+      context 'role' do
+        let(:model) { create_role(Event::Course::Role::Affiliated) }
+        may_not_execute(:create, :update, :show, :destroy)
+      end
+
+      context 'course_record' do
+        let(:model) { event.create_course_record! }
+        may_not_execute(:update)
+      end
     end
 
-    context 'participation' do
-      let(:model) { create_role(Event::Course::Role::Affiliated).participation }
-      may_execute(:show)
-      may_not_execute(:update, :show_details)
-    end
-
-    context 'role' do
-      let(:model) { create_role(Event::Course::Role::Affiliated) }
-      may_not_execute(:create, :update, :show, :destroy)
-    end
-
-    context 'course_record' do
-      let(:model) { event.create_course_record! }
-      may_not_execute(:update)
-    end
-  end
-
-
-  context Event::Course::Role::Caregiver do
-    let(:role_type) { Event::Course::Role::Caregiver }
-
-    context 'event' do
-      let(:model) { event }
-      may_execute(:index_participations)
-      may_not_execute(:update, :application_market)
-    end
-
-    context 'participation' do
-      let(:model) { create_role(Event::Course::Role::Affiliated).participation }
-      may_execute(:show)
-      may_not_execute(:update, :show_details)
-    end
-
-    context 'role' do
-      let(:model) { create_role(Event::Course::Role::Affiliated) }
-      may_not_execute(:create, :update, :show, :destroy)
-    end
-
-    context 'course_record' do
-      let(:model) { event.create_course_record! }
-      may_not_execute(:update)
-    end
-  end
+   end
 
   context Event::Course::Role::Kitchen do
     let(:role_type) { Event::Course::Role::Kitchen }

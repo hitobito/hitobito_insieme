@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class Event::Course::Role::Caregiver < Event::Role
+class Event::Course::Role::HelperPaid <  Event::Role
 
   self.permissions = [:participation_read]
 
