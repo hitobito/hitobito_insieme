@@ -48,6 +48,10 @@ class Group::Dachverein < Group
 
 
   ### ROLES
+  #
+  class Praesident < ::Role
+    self.permissions = [:contact_data]
+  end
 
   class Geschaeftsfuehrung < ::Role
     self.permissions = [:admin, :layer_full, :contact_data]
@@ -61,8 +65,14 @@ class Group::Dachverein < Group
     self.permissions = [:layer_full, :contact_data]
   end
 
-  roles Geschaeftsfuehrung,
+  class Controlling < ::Role
+    self.permissions = [:contact_data]
+  end
+
+  roles Praesident,
+        Geschaeftsfuehrung,
         Sekretariat,
-        Adressverwaltung
+        Adressverwaltung,
+        Controlling
 
 end

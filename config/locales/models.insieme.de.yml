@@ -62,6 +62,9 @@ de:
         long: Externe Organisation Gremium
 
       ### ROLES
+      group/dachverein/praesident:
+        one: PräsidentIn
+        description:
       group/dachverein/geschaeftsfuehrung:
         one: Geschäftsführung
         description:
@@ -70,6 +73,9 @@ de:
         description:
       group/dachverein/adressverwaltung:
         one: Adressverwaltung
+        description:
+      group/dachverein/controlling:
+        one: Controlling
         description:
 
       group/dachverein_liste/listenverwaltung:
