@@ -24,7 +24,6 @@ module HitobitoInsieme
       Group.send        :include, Insieme::Group
       Person.send       :include, Insieme::Person
       Event::Course.send :include, Insieme::Event::Course
-      Event::Participation.send :include, Insieme::Event::Participation
       Event::Role::Permissions << :reporting
 
       Event::Course.send    :include, Insieme::Event::Course
@@ -53,7 +52,6 @@ module HitobitoInsieme
       end
 
       EventsController.send :include, Insieme::EventsController
-      Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
 
       Sheet::Base.send :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
