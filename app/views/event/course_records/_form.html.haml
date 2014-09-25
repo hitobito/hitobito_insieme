@@ -7,8 +7,6 @@
             method: :put,
             html: { class: 'course-record report' }) do |f|
 
-  = f.hidden_field(:event_id)
-
   = field_set_tag do
     = render 'main_fields',  f: f, sk: entry.sk?
     = f.labeled_input_field :kursdauer, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short'), caption: t(entry.sk? && '.kursdauer_h' || '.kursdauer_d')

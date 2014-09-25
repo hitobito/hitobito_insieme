@@ -35,7 +35,8 @@ class Event::CourseRecordsController < CrudController
                           :beitraege_teilnehmende
                          ]
 
-  before_render_form :set_defaults
+  before_render_form :set_defaults, if: -> { entry.new_record? }
+  before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
 
   private
 
@@ -57,5 +58,13 @@ class Event::CourseRecordsController < CrudController
 
   def self.model_class
     Event::CourseRecord
+  end
+
+  # with mysql when saving value 1 it is rerenderd as 1.0 which is considered decimal
+  def replace_decimal_with_integer
+   [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere] .each do |field|
+     value = entry.send(field)
+     entry.send("#{field}=", value.to_i) if value.to_i == value
+    end
   end
 end

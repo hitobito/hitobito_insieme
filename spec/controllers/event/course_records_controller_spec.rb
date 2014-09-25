@@ -93,6 +93,23 @@ describe Event::CourseRecordsController do
       assigns(:course_record).event.should eq event
       assigns(:course_record).should be_persisted
     end
+
+
+    context 'decimals for sk', db: :mysql do
+      render_views
+
+      let(:event) { Fabricate(:course, groups: [group], leistungskategorie: 'sk') }
+      let(:field) { dom.find('#event_course_record_kursdauer') }
+      let(:dom) { Capybara::Node::Simple.new(response.body) }
+
+      before { event.create_course_record!(kursdauer: 1) }
+
+      it 'it renders 1.0 as 1' do
+        get :edit, group_id: group.id, event_id: event.id
+        field.value.should eq '1'
+      end
+
+    end
   end
 
   context '#update' do
