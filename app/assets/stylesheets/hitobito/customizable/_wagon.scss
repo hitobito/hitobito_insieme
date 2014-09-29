@@ -100,3 +100,12 @@ form.report {
     width: auto;
   }
 }
+
+.participation-person {
+  .help-inline {
+    float: none;
+  }
+  .fields .controls-row {
+    border-bottom: none;
+  }
+}
