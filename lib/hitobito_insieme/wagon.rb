@@ -21,8 +21,8 @@ module HitobitoInsieme
     config.to_prepare do
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
-      Group.send        :include, Insieme::Group
-      Person.send       :include, Insieme::Person
+      Group.send         :include, Insieme::Group
+      Person.send        :include, Insieme::Person
       Event::Course.send :include, Insieme::Event::Course
       Event::Participation.send :include, Insieme::Event::Participation
       Event::Role::Permissions << :reporting
@@ -32,8 +32,8 @@ module HitobitoInsieme
       PersonSerializer.send :include, Insieme::PersonSerializer
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
-      GroupAbility.send :include, Insieme::GroupAbility
-      EventAbility.send :include, Insieme::EventAbility
+      GroupAbility.send   :include, Insieme::GroupAbility
+      EventAbility.send   :include, Insieme::EventAbility
       AbilityDsl::Constraints::Event.send :include, Insieme::AbilityDsl::Constraints::Event
       VariousAbility.send :include, Insieme::VariousAbility
       Ability.store.register Event::CourseRecordAbility
@@ -56,11 +56,12 @@ module HitobitoInsieme
       EventsController.send :include, Insieme::EventsController
       Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
 
-      Sheet::Base.send :include, Insieme::Sheet::Base
+      Sheet::Base.send  :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event
 
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
+      Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 

@@ -24,6 +24,7 @@ module Insieme::Person
 
     before_validation :generate_automatic_number
     before_save :add_insieme_full_name
+    before_validation :normalize_i18n_keys
 
     validates :number, presence: true, uniqueness: true
     validate :allowed_number_range
@@ -62,7 +63,7 @@ module Insieme::Person
     value = send(key)
 
     if value.present?
-      I18n.t("activerecord.attributes.person.#{key.to_s.pluralize}.#{value}")
+      I18n.t("activerecord.attributes.person.#{key.to_s.pluralize}.#{value.downcase}")
     end
   end
 
@@ -98,6 +99,12 @@ module Insieme::Person
 
   def number_in_automatic_range?
     AUTOMATIC_NUMBER_RANGE.cover?(number)
+  end
+
+  def normalize_i18n_keys
+    canton.downcase! if canton?
+    language.downcase! if language?
+    correspondence_language.downcase! if correspondence_language?
   end
 
   module ClassMethods

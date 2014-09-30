@@ -486,3 +486,6 @@ de:
         name: Direkte Spenden, sonstige Erträge Art. 74
       umlage_raeumlichkeiten:
         name: Umlage Räumlichkeiten
+
+  import/person_doublette_finder:
+    duplicate_with_different_number: Eine gleiche Person mit einer anderen Personennummer (%{number}) wurde gefunden.
