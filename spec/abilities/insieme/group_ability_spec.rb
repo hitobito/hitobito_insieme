@@ -10,55 +10,157 @@ require 'spec_helper'
 
 describe GroupAbility do
 
+  let(:role) { Fabricate(role_name.to_sym, group: group)}
+  let(:ability) { Ability.new(role.person.reload) }
+
+  subject { ability }
+
   context 'Dachverein' do
+    let(:group) { groups(:dachverein) }
+
     %w(Geschaeftsfuehrung Sekretariat Adressverwaltung).each do |role_class|
-      it "#{role_class} may :reporting on same group" do
-        ability(groups(:dachverein),
-                "Group::Dachverein::#{role_class}".constantize).
-                should be_able_to(:reporting, groups(:dachverein))
+      context role_class do
+        let(:role_name) { "Group::Dachverein::#{role_class}" }
+
+        it "may :reporting on same group" do
+          should be_able_to(:reporting, group)
+        end
+
+        it "may :reporting on layer below" do
+          should be_able_to(:reporting, groups(:be))
+        end
+
+        it 'may read layer below' do
+          should be_able_to(:read,groups(:be))
+        end
+
+        it 'may read group in layer below' do
+          should be_able_to(:read, groups(:aktiv))
+        end
+
+        it 'may create groups on same group' do
+          should be_able_to(:create, Group.new(parent: group))
+        end
+
+        it 'may create groups on layer below' do
+          should be_able_to(:create, Group.new(parent: groups(:be)))
+        end
+
+        it 'may update groups in layer below' do
+          should be_able_to(:update, groups(:seeland))
+        end
+
+        it 'may destroy groups in layer below' do
+          should be_able_to(:destroy, groups(:seeland))
+        end
+
+        it 'may destroy own group' do
+          should_not be_able_to(:destroy, group)
+        end
+
+        it 'may reactivate groups in layer below' do
+          should be_able_to(:reactivate, groups(:seeland))
+        end
+
+        it 'may view deleted subgroups in layer below' do
+          should be_able_to(:deleted_subgroups, groups(:seeland))
+        end
       end
 
-      it "#{role_class} may :reporting on layer below" do
-        ability(groups(:dachverein),
-                "Group::Dachverein::#{role_class}".constantize).
-                should be_able_to(:reporting, groups(:be))
-      end
     end
   end
 
   context 'Regionalverein' do
+    let(:group) { groups(:be) }
+
     %w(Praesident Versandadresse Rechnungsadresse).each do |role_class|
-      it "#{role_class} may not :reporting on same group" do
-        ability(groups(:be),
-                "Group::Regionalverein::#{role_class}".constantize).
-                should_not be_able_to(:reporting, groups(:be))
+      context role_class do
+        let(:role_name) { "Group::Regionalverein::#{role_class}" }
+
+        it "may not :reporting on same group" do
+          should_not be_able_to(:reporting, group)
+        end
       end
     end
 
     %w(Geschaeftsfuehrung Sekretariat Adressverwaltung Controlling).each do |role_class|
-      it "#{role_class} may :reporting on same group" do
-        ability(groups(:be),
-                "Group::Regionalverein::#{role_class}".constantize).
-                should be_able_to(:reporting, groups(:be))
-      end
+      context role_class do
+        let(:role_name) { "Group::Regionalverein::#{role_class}" }
+        let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
-      it "#{role_class} may not :reporting on layer above" do
-        ability(groups(:be),
-                "Group::Regionalverein::#{role_class}".constantize).
-                should_not be_able_to(:reporting, groups(:dachverein))
-      end
+        it "may :reporting on same group" do
+          should be_able_to(:reporting, group)
+        end
 
-      it "#{role_class} may not :reporting on different group on same layer" do
-        ability(groups(:be),
-                "Group::Regionalverein::#{role_class}".constantize).
-                should_not be_able_to(:reporting, groups(:fr))
+        it "may not :reporting on layer above" do
+          should_not be_able_to(:reporting, groups(:dachverein))
+        end
+
+        it "may not :reporting on different group on same layer" do
+          should_not be_able_to(:reporting, groups(:fr))
+        end
+
+        it 'may not create groups on same group' do
+          should_not be_able_to(:create, subgroup)
+        end
+
+        it 'may read group in same layer' do
+          should be_able_to(:read, subgroup)
+        end
+
+        it 'may read layer below' do
+          should be_able_to(:read, groups(:seeland))
+        end
+
+        it 'may not read group in layer below' do
+          should_not be_able_to(:read, groups(:aktiv))
+        end
+
+        it 'may index events in same layer' do
+          should be_able_to(:index_events, group)
+        end
+
+        it 'may not index events in layer below' do
+          should_not be_able_to(:index_events, groups(:seeland))
+        end
+
+        it 'may index people in same layer' do
+          should be_able_to(:index_people, group)
+        end
+
+        it 'may not index people in layer below' do
+          should_not be_able_to(:index_people, groups(:seeland))
+        end
+
+        it 'may not index full people in layer below' do
+          should_not be_able_to(:index_full_people, groups(:seeland))
+        end
+
+        it 'may not update groups in layer below' do
+          should_not be_able_to(:update, groups(:seeland))
+        end
+
+        it 'may not destroy groups in layer below' do
+          should_not be_able_to(:destroy, groups(:seeland))
+        end
+
+        it 'may not destroy groups in own layer' do
+          should_not be_able_to(:destroy, subgroup)
+        end
+
+        it 'may not reactivate groups in layer below' do
+          should_not be_able_to(:reactivate, groups(:seeland))
+        end
+
+        it 'may not view deleted subgroups in same layer' do
+          should_not be_able_to(:deleted_subgroups, group)
+        end
+
+        it 'may not view deleted subgroups in layer below' do
+          should_not be_able_to(:deleted_subgroups, groups(:seeland))
+        end
       end
     end
-  end
-
-  def ability(group, role_type)
-    role = Fabricate(role_type.name.to_sym, group: group)
-    Ability.new(role.person.reload)
   end
 
 end
