@@ -446,7 +446,9 @@ de:
           is_not_allowed: kann nicht für das Reporting verwendet werden.
 
       messages:
-        must_be_multiple_of: muss ein vielfaches von %{multiple} sein
+        must_be_multiple_of: muss ein vielfaches von %{multiple} sein.
+        manual_number_in_automatic_range: darf nicht zwischen %{lower} und %{upper} liegen, wenn sie manuell gesetzt wird.
+        automatic_number_in_manual_range: muss zwischen %{lower} und %{upper} liegen, wenn sie automatisch gesetzt wird.
 
       models:
         event/course_record:

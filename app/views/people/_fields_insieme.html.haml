@@ -27,4 +27,6 @@
                                 { prompt: true },
                                 class: 'span6'
 
-  = f.labeled_input_fields :number
+  = f.labeled(:number) do
+    = f.input_field :number, disabled: !entry.manual_number
+    = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))

@@ -15,4 +15,33 @@ describe PeopleController do
     expect(PeopleController.permitted_attrs).to include(:billing_course_full_name)
     expect(PeopleController.permitted_attrs).to include(:correspondence_general_company_name)
   end
+
+  let(:group)  { groups(:dachverein) }
+  let(:person) { people(:top_leader) }
+
+  context 'PUT udpate' do
+    before { sign_in(person) }
+
+    it 'saves manual numbers' do
+      put :update,
+          group_id: group.id,
+          id: person.id,
+          person: { number: 2,
+                    manual_number: '1' }
+
+      assigns(:person).should be_valid
+      person.reload.number.should eq 2
+    end
+
+    it 'generates automatic numbers' do
+      put :update,
+          group_id: group.id,
+          id: person.id,
+          person: { number: 2,
+                    manual_number: 0 }
+
+      assigns(:person).should be_valid
+      person.reload.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
+    end
+  end
 end

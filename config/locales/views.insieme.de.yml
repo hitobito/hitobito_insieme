@@ -20,9 +20,41 @@ de:
   navigation:
     groups: Vereine
 
+  contactable:
+    address_fields_insieme:
+      correspondence_general: Korrespondenzadresse allgemein
+      billing_general: Rechnungsadresse allgemein
+      correspondence_course: Korrespondenzadresse Kurs
+      billing_course: Rechnungsadresse Kurs
+
+    single_address_fields:
+      zip_town: PLZ/Ort
+
+  cost_accounting:
+    index:
+      title: Übersicht Kostenrechnung
+    edit:
+      aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
+
+  event:
+    course_records:
+      edit:
+        effektiv_teilnehmende: Effektiv Teilnehmende
+        absenztage: Absenztage
+        absenzstunden: Absenzstunden
+        betreuerinnen: BetreuerInnen
+        aufwand: Aufwand
+        ertrag: Ertrag
+      form:
+        kursdauer_d: Kurstage pro TN
+        kursdauer_h: Kursstunden pro TN
+
+  people:
+    fields_insieme:
+      manual_number: Manuell
+
   reporting:
     title: Reporting
-
 
   time_records:
     edit:
@@ -50,32 +82,4 @@ de:
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
 
-  event:
-    course_records:
-      edit:
-        effektiv_teilnehmende: Effektiv Teilnehmende
-        absenztage: Absenztage
-        absenzstunden: Absenzstunden
-        betreuerinnen: BetreuerInnen
-        aufwand: Aufwand
-        ertrag: Ertrag
-      form:
-        kursdauer_d: Kurstage pro TN
-        kursdauer_h: Kursstunden pro TN
 
-
-  cost_accounting:
-    index:
-      title: Übersicht Kostenrechnung
-    edit:
-      aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
-
-  contactable:
-    address_fields_insieme:
-      correspondence_general: Korrespondenzadresse allgemein
-      billing_general: Rechnungsadresse allgemein
-      correspondence_course: Korrespondenzadresse Kurs
-      billing_course: Rechnungsadresse Kurs
-
-    single_address_fields:
-      zip_town: PLZ/Ort

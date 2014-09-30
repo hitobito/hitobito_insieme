@@ -40,7 +40,8 @@ module HitobitoInsieme
 
 
       PeopleController.permitted_attrs +=
-        [:salutation, :canton, :language, :correspondence_language, :number, :insieme_full_name]
+        [:salutation, :canton, :language, :correspondence_language,
+         :number, :manual_number, :insieme_full_name]
 
       # Permit person address fields
       %w( correspondence_general
