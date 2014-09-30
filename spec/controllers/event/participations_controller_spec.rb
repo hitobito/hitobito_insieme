@@ -61,7 +61,7 @@ describe Event::ParticipationsController do
     end
   end
 
-  it 'POST#create does not allow to update diferent person' do
+  it 'POST#create does not allow to update different person' do
     expect do
       post :create, group_id: event.groups.first.id, event_id: event.id,
         event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
