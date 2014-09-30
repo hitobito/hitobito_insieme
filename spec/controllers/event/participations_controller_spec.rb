@@ -19,7 +19,7 @@ describe Event::ParticipationsController do
       post :create, group_id: event.groups.first.id, event_id: event.id,
         event_participation: {
           person_attributes: { id: person.id,
-                               canton: 'Bern',
+                               canton: 'Be',
                                birthday: '2014-09-22',
                                zip_code: 123,
                                town: 'dummy',
@@ -42,7 +42,7 @@ describe Event::ParticipationsController do
 
     end.to change { Event::Participation.count }.by(1)
 
-    person.reload.canton.should eq 'Bern'
+    person.reload.canton.should eq 'be'
     person.birthday.should eq Date.parse('2014-09-22')
 
     %w(zip_code billing_course_zip_code correspondence_course_zip_code).each do |attr|
