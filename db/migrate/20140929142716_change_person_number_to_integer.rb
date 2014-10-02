@@ -1,6 +1,7 @@
 class ChangePersonNumberToInteger < ActiveRecord::Migration
   def up
-    change_column :people, :number, :integer
+    remove_column :people, :number
+    add_column :people, :number, :integer
 
     add_index :people, :number, unique: true
   end
