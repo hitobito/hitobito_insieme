@@ -62,9 +62,9 @@ class Event::CourseRecordsController < CrudController
 
   # with mysql when saving value 1 it is rerenderd as 1.0 which is considered decimal
   def replace_decimal_with_integer
-   [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere] .each do |field|
-     value = entry.send(field)
-     entry.send("#{field}=", value.to_i) if value.to_i == value
+    [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere] .each do |field|
+      value = entry.send(field)
+      entry.send("#{field}=", value.to_i) if value.to_i == value
     end
   end
 end

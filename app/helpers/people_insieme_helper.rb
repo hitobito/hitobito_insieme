@@ -32,7 +32,8 @@ module PeopleInsiemeHelper
   end
 
   def toggled_address_fields(prefix)
-    content_tag(:div, id: "person_#{prefix}", class: entry.send(:"#{prefix}_same_as_main?") ? 'hidden'  : '') do
+    css_class = entry.send(:"#{prefix}_same_as_main?") ? 'hidden' : ''
+    content_tag(:div, id: "person_#{prefix}", class: css_class) do
       yield
     end
   end
