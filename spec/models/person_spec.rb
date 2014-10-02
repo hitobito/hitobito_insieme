@@ -226,4 +226,30 @@ describe Person do
     end
   end
 
+  context 'updating addresses' do
+
+    it 'sets blank address fields to main values' do
+      person = create
+
+      person.reload.correspondence_general_full_name.should eq 'John Lennon'
+      person.correspondence_course_address.should eq 'Pennylane'
+      person.billing_general_town.should eq 'Liverpool'
+      person.billing_course_zip_code.should eq 9933
+      person.billing_course_country.should eq 'England'
+    end
+
+    it 'sets same_as_main according to values of address fields' do
+      person = create
+      person.update_attribute(:correspondence_general_full_name, 'Working class hero')
+
+      person.reload.full_name.should eq 'John Lennon'
+      person.correspondence_general_full_name.should eq 'Working class hero'
+      person.correspondence_general_same_as_main.should be_false
+    end
+
+    def create(attrs={})
+      Person.create!(attrs.merge(first_name: 'John', last_name: 'Lennon', address: 'Pennylane', zip_code: '9933', town: 'Liverpool', country: 'England'))
+    end
+  end
+
 end

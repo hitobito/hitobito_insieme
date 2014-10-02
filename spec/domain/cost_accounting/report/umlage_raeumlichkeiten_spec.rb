@@ -54,14 +54,14 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
       end
     end
 
-    it 'calculates infinity verwaltung if only time_record.verwaltung is set' do
+    it 'calculates verwaltung to 0.0 if only verwaltung is set' do
       create_time_record(verwaltung: 50)
-      report.verwaltung.to_f.should eq Float::INFINITY
+      report.verwaltung.to_f.should eq 0.0
     end
 
-    it 'calculates NaN value empty field of time_record' do
+    it 'calculates nil value for empty field of time_record' do
       create_time_record(verwaltung: 50)
-      report.beratung.should be_nan
+      report.beratung.should be_nil
     end
   end
 
