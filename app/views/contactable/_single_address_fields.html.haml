@@ -1,8 +1,11 @@
-= f.labeled_input_field(:"#{prefix}_full_name", label: t('activerecord.attributes.person.insieme_full_name'))
-= f.labeled_input_field(:"#{prefix}_company_name", label: t('activerecord.attributes.person.company_name'))
-= f.labeled_input_field(:"#{prefix}_company", label: t('activerecord.attributes.person.company'))
-= f.labeled_text_area(:"#{prefix}_address", label: t('activerecord.attributes.person.address'), rows: 2)
-= f.labeled(:"#{prefix}_zip_town", t('.zip_town'), nil, class: 'controls-row') do
-  = f.integer_field("#{prefix}_zip_code", class: 'span2', maxlenght: 10)
-  = f.string_field("#{prefix}_town", class: 'span4')
-= f.labeled_input_field(:"#{prefix}_country", label: t('activerecord.attributes.person.country'))
+= f.labeled_boolean_field(:"#{prefix}_same_as_main", label: t('.same_as_main'))
+
+= toggled_address_fields(prefix) do
+  = f.labeled_input_field(:"#{prefix}_full_name", label: t('activerecord.attributes.person.insieme_full_name'))
+  = f.labeled_input_field(:"#{prefix}_company_name", label: t('activerecord.attributes.person.company_name'))
+  = f.labeled_input_field(:"#{prefix}_company", label: t('activerecord.attributes.person.company'))
+  = f.labeled_text_area(:"#{prefix}_address", label: t('activerecord.attributes.person.address'), rows: 2)
+  = f.labeled(:"#{prefix}_zip_town", t('.zip_town'), nil, class: 'controls-row') do
+    = f.integer_field("#{prefix}_zip_code", class: 'span2', maxlenght: 10)
+    = f.string_field("#{prefix}_town", class: 'span4')
+  = f.labeled_input_field(:"#{prefix}_country", label: t('activerecord.attributes.person.country'))

@@ -31,6 +31,12 @@ module PeopleInsiemeHelper
     candidates_from_i18n(:correspondence_languages)
   end
 
+  def toggled_address_fields(prefix)
+    content_tag(:div, id: "person_#{prefix}", class: entry.send(:"#{prefix}_same_as_main?") ? 'hidden'  : '') do
+      yield
+    end
+  end
+
   private
 
   def candidates_from_i18n(collection_attr)

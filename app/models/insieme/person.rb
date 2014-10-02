@@ -13,11 +13,15 @@ module Insieme::Person
 
     Person::PUBLIC_ATTRS << :insieme_full_name
 
-    %w( correspondence_general
-        billing_general
-        correspondence_course
-        billing_course ).each do |prefix|
-      %w( full_name company_name company address zip_code town country).each do |field|
+    ADDRESS_TYPES = %w(correspondence_general
+                       billing_general
+                       correspondence_course
+                       billing_course)
+
+    ADDRESS_FIELDS = %w(full_name company_name company address zip_code town country)
+
+    ADDRESS_TYPES.each do |prefix|
+      ADDRESS_FIELDS.each do |field|
         Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"
       end
     end
@@ -25,6 +29,7 @@ module Insieme::Person
     before_validation :generate_automatic_number
     before_save :add_insieme_full_name
     before_validation :normalize_i18n_keys
+    before_save :update_addresses
 
     validates :number, presence: true, uniqueness: true
     validate :allowed_number_range
@@ -105,6 +110,10 @@ module Insieme::Person
     canton.downcase! if canton?
     language.downcase! if language?
     correspondence_language.downcase! if correspondence_language?
+  end
+
+  def update_addresses
+    Person::AddressUpdater.new(self).run
   end
 
   module ClassMethods

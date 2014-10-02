@@ -44,11 +44,8 @@ module HitobitoInsieme
          :number, :manual_number, :insieme_full_name]
 
       # Permit person address fields
-      %w( correspondence_general
-          billing_general
-          correspondence_course
-          billing_course ).each do |prefix|
-        %w( full_name company_name company address zip_code town country).each do |field|
+      Person::ADDRESS_TYPES.each do |prefix|
+        %w(same_as_main).concat(Person::ADDRESS_FIELDS).each do |field|
           PeopleController.permitted_attrs << :"#{prefix}_#{field}"
         end
       end
