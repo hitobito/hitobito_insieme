@@ -51,10 +51,13 @@ describe Person::AddressUpdater do
 
 
   context 'identical values' do
-    let(:billing_course_attrs) { attrs.reject { |k,v| k =~ /name/ }.map { |k, v| ["billing_course_#{k}", v] }.to_h }
 
-    let(:person) { Person.new(attrs.merge(billing_course_attrs.merge(billing_course_same_as_main: false,
-                                                                     billing_course_full_name: 'Puzzle ITC'))) }
+    let(:person) { Person.new(attrs.merge(billing_course_full_name: 'Puzzle ITC',
+                                          billing_course_address: 'Eigerplatz 4',
+                                          billing_course_zip_code: 3007,
+                                          billing_course_town: 'Bern',
+                                          billing_course_country: 'Schweiz',
+                                          billing_course_same_as_main: false)) }
     it 'keeps values identical' do
       value(:billing_course, :full_name).should eq 'Puzzle ITC'
       value(:billing_course, :address).should eq 'Eigerplatz 4'
