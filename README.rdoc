@@ -7,9 +7,11 @@ This hitobito wagon defines the organization hierarchy with groups and roles of 
 
 * Dachverein
   * Dachverein
-    * Geschäftsführung: [:admin, :layer_full, :contact_data]
-    * Sekretariat: [:layer_full, :contact_data]
-    * Adressverwaltung: [:layer_full, :contact_data]
+    * PräsidentIn: [:contact_data]
+    * Geschäftsführung: [:admin, :layer_and_below_full, :contact_data]
+    * Sekretariat: [:layer_and_below_full, :contact_data]
+    * Adressverwaltung: [:layer_and_below_full, :contact_data]
+    * Controlling: [:contact_data]
   * Liste
     * Listenverwaltung: [:group_full]
     * Person: []

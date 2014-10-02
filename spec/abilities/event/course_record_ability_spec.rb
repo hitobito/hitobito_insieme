@@ -18,14 +18,10 @@ describe Event::CourseRecordAbility do
 
   context :layer_and_below_full do
     let(:role) do
-      Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
+      roles(:top_leader)
     end
 
     context Event::Course do
-      it 'may update report of event in his group' do
-        should be_able_to(:update, record)
-      end
-
       it 'may update report of event in his layer' do
         should be_able_to(:update, record)
       end
@@ -35,6 +31,25 @@ describe Event::CourseRecordAbility do
                                                          groups: [groups(:seeland)],
                                                          leistungskategorie: 'bk'))
         should be_able_to(:update, other)
+      end
+    end
+  end
+
+  context :layer_full do
+    let(:role) do
+      Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
+    end
+
+    context Event::Course do
+      it 'may update report of event in his layer' do
+        should be_able_to(:update, record)
+      end
+
+      it 'may not update report of event in lower layer' do
+        other = Event::CourseRecord.new(event: Fabricate(:course,
+                                                         groups: [groups(:seeland)],
+                                                         leistungskategorie: 'bk'))
+        should_not be_able_to(:update, other)
       end
 
       context 'in other layer' do

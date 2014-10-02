@@ -34,8 +34,10 @@ module HitobitoInsieme
 
       GroupAbility.send   :include, Insieme::GroupAbility
       EventAbility.send   :include, Insieme::EventAbility
-      AbilityDsl::Constraints::Event.send :include, Insieme::AbilityDsl::Constraints::Event
+      PersonAbility.send  :include, Insieme::PersonAbility
       VariousAbility.send :include, Insieme::VariousAbility
+      PersonAccessibles.send :include, Insieme::PersonAccessibles
+      AbilityDsl::Constraints::Event.send :include, Insieme::AbilityDsl::Constraints::Event
       Ability.store.register Event::CourseRecordAbility
 
 

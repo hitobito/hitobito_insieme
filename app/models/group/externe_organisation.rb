@@ -56,15 +56,15 @@ class Group::ExterneOrganisation < Group
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data]
   end
 
   class Sekretariat < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data]
   end
 
   class Adressverwaltung < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data]
   end
 
   class Versandadresse < ::Role

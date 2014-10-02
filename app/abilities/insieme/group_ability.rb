@@ -33,21 +33,14 @@ module Insieme::GroupAbility
         any_role_in_same_layer_or_if_dachverein_member
 
       permission(:any).may(:deleted_subgroups).none
+      permission(:layer_and_below_full).may(:deleted_subgroups).in_same_layer_or_below
 
-      permission(:contact_data).may(:index_people).any_role_in_same_layer
-      permission(:layer_and_below_read).may(:show_details).any_role_in_same_layer_or_if_dachverein_member
-      permission(:layer_and_below_read).
-        may(:index_people, :index_full_people, :index_deep_full_people, :export_subgroups).
-        in_same_layer_or_if_dachverein_member
+      permission(:contact_data).may(:index_people).contact_data_in_same_layer
 
-      permission(:layer_and_below_full).
-        may(:create, :modify_superior, :deleted_subgroups, :reactivate).
-        if_dachverein_member
-      permission(:layer_and_below_full).may(:update).in_same_layer_or_if_dachverein_member
-      permission(:layer_and_below_full).may(:destroy).if_dachverein_member_except_permission_giving
+      permission(:layer_full).may(:create, :destroy).none
 
-      permission(:layer_and_below_full).may(:reporting).if_dachverein_member
       permission(:any).may(:reporting).if_regionalverein_member_in_same_group
+      permission(:layer_and_below_full).may(:reporting).in_same_layer_or_below
 
       general(:reporting).for_reporting_group
     end
@@ -77,6 +70,12 @@ module Insieme::GroupAbility
 
   def any_role_in_same_layer
     group && user_context.layer_ids(user_context.user.groups).include?(group.layer_group_id)
+  end
+
+  def contact_data_in_same_layer
+    group &&
+    user_context.layer_ids(user.groups_with_permission(:contact_data)).
+                 include?(group.layer_group_id)
   end
 
   def if_dachverein_member_except_permission_giving

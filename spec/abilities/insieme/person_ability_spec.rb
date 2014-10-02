@@ -1,0 +1,52 @@
+# encoding: utf-8
+
+#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
+require 'spec_helper'
+
+
+describe PersonAbility do
+
+  let(:role) { Fabricate(role_name.to_sym, group: group)}
+  let(:ability) { Ability.new(role.person.reload) }
+
+  subject { ability }
+
+  context :contact_data do
+    let(:group) { groups(:be) }
+    let(:role_name) { Group::Regionalverein::Controlling.name }
+
+    context 'in same layer' do
+      let(:gremium) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: group) }
+
+      it 'may show person with contact data' do
+        other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium).person
+        should be_able_to(:show, other)
+      end
+
+      it 'may index people in own group' do
+        should be_able_to(:index_people, group)
+      end
+
+      it 'may index people in other group' do
+        should be_able_to(:index_people, gremium)
+      end
+    end
+
+    context 'in lower layer' do
+      let(:subgroup) { groups(:seeland) }
+
+      it 'may not show person with contact data' do
+        other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: subgroup).person
+        should_not be_able_to(:show, other)
+      end
+
+      it 'may not index people' do
+        should_not be_able_to(:index_people, subgroup)
+      end
+    end
+  end
+end
