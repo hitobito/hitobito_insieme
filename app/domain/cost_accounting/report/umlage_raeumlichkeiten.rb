@@ -42,12 +42,19 @@ module CostAccounting
       end
 
       def allocated_with_time_record(field)
-        (raeumlichkeiten * time_record.send(field).to_d) /
-          (time_record.total - time_record.verwaltung)
+        if relevante_zeit > 0
+          (raeumlichkeiten * time_record.send(field).to_d) / relevante_zeit
+        end
       end
 
       def allocated_without_time_record(field)
-        (raeumlichkeiten * (aufwand(field).to_d) / relevanter_aufwand)
+        if relevanter_aufwand > 0
+          (raeumlichkeiten * (aufwand(field).to_d) / relevanter_aufwand)
+        end
+      end
+
+      def relevante_zeit
+        time_record.total - time_record.verwaltung.to_i
       end
 
       def relevanter_aufwand
