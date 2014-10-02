@@ -12,7 +12,7 @@ class Event::CourseRecordAbility < AbilityDsl::Base
   on(Event::CourseRecord) do
     permission(:any).may(:update).for_reporting_events
     permission(:group_full).may(:update).in_same_group
-    permission(:layer_full).may(:update).in_same_layer_or_below
+    permission(:layer_and_below_full).may(:update).in_same_layer_or_below
 
     general(:update).for_course_event
   end

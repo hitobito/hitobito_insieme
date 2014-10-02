@@ -35,18 +35,18 @@ module Insieme::GroupAbility
       permission(:any).may(:deleted_subgroups).none
 
       permission(:contact_data).may(:index_people).any_role_in_same_layer
-      permission(:layer_read).may(:show_details).any_role_in_same_layer_or_if_dachverein_member
-      permission(:layer_read).
+      permission(:layer_and_below_read).may(:show_details).any_role_in_same_layer_or_if_dachverein_member
+      permission(:layer_and_below_read).
         may(:index_people, :index_full_people, :index_deep_full_people, :export_subgroups).
         in_same_layer_or_if_dachverein_member
 
-      permission(:layer_full).
+      permission(:layer_and_below_full).
         may(:create, :modify_superior, :deleted_subgroups, :reactivate).
         if_dachverein_member
-      permission(:layer_full).may(:update).in_same_layer_or_if_dachverein_member
-      permission(:layer_full).may(:destroy).if_dachverein_member_except_permission_giving
+      permission(:layer_and_below_full).may(:update).in_same_layer_or_if_dachverein_member
+      permission(:layer_and_below_full).may(:destroy).if_dachverein_member_except_permission_giving
 
-      permission(:layer_full).may(:reporting).if_dachverein_member
+      permission(:layer_and_below_full).may(:reporting).if_dachverein_member
       permission(:any).may(:reporting).if_regionalverein_member_in_same_group
 
       general(:reporting).for_reporting_group

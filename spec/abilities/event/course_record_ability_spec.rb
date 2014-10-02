@@ -16,7 +16,7 @@ describe Event::CourseRecordAbility do
 
   subject { Ability.new(user.reload) }
 
-  context :layer_full do
+  context :layer_and_below_full do
     let(:role) do
       Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
     end

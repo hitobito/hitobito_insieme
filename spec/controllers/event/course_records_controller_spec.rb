@@ -25,7 +25,7 @@ describe Event::CourseRecordsController do
       end
     end
 
-    context :layer_full do
+    context :layer_and_below_full do
       it 'is allowed to update course record of regionalverein' do
         get :edit, group_id: group.id, event_id: event.id
         response.should be_ok
