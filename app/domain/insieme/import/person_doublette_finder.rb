@@ -36,15 +36,17 @@ module Insieme
         duplicates = duplicates_without_number
         if duplicates.present?
           person = duplicates.first
-          if person.number?
-            person.errors.add(:base,
-                              translate(:duplicate_with_different_number,
-                                        number: person.number))
-          end
+          add_duplicate_with_different_number_error(person) if person.number?
         else
           attrs[:manual_number] = true
         end
         duplicates
+      end
+
+      def add_duplicate_with_different_number_error(person)
+        person.errors.add(:base,
+                          translate(:duplicate_with_different_number,
+                                    number: person.number))
       end
     end
   end

@@ -30,12 +30,16 @@ describe GroupAbility do
           should be_able_to(:reporting, groups(:be))
         end
 
-        it 'may read layer below' do
-          should be_able_to(:read,groups(:be))
+        it 'may show layer below' do
+          should be_able_to(:show, groups(:be))
         end
 
-        it 'may read group in layer below' do
-          should be_able_to(:read, groups(:aktiv))
+        it 'may show group in layer below' do
+          should be_able_to(:show, groups(:aktiv))
+        end
+
+        it 'may show externe organisation' do
+          should be_able_to(:show, Group::ExterneOrganisation.new(parent: group))
         end
 
         it 'may create groups on same group' do
@@ -105,15 +109,27 @@ describe GroupAbility do
         end
 
         it 'may read group in same layer' do
-          should be_able_to(:read, subgroup)
+          should be_able_to(:show, subgroup)
         end
 
-        it 'may read layer below' do
-          should be_able_to(:read, groups(:seeland))
+        it 'may show layer below' do
+          should be_able_to(:show, groups(:seeland))
         end
 
-        it 'may not read group in layer below' do
-          should_not be_able_to(:read, groups(:aktiv))
+        it 'may not show group in layer below' do
+          should_not be_able_to(:show, groups(:aktiv))
+        end
+
+        it 'may show dachverein' do
+          should be_able_to(:show, groups(:dachverein))
+        end
+
+        it 'may show regionalverein anywhere' do
+          should be_able_to(:show, Group::Regionalverein.new(parent: groups(:dachverein)))
+        end
+
+        it 'may not show external organization' do
+          should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
         end
 
         it 'may index events in same layer' do
@@ -162,5 +178,36 @@ describe GroupAbility do
       end
     end
   end
+
+  context 'Externe Organisation' do
+    let(:group) { Fabricate(Group::ExterneOrganisation.name.to_sym, parent: groups(:dachverein)) }
+
+    context 'Geschaeftsfuehrung' do
+      let(:role_name) { "Group::ExterneOrganisation::Geschaeftsfuehrung" }
+      let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
+
+      it 'may read group in same layer' do
+        should be_able_to(:show, subgroup)
+      end
+
+      it 'may not show layer below' do
+        should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: group))
+      end
+
+      it 'may show dachverein' do
+        should be_able_to(:show, groups(:dachverein))
+      end
+
+      it 'may not show regionalverein anywhere' do
+        should_not be_able_to(:show, groups(:be))
+      end
+
+      it 'may not show other external organization' do
+        should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+      end
+    end
+  end
+
+
 
 end

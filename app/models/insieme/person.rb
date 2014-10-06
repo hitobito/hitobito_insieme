@@ -81,16 +81,17 @@ module Insieme::Person
 
   def allowed_number_range
     if number_in_automatic_range? && manual_number
-      errors.add(:number,
-                 :manual_number_in_automatic_range,
-                 lower: AUTOMATIC_NUMBER_RANGE.first,
-                 upper: AUTOMATIC_NUMBER_RANGE.last)
+      add_number_error(:manual_number_in_automatic_range)
     elsif !number_in_automatic_range? && !manual_number
-      errors.add(:number,
-                 :automatic_number_in_manual_range,
-                 lower: AUTOMATIC_NUMBER_RANGE.first,
-                 upper: AUTOMATIC_NUMBER_RANGE.last)
+      add_number_error(:automatic_number_in_manual_range)
     end
+  end
+
+  def add_number_error(key)
+    errors.add(:number,
+               key,
+               lower: AUTOMATIC_NUMBER_RANGE.first,
+               upper: AUTOMATIC_NUMBER_RANGE.last)
   end
 
   def generate_automatic_number

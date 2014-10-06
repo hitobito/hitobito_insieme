@@ -26,11 +26,11 @@ module Insieme::GroupAbility
     on(Group) do
       permission(:any).
         may(:read).
-        any_role_in_same_layer_or_layer_group_or_if_dachverein_member
+        any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
 
       permission(:any).
         may(:index_events, :index_mailing_lists).
-        any_role_in_same_layer_or_if_dachverein_member
+        any_role_in_same_layer_or_if_dachverein_manager
 
       permission(:any).may(:deleted_subgroups).none
       permission(:layer_and_below_full).may(:deleted_subgroups).in_same_layer_or_below
@@ -39,33 +39,36 @@ module Insieme::GroupAbility
 
       permission(:layer_full).may(:create, :destroy).none
 
-      permission(:any).may(:reporting).if_regionalverein_member_in_same_group
+      permission(:any).may(:reporting).if_regionalverein_manager_in_same_group
       permission(:layer_and_below_full).may(:reporting).in_same_layer_or_below
 
       general(:reporting).for_reporting_group
     end
   end
 
-  def if_regionalverein_member_in_same_group
+  def if_regionalverein_manager_in_same_group
     roles = user_context.user.roles.select { |role| role.group_id == group.id }
     contains_any?(roles.collect(&:class), REPORTING_REGIO_ROLES)
   end
 
-  def if_dachverein_member
+  def if_dachverein_manager
     roles = user_context.user.roles
     contains_any?(roles.collect(&:class), REPORTING_DACH_ROLES)
   end
 
-  def any_role_in_same_layer_or_layer_group_or_if_dachverein_member
-    any_role_in_same_layer || subject.layer? || if_dachverein_member
+  def any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
+    any_role_in_same_layer ||
+    if_dachverein_manager ||
+    if_regionalverein_and_not_external_member ||
+    if_group_in_hierarchy
   end
 
-  def any_role_in_same_layer_or_if_dachverein_member
-    any_role_in_same_layer || if_dachverein_member
+  def any_role_in_same_layer_or_if_dachverein_manager
+    any_role_in_same_layer || if_dachverein_manager
   end
 
-  def in_same_layer_or_if_dachverein_member
-    in_same_layer || if_dachverein_member
+  def in_same_layer_or_if_dachverein_manager
+    in_same_layer || if_dachverein_manager
   end
 
   def any_role_in_same_layer
@@ -78,8 +81,17 @@ module Insieme::GroupAbility
                  include?(group.layer_group_id)
   end
 
-  def if_dachverein_member_except_permission_giving
-    if_dachverein_member && except_permission_giving
+  def if_dachverein_manager_except_permission_giving
+    if_dachverein_manager && except_permission_giving
+  end
+
+  def if_group_in_hierarchy
+    user_context.user.groups.collect { |g| g.hierarchy }.flatten.include?(group)
+  end
+
+  def if_regionalverein_and_not_external_member
+    subject.is_a?(Group::Regionalverein) &&
+    user_context.user.groups.any? { |g| g.layer_group.is_a?(Group::Regionalverein) }
   end
 
   def for_reporting_group

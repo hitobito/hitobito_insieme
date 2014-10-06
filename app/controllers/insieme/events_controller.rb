@@ -9,14 +9,11 @@ module Insieme
   module EventsController
     extend ActiveSupport::Concern
 
-    COURSE_RECORD_ATTRIBUTES = [:id, :subventioniert, :inputkriterien,
-                                :spezielle_unterkunft, :kursart]
-
-
     included do
       before_render_form :build_course_record, if: :new_course?
 
-      self.permitted_attrs += [course_record_attributes: COURSE_RECORD_ATTRIBUTES]
+      self.permitted_attrs += [course_record_attributes: [:id, :subventioniert, :inputkriterien,
+                                                          :spezielle_unterkunft, :kursart]]
     end
 
     private
