@@ -14,15 +14,6 @@ module Insieme
         accepts_nested_attributes_for :person
       end
 
-      def self.accepted_person_attributes
-        attributes = %w(canton birthday address zip_code town country)
-        %w(correspondence_course billing_course ).each do |prefix|
-          %w(full_name company_name company address zip_code town country).each do |field|
-            attributes << "#{prefix}_#{field}"
-          end
-        end
-        attributes
-      end
     end
   end
 end

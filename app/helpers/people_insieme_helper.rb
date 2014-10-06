@@ -31,9 +31,9 @@ module PeopleInsiemeHelper
     candidates_from_i18n(:correspondence_languages)
   end
 
-  def toggled_address_fields(prefix)
-    css_class = entry.send(:"#{prefix}_same_as_main?") ? 'hidden' : ''
-    content_tag(:div, id: "person_#{prefix}", class: css_class) do
+  def toggled_address_fields(prefix, person = entry)
+    display = person.send(:"#{prefix}_same_as_main?") ? 'display: none;' : ''
+    content_tag(:div, id: "person_#{prefix}", style: display) do
       yield
     end
   end

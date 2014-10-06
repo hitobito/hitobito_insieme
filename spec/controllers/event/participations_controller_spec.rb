@@ -68,4 +68,18 @@ describe Event::ParticipationsController do
     end.to raise_error ActiveRecord::RecordNotFound
   end
 
+  it 'POST#create does not allow creation of person' do
+    expect do
+      post :create, group_id: event.groups.first.id, event_id: event.id,
+        event_participation: { person_attributes: { canton: 'Bern' }  }
+    end.not_to change { Person.count }
+  end
+
+  it 'PUT#update does not allow to update different person' do
+    participation = Fabricate(:event_participation, event: event)
+    expect do
+      put :update, group_id: event.groups.first.id, event_id: event.id, id: participation.id,
+        event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+    end.to raise_error ActiveRecord::RecordNotFound
+  end
 end

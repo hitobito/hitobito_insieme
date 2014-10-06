@@ -9,24 +9,25 @@ module Insieme
   module Event::ParticipationsController
     extend ActiveSupport::Concern
 
-    PERSON_ATTRIBUTES = [:id, :canton, :birthday, :address, :zip_code, :town, :country,
-                         :correspondence_course_full_name,
-                         :correspondence_course_company_name,
-                         :correspondence_course_company,
-                         :correspondence_course_address,
-                         :correspondence_course_zip_code,
-                         :correspondence_course_town,
-                         :correspondence_course_country,
-                         :billing_course_full_name,
-                         :billing_course_company_name,
-                         :billing_course_company,
-                         :billing_course_address,
-                         :billing_course_zip_code,
-                         :billing_course_town,
-                         :billing_course_country]
-
     included do
-      self.permitted_attrs += [person_attributes: PERSON_ATTRIBUTES]
+      self.permitted_attrs += [person_attributes: [:id, :canton, :birthday, :address, :zip_code,
+                                                   :town, :country,
+                                                   :correspondence_course_same_as_main,
+                                                   :correspondence_course_full_name,
+                                                   :correspondence_course_company_name,
+                                                   :correspondence_course_company,
+                                                   :correspondence_course_address,
+                                                   :correspondence_course_zip_code,
+                                                   :correspondence_course_town,
+                                                   :correspondence_course_country,
+                                                   :billing_course_same_as_main,
+                                                   :billing_course_full_name,
+                                                   :billing_course_company_name,
+                                                   :billing_course_company,
+                                                   :billing_course_address,
+                                                   :billing_course_zip_code,
+                                                   :billing_course_town,
+                                                   :billing_course_country]]
     end
   end
 end

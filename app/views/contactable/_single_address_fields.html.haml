@@ -1,6 +1,8 @@
-= f.labeled_boolean_field(:"#{prefix}_same_as_main", label: t('.same_as_main'))
+= f.labeled_boolean_field(:"#{prefix}_same_as_main",
+                          label: t('.same_as_main'),
+                          data: { hide: "person_#{prefix}" })
 
-= toggled_address_fields(prefix) do
+= toggled_address_fields(prefix, f.object) do
   = f.labeled_input_field(:"#{prefix}_full_name", label: t('activerecord.attributes.person.insieme_full_name'))
   = f.labeled_input_field(:"#{prefix}_company_name", label: t('activerecord.attributes.person.company_name'))
   = f.labeled_input_field(:"#{prefix}_company", label: t('activerecord.attributes.person.company'))

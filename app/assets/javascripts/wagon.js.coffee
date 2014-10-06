@@ -7,6 +7,10 @@ $ ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )
 
-  $(':checkbox[id$=same_as_main]').on('change', (event) ->
-    selector = event.target.id.replace('_same_as_main', '')
-    $("##{selector}").toggleClass('hidden') )
+  $('[data-hide]').on('change', (event) ->
+    selector = $(this).data('hide')
+    if this.checked
+      $("##{selector}").slideUp()
+    else
+      $("##{selector}").slideDown()
+  )
