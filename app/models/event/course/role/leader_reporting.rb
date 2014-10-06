@@ -17,6 +17,6 @@
 
 class Event::Course::Role::LeaderReporting < Event::Role::Leader
 
-  self.permissions = [:participation_read, :reporting]
+  self.permissions = [:participations_read, :reporting]
 
 end

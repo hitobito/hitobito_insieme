@@ -32,12 +32,12 @@ module HitobitoInsieme
       PersonSerializer.send :include, Insieme::PersonSerializer
       GroupSerializer.send  :include, Insieme::GroupSerializer
 
-      GroupAbility.send   :include, Insieme::GroupAbility
-      EventAbility.send   :include, Insieme::EventAbility
-      PersonAbility.send  :include, Insieme::PersonAbility
-      VariousAbility.send :include, Insieme::VariousAbility
-      PersonAccessibles.send :include, Insieme::PersonAccessibles
-      AbilityDsl::Constraints::Event.send :include, Insieme::AbilityDsl::Constraints::Event
+      GroupAbility.send       :include, Insieme::GroupAbility
+      EventAbility.send       :include, Insieme::EventAbility
+      PersonAbility.send      :include, Insieme::PersonAbility
+      MailingListAbility.send :include, Insieme::MailingListAbility
+      VariousAbility.send     :include, Insieme::VariousAbility
+      PersonAccessibles.send  :include, Insieme::PersonAccessibles
       Ability.store.register Event::CourseRecordAbility
 
 

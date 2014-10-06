@@ -7,10 +7,11 @@
 
 require 'spec_helper'
 
-describe Insieme::AbilityDsl::Constraints::Event do
+describe EventAbility do
 
   let(:event)   { events(:top_course) }
-  let(:ability) { Ability.new(create_role.person.reload) }
+  let(:role)    { create_role }
+  let(:ability) { Ability.new(role.person.reload) }
 
   def create_role(event_role_type = role_type)
     participation = Fabricate(:event_participation, person: Fabricate(:person), event: event)
@@ -31,6 +32,38 @@ describe Insieme::AbilityDsl::Constraints::Event do
         it "#{text} execute #{action}"  do
           ability.send(method, be_able_to(action, model))
         end
+      end
+    end
+  end
+
+  context :read do
+    subject { ability }
+
+    context 'layer read and below' do
+      let(:role) { Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, group: groups(:dachverein)) }
+
+      context 'in same layer' do
+        it { should be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+      end
+
+      context 'in lower layer' do
+        it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
+      end
+    end
+
+    context 'any role' do
+      let(:role) { Fabricate(Group::Regionalverein::Praesident.name.to_sym, group: groups(:be)) }
+
+      context 'in same layer' do
+        it { should be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+      end
+
+      context 'in upper layer' do
+        it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:dachverein)])) }
+      end
+
+      context 'in lower layer' do
+        it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
       end
     end
   end
@@ -152,14 +185,21 @@ describe Insieme::AbilityDsl::Constraints::Event do
 
       context 'event' do
         let(:model) { event }
-        may_execute(:index_participations)
+        may_not_execute(:index_participations)
         may_not_execute(:update, :application_market)
       end
 
-      context 'participation' do
+      context 'other participation' do
         let(:model) { create_role(Event::Course::Role::Affiliated).participation }
-        may_execute(:show)
+        may_not_execute(:show)
         may_not_execute(:update, :show_details)
+      end
+
+      context 'own participation' do
+        let(:model) { role.participation }
+
+        may_execute(:show, :show_details)
+        may_not_execute(:update)
       end
 
       context 'role' do

@@ -17,6 +17,6 @@
 
 class Event::Course::Role::NotEntitledForBenefit <  Event::Course::Role::Participant
 
-  self.permissions = [:participation_read]
+  self.permissions = []
 
 end

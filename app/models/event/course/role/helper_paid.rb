@@ -17,6 +17,6 @@
 
 class Event::Course::Role::HelperPaid <  Event::Role
 
-  self.permissions = [:participation_read]
+  self.permissions = [:participations_read]
 
 end
