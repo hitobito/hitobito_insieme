@@ -223,6 +223,11 @@ de:
         one: Einzelkursreport
         other: Einzelkursreporte
 
+      cost_accounting_parameter:
+        one: Kostenrechnung Parameter
+        other: Kostenrechnung Parameter
+        menu: Parameter
+
     attributes:
 
       cost_accounting_record:
@@ -248,6 +253,11 @@ de:
         total: Total
         kontrolle: Kontrolle
         aufteilung_kontengruppen: Aufteilung auf Kontengruppen
+
+      cost_accounting_parameter:
+        year: Jahr
+        kat1_bk: Kategorie 1 Blockkurs
+        kat2_tk: Kategorie 2 Tageskurs
 
       event/course:
         leistungskategorie: Leistungskategorie
@@ -491,6 +501,7 @@ de:
         name: Direkte Spenden, sonstige Erträge Art. 74
       umlage_raeumlichkeiten:
         name: Umlage Räumlichkeiten
+
 
   import/person_doublette_finder:
     duplicate_with_different_number: Eine gleiche Person mit einer anderen Personennummer (%{number}) wurde gefunden.

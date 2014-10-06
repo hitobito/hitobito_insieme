@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :cost_accounting_parameters
   end
 
 end

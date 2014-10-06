@@ -57,6 +57,10 @@ de:
   reporting:
     title: Reporting
 
+  shared:
+    admin_nav_kinds_insieme:
+      cost_accounting_parameters: Parameter
+
   time_records:
     edit:
       comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen. Alle Angaben in Stunden.

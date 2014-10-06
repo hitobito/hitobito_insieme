@@ -5,16 +5,14 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Insieme::VariousAbility
-  extend ActiveSupport::Concern
+class CreateCostAccountingParameters < ActiveRecord::Migration
+  def change
+    create_table :cost_accounting_parameters do |t|
+      t.integer :year, null: false
+      t.integer :kat1_bk, null: false
+      t.integer :kat2_tk, null: false
 
-  included do
-    on(Event::Kind) do
-      permission(:admin).may(:manage).none
     end
-    on(CostAccountingParameter) do
-      permission(:admin).may(:manage).all
-    end
+    add_index :cost_accounting_parameters, :year
   end
-
 end
