@@ -10,14 +10,15 @@ module Insieme::EventAbility
 
   included do
     on(Event) do
-      permission(:any).may(:read).any_role_in_same_layer
+      permission(:any).may(:read).participating_or_any_role_in_same_layer
       permission(:layer_and_below_read).may(:read).in_same_layer_or_below
 
       permission(:any).may(:application_market).for_participations_full_events
     end
   end
 
-  def any_role_in_same_layer
+  def participating_or_any_role_in_same_layer
+    user_context.participations.collect(&:event_id).include?(event.id) ||
     contains_any?(user_context.layer_ids(user_context.user.groups),
                   event.groups.collect(&:layer_group_id))
   end

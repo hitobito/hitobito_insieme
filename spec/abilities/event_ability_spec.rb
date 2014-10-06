@@ -65,6 +65,15 @@ describe EventAbility do
       context 'in lower layer' do
         it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
       end
+
+      context 'participating event' do
+        let(:event) { Fabricate(:event, groups: [groups(:seeland)]) }
+        before do
+          Fabricate(Event::Role::Participant.name.to_sym,
+                    participation: Fabricate(:event_participation, event: event, person: role.person))
+        end
+        it { should be_able_to(:read, event) }
+      end
     end
   end
 
