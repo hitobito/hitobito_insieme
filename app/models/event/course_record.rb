@@ -1,4 +1,32 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: event_course_records
+#
+#  id                               :integer          not null, primary key
+#  event_id                         :integer          not null
+#  inputkriterien                   :string(1)
+#  subventioniert                   :boolean
+#  kursart                          :string(255)
+#  kursdauer                        :decimal(12, 2)
+#  teilnehmende_behinderte          :integer
+#  teilnehmende_angehoerige         :integer
+#  teilnehmende_weitere             :integer
+#  absenzen_behinderte              :decimal(12, 2)
+#  absenzen_angehoerige             :decimal(12, 2)
+#  absenzen_weitere                 :decimal(12, 2)
+#  leiterinnen                      :integer
+#  fachpersonen                     :integer
+#  hilfspersonal_ohne_honorar       :integer
+#  hilfspersonal_mit_honorar        :integer
+#  kuechenpersonal                  :integer
+#  honorare_inkl_sozialversicherung :decimal(12, 2)
+#  unterkunft                       :decimal(12, 2)
+#  uebriges                         :decimal(12, 2)
+#  beitraege_teilnehmende           :decimal(12, 2)
+#  spezielle_unterkunft             :boolean
+#
+
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3

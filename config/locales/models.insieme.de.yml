@@ -256,8 +256,8 @@ de:
 
       cost_accounting_parameter:
         year: Jahr
-        kat1_bk: Kategorie 1 Blockkurs
-        kat2_tk: Kategorie 2 Tageskurs
+        vollkosten_le_schwelle1_blockkurs: Schwellenwert 1 Vollkosten/LE (Blockkurs)
+        vollkosten_le_schwelle2_blockkurs: Schwellenwert 2 Vollkosten/LE (Blockkurs)
 
       event/course:
         leistungskategorie: Leistungskategorie

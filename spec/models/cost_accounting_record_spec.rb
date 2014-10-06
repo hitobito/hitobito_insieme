@@ -1,4 +1,27 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: cost_accounting_records
+#
+#  id                          :integer          not null, primary key
+#  group_id                    :integer          not null
+#  year                        :integer          not null
+#  report                      :string(255)      not null
+#  aufwand_ertrag_fibu         :decimal(12, 2)
+#  abgrenzung_fibu             :decimal(12, 2)
+#  abgrenzung_dachorganisation :decimal(12, 2)
+#  raeumlichkeiten             :decimal(12, 2)
+#  verwaltung                  :decimal(12, 2)
+#  beratung                    :decimal(12, 2)
+#  treffpunkte                 :decimal(12, 2)
+#  blockkurse                  :decimal(12, 2)
+#  tageskurse                  :decimal(12, 2)
+#  jahreskurse                 :decimal(12, 2)
+#  lufeb                       :decimal(12, 2)
+#  mittelbeschaffung           :decimal(12, 2)
+#  aufteilung_kontengruppen    :text
+#
+
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3

@@ -9,10 +9,10 @@ class CreateCostAccountingParameters < ActiveRecord::Migration
   def change
     create_table :cost_accounting_parameters do |t|
       t.integer :year, null: false
-      t.integer :kat1_bk, null: false
-      t.integer :kat2_tk, null: false
-
+      t.decimal :vollkosten_le_schwelle1_blockkurs, null: false, precision: 12, scale: 2
+      t.decimal :vollkosten_le_schwelle2_blockkurs, null: false, precision: 12, scale: 2
     end
-    add_index :cost_accounting_parameters, :year
+
+    add_index :cost_accounting_parameters, :year, unique: true
   end
 end

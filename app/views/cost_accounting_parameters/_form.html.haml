@@ -3,7 +3,7 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-= entry_form(buttons_bottom: false) do |f|
+= entry_form(buttons_bottom: false, html: { class: 'long-labeled' }) do |f|
   = f.labeled_input_field :year
-  = f.labeled_input_field(:kat1_bk, addon: t('global.currency'))
-  = f.labeled_input_field(:kat2_tk, addon: t('global.currency'))
+  = f.labeled_input_field(:vollkosten_le_schwelle1_blockkurs, addon: t('global.currency'))
+  = f.labeled_input_field(:vollkosten_le_schwelle2_blockkurs, addon: t('global.currency'))
