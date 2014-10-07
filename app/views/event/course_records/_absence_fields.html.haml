@@ -1,0 +1,7 @@
+= field_set_tag(entry.absence_caption) do
+  = f.labeled_input_field :absenzen_behinderte, addon: entry.duration_unit
+  = f.labeled_input_field :absenzen_angehoerige, addon: entry.duration_unit
+  = f.labeled_input_field :absenzen_weitere, addon: entry.duration_unit
+
+  = f.labeled_readonly_value :total, value: f(entry.total_absenzen)
+  = f.labeled_readonly_value :presence_participants, value: f(@numbers.presence_percent) + ' %'

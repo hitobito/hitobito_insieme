@@ -16,12 +16,12 @@ describe Event::CourseRecordsController do
 
   context 'authorization' do
     context 'simple event (not course)' do
-      it 'denies access' do
+      it 'not found' do
         simple_event = Fabricate(:event, groups: [group])
 
         expect do
           get :edit, group_id: group.id, event_id: simple_event.id
-        end.to raise_error(CanCan::AccessDenied)
+        end.to raise_error(ActionController::RoutingError)
       end
     end
 

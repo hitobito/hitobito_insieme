@@ -1,5 +1,5 @@
-= f.labeled(:leistungskategorie) do
-  .inline= format_attr(entry.event, :leistungskategorie)
+= f.fields_for(:event, f.object.event) do |ef|
+  = ef.labeled_readonly_value(:leistungskategorie)
 
 = f.labeled_input_field :subventioniert
 

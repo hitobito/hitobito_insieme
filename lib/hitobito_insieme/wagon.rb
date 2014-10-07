@@ -14,6 +14,7 @@ module HitobitoInsieme
 
     # Add a load path for this specific wagon
     config.autoload_paths += %W( #{config.root}/app/abilities
+                                 #{config.root}/app/decorators
                                  #{config.root}/app/domain
                                  #{config.root}/app/jobs
                              )

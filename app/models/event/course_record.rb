@@ -1,4 +1,11 @@
 # encoding: utf-8
+
+#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
+
 # == Schema Information
 #
 # Table name: event_course_records
@@ -26,13 +33,6 @@
 #  beitraege_teilnehmende           :decimal(12, 2)
 #  spezielle_unterkunft             :boolean
 #
-
-
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
-
 class Event::CourseRecord < ActiveRecord::Base
 
   belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
@@ -55,14 +55,33 @@ class Event::CourseRecord < ActiveRecord::Base
     ''
   end
 
+  def total_absenzen
+    absenzen_behinderte.to_d +
+    absenzen_angehoerige.to_d +
+    absenzen_weitere.to_d
+  end
+
+  def teilnehmende
+    teilnehmende_behinderte.to_i +
+    teilnehmende_angehoerige.to_i +
+    teilnehmende_weitere.to_i
+  end
+
+  def betreuende
+    leiterinnen.to_i +
+    fachpersonen.to_i +
+    hilfspersonal_mit_honorar.to_i +
+    hilfspersonal_ohne_honorar.to_i
+  end
+
   def set_defaults
-    self[:kursart] ||= 'weiterbildung'
-    self[:inputkriterien] ||= 'a'
-    self[:subventioniert] ||= true if subventioniert.nil?
+    self.kursart ||= 'weiterbildung'
+    self.inputkriterien ||= 'a'
+    self.subventioniert ||= true if subventioniert.nil?
 
     if sk?
-      self[:spezielle_unterkunft] = false
-      self[:inputkriterien] = 'a'
+      self.spezielle_unterkunft = false
+      self.inputkriterien = 'a'
     end
 
     true # ensure callback chain continues

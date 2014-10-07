@@ -1,0 +1,7 @@
+= field_set_tag do
+  = render 'main_fields',  f: f, sk: entry.sk?
+  = f.labeled_input_field :kursdauer,
+                          addon: entry.duration_unit,
+                          label: entry.kursdauer_label,
+                          help_inline: muted(t('event.course_records.form.according_to_course_dates',
+                                               duration: f(@numbers.duration_days)))

@@ -7,6 +7,8 @@
 
 module EventsInsiemeHelper
   def format_leistungskategorie(entry)
-    I18n.t("activerecord.attributes.event/course.leistungskategorien.#{entry.leistungskategorie}")
+    if entry.leistungskategorie?
+      I18n.t("activerecord.attributes.event/course.leistungskategorien.#{entry.leistungskategorie}")
+    end
   end
 end

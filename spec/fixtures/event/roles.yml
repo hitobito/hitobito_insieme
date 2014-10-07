@@ -5,9 +5,9 @@
 
 top_leader:
   participation: top_leader
-  type: Event::Role::Leader
+  type: Event::Course::Role::LeaderAdmin
 
 top_tn:
   participation: top_participant
-  type: Event::Course::Role::Participant
+  type: Event::Course::Role::Challenged
 

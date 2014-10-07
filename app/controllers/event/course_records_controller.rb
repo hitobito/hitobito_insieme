@@ -7,7 +7,7 @@
 
 class Event::CourseRecordsController < CrudController
 
-  decorates :event
+  decorates :event, :course_record
 
   authorize_resource except: :index, singleton: true
 
@@ -37,6 +37,7 @@ class Event::CourseRecordsController < CrudController
 
   before_render_form :set_defaults, if: -> { entry.new_record? }
   before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
+  before_render_form :set_numbers
 
   private
 
@@ -49,7 +50,8 @@ class Event::CourseRecordsController < CrudController
   end
 
   def find_entry
-    Event::CourseRecord.where(event_id: parent.id).first_or_initialize
+    not_found unless parent.is_a?(Event::Course)
+    parent.course_record || parent.build_course_record
   end
 
   def return_path
@@ -66,5 +68,9 @@ class Event::CourseRecordsController < CrudController
       value = entry.send(field)
       entry.send("#{field}=", value.to_i) if value.to_i == value
     end
+  end
+
+  def set_numbers
+    @numbers = CourseReporting::CourseNumbers.new(parent)
   end
 end

@@ -41,14 +41,21 @@ de:
     course_records:
       form:
         effektiv_teilnehmende: Effektiv Teilnehmende
-        absenztage: Absenztage
-        absenzstunden: Absenzstunden
         betreuerinnen: BetreuerInnen
         personal: Personal ohne Betreuungsfunktion
         aufwand: Direkter Aufwand
         ertrag: Ertrag
-        kursdauer_d: Kurstage pro TN
-        kursdauer_h: Kursstunden pro TN
+        according_to_course_dates: "gemäss Kursdaten: %{duration}"
+        according_to_list: "gemäss TN-Liste: %{count}"
+        challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
+
+  event/course_record_decorator:
+    absenztage: Absenztage
+    absenzstunden: Absenzstunden
+    teilnehmer_tage: Total TeilnehmerInnnentage
+    teilnehmer_stunden: Total TeilnehmerInnenstunden
+    kursdauer_d: Kursdauer in Tagen
+    kursdauer_h: Kursdauer in Stunden
 
   people:
     fields_insieme:

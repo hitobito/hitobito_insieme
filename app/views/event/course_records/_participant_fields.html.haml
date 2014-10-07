@@ -1,0 +1,9 @@
+= field_set_tag(t('event.course_records.form.effektiv_teilnehmende')) do
+  = participant_field_with_suggestion(f, :teilnehmende_behinderte, @numbers.challenged_count)
+  = participant_field_with_suggestion(f, :teilnehmende_angehoerige, @numbers.affiliated_count)
+  = participant_field_with_suggestion(f, :teilnehmende_weitere, @numbers.not_entitled_for_benefit_count)
+
+  = f.labeled_readonly_value :total,
+                             value: f(entry.teilnehmende),
+                             help_inline: muted(t('event.course_records.form.according_to_list',
+                                                  count: f(@numbers.participant_count)))

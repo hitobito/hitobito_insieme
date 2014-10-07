@@ -7,33 +7,12 @@
             method: :put,
             html: { class: 'course-record report' }) do |f|
 
-  = field_set_tag do
-    = render 'main_fields',  f: f, sk: entry.sk?
-    = f.labeled_input_field :kursdauer, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short'), caption: t(entry.sk? && '.kursdauer_h' || '.kursdauer_d')
+  = render 'general_fields', f: f
+  = render 'participant_fields', f: f
+  = render 'absence_fields', f: f
+  = render 'presence_fields', f: f
+  = render 'team_fields', f: f
+  = render 'cost_fields', f: f
 
-  = field_set_tag(t('.effektiv_teilnehmende')) do
-    = f.labeled_input_field :teilnehmende_behinderte, addon: t('global.persons_short')
-    = f.labeled_input_field :teilnehmende_angehoerige, addon: t('global.persons_short')
-    = f.labeled_input_field :teilnehmende_weitere, addon: t('global.persons_short')
 
-  = field_set_tag(t(entry.sk? && '.absenzstunden' || '.absenztage')) do
-    = f.labeled_input_field :absenzen_behinderte, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
-    = f.labeled_input_field :absenzen_angehoerige, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
-    = f.labeled_input_field :absenzen_weitere, addon: t(entry.sk? && 'global.hours_short' || 'global.days_short')
 
-  = field_set_tag(t('.betreuerinnen')) do
-    = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')
-    = f.labeled_input_field :fachpersonen, addon: t('global.persons_short')
-    = f.labeled_input_field :hilfspersonal_mit_honorar, addon: t('global.persons_short')
-    = f.labeled_input_field :hilfspersonal_ohne_honorar, addon: t('global.persons_short')
-
-  = field_set_tag(t('.personal')) do
-    = f.labeled_input_field :kuechenpersonal, addon: t('global.persons_short')
-
-  = field_set_tag(t('.aufwand')) do
-    = f.labeled_input_field :honorare_inkl_sozialversicherung, addon: t('global.currency')
-    = f.labeled_input_field :unterkunft, addon: t('global.currency')
-    = f.labeled_input_field :uebriges, addon: t('global.currency')
-
-  = field_set_tag(t('.ertrag')) do
-    = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency')

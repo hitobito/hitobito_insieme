@@ -20,9 +20,7 @@ describe CostAccountingParameter do
 
   describe '.current' do
     let(:p2014) { cost_accounting_parameters(:p2014) }
-    subject { CostAccountingParameter.current }
-    let(:now) { Time.zone.now }
-    before { p2014.update!(year: now.year) }
+    subject { CostAccountingParameter.for(2014) }
 
     it 'does not return parameter from future year' do
       create(p2014.year + 1)

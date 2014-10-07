@@ -273,7 +273,7 @@ de:
         inputkriterien: Inputkriterien
         kursart: Kursart
         spezielle_unterkunft: Spezielle Unterkunft
-        kursdauer: Kursdauer in Tagen
+        kursdauer: Kursdauer
         teilnehmende_behinderte: Behinderte
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
@@ -289,6 +289,9 @@ de:
         unterkunft: Unterkunft / Raumaufwand
         uebriges: Übriges inkl. Verpflegung
         beitraege_teilnehmende: Beiträge TN
+        total: Total
+        presence_participants: Präsenz TN
+        betreuungsschluessel: Betreuungsschlüssel
 
         kursarten:
           weiterbildung: Weiterbildung

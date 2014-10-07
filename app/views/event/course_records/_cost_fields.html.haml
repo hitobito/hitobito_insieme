@@ -1,0 +1,7 @@
+= field_set_tag(t('event.course_records.form.aufwand')) do
+  = f.labeled_input_field :honorare_inkl_sozialversicherung, addon: t('global.currency')
+  = f.labeled_input_field :unterkunft, addon: t('global.currency')
+  = f.labeled_input_field :uebriges, addon: t('global.currency')
+
+= field_set_tag(t('event.course_records.form.ertrag')) do
+  = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency')
