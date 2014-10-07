@@ -11,7 +11,7 @@ class InsiemePersonSeeder < PersonSeeder
 
   def amount(role_type)
     case role_type.name.demodulize
-    when 'Person', 'Mitglied', 'Aktivmitglied', 'Passivmitglied' then 5
+    when 'Person', 'Mitglied', 'Aktivmitglied', 'Passivmitglied' then 3
     else 1
     end
   end
