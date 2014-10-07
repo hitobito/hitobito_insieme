@@ -87,94 +87,169 @@ describe GroupAbility do
       end
     end
 
-    %w(Geschaeftsfuehrung Sekretariat Adressverwaltung Controlling).each do |role_class|
-      context role_class do
-        let(:role_name) { "Group::Regionalverein::#{role_class}" }
-        let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
+    context Group::Regionalverein::Geschaeftsfuehrung do
+      let(:role_name) { "Group::Regionalverein::Geschaeftsfuehrung" }
+      let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
-        it "may :reporting on same group" do
-          should be_able_to(:reporting, group)
-        end
+      it "may :reporting on same group" do
+        should be_able_to(:reporting, group)
+      end
 
-        it "may not :reporting on layer above" do
-          should_not be_able_to(:reporting, groups(:dachverein))
-        end
+      it "may not :reporting on layer above" do
+        should_not be_able_to(:reporting, groups(:dachverein))
+      end
 
-        it "may not :reporting on different group on same layer" do
-          should_not be_able_to(:reporting, groups(:fr))
-        end
+      it "may not :reporting on different group on same layer" do
+        should_not be_able_to(:reporting, groups(:fr))
+      end
 
-        it 'may not create groups on same group' do
-          should_not be_able_to(:create, subgroup)
-        end
+      it 'may create groups on same group' do
+        should be_able_to(:create, subgroup)
+      end
 
-        it 'may read group in same layer' do
-          should be_able_to(:show, subgroup)
-        end
+      it 'may read group in same layer' do
+        should be_able_to(:show, subgroup)
+      end
 
-        it 'may show layer below' do
-          should be_able_to(:show, groups(:seeland))
-        end
+      it 'may show layer below' do
+        should be_able_to(:show, groups(:seeland))
+      end
 
-        it 'may not show group in layer below' do
-          should_not be_able_to(:show, groups(:aktiv))
-        end
+      it 'may not show group in layer below' do
+        should_not be_able_to(:show, groups(:aktiv))
+      end
 
-        it 'may show dachverein' do
-          should be_able_to(:show, groups(:dachverein))
-        end
+      it 'may show dachverein' do
+        should be_able_to(:show, groups(:dachverein))
+      end
 
-        it 'may show regionalverein anywhere' do
-          should be_able_to(:show, Group::Regionalverein.new(parent: groups(:dachverein)))
-        end
+      it 'may show regionalverein anywhere' do
+        should be_able_to(:show, Group::Regionalverein.new(parent: groups(:dachverein)))
+      end
 
-        it 'may not show external organization' do
-          should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
-        end
+      it 'may not show external organization' do
+        should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+      end
 
-        it 'may index events in same layer' do
-          should be_able_to(:index_events, group)
-        end
+      it 'may index events in same layer' do
+        should be_able_to(:index_events, group)
+      end
 
-        it 'may not index events in layer below' do
-          should_not be_able_to(:index_events, groups(:seeland))
-        end
+      it 'may not index events in layer below' do
+        should_not be_able_to(:index_events, groups(:seeland))
+      end
 
-        it 'may index people in same layer' do
-          should be_able_to(:index_people, group)
-        end
+      it 'may index people in same layer' do
+        should be_able_to(:index_people, group)
+      end
 
-        it 'may not index people in layer below' do
-          should_not be_able_to(:index_people, groups(:seeland))
-        end
+      it 'may not index people in layer below' do
+        should_not be_able_to(:index_people, groups(:seeland))
+      end
 
-        it 'may not index full people in layer below' do
-          should_not be_able_to(:index_full_people, groups(:seeland))
-        end
+      it 'may not index full people in layer below' do
+        should_not be_able_to(:index_full_people, groups(:seeland))
+      end
 
-        it 'may not update groups in layer below' do
-          should_not be_able_to(:update, groups(:seeland))
-        end
+      it 'may not update groups in layer below' do
+        should_not be_able_to(:update, groups(:seeland))
+      end
 
-        it 'may not destroy groups in layer below' do
-          should_not be_able_to(:destroy, groups(:seeland))
-        end
+      it 'may not destroy groups in layer below' do
+        should_not be_able_to(:destroy, groups(:seeland))
+      end
 
-        it 'may not destroy groups in own layer' do
-          should_not be_able_to(:destroy, subgroup)
-        end
+      it 'may destroy groups in own layer' do
+        should be_able_to(:destroy, subgroup)
+      end
 
-        it 'may not reactivate groups in layer below' do
-          should_not be_able_to(:reactivate, groups(:seeland))
-        end
+      it 'may not reactivate groups in layer below' do
+        should_not be_able_to(:reactivate, groups(:seeland))
+      end
 
-        it 'may not view deleted subgroups in same layer' do
-          should_not be_able_to(:deleted_subgroups, group)
-        end
+      it 'may view deleted subgroups in same layer' do
+        should be_able_to(:deleted_subgroups, group)
+      end
 
-        it 'may not view deleted subgroups in layer below' do
-          should_not be_able_to(:deleted_subgroups, groups(:seeland))
-        end
+      it 'may not view deleted subgroups in layer below' do
+        should_not be_able_to(:deleted_subgroups, groups(:seeland))
+      end
+    end
+
+    context Group::Regionalverein::Controlling do
+      let(:role_name) { "Group::Regionalverein::Controlling" }
+      let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
+
+      it "may :reporting on same group" do
+        should be_able_to(:reporting, group)
+      end
+
+      it "may not :reporting on layer above" do
+        should_not be_able_to(:reporting, groups(:dachverein))
+      end
+
+      it "may not :reporting on different group on same layer" do
+        should_not be_able_to(:reporting, groups(:fr))
+      end
+
+      it 'may read group in same layer' do
+        should be_able_to(:show, subgroup)
+      end
+
+      it 'may show layer below' do
+        should be_able_to(:show, groups(:seeland))
+      end
+
+      it 'may not show group in layer below' do
+        should_not be_able_to(:show, groups(:aktiv))
+      end
+
+      it 'may show dachverein' do
+        should be_able_to(:show, groups(:dachverein))
+      end
+
+      it 'may show regionalverein anywhere' do
+        should be_able_to(:show, Group::Regionalverein.new(parent: groups(:dachverein)))
+      end
+
+      it 'may not show external organization' do
+        should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+      end
+
+      it 'may index events in same layer' do
+        should be_able_to(:index_events, group)
+      end
+
+      it 'may not index events in layer below' do
+        should_not be_able_to(:index_events, groups(:seeland))
+      end
+
+      it 'may index people in same layer' do
+        should be_able_to(:index_people, group)
+      end
+
+      it 'may not index people in layer below' do
+        should_not be_able_to(:index_people, groups(:seeland))
+      end
+
+      it 'may not index full people in layer below' do
+        should_not be_able_to(:index_full_people, groups(:seeland))
+      end
+
+      it 'may not update groups in same layer' do
+        should_not be_able_to(:update, subgroup)
+      end
+
+      it 'may not update groups in layer below' do
+        should_not be_able_to(:update, groups(:seeland))
+      end
+
+      it 'may not view deleted subgroups in same layer' do
+        should_not be_able_to(:deleted_subgroups, group)
+      end
+
+      it 'may not view deleted subgroups in layer below' do
+        should_not be_able_to(:deleted_subgroups, groups(:seeland))
       end
     end
   end
@@ -204,6 +279,18 @@ describe GroupAbility do
 
       it 'may not show other external organization' do
         should_not be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+      end
+
+      it 'may create subgroups in own layer' do
+        should be_able_to(:create, subgroup)
+      end
+
+      it 'may update subgroups in own layer' do
+        should be_able_to(:update, subgroup)
+      end
+
+      it 'may destroy subgroups in own layer' do
+        should be_able_to(:destroy, subgroup)
       end
     end
   end

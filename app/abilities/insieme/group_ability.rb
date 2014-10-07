@@ -33,11 +33,10 @@ module Insieme::GroupAbility
         any_role_in_same_layer_or_if_dachverein_manager
 
       permission(:any).may(:deleted_subgroups).none
+      permission(:layer_full).may(:deleted_subgroups).in_same_layer
       permission(:layer_and_below_full).may(:deleted_subgroups).in_same_layer_or_below
 
       permission(:contact_data).may(:index_people).contact_data_in_same_layer
-
-      permission(:layer_full).may(:create, :destroy).none
 
       permission(:any).may(:reporting).if_regionalverein_manager_in_same_group
       permission(:layer_and_below_full).may(:reporting).in_same_layer_or_below
