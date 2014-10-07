@@ -10,7 +10,7 @@ module Insieme
     extend ActiveSupport::Concern
 
     included do
-      before_render_form :build_course_record, if: :new_course?
+      before_render_new :build_course_record
 
       self.permitted_attrs += [course_record_attributes: [:id, :subventioniert, :inputkriterien,
                                                           :spezielle_unterkunft, :kursart]]
@@ -19,12 +19,10 @@ module Insieme
     private
 
     def build_course_record
-      entry.build_course_record
-      entry.course_record.set_defaults
-    end
-
-    def new_course?
-      entry.is_a?(Event::Course) && entry.new_record?
+      if entry.is_a?(Event::Course)
+        entry.build_course_record
+        entry.course_record.set_defaults
+      end
     end
 
   end

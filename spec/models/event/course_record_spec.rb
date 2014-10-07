@@ -61,11 +61,11 @@ describe Event::CourseRecord do
       new_record(event_bk, inputkriterien: 'd').should_not be_valid
     end
 
-    it 'fails for not subsidized event with inputkriterien not being a' do
+    it 'all inputkriterien are valid for subventioniert or not' do
       new_record(event_bk, inputkriterien: 'a', subventioniert: true).should be_valid
       new_record(event_bk, inputkriterien: 'b', subventioniert: true).should be_valid
       new_record(event_bk, inputkriterien: 'a', subventioniert: false).should be_valid
-      new_record(event_bk, inputkriterien: 'b', subventioniert: false).should_not be_valid
+      new_record(event_bk, inputkriterien: 'b', subventioniert: false).should be_valid
     end
 
     it 'sets inputkriterien to a for semester-/jahreskurs' do

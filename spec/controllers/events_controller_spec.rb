@@ -47,8 +47,8 @@ describe EventsController do
       end
 
       it 'validates course record attributes' do
-        expect { create('bk', { inputkriterien: 'b', subventioniert: 0 }) }.not_to change { Event::CourseRecord.count }
-        assigns(:event).errors.keys.should eq [:"course_record.inputkriterien"] # how to do this with error_on?
+        expect { create('bk', { kursart: 'foo' }) }.not_to change { Event::CourseRecord.count }
+        assigns(:event).errors.keys.should eq [:"course_record.kursart"] # how to do this with error_on?
       end
     end
 
@@ -77,8 +77,8 @@ describe EventsController do
       end
 
       it 'validates course record attributes' do
-        update(inputkriterien: 'b', subventioniert: 0)
-        assigns(:event).errors.keys.should eq [:"course_record.inputkriterien"]
+        update(kursart: 'foo')
+        assigns(:event).errors.keys.should eq [:"course_record.kursart"]
       end
 
       it 'only updates, does not change missing fields' do
