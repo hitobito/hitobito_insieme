@@ -39,14 +39,14 @@ de:
 
   event:
     course_records:
-      edit:
+      form:
         effektiv_teilnehmende: Effektiv Teilnehmende
         absenztage: Absenztage
         absenzstunden: Absenzstunden
         betreuerinnen: BetreuerInnen
-        aufwand: Aufwand
+        personal: Personal ohne Betreuungsfunktion
+        aufwand: Direkter Aufwand
         ertrag: Ertrag
-      form:
         kursdauer_d: Kurstage pro TN
         kursdauer_h: Kursstunden pro TN
 

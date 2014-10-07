@@ -37,7 +37,6 @@ class Event::CourseRecord < ActiveRecord::Base
 
   belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
 
-  validate :must_be_a_not_subsidized
   validates :inputkriterien, inclusion: { in: %w(a b c) }
   validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
   validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
@@ -74,12 +73,6 @@ class Event::CourseRecord < ActiveRecord::Base
   def assert_event_is_course
     if event && event.class != Event::Course
       errors.add(:event, :is_not_allowed)
-    end
-  end
-
-  def must_be_a_not_subsidized
-    if inputkriterien != 'a'
-      errors.add(:inputkriterien, :must_be_a_not_subsidized) unless subventioniert
     end
   end
 

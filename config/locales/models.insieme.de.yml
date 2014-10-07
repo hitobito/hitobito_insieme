@@ -273,7 +273,7 @@ de:
         inputkriterien: Inputkriterien
         kursart: Kursart
         spezielle_unterkunft: Spezielle Unterkunft
-        kursdauer: Kursdauer
+        kursdauer: Kursdauer in Tagen
         teilnehmende_behinderte: Behinderte
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
@@ -465,11 +465,6 @@ de:
         manual_number_in_automatic_range: darf nicht zwischen %{lower} und %{upper} liegen, wenn sie manuell gesetzt wird.
         automatic_number_in_manual_range: muss zwischen %{lower} und %{upper} liegen, wenn sie automatisch gesetzt wird.
 
-      models:
-        event/course_record:
-          attributes:
-            inputkriterien:
-              must_be_a_not_subsidized: müssen A sein bei Kursen ohne Subventionen
 
   cost_accounting:
     report:

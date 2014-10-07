@@ -18,11 +18,8 @@ module Insieme::PersonSerializer
 
       property :full_name, item.insieme_full_name
 
-      %w( correspondence_general
-          billing_general
-          correspondence_course
-          billing_course ).each do |prefix|
-        %w( full_name company_name company address zip_code town country).each do |field|
+      ::Person::ADDRESS_TYPES.each do |prefix|
+        ::Person::ADDRESS_FIELDS.each do |field|
           map_properties :"#{prefix}_#{field}"
         end
       end

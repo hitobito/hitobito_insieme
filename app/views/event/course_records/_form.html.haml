@@ -24,8 +24,10 @@
   = field_set_tag(t('.betreuerinnen')) do
     = f.labeled_input_field :leiterinnen, addon: t('global.persons_short')
     = f.labeled_input_field :fachpersonen, addon: t('global.persons_short')
-    = f.labeled_input_field :hilfspersonal_ohne_honorar, addon: t('global.persons_short')
     = f.labeled_input_field :hilfspersonal_mit_honorar, addon: t('global.persons_short')
+    = f.labeled_input_field :hilfspersonal_ohne_honorar, addon: t('global.persons_short')
+
+  = field_set_tag(t('.personal')) do
     = f.labeled_input_field :kuechenpersonal, addon: t('global.persons_short')
 
   = field_set_tag(t('.aufwand')) do
