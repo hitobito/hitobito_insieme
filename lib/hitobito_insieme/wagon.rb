@@ -40,18 +40,7 @@ module HitobitoInsieme
       PersonAccessibles.send  :include, Insieme::PersonAccessibles
       Ability.store.register Event::CourseRecordAbility
 
-
-      PeopleController.permitted_attrs +=
-        [:salutation, :canton, :language, :correspondence_language,
-         :number, :manual_number, :insieme_full_name]
-
-      # Permit person address fields
-      Person::ADDRESS_TYPES.each do |prefix|
-        %w(same_as_main).concat(Person::ADDRESS_FIELDS).each do |field|
-          PeopleController.permitted_attrs << :"#{prefix}_#{field}"
-        end
-      end
-
+      PeopleController.send :include, Insieme::PeopleController
       EventsController.send :include, Insieme::EventsController
       Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
 

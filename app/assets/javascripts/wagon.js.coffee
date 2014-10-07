@@ -6,11 +6,3 @@
 $ ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )
-
-  $('[data-hide]').on('change', (event) ->
-    selector = $(this).data('hide')
-    if this.checked
-      $("##{selector}").slideUp()
-    else
-      $("##{selector}").slideDown()
-  )

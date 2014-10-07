@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Person::AddressUpdater do
+describe Person::AddressNormalizer do
   let(:attrs) { { first_name: 'Puzzle',
                   last_name: 'ITC',
                   address: 'Eigerplatz 4',
@@ -16,7 +16,7 @@ describe Person::AddressUpdater do
                   country: 'Schweiz' } }
 
   let(:person) { Person.new(attrs) }
-  before { Person::AddressUpdater.new(person).run }
+  before { Person::AddressNormalizer.new(person).run }
 
   context 'blank values' do
     %w(correspondence_general correspondence_course billing_general billing_course).each do |type|
@@ -75,10 +75,21 @@ describe Person::AddressUpdater do
   context 'assigning values' do
     let(:person) { Person.create!(attrs) }
 
-    it 'does not mark person as changed when resetting same value' do
-      person.billing_general_full_name = 'Puzzle ITC'
-      Person::AddressUpdater.new(person).run
-      person.should_not be_changed
+    context 'in main address' do
+      it 'does update others that are same as main' do
+        person.billing_general_same_as_main.should be true
+        person.town = 'Thun'
+        Person::AddressNormalizer.new(person).run
+        person.billing_general_town.should eq 'Thun'
+      end
+    end
+
+    context 'in other address' do
+      it 'does not mark person as changed when resetting same value' do
+        person.billing_general_full_name = 'Puzzle ITC'
+        Person::AddressNormalizer.new(person).run
+        person.should_not be_changed
+      end
     end
   end
 

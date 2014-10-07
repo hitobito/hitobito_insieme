@@ -29,7 +29,7 @@ module Insieme::Person
     before_validation :generate_automatic_number
     before_save :add_insieme_full_name
     before_validation :normalize_i18n_keys
-    before_save :update_addresses
+    before_save :normalize_addresses
 
     validates :number, presence: true, uniqueness: true
     validate :allowed_number_range
@@ -113,8 +113,8 @@ module Insieme::Person
     correspondence_language.downcase! if correspondence_language?
   end
 
-  def update_addresses
-    Person::AddressUpdater.new(self).run
+  def normalize_addresses
+    Person::AddressNormalizer.new(self).run
   end
 
   module ClassMethods

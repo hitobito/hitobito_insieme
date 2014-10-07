@@ -2,6 +2,12 @@
   = f.fields_for(:person, entry.person) do |pf|
     = field_set_tag Person.model_name.human do
       = pf.hidden_field :id
+      = render 'contactable/address_fields', f: pf
+
+    - %w(correspondence_course billing_course).each do |prefix|
+      = render 'contactable/single_address_fields', f: pf, prefix: prefix
+
+    = field_set_tag do
       = pf.labeled_string_field(:birthday,
                                 value: pf.date_value(:birthday),
                                 help_inline: t('people.fields.format_birthday'),
@@ -12,10 +18,3 @@
                                     :to_s,
                                     { prompt: true },
                                     class: 'span3')
-
-    = field_set_tag Person.human_attribute_name(:address) do
-      = render 'contactable/address_fields', f: pf
-
-    - %w(correspondence_course billing_course).each do |prefix|
-      = field_set_tag t("contactable.address_fields_insieme.#{prefix}") do
-        = render 'contactable/single_address_fields', f: pf, prefix: prefix

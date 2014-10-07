@@ -240,7 +240,8 @@ describe Person do
 
     it 'sets same_as_main according to values of address fields' do
       person = create
-      person.update_attribute(:correspondence_general_full_name, 'Working class hero')
+      person.update!(correspondence_general_same_as_main: false,
+                     correspondence_general_full_name: 'Working class hero')
 
       person.reload.full_name.should eq 'John Lennon'
       person.correspondence_general_full_name.should eq 'Working class hero'

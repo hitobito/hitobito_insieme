@@ -28,7 +28,7 @@ de:
       billing_course: Rechnungsadresse Kurs
 
     single_address_fields:
-      same_as_main: Gleich Hauptadresse
+      same_as_main: Gleich wie Hauptadresse
       zip_town: PLZ/Ort
 
   cost_accounting:

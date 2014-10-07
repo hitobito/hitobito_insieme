@@ -1,6 +1,3 @@
 - if f.object.is_a?(Person)
   - %w(correspondence_general billing_general correspondence_course billing_course ).each do |prefix|
-    = field_set_tag do
-      = f.labeled(prefix, '&nbsp;'.html_safe) do
-        %em= t(".#{prefix}")
-      = render 'contactable/single_address_fields', f: f, prefix: prefix
+    = render 'contactable/single_address_fields', f: f, prefix: prefix
