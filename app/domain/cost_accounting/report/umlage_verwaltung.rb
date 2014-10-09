@@ -7,12 +7,11 @@
 
 module CostAccounting
   module Report
-    class UmlageRaeumlichkeiten < Base
+    class UmlageVerwaltung < Base
 
       delegate :time_record, to: :table
 
-      FIELDS =  %w(verwaltung
-                   beratung
+      FIELDS =  %w(beratung
                    treffpunkte
                    blockkurse
                    tageskurse
@@ -24,7 +23,7 @@ module CostAccounting
         define_method(field) do
           @allocated_fields ||= {}
 
-          if raeumlichkeiten > 0
+          if verwaltung > 0
             if time_record.total > 0
               @allocated_fields[field] ||= allocated_with_time_record(field)
             else
@@ -34,36 +33,51 @@ module CostAccounting
         end
       end
 
+      def verwaltung
+        @verwaltung ||=
+          table.value_of('total_aufwand', 'verwaltung').to_d +
+          table.value_of('umlage_raeumlichkeiten', 'verwaltung').to_d
+      end
+
+      def total
+        @total ||= begin
+          beratung.to_d +
+          treffpunkte.to_d +
+          blockkurse.to_d +
+          tageskurse.to_d +
+          jahreskurse.to_d +
+          lufeb.to_d +
+          mittelbeschaffung.to_d
+        end
+      end
+
       def kontrolle
-        total - raeumlichkeiten
+        total - verwaltung
       end
 
       private
 
-      def raeumlichkeiten
-        table.value_of('raumaufwand', 'raeumlichkeiten').to_d
-      end
-
       def allocated_with_time_record(field)
         if relevante_zeit > 0
-          raeumlichkeiten * time_record.send(field).to_d / relevante_zeit
+          verwaltung * time_record.send(field).to_d / relevante_zeit
         end
       end
 
       def allocated_without_time_record(field)
         if relevanter_aufwand > 0
-          raeumlichkeiten * aufwand(field).to_d / relevanter_aufwand
+          verwaltung * aufwand(field).to_d / relevanter_aufwand
         end
       end
 
       def relevante_zeit
-        time_record.total
+        time_record.total - time_record.verwaltung.to_i
       end
 
       def relevanter_aufwand
-        FIELDS.inject(0) do |sum, field|
-          aufwand(field).to_d + sum
-        end
+        @relevanter_aufwand ||=
+          FIELDS.inject(0) do |sum, field|
+            aufwand(field).to_d + sum
+          end
       end
 
       def aufwand(field)

@@ -497,8 +497,12 @@ de:
         name: Sonstige Beiträge Bund, Beiträge Kantone/Gemeinden
       direkte_spenden:
         name: Direkte Spenden, sonstige Erträge Art. 74
+      umlage_personal:
+        name: Umlage Personal
       umlage_raeumlichkeiten:
         name: Umlage Räumlichkeiten
+      umlage_verwaltung:
+        name: Umlage Verwaltung
 
 
   import/person_doublette_finder:

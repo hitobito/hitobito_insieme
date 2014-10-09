@@ -43,26 +43,24 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
 
   context 'with time record' do
     it 'calculates values' do
-      create_time_record(verwaltung: 50, beratung: 30)
+      create_time_record(verwaltung: 50, beratung: 30, blockkurse: 20)
 
-      report.verwaltung.should be_within(0.01).of(166.66)
-      report.beratung.should be_within(0.01).of(100)
-      report.total.should be_within(0.01).of(266.66)
+      report.verwaltung.should eq(50)
+      report.beratung.should eq(30)
+      report.blockkurse.should eq(20)
+      report.total.should eq(100)
 
-      (fields - %w(verwaltung beratung total)).each do |field|
+      (fields - %w(verwaltung beratung blockkurse total)).each do |field|
         report.send(field.to_sym).should eq 0.0
       end
     end
 
-    it 'calculates verwaltung to 0.0 if only verwaltung is set' do
+    it 'calculates verwaltung if only verwaltung is set' do
       create_time_record(verwaltung: 50)
-      report.verwaltung.to_f.should eq 0.0
+      report.verwaltung.to_f.should eq 100.0
+      report.beratung.to_f.should eq 0.0
     end
 
-    it 'calculates nil value for empty field of time_record' do
-      create_time_record(verwaltung: 50)
-      report.beratung.should be_nil
-    end
   end
 
   def create_time_record(values)
