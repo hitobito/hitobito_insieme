@@ -45,17 +45,22 @@ module HitobitoInsieme
 
       # controllers
       PeopleController.send :include, Insieme::PeopleController
+      PeopleController.send :include, Insieme::RenderPeopleExports
       EventsController.send :include, Insieme::EventsController
+      SubscriptionsController.send         :include, Insieme::RenderPeopleExports
       Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
-      Event::RegisterController.send :include, Insieme::Event::RegisterController
+      Event::ParticipationsController.send :include, Insieme::RenderPeopleExports
+      Event::RegisterController.send       :include, Insieme::Event::RegisterController
 
       # helpers
       Sheet::Base.send  :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event
+      Dropdown::PeopleExport.send :include, Insieme::Dropdown::PeopleExport
 
       # domain
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
+      Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
       # rubocop:enable SingleSpaceBeforeFirstArg
     end

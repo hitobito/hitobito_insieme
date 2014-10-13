@@ -25,6 +25,6 @@ module Insieme::Event::RegisterController
   end
 
   def external_role_class
-    "#{group.layer_group.class.to_s}::External".constantize
+    "#{group.layer_group.class}::External".constantize
   end
 end

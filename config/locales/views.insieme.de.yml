@@ -22,6 +22,7 @@ de:
 
   contactable:
     address_fields_insieme:
+      main: Hauptadresse
       correspondence_general: Korrespondenzadresse allgemein
       billing_general: Rechnungsadresse allgemein
       correspondence_course: Korrespondenzadresse Kurs
