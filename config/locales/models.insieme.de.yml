@@ -77,6 +77,9 @@ de:
       group/dachverein/controlling:
         one: Controlling
         description:
+      group/dachverein/external:
+        one: Extern
+        description:
 
       group/dachverein_liste/listenverwaltung:
         one: Listenverwaltung
@@ -112,6 +115,9 @@ de:
         description:
       group/regionalverein/controlling:
         one: Controlling
+        description:
+      group/regionalverein/external:
+        one: Extern
         description:
 
       group/regionalverein_liste/listenverwaltung:
@@ -172,6 +178,9 @@ de:
         description:
       group/externe_organisation/controlling:
         one: Controlling
+        description:
+      group/externe_organisation/external:
+        one: Extern
         description:
 
       group/externe_organisation_liste/listenverwaltung:

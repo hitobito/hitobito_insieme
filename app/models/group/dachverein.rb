@@ -69,10 +69,18 @@ class Group::Dachverein < Group
     self.permissions = [:contact_data]
   end
 
+  class External < ::Role
+    self.permissions = []
+    self.visible_from_above = false
+    self.kind = :external
+  end
+
+
   roles Praesident,
         Geschaeftsfuehrung,
         Sekretariat,
         Adressverwaltung,
-        Controlling
+        Controlling,
+        External
 
 end

@@ -79,12 +79,19 @@ class Group::Regionalverein < Group
     self.permissions = [:contact_data]
   end
 
+  class External < ::Role
+    self.permissions = []
+    self.visible_from_above = false
+    self.kind = :external
+  end
+
   roles Praesident,
         Geschaeftsfuehrung,
         Sekretariat,
         Adressverwaltung,
         Versandadresse,
         Rechnungsadresse,
-        Controlling
+        Controlling,
+        External
 
 end
