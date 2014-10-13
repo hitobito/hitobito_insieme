@@ -22,7 +22,7 @@ module Insieme
                            ::Event::Course::Role::Affiliated,
                            ::Event::Course::Role::NotEntitledForBenefit]
 
-        self.used_attributes -= [:kind_id, :group_ids, :priorization]
+        self.used_attributes -= [:kind_id, :group_ids]
         self.used_attributes += [:leistungskategorie]
 
         has_one :course_record, foreign_key: :event_id, dependent: :destroy, inverse_of: :event
