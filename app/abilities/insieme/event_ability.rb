@@ -10,21 +10,18 @@ module Insieme::EventAbility
 
   included do
     on(Event) do
-      permission(:any).may(:read).participating_or_any_role_in_same_layer_or_in_regionalverein
+      permission(:any).may(:read).participating_or_in_regionalverein_or_any_role_in_same_layer
       permission(:layer_and_below_read).may(:read).in_same_layer_or_below
 
       permission(:any).may(:application_market).for_participations_full_events
     end
   end
 
-  def participating_or_any_role_in_same_layer_or_in_regionalverein
+  def participating_or_in_regionalverein_or_any_role_in_same_layer
     user_context.participations.collect(&:event_id).include?(event.id) ||
+    event.groups.any? { |g| g.is_a?(Group::Regionalverein) } ||
     contains_any?(user_context.layer_ids(user_context.user.groups),
-                  event.groups.collect(&:layer_group_id)) ||
-    in_regionalverein
+                  event.groups.collect(&:layer_group_id))
   end
 
-  def in_regionalverein
-    event.groups.map { |g| g.is_a?(Group::Regionalverein) }.any?
-  end
 end

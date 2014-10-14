@@ -71,7 +71,7 @@ module Insieme::GroupAbility
   end
 
   def any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
-    any_role_in_same_layer || if_dachverein_manager || if_regionalverein
+    any_role_in_same_layer_or_if_dachverein_manager || if_regionalverein
   end
 
   def in_same_layer_or_if_dachverein_manager
@@ -97,12 +97,12 @@ module Insieme::GroupAbility
   end
 
   def if_regionalverein_and_not_external_member
-    subject.is_a?(Group::Regionalverein) &&
+    if_regionalverein &&
     user_context.user.groups.any? { |g| g.layer_group.is_a?(Group::Regionalverein) }
   end
 
   def if_regionalverein
-    subject.is_a?(Group::Regionalverein)
+    group.is_a?(Group::Regionalverein)
   end
 
   def for_reporting_group
