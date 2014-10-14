@@ -23,26 +23,32 @@ class Person::AddressNormalizer
     return unless person.respond_to?(:billing_general_same_as_main)
 
     Person::ADDRESS_TYPES.each do |type|
-      if same_as_main?(type)
-        copy_fields_from_main(type)
-      elsif all_fields_empty?(type)
-        set_same_as_main(type)
-        copy_fields_from_main(type)
-      elsif all_fields_equal_to_main?(type)
-        set_same_as_main(type)
-      end
+      normalize_fields(type)
     end
   end
 
   private
 
+  def normalize_fields(type)
+    if same_as_main?(type)
+      copy_fields_from_main(type)
+    elsif all_fields_empty?(type)
+      set_same_as_main(type)
+      copy_fields_from_main(type)
+    elsif all_fields_equal_to_main?(type)
+      set_same_as_main(type)
+    end
+  end
+
   def same_as_main?(type)
     person.send("#{type}_same_as_main?")
   end
 
+  # rubocop:disable Style/AccessorMethodName
   def set_same_as_main(type)
     person.send("#{type}_same_as_main=", true)
   end
+  # rubocop:enable Style/AccessorMethodName
 
   def copy_fields_from_main(type)
     fields(type).each do |typed_field, field|
