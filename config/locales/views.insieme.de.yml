@@ -15,7 +15,9 @@ de:
       time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
       general: Allgemeines
+      course_statistics: Kursstatistik
       overview: Übersicht
+      general_cost_allocation: Umlage Gemeinkosten
 
   navigation:
     groups: Vereine
@@ -53,6 +55,17 @@ de:
         updated_at: "aktualisiert am %{date}"
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
         missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
+
+    general_cost_allocations:
+      edit:
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        semesterkurse: Semester- und Jahreskurse
+        total_direct_cost: Total direkte Kosten
+        total_general_cost: Total Gemeinkosten
+        general_cost_allowance: Gemeinkostenzuschlag
+        start_allocation: Umlage starten
+        last_allocation: "Letzte Gemeinkostenumlage: %{date}"
 
     participations:
       asides_insieme:

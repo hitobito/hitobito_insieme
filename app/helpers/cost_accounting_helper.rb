@@ -25,4 +25,10 @@ module CostAccountingHelper
   def base_time_record_group_path(group, _params = {})
     group_path(group) + '/time_record'
   end
+
+  def reporting_nav(label, path)
+    content_tag(:li, class: current_page?(path) && 'active') do
+      link_to(label, path)
+    end
+  end
 end

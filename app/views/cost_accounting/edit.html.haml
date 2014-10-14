@@ -3,7 +3,7 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-- @subtitle = I18n.t('crud.edit.title', model: record)
+- @subtitle = I18n.t('crud.edit.title', model: entry)
 
 - section_fields = %w(raeumlichkeiten
 -                     verwaltung
@@ -15,7 +15,7 @@
 -                     lufeb
 -                     mittelbeschaffung)
 
-= crud_form(record, url: cost_accounting_report_group_path(group, year, record.report),
+= crud_form(entry, url: cost_accounting_report_group_path(group, year, entry.report),
                      cancel_url: cost_accounting_group_path(group, year),
                      buttons_bottom: true,
                      method: :put,

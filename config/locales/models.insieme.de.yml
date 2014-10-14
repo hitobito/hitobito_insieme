@@ -223,14 +223,18 @@ de:
       cost_accounting_record:
         one: Kostenrechnungsreport
         other: Kostenrechnungsreporte
+
       time_record:
         one: Zeiterfassung
         other: Zeiterfassungen
-      event:
-        period: Leistungskategorie
+
       event/course_record:
         one: Einzelkursreport
         other: Einzelkursreporte
+
+      event/general_cost_allocation:
+        one: Umlage Gemeinkosten
+        other: Umlage Gemeinkosten
 
       cost_accounting_parameter:
         one: Kostenrechnung Parameter
@@ -313,6 +317,15 @@ de:
         kursarten:
           weiterbildung: Weiterbildung
           freizeit_und_sport: Freizeit und Sport
+
+      event/general_cost_allocation:
+        year: Jahr
+        group_id: Gruppe
+        general_costs_blockkurs: Total Gemeinkosten
+        general_costs_tageskurs: Total Gemeinkosten
+        general_costs_semesterkurs: Total Gemeinkosten
+        total_direct_costs: Total direkte Kosten
+        general_cost_allowance: Gemeinkostenzuschlag
 
       group:
         full_name: Vollständiger Name

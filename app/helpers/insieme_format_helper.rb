@@ -5,16 +5,23 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class TimeRecordsController < ReportingBaseController
 
-  private
+module InsiemeFormatHelper
 
-  def entry
-    @record ||= TimeRecord.where(group_id: group.id, year: year).first_or_initialize
+  def format_money(amount)
+    if amount
+      f(amount) + ' ' + t('global.currency')
+    else
+      ''
+    end
   end
 
-  def permitted_params
-    params.require(:time_record).permit(TimeRecord.column_names - %w(id year group_id))
+  def format_percent(amount)
+    if amount
+      f(amount) + ' %'
+    else
+      ''
+    end
   end
 
 end

@@ -25,12 +25,21 @@ Rails.application.routes.draw do
           put ':year/:report' => 'cost_accounting#update', as: :cost_accounting_report
           get ':year/:report' => 'cost_accounting#edit' # route required for language switch
         end
+
       end
 
       resources :events do
         collection do
           get 'simple' => 'events#index'
           get 'course' => 'events#index', type: 'Event::Course'
+
+          scope 'general_cost_allocation' do
+            get ':year/edit' => 'event/general_cost_allocations#edit',
+                as: :edit_general_cost_allocation
+            put ':year' => 'event/general_cost_allocations#update',
+                as: :general_cost_allocation
+            get ':year' => 'event/general_cost_allocations#edit' # route required for language switch
+          end
         end
 
         scope module: 'event' do

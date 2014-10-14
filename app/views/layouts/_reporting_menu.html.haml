@@ -1,15 +1,16 @@
 
 %ul.nav.nav-list.cost-accounting-menu
   %li.nav-header= t('.general')
-  %li{class: current_page?(edit_time_record_group_path(group, year)) && 'active'}
-    = link_to  t('.time_records'), edit_time_record_group_path(group, year)
+  = reporting_nav t('.time_records'), edit_time_record_group_path(group, year)
 
+  %li.nav-header= t('.course_statistics')
+  = reporting_nav t('.general_cost_allocation'),
+                  edit_general_cost_allocation_group_events_path(group, year)
 
   %li.nav-header= t('.cost_accounting')
-  %li{class: current_page?(cost_accounting_group_path(group, year)) && 'active'}
-    = link_to  t('.overview'), cost_accounting_group_path(group, year)
+  = reporting_nav t('.overview'), cost_accounting_group_path(group, year)
+
   - cost_accounting_reports.each do |report|
     - if report.editable?
-      %li{class: current_page?(edit_cost_accounting_report_group_path(group, year, report.key)) && 'active'}
-        = link_to(h(report.human_name),
-                  edit_cost_accounting_report_group_path(group, year, report.key))
+      = reporting_nav h(report.human_name),
+                      edit_cost_accounting_report_group_path(group, year, report.key)

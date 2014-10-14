@@ -1,7 +1,7 @@
-- @subtitle = I18n.t('crud.edit.title', model: record)
+- @subtitle = I18n.t('crud.edit.title', model: entry)
 
 
-= crud_form(record,
+= crud_form(entry,
             url: time_record_group_path(group, year),
             cancel_url: time_record_group_path(group, year),
             buttons_bottom: true,

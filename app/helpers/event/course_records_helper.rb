@@ -33,14 +33,6 @@ module Event::CourseRecordsHelper
     end
   end
 
-  def format_money(amount)
-    if amount
-      f(amount) + ' ' + t('global.currency')
-    else
-      ''
-    end
-  end
-
   def participant_field_with_suggestion(form, attr, suggestion)
     form.labeled_input_field(attr,
                              addon: t('global.persons_short'),

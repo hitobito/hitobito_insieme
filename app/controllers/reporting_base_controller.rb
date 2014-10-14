@@ -14,9 +14,9 @@ class ReportingBaseController < ApplicationController
 
   decorates :group
 
-  helper_method :record, :group
+  helper_method :entry, :group
 
-  before_action :record
+  before_action :entry
 
   respond_to :html
 
@@ -24,15 +24,19 @@ class ReportingBaseController < ApplicationController
   end
 
   def update
-    record.attributes = permitted_params
+    entry.attributes = permitted_params
 
-    if record.save
-      flash[:notice] = I18n.t('crud.update.flash.success', model: record)
+    if entry.save
+      flash[:notice] = I18n.t('crud.update.flash.success', model: entry)
     end
-    respond_with(record, location: cost_accounting_group_path(group, year: year))
+    respond_with(entry, location: show_path)
   end
 
   private
+
+  def show_path
+    cost_accounting_group_path(group, year: year)
+  end
 
   def group
     @group ||= Group.find(params[:id])

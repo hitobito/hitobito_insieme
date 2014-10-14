@@ -15,13 +15,13 @@ class CostAccountingController < ReportingBaseController
 
   private
 
-  def record
+  def entry
     @record ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report]).
                                      first_or_initialize
   end
 
   def report
-    @report ||= record.report_class || fail(ActiveRecord::RecordNotFound)
+    @report ||= entry.report_class || fail(ActiveRecord::RecordNotFound)
   end
 
   def permitted_params
