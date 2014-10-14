@@ -10,14 +10,14 @@
 #
 # Table name: event_general_cost_allocations
 #
-#  id                         :integer          not null, primary key
-#  group_id                   :integer          not null
-#  year                       :integer          not null
-#  general_costs_blockkurs    :decimal(12, 2)
-#  general_costs_tageskurs    :decimal(12, 2)
-#  general_costs_semesterkurs :decimal(12, 2)
-#  created_at                 :datetime
-#  updated_at                 :datetime
+#  id                          :integer          not null, primary key
+#  group_id                    :integer          not null
+#  year                        :integer          not null
+#  general_costs_blockkurse    :decimal(12, 2)
+#  general_costs_tageskurse    :decimal(12, 2)
+#  general_costs_semesterkurse :decimal(12, 2)
+#  created_at                  :datetime
+#  updated_at                  :datetime
 #
 class Event::GeneralCostAllocation < ActiveRecord::Base
 
@@ -30,7 +30,44 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
     self.class.model_name.human
   end
 
+  def general_costs(leistungskategorie)
+    case leistungskategorie
+    when 'bk' then general_costs_blockkurse
+    when 'tk' then general_costs_tageskurse
+    when 'sk' then general_costs_semesterkurse
+    else fail ArgumentError
+    end
+  end
+
+  def total_costs(leistungskategorie)
+    total_costs_by_lk[leistungskategorie]
+  end
+
+  def general_costs_allowance(leistungskategorie)
+    @general_costs_allowances ||= {}
+    @general_costs_allowances.fetch(leistungskategorie) do
+      calculate_general_costs_allowance(leistungskategorie)
+    end
+  end
+
   private
+
+  def total_costs_by_lk
+    @total_costs ||=
+       Event::CourseRecord.joins(event: :events_groups).
+                           where(subventioniert: true,
+                                 year: year,
+                                 events_groups: { group_id: group.id }).
+                           group('events.leistungskategorie').
+                           sum(:total_direkte_kosten)
+  end
+
+  def calculate_general_costs_allowance(leistungskategorie)
+    costs = total_costs(leistungskategorie)
+    if costs && costs > 0
+      general_costs(leistungskategorie).to_d / costs
+    end
+  end
 
   def assert_group_has_reporting
     unless group.reporting?

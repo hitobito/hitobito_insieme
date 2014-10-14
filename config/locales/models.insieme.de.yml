@@ -321,11 +321,11 @@ de:
       event/general_cost_allocation:
         year: Jahr
         group_id: Gruppe
-        general_costs_blockkurs: Total Gemeinkosten
-        general_costs_tageskurs: Total Gemeinkosten
-        general_costs_semesterkurs: Total Gemeinkosten
+        general_costs_blockkurse: Total Gemeinkosten
+        general_costs_tageskurse: Total Gemeinkosten
+        general_costs_semesterkurse: Total Gemeinkosten
         total_direct_costs: Total direkte Kosten
-        general_cost_allowance: Gemeinkostenzuschlag
+        general_costs_allowance: Gemeinkostenzuschlag
 
       group:
         full_name: Vollständiger Name

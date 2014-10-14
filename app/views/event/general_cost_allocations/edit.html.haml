@@ -9,20 +9,23 @@
             method: :put,
             html: { class: 'report' }) do |f|
 
-  = field_set_tag(t('.blockkurse')) do
-    = f.labeled_readonly_value :total_direct_costs, value: format_money(0)
-    = f.labeled_input_field :general_costs_blockkurs, addon: t('global.currency')
-    = f.labeled_readonly_value :general_cost_allowance, value: format_percent(0)
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.blockkurse'),
+           field: :general_costs_blockkurse,
+           lk: 'bk'
 
-  = field_set_tag(t('.tageskurse')) do
-    = f.labeled_readonly_value :total_direct_costs, value: format_money(0)
-    = f.labeled_input_field :general_costs_tageskurs, addon: t('global.currency')
-    = f.labeled_readonly_value :general_cost_allowance, value: format_percent(0)
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.tageskurse'),
+           field: :general_costs_tageskurse,
+           lk: 'tk'
 
-  = field_set_tag(t('.semesterkurse')) do
-    = f.labeled_readonly_value :total_direct_costs, value: format_money(0)
-    = f.labeled_input_field :general_costs_semesterkurs, addon: t('global.currency')
-    = f.labeled_readonly_value :general_cost_allowance, value: format_percent(0)
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.semesterkurse'),
+           field: :general_costs_semesterkurse,
+           lk: 'sk'
 
 
 %p= t('.last_allocation', date: format_attr(entry, :updated_at)).html_safe

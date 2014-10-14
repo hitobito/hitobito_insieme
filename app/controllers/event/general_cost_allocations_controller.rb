@@ -20,9 +20,9 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
 
   def permitted_params
     params.require(:event_general_cost_allocation).
-           permit(:general_costs_blockkurs,
-                  :general_costs_tageskurs,
-                  :general_costs_semesterkurs)
+           permit(:general_costs_blockkurse,
+                  :general_costs_tageskurse,
+                  :general_costs_semesterkurse)
   end
 
   def show_path

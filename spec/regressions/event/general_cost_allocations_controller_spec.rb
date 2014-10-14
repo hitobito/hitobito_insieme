@@ -32,26 +32,28 @@ describe Event::GeneralCostAllocationsController, type: :controller do
       assigns(:entry).should eq record
       assigns(:entry).should be_persisted
     end
+
   end
 
   context '#update' do
 
     let(:attrs) do
-      { general_costs_blockkurs: 300,
-        general_costs_tageskurs: 400,
-        general_costs_semesterkurs: 500 }
+      { general_costs_blockkurse: 300,
+        general_costs_tageskurse: 400,
+        general_costs_semesterkurse: 500 }
     end
 
     it 'assigns all permitted params' do
       expect do
         put :update, group_id: group.id, year: 2014, event_general_cost_allocation: attrs
       end.to change { Event::GeneralCostAllocation.count }.by(1)
+
       should redirect_to(edit_general_cost_allocation_group_events_path(group, 2014))
 
       r = Event::GeneralCostAllocation.where(group_id: group.id, year: 2014).first
-      r.general_costs_blockkurs.should eq 300
-      r.general_costs_tageskurs.should eq 400
-      r.general_costs_semesterkurs.should eq 500
+      r.general_costs_blockkurse.should eq 300
+      r.general_costs_tageskurse.should eq 400
+      r.general_costs_semesterkurse.should eq 500
     end
   end
 
