@@ -29,8 +29,13 @@ module Insieme
                                                    :billing_course_town,
                                                    :billing_course_country]]
 
+      alias_method_chain :assign_attributes, :check
+      alias_method_chain :exporter, :check
+
       before_render_show :load_grouped_active_membership_roles
     end
+
+    private
 
     def load_grouped_active_membership_roles
       return if cannot?(:show_details, entry)
@@ -42,6 +47,24 @@ module Insieme
       active_memberships.each do |role|
         @grouped_active_membership_roles[role.group] << role
       end
+    end
+
+    def exporter_with_check
+      check? ? ::Export::Csv::People::ParticipationsComplete : exporter_without_check
+    end
+
+    # only roles with :modify_internal_fields permission are allowed to set those attributes
+    def assign_attributes_with_check
+      if model_params.present? && check?
+        entry.internal_invoice_text = model_params.delete(:internal_invoice_text)
+        entry.internal_invoice_amount = model_params.delete(:internal_invoice_amount)
+      end
+
+      assign_attributes_without_check
+    end
+
+    def check?
+      can?(:modify_internal_fields, entry)
     end
   end
 end

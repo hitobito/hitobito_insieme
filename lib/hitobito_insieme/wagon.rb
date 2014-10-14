@@ -37,6 +37,7 @@ module HitobitoInsieme
       # abilities
       GroupAbility.send       :include, Insieme::GroupAbility
       EventAbility.send       :include, Insieme::EventAbility
+      Event::ParticipationAbility.send :include, Insieme::Event::ParticipationAbility
       PersonAbility.send      :include, Insieme::PersonAbility
       MailingListAbility.send :include, Insieme::MailingListAbility
       VariousAbility.send     :include, Insieme::VariousAbility

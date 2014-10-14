@@ -18,3 +18,7 @@
                                     :to_s,
                                     { prompt: true },
                                     class: 'span3')
+
+- if can?(:modify_internal_fields, entry)
+  = field_set_tag do
+    = f.labeled_input_fields :internal_invoice_text, :internal_invoice_amount

@@ -327,6 +327,10 @@ de:
         total_direct_costs: Total direkte Kosten
         general_costs_allowance: Gemeinkostenzuschlag
 
+      event/participation:
+        internal_invoice_text: Rechnungstext
+        internal_invoice_amount: Rechnungsbetrag
+
       group:
         full_name: Vollständiger Name
         vid: VID

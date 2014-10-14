@@ -105,4 +105,134 @@ describe Event::ParticipationsController do
       assigns(:grouped_active_membership_roles).should eq(active.group => [active])
     end
   end
+
+  context 'internal fields' do
+    let(:csv) { CSV.parse(response.body, headers: true, col_sep: ';') }
+    let(:internal_fields) { { internal_invoice_text: 'test', internal_invoice_amount: '1.2' } }
+
+    let(:group) { groups(:be) }
+    let(:course) { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
+
+    before do
+      course.update_attribute(:state, :application_open)
+      sign_in(person)
+    end
+
+    def activate_participation
+      participation.roles << Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.name)
+      participation.update_attributes(active: true,
+                                      internal_invoice_text: 'test',
+                                      internal_invoice_amount: 1.2)
+    end
+
+    [
+      { permission: ':layer_full', group_role: Group::Regionalverein::Geschaeftsfuehrung,
+        group_name: :be, course_role: Event::Course::Role::LeaderBasic },
+      { permission: ':participations_full', group_role: Group::Dachverein::Geschaeftsfuehrung,
+        group_name: :dachverein, course_role: Event::Course::Role::LeaderAdmin }
+    ].each do |attrs|
+      context "with #{attrs[:permission]} permission" do
+        let(:person) do
+          Fabricate(attrs[:group_role].name.to_sym, group: groups(attrs[:group_name])).person
+        end
+        let(:participation) do
+          p = Fabricate(:event_participation, event: course, person: person)
+          p.roles << Fabricate(:event_role, type: attrs[:course_role].name)
+          p
+        end
+
+        if attrs[:permission] != ':participations_full'
+          it 'updates attributes on create' do
+            post :create, group_id: group.id, event_id: course.id,
+            event_participation: internal_fields
+            assigns(:participation).internal_invoice_text.should eq 'test'
+            assigns(:participation).internal_invoice_amount.should eq 1.2
+          end
+        end
+
+        it 'updates attributes on update' do
+          patch :update, group_id: group.id, event_id: course.id, id: participation.id,
+                         event_participation: internal_fields
+          participation.reload.internal_invoice_text.should eq 'test'
+          participation.reload.internal_invoice_amount.should eq 1.2
+        end
+
+        it 'includes attributes in csv' do
+          activate_participation
+          get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
+          csv['Rechnungstext'].should eq %w(test)
+          csv['Rechnungsbetrag'].should eq %w(1.2)
+        end
+
+        context 'rendered pages' do
+          render_views
+          before { activate_participation }
+
+          it 'includes attributes on show' do
+            get :show, group_id: group.id, event_id: course.id, id: participation.id
+          end
+
+          it 'includes attributes on edit' do
+            get :edit, group_id: group.id, event_id: course.id, id: participation.id
+          end
+
+          after do
+            html = Capybara::Node::Simple.new(response.body)
+            html.should have_content 'Rechnungstext'
+            html.should have_content 'Rechnungsbetrag'
+          end
+        end
+      end
+    end
+
+
+    context 'without :layer_full or :participations_full permission' do
+      let(:person) do
+        Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
+                  group: groups(:dachverein)).person
+      end
+      let(:participation) { Fabricate(:event_participation, event: course, person: person) }
+
+      it 'ignores attributes on create' do
+        post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
+        assigns(:participation).internal_invoice_text.should be_blank
+        assigns(:participation).internal_invoice_amount.should be_nil
+      end
+
+      it 'ignores attributes on update' do
+        patch :update, group_id: group.id, event_id: course.id, id: participation.id,
+            event_participation: internal_fields
+        assigns(:participation).internal_invoice_text.should be_blank
+        assigns(:participation).internal_invoice_amount.should be_nil
+      end
+
+      it 'does not include attributes in csv' do
+        activate_participation
+        get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
+
+        csv.headers.should_not include 'Rechnungstext'
+        csv.headers.should_not include 'Rechnungsbetrag'
+      end
+
+      context 'rendered pages' do
+        render_views
+        before { activate_participation }
+
+        it 'does not include attributes on show' do
+          get :show, group_id: group.id, event_id: course.id, id: participation.id
+        end
+
+        it 'does not render edit page' do
+          get :edit, group_id: group.id, event_id: course.id, id: participation.id
+        end
+
+        after do
+          html = Capybara::Node::Simple.new(response.body)
+          html.should_not have_content 'Rechnungstext'
+          html.should_not have_content 'Rechnungsbetrag'
+        end
+      end
+
+    end
+  end
 end
