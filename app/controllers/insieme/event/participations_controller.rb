@@ -35,13 +35,12 @@ module Insieme
     def load_grouped_active_membership_roles
       return if cannot?(:show_details, entry)
 
-      active_memberships = entry.person.roles.includes(:group).joins(:group).
-        where(groups: { type: ::Group::Aktivmitglieder })
-      if active_memberships.exists?
-        @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
-        active_memberships.each do |role|
-          @grouped_active_membership_roles[role.group] << role
-        end
+      active_memberships = entry.person.roles.includes(:group).
+                                              joins(:group).
+                                              where(groups: { type: ::Group::Aktivmitglieder })
+      @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
+      active_memberships.each do |role|
+        @grouped_active_membership_roles[role.group] << role
       end
     end
   end
