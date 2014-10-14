@@ -10,7 +10,7 @@ require 'spec_helper'
 
 describe GroupAbility do
 
-  let(:role) { Fabricate(role_name.to_sym, group: group)}
+  let(:role) { Fabricate(role_name.to_sym, group: group) }
   let(:ability) { Ability.new(role.person.reload) }
 
   subject { ability }
@@ -22,11 +22,11 @@ describe GroupAbility do
       context role_class do
         let(:role_name) { "Group::Dachverein::#{role_class}" }
 
-        it "may :reporting on same group" do
+        it 'may :reporting on same group' do
           should be_able_to(:reporting, group)
         end
 
-        it "may :reporting on layer below" do
+        it 'may :reporting on layer below' do
           should be_able_to(:reporting, groups(:be))
         end
 
@@ -81,25 +81,25 @@ describe GroupAbility do
       context role_class do
         let(:role_name) { "Group::Regionalverein::#{role_class}" }
 
-        it "may not :reporting on same group" do
+        it 'may not :reporting on same group' do
           should_not be_able_to(:reporting, group)
         end
       end
     end
 
     context Group::Regionalverein::Geschaeftsfuehrung do
-      let(:role_name) { "Group::Regionalverein::Geschaeftsfuehrung" }
+      let(:role_name) { 'Group::Regionalverein::Geschaeftsfuehrung' }
       let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
-      it "may :reporting on same group" do
+      it 'may :reporting on same group' do
         should be_able_to(:reporting, group)
       end
 
-      it "may not :reporting on layer above" do
+      it 'may not :reporting on layer above' do
         should_not be_able_to(:reporting, groups(:dachverein))
       end
 
-      it "may not :reporting on different group on same layer" do
+      it 'may not :reporting on different group on same layer' do
         should_not be_able_to(:reporting, groups(:fr))
       end
 
@@ -135,8 +135,16 @@ describe GroupAbility do
         should be_able_to(:index_events, group)
       end
 
-      it 'may not index events in layer below' do
-        should_not be_able_to(:index_events, groups(:seeland))
+      it 'may not index events in non-regionalverein layer below' do
+        should_not be_able_to(:index_events, groups(:aktiv))
+      end
+
+      it 'may index events in regionalverein layer below' do
+        should be_able_to(:index_events, groups(:seeland))
+      end
+
+      it 'may index events in other regionalverein layer' do
+        should be_able_to(:index_events, groups(:fr))
       end
 
       it 'may index people in same layer' do
@@ -177,18 +185,18 @@ describe GroupAbility do
     end
 
     context Group::Regionalverein::Controlling do
-      let(:role_name) { "Group::Regionalverein::Controlling" }
+      let(:role_name) { 'Group::Regionalverein::Controlling' }
       let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
-      it "may :reporting on same group" do
+      it 'may :reporting on same group' do
         should be_able_to(:reporting, group)
       end
 
-      it "may not :reporting on layer above" do
+      it 'may not :reporting on layer above' do
         should_not be_able_to(:reporting, groups(:dachverein))
       end
 
-      it "may not :reporting on different group on same layer" do
+      it 'may not :reporting on different group on same layer' do
         should_not be_able_to(:reporting, groups(:fr))
       end
 
@@ -220,8 +228,16 @@ describe GroupAbility do
         should be_able_to(:index_events, group)
       end
 
-      it 'may not index events in layer below' do
-        should_not be_able_to(:index_events, groups(:seeland))
+      it 'may not index events in non-regionalverein layer below' do
+        should_not be_able_to(:index_events, groups(:aktiv))
+      end
+
+      it 'may index events in regionalverein layer below' do
+        should be_able_to(:index_events, groups(:seeland))
+      end
+
+      it 'may index events in other regionalverein layer' do
+        should be_able_to(:index_events, groups(:fr))
       end
 
       it 'may index people in same layer' do
@@ -258,7 +274,7 @@ describe GroupAbility do
     let(:group) { Fabricate(Group::ExterneOrganisation.name.to_sym, parent: groups(:dachverein)) }
 
     context 'Geschaeftsfuehrung' do
-      let(:role_name) { "Group::ExterneOrganisation::Geschaeftsfuehrung" }
+      let(:role_name) { 'Group::ExterneOrganisation::Geschaeftsfuehrung' }
       let(:subgroup)  { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
       it 'may read group in same layer' do

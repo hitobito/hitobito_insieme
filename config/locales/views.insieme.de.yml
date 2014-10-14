@@ -54,6 +54,10 @@ de:
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
         missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
 
+    participations:
+      asides_insieme:
+        active_memberships: Aktivmitgliedschaften
+
   event/course_record_decorator:
     absenztage: Absenztage
     absenzstunden: Absenzstunden
@@ -98,5 +102,3 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
-
-
