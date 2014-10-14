@@ -40,7 +40,8 @@ describe EventAbility do
     subject { ability }
 
     context 'layer read and below' do
-      let(:role) { Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, group: groups(:dachverein)) }
+      let(:role) { Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
+                             group: groups(:dachverein)) }
 
       context 'in same layer' do
         it { should be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
@@ -62,15 +63,24 @@ describe EventAbility do
         it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:dachverein)])) }
       end
 
-      context 'in lower layer' do
-        it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
+      context 'in lower non-regionalverein layer' do
+        it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:aktiv)])) }
+      end
+
+      context 'in lower regionalverein layer' do
+        it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
+      end
+
+      context 'in other regionalverein layer' do
+        it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:fr)])) }
       end
 
       context 'participating event' do
         let(:event) { Fabricate(:event, groups: [groups(:seeland)]) }
         before do
           Fabricate(Event::Role::Participant.name.to_sym,
-                    participation: Fabricate(:event_participation, event: event, person: role.person))
+                    participation: Fabricate(:event_participation,
+                                             event: event, person: role.person))
         end
         it { should be_able_to(:read, event) }
       end
@@ -223,4 +233,3 @@ describe EventAbility do
      end
    end
 end
-

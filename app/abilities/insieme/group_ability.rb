@@ -29,7 +29,11 @@ module Insieme::GroupAbility
         any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
 
       permission(:any).
-        may(:index_events, :index_mailing_lists).
+        may(:index_events).
+        any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
+
+      permission(:any).
+        may(:index_mailing_lists).
         any_role_in_same_layer_or_if_dachverein_manager
 
       permission(:any).may(:deleted_subgroups).none
@@ -66,6 +70,10 @@ module Insieme::GroupAbility
     any_role_in_same_layer || if_dachverein_manager
   end
 
+  def any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
+    any_role_in_same_layer || if_dachverein_manager || if_regionalverein
+  end
+
   def in_same_layer_or_if_dachverein_manager
     in_same_layer || if_dachverein_manager
   end
@@ -91,6 +99,10 @@ module Insieme::GroupAbility
   def if_regionalverein_and_not_external_member
     subject.is_a?(Group::Regionalverein) &&
     user_context.user.groups.any? { |g| g.layer_group.is_a?(Group::Regionalverein) }
+  end
+
+  def if_regionalverein
+    subject.is_a?(Group::Regionalverein)
   end
 
   def for_reporting_group
