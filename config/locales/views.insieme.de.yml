@@ -50,6 +50,10 @@ de:
         according_to_list: "gemäss TN-Liste: %{count}"
         challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
 
+    participations:
+      asides_insieme:
+        active_memberships: Aktivmitgliedschaften
+
   event/course_record_decorator:
     absenztage: Absenztage
     absenzstunden: Absenzstunden
@@ -94,5 +98,3 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
-
-

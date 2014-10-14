@@ -84,4 +84,25 @@ describe Event::ParticipationsController do
         event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
     end.to raise_error ActiveRecord::RecordNotFound
   end
+
+  context 'grouped_active_membership_roles' do
+    let(:participation) { Fabricate(:event_participation, person: person, event: event) }
+
+    it 'should load before show' do
+      expect(subject).to receive(:load_grouped_active_membership_roles)
+      get :show, group_id: event.groups.first.id, event_id: event.id, id: participation.id
+    end
+
+    it 'should only include Group::Aktivmitglieder' do
+      Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, person: person,
+                                                                   group: groups(:dachverein))
+      Fabricate(Group::Regionalverein::Praesident.name.to_sym, person: person,
+                                                               group: groups(:seeland))
+      active = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, person: person,
+                                                                            group: groups(:aktiv))
+
+      get :show, group_id: event.groups.first.id, event_id: event.id, id: participation.id
+      assigns(:grouped_active_membership_roles).should eq(active.group => [active])
+    end
+  end
 end
