@@ -67,46 +67,6 @@ module CourseReporting
       not_entitled_for_benefit_count
     end
 
-    def presence_percent
-      if record.kursdauer.to_d > 0 && record.teilnehmende > 0
-        100 - ((record.total_absenzen / (record.kursdauer.to_d * record.teilnehmende)) * 100).round
-      else
-        100
-      end
-    end
-
-    def challenged_days
-      @challenged_days ||=
-        (record.kursdauer.to_d * record.teilnehmende_behinderte.to_i) -
-        record.absenzen_behinderte.to_d
-    end
-
-    def affiliated_days
-      @affiliated_days ||=
-        (record.kursdauer.to_d * record.teilnehmende_angehoerige.to_i) -
-        record.absenzen_angehoerige.to_d
-    end
-
-    def not_entitled_for_benefit_days
-      @not_entitled_for_benefit_days ||=
-        (record.kursdauer.to_d * record.teilnehmende_weitere.to_i) -
-        record.absenzen_weitere.to_d
-    end
-
-    def participant_days
-      challenged_days +
-      affiliated_days +
-      not_entitled_for_benefit_days
-    end
-
-    def mentoring_ratio
-      if record.betreuende.to_d > 0
-        record.teilnehmende_behinderte.to_d / record.betreuende.to_d
-      else
-        0
-      end
-    end
-
     private
 
     def role_count(type)
@@ -129,10 +89,6 @@ module CourseReporting
           break
         end
       end
-    end
-
-    def record
-      @event.course_record
     end
 
   end

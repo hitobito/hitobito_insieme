@@ -8,8 +8,11 @@
 
 class CostAccountingParametersController < SimpleCrudController
 
-  self.permitted_attrs = [:id, :year,
+  self.permitted_attrs = [:id,
+                          :year,
                           :vollkosten_le_schwelle1_blockkurs,
-                          :vollkosten_le_schwelle2_blockkurs]
+                          :vollkosten_le_schwelle2_blockkurs,
+                          :vollkosten_le_schwelle1_tageskurs,
+                          :vollkosten_le_schwelle2_tageskurs]
 
 end

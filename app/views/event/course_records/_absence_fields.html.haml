@@ -4,4 +4,4 @@
   = f.labeled_input_field :absenzen_weitere, addon: entry.duration_unit
 
   = f.labeled_readonly_value :total, value: f(entry.total_absenzen)
-  = f.labeled_readonly_value :presence_participants, value: f(@numbers.presence_percent) + ' %'
+  = f.labeled_readonly_value :presence_participants, value: f(entry.praesenz_prozent) + ' %'

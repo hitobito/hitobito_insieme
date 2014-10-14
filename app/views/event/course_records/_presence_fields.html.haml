@@ -1,6 +1,6 @@
 = field_set_tag(entry.presence_caption) do
-  = f.labeled_readonly_value :teilnehmende_behinderte, value: f(@numbers.challenged_days)
-  = f.labeled_readonly_value :teilnehmende_angehoerige, value: f(@numbers.affiliated_days)
-  = f.labeled_readonly_value :teilnehmende_weitere, value: f(@numbers.not_entitled_for_benefit_days)
+  = f.labeled_readonly_value :teilnehmende_behinderte, value: f(entry.tage_behinderte)
+  = f.labeled_readonly_value :teilnehmende_angehoerige, value: f(entry.tage_angehoerige)
+  = f.labeled_readonly_value :teilnehmende_weitere, value: f(entry.tage_weitere)
 
-  = f.labeled_readonly_value :total, value: f(@numbers.participant_days)
+  = f.labeled_readonly_value :total, value: f(entry.total_tage_teilnehmende)

@@ -3,5 +3,7 @@
   = f.labeled_input_field :unterkunft, addon: t('global.currency')
   = f.labeled_input_field :uebriges, addon: t('global.currency')
 
+  = f.labeled_readonly_value :total, value: format_money(entry.direkter_aufwand)
+
 = field_set_tag(t('event.course_records.form.ertrag')) do
   = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency')

@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 # == Schema Information
 #
 # Table name: event_course_records
@@ -32,18 +31,29 @@
 #  uebriges                         :decimal(12, 2)
 #  beitraege_teilnehmende           :decimal(12, 2)
 #  spezielle_unterkunft             :boolean
+#  year                             :integer
+#  teilnehmende_mehrfachbehinderte  :integer
+#  total_direkte_kosten             :decimal(12, 2)
+#  gemeinkostenanteil               :decimal(12, 2)
+#  gemeinkosten_updated_at          :datetime
+#  zugeteilte_kategorie             :string(2)
 #
+
 class Event::CourseRecord < ActiveRecord::Base
+
+  INPUTKRITERIEN = %w(a b c)
+  KURSARTEN = %w(weiterbildung freizeit_und_sport)
 
   belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
 
-  validates :inputkriterien, inclusion: { in: %w(a b c) }
-  validates :kursart, inclusion: { in: %w(weiterbildung freizeit_und_sport) }
+  validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
+  validates :kursart, inclusion: { in: KURSARTEN }
   validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
             modulus:  { multiple: 0.5, if: -> { !sk? } },
             numericality: { only_integer: true, allow_nil: true, if: :sk? }
 
   before_validation :set_defaults
+  before_validation :compute_category
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
@@ -74,10 +84,68 @@ class Event::CourseRecord < ActiveRecord::Base
     hilfspersonal_ohne_honorar.to_i
   end
 
+  def tage_behinderte
+    @tage_behinderte ||=
+      (kursdauer.to_d * teilnehmende_behinderte.to_i) - absenzen_behinderte.to_d
+  end
+
+  def tage_angehoerige
+    @tage_angehoerige ||=
+      (kursdauer.to_d * teilnehmende_angehoerige.to_i) - absenzen_angehoerige.to_d
+  end
+
+  def tage_weitere
+    @tage_weitere ||=
+      (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
+  end
+
+  def total_tage_teilnehmende
+    tage_behinderte +
+    tage_angehoerige +
+    tage_weitere
+  end
+
+  def praesenz_prozent
+    if kursdauer.to_d > 0 && teilnehmende > 0
+      100 - ((total_absenzen / (kursdauer.to_d * teilnehmende)) * 100).round
+    else
+      100
+    end
+  end
+
+  def betreuungsschluessel
+    if betreuende.to_d > 0
+      teilnehmende_behinderte.to_d / betreuende.to_d
+    else
+      0
+    end
+  end
+
+  def direkter_aufwand
+    honorare_inkl_sozialversicherung.to_d +
+    unterkunft.to_d +
+    uebriges.to_d
+  end
+
+  def total_vollkosten
+    direkter_aufwand +
+    gemeinkostenanteil.to_d
+  end
+
+  def vollkosten_pro_le
+    @vollkosten_pro_le ||=
+      if total_tage_teilnehmende > 0
+        total_vollkosten / total_tage_teilnehmende
+      else
+        0
+      end
+  end
+
   def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
     self.subventioniert ||= true if subventioniert.nil?
+    self.total_direkte_kosten = direkter_aufwand
 
     if sk?
       self.spezielle_unterkunft = false
@@ -85,6 +153,11 @@ class Event::CourseRecord < ActiveRecord::Base
     end
 
     true # ensure callback chain continues
+  end
+
+  def compute_category
+    assigner = CourseReporting::CategoryAssigner.new(self)
+    self.zugeteilte_kategorie = assigner.compute
   end
 
   private

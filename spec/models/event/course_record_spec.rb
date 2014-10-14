@@ -25,8 +25,13 @@
 #  uebriges                         :decimal(12, 2)
 #  beitraege_teilnehmende           :decimal(12, 2)
 #  spezielle_unterkunft             :boolean
+#  year                             :integer
+#  teilnehmende_mehrfachbehinderte  :integer
+#  total_direkte_kosten             :decimal(12, 2)
+#  gemeinkostenanteil               :decimal(12, 2)
+#  gemeinkosten_updated_at          :datetime
+#  zugeteilte_kategorie             :string(2)
 #
-
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -155,6 +160,143 @@ describe Event::CourseRecord do
       r.tk?.should be_false
       r.sk?.should be_true
     end
+  end
+
+  context 'present record values' do
+    let(:record) do
+      new_record(event_bk,
+                 kursdauer: 5,
+                 teilnehmende_behinderte: 5,
+                 teilnehmende_angehoerige: 4,
+                 teilnehmende_weitere: 1,
+                 leiterinnen: 3,
+                 fachpersonen: 1,
+                 hilfspersonal_mit_honorar: 2,
+                 absenzen_behinderte: 2,
+                 absenzen_weitere: 1,
+                 honorare_inkl_sozialversicherung: 200,
+                 uebriges: 50,
+                 gemeinkostenanteil: 50)
+    end
+
+    subject { record }
+
+    context '#praesenz_prozent' do
+      it 'is correct' do
+        subject.praesenz_prozent.should eq(94)
+      end
+    end
+
+    context '#tage_behinderte' do
+      it 'is correct' do
+        subject.tage_behinderte.should eq(23)
+      end
+    end
+
+    context '#tage_angehoerige' do
+      it 'is correct' do
+        subject.tage_angehoerige.should eq(20)
+      end
+    end
+
+    context '#tage_weitere' do
+      it 'is correct' do
+        subject.tage_weitere.should eq(4)
+      end
+    end
+
+    context '#total_tage_teilnehmende' do
+      it 'is correct' do
+        subject.total_tage_teilnehmende.should eq(47)
+      end
+    end
+
+    context '#betreuungsschluessel' do
+      it 'is correct' do
+        subject.betreuungsschluessel.should eq(5.to_d/6.to_d)
+      end
+    end
+
+    context '#direkter_aufwand' do
+      it 'is correct' do
+        subject.direkter_aufwand.should eq(250.to_d)
+      end
+    end
+
+    context '#total_vollkosten' do
+      it 'is correct' do
+        subject.total_vollkosten.should eq(300.to_d)
+      end
+    end
+
+    context '#vollkosten_pro_le' do
+      it 'is correct' do
+        subject.vollkosten_pro_le.should be_within(0.001).of(6.383.to_d)
+      end
+    end
+  end
+
+  context 'blank record values' do
+    let(:record) do
+      new_record(event_bk)
+    end
+
+    subject { record }
+
+    context '#praesenz_prozent' do
+      it 'is correct' do
+        subject.praesenz_prozent.should eq(100)
+      end
+    end
+
+    context '#tage_behinderte' do
+      it 'is correct' do
+        subject.tage_behinderte.should eq(0)
+      end
+    end
+
+    context '#tage_angehoerige' do
+      it 'is correct' do
+        subject.tage_angehoerige.should eq(0)
+      end
+    end
+
+    context '#tage_weitere' do
+      it 'is correct' do
+        subject.tage_weitere.should eq(0)
+      end
+    end
+
+    context '#total_tage_teilnehmende' do
+      it 'is correct' do
+        subject.total_tage_teilnehmende.should eq(0)
+      end
+    end
+
+    context '#betreuungsschluessel' do
+      it 'is correct' do
+        subject.betreuungsschluessel.should eq(0.to_d)
+      end
+    end
+
+    context '#direkter_aufwand' do
+      it 'is correct' do
+        subject.direkter_aufwand.should eq(0.to_d)
+      end
+    end
+
+    context '#total_vollkosten' do
+      it 'is correct' do
+        subject.total_vollkosten.should eq(0.to_d)
+      end
+    end
+
+    context '#vollkosten_pro_le' do
+      it 'is correct' do
+        subject.vollkosten_pro_le.should eq(0.to_d)
+      end
+    end
+
   end
 
 end

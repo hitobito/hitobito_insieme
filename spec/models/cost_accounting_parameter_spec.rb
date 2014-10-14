@@ -4,7 +4,6 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: cost_accounting_parameters
@@ -13,7 +12,10 @@
 #  year                              :integer          not null
 #  vollkosten_le_schwelle1_blockkurs :decimal(12, 2)   not null
 #  vollkosten_le_schwelle2_blockkurs :decimal(12, 2)   not null
+#  vollkosten_le_schwelle1_tageskurs :decimal(12, 2)   default(0.0), not null
+#  vollkosten_le_schwelle2_tageskurs :decimal(12, 2)   default(0.0), not null
 #
+
 require 'spec_helper'
 
 describe CostAccountingParameter do

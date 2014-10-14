@@ -17,7 +17,11 @@ describe CostAccountingParametersController, type: :controller do
 
   let(:test_entry) { cost_accounting_parameters(:p2014) }
   let(:test_entry_attrs) do
-    { year: 2015, vollkosten_le_schwelle1_blockkurs: 440, vollkosten_le_schwelle2_blockkurs: 600 }
+    { year: 2015,
+      vollkosten_le_schwelle1_blockkurs: 440,
+      vollkosten_le_schwelle2_blockkurs: 600,
+      vollkosten_le_schwelle1_tageskurs: 300,
+      vollkosten_le_schwelle2_tageskurs: 450 }
   end
 
   before { sign_in(people(:top_leader)) }

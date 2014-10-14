@@ -8,5 +8,7 @@
 CostAccountingParameter.seed_once(:year,
   { year: 2014,
     vollkosten_le_schwelle1_blockkurs: 442,
-    vollkosten_le_schwelle2_blockkurs: 643 }
+    vollkosten_le_schwelle2_blockkurs: 643,
+    vollkosten_le_schwelle1_tageskurs: 341,
+    vollkosten_le_schwelle2_tageskurs: 475 }
 )

@@ -11,8 +11,6 @@ module Insieme::Person
   included do
     AUTOMATIC_NUMBER_RANGE = 100_000...1_000_000
 
-    Person::PUBLIC_ATTRS << :insieme_full_name
-
     ADDRESS_TYPES = %w(correspondence_general
                        billing_general
                        correspondence_course
@@ -20,6 +18,7 @@ module Insieme::Person
 
     ADDRESS_FIELDS = %w(full_name company_name company address zip_code town country)
 
+    Person::PUBLIC_ATTRS << :insieme_full_name
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|
         Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"

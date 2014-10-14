@@ -49,6 +49,10 @@ de:
         according_to_course_dates: "gemäss Kursdaten: %{duration}"
         according_to_list: "gemäss TN-Liste: %{count}"
         challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
+        auswertungen: Auswertungen
+        updated_at: "aktualisiert am %{date}"
+        info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
+        missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
 
   event/course_record_decorator:
     absenztage: Absenztage

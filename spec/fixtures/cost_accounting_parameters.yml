@@ -1,4 +1,18 @@
+# == Schema Information
+#
+# Table name: cost_accounting_parameters
+#
+#  id                                :integer          not null, primary key
+#  year                              :integer          not null
+#  vollkosten_le_schwelle1_blockkurs :decimal(12, 2)   not null
+#  vollkosten_le_schwelle2_blockkurs :decimal(12, 2)   not null
+#  vollkosten_le_schwelle1_tageskurs :decimal(12, 2)   default(0.0), not null
+#  vollkosten_le_schwelle2_tageskurs :decimal(12, 2)   default(0.0), not null
+#
+
 p2014:
   year: 2014
   vollkosten_le_schwelle1_blockkurs: 442
   vollkosten_le_schwelle2_blockkurs: 643
+  vollkosten_le_schwelle1_tageskurs: 341
+  vollkosten_le_schwelle2_tageskurs: 475

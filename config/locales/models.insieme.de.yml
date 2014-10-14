@@ -265,8 +265,10 @@ de:
 
       cost_accounting_parameter:
         year: Jahr
-        vollkosten_le_schwelle1_blockkurs: Schwellenwert 1 Vollkosten/LE (Blockkurs)
-        vollkosten_le_schwelle2_blockkurs: Schwellenwert 2 Vollkosten/LE (Blockkurs)
+        vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE
+        vollkosten_le_schwelle2_blockkurs: Blockkurs Schwellenwert 2 Vollkosten/LE
+        vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
+        vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
 
       event/course:
         leistungskategorie: Leistungskategorie
@@ -301,6 +303,12 @@ de:
         total: Total
         presence_participants: Präsenz TN
         betreuungsschluessel: Betreuungsschlüssel
+        total_direkte_kosten: Total direkte Kosten
+        gemeinkostenanteil: Gemeinkostenanteil
+        total_vollkosten: Total Vollkosten
+        anzahl_le: Anzahl tatsächliche LE
+        vollkosten_pro_le: Vollkosten pro LE
+        zugeteilte_kategorie: Zugeteilte Kategorie
 
         kursarten:
           weiterbildung: Weiterbildung

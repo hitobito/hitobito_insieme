@@ -5,7 +5,7 @@
             cancel_url: group_event_path(*parents),
             buttons_bottom: true,
             method: :put,
-            html: { class: 'course-record report' }) do |f|
+            html: { class: 'course-record report long-labeled' }) do |f|
 
   = render 'general_fields', f: f
   = render 'participant_fields', f: f
@@ -13,6 +13,7 @@
   = render 'presence_fields', f: f
   = render 'team_fields', f: f
   = render 'cost_fields', f: f
+  = render 'evaluation_fields', f: f
 
 
 
