@@ -33,22 +33,28 @@ describe Event::GeneralCostAllocationJob do
     end
 
     before do
-      @e1 = Fabricate(:course, groups: [ group ], leistungskategorie: 'bk')
-      @e1.create_course_record!(year: 2014, subventioniert: true, unterkunft: 5000)
-      @e2 = Fabricate(:course, groups: [ group ], leistungskategorie: 'bk')
-      @e2.create_course_record!(year: 2014, subventioniert: true, unterkunft: 6000, kursdauer: 1, teilnehmende_behinderte: 10, inputkriterien: 'c')
+      @e1 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 5000)
+      @e2 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 6000,
+                                                         kursdauer: 1, teilnehmende_behinderte: 10, inputkriterien: 'c')
       @e2.reload.course_record.zugeteilte_kategorie.should eq('2')
-      @e3 = Fabricate(:course, groups: [ group ], leistungskategorie: 'sk')
-      @e3.create_course_record!(year: 2014, subventioniert: true, unterkunft: 3000)
+
+      @e3 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)
+
       # not subsidized
-      @e4 = Fabricate(:course, groups: [ group ], leistungskategorie: 'sk')
-      @e4.create_course_record!(year: 2014, subventioniert: false, unterkunft: 1000)
+      @e4 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: false, unterkunft: 1000)
       # other year
-      @e5 = Fabricate(:course, groups: [ group ], leistungskategorie: 'tk')
-      @e5.create_course_record!(year: 2013, subventioniert: true, unterkunft: 4000)
+      @e5 = create_course_and_course_record(group, 'tk', year: 2013, subventioniert: true, unterkunft: 4000)
       # other group
-      @e6 = Fabricate(:course, groups: [ groups(:seeland) ], leistungskategorie: 'bk')
-      @e6.create_course_record!(year: 2014, subventioniert: true, unterkunft: 2000)
+      @e6 = create_course_and_course_record(groups(:seeland), 'bk', year: 2014, subventioniert: true, unterkunft: 2000)
+    end
+
+    def create_course_and_course_record(group, leistungskategorie, course_record_attrs)
+      course = Event::Course.create!(name: 'dummy',
+                                     groups: [ group ], leistungskategorie: leistungskategorie,
+                                     dates_attributes: [{ start_at: "#{course_record_attrs.delete(:year)}-05-11" }])
+
+      course.create_course_record!(course_record_attrs)
+      course
     end
 
     before { job.perform }

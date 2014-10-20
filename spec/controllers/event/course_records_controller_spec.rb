@@ -115,11 +115,12 @@ describe Event::CourseRecordsController do
   context '#update' do
     let(:attrs) do
       { subventioniert: true,
-        inputkriterien: :a,
-        kursart: :weiterbildung,
+        inputkriterien: 'a',
+        kursart: 'weiterbildung',
         spezielle_unterkunft: false,
         kursdauer: 10,
         teilnehmende_behinderte: 10,
+        teilnehmende_mehrfachbehinderte: 10,
         teilnehmende_angehoerige: 10,
         teilnehmende_weitere: 10,
         absenzen_behinderte: 10,
@@ -140,6 +141,10 @@ describe Event::CourseRecordsController do
       expect do
         put :update, group_id: group.id, event_id: event.id, event_course_record: attrs
       end.to change { Event::CourseRecord.count }.by(1)
+
+      attrs.each do |key, value|
+        event.course_record.send(key).should eq value
+      end
     end
   end
 end

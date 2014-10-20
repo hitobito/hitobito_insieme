@@ -19,6 +19,7 @@ class Event::CourseRecordsController < CrudController
                           :spezielle_unterkunft,
                           :kursdauer,
                           :teilnehmende_behinderte,
+                          :teilnehmende_mehrfachbehinderte,
                           :teilnehmende_angehoerige,
                           :teilnehmende_weitere,
                           :absenzen_behinderte,
@@ -32,8 +33,8 @@ class Event::CourseRecordsController < CrudController
                           :honorare_inkl_sozialversicherung,
                           :unterkunft,
                           :uebriges,
-                          :beitraege_teilnehmende
-                         ]
+                          :beitraege_teilnehmende,
+                          :year]
 
   before_render_form :set_defaults, if: -> { entry.new_record? }
   before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
@@ -53,6 +54,10 @@ class Event::CourseRecordsController < CrudController
   def find_entry
     not_found unless parent.is_a?(Event::Course)
     parent.course_record || parent.build_course_record
+  end
+
+  def event_year
+    parent.dates.first.start_at.year
   end
 
   def return_path

@@ -290,6 +290,7 @@ de:
         spezielle_unterkunft: Spezielle Unterkunft
         kursdauer: Kursdauer
         teilnehmende_behinderte: Behinderte
+        teilnehmende_mehrfachbehinderte: Mehrfachbehinderte
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
         absenzen_behinderte: Behinderte
@@ -313,6 +314,7 @@ de:
         anzahl_le: Anzahl tatsächliche LE
         vollkosten_pro_le: Vollkosten pro LE
         zugeteilte_kategorie: Zugeteilte Kategorie
+        year: Jahr
 
         kursarten:
           weiterbildung: Weiterbildung
@@ -501,6 +503,7 @@ de:
         must_be_multiple_of: muss ein vielfaches von %{multiple} sein.
         manual_number_in_automatic_range: darf nicht zwischen %{lower} und %{upper} liegen, wenn sie manuell gesetzt wird.
         automatic_number_in_manual_range: muss zwischen %{lower} und %{upper} liegen, wenn sie automatisch gesetzt wird.
+        less_than_teilnehmende_behinderte: muss kleiner gleich Anzahl Behinderter sein.
 
 
   cost_accounting:
