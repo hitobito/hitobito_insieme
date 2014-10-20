@@ -20,6 +20,12 @@ describe CourseReporting::CourseNumbers do
     end
   end
 
+  context 'duration hours' do
+    it 'is correct for whole days' do
+      subject.duration_hours.should eq(7*24)
+    end
+  end
+
   context 'role counts' do
 
     context '#challenged_count' do

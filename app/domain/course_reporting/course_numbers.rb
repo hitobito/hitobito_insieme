@@ -20,6 +20,14 @@ module CourseReporting
         event.dates.inject(0) { |sum, date| sum + date.duration.days }
     end
 
+    def duration_hours
+      @duration_hours ||=
+        event.dates.inject(0) do |sum, date|
+          d = date.duration
+          sum + (d.finish_at ? ((d.finish_at - d.start_at) / 3600).round : 0)
+        end
+    end
+
     def challenged_count
       role_count(Event::Course::Role::Challenged)
     end
