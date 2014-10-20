@@ -22,7 +22,6 @@ module Event::CourseRecordsHelper
     string
   end
 
-
   def zugeteilte_kategorie_with_info(record)
     if record.subventioniert
       record.zugeteilte_kategorie
@@ -38,5 +37,13 @@ module Event::CourseRecordsHelper
                              addon: t('global.persons_short'),
                              help_inline: muted(t('event.course_records.form.according_to_list',
                                                   count: f(suggestion))))
+  end
+
+  def format_general_cost_allowance_percent(allowance)
+    if allowance
+      format_percent(allowance * 100)
+    else
+      ''
+    end
   end
 end

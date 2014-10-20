@@ -2,9 +2,10 @@
   = f.labeled_readonly_value :total_direct_costs,
                              value: format_money(entry.total_costs(lk))
 
-  = f.labeled_input_field field, addon: t('global.currency')
+  = f.labeled_input_field field,
+                          addon: t('global.currency'),
+                          help_inline: t('.cost_from_accounting',
+                                         value: f(general_cost_from_accounting.general_cost(lk))).html_safe
 
-  - allowance = entry.general_costs_allowance(lk)
-  - allowance &&= allowance * 100
   = f.labeled_readonly_value :general_costs_allowance,
-                             value: format_percent(allowance)
+                             value: format_general_cost_allowance_percent(entry.general_costs_allowance(lk))

@@ -69,6 +69,8 @@ de:
         general_cost_allowance: Gemeinkostenzuschlag
         start_allocation: Umlage starten
         last_allocation: "Letzte Gemeinkostenumlage: %{date}"
+      leistungskategorie_fields:
+        cost_from_accounting: "Ausgewiesener Betrag aus der Kostenrechnung: %{value} CHF"
 
     participations:
       asides_insieme:

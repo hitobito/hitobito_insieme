@@ -7,6 +7,8 @@
 
 class Event::GeneralCostAllocationsController < ReportingBaseController
 
+  helper_method :general_cost_from_accounting
+
   after_save :schedule_allocation_job
 
   private
@@ -18,6 +20,10 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
 
   def group
     @group ||= Group.find(params[:group_id])
+  end
+
+  def general_cost_from_accounting
+    @general_cost_from_accounting ||= Event::GeneralCostFromAccounting.new(group, year)
   end
 
   def permitted_params
