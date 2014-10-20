@@ -50,16 +50,18 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
     end
   end
 
+  def considered_course_records
+    Event::CourseRecord.joins(event: :events_groups).
+                        where(subventioniert: true,
+                              year: year,
+                              events_groups: { group_id: group.id })
+  end
+
   private
 
   def total_costs_by_lk
-    @total_costs ||=
-       Event::CourseRecord.joins(event: :events_groups).
-                           where(subventioniert: true,
-                                 year: year,
-                                 events_groups: { group_id: group.id }).
-                           group('events.leistungskategorie').
-                           sum(:total_direkte_kosten)
+    @total_costs ||= considered_course_records.group('events.leistungskategorie').
+                                               sum(:total_direkte_kosten)
   end
 
   def calculate_general_costs_allowance(leistungskategorie)

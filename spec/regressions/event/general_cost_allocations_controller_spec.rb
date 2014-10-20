@@ -45,8 +45,10 @@ describe Event::GeneralCostAllocationsController, type: :controller do
 
     it 'assigns all permitted params' do
       expect do
+      expect do
         put :update, group_id: group.id, year: 2014, event_general_cost_allocation: attrs
       end.to change { Event::GeneralCostAllocation.count }.by(1)
+      end.to change { Delayed::Job.count }.by(1)
 
       should redirect_to(edit_general_cost_allocation_group_events_path(group, 2014))
 

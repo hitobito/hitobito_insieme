@@ -6,33 +6,41 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class ReportingBaseController < ApplicationController
+
+  extend ActiveModel::Callbacks
   include YearBasedPaging
 
-  before_action :authorize
+  define_model_callbacks :save
 
   layout 'reporting'
+
+  respond_to :html
 
   decorates :group
 
   helper_method :entry, :group
 
+
+  before_action :authorize
   before_action :entry
 
-  respond_to :html
+  after_save :set_success_notice
+
 
   def edit
   end
 
   def update
     entry.attributes = permitted_params
-
-    if entry.save
-      flash[:notice] = I18n.t('crud.update.flash.success', model: entry)
-    end
+    run_callbacks(:save) { entry.save }
     respond_with(entry, location: show_path)
   end
 
   private
+
+  def set_success_notice
+    flash[:notice] = I18n.t('crud.update.flash.success', model: entry)
+  end
 
   def show_path
     cost_accounting_group_path(group, year: year)

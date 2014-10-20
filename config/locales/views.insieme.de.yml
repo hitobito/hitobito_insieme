@@ -57,6 +57,9 @@ de:
         missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
 
     general_cost_allocations:
+      update:
+        flash:
+          success: "%{model} wurde erfolgreich aktualisiert. Die Gemeinkosten werden jetzt auf die einzelnen Kurse umgelegt."
       edit:
         blockkurse: Blockkurse
         tageskurse: Tageskurse

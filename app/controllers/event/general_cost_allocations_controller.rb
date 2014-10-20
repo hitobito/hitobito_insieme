@@ -7,6 +7,8 @@
 
 class Event::GeneralCostAllocationsController < ReportingBaseController
 
+  after_save :schedule_allocation_job
+
   private
 
   def entry
@@ -27,6 +29,14 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
 
   def show_path
     edit_general_cost_allocation_group_events_path(group, year)
+  end
+
+  def set_success_notice
+    flash[:notice] = I18n.t('event.general_cost_allocations.update.flash.success', model: entry)
+  end
+
+  def schedule_allocation_job
+    Event::GeneralCostAllocationJob.new(entry).enqueue!
   end
 
 end
