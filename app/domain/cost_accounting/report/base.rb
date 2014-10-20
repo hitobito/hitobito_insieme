@@ -55,6 +55,10 @@ module CostAccounting
       # The kontengruppe of this report.
       class_attribute :kontengruppe
 
+      # Whether this report counts as aufwand or ertrag
+      class_attribute :aufwand
+      self.aufwand = true
+
       class << self
         def key
           name.demodulize.underscore

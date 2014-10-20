@@ -11,7 +11,10 @@ module CostAccounting
 
       self.kontengruppe = '30'
 
+      self.aufwand = false
+
       delegate_editable_fields %w(aufwand_ertrag_fibu
+                                  aufteilung_kontengruppen
                                   abgrenzung_fibu
                                   abgrenzung_dachorganisation
 

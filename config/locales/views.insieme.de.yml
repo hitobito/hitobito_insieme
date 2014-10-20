@@ -38,7 +38,10 @@ de:
     index:
       title: Übersicht Kostenrechnung
     edit:
-      aufteilung_kontengruppen: Bitte gib an, wie sich der Aufwand auf die Kontengruppen %{kontengruppen} verteilt.
+      aufwand_fibu: Aufwand FIBU
+      ertrag_fibu: Ertrag FIBU
+      kontengruppen: "Kontengruppe(n) %{kontengruppen}"
+      remarks_placeholder: Hier können Sie Ihre Notizen oder Erklärungen anbringen (z.B. wie sich Aufwand auf Kontengruppen verteilt)
 
   event:
     course_records:

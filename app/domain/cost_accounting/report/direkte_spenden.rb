@@ -11,6 +11,8 @@ module CostAccounting
 
       self.kontengruppe = '3321/3323/32/900'
 
+      self.aufwand = false
+
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
                                   abgrenzung_fibu

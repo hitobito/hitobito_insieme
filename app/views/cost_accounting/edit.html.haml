@@ -21,11 +21,15 @@
                      method: :put,
                      html: { class: 'report' }) do |f|
 
-  = cost_accounting_input_fields(f, :aufwand_ertrag_fibu)
+  - if report.editable_fields.include?('aufwand_ertrag_fibu')
+    = f.labeled_input_field(:aufwand_ertrag_fibu,
+                            label: report.aufwand ? t('.aufwand_fibu') : t('.ertrag_fibu'),
+                            addon: t('global.currency'),
+                            help_inline: t('.kontengruppen', kontengruppen: report.kontengruppe))
 
   - if report.editable_fields.include?('aufteilung_kontengruppen')
     = f.labeled_input_field(:aufteilung_kontengruppen,
-                            help: t('.aufteilung_kontengruppen', kontengruppen: report.kontengruppe))
+                            placeholder: t('.remarks_placeholder'))
 
   = cost_accounting_input_fields(f, :abgrenzung_fibu)
 

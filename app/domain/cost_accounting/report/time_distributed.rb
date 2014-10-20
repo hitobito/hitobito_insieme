@@ -21,6 +21,7 @@ module CostAccounting
       self.used_fields += %w(verwaltung)
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
+                                  aufteilung_kontengruppen
                                   abgrenzung_fibu
                                   abgrenzung_dachorganisation)
 
