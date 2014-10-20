@@ -159,7 +159,11 @@ describe Event::ParticipationsController do
 
         it 'includes attributes in csv' do
           activate_participation
-          get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
+          get :index, group_id: group.id,
+                      event_id: course.id,
+                      filter: :participants,
+                      details: true,
+                      format: :csv
           csv['Rechnungstext'].should eq %w(test)
           csv['Rechnungsbetrag'].should eq %w(1.2)
         end

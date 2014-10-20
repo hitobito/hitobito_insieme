@@ -12,6 +12,7 @@ module Insieme::Event::ParticipationAbility
     on(Event::Participation) do
       permission(:any).may(:modify_internal_fields).for_participations_full_events
       permission(:layer_full).may(:modify_internal_fields).in_same_layer
+      permission(:layer_and_below_full).may(:modify_internal_fields).in_same_layer
     end
   end
 end

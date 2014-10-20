@@ -5,9 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Export::Csv::People
-  class ParticipationRowComplete < ParticipationRow
-    include ActionView::Helpers::TranslationHelper
+module Insieme::Export::Csv::People
+  module ParticipationRow
 
     def internal_invoice_text
       @participation.internal_invoice_text

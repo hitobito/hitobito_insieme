@@ -1,3 +1,8 @@
+- if can?(:modify_internal_fields, entry)
+  = field_set_tag do
+    = f.labeled_input_field :internal_invoice_text
+    = f.labeled_input_field :internal_invoice_amount, addon: t('global.currency')
+
 .form-horizontal.participation-person
   = f.fields_for(:person, entry.person) do |pf|
     = field_set_tag Person.model_name.human do
@@ -19,6 +24,4 @@
                                     { prompt: true },
                                     class: 'span3')
 
-- if can?(:modify_internal_fields, entry)
-  = field_set_tag do
-    = f.labeled_input_fields :internal_invoice_text, :internal_invoice_amount
+

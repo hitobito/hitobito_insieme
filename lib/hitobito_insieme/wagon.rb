@@ -63,6 +63,12 @@ module HitobitoInsieme
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
       Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
+      Export::Csv::People::ParticipationsFull.send(
+        :include,
+        Insieme::Export::Csv::People::ParticipationsFull)
+      Export::Csv::People::ParticipationRow.send(
+        :include,
+        Insieme::Export::Csv::People::ParticipationRow)
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 
