@@ -44,4 +44,17 @@ describe PeopleController do
       person.reload.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
     end
   end
+
+
+
+  context 'GET index' do
+    before { sign_in(person) }
+
+    it 'exports salutation and number' do
+      get :index, group_id: group, format: :csv
+
+      @response.body.should =~ /.*Personnr\.;Anrede;.*/
+    end
+  end
+
 end
