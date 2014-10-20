@@ -27,9 +27,10 @@
     = f.labeled_input_field(:aufteilung_kontengruppen,
                             help: t('.aufteilung_kontengruppen', kontengruppen: report.kontengruppe))
 
-  = cost_accounting_input_fields(f,
-                                 :abgrenzung_fibu,
-                                 :abgrenzung_dachorganisation)
+  = cost_accounting_input_fields(f, :abgrenzung_fibu)
+
+  - if group.is_a?(Group::Dachverein)
+    = cost_accounting_input_fields(f, :abgrenzung_dachorganisation)
 
   - if (report.editable_fields & section_fields).present?
     %hr/

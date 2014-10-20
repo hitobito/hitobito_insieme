@@ -35,42 +35,71 @@ describe CostAccountingController, type: :controller  do
     end
 
     context 'PUT update' do
-      it 'updates values' do
-        expect do
-          put :update, id: group.id,
-                       year: year,
-                       report: report,
-                       cost_accounting_record: {
-                         aufwand_ertrag_fibu: 2000,
-                         abgrenzung_fibu: nil,
-                         abgrenzung_dachorganisation: 100.50 }
-        end.to change { CostAccountingRecord.count }.by(1)
+      context 'in regionalverein' do
+        it 'updates values' do
+          expect do
+            put :update, id: group.id,
+                         year: year,
+                         report: report,
+                         cost_accounting_record: {
+                           aufwand_ertrag_fibu: 2000,
+                           abgrenzung_fibu: nil }
+          end.to change { CostAccountingRecord.count }.by(1)
 
-        should redirect_to(cost_accounting_group_path(group, year))
+          should redirect_to(cost_accounting_group_path(group, year))
 
-        r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-        r.aufwand_ertrag_fibu.should eq(2000)
-        r.abgrenzung_fibu.should be_nil
-        r.abgrenzung_dachorganisation.should eq(100.5)
+          r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
+          r.aufwand_ertrag_fibu.should eq(2000)
+          r.abgrenzung_fibu.should be_nil
+        end
+
+        it 'may only update editable fields' do
+          expect do
+            put :update, id: group.id,
+                         year: year,
+                         report: report,
+                         cost_accounting_record: {
+                           aufwand_ertrag_fibu: 2000,
+                           abgrenzung_dachorganisation: 100,
+                           tageskurse: 20,
+                           verwaltung: 30 }
+          end.to change { CostAccountingRecord.count }.by(1)
+
+          should redirect_to(cost_accounting_group_path(group, year))
+
+          r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
+          r.aufwand_ertrag_fibu.should eq(2000)
+          r.abgrenzung_dachorganisation.should be_nil
+          r.tageskurse.should be_nil
+          r.verwaltung.should be_nil
+        end
       end
 
-      it 'may only update editable fields' do
-        expect do
-          put :update, id: group.id,
-                       year: year,
-                       report: report,
-                       cost_accounting_record: {
-                         aufwand_ertrag_fibu: 2000,
-                         tageskurse: 20,
-                         verwaltung: 30 }
-        end.to change { CostAccountingRecord.count }.by(1)
+      context 'in dachverein' do
+        let(:group) { groups(:dachverein) }
 
-        should redirect_to(cost_accounting_group_path(group, year))
+        it 'may only update editable fields' do
+          expect do
+            put :update, id: group.id,
+                         year: year,
+                         report: report,
+                         cost_accounting_record: {
+                           aufwand_ertrag_fibu: 2000,
+                           abgrenzung_fibu: 50,
+                           abgrenzung_dachorganisation: 100,
+                           tageskurse: 20,
+                           verwaltung: 30 }
+          end.to change { CostAccountingRecord.count }.by(1)
 
-        r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-        r.aufwand_ertrag_fibu.should eq(2000)
-        r.tageskurse.should be_nil
-        r.verwaltung.should be_nil
+          should redirect_to(cost_accounting_group_path(group, year))
+
+          r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
+          r.aufwand_ertrag_fibu.should eq(2000)
+          r.abgrenzung_fibu.should eq(50)
+          r.abgrenzung_dachorganisation.should eq(100)
+          r.tageskurse.should be_nil
+          r.verwaltung.should be_nil
+        end
       end
 
     end
@@ -109,8 +138,7 @@ describe CostAccountingController, type: :controller  do
                        report: report,
                        cost_accounting_record: {
                          aufwand_ertrag_fibu: 2000,
-                         abgrenzung_fibu: nil,
-                         abgrenzung_dachorganisation: 100.50 }
+                         abgrenzung_fibu: nil }
         end.not_to change { CostAccountingRecord.count }
 
         should redirect_to(cost_accounting_group_path(group, year))
@@ -118,7 +146,6 @@ describe CostAccountingController, type: :controller  do
         r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
         r.aufwand_ertrag_fibu.should eq(2000)
         r.abgrenzung_fibu.should be_nil
-        r.abgrenzung_dachorganisation.should eq(100.5)
       end
     end
   end

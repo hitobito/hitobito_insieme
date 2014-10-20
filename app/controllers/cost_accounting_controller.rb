@@ -25,7 +25,9 @@ class CostAccountingController < ReportingBaseController
   end
 
   def permitted_params
-    params.require(:cost_accounting_record).permit(report.editable_fields)
+    fields = report.editable_fields
+    fields -= ['abgrenzung_dachorganisation'] unless group.is_a?(Group::Dachverein)
+    params.require(:cost_accounting_record).permit(fields)
   end
 
 end
