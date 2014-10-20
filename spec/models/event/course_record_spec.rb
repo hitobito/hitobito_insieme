@@ -122,6 +122,10 @@ describe Event::CourseRecord do
     it 'kursart defaults to weiterbildung' do
       new_record(event_bk).kursart.should eq('weiterbildung')
     end
+
+    it 'kursart defaults to weiterbildung' do
+      new_record(event_bk).year.should eq event_bk.years.first
+    end
   end
 
 

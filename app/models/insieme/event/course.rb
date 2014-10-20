@@ -40,6 +40,19 @@ module Insieme
           end
         end
       end
+
+      ### INSTANCE METHODS
+
+      def years
+        dates.
+          map { |date| [date.start_at, date.finish_at] }.
+          flatten.
+          compact.
+          map(&:year).
+          uniq.
+          sort
+      end
+
     end
   end
 end

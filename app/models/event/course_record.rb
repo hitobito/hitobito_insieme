@@ -48,9 +48,11 @@ class Event::CourseRecord < ActiveRecord::Base
 
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
+  validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
   validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
             modulus:  { multiple: 0.5, if: -> { !sk? } },
             numericality: { only_integer: true, allow_nil: true, if: :sk? }
+  validate :assert_mehrfachbehinderte_less_than_behinderte
 
   before_validation :set_defaults
   before_validation :compute_category
@@ -63,6 +65,10 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def to_s
     ''
+  end
+
+  def year
+    super || event.years.first
   end
 
   def total_absenzen
@@ -146,6 +152,7 @@ class Event::CourseRecord < ActiveRecord::Base
     self.inputkriterien ||= 'a'
     self.subventioniert ||= true if subventioniert.nil?
     self.total_direkte_kosten = direkter_aufwand
+    self.year = event.years.first if event.years.size == 1
 
     if sk?
       self.spezielle_unterkunft = false
@@ -165,6 +172,12 @@ class Event::CourseRecord < ActiveRecord::Base
   def assert_event_is_course
     if event && event.class != Event::Course
       errors.add(:event, :is_not_allowed)
+    end
+  end
+
+  def assert_mehrfachbehinderte_less_than_behinderte
+    if teilnehmende_mehrfachbehinderte.to_i > teilnehmende_behinderte.to_i
+      errors.add(:teilnehmende_mehrfachbehinderte, :less_than_teilnehmende_behinderte)
     end
   end
 
