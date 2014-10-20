@@ -18,7 +18,8 @@ module Insieme::Person
 
     ADDRESS_FIELDS = %w(full_name company_name company address zip_code town country)
 
-    Person::PUBLIC_ATTRS << :insieme_full_name
+    Person::PUBLIC_ATTRS << :insieme_full_name << :number << :salutation
+
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|
         Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"
