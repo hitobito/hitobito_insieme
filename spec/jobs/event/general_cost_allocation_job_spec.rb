@@ -67,8 +67,8 @@ describe Event::GeneralCostAllocationJob do
     end
 
     it 'sets gemeinkostenanteil correct per leistungskategorie' do
-      @e1.reload.course_record.gemeinkostenanteil.should be_within(0.001).of(1363.636)
-      @e2.reload.course_record.gemeinkostenanteil.should be_within(0.001).of(1636.363)
+      @e1.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1363.636)
+      @e2.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1636.363)
       @e3.reload.course_record.gemeinkostenanteil.should eq(0)
     end
 
