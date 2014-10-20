@@ -21,7 +21,7 @@ module Insieme
           end
 
           def additional_addresses_attributes
-            attrs = [:insieme_full_name]
+            attrs = [:insieme_full_name, :number, :salutation]
             Person::ADDRESS_TYPES.each do |prefix|
               Person::ADDRESS_FIELDS.each do |field|
                 attrs << :"#{prefix}_#{field}"
