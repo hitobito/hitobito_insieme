@@ -23,11 +23,11 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     crawl_as(people(:top_leader))
   end
 
-  def xtest_tarantula_as_regionalleitung
+  def test_tarantula_as_regionalleitung
     crawl_as(people(:regio_leader))
   end
 
-  def xtest_tarantula_as_aktivmitglied
+  def test_tarantula_as_aktivmitglied
     crawl_as(people(:regio_aktiv))
   end
 
