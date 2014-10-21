@@ -1,0 +1,19 @@
+= f.content_tag(:div, class: 'control-group') do
+  = f.label(attr, class: 'control-label')
+  .controls
+    = f.readonly_value(attr)
+    = link_to(t('.change'), '#', data: { hide: 'canton_counts_%s' % attr })
+    = f.help_inline(muted(t('event.course_records.form.according_to_list',
+                            count: f(suggestion))))
+
+= toggled_canton_counts_fieldset(attr) do
+  = f.fields_for(cantons_attr) do |nf|
+    = nf.hidden_field(:id)
+    - [:ag, :ai, :ar, :be, :bl, :bs, :fr, :ge, :gl, :gr, :ju, :lu,
+       :ne, :nw, :ow, :sg, :sh, :so, :sz, :tg, :ti, :ur, :vd, :vs,
+       :zg, :zh, :other].each do |a|
+      = nf.labeled_input_field(a, help_inline: muted(cantons_suggestion[a.to_s]))
+    = nf.content_tag(:div, class: 'control-group') do
+      = f.label(t('activerecord.attributes.event/participation_canton_count.undefined'), class: 'control-label')
+      .controls
+        = f.help_inline(muted(cantons_suggestion['undefined']))

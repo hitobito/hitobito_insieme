@@ -333,6 +333,36 @@ de:
         internal_invoice_text: Rechnungstext
         internal_invoice_amount: Rechnungsbetrag
 
+      event/participation_canton_count:
+        ag: AG
+        ai: AI
+        ar: AR
+        be: BE
+        bl: BL
+        bs: BS
+        fr: FR
+        ge: GE
+        gl: GL
+        gr: GR
+        ju: JU
+        lu: LU
+        ne: NE
+        nw: NW
+        ow: OW
+        sg: SG
+        sh: SH
+        so: SO
+        sz: SZ
+        tg: TG
+        ti: TI
+        ur: UR
+        vd: VD
+        vs: VS
+        zg: ZG
+        zh: ZH
+        other: Andere Herkunft
+        undefined: Nicht festgelegt
+
       group:
         full_name: Vollständiger Name
         vid: VID

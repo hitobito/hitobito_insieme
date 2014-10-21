@@ -4,9 +4,18 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag(t('event.course_records.form.effektiv_teilnehmende')) do
-  = participant_field_with_suggestion(f, :teilnehmende_behinderte, @numbers.challenged_count)
+  = render 'canton_fields', f: f, attr: :teilnehmende_behinderte,
+                            cantons_attr: :challenged_canton_count,
+                            suggestion: @numbers.challenged_count,
+                            cantons_suggestion: @numbers.challenged_canton_counts
+
   = participant_field(f, :teilnehmende_mehrfachbehinderte)
-  = participant_field_with_suggestion(f, :teilnehmende_angehoerige, @numbers.affiliated_count)
+
+  = render 'canton_fields', f: f, attr: :teilnehmende_angehoerige,
+                            cantons_attr: :affiliated_canton_count,
+                            suggestion: @numbers.affiliated_count,
+                            cantons_suggestion: @numbers.affiliated_canton_counts
+
   = participant_field_with_suggestion(f, :teilnehmende_weitere, @numbers.not_entitled_for_benefit_count)
 
   = f.labeled_readonly_value :total,

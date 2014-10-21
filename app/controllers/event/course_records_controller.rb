@@ -18,9 +18,7 @@ class Event::CourseRecordsController < CrudController
                           :kursart,
                           :spezielle_unterkunft,
                           :kursdauer,
-                          :teilnehmende_behinderte,
                           :teilnehmende_mehrfachbehinderte,
-                          :teilnehmende_angehoerige,
                           :teilnehmende_weitere,
                           :absenzen_behinderte,
                           :absenzen_angehoerige,
@@ -34,12 +32,23 @@ class Event::CourseRecordsController < CrudController
                           :unterkunft,
                           :uebriges,
                           :beitraege_teilnehmende,
-                          :year]
+                          :year,
+                          challenged_canton_count_attributes: [:ag, :ai, :ar, :be, :bl, :bs, :fr,
+                                                               :ge, :gl, :gr, :ju, :lu, :ne, :nw,
+                                                               :ow, :sg, :sh, :so, :sz, :tg, :ti,
+                                                               :ur, :vd, :vs, :zg, :zh, :other],
+                          affiliated_canton_count_attributes: [:ag, :ai, :ar, :be, :bl, :bs, :fr,
+                                                               :ge, :gl, :gr, :ju, :lu, :ne, :nw,
+                                                               :ow, :sg, :sh, :so, :sz, :tg, :ti,
+                                                               :ur, :vd, :vs, :zg, :zh, :other]
+
+                         ]
 
   before_render_form :set_defaults, if: -> { entry.new_record? }
   before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
   before_render_form :set_numbers
   before_render_form :alert_missing_cost_accounting_parameters
+  before_render_form :build_canton_counts
 
   private
 
@@ -83,6 +92,15 @@ class Event::CourseRecordsController < CrudController
   def alert_missing_cost_accounting_parameters
     unless CostAccountingParameter.for(entry.year)
       flash.now[:alert] = t('event.course_records.form.missing_cost_accounting_parameters')
+    end
+  end
+
+  def build_canton_counts
+    if entry.challenged_canton_count.nil?
+      entry.build_challenged_canton_count
+    end
+    if entry.affiliated_canton_count.nil?
+      entry.build_affiliated_canton_count
     end
   end
 end

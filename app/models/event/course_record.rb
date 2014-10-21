@@ -45,6 +45,13 @@ class Event::CourseRecord < ActiveRecord::Base
   KURSARTEN = %w(weiterbildung freizeit_und_sport)
 
   belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
+  belongs_to :challenged_canton_count, dependent: :destroy,
+                                       class_name: 'Event::ParticipationCantonCount'
+  belongs_to :affiliated_canton_count, dependent: :destroy,
+                                       class_name: 'Event::ParticipationCantonCount'
+
+  accepts_nested_attributes_for :challenged_canton_count
+  accepts_nested_attributes_for :affiliated_canton_count
 
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
@@ -56,6 +63,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
   before_validation :set_defaults
   before_validation :compute_category
+  before_validation :sum_canton_counts
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
@@ -153,6 +161,8 @@ class Event::CourseRecord < ActiveRecord::Base
     self.subventioniert ||= true if subventioniert.nil?
     self.total_direkte_kosten = direkter_aufwand
     self.year = event.years.first if event.years.size == 1
+    self.teilnehmende_behinderte ||= 0
+    self.teilnehmende_angehoerige ||= 0
 
     if sk?
       self.spezielle_unterkunft = false
@@ -165,6 +175,15 @@ class Event::CourseRecord < ActiveRecord::Base
   def compute_category
     assigner = CourseReporting::CategoryAssigner.new(self)
     self.zugeteilte_kategorie = assigner.compute
+  end
+
+  def sum_canton_counts
+    unless challenged_canton_count.nil?
+      self.teilnehmende_behinderte = challenged_canton_count.total
+    end
+    unless affiliated_canton_count.nil?
+      self.teilnehmende_angehoerige = affiliated_canton_count.total
+    end
   end
 
   private

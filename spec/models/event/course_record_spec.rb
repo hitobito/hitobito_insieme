@@ -304,4 +304,49 @@ describe Event::CourseRecord do
 
   end
 
+  context 'canton counts' do
+    let(:record) do
+      new_record(event_bk)
+    end
+
+    it 'should default sums to 0' do
+      record.teilnehmende_behinderte.should eq 0
+      record.teilnehmende_angehoerige.should eq 0
+    end
+
+    it 'should be accessible through the associations' do
+      record.challenged_canton_count.should be_nil
+      record.affiliated_canton_count.should be_nil
+
+      record.build_challenged_canton_count
+      record.build_affiliated_canton_count
+
+      record.challenged_canton_count.should_not be_nil
+      record.affiliated_canton_count.should_not be_nil
+    end
+
+    context '#sum_canton_counts' do
+      it 'should not fail if association is not present' do
+        record.sum_canton_counts
+        record.teilnehmende_behinderte.should eq 0
+        record.teilnehmende_angehoerige.should eq 0
+      end
+
+      it 'should set total' do
+        record.build_challenged_canton_count
+        record.build_affiliated_canton_count
+
+        record.challenged_canton_count.be = 3
+        record.challenged_canton_count.zh = 2
+        record.affiliated_canton_count.fr = 2
+        record.affiliated_canton_count.ne = 1
+
+        record.sum_canton_counts
+
+        record.teilnehmende_behinderte.should eq 5
+        record.teilnehmende_angehoerige.should eq 3
+      end
+    end
+  end
+
 end

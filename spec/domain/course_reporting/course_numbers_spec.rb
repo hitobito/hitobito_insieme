@@ -97,6 +97,41 @@ describe CourseReporting::CourseNumbers do
         subject.team_count.should eq(1)
       end
     end
+
+    context 'canton counts' do
+      def create_participant(role, canton)
+        Fabricate(role.name.to_sym,
+                  participation: Fabricate(:event_participation,
+                                           event: event,
+                                           person: Fabricate(:person, canton: canton)))
+      end
+
+      [[:challenged_canton_counts,
+        Event::Course::Role::Challenged,
+        Event::Course::Role::Affiliated],
+       [:affiliated_canton_counts,
+        Event::Course::Role::Affiliated,
+        Event::Course::Role::Challenged]].each do |assoc, role, other_role|
+
+        context "##{assoc}" do
+          it 'should sum participants per canton' do
+            event.participations.destroy_all
+
+            create_participant(role, 'be')
+            create_participant(role, 'be')
+            create_participant(role, 'zh')
+            create_participant(role, nil)
+            create_participant(role, '')
+            create_participant(other_role, 'be')
+
+            subject.send(assoc).should eq('undefined' => 2,
+                                          'be' => 2,
+                                          'zh' => 1)
+          end
+        end
+      end
+    end
+
   end
 
 end

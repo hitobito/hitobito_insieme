@@ -102,3 +102,23 @@ form.report {
   }
 }
 
+.participation-canton-counts {
+  @include clearfix;
+  margin-bottom: 20px;
+
+  .fields .control-group {
+    float: left;
+    width: 250px;
+
+    label {
+      width: 100px;
+    }
+    .controls {
+      margin-left: 120px;
+
+      input {
+        width: 60px;
+      }
+    }
+  }
+}

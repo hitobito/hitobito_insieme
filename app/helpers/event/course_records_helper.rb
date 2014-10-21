@@ -48,4 +48,11 @@ module Event::CourseRecordsHelper
       ''
     end
   end
+
+  def toggled_canton_counts_fieldset(prefix)
+    content_tag(:div, id: "canton_counts_#{prefix}", style: 'display: none;',
+                      class: 'participation-canton-counts') do
+      yield
+    end
+  end
 end

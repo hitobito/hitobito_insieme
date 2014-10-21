@@ -119,9 +119,9 @@ describe Event::CourseRecordsController do
         kursart: 'weiterbildung',
         spezielle_unterkunft: false,
         kursdauer: 10,
-        teilnehmende_behinderte: 10,
         teilnehmende_mehrfachbehinderte: 10,
-        teilnehmende_angehoerige: 10,
+        challenged_canton_count_attributes: { 'be' => 1, 'zh' => 2, 'other' => 3 },
+        affiliated_canton_count_attributes: { 'ag' => 4, 'ge' => 5 },
         teilnehmende_weitere: 10,
         absenzen_behinderte: 10,
         absenzen_angehoerige: 10,
@@ -143,8 +143,19 @@ describe Event::CourseRecordsController do
       end.to change { Event::CourseRecord.count }.by(1)
 
       attrs.each do |key, value|
-        event.course_record.send(key).should eq value
+        unless key.to_s =~ /_attributes$/
+          event.course_record.send(key).should eq value
+        end
       end
+
+      event.course_record.challenged_canton_count.should be_a(Event::ParticipationCantonCount)
+      event.course_record.challenged_canton_count.be.should eq(1)
+      event.course_record.challenged_canton_count.zh.should eq(2)
+      event.course_record.challenged_canton_count.other.should eq(3)
+
+      event.course_record.affiliated_canton_count.should be_a(Event::ParticipationCantonCount)
+      event.course_record.affiliated_canton_count.ag.should eq(4)
+      event.course_record.affiliated_canton_count.ge.should eq(5)
     end
   end
 end

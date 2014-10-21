@@ -59,6 +59,9 @@ de:
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
         missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
 
+      canton_fields:
+        change: Anpassen
+
     general_cost_allocations:
       update:
         flash:

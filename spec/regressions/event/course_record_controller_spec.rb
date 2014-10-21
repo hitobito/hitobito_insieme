@@ -49,4 +49,13 @@ describe Event::CourseRecordsController, type: :controller do
     end
   end
 
+  context 'canton counts' do
+    it 'should hide canton counts initially' do
+      get :edit, group_id: group.id, event_id: event_bk.id
+
+      dom.should have_css '#canton_counts_teilnehmende_behinderte', visible: false
+      dom.should have_css '#canton_counts_teilnehmende_angehoerige', visible: false
+    end
+  end
+
 end
