@@ -5,6 +5,40 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+# == Schema Information
+#
+# Table name: event_participation_canton_counts
+#
+#  id    :integer          not null, primary key
+#  ag    :integer
+#  ai    :integer
+#  ar    :integer
+#  be    :integer
+#  bl    :integer
+#  bs    :integer
+#  fr    :integer
+#  ge    :integer
+#  gl    :integer
+#  gr    :integer
+#  ju    :integer
+#  lu    :integer
+#  ne    :integer
+#  nw    :integer
+#  ow    :integer
+#  sg    :integer
+#  sh    :integer
+#  so    :integer
+#  sz    :integer
+#  tg    :integer
+#  ti    :integer
+#  ur    :integer
+#  vd    :integer
+#  vs    :integer
+#  zg    :integer
+#  zh    :integer
+#  other :integer
+#
+
 require 'spec_helper'
 
 describe Event::ParticipationCantonCount do

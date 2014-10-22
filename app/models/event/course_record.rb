@@ -4,7 +4,6 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: event_course_records
@@ -37,6 +36,8 @@
 #  gemeinkostenanteil               :decimal(12, 2)
 #  gemeinkosten_updated_at          :datetime
 #  zugeteilte_kategorie             :string(2)
+#  challenged_canton_count_id       :integer
+#  affiliated_canton_count_id       :integer
 #
 
 class Event::CourseRecord < ActiveRecord::Base
