@@ -119,7 +119,7 @@ describe Event::CourseRecordsController do
         kursart: 'weiterbildung',
         spezielle_unterkunft: false,
         kursdauer: 10,
-        teilnehmende_mehrfachbehinderte: 10,
+        teilnehmende_mehrfachbehinderte: 3,
         challenged_canton_count_attributes: { 'be' => 1, 'zh' => 2, 'other' => 3 },
         affiliated_canton_count_attributes: { 'ag' => 4, 'ge' => 5 },
         teilnehmende_weitere: 10,
