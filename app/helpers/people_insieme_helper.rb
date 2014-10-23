@@ -12,7 +12,9 @@ module PeopleInsiemeHelper
   end
 
   def possible_person_cantons
-    candidates_from_i18n(:cantons)
+    Cantons.short_names.map do |c|
+      Struct.new(:id, :to_s).new(c, Cantons.full_name(c))
+    end
   end
 
   def format_person_language(person)

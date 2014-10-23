@@ -32,11 +32,12 @@ module Insieme::Person
     before_save :normalize_addresses
 
     validates :number, presence: true, uniqueness: true
+    validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
     validate :allowed_number_range
   end
 
   def canton_value
-    value_from_i18n(:canton)
+    Cantons.full_name(canton)
   end
 
   def language_value

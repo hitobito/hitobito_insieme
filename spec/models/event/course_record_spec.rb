@@ -172,8 +172,6 @@ describe Event::CourseRecord do
     let(:record) do
       new_record(event_bk,
                  kursdauer: 5,
-                 teilnehmende_behinderte: 5,
-                 teilnehmende_angehoerige: 4,
                  teilnehmende_weitere: 1,
                  leiterinnen: 3,
                  fachpersonen: 1,
@@ -182,7 +180,9 @@ describe Event::CourseRecord do
                  absenzen_weitere: 1,
                  honorare_inkl_sozialversicherung: 200,
                  uebriges: 50,
-                 gemeinkostenanteil: 50)
+                 gemeinkostenanteil: 50,
+                 challenged_canton_count_attributes: { ag: 5 },
+                 affiliated_canton_count_attributes: { ag: 4 })
     end
 
     subject { record }
@@ -311,8 +311,9 @@ describe Event::CourseRecord do
     end
 
     it 'should default sums to 0' do
-      record.teilnehmende_behinderte.should eq 0
-      record.teilnehmende_angehoerige.should eq 0
+      record.teilnehmende_behinderte.should be_nil
+      record.teilnehmende_angehoerige.should be_nil
+      record.teilnehmende_weitere.should be_nil
     end
 
     it 'should be accessible through the associations' do
@@ -329,8 +330,8 @@ describe Event::CourseRecord do
     context '#sum_canton_counts' do
       it 'should not fail if association is not present' do
         record.sum_canton_counts
-        record.teilnehmende_behinderte.should eq 0
-        record.teilnehmende_angehoerige.should eq 0
+        record.teilnehmende_behinderte.should be_nil
+        record.teilnehmende_angehoerige.should be_nil
       end
 
       it 'should set total' do

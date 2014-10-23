@@ -35,7 +35,7 @@ describe Event::GeneralCostAllocationJob do
     before do
       @e1 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 5000)
       @e2 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 6000,
-                                                         kursdauer: 1, teilnehmende_behinderte: 10, inputkriterien: 'c')
+                                                         kursdauer: 1, teilnehmende_weitere: 10, inputkriterien: 'c')
       @e2.reload.course_record.zugeteilte_kategorie.should eq('2')
 
       @e3 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)

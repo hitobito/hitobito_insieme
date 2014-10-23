@@ -53,9 +53,7 @@ describe Event::ParticipationCantonCount do
     end
 
     it 'should sum all canton counts' do
-      [:ag, :ai, :ar, :be, :bl, :bs, :fr, :ge, :gl, :gr, :ju,
-       :lu, :ne, :nw, :ow, :sg, :sh, :so, :sz, :tg, :ti, :ur,
-       :vd, :vs, :zg, :zh, :other].each do |attr|
+      Cantons::SHORT_NAMES.each do |attr|
         counts[attr] = 1
       end
       counts.total.should eq 27

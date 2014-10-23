@@ -46,9 +46,6 @@ class Event::ParticipationCantonCount < ActiveRecord::Base
                                                      class_name: 'Event::CourseRecord'
 
   def total
-    ag.to_i + ai.to_i + ar.to_i + be.to_i + bl.to_i + bs.to_i + fr.to_i +
-      ge.to_i + gl.to_i + gr.to_i + ju.to_i + lu.to_i + ne.to_i + nw.to_i + ow.to_i +
-      sg.to_i + sh.to_i + so.to_i + sz.to_i + tg.to_i + ti.to_i + ur.to_i + vd.to_i +
-      vs.to_i + zg.to_i + zh.to_i + other.to_i
+    Cantons.short_name_strings.inject(0) { |sum, c| sum + attributes[c].to_i }
   end
 end

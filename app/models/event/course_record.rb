@@ -58,21 +58,7 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
   validate :assert_mehrfachbehinderte_less_than_behinderte
-  validates_each :kursdauer, :absenzen_behinderte,
-                 :absenzen_angehoerige, :absenzen_weitere do |record, attr, value|
-    if value
-      if record.sk?
-        if value % 1 != 0
-          record.errors.add(attr, :not_an_integer)
-        end
-      else
-        if value % 0.5 != 0
-          record.errors.add(attr,
-                            I18n.t('activerecord.errors.messages.must_be_multiple_of', multiple: 0.5))
-        end
-      end
-    end
-  end
+  validate :assert_duration_values_precision
 
 
   before_validation :set_defaults
@@ -175,8 +161,6 @@ class Event::CourseRecord < ActiveRecord::Base
     self.subventioniert ||= true if subventioniert.nil?
     self.total_direkte_kosten = direkter_aufwand
     self.year = event.years.first if event.years.size == 1
-    self.teilnehmende_behinderte ||= 0
-    self.teilnehmende_angehoerige ||= 0
 
     if sk?
       self.spezielle_unterkunft = false
@@ -192,12 +176,8 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def sum_canton_counts
-    unless challenged_canton_count.nil?
-      self.teilnehmende_behinderte = challenged_canton_count.total
-    end
-    unless affiliated_canton_count.nil?
-      self.teilnehmende_angehoerige = affiliated_canton_count.total
-    end
+    self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
+    self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
   end
 
   private
@@ -211,6 +191,26 @@ class Event::CourseRecord < ActiveRecord::Base
   def assert_mehrfachbehinderte_less_than_behinderte
     if teilnehmende_mehrfachbehinderte.to_i > teilnehmende_behinderte.to_i
       errors.add(:teilnehmende_mehrfachbehinderte, :less_than_teilnehmende_behinderte)
+    end
+  end
+
+  def assert_duration_values_precision
+    [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere].each do |attr|
+      value = send(attr)
+      next unless value
+
+      if sk?
+        check_modulus(attr, value, 1, :not_an_integer)
+      else
+        msg = I18n.t('activerecord.errors.messages.must_be_multiple_of', multiple: 0.5)
+        check_modulus(attr, value, 0.5, msg)
+      end
+    end
+  end
+
+  def check_modulus(attr, value, multiple, message)
+    if value % multiple != 0
+      errors.add(attr, message)
     end
   end
 

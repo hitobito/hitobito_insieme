@@ -12,14 +12,9 @@ module GroupsInsiemeHelper
   end
 
   def possible_group_cantons
-    candidates_from_i18n(:cantons)
-  end
-
-  private
-
-  def candidates_from_i18n(collection_attr)
-    t("activerecord.attributes.group.#{collection_attr}").map do |key, value|
-      Struct.new(:id, :to_s).new(key, value)
+    (Cantons.short_names - [:other]).map do |c|
+      Struct.new(:id, :to_s).new(c, Cantons.full_name(c))
     end
   end
+
 end

@@ -42,19 +42,12 @@ module Insieme::Group
     root_types Group::Dachverein
 
     has_many :time_records
+
+    validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
   end
 
   def canton_value
-    value_from_i18n(:canton)
+    Cantons.full_name(canton)
   end
 
-  private
-
-  def value_from_i18n(key)
-    value = send(key)
-
-    if value.present?
-      I18n.t("activerecord.attributes.group.#{key.to_s.pluralize}.#{value}")
-    end
-  end
 end

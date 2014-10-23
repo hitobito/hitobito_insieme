@@ -33,16 +33,8 @@ class Event::CourseRecordsController < CrudController
                           :uebriges,
                           :beitraege_teilnehmende,
                           :year,
-                          challenged_canton_count_attributes: [:ag, :ai, :ar, :be, :bl, :bs, :fr,
-                                                               :ge, :gl, :gr, :ju, :lu, :ne, :nw,
-                                                               :ow, :sg, :sh, :so, :sz, :tg, :ti,
-                                                               :ur, :vd, :vs, :zg, :zh, :other],
-                          affiliated_canton_count_attributes: [:ag, :ai, :ar, :be, :bl, :bs, :fr,
-                                                               :ge, :gl, :gr, :ju, :lu, :ne, :nw,
-                                                               :ow, :sg, :sh, :so, :sz, :tg, :ti,
-                                                               :ur, :vd, :vs, :zg, :zh, :other]
-
-                         ]
+                          challenged_canton_count_attributes: Cantons::SHORT_NAMES,
+                          affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
 
   before_render_form :set_defaults, if: -> { entry.new_record? }
   before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
@@ -96,11 +88,7 @@ class Event::CourseRecordsController < CrudController
   end
 
   def build_canton_counts
-    if entry.challenged_canton_count.nil?
-      entry.build_challenged_canton_count
-    end
-    if entry.affiliated_canton_count.nil?
-      entry.build_affiliated_canton_count
-    end
+    entry.challenged_canton_count || entry.build_challenged_canton_count
+    entry.affiliated_canton_count || entry.build_affiliated_canton_count
   end
 end

@@ -37,11 +37,11 @@ module CourseReporting
     end
 
     def challenged_canton_counts
-      canton_counts(Event::Course::Role::Challenged)
+      @challenged_canton_counts ||= canton_counts(Event::Course::Role::Challenged)
     end
 
     def affiliated_canton_counts
-      canton_counts(Event::Course::Role::Affiliated)
+      @affiliated_canton_counts ||= canton_counts(Event::Course::Role::Affiliated)
     end
 
     def not_entitled_for_benefit_count
@@ -109,7 +109,7 @@ module CourseReporting
 
     def canton_counts(role)
       counts = event.participations.includes(:roles).joins(:roles, :person).
-        where(event_roles: { type: role.to_s }).
+        where(event_roles: { type: role.sti_name }).
         group('people.canton').count
       counts['undefined'] = ((counts.delete(nil) || 0) + (counts.delete('') || 0))
       counts
