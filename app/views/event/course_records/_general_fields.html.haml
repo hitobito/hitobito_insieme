@@ -14,6 +14,6 @@
                                                duration: f(duration)))
 
   - if entry.event.years.size > 1
-    = f.labeled_collection_select(:year, entry.event.years, :to_s, :to_s, {}, class: 'span1')
+    = f.labeled_collection_select(:year, entry.event.years, :to_s, :to_s, {}, class: 'span2')
   - else
     = f.labeled_readonly_value(:year)

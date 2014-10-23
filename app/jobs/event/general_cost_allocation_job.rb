@@ -9,8 +9,8 @@ class Event::GeneralCostAllocationJob < BaseJob
 
   self.parameters = [:general_cost_allocation_id]
 
-  def initialize(general_cost_allocation_id)
-    @general_cost_allocation_id = general_cost_allocation_id
+  def initialize(general_cost_allocation)
+    @general_cost_allocation_id = general_cost_allocation.id
   end
 
   def perform
