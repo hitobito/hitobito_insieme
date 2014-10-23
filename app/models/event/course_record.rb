@@ -57,10 +57,23 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
-  validates :kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-            modulus:  { multiple: 0.5, if: -> { !sk? } },
-            numericality: { only_integer: true, allow_nil: true, if: :sk? }
   validate :assert_mehrfachbehinderte_less_than_behinderte
+  validates_each :kursdauer, :absenzen_behinderte,
+                 :absenzen_angehoerige, :absenzen_weitere do |record, attr, value|
+    if value
+      if record.sk?
+        if value % 1 != 0
+          record.errors.add(attr, :not_an_integer)
+        end
+      else
+        if value % 0.5 != 0
+          record.errors.add(attr,
+                            I18n.t('activerecord.errors.messages.must_be_multiple_of', multiple: 0.5))
+        end
+      end
+    end
+  end
+
 
   before_validation :set_defaults
   before_validation :compute_category

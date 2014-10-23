@@ -103,8 +103,8 @@ describe Event::CourseRecord do
     end
 
     it 'only accepts integer time values for sk course' do
-      new_record(event_sk, kursdauer: 1, absenzen_behinderte: 1,
-                 absenzen_angehoerige: 1, absenzen_weitere: 1).should be_valid
+      new_record(event_sk, kursdauer: 1, absenzen_behinderte: 1.0,
+                 absenzen_angehoerige: 2, absenzen_weitere: 0.0).should be_valid
 
       new_record(event_sk, kursdauer: 1.5, absenzen_behinderte: 1.5,
                  absenzen_angehoerige: 1.5, absenzen_weitere: 1.5).should have(4).errors
