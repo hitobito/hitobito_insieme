@@ -64,10 +64,10 @@ describe Event::GeneralCostAllocationJob do
       @e1.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
       @e2.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
       @e3.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
+      @e4.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
     end
 
     it 'does not touch not considered records' do
-      @e4.reload.course_record.gemeinkosten_updated_at.should be nil
       @e5.reload.course_record.gemeinkosten_updated_at.should be nil
       @e6.reload.course_record.gemeinkosten_updated_at.should be nil
     end
@@ -76,6 +76,7 @@ describe Event::GeneralCostAllocationJob do
       @e1.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1363.636)
       @e2.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1636.363)
       @e3.reload.course_record.gemeinkostenanteil.should eq(0)
+      @e4.reload.course_record.gemeinkostenanteil.should eq(0)
     end
 
     it 're-calculates category' do

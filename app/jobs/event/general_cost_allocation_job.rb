@@ -14,13 +14,28 @@ class Event::GeneralCostAllocationJob < BaseJob
   end
 
   def perform
+    Event::CourseRecord.transaction do
+      update_subsidized
+      update_not_subsidized
+    end
+  end
+
+  private
+
+  def update_subsidized
     general_cost_allocation.considered_course_records.includes(:event).find_each do |record|
       record.update!(gemeinkostenanteil: calculate_gemeinkostenanteil(record),
                      gemeinkosten_updated_at: general_cost_allocation.updated_at)
     end
   end
 
-  private
+  def update_not_subsidized
+    general_cost_allocation.considered_course_records(false).find_each do |record|
+      # update each individually to trigger after_save kategorie calculations.
+      record.update!(gemeinkostenanteil: 0,
+                     gemeinkosten_updated_at: general_cost_allocation.updated_at)
+    end
+  end
 
   def calculate_gemeinkostenanteil(record)
     allowance = general_cost_allocation.general_costs_allowance(record.event.leistungskategorie)

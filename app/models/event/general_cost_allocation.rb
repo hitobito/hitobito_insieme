@@ -50,9 +50,9 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
     end
   end
 
-  def considered_course_records
+  def considered_course_records(subventioniert = true)
     Event::CourseRecord.joins(event: :events_groups).
-                        where(subventioniert: true,
+                        where(subventioniert: subventioniert,
                               year: year,
                               events_groups: { group_id: group.id })
 
