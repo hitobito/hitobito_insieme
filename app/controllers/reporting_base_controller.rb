@@ -20,7 +20,6 @@ class ReportingBaseController < ApplicationController
 
   helper_method :entry, :group
 
-
   before_action :authorize
   before_action :entry
 

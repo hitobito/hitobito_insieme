@@ -7,6 +7,10 @@
 
 class CostAccountingController < ReportingBaseController
 
+  include ListController::Memory
+
+  self.remember_params = [:year]
+
   helper_method :report
 
   def index

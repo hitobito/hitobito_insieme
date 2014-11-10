@@ -14,6 +14,7 @@ module Insieme::Sheet::Group
                 Sheet::Tab.new('reporting.title',
                                :cost_accounting_group_path,
                                alt: [:base_time_record_group_path],
+                               params: { returning: true },
                                if: lambda do |view, group|
                                  group.reporting? && view.can?(:reporting, group)
                                end))

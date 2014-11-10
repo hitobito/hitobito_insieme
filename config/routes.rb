@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         end
 
         scope 'cost_accounting' do
-          get '(:year)' => 'cost_accounting#index', as: :cost_accounting
+          get '/' => 'cost_accounting#index', as: :cost_accounting
           get ':year/:report/edit' => 'cost_accounting#edit', as: :edit_cost_accounting_report
           put ':year/:report' => 'cost_accounting#update', as: :cost_accounting_report
           get ':year/:report' => 'cost_accounting#edit' # route required for language switch
