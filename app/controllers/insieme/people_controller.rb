@@ -22,6 +22,17 @@ module Insieme
           self.permitted_attrs << :"#{prefix}_#{field}"
         end
       end
+
+      alias_method_chain :permitted_params, :number_check
+    end
+
+    def permitted_params_with_number_check
+      p = permitted_params_without_number_check
+      if entry.id == current_user.id
+        p.delete(:number)
+        p.delete(:manual_number)
+      end
+      p
     end
   end
 end
