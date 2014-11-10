@@ -45,6 +45,7 @@ de:
 
   event:
     course_records:
+      title: Kursabschluss
       form:
         effektiv_teilnehmende: Effektiv Teilnehmende
         betreuerinnen: BetreuerInnen
