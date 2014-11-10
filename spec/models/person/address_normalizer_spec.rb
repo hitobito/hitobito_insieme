@@ -21,7 +21,8 @@ describe Person::AddressNormalizer do
   context 'blank values' do
     %w(correspondence_general correspondence_course billing_general billing_course).each do |type|
       it "updates #{type} values to main field values" do
-        value(type, :full_name).should eq 'Puzzle ITC'
+        value(type, :first_name).should eq 'Puzzle'
+        value(type, :last_name).should eq 'ITC'
         value(type, :address).should eq 'Eigerplatz 4'
         value(type, :zip_code).should eq 3007
         value(type, :town).should eq 'Bern'
@@ -34,10 +35,10 @@ describe Person::AddressNormalizer do
 
   context 'differing values' do
     let(:person) { Person.new(attrs.merge(billing_course_same_as_main: false,
-                                          billing_course_full_name: 'Insieme')) }
+                                          billing_course_first_name: 'Insieme')) }
 
     it 'keeps differing values' do
-      value(:billing_course, :full_name).should eq 'Insieme'
+      value(:billing_course, :first_name).should eq 'Insieme'
 
       %w(address zip_code town country company).each do |field|
         value(:billing_course, field).should_not be_present
@@ -51,15 +52,16 @@ describe Person::AddressNormalizer do
 
 
   context 'identical values' do
-
-    let(:person) { Person.new(attrs.merge(billing_course_full_name: 'Puzzle ITC',
+    let(:person) { Person.new(attrs.merge(billing_course_first_name: 'Puzzle',
+                                          billing_course_last_name: 'ITC',
                                           billing_course_address: 'Eigerplatz 4',
                                           billing_course_zip_code: 3007,
                                           billing_course_town: 'Bern',
                                           billing_course_country: 'Schweiz',
                                           billing_course_same_as_main: false)) }
     it 'keeps values identical' do
-      value(:billing_course, :full_name).should eq 'Puzzle ITC'
+      value(:billing_course, :first_name).should eq 'Puzzle'
+      value(:billing_course, :last_name).should eq 'ITC'
       value(:billing_course, :address).should eq 'Eigerplatz 4'
       value(:billing_course, :zip_code).should eq 3007
       value(:billing_course, :town).should eq 'Bern'
@@ -72,24 +74,23 @@ describe Person::AddressNormalizer do
     end
   end
 
-  context 'assigning values' do
+  context 'persisted values' do
     let(:person) { Person.create!(attrs) }
 
-    context 'in main address' do
-      it 'does update others that are same as main' do
-        person.billing_general_same_as_main.should be true
-        person.town = 'Thun'
-        Person::AddressNormalizer.new(person).run
-        person.billing_general_town.should eq 'Thun'
-      end
+    it 'does update others when updating main' do
+      person.update_attribute(:town, 'Thun')
+      person.reload.billing_general_town.should eq 'Thun'
     end
 
-    context 'in other address' do
-      it 'does not mark person as changed when resetting same value' do
-        person.billing_general_full_name = 'Puzzle ITC'
-        Person::AddressNormalizer.new(person).run
-        person.should_not be_changed
-      end
+    it 'does not persist changed value if same_as_main is set' do
+      person.update_attribute(:billing_general_first_name, 'Insieme')
+      person.reload.billing_general_first_name.should eq 'Puzzle'
+    end
+
+    it 'does persist changed value if same_as_main is set to false' do
+      person.update_attributes(billing_general_first_name: 'Insieme',
+                               billing_general_same_as_main: false)
+      person.reload.billing_general_first_name.should eq 'Insieme'
     end
   end
 

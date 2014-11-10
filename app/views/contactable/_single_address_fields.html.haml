@@ -13,7 +13,9 @@
                             data: { hide: "person_#{prefix}" })
 
   = toggled_address_fields(prefix, f.object) do
-    = f.labeled_input_field(:"#{prefix}_full_name", label: t('activerecord.attributes.person.insieme_full_name'))
+    = f.labeled_input_field(:"#{prefix}_salutation", label: t('activerecord.attributes.person.salutation'))
+    = f.labeled_input_field(:"#{prefix}_first_name", label: t('activerecord.attributes.person.first_name'))
+    = f.labeled_input_field(:"#{prefix}_last_name", label: t('activerecord.attributes.person.last_name'))
     = f.labeled_input_field(:"#{prefix}_company_name", label: t('activerecord.attributes.person.company_name'))
     = f.labeled_input_field(:"#{prefix}_company", label: t('activerecord.attributes.person.company'))
     = f.labeled_text_area(:"#{prefix}_address", label: t('activerecord.attributes.person.address'), rows: 2)

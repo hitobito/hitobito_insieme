@@ -36,6 +36,10 @@ module Insieme
             @address_type = address_type
           end
 
+          def full_name
+            "#{first_name} #{last_name}".strip
+          end
+
           def ignored_country?
             ['', *Settings.address.ignored_countries].include?(country.to_s.strip.downcase)
           end

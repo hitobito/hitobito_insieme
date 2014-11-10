@@ -26,7 +26,9 @@ describe Event::ParticipationsController do
                                address: 'dummy',
                                country: 'dummy',
                                correspondence_course_same_as_main: false,
-                               correspondence_course_full_name: 'dummy',
+                               correspondence_course_salutation: 'dummy',
+                               correspondence_course_first_name: 'dummy',
+                               correspondence_course_last_name: 'dummy',
                                correspondence_course_company_name: 'dummy',
                                correspondence_course_company: '1',
                                correspondence_course_address: 'dummy',
@@ -34,7 +36,9 @@ describe Event::ParticipationsController do
                                correspondence_course_town: 'dummy',
                                correspondence_course_country: 'dummy',
                                billing_course_same_as_main: '0',
-                               billing_course_full_name: 'dummy',
+                               billing_course_salutation: 'dummy',
+                               billing_course_first_name: 'dummy',
+                               billing_course_last_name: 'dummy',
                                billing_course_company_name: 'dummy',
                                billing_course_company: '1',
                                billing_course_address: 'dummy',
@@ -55,10 +59,21 @@ describe Event::ParticipationsController do
       person.send(attr.to_sym).should be_true
     end
 
-    %w(town address country correspondence_course_full_name correspondence_course_company_name
-       correspondence_course_address correspondence_course_town correspondence_course_country
-       billing_course_full_name billing_course_company_name  billing_course_address
-       billing_course_town billing_course_country).each do |attr|
+    %w(town address country
+       correspondence_course_salutation
+       correspondence_course_first_name
+       correspondence_course_last_name
+       correspondence_course_company_name
+       correspondence_course_address
+       correspondence_course_town
+       correspondence_course_country
+       billing_course_salutation
+       billing_course_first_name
+       billing_course_last_name
+       billing_course_company_name
+       billing_course_address
+       billing_course_town
+       billing_course_country).each do |attr|
       person.send(attr.to_sym).should eq 'dummy'
     end
   end

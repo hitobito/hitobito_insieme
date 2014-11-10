@@ -9,10 +9,10 @@ require 'spec_helper'
 
 describe PeopleController do
   it 'should permit the prefixed address attributes' do
-    expect(PeopleController.permitted_attrs).to include(:correspondence_general_full_name)
-    expect(PeopleController.permitted_attrs).to include(:billing_general_full_name)
-    expect(PeopleController.permitted_attrs).to include(:correspondence_course_full_name)
-    expect(PeopleController.permitted_attrs).to include(:billing_course_full_name)
+    expect(PeopleController.permitted_attrs).to include(:correspondence_general_first_name)
+    expect(PeopleController.permitted_attrs).to include(:billing_general_first_name)
+    expect(PeopleController.permitted_attrs).to include(:correspondence_course_first_name)
+    expect(PeopleController.permitted_attrs).to include(:billing_course_first_name)
     expect(PeopleController.permitted_attrs).to include(:correspondence_general_company_name)
   end
 

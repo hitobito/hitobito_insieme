@@ -16,9 +16,9 @@ module Insieme::Person
                        correspondence_course
                        billing_course)
 
-    ADDRESS_FIELDS = %w(full_name company_name company address zip_code town country)
+    ADDRESS_FIELDS = %w(salutation first_name last_name company_name company address zip_code town country)
 
-    Person::PUBLIC_ATTRS << :insieme_full_name << :number << :salutation
+    Person::PUBLIC_ATTRS << :number << :salutation
 
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|

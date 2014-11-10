@@ -24,63 +24,6 @@ describe Person do
     end
   end
 
-  context 'insieme_full_name' do
-    it 'can be custom defined' do
-      person = Person.new
-      person.first_name = 'John'
-      person.last_name = 'Lennon'
-      person.insieme_full_name.should be_blank
-      person.insieme_full_name = 'George Harrison'
-      person.save!
-      person.insieme_full_name.should eq 'George Harrison'
-    end
-
-    it 'falls back to first_name + last_name if blank' do
-      person = Person.new
-      person.first_name = 'John'
-      person.last_name = 'Lennon'
-      person.save!
-      person.insieme_full_name.should eq 'John Lennon'
-    end
-
-    it 'can be updated and falls back to first_name + last_name when changed to blank' do
-      person = Person.new
-      person.first_name = 'John'
-      person.last_name = 'Lennon'
-      person.save!
-      person.insieme_full_name.should eq 'John Lennon'
-
-      person.insieme_full_name = 'George Harrison'
-      person.save!
-      person.insieme_full_name.should eq 'George Harrison'
-
-      person.insieme_full_name = ''
-      person.save!
-      person.insieme_full_name.should eq 'John Lennon'
-    end
-
-    it 'doesn\'t update if defined' do
-      person = Person.new
-      person.first_name = 'John'
-      person.last_name = 'Lennon'
-      person.save!
-      person.insieme_full_name.should eq 'John Lennon'
-
-      person.first_name = 'Paul'
-      person.last_name = 'McCartney'
-      person.save!
-      person.insieme_full_name.should eq 'John Lennon'
-
-      person.insieme_full_name = 'Ringo Starr'
-      person.save!
-
-      person.first_name = 'Brian'
-      person.last_name = 'Epstein'
-      person.save!
-      person.insieme_full_name.should eq 'Ringo Starr'
-    end
-  end
-
   context '#number' do
     it 'creates automatic number for new people' do
       person1 = Person.new(first_name: 'John')
@@ -231,7 +174,8 @@ describe Person do
     it 'sets blank address fields to main values' do
       person = create
 
-      person.reload.correspondence_general_full_name.should eq 'John Lennon'
+      person.reload.correspondence_general_first_name.should eq 'John'
+      person.reload.correspondence_general_last_name.should eq 'Lennon'
       person.correspondence_course_address.should eq 'Pennylane'
       person.billing_general_town.should eq 'Liverpool'
       person.billing_course_zip_code.should eq 9933
@@ -241,10 +185,10 @@ describe Person do
     it 'sets same_as_main according to values of address fields' do
       person = create
       person.update!(correspondence_general_same_as_main: false,
-                     correspondence_general_full_name: 'Working class hero')
+                     correspondence_general_first_name: 'Working class hero')
 
       person.reload.full_name.should eq 'John Lennon'
-      person.correspondence_general_full_name.should eq 'Working class hero'
+      person.correspondence_general_first_name.should eq 'Working class hero'
       person.correspondence_general_same_as_main.should be_false
     end
 

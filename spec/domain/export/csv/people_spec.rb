@@ -13,21 +13,47 @@ describe Export::Csv::People do
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
     %w(Vorname Nachname Übername Firmenname Firma Haupt-E-Mail Adresse PLZ Ort Land
-       Geschlecht Geburtstag Rollen Name Personnr. Anrede) +
-      ['Name Korrespondenzadresse allgemein', 'Firmenname Korrespondenzadresse allgemein',
-       'Firma Korrespondenzadresse allgemein', 'Adresse Korrespondenzadresse allgemein',
-       'PLZ Korrespondenzadresse allgemein', 'Ort Korrespondenzadresse allgemein',
-       'Land Korrespondenzadresse allgemein', 'Name Rechnungsadresse allgemein',
-       'Firmenname Rechnungsadresse allgemein', 'Firma Rechnungsadresse allgemein',
-       'Adresse Rechnungsadresse allgemein', 'PLZ Rechnungsadresse allgemein',
-       'Ort Rechnungsadresse allgemein', 'Land Rechnungsadresse allgemein',
-       'Name Korrespondenzadresse Kurs', 'Firmenname Korrespondenzadresse Kurs',
-       'Firma Korrespondenzadresse Kurs', 'Adresse Korrespondenzadresse Kurs',
-       'PLZ Korrespondenzadresse Kurs', 'Ort Korrespondenzadresse Kurs',
-       'Land Korrespondenzadresse Kurs', 'Name Rechnungsadresse Kurs',
-       'Firmenname Rechnungsadresse Kurs', 'Firma Rechnungsadresse Kurs',
-       'Adresse Rechnungsadresse Kurs', 'PLZ Rechnungsadresse Kurs', 'Ort Rechnungsadresse Kurs',
-       'Land Rechnungsadresse Kurs']
+       Geschlecht Geburtstag Rollen Personnr. Anrede) +
+       [
+         'Anrede Korrespondenzadresse allgemein',
+         'Vorname Korrespondenzadresse allgemein',
+         'Nachname Korrespondenzadresse allgemein',
+         'Firmenname Korrespondenzadresse allgemein',
+         'Firma Korrespondenzadresse allgemein',
+         'Adresse Korrespondenzadresse allgemein',
+         'PLZ Korrespondenzadresse allgemein',
+         'Ort Korrespondenzadresse allgemein',
+         'Land Korrespondenzadresse allgemein',
+
+         'Anrede Rechnungsadresse allgemein',
+         'Vorname Rechnungsadresse allgemein',
+         'Nachname Rechnungsadresse allgemein',
+         'Firmenname Rechnungsadresse allgemein',
+         'Firma Rechnungsadresse allgemein',
+         'Adresse Rechnungsadresse allgemein',
+         'PLZ Rechnungsadresse allgemein',
+         'Ort Rechnungsadresse allgemein',
+         'Land Rechnungsadresse allgemein',
+
+         'Anrede Korrespondenzadresse Kurs',
+         'Vorname Korrespondenzadresse Kurs',
+         'Nachname Korrespondenzadresse Kurs',
+         'Firmenname Korrespondenzadresse Kurs',
+         'Firma Korrespondenzadresse Kurs',
+         'Adresse Korrespondenzadresse Kurs',
+         'PLZ Korrespondenzadresse Kurs',
+         'Ort Korrespondenzadresse Kurs',
+         'Land Korrespondenzadresse Kurs',
+
+         'Anrede Rechnungsadresse Kurs',
+         'Vorname Rechnungsadresse Kurs',
+         'Nachname Rechnungsadresse Kurs',
+         'Firmenname Rechnungsadresse Kurs',
+         'Firma Rechnungsadresse Kurs',
+         'Adresse Rechnungsadresse Kurs',
+         'PLZ Rechnungsadresse Kurs',
+         'Ort Rechnungsadresse Kurs',
+         'Land Rechnungsadresse Kurs']
   end
 
   describe Export::Csv::People do
@@ -50,18 +76,18 @@ describe Export::Csv::People do
         its(['Ort']) { should eq person.town }
         its(['Geschlecht']) { should eq person.gender_label }
         its(['Rollen']) { should eq 'Geschäftsführung insieme Schweiz' }
-        its(['Name']) { should eq 'Top Leader' }
       end
     end
 
     context 'export_full' do
-      its(:headers) { should include('Name') }
+      its(:headers) { should include('Anrede') }
       let(:data) { Export::Csv::People::PeopleFull.export(list) }
 
       context 'first row' do
         subject { csv[0] }
 
-        its(['Name']) { should eq 'Top Leader' }
+        its(['Vorname']) { should eq 'Top' }
+        its(['Nachname']) { should eq 'Leader' }
       end
     end
   end
