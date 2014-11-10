@@ -16,13 +16,13 @@ describe EventsController, type: :controller do
 
   before { sign_in(people(:top_leader)) }
 
-  context 'reporting tab' do
+  context 'course reporting tab' do
     context 'simple event' do
       it 'should not be visible' do
         event = Fabricate(:event, groups: [group])
 
         get :show, group_id: group.id, id: event.id
-        dom.should have_content 'Reporting', count: 1
+        dom.should_not have_content 'Kursabschluss'
       end
     end
 
@@ -32,7 +32,7 @@ describe EventsController, type: :controller do
                           leistungskategorie: 'bk')
 
         get :show, group_id: group.id, id: event.id
-        dom.should have_content 'Reporting', count: 2
+        dom.should have_content 'Kursabschluss'
       end
 
       it 'should not be visible to participants' do
@@ -45,7 +45,7 @@ describe EventsController, type: :controller do
         sign_in(role.person)
 
         get :show, group_id: group.id, id: event.id
-        dom.should have_content 'Reporting', count: 1
+        dom.should_not have_content 'Kursabschluss'
       end
     end
   end
