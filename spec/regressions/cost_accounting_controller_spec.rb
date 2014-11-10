@@ -46,7 +46,7 @@ describe CostAccountingController, type: :controller  do
                            abgrenzung_fibu: nil }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year))
+          should redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           r.aufwand_ertrag_fibu.should eq(2000)
@@ -65,7 +65,7 @@ describe CostAccountingController, type: :controller  do
                            verwaltung: 30 }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year))
+          should redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           r.aufwand_ertrag_fibu.should eq(2000)
@@ -91,7 +91,7 @@ describe CostAccountingController, type: :controller  do
                            verwaltung: 30 }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year))
+          should redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           r.aufwand_ertrag_fibu.should eq(2000)
@@ -141,7 +141,7 @@ describe CostAccountingController, type: :controller  do
                          abgrenzung_fibu: nil }
         end.not_to change { CostAccountingRecord.count }
 
-        should redirect_to(cost_accounting_group_path(group, year))
+        should redirect_to(cost_accounting_group_path(group, year: year))
 
         r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
         r.aufwand_ertrag_fibu.should eq(2000)
