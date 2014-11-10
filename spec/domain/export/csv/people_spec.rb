@@ -48,7 +48,7 @@ describe Export::Csv::People do
         its(['Nachname']) { should eq person.last_name }
         its(['Haupt-E-Mail']) { should eq person.email }
         its(['Ort']) { should eq person.town }
-        its(['Geschlecht']) { should eq person.gender }
+        its(['Geschlecht']) { should eq person.gender_label }
         its(['Rollen']) { should eq 'Geschäftsführung insieme Schweiz' }
         its(['Name']) { should eq 'Top Leader' }
       end

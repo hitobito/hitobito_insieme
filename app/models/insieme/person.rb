@@ -24,6 +24,8 @@ module Insieme::Person
       ADDRESS_FIELDS.each do |field|
         Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"
       end
+
+      i18n_boolean_setter "#{prefix}_company"
     end
 
     before_validation :generate_automatic_number

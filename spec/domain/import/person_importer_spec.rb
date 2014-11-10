@@ -22,9 +22,7 @@ describe Import::PersonImporter do
   let(:number)        { 123 }
 
   let(:importer)  do
-    Import::PersonImporter.new(group: groups(:aktiv),
-                               role_type: Group::Aktivmitglieder::Aktivmitglied,
-                               data: data)
+    Import::PersonImporter.new(data, groups(:aktiv), Group::Aktivmitglieder::Aktivmitglied)
   end
 
   let(:import_person) { importer.people.first }
