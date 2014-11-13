@@ -83,6 +83,13 @@ module CourseReporting
       not_entitled_for_benefit_count
     end
 
+    def internal_invoice_amount_sum
+      event.participations.
+        map(&:internal_invoice_amount).
+        map(&:to_d).
+        inject(&:+)
+    end
+
     private
 
     def role_count(type)

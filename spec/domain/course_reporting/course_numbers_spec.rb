@@ -98,6 +98,22 @@ describe CourseReporting::CourseNumbers do
       end
     end
 
+    context '#internal_invoice_amount_sum' do
+      it 'is 0 for no participations' do
+        subject.internal_invoice_amount_sum.should eq(0)
+      end
+
+      it 'is sums all internal_invoice_amounts' do
+        [{ internal_invoice_amount: nil } ,
+         { internal_invoice_amount: 1 } ,
+         { internal_invoice_amount: 2 }] .each do |attrs|
+           event.participations.build(attrs)
+         end
+
+         subject.internal_invoice_amount_sum.should eq(3.to_d)
+      end
+    end
+
     context 'canton counts' do
       def create_participant(role, canton)
         Fabricate(role.name.to_sym,
