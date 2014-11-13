@@ -10,7 +10,7 @@ class Event::CourseRecordAbility < AbilityDsl::Base
   include AbilityDsl::Constraints::Event
 
   on(Event::CourseRecord) do
-    permission(:any).may(:update).for_reporting_events
+    permission(:any).may(:update).for_reporting_or_controlling_events
     permission(:group_full).may(:update).in_same_group
     permission(:layer_full).may(:update).in_same_layer
     permission(:layer_and_below_full).may(:update).in_same_layer_or_below
@@ -22,8 +22,8 @@ class Event::CourseRecordAbility < AbilityDsl::Base
     event.is_a?(Event::Course)
   end
 
-  def for_reporting_events
-    permission_in_event?(:reporting)
+  def for_reporting_or_controlling_events
+    permission_in_event?(:reporting) || controller_in_group?
   end
 
   private
@@ -32,4 +32,13 @@ class Event::CourseRecordAbility < AbilityDsl::Base
     subject.event
   end
 
+  def controller_in_group?
+    event_group = event.groups.first
+
+    if event_group.class.const_defined?('Controlling')
+      user_context.user.roles.
+        select { |role| role.group_id == event_group.id }.
+        any? { |role| role.is_a?(event_group.class.const_get('Controlling')) }
+    end
+  end
 end

@@ -46,9 +46,24 @@ describe Event::CourseRecordsController do
       end
     end
 
-    context 'course participant' do
+    context 'course participant with controlling role on group' do
       let(:role) do
         role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
+        Fabricate(Event::Role::Participant.name.to_sym,
+                  participation: Fabricate(:event_participation,
+                                           event: event, person: role.person))
+        role
+      end
+
+      it 'is allowed to update course record of regionalverein' do
+        get :edit, group_id: group.id, event_id: event.id
+        response.should be_ok
+      end
+    end
+
+    context 'course participant' do
+      let(:role) do
+        role = Fabricate(Group::Regionalverein::Versandadresse.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
                   participation: Fabricate(:event_participation,
                                            event: event, person: role.person))

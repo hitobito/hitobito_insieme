@@ -38,7 +38,7 @@ describe EventsController, type: :controller do
       it 'should not be visible to participants' do
         event = Fabricate(:course, groups: [group], kind: Event::Kind.first,
                           leistungskategorie: 'bk')
-        role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
+        role = Fabricate(Group::Regionalverein::Versandadresse.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
                   participation: Fabricate(:event_participation,
                                            event: event, person: role.person))
