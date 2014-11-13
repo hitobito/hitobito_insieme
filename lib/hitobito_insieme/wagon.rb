@@ -48,7 +48,7 @@ module HitobitoInsieme
       PeopleController.send :include, Insieme::PeopleController
       PeopleController.send :include, Insieme::RenderPeopleExports
       EventsController.send :include, Insieme::EventsController
-      SubscriptionsController.send         :include, Insieme::RenderPeopleExports
+      SubscriptionsController.send         :include, Insieme::SubscriptionsController
       Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
       Event::ParticipationsController.send :include, Insieme::RenderPeopleExports
       Event::RegisterController.send       :include, Insieme::Event::RegisterController

@@ -17,11 +17,17 @@ module Insieme
           end
 
           def person_attributes_with_insieme_attrs
-            person_attributes_without_insieme_attrs + additional_addresses_attributes
+            person_attributes_without_insieme_attrs +
+              additional_person_attributes +
+              additional_addresses_attributes
+          end
+
+          def additional_person_attributes
+            [:number, :salutation, :correspondence_language]
           end
 
           def additional_addresses_attributes
-            attrs = [:number, :salutation]
+            attrs = []
             Person::ADDRESS_TYPES.each do |prefix|
               Person::ADDRESS_FIELDS.each do |field|
                 attrs << :"#{prefix}_#{field}"

@@ -50,10 +50,10 @@ describe PeopleController do
   context 'GET index' do
     before { sign_in(person) }
 
-    it 'exports salutation and number' do
+    it 'exports salutation, number and correspondence_language' do
       get :index, group_id: group, format: :csv
 
-      @response.body.should =~ /.*Personnr\.;Anrede;.*/
+      @response.body.should =~ /.*Personnr\.;Anrede;Korrespondenzsprache.*/
     end
   end
 
