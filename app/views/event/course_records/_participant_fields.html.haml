@@ -9,7 +9,7 @@
                             suggestion: @numbers.challenged_count,
                             cantons_suggestion: @numbers.challenged_canton_counts
 
-  = participant_field(f, :teilnehmende_mehrfachbehinderte)
+  = participant_field_with_suggestion(f, :teilnehmende_mehrfachbehinderte, @numbers.challenged_multiple_count)
 
   = render 'canton_fields', f: f, attr: :teilnehmende_angehoerige,
                             cantons_attr: :affiliated_canton_count,

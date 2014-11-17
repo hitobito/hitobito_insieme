@@ -32,6 +32,15 @@ module CourseReporting
       role_count(Event::Course::Role::Challenged)
     end
 
+    def challenged_multiple_count
+      event.participations.
+        includes(answers: :question).
+        where(active: true,
+              event_answers: { answer: 'Ja' },
+              event_questions: { question: 'Mehrfachbehindert' }).
+        count
+    end
+
     def affiliated_count
       role_count(Event::Course::Role::Affiliated)
     end
