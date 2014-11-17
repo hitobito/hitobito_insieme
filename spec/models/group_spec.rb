@@ -34,8 +34,8 @@
 require 'spec_helper'
 
 describe Group do
-  include_examples 'group types'
 
+  include_examples 'group types'
 
   describe '#all_types' do
     subject { Group.all_types }
@@ -45,6 +45,7 @@ describe Group do
         [Group::Dachverein,
          Group::DachvereinListe,
          Group::DachvereinGremium,
+         Group::DachvereinAbonnemente,
          Group::Regionalverein,
          Group::RegionalvereinListe,
          Group::RegionalvereinGremium,

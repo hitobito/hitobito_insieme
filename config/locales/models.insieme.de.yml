@@ -20,6 +20,10 @@ de:
         one: Liste
         other: Listen
         long: Dachverein Liste
+      group/dachverein_abonnemente:
+        one: Abonnemente
+        other: Abonnemente
+        long: Dachverein Abonnemente
       group/dachverein_gremium:
         one: Gremium
         other: Gremien
@@ -93,6 +97,16 @@ de:
         description:
       group/dachverein_gremium/mitglied:
         one: Mitglied
+        description:
+
+      group/dachverein_abonnemente/einzelabo:
+        one: Einzelabo
+        description:
+      group/dachverein_abonnemente/geschenkabo:
+        one: Geschenkabo
+        description:
+      group/dachverein_abonnemente/gratisabo:
+        one: Gratisabo
         description:
 
       group/regionalverein/praesident:

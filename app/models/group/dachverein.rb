@@ -43,6 +43,7 @@ class Group::Dachverein < Group
 
   children Group::DachvereinListe,
            Group::DachvereinGremium,
+           Group::DachvereinAbonnemente,
            Group::Regionalverein,
            Group::ExterneOrganisation
 
