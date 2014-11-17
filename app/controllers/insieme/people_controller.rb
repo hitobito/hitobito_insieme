@@ -14,7 +14,7 @@ module Insieme
 
       self.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language,
-         :number, :manual_number, :insieme_full_name, :dossier]
+         :number, :manual_number, :dossier]
 
       # Permit person address fields
       Person::ADDRESS_TYPES.each do |prefix|

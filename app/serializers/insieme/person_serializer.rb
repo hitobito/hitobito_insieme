@@ -16,8 +16,6 @@ module Insieme::PersonSerializer
                      :correspondence_language,
                      :number
 
-      property :full_name, item.insieme_full_name
-
       ::Person::ADDRESS_TYPES.each do |prefix|
         ::Person::ADDRESS_FIELDS.each do |field|
           map_properties :"#{prefix}_#{field}"

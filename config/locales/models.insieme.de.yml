@@ -439,8 +439,6 @@ de:
         number: Personnr.
         dossier: Dossierlink
 
-        insieme_full_name: Name
-
         correspondence_general_salutation: Anrede Korrespondenzadresse allgemein
         correspondence_general_first_name: Vorname Korrespondenzadresse allgemein
         correspondence_general_last_name: Nachname Korrespondenzadresse allgemein
