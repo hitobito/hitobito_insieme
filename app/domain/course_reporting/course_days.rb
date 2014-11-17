@@ -1,4 +1,3 @@
-
 # encoding: utf-8
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
