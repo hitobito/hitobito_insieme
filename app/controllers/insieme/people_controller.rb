@@ -10,6 +10,8 @@ module Insieme
     extend ActiveSupport::Concern
 
     included do
+      ::PeopleController::QUERY_FIELDS << :number
+
       self.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language,
          :number, :manual_number, :insieme_full_name]

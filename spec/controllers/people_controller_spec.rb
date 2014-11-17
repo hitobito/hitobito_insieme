@@ -57,4 +57,18 @@ describe PeopleController do
     end
   end
 
+  context 'GET query' do
+    before { sign_in(person) }
+
+    it 'searches number as well' do
+      people(:top_leader).update!(number: 107)
+      people(:regio_aktiv).update!(number: 10107)
+      people(:regio_leader).update!(number: 10007)
+      get :query, q: '107', format: :json
+
+      @response.body.should =~ /107 Top Leader/
+      @response.body.should =~ /10107 Active Person/
+      @response.body.should_not =~ /Flock Leader/
+    end
+  end
 end

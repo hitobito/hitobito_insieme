@@ -59,6 +59,9 @@ module HitobitoInsieme
       Sheet::Event.send :include, Insieme::Sheet::Event
       Dropdown::PeopleExport.send :include, Insieme::Dropdown::PeopleExport
 
+      # decorators
+      PersonDecorator.send :include, Insieme::PersonDecorator
+
       # domain
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
       Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
