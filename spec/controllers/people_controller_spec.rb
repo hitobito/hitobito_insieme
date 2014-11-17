@@ -63,6 +63,36 @@ describe PeopleController do
       assigns(:person).should be_valid
       person.reload.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
     end
+
+    context 'dossier' do
+      context 'by another person' do
+        let(:other_person) do
+          Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
+        end
+        before { sign_in(other_person) }
+
+        it 'will be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
+
+          assigns(:person).should be_valid
+          person.reload.dossier.should eq 'http://en.wikipedia.org/wiki/James_Dean'
+        end
+      end
+
+      context 'by person itself' do
+        it 'won\'t be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
+
+          assigns(:person).should be_valid
+          person.reload.dossier.should be_nil
+        end
+      end
+
+    end
   end
 
 

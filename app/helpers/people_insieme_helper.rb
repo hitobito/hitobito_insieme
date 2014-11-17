@@ -40,6 +40,12 @@ module PeopleInsiemeHelper
     end
   end
 
+  def format_person_dossier(person)
+    content_tag(:a, href: person.dossier, class: 'ellipsis') do
+      person.dossier
+    end
+  end
+
   private
 
   def candidates_from_i18n(collection_attr)

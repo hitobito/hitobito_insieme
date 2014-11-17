@@ -3,4 +3,9 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-= render_attrs(entry, :salutation, :canton, :language, :correspondence_language, :number)
+- details_attrs = [:salutation, :canton, :language, :correspondence_language, :number]
+
+- if can?(:update, entry) && entry.id != current_user.id
+  - details_attrs << :dossier
+
+= render_attrs(entry, *details_attrs)
