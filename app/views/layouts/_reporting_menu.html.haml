@@ -13,7 +13,7 @@
                   edit_general_cost_allocation_group_events_path(group, year)
 
   %li.nav-header= t('.cost_accounting')
-  = reporting_nav t('.overview'), cost_accounting_group_path(group, year)
+  = reporting_nav t('.overview'), cost_accounting_group_path(group, year: year)
 
   - cost_accounting_reports.each do |report|
     - if report.editable?

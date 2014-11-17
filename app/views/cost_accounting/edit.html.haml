@@ -16,7 +16,7 @@
 -                     mittelbeschaffung)
 
 = crud_form(entry, url: cost_accounting_report_group_path(group, year, entry.report),
-                     cancel_url: cost_accounting_group_path(group, year),
+                     cancel_url: cost_accounting_group_path(group, year: year),
                      buttons_bottom: true,
                      method: :put,
                      html: { class: 'report' }) do |f|
