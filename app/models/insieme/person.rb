@@ -29,7 +29,6 @@ module Insieme::Person
     end
 
     before_validation :generate_automatic_number
-    before_save :add_insieme_full_name
     before_validation :normalize_i18n_keys
     before_save :normalize_addresses
 
@@ -72,13 +71,6 @@ module Insieme::Person
 
     if value.present?
       I18n.t("activerecord.attributes.person.#{key.to_s.pluralize}.#{value.downcase}")
-    end
-  end
-
-  def add_insieme_full_name
-    # when seeding the root user, insieme migrations are not loaded yet, thus we check respond_to.
-    if respond_to?(:insieme_full_name) && insieme_full_name.blank?
-      self.insieme_full_name = "#{first_name} #{last_name}"
     end
   end
 
