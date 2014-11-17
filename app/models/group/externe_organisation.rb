@@ -52,7 +52,11 @@ class Group::ExterneOrganisation < Group
   ### ROLES
 
   class Praesident < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = [:layer_read, :contact_data]
+  end
+
+  class Vorstandsmitglied < ::Role
+    self.permissions = [:layer_read]
   end
 
   class Geschaeftsfuehrung < ::Role
@@ -86,6 +90,7 @@ class Group::ExterneOrganisation < Group
   end
 
   roles Praesident,
+        Vorstandsmitglied,
         Geschaeftsfuehrung,
         Sekretariat,
         Adressverwaltung,

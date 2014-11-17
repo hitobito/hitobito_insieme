@@ -69,6 +69,9 @@ de:
       group/dachverein/praesident:
         one: PräsidentIn
         description:
+      group/dachverein/vorstandsmitglied:
+        one: Vorstandsmitglied
+        description:
       group/dachverein/geschaeftsfuehrung:
         one: Geschäftsführung
         description:
@@ -111,6 +114,9 @@ de:
 
       group/regionalverein/praesident:
         one: PräsidentIn
+        description:
+      group/regionalverein/vorstandsmitglied:
+        one: Vorstandsmitglied
         description:
       group/regionalverein/geschaeftsfuehrung:
         one: Geschäftsführung
@@ -174,6 +180,9 @@ de:
 
       group/externe_organisation/praesident:
         one: PräsidentIn
+        description:
+      group/externe_organisation/vorstandsmitglied:
+        one: Vorstandsmitglied
         description:
       group/externe_organisation/geschaeftsfuehrung:
         one: Geschäftsführung

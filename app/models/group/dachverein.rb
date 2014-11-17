@@ -51,7 +51,11 @@ class Group::Dachverein < Group
   ### ROLES
   #
   class Praesident < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = [:layer_read, :contact_data]
+  end
+
+  class Vorstandsmitglied < ::Role
+    self.permissions = [:layer_read]
   end
 
   class Geschaeftsfuehrung < ::Role
@@ -78,6 +82,7 @@ class Group::Dachverein < Group
 
 
   roles Praesident,
+        Vorstandsmitglied,
         Geschaeftsfuehrung,
         Sekretariat,
         Adressverwaltung,
