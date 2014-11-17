@@ -16,14 +16,13 @@ module CourseReporting
     end
 
     def duration_days
-      @duration_days ||=
-        event.dates.inject(0) { |sum, date| sum + date.duration.days }
+      @duration_days ||= CourseDays.new(event.dates).sum
     end
 
     def duration_hours
       @duration_hours ||=
         event.dates.inject(0) do |sum, date|
-          d = date.duration
+        d = date.duration
           sum + (d.finish_at ? ((d.finish_at - d.start_at) / 3600).round : 0)
         end
     end
