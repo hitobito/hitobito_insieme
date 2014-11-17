@@ -27,6 +27,10 @@
                                 { prompt: true },
                                 class: 'span6'
 
-  = f.labeled(:number) do
-    = f.input_field :number, disabled: !entry.manual_number
-    = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))
+  - if entry.id != current_user.id
+    = f.labeled(:number) do
+      = f.input_field :number, disabled: !entry.manual_number
+      = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))
+
+    = f.labeled(:dossier) do
+      = f.input_field :dossier

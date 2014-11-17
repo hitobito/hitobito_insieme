@@ -15,8 +15,8 @@ describe CourseReporting::CourseNumbers do
 
 
   context 'duration days' do
-    it 'is correct for whole days' do
-      subject.duration_days.should eq(9)
+    it 'is correct for half days' do
+      subject.duration_days.should eq(8.5)
     end
   end
 

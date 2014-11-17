@@ -14,7 +14,7 @@ module Insieme
 
       self.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language,
-         :number, :manual_number, :insieme_full_name]
+         :number, :manual_number, :insieme_full_name, :dossier]
 
       # Permit person address fields
       Person::ADDRESS_TYPES.each do |prefix|
@@ -22,6 +22,18 @@ module Insieme
           self.permitted_attrs << :"#{prefix}_#{field}"
         end
       end
+
+      alias_method_chain :permitted_params, :self_update_check
+    end
+
+    def permitted_params_with_self_update_check
+      p = permitted_params_without_self_update_check
+      if entry.id == current_user.id
+        p.delete(:number)
+        p.delete(:manual_number)
+        p.delete(:dossier)
+      end
+      p
     end
   end
 end

@@ -19,29 +19,79 @@ describe PeopleController do
   let(:group)  { groups(:dachverein) }
   let(:person) { people(:top_leader) }
 
-  context 'PUT udpate' do
+  context 'PUT update' do
     before { sign_in(person) }
 
-    it 'saves manual numbers' do
-      put :update,
-          group_id: group.id,
-          id: person.id,
-          person: { number: 2,
-                    manual_number: '1' }
+    context 'manual numbers' do
+      context 'by another person' do
+        let(:other_person) do
+          Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
+        end
+        before { sign_in(other_person) }
 
-      assigns(:person).should be_valid
-      person.reload.number.should eq 2
+        it 'will be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { number: 2,
+                                 manual_number: '1' }
+
+          assigns(:person).should be_valid
+          person.reload.number.should eq 2
+        end
+      end
+
+      context 'by person itself' do
+        it 'won\'t be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { number: 2,
+                                 manual_number: '1' }
+
+          assigns(:person).should be_valid
+          person.reload.number.should_not eq 2
+          person.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
+        end
+      end
     end
 
     it 'generates automatic numbers' do
-      put :update,
-          group_id: group.id,
-          id: person.id,
-          person: { number: 2,
-                    manual_number: 0 }
+      put :update, group_id: group.id,
+                   id: person.id,
+                   person: { number: 2,
+                             manual_number: 0 }
 
       assigns(:person).should be_valid
       person.reload.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
+    end
+
+    context 'dossier' do
+      context 'by another person' do
+        let(:other_person) do
+          Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
+        end
+        before { sign_in(other_person) }
+
+        it 'will be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
+
+          assigns(:person).should be_valid
+          person.reload.dossier.should eq 'http://en.wikipedia.org/wiki/James_Dean'
+        end
+      end
+
+      context 'by person itself' do
+        it 'won\'t be updated' do
+          put :update, group_id: group.id,
+                       id: person.id,
+                       person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
+
+          assigns(:person).should be_valid
+          person.reload.dossier.should be_nil
+        end
+      end
+
     end
   end
 

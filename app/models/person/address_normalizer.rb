@@ -20,7 +20,7 @@ class Person::AddressNormalizer
 
   def run
     # when seeding the root user, insieme migrations are not loaded yet, thus we check respond_to.
-    return unless person.respond_to?(:billing_general_same_as_main)
+    return unless person.respond_to?(:billing_general_salutation)
 
     Person::ADDRESS_TYPES.each do |type|
       normalize_fields(type)

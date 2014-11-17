@@ -102,6 +102,15 @@ form.report {
   }
 }
 
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
 .participation-canton-counts {
   @include clearfix;
   margin-bottom: 20px;
