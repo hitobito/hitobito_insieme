@@ -150,4 +150,22 @@ describe CourseReporting::CourseNumbers do
 
   end
 
+  context 'participation counts' do
+    let(:question)      { Event::Question.find_by_question('Mehrfachbehindert') }
+    let(:participation) { event_participations(:top_participant) }
+
+    before { participation.answers.create!(question: question, answer: 'Ja')  }
+
+    context '#challenged_multiple_count' do
+      it 'is correct' do
+        subject.challenged_multiple_count.should eq(1)
+      end
+
+      it 'only counts active participations' do
+        participation.update_column(:active, false)
+        subject.challenged_multiple_count.should eq(0)
+      end
+    end
+  end
+
 end
