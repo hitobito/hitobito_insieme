@@ -1,3 +1,10 @@
+# encoding: utf-8
+
+#  Copyright (c) 2014 insieme Schweiz. This file is part of
+#  hitobito and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 module Statistics
   class Vereinsmitglieder
 
@@ -39,24 +46,30 @@ module Statistics
     end
 
     def type_counts_per_layer_query
-      %Q{SELECT layer_group_id, type_index, COUNT(person_id) AS count
-         FROM (#{person_roles_per_layer_query})
-         GROUP BY layer_group_id, type_index}
+      <<-END
+        SELECT layer_group_id, type_index, COUNT(person_id) AS count
+        FROM (#{person_roles_per_layer_query})
+        GROUP BY layer_group_id, type_index
+      END
     end
 
+    # rubocop:disable MethodLength
     def person_roles_per_layer_query
-      %Q{SELECT groups.layer_group_id AS layer_group_id,
-                MIN(#{type_index_switch}) AS type_index,
-                roles.person_id AS person_id
-         FROM roles
-         INNER JOIN groups groups ON groups.id = roles.group_id
-         INNER JOIN groups layers ON layers.id = groups.layer_group_id
-         WHERE layers.type = '#{Group::Regionalverein.sti_name}' AND
-               roles.deleted_at IS NULL AND
-               roles.type IN (#{role_types_param})
-         GROUP BY groups.layer_group_id,
-                  roles.person_id}
+      <<-END
+        SELECT groups.layer_group_id AS layer_group_id,
+               MIN(#{type_index_switch}) AS type_index,
+               roles.person_id AS person_id
+        FROM roles
+        INNER JOIN groups groups ON groups.id = roles.group_id
+        INNER JOIN groups layers ON layers.id = groups.layer_group_id
+        WHERE layers.type = '#{Group::Regionalverein.sti_name}' AND
+              roles.deleted_at IS NULL AND
+              roles.type IN (#{role_types_param})
+        GROUP BY groups.layer_group_id,
+                 roles.person_id
+      END
     end
+    # rubocop:enable MethodLength
 
     def role_types_param
       COUNTED_ROLES.collect { |r| "'#{r.sti_name}'" }.join(', ')
