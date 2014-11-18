@@ -41,8 +41,8 @@ module PeopleInsiemeHelper
   end
 
   def format_person_dossier(person)
-    content_tag(:a, href: person.dossier, class: 'ellipsis') do
-      person.dossier
+    if person.dossier?
+      auto_link(person.dossier, class: 'ellipsis')
     end
   end
 

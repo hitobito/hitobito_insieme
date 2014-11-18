@@ -32,5 +32,4 @@
       = f.input_field :number, disabled: !entry.manual_number
       = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))
 
-    = f.labeled(:dossier) do
-      = f.input_field :dossier
+    = f.labeled_input_field(:dossier)

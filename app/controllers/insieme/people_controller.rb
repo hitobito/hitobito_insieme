@@ -23,15 +23,13 @@ module Insieme
         end
       end
 
-      alias_method_chain :permitted_params, :self_update_check
+      alias_method_chain :permitted_attrs, :self_update_check
     end
 
-    def permitted_params_with_self_update_check
-      p = permitted_params_without_self_update_check
+    def permitted_attrs_with_self_update_check
+      p = permitted_attrs_without_self_update_check
       if entry.id == current_user.id
-        p.delete(:number)
-        p.delete(:manual_number)
-        p.delete(:dossier)
+        p -= [:number, :manual_number, :dossier]
       end
       p
     end

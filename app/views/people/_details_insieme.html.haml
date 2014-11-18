@@ -5,7 +5,7 @@
 
 - details_attrs = [:salutation, :canton, :language, :correspondence_language, :number]
 
-- if can?(:update, entry) && entry.id != current_user.id
+- if show_full && entry.id != current_user.id
   - details_attrs << :dossier
 
 = render_attrs(entry, *details_attrs)
