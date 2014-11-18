@@ -11,28 +11,26 @@ module CourseReporting
 
     attr_reader :dates
 
-    DAY = 1
-    HALF_DAY = 0.5
-    FOUR_HOURS = 60 * 60 * 4
+    NOON = 12.hours + 30.minutes
+    HALF_DAY_HOURS = 4.hours
 
     def initialize(event_dates)
       @dates = event_dates
     end
 
     def sum
-      dates.inject(0) { |sum, date| sum + count(date) }
+      dates.sum { |date| count_days(date) }
     end
 
     private
 
-    def count(date)
-
+    def count_days(date)
       if !date.finish_at
-        count(full_start(date))
+        count_days(full_start(date))
       elsif multiple_days?(date)
-        count(full_start(date)) + count(full_finish(date)) + days_in_between(date)
+        count_days(full_start(date)) + count_days(full_finish(date)) + days_in_between(date)
       else
-        half_day?(date) ? HALF_DAY : DAY
+        half_day?(date) ? 0.5 : 1
       end
     end
 
@@ -41,9 +39,9 @@ module CourseReporting
     end
 
     def half_day?(date)
-      start_at, finish_at = date.start_at, date.finish_at
-
-      afternoon?(start_at) || !afternoon?(finish_at) || (finish_at - start_at) <= FOUR_HOURS
+      afternoon?(date.start_at) ||
+      !afternoon?(date.finish_at) ||
+      (date.finish_at - date.start_at) <= HALF_DAY_HOURS
     end
 
     def days_in_between(date)
@@ -51,7 +49,7 @@ module CourseReporting
     end
 
     def afternoon?(date)
-      date.midnight + 12.hours + 30.minutes <= date
+      date.midnight + NOON <= date
     end
 
     def full_start(date)
