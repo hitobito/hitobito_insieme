@@ -19,7 +19,7 @@ module CourseReporting
     end
 
     def sum
-      dates.sum { |date| count_days(date) }
+      dates.to_a.sum { |date| count_days(date) }
     end
 
     private
