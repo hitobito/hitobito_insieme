@@ -26,6 +26,8 @@ Rails.application.routes.draw do
           get ':year/:report' => 'cost_accounting#edit' # route required for language switch
         end
 
+        get '/statistics' => 'statistics#show', as: :statistics
+
       end
 
       resources :events do

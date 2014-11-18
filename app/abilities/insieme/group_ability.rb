@@ -45,6 +45,10 @@ module Insieme::GroupAbility
       permission(:any).may(:reporting).if_regionalverein_manager_in_same_group
       permission(:layer_and_below_full).may(:reporting).in_same_layer_or_below
 
+      permission(:group_read).may(:statistics).in_same_group
+      permission(:layer_read).may(:statistics).in_same_group
+      permission(:layer_and_below_read).may(:statistics).in_same_group
+
       general(:reporting).for_reporting_group
     end
   end

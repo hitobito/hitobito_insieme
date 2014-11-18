@@ -68,6 +68,7 @@ de:
       ### ROLES
       group/dachverein/praesident:
         one: PräsidentIn
+        other: Präsidenten
         description:
       group/dachverein/vorstandsmitglied:
         one: Vorstandsmitglied
@@ -156,26 +157,40 @@ de:
 
       group/aktivmitglieder/aktivmitglied:
         one: Aktivmitglied
+        other: Aktivmitglieder
+        short: Aktiv
         description:
       group/aktivmitglieder/aktivmitglied_ohne_abo:
         one: Aktivmitglied ohne Abo
+        other: Aktivmitglieder ohne Abo
+        short: Aktiv o. Abo
         description:
       group/aktivmitglieder/zweitmitgliedschaft:
         one: Zweitmitgliedschaft
+        other: Zweitmitgliedschaften
+        short: Zweit
         description:
 
       group/passivmitglieder/passivmitglied:
         one: Passivmitglied
+        other: Passivmitglieder
+        short: Passiv
         description:
       group/passivmitglieder/passivmitglied_mit_abo:
         one: Passivmitglied mit Abo
+        other: Passivmitglieder mit Abo
+        short: Passiv m. Abo
         description:
 
       group/kollektivmitglieder/kollektivmitglied:
         one: Kollektivmitglied
+        other: Kollektivmitglieder
+        short: Kollektiv
         description:
       group/kollektivmitglieder/kollektivmitglied_mit_abo:
         one: Kollektivmitglied mit Abo
+        other: Kollektivmitglieder mit Abo
+        short: Kollektiv m. Abo
         description:
 
       group/externe_organisation/praesident:
@@ -272,13 +287,13 @@ de:
         be: Bern
         bl: Basel-Land
         bs: Basel-Stadt
-        fr: Fribourg
-        ge: Geneva
+        fr: Freiburg
+        ge: Genf
         gl: Glarus
         gr: Graubünden
         ju: Jura
         lu: Luzern
-        ne: Neuchâtel
+        ne: Neuenburg
         nw: Nidwalden
         ow: Obwalden
         sg: St. Gallen

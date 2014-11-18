@@ -98,6 +98,11 @@ de:
   reporting:
     title: Reporting
 
+  statistics:
+    title: Statistik
+    show:
+      title: Vereinsstatistik Mitglieder
+
   shared:
     admin_nav_kinds_insieme:
       cost_accounting_parameters: Parameter
