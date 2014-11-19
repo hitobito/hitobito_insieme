@@ -29,31 +29,47 @@ module Export::Csv::Statistics
 
     def build_list
       vereinsmitglieder.vereine.collect do |group|
-        item = { vid: group.vid, name: group.name }
-        counted_roles do |role, index|
-          item[role.sti_name] = vereinsmitglieder.count(group, index)
+        {}.tap do |item|
+          add_attr_values(item, group, :vid, :name)
+          add_role_counts(item, group)
+          add_attr_values(item, group, :full_name, :address, :zip_code, :town)
+          item[:canton] = group.canton_value
         end
-        [:full_name, :address, :zip_code, :town].each do |attr|
-          item[attr] = group.send(attr)
-        end
-        item[:canton] = group.canton_value
-        item
       end
     end
 
     def build_attribute_labels
-      labels = { vid: human_attribute(:vid), name: human_attribute(:name) }
-      counted_roles do |role, index|
-        labels[role.sti_name] = role.label_plural
+      {}.tap do |labels|
+        add_attr_labels(labels, :vid, :name)
+        add_role_labels(labels)
+        add_attr_labels(labels, :full_name, :address, :zip_code, :town, :canton)
       end
-      [:full_name, :address, :zip_code, :town, :canton].each do |attr|
-        labels[attr] = human_attribute(attr)
-      end
-      labels
     end
 
-    def counted_roles(&block)
-      ::Statistics::Vereinsmitglieder::COUNTED_ROLES.each_with_index(&block)
+    def add_attr_values(item, group, *attrs)
+      add_hash_values(item, attrs) { |attr, _| group.send(attr) }
+    end
+
+    def add_attr_labels(labels, *attrs)
+      add_hash_values(labels, attrs) { |attr, _| human_attribute(attr) }
+    end
+
+    def add_role_counts(item, group)
+      add_hash_values(item, counted_roles) { |_, index| vereinsmitglieder.count(group, index) }
+    end
+
+    def add_role_labels(labels)
+      add_hash_values(labels, counted_roles) { |role, _| role.label_plural }
+    end
+
+    def add_hash_values(hash, keys)
+      keys.each_with_index do |key, index|
+        hash[key] = yield key, index
+      end
+    end
+
+    def counted_roles
+      ::Statistics::Vereinsmitglieder::COUNTED_ROLES
     end
 
   end

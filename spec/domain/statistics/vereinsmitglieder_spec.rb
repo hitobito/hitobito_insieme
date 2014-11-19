@@ -72,6 +72,21 @@ describe Statistics::Vereinsmitglieder do
       (1..6).each { |i| subject.count(groups(:seeland), i).should eq 0 }
     end
 
+    it 'does not count deleted roles' do
+      o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: active)
+      a = Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
+                    group: active,
+                    person: people(:regio_aktiv))
+      b = Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
+                    group: passive,
+                    person: people(:regio_aktiv))
+      o.update!(deleted_at: 1.year.ago)
+      a.update!(deleted_at: 1.year.ago)
+
+      (0..5).each { |i| subject.count(layer, i).should eq 0 }
+      subject.count(layer, 6).should eq 1
+    end
+
     def role_group(role)
       case role.name
       when /Group::Aktivmitglieder/ then active

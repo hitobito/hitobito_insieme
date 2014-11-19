@@ -19,7 +19,7 @@ describe Export::Csv::Statistics::Vereinsmitglieder do
 
     it 'contains all counted roles' do
       counted = Statistics::Vereinsmitglieder::COUNTED_ROLES
-      (subject.keys & counted.collect(&:sti_name)).size.should eq counted.size
+      (subject.keys & counted).size.should eq counted.size
     end
 
     it 'contains translated attribute labels' do
@@ -38,8 +38,8 @@ describe Export::Csv::Statistics::Vereinsmitglieder do
     it 'contains the correct values' do
       row = subject.first
       row[:name].should eq 'Biel-Seeland'
-      row[Group::Aktivmitglieder::Aktivmitglied.sti_name].should eq 1
-      row[Group::Aktivmitglieder::AktivmitgliedOhneAbo.sti_name].should eq 0
+      row[Group::Aktivmitglieder::Aktivmitglied].should eq 1
+      row[Group::Aktivmitglieder::AktivmitgliedOhneAbo].should eq 0
     end
   end
 

@@ -43,6 +43,13 @@ de:
       kontengruppen: "Kontengruppe(n) %{kontengruppen}"
       remarks_placeholder: Hier können Sie Ihre Notizen oder Erklärungen anbringen (z.B. wie sich Aufwand auf Kontengruppen verteilt)
 
+  dropdown/abo_addresses_export:
+    button: Adresslisten Abonnemente
+    ch_de: Schweiz deutsch
+    ch_fr: Schweiz französisch
+    other_de: Ausland deutsch
+    other_fr: Ausland französisch
+
   event:
     course_records:
       title: Kursabschluss
