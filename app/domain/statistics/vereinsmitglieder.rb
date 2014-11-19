@@ -40,15 +40,15 @@ module Statistics
     def type_counts_per_layer
       result = Role.connection.execute(type_counts_per_layer_query)
       result.each_with_object({}) do |row, hash|
-        hash[row['layer_group_id']] ||= Hash.new(0)
-        hash[row['layer_group_id']][row['type_index']] = row['count']
+        hash[row[0]] ||= Hash.new(0)
+        hash[row[0]][row[1]] = row[2]
       end
     end
 
     def type_counts_per_layer_query
       <<-END
         SELECT layer_group_id, type_index, COUNT(person_id) AS count
-        FROM (#{person_roles_per_layer_query})
+        FROM (#{person_roles_per_layer_query}) AS t
         GROUP BY layer_group_id, type_index
       END
     end
