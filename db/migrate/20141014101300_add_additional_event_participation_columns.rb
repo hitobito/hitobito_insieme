@@ -7,7 +7,7 @@
 
 class AddAdditionalEventParticipationColumns < ActiveRecord::Migration
   def change
-    add_column(:event_participations, :internal_invoice_text, :text)
-    add_column(:event_participations, :internal_invoice_amount, :decimal, precision: 12, scale: 2)
+    add_column(:event_participations, :invoice_text, :text)
+    add_column(:event_participations, :invoice_amount, :decimal, precision: 12, scale: 2)
   end
 end

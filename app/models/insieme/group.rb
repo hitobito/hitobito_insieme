@@ -46,7 +46,7 @@ module Insieme::Group
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
   end
 
-  def canton_value
+  def canton_label
     Cantons.full_name(canton)
   end
 

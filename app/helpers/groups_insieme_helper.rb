@@ -8,13 +8,7 @@
 module GroupsInsiemeHelper
 
   def format_group_canton(group)
-    group.canton_value
-  end
-
-  def possible_group_cantons
-    (Cantons.short_names - [:other]).map do |c|
-      Struct.new(:id, :to_s).new(c, Cantons.full_name(c))
-    end
+    group.canton_label
   end
 
 end

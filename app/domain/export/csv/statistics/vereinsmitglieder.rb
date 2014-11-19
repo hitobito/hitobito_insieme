@@ -33,7 +33,7 @@ module Export::Csv::Statistics
           add_attr_values(item, group, :vid, :name)
           add_role_counts(item, group)
           add_attr_values(item, group, :full_name, :address, :zip_code, :town)
-          item[:canton] = group.canton_value
+          item[:canton] = group.canton_label
         end
       end
     end

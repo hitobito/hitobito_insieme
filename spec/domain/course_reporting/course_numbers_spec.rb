@@ -98,19 +98,19 @@ describe CourseReporting::CourseNumbers do
       end
     end
 
-    context '#internal_invoice_amount_sum' do
+    context '#invoice_amount_sum' do
       it 'is 0 for no participations' do
-        subject.internal_invoice_amount_sum.should eq(0)
+        subject.invoice_amount_sum.should eq(0)
       end
 
-      it 'is sums all internal_invoice_amounts' do
-        [{ internal_invoice_amount: nil } ,
-         { internal_invoice_amount: 1 } ,
-         { internal_invoice_amount: 2 }] .each do |attrs|
+      it 'is sums all invoice_amounts' do
+        [{ invoice_amount: nil } ,
+         { invoice_amount: 1 } ,
+         { invoice_amount: 2 }] .each do |attrs|
            event.participations.build(attrs)
          end
 
-         subject.internal_invoice_amount_sum.should eq(3.to_d)
+         subject.invoice_amount_sum.should eq(3.to_d)
       end
     end
 
@@ -151,10 +151,12 @@ describe CourseReporting::CourseNumbers do
   end
 
   context 'participation counts' do
-    let(:question)      { Event::Question.find_by_question('Mehrfachbehindert') }
     let(:participation) { event_participations(:top_participant) }
 
-    before { participation.answers.create!(question: question, answer: 'Ja')  }
+    before do
+      participation.update!(multiple_disability: true)
+      event_participations(:top_leader).update!(multiple_disability: true)
+    end
 
     context '#challenged_multiple_count' do
       it 'is correct' do

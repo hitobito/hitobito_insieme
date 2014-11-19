@@ -3,10 +3,22 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
+= field_set_tag do
+  = f.labeled_i18n_enum_field :disability, Event::Participation.disability_labels
+
+  = f.labeled(:multiple_disability) do
+    = f.inline_radio_button(:multiple_disability, true, f(true))
+    = f.inline_radio_button(:multiple_disability, false, f(false))
+    = f.inline_radio_button(:multiple_disability, '', t('global.unknown'))
+
+  = f.labeled(:wheel_chair) do
+    = f.inline_radio_button(:wheel_chair, true, f(true))
+    = f.inline_radio_button(:wheel_chair, false, f(false))
+
 - if can?(:modify_internal_fields, entry)
   = field_set_tag do
-    = f.labeled_input_field :internal_invoice_text
-    = f.labeled_input_field :internal_invoice_amount, addon: t('global.currency')
+    = f.labeled_input_field :invoice_text
+    = f.labeled_input_field :invoice_amount, addon: t('global.currency')
 
 .form-horizontal.participation-person
   = f.fields_for(:person, entry.person) do |pf|
@@ -18,15 +30,11 @@
       = render 'contactable/single_address_fields', f: pf, prefix: prefix
 
     = field_set_tag do
+      = pf.labeled_string_field(:ahv_number)
       = pf.labeled_string_field(:birthday,
                                 value: pf.date_value(:birthday),
                                 help_inline: t('people.fields.format_birthday'),
                                 class: 'span2')
-      = pf.labeled_collection_select(:canton,
-                                    possible_person_cantons,
-                                    :id,
-                                    :to_s,
-                                    { prompt: true },
-                                    class: 'span3')
+      = pf.labeled_i18n_enum_field(:canton, Cantons.labels, class: 'span3')
 
 

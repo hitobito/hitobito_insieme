@@ -396,8 +396,22 @@ de:
         general_costs_allowance: Gemeinkostenzuschlag
 
       event/participation:
-        internal_invoice_text: Rechnungstext
-        internal_invoice_amount: Rechnungsbetrag
+        disability: Behinderung
+        disability_label: Behinderung
+        disabilities:
+          geistig: Geistig-/Lernbehindert
+          hoer:  Hörbehindert
+          koerper: Körperbehindert
+          krankheit: Krankheitsbehindert
+          psychisch: Psychischbehindert
+          seh: Sehbehindert
+          sprach: Sprachbehindert
+          sucht: Suchtbehindert
+          _nil: ''
+        multiple_disability: Mehrfachbehinderung
+        wheel_chair: Rollstuhl
+        invoice_text: Rechnungstext
+        invoice_amount: Rechnungsbetrag
 
       event/participation_canton_count:
         ag: AG
@@ -444,15 +458,18 @@ de:
           fr: Französisch
           it: Italienisch
           en: Englisch
-          andere: Andere
+          other: Andere
+          _nil: ''
 
         correspondence_language: Korrespondenzsprache
         correspondence_languages:
           de: Deutsch
           fr: Französisch
+          _nil: ''
 
         number: Personnr.
         dossier: Dossierlink
+        ahv_number: AHV Nummer
 
         correspondence_general_salutation: Anrede Korrespondenzadresse allgemein
         correspondence_general_first_name: Vorname Korrespondenzadresse allgemein

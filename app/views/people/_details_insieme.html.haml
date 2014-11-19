@@ -3,9 +3,11 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-- details_attrs = [:salutation, :canton, :language, :correspondence_language, :number]
+- detail_attrs = [:salutation, :canton, :language, :correspondence_language, :number]
 
-- if show_full && entry.id != current_user.id
-  - details_attrs << :dossier
+- if show_full
+  - detail_attrs << :ahv_number
+  - if entry.id != current_user.id
+    - detail_attrs << :dossier
 
-= render_attrs(entry, *details_attrs)
+= render_attrs(entry, *detail_attrs)

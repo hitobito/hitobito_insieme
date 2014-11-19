@@ -7,7 +7,8 @@
 
 require 'spec_helper'
 
-describe Event::Role do  [Event, Event::Course].each do |event_type|
+describe Event::Role do
+  [Event, Event::Course].each do |event_type|
     event_type.role_types.each do |part|
       context part do
         it 'must have valid permissions' do

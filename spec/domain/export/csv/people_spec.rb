@@ -81,6 +81,7 @@ describe Export::Csv::People do
 
     context 'export_full' do
       its(:headers) { should include('Anrede') }
+      its(:headers) { should include('AHV Nummer') }
       let(:data) { Export::Csv::People::PeopleFull.export(list) }
 
       context 'first row' do

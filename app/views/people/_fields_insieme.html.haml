@@ -4,28 +4,13 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag do
-  = f.labeled_input_fields :salutation
+  = f.labeled_input_fields :salutation, :ahv_number
 
-  = f.labeled_collection_select :canton,
-                                possible_person_cantons,
-                                :id,
-                                :to_s,
-                                { prompt: true },
-                                class: 'span6'
+  = f.labeled_i18n_enum_field :canton, Cantons.labels, prompt: true
 
-  = f.labeled_collection_select :language,
-                                possible_person_languages,
-                                :id,
-                                :to_s,
-                                { prompt: true },
-                                class: 'span6'
+  = f.labeled_i18n_enum_field :language, Person.language_labels, prompt: true
 
-  = f.labeled_collection_select :correspondence_language,
-                                possible_person_correspondence_languages,
-                                :id,
-                                :to_s,
-                                { prompt: true },
-                                class: 'span6'
+  = f.labeled_i18n_enum_field :correspondence_language, Person.correspondence_language_labels, prompt: true
 
   - if entry.id != current_user.id
     = f.labeled(:number) do

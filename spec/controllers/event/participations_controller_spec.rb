@@ -14,7 +14,7 @@ describe Event::ParticipationsController do
 
   before { sign_in(role.person) }
 
-  it 'POST#create updates person attributes' do
+  it 'POST create updates person attributes' do
     expect do
       post :create, group_id: event.groups.first.id, event_id: event.id,
         event_participation: {
@@ -25,6 +25,7 @@ describe Event::ParticipationsController do
                                town: 'dummy',
                                address: 'dummy',
                                country: 'dummy',
+                               ahv_number: '123',
                                correspondence_course_same_as_main: false,
                                correspondence_course_salutation: 'dummy',
                                correspondence_course_first_name: 'dummy',
@@ -48,8 +49,10 @@ describe Event::ParticipationsController do
 
     end.to change { Event::Participation.count }.by(1)
 
+
     person.reload.canton.should eq 'be'
     person.birthday.should eq Date.parse('2014-09-22')
+    person.ahv_number.should eq '123'
 
     %w(zip_code billing_course_zip_code correspondence_course_zip_code).each do |attr|
       person.send(attr.to_sym).should eq 123
@@ -78,26 +81,50 @@ describe Event::ParticipationsController do
     end
   end
 
-  it 'POST#create does not allow to update different person' do
+  it 'POST create does not allow to update different person' do
     expect do
-      post :create, group_id: event.groups.first.id, event_id: event.id,
-        event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+      post :create,
+           group_id: event.groups.first.id,
+           event_id: event.id,
+           event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
     end.to raise_error ActiveRecord::RecordNotFound
   end
 
-  it 'POST#create does not allow creation of person' do
+  it 'POST create does not allow creation of person' do
     expect do
-      post :create, group_id: event.groups.first.id, event_id: event.id,
-        event_participation: { person_attributes: { canton: 'Bern' }  }
+      post :create,
+           group_id: event.groups.first.id,
+           event_id: event.id,
+           event_participation: { person_attributes: { canton: 'Bern' }  }
     end.not_to change { Person.count }
   end
 
-  it 'PUT#update does not allow to update different person' do
+  it 'PUT update does not allow to update different person' do
     participation = Fabricate(:event_participation, event: event)
     expect do
-      put :update, group_id: event.groups.first.id, event_id: event.id, id: participation.id,
-        event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+      put :update,
+          group_id: event.groups.first.id,
+          event_id: event.id,
+          id: participation.id,
+          event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
     end.to raise_error ActiveRecord::RecordNotFound
+  end
+
+  it 'PUT update changes participation fields' do
+    participation = Fabricate(:event_participation, event: event)
+    put :update,
+        group_id: event.groups.first.id,
+        event_id: event.id,
+        id: participation.id,
+        event_participation: {
+          wheel_chair: false,
+          multiple_disability: true,
+          disability: 'seh' }
+
+    participation.reload
+    participation.wheel_chair.should be false
+    participation.disability.should eq 'seh'
+    participation.multiple_disability.should be true
   end
 
   context 'grouped_active_membership_roles' do
@@ -123,7 +150,7 @@ describe Event::ParticipationsController do
 
   context 'internal fields' do
     let(:csv) { CSV.parse(response.body, headers: true, col_sep: ';') }
-    let(:internal_fields) { { internal_invoice_text: 'test', internal_invoice_amount: '1.2' } }
+    let(:internal_fields) { { invoice_text: 'test', invoice_amount: '1.2' } }
 
     let(:group) { groups(:be) }
     let(:course) { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
@@ -136,8 +163,11 @@ describe Event::ParticipationsController do
     def activate_participation
       participation.roles << Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.name)
       participation.update_attributes(active: true,
-                                      internal_invoice_text: 'test',
-                                      internal_invoice_amount: 1.2)
+                                      disability: 'hoer',
+                                      multiple_disability: nil,
+                                      wheel_chair: true,
+                                      invoice_text: 'test',
+                                      invoice_amount: 1.2)
     end
 
     [
@@ -160,16 +190,16 @@ describe Event::ParticipationsController do
           it 'updates attributes on create' do
             post :create, group_id: group.id, event_id: course.id,
             event_participation: internal_fields
-            assigns(:participation).internal_invoice_text.should eq 'test'
-            assigns(:participation).internal_invoice_amount.should eq 1.2
+            assigns(:participation).invoice_text.should eq 'test'
+            assigns(:participation).invoice_amount.should eq 1.2
           end
         end
 
         it 'updates attributes on update' do
           patch :update, group_id: group.id, event_id: course.id, id: participation.id,
                          event_participation: internal_fields
-          participation.reload.internal_invoice_text.should eq 'test'
-          participation.reload.internal_invoice_amount.should eq 1.2
+          participation.reload.invoice_text.should eq 'test'
+          participation.reload.invoice_amount.should eq 1.2
         end
 
         it 'includes attributes in csv' do
@@ -179,6 +209,9 @@ describe Event::ParticipationsController do
                       filter: :participants,
                       details: true,
                       format: :csv
+          csv['Rollstuhl'].should eq %w(ja)
+          csv['Behinderung'].should eq %w(Hörbehindert)
+          csv['Mehrfachbehinderung'].should eq [nil]
           csv['Rechnungstext'].should eq %w(test)
           csv['Rechnungsbetrag'].should eq %w(1.2)
         end
@@ -214,21 +247,24 @@ describe Event::ParticipationsController do
 
       it 'ignores attributes on create' do
         post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
-        assigns(:participation).internal_invoice_text.should be_blank
-        assigns(:participation).internal_invoice_amount.should be_nil
+        assigns(:participation).invoice_text.should be_blank
+        assigns(:participation).invoice_amount.should be_nil
       end
 
       it 'ignores attributes on update' do
         patch :update, group_id: group.id, event_id: course.id, id: participation.id,
             event_participation: internal_fields
-        assigns(:participation).internal_invoice_text.should be_blank
-        assigns(:participation).internal_invoice_amount.should be_nil
+        assigns(:participation).invoice_text.should be_blank
+        assigns(:participation).invoice_amount.should be_nil
       end
 
       it 'does not include attributes in csv' do
         activate_participation
         get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
 
+        csv.headers.should_not include 'Behinderung'
+        csv.headers.should_not include 'Mehrfachbehindert'
+        csv.headers.should_not include 'Rollstuhl'
         csv.headers.should_not include 'Rechnungstext'
         csv.headers.should_not include 'Rechnungsbetrag'
       end

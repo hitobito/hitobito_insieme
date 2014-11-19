@@ -3,5 +3,9 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
+= render_attrs(@participation, :disability_label, :multiple_disability, :wheel_chair)
+
 - if can?(:modify_internal_fields, @participation)
-  = render_attrs(@participation, :internal_invoice_text, :internal_invoice_amount)
+  = render_attrs(@participation, :invoice_text, :invoice_amount)
+
+= render_attrs(@participation.person, :ahv_number)

@@ -27,4 +27,10 @@ module Cantons
     end
   end
 
+  def labels
+    short_names.each_with_object({}) do |short, labels|
+      labels[short] = full_name(short)
+    end
+  end
+
 end

@@ -32,12 +32,12 @@ module CourseReporting
     end
 
     def challenged_multiple_count
-      event.participations.
-        includes(answers: :question).
-        where(active: true,
-              event_answers: { answer: 'Ja' },
-              event_questions: { question: 'Mehrfachbehindert' }).
-        count
+      @challenged_multiple_count ||=
+        event.participations.joins(:roles).
+                             where(active: true, multiple_disability: true).
+                             where(event_roles: { type: Event::Course::Role::Challenged.sti_name }).
+                             distinct.
+                             count
     end
 
     def affiliated_count
@@ -91,9 +91,9 @@ module CourseReporting
       not_entitled_for_benefit_count
     end
 
-    def internal_invoice_amount_sum
+    def invoice_amount_sum
       event.participations.
-        map(&:internal_invoice_amount).
+        map(&:invoice_amount).
         map(&:to_d).
         inject(&:+)
     end

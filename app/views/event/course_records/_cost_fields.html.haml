@@ -12,4 +12,4 @@
 
 = field_set_tag(t('event.course_records.form.ertrag')) do
   = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency'),
-        help_inline: format_money(@numbers.internal_invoice_amount_sum)
+        help_inline: format_money(@numbers.invoice_amount_sum)

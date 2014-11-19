@@ -10,7 +10,8 @@ module Insieme
     extend ActiveSupport::Concern
 
     included do
-      PERSON_ATTRIBUTES = [:id, :canton, :birthday, :address, :zip_code, :town, :country]
+      PERSON_ATTRIBUTES = [:id, :canton, :birthday, :ahv_number,
+                           :address, :zip_code, :town, :country]
 
       Person::ADDRESS_TYPES.grep(/course/).each do |prefix|
         PERSON_ATTRIBUTES << :"#{prefix}_same_as_main"
@@ -19,9 +20,10 @@ module Insieme
         end
       end
 
-      self.permitted_attrs += [person_attributes: PERSON_ATTRIBUTES]
+      self.permitted_attrs += [:disability, :multiple_disability, :wheel_chair,
+                               person_attributes: PERSON_ATTRIBUTES]
 
-      alias_method_chain :assign_attributes, :check
+      alias_method_chain :permitted_attrs, :internal
 
       before_render_show :load_grouped_active_membership_roles
     end
@@ -40,14 +42,12 @@ module Insieme
       end
     end
 
-    # only roles with :modify_internal_fields permission are allowed to set those attributes
-    def assign_attributes_with_check
-      if model_params.present? && can?(:modify_internal_fields, entry)
-        entry.internal_invoice_text = model_params.delete(:internal_invoice_text)
-        entry.internal_invoice_amount = model_params.delete(:internal_invoice_amount)
+    def permitted_attrs_with_internal
+      attrs = permitted_attrs_without_internal
+      if can?(:modify_internal_fields, entry)
+        attrs += [:invoice_text, :invoice_amount]
       end
-
-      assign_attributes_without_check
+      attrs
     end
 
   end

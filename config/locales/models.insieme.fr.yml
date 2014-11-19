@@ -92,18 +92,32 @@ fr:
         one: Membre
       group/aktivmitglieder/aktivmitglied:
         one: Membre actif
+        other: Membres actif
+        short: actif
       group/aktivmitglieder/aktivmitglied_ohne_abo:
         one: Membre actif sans abo
+        other: Membres actif sans abo
+        short: actif s. abo
       group/aktivmitglieder/zweitmitgliedschaft:
         one: 'Double appartenance '
+        other: Double appartences
+        short: double
       group/passivmitglieder/passivmitglied:
         one: Membre passif
+        other: Membres passif
+        short: passif
       group/passivmitglieder/passivmitglied_mit_abo:
         one: Membre passif avec abo
+        other: Membres passiv avec abo
+        short: passif a. abo
       group/kollektivmitglieder/kollektivmitglied:
         one: Membre collectif
+        other: Membres collectif
+        short: collectif
       group/kollektivmitglieder/kollektivmitglied_mit_abo:
         one: Membre collectif avec abo
+        other: Membres collectif avec abo
+        short: collectif a. abo
       group/externe_organisation/praesident:
         one: Président-e
       group/externe_organisation/geschaeftsfuehrung:

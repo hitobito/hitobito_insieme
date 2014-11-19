@@ -8,29 +8,15 @@
 module PeopleInsiemeHelper
 
   def format_person_canton(person)
-    person.canton_value
-  end
-
-  def possible_person_cantons
-    Cantons.short_names.map do |c|
-      Struct.new(:id, :to_s).new(c, Cantons.full_name(c))
-    end
+    person.canton_label
   end
 
   def format_person_language(person)
-    person.language_value
-  end
-
-  def possible_person_languages
-    candidates_from_i18n(:languages)
+    person.language_label
   end
 
   def format_person_correspondence_language(person)
-    person.correspondence_language_value
-  end
-
-  def possible_person_correspondence_languages
-    candidates_from_i18n(:correspondence_languages)
+    person.correspondence_language_label
   end
 
   def toggled_address_fields(prefix, person = entry)
@@ -46,11 +32,4 @@ module PeopleInsiemeHelper
     end
   end
 
-  private
-
-  def candidates_from_i18n(collection_attr)
-    t("activerecord.attributes.person.#{collection_attr}").map do |key, value|
-      Struct.new(:id, :to_s).new(key, value)
-    end
-  end
 end
