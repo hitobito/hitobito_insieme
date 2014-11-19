@@ -102,6 +102,7 @@ de:
     title: Statistik
     show:
       title: Vereinsstatistik Mitglieder
+      export: CSV Export
 
   shared:
     admin_nav_kinds_insieme:

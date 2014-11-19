@@ -15,9 +15,18 @@ class StatisticsController < ApplicationController
 
   def show
     @vereinsmitglieder = Statistics::Vereinsmitglieder.new
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data csv, type: :csv }
+    end
   end
 
   private
+
+  def csv
+    Export::Csv::Generator.new(Export::Csv::Statistics::Vereinsmitglieder.new(@vereinsmitglieder)).csv
+  end
 
   def group
     @group ||= Group::Dachverein.find(params[:id])

@@ -23,4 +23,12 @@ describe StatisticsController, type: :controller  do
     get :show, id: groups(:dachverein).id
     should render_template('show')
   end
+
+  it 'exports csv' do
+    get :show, id: groups(:dachverein).id, format: :csv
+    csv = response.body
+    csv.should =~ /\AVID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;/
+    csv.should =~ /^;Biel-Seeland;1;0;0;0;0;0;0;;;;;$/
+  end
+
 end

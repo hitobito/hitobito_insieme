@@ -71,7 +71,7 @@ class Group::Dachverein < Group
   end
 
   class Controlling < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = [:group_read, :contact_data]
   end
 
   class External < ::Role

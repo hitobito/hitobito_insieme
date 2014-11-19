@@ -30,6 +30,10 @@ describe GroupAbility do
           should be_able_to(:reporting, groups(:be))
         end
 
+        it 'may :statistics on layer' do
+          should be_able_to(:statistics, group)
+        end
+
         it 'may show layer below' do
           should be_able_to(:show, groups(:be))
         end
@@ -72,6 +76,14 @@ describe GroupAbility do
       end
 
     end
+
+    context Group::Dachverein::External do
+      let(:role_name) { 'Group::Dachverein::External' }
+
+      it 'may not :statistics on layer' do
+        should_not be_able_to(:statistics, group)
+      end
+    end
   end
 
   context 'Regionalverein' do
@@ -101,6 +113,10 @@ describe GroupAbility do
 
       it 'may not :reporting on different group on same layer' do
         should_not be_able_to(:reporting, groups(:fr))
+      end
+
+      it 'may not :statistics on dachverein' do
+        should_not be_able_to(:statistics, groups(:dachverein))
       end
 
       it 'may create groups on same group' do
@@ -198,6 +214,10 @@ describe GroupAbility do
 
       it 'may not :reporting on different group on same layer' do
         should_not be_able_to(:reporting, groups(:fr))
+      end
+
+      it 'may not :statistics on dachverein' do
+        should_not be_able_to(:statistics, groups(:dachverein))
       end
 
       it 'may read group in same layer' do

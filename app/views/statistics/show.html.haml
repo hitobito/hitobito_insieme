@@ -1,5 +1,8 @@
 - title t('.title')
 
+- content_for(:toolbar) do
+  = action_button(t('.export'), url_for(format: :csv), :download)
+
 
 = table(@vereinsmitglieder.vereine, class: 'table table-striped table-hover') do |t|
   - t.attrs(:vid, :name)

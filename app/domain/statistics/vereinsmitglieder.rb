@@ -17,7 +17,7 @@ module Statistics
                      Group::Passivmitglieder::PassivmitgliedMitAbo]
 
     def vereine
-      @vereine ||= Group::Regionalverein.includes(:contact).order(:name)
+      @vereine ||= Group::Regionalverein.without_deleted.includes(:contact).order(:name)
     end
 
     def count(layer, index)
