@@ -58,6 +58,15 @@ describe Export::Csv::People do
 
   describe Export::Csv::People do
 
+    before do
+      Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
+                group: groups(:aktiv),
+                person: Fabricate(:person, number: '123', first_name: 'John', last_name: 'Doe'))
+
+      person.reference_person_number = '123'
+      person.save!
+    end
+
     let(:list) { [person] }
     let(:data) { Export::Csv::People::PeopleAddress.export(list) }
     let(:csv)  { CSV.parse(data, headers: true, col_sep: Settings.csv.separator) }
@@ -83,6 +92,9 @@ describe Export::Csv::People do
       its(:headers) { should include('Anrede') }
       its(:headers) { should include('AHV Nummer') }
       its(:headers) { should include('Bezugspersonennr.') }
+      its(:headers) { should include('Vorname Bezugsperson') }
+      its(:headers) { should include('Nachname Bezugsperson') }
+      its(:headers) { should include('Aktivmitgliedschaft Rollen Bezugsperson') }
       let(:data) { Export::Csv::People::PeopleFull.export(list) }
 
       context 'first row' do
@@ -90,6 +102,12 @@ describe Export::Csv::People do
 
         its(['Vorname']) { should eq 'Top' }
         its(['Nachname']) { should eq 'Leader' }
+        its(['Bezugspersonennr.']) { should eq '123' }
+        its(['Vorname Bezugsperson']) { should eq 'John' }
+        its(['Nachname Bezugsperson']) { should eq 'Doe' }
+        its(['Aktivmitgliedschaft Rollen Bezugsperson']) do
+          should eq 'Biel-Seeland / Aktivmitglieder: Aktivmitglied'
+        end
       end
     end
   end

@@ -469,6 +469,9 @@ de:
 
         number: Personnr.
         reference_person_number: Bezugspersonennr.
+        reference_person_first_name: Vorname Bezugsperson
+        reference_person_last_name: Nachname Bezugsperson
+        reference_person_active_membership_roles: Aktivmitgliedschaft Rollen Bezugsperson
         dossier: Dossierlink
         ahv_number: AHV Nummer
 

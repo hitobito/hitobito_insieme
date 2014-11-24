@@ -40,6 +40,24 @@ module Insieme::Person
     validates :number, presence: true, uniqueness: true
   end
 
+  def reference_person
+    @reference_person ||= reference_person_number &&
+      Person.find_by(number: reference_person_number)
+  end
+
+  def grouped_active_membership_roles
+    if @grouped_active_membership_roles.nil?
+      active_memberships = roles.includes(:group).
+                                 joins(:group).
+                                 where(groups: { type: ::Group::Aktivmitglieder })
+      @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
+      active_memberships.each do |role|
+        @grouped_active_membership_roles[role.group] << role
+      end
+    end
+    @grouped_active_membership_roles
+  end
+
   def canton_label
     Cantons.full_name(canton)
   end

@@ -192,8 +192,24 @@ describe Person do
       person.correspondence_general_same_as_main.should be_false
     end
 
-    def create(attrs={})
-      Person.create!(attrs.merge(first_name: 'John', last_name: 'Lennon', address: 'Pennylane', zip_code: '9933', town: 'Liverpool', country: 'England'))
+    def create(attrs = {})
+      Person.create!(attrs.merge(first_name: 'John', last_name: 'Lennon',
+                                 address: 'Pennylane', zip_code: '9933', town: 'Liverpool',
+                                 country: 'England'))
+    end
+  end
+
+  context 'grouped_active_membership_roles' do
+    it 'should only include Group::Aktivmitglieder' do
+      person = Person.new(first_name: 'John')
+      Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
+                person: person, group: groups(:dachverein))
+      Fabricate(Group::Regionalverein::Praesident.name.to_sym,
+                person: person, group: groups(:seeland))
+      active = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
+                         person: person, group: groups(:aktiv))
+
+      person.grouped_active_membership_roles.should eq(active.group => [active])
     end
   end
 

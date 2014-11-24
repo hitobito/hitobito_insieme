@@ -24,23 +24,9 @@ module Insieme
                                person_attributes: PERSON_ATTRIBUTES]
 
       alias_method_chain :permitted_attrs, :internal
-
-      before_render_show :load_grouped_active_membership_roles
     end
 
     private
-
-    def load_grouped_active_membership_roles
-      return if cannot?(:show_details, entry)
-
-      active_memberships = entry.person.roles.includes(:group).
-                                              joins(:group).
-                                              where(groups: { type: ::Group::Aktivmitglieder })
-      @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
-      active_memberships.each do |role|
-        @grouped_active_membership_roles[role.group] << role
-      end
-    end
 
     def permitted_attrs_with_internal
       attrs = permitted_attrs_without_internal

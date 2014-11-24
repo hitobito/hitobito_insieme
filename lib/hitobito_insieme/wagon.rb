@@ -65,6 +65,8 @@ module HitobitoInsieme
 
       # domain
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
+      Export::Csv::People::PeopleFull.send(:include, Insieme::Export::Csv::People::PeopleFull)
+      Export::Csv::People::PersonRow.send(:include, Insieme::Export::Csv::People::PersonRow)
       Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
       Export::Csv::People::ParticipationsFull.send(

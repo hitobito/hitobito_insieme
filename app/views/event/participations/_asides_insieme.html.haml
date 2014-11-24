@@ -3,13 +3,13 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-- if @grouped_active_membership_roles.present?
+- if can?(:show_details, entry.person) && entry.person.grouped_active_membership_roles.present?
   %section.roles
     %h2= t('.active_memberships')
 
     %table.table.table-basic
       %tbody
-        - @grouped_active_membership_roles.each do |group, roles|
+        - entry.person.grouped_active_membership_roles.each do |group, roles|
           %tr
             %td
               - if can?(:primary_group, entry.person)

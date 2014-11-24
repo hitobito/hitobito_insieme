@@ -32,4 +32,9 @@ module PeopleInsiemeHelper
     end
   end
 
+  def format_reference_person_number(person)
+    render(template: 'people/_reference_person_number_field',
+           locals: { entry: person })
+  end
+
 end
