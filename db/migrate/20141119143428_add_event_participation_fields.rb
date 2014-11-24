@@ -4,8 +4,8 @@ class AddEventParticipationFields < ActiveRecord::Migration
     add_column :event_participations, :multiple_disability, :boolean
     add_column :event_participations, :wheel_chair, :boolean, null: false, default: false
 
-    rename_column :event_participations, :invoice_text, :invoice_text
-    rename_column :event_participations, :invoice_amount, :invoice_amount
+    rename_column :event_participations, :internal_invoice_text, :invoice_text
+    rename_column :event_participations, :internal_invoice_amount, :invoice_amount
 
     add_column :people, :ahv_number, :string
 
@@ -15,8 +15,8 @@ class AddEventParticipationFields < ActiveRecord::Migration
   def down
     remove_column :people, :ahv_number
 
-    rename_column :event_participations, :invoice_text, :invoice_text
-    rename_column :event_participations, :invoice_amount, :invoice_amount
+    rename_column :event_participations, :invoice_text, :internal_invoice_text
+    rename_column :event_participations, :invoice_amount, :internal_invoice_amount
 
     remove_column :event_participations, :wheel_chair
     remove_column :event_participations, :multiple_disability
