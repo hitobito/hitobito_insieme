@@ -93,6 +93,16 @@ describe PeopleController do
       end
 
     end
+
+    context 'ahv_number' do
+      it 'will be updated' do
+        put :update, group_id: group.id,
+                     id: person.id,
+                     person: { ahv_number: '123456789' }
+        assigns(:person).should be_valid
+        person.reload.ahv_number.should eq '123456789'
+      end
+    end
   end
 
 
