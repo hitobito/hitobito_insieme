@@ -101,6 +101,7 @@ de:
   people:
     fields_insieme:
       manual_number: Manuell
+      reference_person_number_help: 'Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben.'
 
   reporting:
     title: Reporting

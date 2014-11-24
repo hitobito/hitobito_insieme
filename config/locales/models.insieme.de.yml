@@ -468,6 +468,7 @@ de:
           _nil: ''
 
         number: Personnr.
+        reference_person_number: Bezugspersonennr.
         dossier: Dossierlink
         ahv_number: AHV Nummer
 

@@ -14,7 +14,7 @@ module Insieme
 
       self.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language,
-         :number, :manual_number, :dossier, :ahv_number]
+         :number, :manual_number, :reference_person_number, :dossier, :ahv_number]
 
       # Permit person address fields
       Person::ADDRESS_TYPES.each do |prefix|
@@ -29,7 +29,7 @@ module Insieme
     def permitted_attrs_with_self_update_check
       p = permitted_attrs_without_self_update_check
       if entry.id == current_user.id
-        p -= [:number, :manual_number, :dossier]
+        p -= [:number, :manual_number, :reference_person_number, :dossier]
       end
       p
     end

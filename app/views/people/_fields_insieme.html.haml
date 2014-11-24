@@ -17,4 +17,6 @@
       = f.input_field :number, disabled: !entry.manual_number
       = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))
 
+    = f.labeled_input_field :reference_person_number, help_inline: t('.reference_person_number_help')
+
     = f.labeled_input_field(:dossier)

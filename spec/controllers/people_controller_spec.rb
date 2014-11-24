@@ -22,7 +22,7 @@ describe PeopleController do
   context 'PUT update' do
     before { sign_in(person) }
 
-    context 'manual numbers' do
+    context 'manual number and reference_person_number' do
       context 'by another person' do
         let(:other_person) do
           Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
@@ -33,10 +33,12 @@ describe PeopleController do
           put :update, group_id: group.id,
                        id: person.id,
                        person: { number: 2,
-                                 manual_number: '1' }
+                                 manual_number: '1',
+                                 reference_person_number: '3' }
 
           assigns(:person).should be_valid
           person.reload.number.should eq 2
+          person.reload.reference_person_number.should eq 3
         end
       end
 
@@ -45,16 +47,18 @@ describe PeopleController do
           put :update, group_id: group.id,
                        id: person.id,
                        person: { number: 2,
-                                 manual_number: '1' }
+                                 manual_number: '1',
+                                 reference_person_number: '3' }
 
           assigns(:person).should be_valid
           person.reload.number.should_not eq 2
           person.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
+          person.reference_person_number.should be_nil
         end
       end
     end
 
-    it 'generates automatic numbers' do
+    it 'generates automatic number' do
       put :update, group_id: group.id,
                    id: person.id,
                    person: { number: 2,
