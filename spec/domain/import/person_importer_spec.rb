@@ -87,7 +87,7 @@ describe Import::PersonImporter do
         end
 
         it 'fails to create new person' do
-          import_person.errors.should_not be_empty
+          import_person.person.errors.should_not be_empty
           person.should be_new_record
 
           expect { importer.import }.not_to change { Person.count }
@@ -113,7 +113,7 @@ describe Import::PersonImporter do
           existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 456, manual_number: true)
 
           person.should eq existing
-          import_person.errors.should_not be_empty
+          import_person.person.errors.should_not be_empty
 
           expect { importer.import }.not_to change { Person.count }
           existing.reload.number.should eq 456

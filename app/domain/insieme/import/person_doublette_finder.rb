@@ -11,29 +11,22 @@ module Insieme
       extend ActiveSupport::Concern
 
       included do
-        alias_method_chain :assign_blank_attrs, :number
         alias_method_chain :duplicates, :number
-      end
-
-      def assign_blank_attrs_with_number(person)
-        if person.errors.empty?
-          assign_blank_attrs_without_number(person)
-        end
       end
 
       private
 
-      def duplicates_with_number
+      def duplicates_with_number(attrs)
         if attrs[:number].present?
           ::Person.where(number: attrs[:number]).to_a.presence ||
-          check_duplicate_with_different_number
+          check_duplicate_with_different_number(attrs)
         else
-          duplicates_without_number
+          duplicates_without_number(attrs)
         end
       end
 
-      def check_duplicate_with_different_number
-        duplicates = duplicates_without_number
+      def check_duplicate_with_different_number(attrs)
+        duplicates = duplicates_without_number(attrs)
         if duplicates.present?
           person = duplicates.first
           add_duplicate_with_different_number_error(person) if person.number?
