@@ -87,7 +87,7 @@ describe Import::PersonImporter do
         end
 
         it 'fails to create new person' do
-          import_person.person.errors.should_not be_empty
+          person.errors.should_not be_empty
           person.should be_new_record
 
           expect { importer.import }.not_to change { Person.count }
