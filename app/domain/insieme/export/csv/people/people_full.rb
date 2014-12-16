@@ -9,26 +9,23 @@ module Insieme::Export::Csv::People
   module PeopleFull
     extend ActiveSupport::Concern
 
+    REFERENCE_PERSON_FIELDS = [:reference_person_first_name, :reference_person_last_name,
+                               :reference_person_address, :reference_person_zip_code,
+                               :reference_person_town, :reference_person_active_membership_roles,
+                               :reference_person_additional_information]
+
     included do
       alias_method_chain :person_attribute_labels, :insieme
       alias_method_chain :person_attributes, :insieme
     end
 
     def person_attributes_with_insieme
-      person_attributes_without_insieme +
-        [:reference_person_first_name, :reference_person_last_name,
-         :reference_person_address, :reference_person_zip_code, :reference_person_town,
-         :reference_person_active_membership_roles, :reference_person_additional_information] -
-        [:disabled_person_reference, :disabled_person_first_name, :disabled_person_last_name,
-         :disabled_person_address, :disabled_person_zip_code, :disabled_person_town,
-         :disabled_person_birthday]
+      person_attributes_without_insieme + REFERENCE_PERSON_FIELDS - [:disabled_person_reference]
     end
 
     def person_attribute_labels_with_insieme
       labels = person_attribute_labels_without_insieme
-      [:reference_person_first_name, :reference_person_last_name, :reference_person_address,
-       :reference_person_zip_code, :reference_person_town, :reference_person_active_membership_roles,
-       :reference_person_additional_information].each do |attr|
+      REFERENCE_PERSON_FIELDS.each do |attr|
         labels[attr] = ::Person.human_attribute_name(attr)
       end
       labels

@@ -103,7 +103,7 @@ de:
       reference_person_number_help: 'Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben.'
 
     fields_insieme_disabled_person:
-      reference_prefix: Zugehörige Person mit Behinderung
+      reference_title: Zugehörige Person mit Behinderung
       reference: Bezug zu Person mit Behinderung
 
   reporting:

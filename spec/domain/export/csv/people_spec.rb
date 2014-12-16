@@ -61,12 +61,21 @@ describe Export::Csv::People do
     before do
       Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
                 group: groups(:aktiv),
-                person: Fabricate(:person, number: '123', first_name: 'George',
-                                  last_name: 'Harrison', address: 'Abbey Road 3',
-                                  zip_code: 1234, town: 'London',
+                person: Fabricate(:person, number: '123', first_name: 'John',
+                                  last_name: 'Lennon', address: 'Bank Street 105',
+                                  zip_code: 1234, town: 'New York',
                                   additional_information: 'English musician'))
 
       person.reference_person_number = '123'
+
+      person.disabled_person_reference = true
+      person.disabled_person_first_name = 'George'
+      person.disabled_person_last_name = 'Harrison'
+      person.disabled_person_address = 'Abbey Road 3'
+      person.disabled_person_zip_code = 1234
+      person.disabled_person_town = 'London'
+      person.disabled_person_birthday = '25.02.1943'
+
       person.save!
     end
 
@@ -109,12 +118,19 @@ describe Export::Csv::People do
 
         its(['Vorname']) { should eq 'Top' }
         its(['Nachname']) { should eq 'Leader' }
+
+        its(['Vorname Zugehörige Person mit Behinderung']) { should eq 'George' }
+        its(['Nachname Zugehörige Person mit Behinderung']) { should eq 'Harrison' }
+        its(['Adresse Zugehörige Person mit Behinderung']) { should eq 'Abbey Road 3' }
+        its(['PLZ Zugehörige Person mit Behinderung']) { should eq '1234' }
+        its(['Ort Zugehörige Person mit Behinderung']) { should eq 'London' }
+
         its(['Bezugspersonennr.']) { should eq '123' }
-        its(['Vorname Bezugsperson']) { should eq 'George' }
-        its(['Nachname Bezugsperson']) { should eq 'Harrison' }
-        its(['Adresse Bezugsperson']) { should eq 'Abbey Road 3' }
+        its(['Vorname Bezugsperson']) { should eq 'John' }
+        its(['Nachname Bezugsperson']) { should eq 'Lennon' }
+        its(['Adresse Bezugsperson']) { should eq 'Bank Street 105' }
         its(['PLZ Bezugsperson']) { should eq '1234' }
-        its(['Ort Bezugsperson']) { should eq 'London' }
+        its(['Ort Bezugsperson']) { should eq 'New York' }
         its(['Aktivmitgliedschaft Rollen Bezugsperson']) do
           should eq 'Biel-Seeland / Aktivmitglieder: Aktivmitglied'
         end
