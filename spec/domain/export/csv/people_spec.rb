@@ -61,7 +61,10 @@ describe Export::Csv::People do
     before do
       Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
                 group: groups(:aktiv),
-                person: Fabricate(:person, number: '123', first_name: 'John', last_name: 'Doe'))
+                person: Fabricate(:person, number: '123', first_name: 'George',
+                                  last_name: 'Harrison', address: 'Abbey Road 3',
+                                  zip_code: 1234, town: 'London',
+                                  additional_information: 'English musician'))
 
       person.reference_person_number = '123'
       person.save!
@@ -94,7 +97,11 @@ describe Export::Csv::People do
       its(:headers) { should include('Bezugspersonennr.') }
       its(:headers) { should include('Vorname Bezugsperson') }
       its(:headers) { should include('Nachname Bezugsperson') }
+      its(:headers) { should include('Adresse Bezugsperson') }
+      its(:headers) { should include('PLZ Bezugsperson') }
+      its(:headers) { should include('Ort Bezugsperson') }
       its(:headers) { should include('Aktivmitgliedschaft Rollen Bezugsperson') }
+      its(:headers) { should include('Zusätzliche Angaben Bezugsperson') }
       let(:data) { Export::Csv::People::PeopleFull.export(list) }
 
       context 'first row' do
@@ -103,11 +110,15 @@ describe Export::Csv::People do
         its(['Vorname']) { should eq 'Top' }
         its(['Nachname']) { should eq 'Leader' }
         its(['Bezugspersonennr.']) { should eq '123' }
-        its(['Vorname Bezugsperson']) { should eq 'John' }
-        its(['Nachname Bezugsperson']) { should eq 'Doe' }
+        its(['Vorname Bezugsperson']) { should eq 'George' }
+        its(['Nachname Bezugsperson']) { should eq 'Harrison' }
+        its(['Adresse Bezugsperson']) { should eq 'Abbey Road 3' }
+        its(['PLZ Bezugsperson']) { should eq '1234' }
+        its(['Ort Bezugsperson']) { should eq 'London' }
         its(['Aktivmitgliedschaft Rollen Bezugsperson']) do
           should eq 'Biel-Seeland / Aktivmitglieder: Aktivmitglied'
         end
+        its(['Zusätzliche Angaben Bezugsperson']) { should eq 'English musician' }
       end
     end
   end
