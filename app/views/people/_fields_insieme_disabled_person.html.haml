@@ -1,0 +1,20 @@
+= field_set_tag do
+  = f.labeled(:disabled_person_reference_prefix, '&nbsp;'.html_safe) do
+    %em= t('.reference_prefix')
+
+  = f.labeled_boolean_field(:disabled_person_reference,
+                            caption: t('.reference'),
+                            label: '&nbsp;'.html_safe,
+                            data: { show: :disabled_person_fields })
+
+  #disabled_person_fields{style: !entry.send(:disabled_person_reference?) && 'display: none;'}
+    = f.labeled_input_field(:disabled_person_first_name)
+    = f.labeled_input_field(:disabled_person_last_name)
+    = f.labeled_text_area(:disabled_person_address, rows: 2)
+    = f.labeled(:disabled_person_zip_town, t('contactable.fields.zip_town'), nil, class: 'controls-row') do
+      = f.integer_field(:disabled_person_zip_code, class: 'span2', maxlength: 10)
+      = f.string_field(:disabled_person_town, class: 'span4')
+    = f.labeled_string_field(:disabled_person_birthday,
+                             value: f.date_value(:disabled_person_birthday),
+                             help_inline: t('people.fields.format_birthday'),
+                             class: 'span2')

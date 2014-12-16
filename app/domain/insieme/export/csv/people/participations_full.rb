@@ -14,14 +14,14 @@ module Insieme::Export::Csv::People
     end
 
     def build_attribute_labels_with_insieme
-      labels = build_attribute_labels_without_insieme
-      labels[:disability] = human(:disability)
-      labels[:multiple_disability] = human(:multiple_disability)
-      labels[:wheel_chair] = human(:wheel_chair)
-      labels[:invoice_text] = human(:invoice_text)
-      labels[:invoice_amount] = human(:invoice_amount)
-      labels = build_disabled_person_labels(labels)
-      labels
+      build_attribute_labels_without_insieme.tap do |labels|
+        labels[:disability] = human(:disability)
+        labels[:multiple_disability] = human(:multiple_disability)
+        labels[:wheel_chair] = human(:wheel_chair)
+        labels[:invoice_text] = human(:invoice_text)
+        labels[:invoice_amount] = human(:invoice_amount)
+        build_disabled_person_labels(labels)
+      end
     end
 
     def build_disabled_person_labels(labels)
@@ -31,7 +31,6 @@ module Insieme::Export::Csv::People
       labels[:disabled_person_zip_code] = disabled_person_human(:disabled_person_zip_code)
       labels[:disabled_person_town] = disabled_person_human(:disabled_person_town)
       labels[:disabled_person_birthday] = disabled_person_human(:disabled_person_birthday)
-      labels
     end
 
     private
@@ -43,7 +42,7 @@ module Insieme::Export::Csv::People
     def disabled_person_human(attr)
       format('%s %s',
              ::Person.human_attribute_name(attr),
-             I18n.t('people.fields_insieme.disabled_person_reference_prefix'))
+             I18n.t('people.fields_insieme_disabled_person.reference_prefix'))
     end
 
   end

@@ -32,7 +32,6 @@ de:
 
     single_address_fields:
       same_as_main: Gleich wie Hauptadresse
-      zip_town: PLZ/Ort
 
   cost_accounting:
     index:
@@ -103,9 +102,9 @@ de:
       manual_number: Manuell
       reference_person_number_help: 'Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben.'
 
-      disabled_person_reference_prefix: Zugehörige Person mit Behinderung
-      disabled_person_reference: Bezug zu Person mit Behinderung
-      zip_town: PLZ/Ort
+    fields_insieme_disabled_person:
+      reference_prefix: Zugehörige Person mit Behinderung
+      reference: Bezug zu Person mit Behinderung
 
   reporting:
     title: Reporting
