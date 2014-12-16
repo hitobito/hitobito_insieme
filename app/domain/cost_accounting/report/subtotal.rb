@@ -27,6 +27,9 @@ module CostAccounting
         end
       end
 
+      def kontrolle
+        nil
+      end
 
     end
   end

@@ -20,7 +20,7 @@ module CostAccounting
                 CostAccounting::Report::UmlagePersonal,
                 CostAccounting::Report::UmlageRaeumlichkeiten,
                 CostAccounting::Report::UmlageVerwaltung,
-                #  total_umlagen
+                CostAccounting::Report::TotalUmlagen,
                 #  vollkosten
                 CostAccounting::Report::Leistungsertrag,
                 CostAccounting::Report::BeitraegeIV,

@@ -618,6 +618,8 @@ de:
         name: Umlage Räumlichkeiten
       umlage_verwaltung:
         name: Umlage Verwaltung
+      total_umlagen:
+        name: Total Umlagen
 
 
   import/person_doublette_finder:

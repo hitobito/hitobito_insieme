@@ -11,6 +11,18 @@ module CostAccounting
 
       # This report has no data
 
+      def aufwand_ertrag_ko_re
+        nil
+      end
+
+      def total
+        nil
+      end
+
+      def kontrolle
+        nil
+      end
+
     end
   end
 end
