@@ -41,6 +41,10 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
       report.total.should eq 100
     end
 
+    it 'kontrolle is 0' do
+      report.kontrolle.should eq 0
+    end
+
     it 'leaves other values at 0' do
       (fields - %w(verwaltung beratung total)).each do |field|
         report.send(field.to_sym).should eq 0
@@ -55,7 +59,6 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
       report.verwaltung.should eq(50)
       report.beratung.should eq(30)
       report.blockkurse.should eq(20)
-      report.total.should eq(100)
 
       (fields - %w(verwaltung beratung blockkurse total)).each do |field|
         report.send(field.to_sym).should eq 0.0
@@ -66,6 +69,14 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
       create_time_record(verwaltung: 50)
       report.verwaltung.to_f.should eq 100.0
       report.beratung.to_f.should eq 0.0
+    end
+
+    it 'total equals value of raeumlichkeiten' do
+      report.total.should eq 100
+    end
+
+    it 'kontrolle is 0' do
+      report.kontrolle.should eq 0
     end
 
   end

@@ -101,6 +101,7 @@ module CostAccounting
 
       def total
         @total ||= begin
+          raeumlichkeiten.to_d +
           verwaltung.to_d +
           beratung.to_d +
           treffpunkte.to_d +

@@ -34,15 +34,28 @@ module CostAccounting
         end
       end
 
-      def kontrolle
-        total - raeumlichkeiten
+      def total
+        @total ||= begin
+          verwaltung.to_d +
+          beratung.to_d +
+          treffpunkte.to_d +
+          blockkurse.to_d +
+          tageskurse.to_d +
+          jahreskurse.to_d +
+          lufeb.to_d +
+          mittelbeschaffung.to_d
+        end
       end
 
-      private
+      def kontrolle
+        total - raeumlichkeiten.to_d
+      end
 
       def raeumlichkeiten
         table.value_of('raumaufwand', 'raeumlichkeiten').to_d
       end
+
+      private
 
       def allocated_with_time_record(field)
         if relevante_zeit > 0
