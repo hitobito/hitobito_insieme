@@ -35,9 +35,11 @@ module Insieme::Person
 
     before_validation :normalize_i18n_keys
     before_save :normalize_addresses
+    before_save :normalize_disabled_person_reference
 
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
     validates :number, presence: true, uniqueness: true
+    validates :disabled_person_birthday, timeliness: { type: :date, allow_blank: true }
   end
 
   def reference_person
@@ -72,6 +74,17 @@ module Insieme::Person
 
   def normalize_addresses
     Person::AddressNormalizer.new(self).run
+  end
+
+  def normalize_disabled_person_reference
+    unless disabled_person_reference
+      self.disabled_person_first_name = nil
+      self.disabled_person_last_name = nil
+      self.disabled_person_address = nil
+      self.disabled_person_zip_code = nil
+      self.disabled_person_town = nil
+      self.disabled_person_birthday = nil
+    end
   end
 
 end

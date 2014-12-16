@@ -467,6 +467,14 @@ de:
           fr: Französisch
           _nil: ''
 
+        disabled_person_reference: Hat Bezug zu Person mit Behinderung
+        disabled_person_first_name: Vorname
+        disabled_person_last_name: Nachname
+        disabled_person_address: Adresse
+        disabled_person_zip_code: PLZ
+        disabled_person_town: Ort
+        disabled_person_birthday: Geburtstag
+
         number: Personnr.
         reference_person_number: Bezugspersonennr.
         reference_person_first_name: Vorname Bezugsperson

@@ -17,7 +17,14 @@ module Insieme::Export::Csv::People
     def person_attributes_with_insieme
       person_attributes_without_insieme + [:reference_person_first_name,
                                            :reference_person_last_name,
-                                           :reference_person_active_membership_roles]
+                                           :reference_person_active_membership_roles] -
+                                          [:disabled_person_reference,
+                                           :disabled_person_first_name,
+                                           :disabled_person_last_name,
+                                           :disabled_person_address,
+                                           :disabled_person_zip_code,
+                                           :disabled_person_town,
+                                           :disabled_person_birthday]
     end
 
     def person_attribute_labels_with_insieme

@@ -20,6 +20,17 @@ module Insieme::Export::Csv::People
       labels[:wheel_chair] = human(:wheel_chair)
       labels[:invoice_text] = human(:invoice_text)
       labels[:invoice_amount] = human(:invoice_amount)
+      labels = build_disabled_person_labels(labels)
+      labels
+    end
+
+    def build_disabled_person_labels(labels)
+      labels[:disabled_person_first_name] = disabled_person_human(:disabled_person_first_name)
+      labels[:disabled_person_last_name] = disabled_person_human(:disabled_person_last_name)
+      labels[:disabled_person_address] = disabled_person_human(:disabled_person_address)
+      labels[:disabled_person_zip_code] = disabled_person_human(:disabled_person_zip_code)
+      labels[:disabled_person_town] = disabled_person_human(:disabled_person_town)
+      labels[:disabled_person_birthday] = disabled_person_human(:disabled_person_birthday)
       labels
     end
 
@@ -27,6 +38,12 @@ module Insieme::Export::Csv::People
 
     def human(attr)
       ::Event::Participation.human_attribute_name(attr)
+    end
+
+    def disabled_person_human(attr)
+      format('%s %s',
+             ::Person.human_attribute_name(attr),
+             I18n.t('people.fields_insieme.disabled_person_reference_prefix'))
     end
 
   end

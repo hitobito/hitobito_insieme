@@ -12,7 +12,27 @@
 
   = f.labeled_i18n_enum_field :correspondence_language, Person.correspondence_language_labels, prompt: true
 
-  - if entry.id != current_user.id
+= field_set_tag do
+  = f.labeled(:disabled_person_reference_prefix, '&nbsp;'.html_safe) do
+    %em= t('.disabled_person_reference_prefix')
+
+  = f.labeled_boolean_field(:disabled_person_reference,
+                            caption: t('.disabled_person_reference'),
+                            label: '&nbsp;'.html_safe,
+                            data: { show: :disabled_person_fields })
+
+  #disabled_person_fields{style: !entry.send(:disabled_person_reference?) && 'display: none;'}
+    = f.labeled_input_field(:disabled_person_first_name)
+    = f.labeled_input_field(:disabled_person_last_name)
+    = f.labeled_text_area(:disabled_person_address, rows: 2)
+    = f.labeled(:disabled_person_zip_town, t('.zip_town'), nil, class: 'controls-row') do
+      = f.integer_field(:disabled_person_zip_code, class: 'span2', maxlength: 10)
+      = f.string_field(:disabled_person_town, class: 'span4')
+    = f.labeled_input_field(:disabled_person_birthday)
+
+
+- if entry.id != current_user.id
+  = field_set_tag do
     = f.labeled(:number) do
       = f.input_field :number, disabled: !entry.manual_number
       = f.help_inline f.boolean_field(:manual_number, caption: t('.manual_number'))

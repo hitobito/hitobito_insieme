@@ -213,4 +213,42 @@ describe Person do
     end
   end
 
+  context 'disabled_person_reference' do
+    let(:person) do
+      Person.new(first_name: 'John',
+                 disabled_person_first_name: 'aaa',
+                 disabled_person_last_name: 'bbb',
+                 disabled_person_address: 'ccc',
+                 disabled_person_zip_code: 1234,
+                 disabled_person_town: 'ddd',
+                 disabled_person_birthday: '01.02.2003')
+    end
+
+    it 'should store the disabled person fields if true' do
+      person.disabled_person_reference = true
+      person.save!
+
+      expect(person.disabled_person_reference).to be_true
+      expect(person.disabled_person_first_name).to eq 'aaa'
+      expect(person.disabled_person_last_name).to eq 'bbb'
+      expect(person.disabled_person_address).to eq 'ccc'
+      expect(person.disabled_person_zip_code).to eq 1234
+      expect(person.disabled_person_town).to eq 'ddd'
+      expect(person.disabled_person_birthday).to eq Date.new(2003, 2, 1)
+    end
+
+    it 'should reset the disabled person fields if false' do
+      person.disabled_person_reference = false
+      person.save!
+
+      expect(person.disabled_person_reference).to be_false
+      expect(person.disabled_person_first_name).to be_nil
+      expect(person.disabled_person_last_name).to be_nil
+      expect(person.disabled_person_address).to be_nil
+      expect(person.disabled_person_zip_code).to be_nil
+      expect(person.disabled_person_town).to be_nil
+      expect(person.disabled_person_birthday).to be_nil
+    end
+  end
+
 end

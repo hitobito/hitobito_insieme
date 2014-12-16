@@ -103,6 +103,10 @@ de:
       manual_number: Manuell
       reference_person_number_help: 'Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben.'
 
+      disabled_person_reference_prefix: Zugehörige Person mit Behinderung
+      disabled_person_reference: Bezug zu Person mit Behinderung
+      zip_town: PLZ/Ort
+
   reporting:
     title: Reporting
 
