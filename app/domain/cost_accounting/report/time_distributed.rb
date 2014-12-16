@@ -30,14 +30,11 @@ module CostAccounting
       TIME_FIELDS.each do |f|
         define_method(f) do
           @time_fields ||= {}
-          if aufwand_ertrag_ko_re > 0
-            if time_record.total > 0
-              @time_fields[f] ||= aufwand_ertrag_ko_re *
-                                  time_record.send(f).to_d / time_record.total
-            else
-              @time_fields[f] ||= aufwand_ertrag_ko_re / TIME_FIELDS.size
+          @time_fields[f] ||=
+            if aufwand_ertrag_ko_re > 0 && time_record.total > 0
+              aufwand_ertrag_ko_re *
+              time_record.send(f).to_d / time_record.total
             end
-          end
         end
       end
 

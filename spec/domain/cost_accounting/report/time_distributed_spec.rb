@@ -56,17 +56,23 @@ describe CostAccounting::Report::TimeDistributed do
 
       context 'time fields' do
         it 'works for simple' do
-          report.verwaltung.should eq(125.0)
+          report.verwaltung.should be_nil
         end
 
         it 'works for lufeb' do
-          report.lufeb.should eq(125.0)
+          report.lufeb.should be_nil
         end
       end
 
       context '#total' do
         it 'is calculated correctly' do
-          report.total.should eq(1000.0)
+          report.total.should eq(0.0)
+        end
+      end
+
+      context '#kontrolle' do
+        it 'is calculated correctly' do
+          report.kontrolle.should eq(-1000.0)
         end
       end
 

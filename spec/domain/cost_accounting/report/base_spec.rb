@@ -30,13 +30,13 @@ describe CostAccounting::Report::Base do
 
   context '#total' do
     it 'is calculated correctly' do
-      report.total.should eq(950.0)
+      report.total.should eq(0.0)
     end
   end
 
   context '#kontrolle' do
     it 'is calculated correctly' do
-      report.kontrolle.should eq(0.0)
+      report.kontrolle.should eq(-950.0)
     end
   end
 
