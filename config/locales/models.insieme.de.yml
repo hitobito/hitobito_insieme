@@ -468,12 +468,12 @@ de:
           _nil: ''
 
         disabled_person_reference: Hat Bezug zu Person mit Behinderung
-        disabled_person_first_name: Vorname
-        disabled_person_last_name: Nachname
-        disabled_person_address: Adresse
-        disabled_person_zip_code: PLZ
-        disabled_person_town: Ort
-        disabled_person_birthday: Geburtstag
+        disabled_person_first_name: Vorname Zugehörige Person mit Behinderung
+        disabled_person_last_name: Nachname Zugehörige Person mit Behinderung
+        disabled_person_address: Adresse Zugehörige Person mit Behinderung
+        disabled_person_zip_code: PLZ Zugehörige Person mit Behinderung
+        disabled_person_town: Ort Zugehörige Person mit Behinderung
+        disabled_person_birthday: Geburtstag Zugehörige Person mit Behinderung
 
         number: Personnr.
         reference_person_number: Bezugspersonennr.
