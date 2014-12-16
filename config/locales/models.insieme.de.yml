@@ -479,7 +479,11 @@ de:
         reference_person_number: Bezugspersonennr.
         reference_person_first_name: Vorname Bezugsperson
         reference_person_last_name: Nachname Bezugsperson
+        reference_person_address: Adresse Bezugsperson
+        reference_person_zip_code: PLZ Bezugsperson
+        reference_person_town: Ort Bezugsperson
         reference_person_active_membership_roles: Aktivmitgliedschaft Rollen Bezugsperson
+        reference_person_additional_information: Zusätzliche Angaben Bezugsperson
         dossier: Dossierlink
         ahv_number: AHV Nummer
 

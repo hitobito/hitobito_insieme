@@ -18,6 +18,18 @@ module Insieme::Export::Csv::People
       entry.reference_person && entry.reference_person.last_name
     end
 
+    def reference_person_address
+      entry.reference_person && entry.reference_person.address
+    end
+
+    def reference_person_zip_code
+      entry.reference_person && entry.reference_person.zip_code
+    end
+
+    def reference_person_town
+      entry.reference_person && entry.reference_person.town
+    end
+
     def reference_person_active_membership_roles
       grouped_roles = entry.reference_person &&
         entry.reference_person.grouped_active_membership_roles
@@ -26,6 +38,10 @@ module Insieme::Export::Csv::People
           group.with_layer.join(' / ') + ': ' + roles.join(', ')
         end.join('; ')
       end
+    end
+
+    def reference_person_additional_information
+      entry.reference_person && entry.reference_person.additional_information
     end
 
     private
