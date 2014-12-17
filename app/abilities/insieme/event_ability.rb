@@ -14,6 +14,9 @@ module Insieme::EventAbility
       permission(:layer_and_below_read).may(:read).in_same_layer_or_below
 
       permission(:any).may(:application_market).for_participations_full_events
+
+      permission(:layer_full).may(:export_group_courses).in_same_layer
+      permission(:layer_and_below_full).may(:export_group_courses).in_same_layer_or_below
     end
   end
 

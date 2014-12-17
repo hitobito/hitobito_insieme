@@ -14,6 +14,15 @@ module Insieme
 
       self.permitted_attrs += [course_record_attributes: [:id, :subventioniert, :inputkriterien,
                                                           :spezielle_unterkunft, :kursart]]
+
+      alias_method_chain :index, :csv
+    end
+
+    def index_with_csv
+      respond_to do |format|
+        format.html  { entries }
+        format.csv   { render_csv_entries(entries) if can?(:export_group_courses, Event) }
+      end
     end
 
     private
@@ -25,5 +34,16 @@ module Insieme
       end
     end
 
+    def prepare_csv_entries(entries)
+      entries.includes(:course_record)
+    end
+
+    def render_csv_entries(entries)
+      render_csv(prepare_csv_entries(entries))
+    end
+
+    def render_csv(entries)
+      send_data ::Export::Csv::Events::List.export(entries), type: :csv
+    end
   end
 end
