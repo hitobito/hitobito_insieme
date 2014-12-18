@@ -23,8 +23,7 @@ module CostAccounting
                                   blockkurse
                                   tageskurse
                                   jahreskurse
-                                  lufeb
-                                  mittelbeschaffung)
+                                  lufeb)
 
     end
   end
