@@ -21,7 +21,7 @@ module CostAccounting
                 CostAccounting::Report::UmlageRaeumlichkeiten,
                 CostAccounting::Report::UmlageVerwaltung,
                 CostAccounting::Report::TotalUmlagen,
-                #  vollkosten
+                CostAccounting::Report::Vollkosten,
                 CostAccounting::Report::Leistungsertrag,
                 CostAccounting::Report::BeitraegeIV,
                 CostAccounting::Report::SonstigeBeitraege,

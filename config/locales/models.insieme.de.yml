@@ -625,6 +625,8 @@ de:
         name: Umlage Verwaltung
       total_umlagen:
         name: Total Umlagen
+      vollkosten:
+        name: Vollkosten nach Umlagen
 
 
   import/person_doublette_finder:
