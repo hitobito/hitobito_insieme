@@ -61,13 +61,13 @@ describe Export::Csv::Events::List do
       course1.build_course_record(subventioniert: true, inputkriterien: 'a',
                                   kursart: 'freizeit_und_sport', spezielle_unterkunft: true)
       Fabricate(:event_participation, event: course1, active: true,
-                roles: [Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.name)])
+                roles: [Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.sti_name)])
       Fabricate(:event_participation, event: course1, active: true,
-                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
+                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.sti_name)])
       Fabricate(:event_participation, event: course1, active: true,
-                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
+                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.sti_name)])
       Fabricate(:event_participation, event: course1, active: false,
-                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
+                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.sti_name)])
       course1.refresh_participant_counts!
     end
 
