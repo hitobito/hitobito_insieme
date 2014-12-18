@@ -25,9 +25,9 @@ describe Export::Csv::Events::List do
                  :leader_email, :leader_phone_numbers,
                  :motto, :cost, :application_opening_at, :application_closing_at,
                  :maximum_participants, :external_applications, :priorization,
+                 :teamer_count, :participant_count, :applicant_count,
                  :leistungskategorie, :subventioniert, :inputkriterien, :kursart,
-                 :spezielle_unterkunft, :participations_all_count, :participations_teamers_count,
-                 :participations_participants_count]
+                 :spezielle_unterkunft]
     end
 
     its(:labels) do
@@ -40,9 +40,9 @@ describe Export::Csv::Events::List do
                  'Hauptleitung Name', 'Hauptleitung Adresse', 'Hauptleitung PLZ', 'Hauptleitung Ort',
                  'Hauptleitung Haupt-E-Mail', 'Hauptleitung Telefonnummern',
                  'Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss', 'Maximale Teilnehmerzahl',
-                 'Externe Anmeldungen', 'Priorization', 'Leistungskategorie', 'Subventioniert',
-                 'Inputkriterien', 'Kursart', 'Spezielle Unterkunft', 'Anzahl Anmeldungen',
-                 'Anzahl Leitungsteam', 'Anzahl Teilnehmende']
+                 'Externe Anmeldungen', 'Priorisierung', 'Anzahl Anmeldungen',
+                 'Anzahl Leitungsteam', 'Anzahl Teilnehmende', 'Leistungskategorie',
+                 'Subventioniert', 'Inputkriterien', 'Kursart', 'Spezielle Unterkunft']
     end
   end
 
@@ -66,34 +66,35 @@ describe Export::Csv::Events::List do
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
       Fabricate(:event_participation, event: course1, active: true,
                 roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
+      Fabricate(:event_participation, event: course1, active: false,
+                roles: [Fabricate(:event_role, type: Event::Course::Role::Challenged.name)])
+      course1.refresh_participant_counts!
     end
 
     context 'first row' do
       let(:row) { csv[0].split(';') }
-      it 'should contain contain the additional course and record fields' do
+      it 'should contain the additional course and record fields' do
         expect(row[26..-1]).to eq ['Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss',
                                    'Maximale Teilnehmerzahl', 'Externe Anmeldungen',
-                                   'Priorization', 'Leistungskategorie', 'Subventioniert',
-                                   'Inputkriterien', 'Kursart', 'Spezielle Unterkunft',
-                                   'Anzahl Anmeldungen', 'Anzahl Leitungsteam',
-                                   'Anzahl Teilnehmende']
+                                   'Priorisierung', 'Anzahl Leitungsteam', 'Anzahl Teilnehmende',
+                                   'Anzahl Anmeldungen', 'Leistungskategorie', 'Subventioniert',
+                                   'Inputkriterien', 'Kursart', 'Spezielle Unterkunft']
       end
     end
 
     context 'second row (course with record)' do
       let(:row) { csv[1].split(';') }
-      it 'should contain contain the additional course and record fields' do
+      it 'should contain the additional course and record fields' do
         expect(row[26..-1]).to eq ['All for one', '1000', '2000-01-01', '2000-02-01', '10',
-                                   'nein', 'nein', 'Blockkurs', 'ja', 'a', 'Freizeit und Sport',
-                                   'ja', '3', '1', '2']
+                                   'nein', 'nein', '1', '2', '3', 'Blockkurs', 'ja', 'a',
+                                   'Freizeit und Sport', 'ja']
       end
     end
 
     context 'third row (course without record)' do
       let(:row) { csv[2].split(';') }
-      it 'should contain contain the additional course and record fields' do
-        expect(row[26..-1]).to eq ['', '', '', '', '', 'nein', 'ja', 'Blockkurs', '', '', '',
-                                   '', '0', '0', '0']
+      it 'should contain the additional course and record fields' do
+        expect(row[26..-1]).to eq ['', '', '', '', '', 'nein', 'ja', '0', '0', '0', 'Blockkurs']
       end
     end
 

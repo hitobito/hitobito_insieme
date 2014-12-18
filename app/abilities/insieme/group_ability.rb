@@ -49,6 +49,10 @@ module Insieme::GroupAbility
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
+      permission(:layer_and_below_read).may(:export_events).none
+      permission(:any).may(:export_events).
+        any_role_in_same_group_except_external_and_addressverwaltung
+
       general(:reporting).for_reporting_group
     end
   end
@@ -111,6 +115,13 @@ module Insieme::GroupAbility
 
   def for_reporting_group
     group.reporting?
+  end
+
+  def any_role_in_same_group_except_external_and_addressverwaltung
+    user_context.user.roles.any? do |r|
+      r.group.id == group.id && r.class.name.demodulize != 'External' &&
+        r.class.name.demodulize != 'Adressverwaltung'
+    end
   end
 
 end

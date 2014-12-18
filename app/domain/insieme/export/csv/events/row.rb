@@ -11,19 +11,11 @@ module Insieme::Export::Csv::Events
     extend ActiveSupport::Concern
 
     included do
-      attr_reader :course_record, :participations_all_count, :participations_teamers_count,
-                  :participations_participants_count
+      attr_reader :course_record
     end
 
     def initialize(entry)
       @course_record = entry.course_record
-
-      filter = ::Event::ParticipationFilter.new(entry, nil)
-      filter.list_entries
-      @participations_all_count = filter.counts['all']
-      @participations_teamers_count = filter.counts['teamers']
-      @participations_participants_count = filter.counts['participants']
-
       super(entry)
     end
 

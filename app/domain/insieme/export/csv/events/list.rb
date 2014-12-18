@@ -15,30 +15,18 @@ module Insieme::Export::Csv::Events
 
     def build_attribute_labels_with_insieme
       build_attribute_labels_without_insieme
-        .merge(additional_course_labels)
+        .merge(insieme_course_labels)
         .merge(course_record_labels)
-        .merge(count_labels)
     end
 
-    def additional_course_labels
-      [:motto, :cost, :application_opening_at, :application_closing_at,
-       :maximum_participants, :external_applications, :priorization,
-       :leistungskategorie].each_with_object({}) do |attr, labels|
-        labels[attr] = ::Event.human_attribute_name(attr)
-      end
+    def insieme_course_labels
+      { leistungskategorie: ::Event.human_attribute_name(:leistungskategorie) }
     end
 
     def course_record_labels
       [:subventioniert, :inputkriterien, :kursart,
        :spezielle_unterkunft].each_with_object({}) do |attr, labels|
         labels[attr] = ::Event::CourseRecord.human_attribute_name(attr)
-      end
-    end
-
-    def count_labels
-      [:participations_all_count, :participations_teamers_count,
-       :participations_participants_count].each_with_object({}) do |attr, labels|
-        labels[attr] = ::Event.human_attribute_name(attr)
       end
     end
   end
