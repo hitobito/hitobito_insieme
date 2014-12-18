@@ -78,7 +78,7 @@ module Insieme::Person
 
   def normalize_disabled_person_reference
     # when seeding the root user, insieme migrations are not loaded yet, thus we check respond_to.
-    return unless person.respond_to?(:disabled_person_reference)
+    return unless respond_to?(:disabled_person_reference)
 
     unless disabled_person_reference
       self.disabled_person_first_name = nil
