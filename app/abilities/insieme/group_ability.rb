@@ -49,10 +49,6 @@ module Insieme::GroupAbility
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
-      permission(:layer_and_below_read).may(:export_events).none
-      permission(:any).may(:export_events).
-        any_role_in_same_group_except_external_and_addressverwaltung
-
       general(:reporting).for_reporting_group
     end
   end

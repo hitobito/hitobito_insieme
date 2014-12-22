@@ -36,7 +36,7 @@ module CostAccounting
       def aufwand_ertrag_ko_re
         nil
       end
-      
+
       def verwaltung
         @verwaltung ||=
           table.value_of('total_aufwand', 'verwaltung').to_d +

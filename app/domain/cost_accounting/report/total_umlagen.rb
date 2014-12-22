@@ -26,7 +26,7 @@ module CostAccounting
       def aufwand_ertrag_ko_re
         nil
       end
-      
+
     end
   end
 end

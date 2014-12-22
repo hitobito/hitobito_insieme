@@ -99,6 +99,7 @@ module CostAccounting
         end
       end
 
+      # rubocop:disable MethodLength
       def total
         @total ||= begin
           raeumlichkeiten.to_d +
@@ -112,6 +113,7 @@ module CostAccounting
           mittelbeschaffung.to_d
         end
       end
+      # rubocop:enable MethodLength
 
       def kontrolle
         total - aufwand_ertrag_ko_re

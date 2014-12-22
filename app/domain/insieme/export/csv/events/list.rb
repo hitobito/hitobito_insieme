@@ -14,18 +14,22 @@ module Insieme::Export::Csv::Events
     end
 
     def build_attribute_labels_with_insieme
-      build_attribute_labels_without_insieme
-        .merge(insieme_course_labels)
-        .merge(course_record_labels)
+      build_attribute_labels_without_insieme.tap do |labels|
+        if model_class <= Event::Course
+          add_insieme_course_labels(labels)
+          add_course_record_labels(labels)
+        end
+      end
     end
 
-    def insieme_course_labels
-      { leistungskategorie: ::Event.human_attribute_name(:leistungskategorie) }
+    private
+
+    def add_insieme_course_labels(labels)
+      labels[:leistungskategorie] = human_attribute(:leistungskategorie)
     end
 
-    def course_record_labels
-      [:subventioniert, :inputkriterien, :kursart,
-       :spezielle_unterkunft].each_with_object({}) do |attr, labels|
+    def add_course_record_labels(labels)
+      [:subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft].each do |attr|
         labels[attr] = ::Event::CourseRecord.human_attribute_name(attr)
       end
     end

@@ -16,6 +16,20 @@ describe EventsController, type: :controller do
 
   before { sign_in(people(:top_leader)) }
 
+  context 'GET index' do
+    context '.csv' do
+      it 'renders event csv' do
+        get :index, group_id: groups(:dachverein).id, year: 2014, format: :csv
+        response.body.lines.should have(2).items
+      end
+
+      it 'renders course csv' do
+        get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
+        response.body.lines.should have(2).items
+      end
+    end
+  end
+
   context 'course reporting tab' do
     context 'simple event' do
       it 'should not be visible' do

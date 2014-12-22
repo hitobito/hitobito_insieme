@@ -37,7 +37,7 @@ module CostAccounting
       def aufwand_ertrag_ko_re
         nil
       end
-      
+
       def total
         @total ||= begin
           verwaltung.to_d +

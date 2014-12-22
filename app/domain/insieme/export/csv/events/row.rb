@@ -10,15 +10,6 @@ module Insieme::Export::Csv::Events
 
     extend ActiveSupport::Concern
 
-    included do
-      attr_reader :course_record
-    end
-
-    def initialize(entry)
-      @course_record = entry.course_record
-      super(entry)
-    end
-
     def leistungskategorie
       entry.leistungskategorie && I18n.t('activerecord.attributes.event/course.' \
                                          "leistungskategorien.#{entry.leistungskategorie}")
@@ -40,6 +31,12 @@ module Insieme::Export::Csv::Events
 
     def spezielle_unterkunft
       entry.course_record && entry.course_record.spezielle_unterkunft
+    end
+
+    private
+
+    def course_record
+      entry.course_record
     end
 
   end
