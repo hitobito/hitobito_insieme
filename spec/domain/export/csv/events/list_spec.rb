@@ -41,7 +41,7 @@ describe Export::Csv::Events::List do
                  'Hauptleitung Haupt-E-Mail', 'Hauptleitung Telefonnummern',
                  'Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss', 'Maximale Teilnehmerzahl',
                  'Externe Anmeldungen', 'Priorisierung',
-                 'Anzahl Leitungsteam', 'Anzahl Teilnehmende', 'Anzahl Anmeldungen',
+                 'Anzahl BetreuerInnen', 'Anzahl Teilnehmende', 'Anzahl Anmeldungen',
                  'Leistungskategorie', 'Subventioniert', 'Inputkriterien', 'Kursart',
                  'Spezielle Unterkunft']
     end
@@ -77,7 +77,7 @@ describe Export::Csv::Events::List do
       it 'should contain the additional course and record fields' do
         expect(row[27..-1]).to eq ['Motto', 'Kosten', 'Anmeldebeginn', 'Anmeldeschluss',
                                    'Maximale Teilnehmerzahl', 'Externe Anmeldungen',
-                                   'Priorisierung', 'Anzahl Leitungsteam', 'Anzahl Teilnehmende',
+                                   'Priorisierung', 'Anzahl BetreuerInnen', 'Anzahl Teilnehmende',
                                    'Anzahl Anmeldungen', 'Leistungskategorie', 'Subventioniert',
                                    'Inputkriterien', 'Kursart', 'Spezielle Unterkunft']
       end
