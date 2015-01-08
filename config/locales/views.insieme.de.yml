@@ -49,6 +49,9 @@ de:
     other_de: Ausland deutsch
     other_fr: Ausland französisch
 
+  dropdown/event/role_add:
+    add_to_event/course: 'BetreuerIn hinzufügen'
+
   event:
     course_records:
       title: Kursabschluss
@@ -89,6 +92,10 @@ de:
       asides_insieme:
         active_memberships: Aktivmitgliedschaften
 
+  events:
+    tabs:
+      participants: 'Team & Teilnehmende'
+
   event/course_record_decorator:
     absenztage: Absenztage
     absenzstunden: Absenzstunden
@@ -96,6 +103,10 @@ de:
     teilnehmer_stunden: Total TeilnehmerInnenstunden
     kursdauer_d: Kursdauer in Tagen
     kursdauer_h: Kursdauer in Stunden
+
+  filter_navigation/event/participations:
+    predefined_filters:
+      teamers: Betreuungsteam (%{count})
 
   people:
     fields_insieme:

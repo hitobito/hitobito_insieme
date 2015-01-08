@@ -340,6 +340,9 @@ de:
         vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
         vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
 
+      event:
+        teamer_count: Anzahl BetreuerInnen
+
       event/course:
         leistungskategorie: Leistungskategorie
         leistungskategorien:
