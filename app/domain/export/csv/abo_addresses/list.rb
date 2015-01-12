@@ -14,9 +14,10 @@ module Export::Csv::AboAddresses
     def attribute_labels
       { number: 'Kd.Nr.',
         name: 'Vorname und Name',
-        addition_1: 'Zusatz 1',
-        addition_2: 'Zusatz 2',
-        address: 'Adresse',
+        company: 'Firma',
+        address_1: 'Adresse 1',
+        address_2: 'Adresse 2',
+        address_3: 'Adresse 3',
         place: 'PLZ und Ort',
         country: 'Land' }
     end
@@ -27,12 +28,20 @@ module Export::Csv::AboAddresses
         "#{entry.first_name} #{entry.last_name}".strip
       end
 
-      def addition_1
+      def company
         entry.company_name
       end
 
-      def addition_2
-        nil
+      def address_1
+        address_line(0)
+      end
+
+      def address_2
+        address_line(1)
+      end
+
+      def address_3
+        address_line(2)
       end
 
       def place
@@ -41,6 +50,13 @@ module Export::Csv::AboAddresses
 
       def country
         entry.country unless entry.ignored_country?
+      end
+
+      private
+
+      def address_line(line)
+        line = entry.address.to_s.split($/)[line]
+        line ? line.strip : nil
       end
     end
 

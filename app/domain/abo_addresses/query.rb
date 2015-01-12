@@ -46,7 +46,7 @@ module AboAddresses
       if language == 'fr'
         { correspondence_language: 'fr' }
       else
-        ['correspondence_language IS NULL OR correspondence_language = ?', 'de']
+        ['correspondence_language IS NULL OR correspondence_language IN (?)', ['de', '']]
       end
     end
 

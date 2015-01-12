@@ -20,7 +20,7 @@ describe Export::Csv::AboAddresses::List do
     it 'contains hard-coded attribute labels' do
       subject[:number].should eq 'Kd.Nr.'
       subject[:name].should eq 'Vorname und Name'
-      subject[:address].should eq 'Adresse'
+      subject[:address_1].should eq 'Adresse 1'
     end
   end
 
@@ -35,7 +35,7 @@ describe Export::Csv::AboAddresses::List do
       people(:regio_aktiv).update!(first_name: 'Hans',
                                    last_name: 'Muster',
                                    company_name: 'Firma',
-                                   address: 'Eigerplatz 4',
+                                   address: "Eigerplatz 4\nPostfach 123",
                                    zip_code: 3000,
                                    town: 'Bern',
                                    country: 'CH',
@@ -43,8 +43,9 @@ describe Export::Csv::AboAddresses::List do
       subject.last.should eq [123,
                               'Hans Muster',
                               'Firma',
-                              nil,
                               'Eigerplatz 4',
+                              'Postfach 123',
+                              nil,
                               '3000 Bern',
                               nil]
     end

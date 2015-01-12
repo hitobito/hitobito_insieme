@@ -57,12 +57,15 @@ describe AboAddresses::Query do
         abos = Fabricate(Group::DachvereinAbonnemente.name.to_sym, parent: groups(:dachverein))
         abo1 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         abo2 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
+        abo3 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         abo1.update!(correspondence_language: nil)
         abo2.update!(correspondence_language: 'fr')
+        abo3.update!(correspondence_language: '')
         people(:regio_aktiv).update!(correspondence_language: 'de')
 
         should include(abo1)
         should include(people(:regio_aktiv))
+        should include(abo3)
         should_not include(abo2)
       end
 
