@@ -16,7 +16,7 @@ class AboAddressesController < ApplicationController
   private
 
   def csv
-    Export::Csv::Generator.new(Export::Csv::AboAddresses::List.new(people)).csv
+    Export::Csv::AboAddresses::List.export(people)
   end
 
   def people

@@ -16,8 +16,8 @@ describe AboAddressesController, type: :controller  do
   it 'exports csv' do
     get :index, id: groups(:dachverein).id, language: 'de', country: 'ch', format: :csv
     csv = response.body
-    csv.should =~ /\AKd.Nr.;Vorname und Name;Zusatz 1;Zusatz 2;Adresse;PLZ und Ort;Land$/
-    csv.should =~ /^;Active Person;;;;"";$/
+    csv.should =~ /\AKd.Nr.;Vorname und Name;Firma;Adresse 1;Adresse 2;Adresse 3;PLZ und Ort;Land$/
+    csv.should =~ /^;Active Person;;;;;"";$/
   end
 
   it 'raises 404 for unsupported group type' do
