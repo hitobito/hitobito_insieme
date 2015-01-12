@@ -25,7 +25,7 @@ class StatisticsController < ApplicationController
   private
 
   def csv
-    Export::Csv::Generator.new(Export::Csv::Statistics::Vereinsmitglieder.new(@vereinsmitglieder)).csv
+    Export::Csv::Statistics::Vereinsmitglieder.export(@vereinsmitglieder)
   end
 
   def group
