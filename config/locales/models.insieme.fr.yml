@@ -1,8 +1,3 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
-
 fr:
   activerecord:
     models:
@@ -14,6 +9,10 @@ fr:
         one: Liste
         other: Listes
         long: Liste organisation faîtière
+      group/dachverein_abonnemente:
+        one: Abonnements
+        other: Abonnements
+        long: Abonnements de l'organisation faîtière
       group/dachverein_gremium:
         one: Comité
         other: Comités
@@ -54,12 +53,21 @@ fr:
         one: Comité
         other: Comités
         long: Comité organisation externe
+      group/dachverein/praesident:
+        one: Président-e
+        other: Présidents
+      group/dachverein/vorstandsmitglied:
+        one: Membre du comité
       group/dachverein/geschaeftsfuehrung:
         one: Direction
       group/dachverein/sekretariat:
         one: Secrétariat
       group/dachverein/adressverwaltung:
         one: Gestion des adresses
+      group/dachverein/controlling:
+        one: Reporting
+      group/dachverein/external:
+        one: Externe
       group/dachverein_liste/listenverwaltung:
         one: Gestion des listes
       group/dachverein_liste/person:
@@ -68,8 +76,16 @@ fr:
         one: Direction
       group/dachverein_gremium/mitglied:
         one: Membre
+      group/dachverein_abonnemente/einzelabo:
+        one: Abonnement individuel
+      group/dachverein_abonnemente/geschenkabo:
+        one: Abonnement cadeau
+      group/dachverein_abonnemente/gratisabo:
+        one: Abonnement gratuit
       group/regionalverein/praesident:
         one: Président-e
+      group/regionalverein/vorstandsmitglied:
+        one: Membre du comité
       group/regionalverein/geschaeftsfuehrung:
         one: Direction
       group/regionalverein/sekretariat:
@@ -81,7 +97,9 @@ fr:
       group/regionalverein/rechnungsadresse:
         one: Adresse de facturation
       group/regionalverein/controlling:
-        one: Controlling
+        one: Reporting
+      group/regionalverein/external:
+        one: Externe
       group/regionalverein_liste/listenverwaltung:
         one: Gestion des listes
       group/regionalverein_liste/person:
@@ -92,34 +110,36 @@ fr:
         one: Membre
       group/aktivmitglieder/aktivmitglied:
         one: Membre actif
-        other: Membres actif
-        short: actif
+        other: Membre actif
+        short: Actif
       group/aktivmitglieder/aktivmitglied_ohne_abo:
         one: Membre actif sans abo
-        other: Membres actif sans abo
-        short: actif s. abo
+        other: Membre actif sans abo
+        short: Actif sans abo
       group/aktivmitglieder/zweitmitgliedschaft:
         one: 'Double appartenance '
-        other: Double appartences
-        short: double
+        other: Double adhésion
+        short: A double
       group/passivmitglieder/passivmitglied:
         one: Membre passif
-        other: Membres passif
-        short: passif
+        other: Membre passif
+        short: Passif
       group/passivmitglieder/passivmitglied_mit_abo:
         one: Membre passif avec abo
-        other: Membres passiv avec abo
-        short: passif a. abo
+        other: Membre passif avec abo
+        short: Passif avec abo
       group/kollektivmitglieder/kollektivmitglied:
         one: Membre collectif
-        other: Membres collectif
-        short: collectif
+        other: Membre collectif
+        short: Collectif
       group/kollektivmitglieder/kollektivmitglied_mit_abo:
         one: Membre collectif avec abo
-        other: Membres collectif avec abo
-        short: collectif a. abo
+        other: Membre collectif avec abo
+        short: Collectif avec abo
       group/externe_organisation/praesident:
         one: Président-e
+      group/externe_organisation/vorstandsmitglied:
+        one: Membre du comité
       group/externe_organisation/geschaeftsfuehrung:
         one: Direction
       group/externe_organisation/sekretariat:
@@ -132,6 +152,8 @@ fr:
         one: Adresse de facturation
       group/externe_organisation/controlling:
         one: Controlling
+      group/externe_organisation/external:
+        one: Externe
       group/externe_organisation_liste/listenverwaltung:
         one: Gestion des listes
       group/externe_organisation_liste/person:
@@ -140,78 +162,355 @@ fr:
         one: Direction
       group/externe_organisation_gremium/mitglied:
         one: Membre
+      event/course/role/leader_admin:
+        one: Direction (administration)
+      event/course/role/leader_reporting:
+        one: Direction (reporting)
+      event/course/role/leader_basic:
+        one: Direction
+      event/course/role/expert:
+        one: Spécialiste hautement qualifié
+      event/course/role/helper_paid:
+        one: Personnel auxiliaire avec honoraire
+      event/course/role/helper_unpaid:
+        one: Personnel auxiliaire sans honoraire
+      event/course/role/kitchen:
+        one: Cuisine
+      event/course/role/challenged:
+        one: Personne handicapée
+      event/course/role/affiliated:
+        one: Proche
+      event/course/role/not_entitled_for_benefit:
+        one: Autres, ne donnant pas droit à des subsides
+      cost_accounting_record:
+        one: Report comptabilité analytique
+        other: Reports comptabilité analytique
+      time_record:
+        one: Décompte des heures de travail
+        other: Décomptes de heures de travail
+      event/course_record:
+        one: Report de cours individuel
+        other: Reports de cours individuels
+      event/general_cost_allocation:
+        one: Répartition des frais généraux
+        other: Répartition des frais généraux
+      cost_accounting_parameter:
+        one: Paramètres de la comptabilité analytique
+        other: paramètres de la comptabilité analytique
+        menu: Paramètres
     attributes:
+      cantons:
+        ag: Aargau
+        ai: Appenzell Rhôdes intérieurs
+        ar: Appenzell Rhôdes extérieurs
+        be: Berne
+        bl: Bâle Canton
+        bs: Bâle Ville
+        fr: Fribourg
+        ge: Genève
+        gl: Glaris
+        gr: Grisons
+        ju: Jura
+        lu: Lucerne
+        ne: Neuchâtel
+        nw: Nidwalden
+        ow: Obwald
+        sg: Saint Gall
+        sh: Schaffhouse
+        so: Soleure
+        sz: Schwyz
+        tg: Thurgovie
+        ti: Tessin
+        ur: Uri
+        vd: Vaud
+        vs: Valais
+        zg: Zoug
+        zh: Zurich
+        other: Autre provenance
+      cost_accounting_record:
+        group_id: Groupe
+        group: Groupe
+        year: Année
+        report: Report
+        kontengruppen: Groupe de comptes
+        aufwand_ertrag_fibu: 'Dépenses/Produits '
+        abgrenzung_fibu: Régularisation comptabilité financière
+        abgrenzung_dachorganisation: Régularisation organisation faîtière
+        aufwand_ertrag_ko_re: Coûts / Produits comptabilité analytique
+        personal: Personnel
+        raeumlichkeiten: Locaux
+        verwaltung: Direction
+        beratung: Conseil
+        treffpunkte: Lieux d'accueil
+        blockkurse: Cours en bloc
+        tageskurse: Cours d'un jour
+        jahreskurse: Cours annuels
+        lufeb: PROSPREH
+        mittelbeschaffung: Collecte de fonds
+        total: Total
+        kontrolle: Contrôle
+        aufteilung_kontengruppen: Notices
+      cost_accounting_parameter:
+        year: Année
+        vollkosten_le_schwelle1_blockkurs: Cours en bloc Valeurs seuils 1 coûts complets/UP
+        vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuil 2 coûts complets/UP
+        vollkosten_le_schwelle1_tageskurs: Cours d'un jour valeurs seuils 1 coûts complets/UP
+        vollkosten_le_schwelle2_tageskurs: Cours d'un jour valeurs seuils 2 coûts complets/UP
+      event:
+        teamer_count: Nombre de personnel d'encadrement
+      event/course:
+        leistungskategorie: Catégorie de prestations
+        leistungskategorien:
+          bk: Cours en bloc
+          tk: Cours d'un jour
+          sk: Cours semestriel /annuel
+      event/course_record:
+        event_id: Cours
+        event: Cours
+        subventioniert: Subventionné
+        inputkriterien: Critères d'attribution
+        kursart: Genre de cours
+        spezielle_unterkunft: Hébergement spécial
+        kursdauer: Durée du cours
+        teilnehmende_behinderte: Personne handicapée
+        teilnehmende_mehrfachbehinderte: Personnes plurihandicapées
+        teilnehmende_angehoerige: Proches
+        teilnehmende_weitere: Autres, n'étant pas reconnu comme ayant droits
+        absenzen_behinderte: Personne handicapée
+        absenzen_angehoerige: Proche
+        absenzen_weitere: Autres, ne donnant pas droit à des subsides
+        leiterinnen: Responsables
+        fachpersonen: Spécialistes hautement qualifiés
+        hilfspersonal_ohne_honorar: Personnel auxiliaire sans honoraire
+        hilfspersonal_mit_honorar: Personnel auxiliaire avec honoraire
+        kuechenpersonal: Personnel en cuisine
+        honorare_inkl_sozialversicherung: Honoraires, assurance sociale y comprise
+        unterkunft: 'Hébergement / charges de locaux '
+        uebriges: Autres y compris nourriture
+        beitraege_teilnehmende: Contributions participant-e-s
+        total: Total
+        presence_participants: Présence participants
+        betreuungsschluessel: Personnel d'encadrement
+        total_direkte_kosten: Total des coûts directs
+        gemeinkostenanteil: Participation aux frais généraux
+        total_vollkosten: Total des frais totaux
+        anzahl_le: Nombre d'UP effectives
+        vollkosten_pro_le: Frais totaux par UP
+        zugeteilte_kategorie: Catégorie attribuée
+        year: Reporting dans l'année
+        kursarten:
+          weiterbildung: Formation continue
+          freizeit_und_sport: Loisirs et sport
+      event/general_cost_allocation:
+        year: Année
+        group_id: Groupe
+        general_costs_blockkurse: Total des frais généraux
+        general_costs_tageskurse: Total des frais généraux
+        general_costs_semesterkurse: Total des frais généraux
+        total_direct_costs: Total des frais directs
+        general_costs_allowance: Suppléments de frais généraux
+      event/participation:
+        disability: Handicap
+        disability_label: Handicap
+        disabilities:
+          geistig: Handicap mental et difficultés d'apprentissage
+          hoer: 'Handicap de l''ouïe '
+          koerper: Handicap physique
+          krankheit: Handicap suite maladie
+          psychisch: Handicap psychique
+          seh: Handicap de la vue
+          sprach: Handicap du langage
+          sucht: Handicap suite dépendance
+        multiple_disability: Polyhandicap
+        wheel_chair: Chaise roulante
+        invoice_text: Texte comptable
+        invoice_amount: Montant de la facture
+      event/participation_canton_count:
+        ag: AG
+        ai: AI
+        ar: AR
+        be: BE
+        bl: BL
+        bs: BS
+        fr: FR
+        ge: GE
+        gl: GL
+        gr: GR
+        ju: JU
+        lu: LU
+        ne: NE
+        nw: NW
+        ow: OW
+        sg: SG
+        sh: SH
+        so: SO
+        sz: SZ
+        tg: TG
+        ti: TI
+        ur: UR
+        vd: VD
+        vs: VS
+        zg: ZG
+        zh: ZH
+        other: Autre provenance
+        undefined: Pas fixé
       group:
         full_name: Nom complet
-        vid: ??????????????????
+        vid: Identification de l'association IDA
         bsv_number: Numéro OFAS
         canton: Canton
-        cantons:
-          ag: Aargau
-          ai: Appenzell Innerrhoden
-          ar: Appenzell Ausserrhoden
-          be: Berne
-          bl: Basel-Land
-          bs: Basel-Stadt
-          fr: Fribourg
-          ge: Genève
-          gl: Glarus
-          gr: Graubünden
-          ju: Jura
-          lu: Luzern
-          ne: 'Neuchâtel '
-          nw: Nidwalden
-          ow: Obwalden
-          sg: St. Gallen
-          sh: Schaffhausen
-          so: Solothurn
-          sz: Schwyz
-          tg: Thurgau
-          ti: Tessin
-          ur: Uri
-          vd: Vaud
-          vs: Valais
-          zg: Zug
-          zh: Zürich
       person:
         salutation: Titre
         canton: Canton
-        cantons:
-          ag: Aargau
-          ai: Appenzell Innerrhoden
-          ar: Appenzell Ausserrhoden
-          be: Berne
-          bl: Basel-Land
-          bs: Basel-Stadt
-          fr: Fribourg
-          ge: Genève
-          gl: Glarus
-          gr: Graubünden
-          ju: Jura
-          lu: Luzern
-          ne: 'Neuchâtel '
-          nw: Nidwalden
-          ow: Obwalden
-          sg: St. Gallen
-          sh: Schaffhausen
-          so: Solothurn
-          sz: Schwyz
-          tg: Thurgau
-          ti: Tessin
-          ur: Uri
-          vd: Vaud
-          vs: Valais
-          zg: Zug
-          zh: Zürich
-        language: Langue
+        language: Langue de la personne
         languages:
           de: Allemand
           fr: Français
           it: Italien
           en: Anglais
-          andere: Autres
+          other: Autre
         correspondence_language: Langue de correspondance
         correspondence_languages:
           de: Allemand
           fr: Français
+        disabled_person_reference: A référence à la personne avec handicap
+        disabled_person_first_name: Prénom de la personne désignée avec handicap
+        disabled_person_last_name: Nom de famille de la personne désignée avec handicap
+        disabled_person_address: Adresse de la personne désignée avec handicap
+        disabled_person_zip_code: NPA de la personne désignée avec handicap
+        disabled_person_town: Lieu de la personne désignée avec handicap
+        disabled_person_birthday: Anniversaire de la personne désignée avec handicap
         number: Numéro personnel
+        reference_person_number: No personnel de la personne de référence
+        reference_person_first_name: Prénom de la personne de référence
+        reference_person_last_name: Nom de famille de la personne de référence
+        reference_person_address: Adresse de la personne de référence
+        reference_person_zip_code: NPA de la personne de référence
+        reference_person_town: Lieu de la personne de référence
+        reference_person_active_membership_roles: Rôles des membres actifs de la personne de référence
+        reference_person_additional_information: Indications supplémentaires de la personne de référence
+        dossier: Lien du dossier
+        ahv_number: Numéro AVS
+        correspondence_general_salutation: Titre pour l'adresse de correspondance en général
+        correspondence_general_first_name: Prénom pour l'adresse de correspondance en général
+        correspondence_general_last_name: Nom de famille pour l'adresse de correspondance en général
+        correspondence_general_company_name: Noms de l'entreprise pour l'adresse de correspondance en général
+        correspondence_general_company: Entreprise pour l'adresse de correspondance en général
+        correspondence_general_address: Adresse pour l'adresse de correspondance en général
+        correspondence_general_zip_code: NPA pour l'adresse de correspondance en général
+        correspondence_general_town: Lieu pour l'adresse de correspondance en général
+        correspondence_general_country: Pays pour l'adresse de correspondance en général
+        correspondence_general_same_as_main: Même adresse de correspondance en général que l'adresse principale
+        billing_general_salutation: Titre pour l'adresse de facturation en général
+        billing_general_first_name: Prénom pour l'adresse de facturation en général
+        billing_general_last_name: Nom de famille pour l'adresse de facturation en général
+        billing_general_company_name: Noms de l'entreprise pour l'adresse de facturation en général
+        billing_general_company: Entreprise adresse de facturation en général
+        billing_general_address: Adresse pour l'adresse de facturation en général
+        billing_general_zip_code: NPA pour l'adresse de facturation en général
+        billing_general_town: Lieu pour l'adresse de facturation en général
+        billing_general_country: Pays pour l'adresse de facturation en général
+        billing_general_same_as_main: Même adresse de facturation en général que l'adresse principale
+        correspondence_course_salutation: Titre pour l'adresse de correspondance pour les cours
+        correspondence_course_first_name: Prénom pour l'adresse de correspondance pour les cours
+        correspondence_course_last_name: Nom de famille pour l'adresse de correspondance pour les cours
+        correspondence_course_company_name: Noms de l'entreprise pour l'adresse de correspondance pour les cours
+        correspondence_course_company: Entreprise adresse de correspondance pour les cours
+        correspondence_course_address: Adresse de l'adresse de correspondance pour les cours
+        correspondence_course_zip_code: NPA adresse de correspondance pour les cours
+        correspondence_course_town: Lieu adresse de correspondance pour les cours
+        correspondence_course_country: Pays adresse de correspondance pour les cours
+        correspondence_course_same_as_main: Même adresse de correspondance pour les cours que l'adresse principale
+        billing_course_salutation: Titre pour l'adresse de facturation pour les cours
+        billing_course_first_name: Prénom pour l'adresse de facturation pour les cours
+        billing_course_last_name: Nom de famille pour l'adresse de facturation pour les cours
+        billing_course_company_name: Noms de l'entreprise pour l'adresse de facturation pour les cours
+        billing_course_company: Entreprise adresse de facturation pour les cours
+        billing_course_address: Adresse pour l'adresse de facturation pour les cours
+        billing_course_zip_code: NPA adresse de facturation pour les cours
+        billing_course_town: Lieu adresse de facturation pour les cours
+        billing_course_country: Pays adresse de facturation pour les cours
+        billing_course_same_as_main: Même adresse de facturation que l'adresse principale
+      time_record:
+        verwaltung: Direction de l'association et administration
+        beratung: Conseil social
+        treffpunkte: Prise en charge dans les lieux d'accueil
+        blockkurse: Cours en bloc
+        tageskurse: Cours d'un jour
+        jahreskurse: Cours annuels/semestriels
+        kontakte_medien: Contacts avec les médias, les journalistes
+        interviews: Accorder des interviews
+        publikationen: Publication
+        referate: Exposés, conférences
+        medienkonferenzen: Conférences des médias
+        informationsveranstaltungen: Manifestations
+        sensibilisierungskampagnen: Campagnes de sensibilisation et de déstigmatisation
+        allgemeine_auskunftserteilung: Renseignements généraux et orientation des usagers
+        kontakte_meinungsbildner: Contacts avec des conseillers en communication
+        beratung_medien: Conseil aux journalistes
+        eigene_zeitschriften: Publications de l'organisation
+        newsletter: Lettres d'information périodiques / Newsletter
+        informationsbroschueren: Brochures et fiches d'information, mémentos
+        eigene_webseite: Site internet de l'organisation et Social Media
+        erarbeitung_instrumente: Elaboration d'instruments de travail et de plans
+        erarbeitung_grundlagen: Elaboration de bases qualitatives
+        projekte: Lancement, direction et réalisation de projets
+        vernehmlassungen: Participation aux procédures de consultation
+        gremien: Appartenance ou collaboration à des organes
+        auskunftserteilung: Renseignements et conseil succincts
+        vermittlung_kontakte: Transmission de contacts
+        unterstuetzung_selbsthilfeorganisationen: Conseil et suivi professionnel
+        koordination_selbsthilfe: Coordination d'activités d'entraide
+        treffen_meinungsaustausch: Planification, organisation et tenue de réunions informelles
+        beratung_fachhilfeorganisationen: Information et conseil aux organisations d'aide spécialisée concernant l'encouragement de l'entraide
+        unterstuetzung_behindertenhilfe: Soutien aux personnes handicapées dans les organes directeurs des organisations de l'aide privée aux personnes handicapées
+        mittelbeschaffung: Collecte de fonds
+    errors:
+      attributes:
+        group_id:
+          is_not_allowed: Ne peut par être utilisé pour le reporting
+      messages:
+        must_be_multiple_of: 'doit être un multiple de %{multiple} '
+        manual_number_in_automatic_range: Ne doit pas être compris entre %{lower} et %{upper}, s'il est inscrit manuellement.
+        automatic_number_in_manual_range: Doit être compris entre %{lower} et %{upper}, s'il est inscrit automatiquement.
+        less_than_teilnehmende_behinderte: Doit être inférieur ou égal au nombre de personnes handicapées.
+  cost_accounting:
+    report:
+      lohnaufwand:
+        name: Charges salariales
+      sozialversicherungsaufwand:
+        name: Charges des assurances sociales
+      uebriger_personalaufwand:
+        name: Autre charges de personnel
+      honorare:
+        name: Honoraires
+      total_personalaufwand:
+        name: Total chages de personnel/coûts
+      raumaufwand:
+        name: Frais de locaux
+      uebriger_sachaufwand:
+        name: Autre charges de matériel
+      abschreibungen:
+        name: Amortissement (immeubles exclus)
+      total_aufwand:
+        name: Total des charges/coûts
+      leistungsertrag:
+        name: Produit des prestations
+      beitraege_iv:
+        name: Contributions AI
+      sonstige_beitraege:
+        name: Autres contributions de la confédération, contributions des cantons/communes
+      direkte_spenden:
+        name: Dons directs, autres produits art. 74
+      umlage_personal:
+        name: Répartition personnel
+      umlage_raeumlichkeiten:
+        name: Répartition des frais des locaux
+      umlage_verwaltung:
+        name: Répartition administration
+      total_umlagen:
+        name: Total des répartitions
+      vollkosten:
+        name: Coûts globaux après participation
+  import/person_doublette_finder:
+    duplicate_with_different_number: Une même personne mais avec un autre numéro de personne (%{number}) a été trouvée.

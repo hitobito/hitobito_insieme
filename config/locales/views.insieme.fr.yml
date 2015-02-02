@@ -1,8 +1,129 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
-
 fr:
+  global:
+    currency: CHF
+    hours_short: Heures
+    days_short: Jours
+    persons_short: Personnes
+  layouts:
+    reporting_menu:
+      time_records: Enregistrement des heures de travail
+      cost_accounting: Comptabilité analytique
+      general: Généralités
+      course_statistics: Statistique de cours
+      overview: Vue d'ensemble
+      general_cost_allocation: Répartition des frais généraux
   navigation:
-    groups: 'Associations'
+    groups: Associations
+  contactable:
+    address_fields_insieme:
+      main: Adresse principale
+      correspondence_general: Adresse de correspondance générale
+      billing_general: Adresse de facturation générale
+      correspondence_course: Adresse de correspondance pour les cours
+      billing_course: Adresse de facturation pour les cours
+    single_address_fields:
+      same_as_main: Même que l'adresse principale
+  cost_accounting:
+    index:
+      title: Vue d'ensemble comptabilité analytique
+    edit:
+      aufwand_fibu: Charges comptabilité financière
+      ertrag_fibu: Produits comptabilité financière
+      kontengruppen: "Groupe(s) de comptes %{kontengruppen}"
+      remarks_placeholder: Vous pouvez joindre ici vos notes et explications (p. ex. de quelle manière les charges se répartissent sur les groupes de compte)
+  dropdown/abo_addresses_export:
+    button: Liste d'adresse pour les abonnements
+    ch_de: Suisse allemand
+    ch_fr: Suisse français
+    other_de: Etranger allemand
+    other_fr: Etranger français
+  dropdown/event/role_add:
+    add_to_event/course: 'Ajouter personnel d''encadrement'
+  event:
+    course_records:
+      title: Clôture du cours
+      form:
+        effektiv_teilnehmende: Nombre de participants effectifs
+        betreuerinnen: Personnel d'encadrement
+        personal: Personnel sans fonction d'encadrement
+        aufwand: Charges directes
+        ertrag: Produit
+        according_to_course_dates: "Selon les données des cours: %{duration}"
+        according_to_list: "Selon la liste des participants: %{count}"
+        challenged_per_team: "%{ratio} Personnes handicapées par personnel d'encadrement"
+        auswertungen: Evaluations
+        updated_at: "Actualisé le  %{date}"
+        info_not_subsidized: "Pas subventionné: les cours ne sont pas pris en compte dans la statistique de cours"
+        missing_cost_accounting_parameters: Aucun paramètre de comptabilité analytique n'est défini pour l'année correspondante. Veuillez vous adressez à l'organisations faîtière
+      canton_fields:
+        change: Adapter
+    general_cost_allocations:
+      update:
+        flash:
+          success: "%{model} a été actualisé avec succès. Les frais généraux seront affectés maintenant aux cours individuels. "
+      edit:
+        blockkurse: Cours en bloc
+        tageskurse: Cours d'un jour
+        semesterkurse: Cours semestriels/annuels
+        total_direct_cost: Total des frais directs
+        total_general_cost: Total des frais généraux
+        general_cost_allowance: Suppléments de frais généraux
+        start_allocation: Lancer la répartition
+        last_allocation: "Dernière répartition des frais généraux: %{date}"
+      leistungskategorie_fields:
+        cost_from_accounting: "Montant indiqué de la comptabilité analytique: %{value} CHF"
+    participations:
+      asides_insieme:
+        active_memberships: Membres actifs
+  events:
+    tabs:
+      participants: 'Equipe & Participants'
+  event/course_record_decorator:
+    absenztage: Jours d'absence
+    absenzstunden: Heures d'absence
+    teilnehmer_tage: Total des journées participants
+    teilnehmer_stunden: Total des heures participants
+    kursdauer_d: Durée du cours en jours
+    kursdauer_h: Durée du cours en heures
+  filter_navigation/event/participations:
+    predefined_filters:
+      teamers: Equipe d'encadrement (%{count})
+  people:
+    fields_insieme:
+      manual_number: Manuellement
+      reference_person_number_help: 'Pour des réductions de l''association: indiquer le no personnel d''une personne de référence qui est membre de l''association. '
+    fields_insieme_disabled_person:
+      reference_title: Personne désignée avec handicap
+      reference: Référence à la personne avec handicap
+  reporting:
+    title: Reporting
+  statistics:
+    title: Statistique
+    show:
+      title: Statistique des membres de l'association
+      export: Exporter CSV
+  shared:
+    admin_nav_kinds_insieme:
+      cost_accounting_parameters: Paramètres
+  time_records:
+    edit:
+      comment: Enregistrer uniquement les heures effectivement fournies qui concernent l'art. 74. Toutes les données en heures
+      general: Prestations en général
+      lufeb: Prestations ayant pour objet de soutenir et promouvoir la réadaptation des personnes handicapées (PROSPREH)
+      lufeb_general: Tâches générales d'information et de relations publiques
+      lufeb_private: Médias et publications de l'organisation accessibles au public
+      lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
+      lufeb_promoting: Prestations de base pour encourager l’entraide ou conseil aux organisations et groupes d'entraide ainsi qu’aux particuliers
+      procurement: Collecte de fonds
+      help_publikationen: Pas dans la publication de l'organisation ou le site internet
+      help_medienkonferenzen: Planification resp. organisation
+      help_kontakte_meinungsbildner: par ex. décideurs issus d'institutions, de l'administration, des milieux politiques et de l'économie
+      help_erarbeitung_instrumente: par ex. pour les prestations de service, le conseil, les campagnes d'informations
+      help_erarbeitung_grundlagen: par ex. enquêtes, études, documents de base sur différents thèmes
+      help_gremien: resp. commissions spécialisées, commissions d'experts, etc.
+      help_auskunftserteilung: de personnes elles-mêmes handicapées (sans qualification particulière) à des particuliers, des organisations ou des institutions d'entraide (en ligne, par écrit, par téléphone, lors d'entretien)
+      help_vermittlung_kontakte: Adresses, etc
+      help_unterstuetzung_selbsthilfeorganisationen: Soutien en faveur d'organisations et de groupes d'entraide
+      help_koordination_selbsthilfe: Organisations, groupes, groupes de travail, fonction de plaque tournante
+      help_treffen_meinungsaustausch: De personnes handicapées et de proches personnes à des fins d'échange d’opinions et d’expériences
+      help_unterstuetzung_behindertenhilfe: En moyenne max. 100 heures par année par organisation
