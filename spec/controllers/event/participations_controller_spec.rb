@@ -21,7 +21,7 @@ describe Event::ParticipationsController do
           person_attributes: { id: person.id,
                                canton: 'Be',
                                birthday: '2014-09-22',
-                               zip_code: 123,
+                               zip_code: '1234',
                                town: 'dummy',
                                address: 'dummy',
                                country: 'dummy',
@@ -33,7 +33,7 @@ describe Event::ParticipationsController do
                                correspondence_course_company_name: 'dummy',
                                correspondence_course_company: '1',
                                correspondence_course_address: 'dummy',
-                               correspondence_course_zip_code: '123',
+                               correspondence_course_zip_code: '1234',
                                correspondence_course_town: 'dummy',
                                correspondence_course_country: 'dummy',
                                billing_course_same_as_main: '0',
@@ -43,7 +43,7 @@ describe Event::ParticipationsController do
                                billing_course_company_name: 'dummy',
                                billing_course_company: '1',
                                billing_course_address: 'dummy',
-                               billing_course_zip_code: '123',
+                               billing_course_zip_code: '1234',
                                billing_course_town: 'dummy',
                                billing_course_country: 'dummy' } }
 
@@ -53,9 +53,10 @@ describe Event::ParticipationsController do
     person.reload.canton.should eq 'be'
     person.birthday.should eq Date.parse('2014-09-22')
     person.ahv_number.should eq '123'
+    person.zip_code.should eq '1234'
 
-    %w(zip_code billing_course_zip_code correspondence_course_zip_code).each do |attr|
-      person.send(attr.to_sym).should eq 123
+    %w(billing_course_zip_code correspondence_course_zip_code).each do |attr|
+      person.send(attr.to_sym).should eq 1234
     end
 
     %w(correspondence_course_company billing_course_company).each do |attr|
