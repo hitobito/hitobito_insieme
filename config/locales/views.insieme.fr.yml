@@ -87,7 +87,7 @@ fr:
     kursdauer_h: Durée du cours en heures
   filter_navigation/event/participations:
     predefined_filters:
-      teamers: Equipe d'encadrement (%{count})
+      teamers: Equipe d'encadrement
   people:
     fields_insieme:
       manual_number: Manuellement

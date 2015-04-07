@@ -106,7 +106,7 @@ de:
 
   filter_navigation/event/participations:
     predefined_filters:
-      teamers: Betreuungsteam (%{count})
+      teamers: Betreuungsteam
 
   people:
     fields_insieme:
