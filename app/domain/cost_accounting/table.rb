@@ -26,7 +26,7 @@ module CostAccounting
                 CostAccounting::Report::BeitraegeIV,
                 CostAccounting::Report::SonstigeBeitraege,
                 CostAccounting::Report::DirekteSpenden,
-                 #  indirekte_spenden
+                CostAccounting::Report::IndirekteSpenden,
                 CostAccounting::Report::DirekteSpendenAusserhalb,
                  #  total_direkte_ertraege
                  #  deckungsbeitrag1
