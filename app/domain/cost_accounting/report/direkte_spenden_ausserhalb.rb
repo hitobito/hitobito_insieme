@@ -15,8 +15,9 @@ module CostAccounting
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
-                                  abgrenzung_fibu
                                   abgrenzung_dachorganisation)
+
+      alias_method :abgrenzung_fibu, :aufwand_ertrag_fibu
     end
   end
 end
