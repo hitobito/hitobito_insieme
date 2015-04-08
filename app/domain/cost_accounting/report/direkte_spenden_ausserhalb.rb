@@ -18,6 +18,14 @@ module CostAccounting
                                   abgrenzung_dachorganisation)
 
       alias_method :abgrenzung_fibu, :aufwand_ertrag_fibu
+
+      def kontrolle
+        nil
+      end
+
+      def total
+        nil
+      end
     end
   end
 end
