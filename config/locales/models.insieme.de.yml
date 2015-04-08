@@ -615,6 +615,8 @@ de:
         name: Sonstige Beiträge Bund, Beiträge Kantone/Gemeinden
       direkte_spenden:
         name: Direkte Spenden, sonstige Erträge Art. 74
+      direkte_spenden_ausserhalb:
+        name: Direkte Spenden, sonstige Erträge ausserhalb Art. 74
       umlage_personal:
         name: Umlage Personal
       umlage_raeumlichkeiten:
