@@ -16,7 +16,12 @@
             = CostAccountingRecord.human_attribute_name(f)
 
     %tbody
+      - previous_kind = nil
       - @table.reports.values.each do |report|
+        - if report.kind == :deckungsbeitrag && previous_kind != report.kind
+          %tr{class: 'deckungsbeitrag-separator'}
+            %td{colspan: 2 + @table.class.fields.length} &nbsp;
+
         %tr{class: report.kind}
           %th
             = link_to_if report.editable?,
@@ -27,3 +32,5 @@
           - @table.class.fields.each do |f|
             %td.right{class: cost_account_field_class(f)}
               = f(report.send(f))
+
+        - previous_kind = report.kind

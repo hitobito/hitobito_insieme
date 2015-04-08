@@ -60,8 +60,16 @@
   }
 
   table {
-    .subtotal {
+    .subtotal,
+    .deckungsbeitrag > :first-child {
       background-color: $grayLighter;
+    }
+    .deckungsbeitrag:hover > :first-child {
+      background-color: $tableColorHover;
+    }
+
+    .deckungsbeitrag-separator {
+      background-color: $gray;
     }
 
     td, th {
