@@ -629,6 +629,8 @@ de:
         name: Total Umlagen
       vollkosten:
         name: Vollkosten nach Umlagen
+      total_ertraege:
+        name: Total Erträge
 
 
   import/person_doublette_finder:
