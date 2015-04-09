@@ -32,7 +32,7 @@ module CostAccounting
                 CostAccounting::Report::Deckungsbeitrag1,
                 CostAccounting::Report::Deckungsbeitrag2,
                 CostAccounting::Report::Deckungsbeitrag3,
-                # CostAccounting::Report::Deckungsbeitrag4,
+                CostAccounting::Report::Deckungsbeitrag4,
                ].each_with_object({}) { |r, hash| hash[r.key] = r }
 
 

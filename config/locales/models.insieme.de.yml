@@ -637,6 +637,8 @@ de:
         name: Deckungsbeitrag 2 (DB 1 - Gemeinkosten + direkte Spenden / sonstige Erträge Art. 74 + indirekte Spenden / sonstige Erträge geschlüsselt)
       deckungsbeitrag3:
         name: Deckungsbeitrag 3 (DB 2 + sonstige Beiträge Bund, Kantone, Gemeinden)
+      deckungsbeitrag4:
+        name: Deckungsbeitrag 4 (DB 3 + Beiträge IV)
 
 
   import/person_doublette_finder:
