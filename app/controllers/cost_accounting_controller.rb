@@ -14,7 +14,10 @@ class CostAccountingController < ReportingBaseController
   helper_method :report
 
   def index
-    @table = CostAccounting::Table.new(group, year)
+    respond_to do |format|
+      format.html { @table = CostAccounting::Table.new(group, year) }
+      format.csv { render_entries_csv(CostAccounting::Table.new(group, year)) }
+    end
   end
 
   private
@@ -34,4 +37,11 @@ class CostAccountingController < ReportingBaseController
     params.require(:cost_accounting_record).permit(fields)
   end
 
+  def render_entries_csv(table)
+    render_csv(table.reports.values)
+  end
+
+  def render_csv(entries)
+    send_data Export::Csv::CostAccounting::List.export(entries), type: :csv
+  end
 end
