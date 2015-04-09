@@ -639,6 +639,8 @@ de:
         name: Deckungsbeitrag 3 (DB 2 + sonstige Beiträge Bund, Kantone, Gemeinden)
       deckungsbeitrag4:
         name: Deckungsbeitrag 4 (DB 3 + Beiträge IV)
+      unternehmenserfolg:
+        name: Unternehmenserfolg
 
 
   import/person_doublette_finder:

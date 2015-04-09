@@ -68,8 +68,18 @@
       background-color: $tableColorHover;
     }
 
-    .deckungsbeitrag-separator {
+    .deckungsbeitrag-separator,
+    .deckungsbeitrag-separator:hover > th,
+    .deckungsbeitrag-separator:hover > td {
       background-color: $gray;
+    }
+
+    .unternehmenserfolg > th,
+    .unternehmenserfolg > td,
+    .unternehmenserfolg:hover > th,
+    .unternehmenserfolg:hover > td {
+      background-color: $black;
+      color: $white;
     }
 
     td, th {
