@@ -633,6 +633,8 @@ de:
         name: Total Erträge
       deckungsbeitrag1:
         name: Deckungsbeitrag 1 (Leistungsertrag-direkte Kosten)
+      deckungsbeitrag2:
+        name: Deckungsbeitrag 2 (DB 1 - Gemeinkosten + direkte Spenden / sonstige Erträge Art. 74 + indirekte Spenden / sonstige Erträge geschlüsselt)
 
 
   import/person_doublette_finder:
