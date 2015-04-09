@@ -29,10 +29,10 @@ module CostAccounting
                 CostAccounting::Report::IndirekteSpenden,
                 CostAccounting::Report::DirekteSpendenAusserhalb,
                 CostAccounting::Report::TotalErtraege,
-                 #  deckungsbeitrag1
-                 #  deckungsbeitrag2
-                 #  deckungsbeitrag3
-                 #  deckungsbeitrag4
+                CostAccounting::Report::Deckungsbeitrag1,
+                # CostAccounting::Report::Deckungsbeitrag2,
+                # CostAccounting::Report::Deckungsbeitrag3,
+                # CostAccounting::Report::Deckungsbeitrag4,
                ].each_with_object({}) { |r, hash| hash[r.key] = r }
 
 

@@ -631,6 +631,8 @@ de:
         name: Vollkosten nach Umlagen
       total_ertraege:
         name: Total Erträge
+      deckungsbeitrag1:
+        name: Deckungsbeitrag 1 (Leistungsertrag-direkte Kosten)
 
 
   import/person_doublette_finder:
