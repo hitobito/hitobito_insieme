@@ -18,6 +18,8 @@ de:
       course_statistics: Kursstatistik
       overview: Übersicht
       general_cost_allocation: Umlage Gemeinkosten
+    reporting_header:
+      association_name: Vereinsname
 
   navigation:
     groups: Vereine
