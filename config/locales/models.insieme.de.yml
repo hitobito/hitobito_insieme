@@ -591,57 +591,82 @@ de:
     report:
       lohnaufwand:
         name: Lohnaufwand
+        short_name: Lohnaufwand
       sozialversicherungsaufwand:
         name: Sozialversicherungsaufwand
+        short_name: Sozialversicherungsaufwand
       uebriger_personalaufwand:
         name: Übriger Personalaufwand
+        short_name: Übriger Personalaufwand
       honorare:
         name: Honorare
+        short_name: Honorare
       total_personalaufwand:
         name: Total Personalaufwand/-kosten
+        short_name: Total Personalaufwand/-kosten
       raumaufwand:
         name: Raumaufwand
+        short_name: Raumaufwand
       uebriger_sachaufwand:
         name: Übriger Sachaufwand
+        short_name: Übriger Sachaufwand
       abschreibungen:
         name: Abschreibungen (exkl. Liegenschaften)
+        short_name: Abschreibungen
       total_aufwand:
-        name: Total Aufwand/-kosten
+        name: Total Aufwand/Kosten
+        short_name: Total Aufwand/Kosten
       leistungsertrag:
         name: Leistungsertrag
+        short_name: Leistungsertrag
       beitraege_iv:
         name: Beiträge IV
+        short_name: Beiträge IV
       sonstige_beitraege:
         name: Sonstige Beiträge Bund, Beiträge Kantone/Gemeinden
+        short_name: Sonstige Beiträge
       direkte_spenden:
         name: Direkte Spenden, sonstige Erträge Art. 74
+        short_name: Direkte Spenden (Art. 74)
       indirekte_spenden:
         name: Indirekte Spenden, sonstige Erträge (geschlüsselt)
+        short_name: Indirekte Spenden
       direkte_spenden_ausserhalb:
         name: Direkte Spenden, sonstige Erträge ausserhalb Art. 74
+        short_name: Direkte Spenden
       umlage_personal:
         name: Umlage Personal
+        short_name: Umlage Personal
       umlage_raeumlichkeiten:
         name: Umlage Räumlichkeiten
+        short_name: Umlage Räumlichkeiten
       umlage_verwaltung:
         name: Umlage Verwaltung
+        short_name: Umlage Verwaltung
       total_umlagen:
         name: Total Umlagen
+        short_name: Total Umlagen
       vollkosten:
         name: Vollkosten nach Umlagen
+        short_name: Vollkosten nach Umlagen
       total_ertraege:
         name: Total Erträge
+        short_name: Total Erträge
       deckungsbeitrag1:
         name: Deckungsbeitrag 1 (Leistungsertrag-direkte Kosten)
+        short_name: Deckungsbeitrag 1
       deckungsbeitrag2:
         name: Deckungsbeitrag 2 (DB 1 - Gemeinkosten + direkte Spenden / sonstige Erträge Art. 74 + indirekte Spenden / sonstige Erträge geschlüsselt)
+        short_name: Deckungsbeitrag 2
       deckungsbeitrag3:
         name: Deckungsbeitrag 3 (DB 2 + sonstige Beiträge Bund, Kantone, Gemeinden)
+        short_name: Deckungsbeitrag 3
       deckungsbeitrag4:
         name: Deckungsbeitrag 4 (DB 3 + Beiträge IV)
+        short_name: Deckungsbeitrag 4
       unternehmenserfolg:
         name: Unternehmenserfolg
-
+        short_name: Unternehmenserfolg
 
   import/person_doublette_finder:
     duplicate_with_different_number: Eine gleiche Person mit einer anderen Personennummer (%{number}) wurde gefunden.

@@ -17,5 +17,6 @@
 
   - cost_accounting_reports.each do |report|
     - if report.editable?
-      = reporting_nav h(report.human_name),
-                      edit_cost_accounting_report_group_path(group, year, report.key)
+      = reporting_nav h(report.short_name),
+                      edit_cost_accounting_report_group_path(group, year, report.key),
+                      title: h(report.human_name)
