@@ -34,6 +34,10 @@ Rails.application.routes.draw do
             as: :client_statistics_controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
+        scope module: 'course_reporting' do
+          get ':year/aggregations' => 'aggregations#index', as: :aggregations
+          get ':year/aggregation/export' => 'aggregations#export', as: :aggregation_export
+        end
       end
 
       resources :events, only: [] do # do not redefine events actions, only add new ones
@@ -47,6 +51,9 @@ Rails.application.routes.draw do
                 as: :general_cost_allocation
             get ':year' => 'event/general_cost_allocations#edit' # route required for language switch
           end
+
+          # get 'course_statistics' => 'course_statistics#index'
+          # get 'course_statistics/show' => 'course_stat'
         end
 
         scope module: 'event' do

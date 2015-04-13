@@ -1,0 +1,141 @@
+# encoding: utf-8
+
+#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  hitobito and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
+
+module Export
+  module Csv
+    module CourseReporting
+      class Aggregation
+        include ActionView::Helpers::NumberHelper
+
+        ATTRIBUTES = [
+          :anzahl_kurse,
+          :kursdauer,
+
+          :teilnehmende,
+          :teilnehmende_behinderte,
+          :teilnehmende_angehoerige,
+          :teilnehmende_weitere,
+
+          :total_absenzen,
+          :absenzen_behinderte,
+          :absenzen_angehoerige,
+          :absenzen_weitere,
+
+          :total_tage_teilnehmende,
+          :tage_behinderte,
+          :tage_angehoerige,
+          :tage_weitere,
+
+          :betreuende,
+          :leiterinnen,
+          :fachpersonen,
+          :hilfspersonal_ohne_honorar,
+          :hilfspersonal_mit_honorar,
+          :kuechenpersonal,
+
+          :direkter_aufwand,
+          :honorare_inkl_sozialversicherung,
+          :unterkunft,
+          :uebriges,
+
+          :direkte_kosten_pro_le,
+          :total_vollkosten,
+          :vollkosten_pro_le,
+          :beitraege_teilnehmende,
+          :betreuungsschluessel,
+          :anzahl_spezielle_unterkunft
+        ]
+
+        DURATION_ATTRS = [
+          :kursdauer,
+          :total_absenzen, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+          :total_tage_teilnehmende, :tage_behinderte, :tage_angehoerige, :tage_weitere,
+          :direkte_kosten_pro_le, :vollkosten_pro_le,
+        ]
+
+        class << self
+          def export(aggregation)
+            Export::Csv::Generator.new(new(aggregation)).csv
+          end
+        end
+
+        attr_reader :aggregation
+
+        def initialize(aggregation)
+          @aggregation = aggregation
+        end
+
+        def to_csv(generator)
+          generator << labels
+          ATTRIBUTES.each do |attr|
+            generator << attributes(attr)
+          end
+        end
+
+        private
+
+        def labels
+          values('') do |kriterium, kursart|
+            kriterium == 'all' ?  t(kursart) : "#{t(kriterium)} #{t(kursart)}"
+          end
+        end
+
+        def t(attr)
+          if aggregation.kursarten.include?(attr)
+            I18n.t("activerecord.attributes.event/course_record.kursarten.#{attr}")
+          elsif DURATION_ATTRS.include?(attr) && !blockkurs?
+            I18n.t("course_reporting.aggregations.#{attr}_stunden")
+          else
+            I18n.t("course_reporting.aggregations.#{attr}")
+          end
+        end
+
+        def attributes(attr)
+          values(t(attr)) do |kriterium, kursart|
+            f(aggregation.course_counts(kriterium, kursart, attr))
+          end
+        end
+
+        def values(label)
+          [label].tap do |result|
+            each_column do |kriterium, kursart|
+              result << yield(kriterium, kursart)
+            end
+          end
+        end
+
+        def each_column
+          kriterien = blockkurs? ? aggregation.inputkriterien : %w(all)
+          kursarten = blockkurs? ? aggregation.kursarten + %w(total) : aggregation.kursarten
+
+          kriterien.
+            product(kursarten).
+            append(%w(all total)).
+            each do |kriterium, kursart|
+              yield(kriterium, kursart)
+            end
+        end
+
+        def blockkurs?
+          aggregation.leistungskategorie == 'bk'
+        end
+
+        def f(value)
+          case value
+          when Float, BigDecimal then
+            number_with_precision(value,
+                                  precision: I18n.t('number.format.precision'),
+                                  delimiter: I18n.t('number.format.delimiter'))
+          else value.to_s
+          end
+        end
+
+      end
+    end
+  end
+end

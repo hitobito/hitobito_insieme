@@ -82,7 +82,10 @@ class Event::CourseRecord < ActiveRecord::Base
   before_validation :compute_category
   before_validation :sum_canton_counts
 
-  Event::Reportable::LEISTUNGSKATEGORIEN.each do |kategorie|
+  attr_writer :anzahl_spezielle_unterkunft, :tage_behinderte, :tage_angehoerige, :tage_weitere,
+    :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
+
+  Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
       event.leistungskategorie == kategorie
     end
@@ -145,11 +148,12 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def betreuungsschluessel
-    if betreuende.to_d > 0
-      teilnehmende_behinderte.to_d / betreuende.to_d
-    else
-      0
-    end
+    @betreuungsschluessel ||=
+      if betreuende.to_d > 0
+        teilnehmende_behinderte.to_d / betreuende.to_d
+      else
+        0
+      end
   end
 
   def direkter_aufwand
@@ -171,6 +175,16 @@ class Event::CourseRecord < ActiveRecord::Base
         0
       end
   end
+
+  def direkte_kosten_pro_le
+    @direkte_kosten_pro_le ||=
+      if total_tage_teilnehmende > 0
+        total_direkte_kosten / total_tage_teilnehmende
+      else
+        0
+      end
+  end
+
 
   # rubocop:disable MethodLength
   def set_defaults
@@ -198,6 +212,10 @@ class Event::CourseRecord < ActiveRecord::Base
   def sum_canton_counts
     self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
     self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
+  end
+
+  def anzahl_spezielle_unterkunft
+    @anzahl_spezielle_unterkunft || try(:anzahl_spezielle_unterkunft_db)
   end
 
   private

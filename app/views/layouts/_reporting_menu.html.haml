@@ -11,6 +11,8 @@
   %li.nav-header= t('.course_statistics')
   = reporting_nav t('.general_cost_allocation'),
                   edit_general_cost_allocation_group_events_path(group, year)
+  = reporting_nav t('course_reporting.aggregations.index.title'),
+                  aggregations_group_path(group, year)
 
   %li.nav-header= t('.cost_accounting')
   = reporting_nav t('.overview'), cost_accounting_group_path(group, year: year)

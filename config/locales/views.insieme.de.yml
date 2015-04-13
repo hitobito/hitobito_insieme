@@ -58,6 +58,70 @@ de:
       challenged: Anzahl Behinderte (Personen)
       affiliated: Anzahl Angehörige (Personen)
 
+    aggregations:
+      index:
+        title: Exporte Kursstatistik
+        subsidized_1_2_3: Subventioniert alle
+        unsubsidized_1_2_3: Nicht Subventioniert alle
+        subsidized_1: Subv. Kat.1
+        subsidized_2: Subv. Kat.2
+        subsidized_3: Subv. Kat.3
+
+      a: Inputkategorie A
+      b: Inputkategorie B
+      c: Inputkategorie C
+      total: Total
+
+      anzahl_kurse: Anzahl Kurse
+      kursdauer: Anzahl Kurstage
+      kursdauer_stunden: Anzahl Kursstunden
+
+      teilnehmende: Anzahl effektive TeilnehmerInnen
+      teilnehmende_behinderte: davon Behinderte
+      teilnehmende_angehoerige: davon Angehörige
+      teilnehmende_weitere: davon nicht Bezugsberechtigte
+
+      total_absenzen:  Absenztage
+      absenzen_behinderte: dav. Absenztage Behinderte
+      absenzen_angehoerige: dav. Absenztage Angehörige
+      absenzen_weitere: dav. Absenztage nicht Bezugsberechtigte
+
+      total_absenzen_stunden:  Absenzstunden
+      absenzen_behinderte_stunden: dav. Absenzstunden Behinderte
+      absenzen_angehoerige_stunden: dav. Absenzstunden Angehörige
+      absenzen_weitere_stunden: dav. Absenzstunden nicht Bezugsberechtigte
+
+      total_tage_teilnehmende: Effektive TeilnehmerInnentage
+      tage_behinderte: dav. TeilnehmerInnentage Behinderte
+      tage_angehoerige: dav. TeilnehmerInnentage Angehörige
+      tage_weitere: dav. TeilnehmerInnentage nicht Bezugsberechtigte
+
+      total_tage_teilnehmende_stunden: Effektive TeilnehmerInnenstunden
+      tage_behinderte_stunden: dav. TeilnehmerInnenstunden Behinderte
+      tage_angehoerige_stunden: dav. TeilnehmerInnenstunden Angehörige
+      tage_weitere_stunden: dav. TeilnehmerInnenstunden nicht Bezugsberechtigte
+
+      betreuende: Anzahl Betreuungspersonal
+      leiterinnen: davon LeiterInnen
+      fachpersonen: davon Fachpersonen hochqualifiziert
+      hilfspersonal_ohne_honorar: davon Hilfspersonal ohne Honorar
+      hilfspersonal_mit_honorar: davon Hilfspersonal mit Honorar
+      kuechenpersonal: Anzahl Küchenpersonal
+
+      direkter_aufwand: Gesamtaufwand direkte Kosten
+      honorare_inkl_sozialversicherung: davon Honorare
+      unterkunft: davon Unterkunft/Raumaufwand
+      uebriges: davon übriger Aufwand inkl. Verpflegung
+
+      direkte_kosten_pro_le: Durchschnittliche direkte Kosten pro TeilnehmerInnentag
+      direkte_kosten_pro_le_stunden: Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde
+      total_vollkosten: Vollkosten
+      vollkosten_pro_le: durchschnittliche Vollkosten pro TeilnehmerInnentag
+      vollkosten_pro_le_stunden: durchschnittliche Vollkosten pro TeilnehmerInnenstunde
+      beitraege_teilnehmende: Beiträge Teilnehmende
+      betreuungsschluessel: Betreuungschlüssel (Teilnehmende / Betreuende)
+      anzahl_spezielle_unterkunft: Anzahl Kurse mit spezieller Unterkunft
+
   dropdown/abo_addresses_export:
     button: Adresslisten Abonnemente
     ch_de: Schweiz deutsch
