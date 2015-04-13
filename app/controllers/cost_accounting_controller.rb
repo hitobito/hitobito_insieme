@@ -42,6 +42,8 @@ class CostAccountingController < ReportingBaseController
   end
 
   def render_csv(entries)
-    send_data Export::Csv::CostAccounting::List.export(entries), type: :csv
+    filename = "cost_accounting_vid#{group.vid}_bsv#{group.bsv_number}_" \
+      "#{group.name.parameterize}_#{year}.csv"
+    send_data Export::Csv::CostAccounting::List.export(entries), type: :csv, filename: filename
   end
 end
