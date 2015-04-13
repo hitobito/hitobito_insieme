@@ -25,11 +25,10 @@
             %td{colspan: 2 + @table.class.fields.length} &nbsp;
 
         %tr{class: report.kind}
-          %th
+          %th{title: h(report.human_name)}
             = link_to_if report.editable?,
                          h(report.short_name),
-                         edit_cost_accounting_report_group_path(group, year, report.key),
-                         title: h(report.human_name)
+                         edit_cost_accounting_report_group_path(group, year, report.key)
 
           %td.center= report.kontengruppe
           - @table.class.fields.each do |f|
