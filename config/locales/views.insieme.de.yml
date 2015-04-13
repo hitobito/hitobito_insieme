@@ -38,6 +38,7 @@ de:
   cost_accounting:
     index:
       title: Übersicht Kostenrechnung
+      export: CSV Export
     edit:
       aufwand_fibu: Aufwand FIBU
       ertrag_fibu: Ertrag FIBU

@@ -5,6 +5,8 @@
 
 - @subtitle = t('.title')
 
+= action_button(t('.export'), params.merge(format: :csv), :download)
+
 .table-responsive.cost_accounting
   %table.table.table-hover
     %thead
