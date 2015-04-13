@@ -9,7 +9,7 @@
 module Export::Csv::CostAccounting
   class List < Export::Csv::Base
 
-    self.model_class = CostAccounting::Report::Base
+    self.model_class = ::CostAccounting::Report::Base
     self.row_class = Export::Csv::CostAccounting::Row
 
     def build_attribute_labels
@@ -17,7 +17,7 @@ module Export::Csv::CostAccounting
         labels[:report] = human(:report)
         labels[:kontengruppe] = human(:kontengruppen)
 
-        CostAccounting::Report::Base::FIELDS.each do |field|
+        ::CostAccounting::Report::Base::FIELDS.each do |field|
           labels[field.to_sym] = human(field)
         end
       end
