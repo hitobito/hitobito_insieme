@@ -15,7 +15,7 @@ describe Statistics::Vereinsmitglieder do
     subject { vereinsmitglieder.vereine }
 
     it 'contains only Regionalvereine' do
-      subject.all? { |g| g.is_a?(Group::Regionalverein) }.should be true
+      expect(subject.all? { |g| g.is_a?(Group::Regionalverein) }).to be true
     end
   end
 
@@ -35,13 +35,13 @@ describe Statistics::Vereinsmitglieder do
       end
 
       subject.role_types do |role, index|
-        subject.count(layer, index).should eq index
+        expect(subject.count(layer, index)).to eq index
       end
     end
 
     it 'counts people only in sub layer' do
-      subject.count(layer, 0).should eq 0
-      subject.count(groups(:seeland), 0).should eq 1
+      expect(subject.count(layer, 0)).to eq 0
+      expect(subject.count(groups(:seeland), 0)).to eq 1
     end
 
     it 'counts people with roles in two layers twice' do
@@ -49,8 +49,8 @@ describe Statistics::Vereinsmitglieder do
                 group: active,
                 person: people(:regio_aktiv))
 
-      subject.count(layer, 0).should eq 1
-      subject.count(groups(:seeland), 0).should eq 1
+      expect(subject.count(layer, 0)).to eq 1
+      expect(subject.count(groups(:seeland), 0)).to eq 1
     end
 
     it 'counts people with multiple roles in one layer only once' do
@@ -64,12 +64,12 @@ describe Statistics::Vereinsmitglieder do
                 group: passive,
                 person: people(:regio_aktiv))
 
-      subject.count(layer, 0).should eq 0
-      subject.count(layer, 1).should eq 1
-      (2..6).each { |i| subject.count(layer, i).should eq 0 }
+      expect(subject.count(layer, 0)).to eq 0
+      expect(subject.count(layer, 1)).to eq 1
+      (2..6).each { |i| expect(subject.count(layer, i)).to eq 0 }
 
-      subject.count(groups(:seeland), 0).should eq 1
-      (1..6).each { |i| subject.count(groups(:seeland), i).should eq 0 }
+      expect(subject.count(groups(:seeland), 0)).to eq 1
+      (1..6).each { |i| expect(subject.count(groups(:seeland), i)).to eq 0 }
     end
 
     it 'does not count deleted roles' do
@@ -83,8 +83,8 @@ describe Statistics::Vereinsmitglieder do
       o.update!(deleted_at: 1.year.ago)
       a.update!(deleted_at: 1.year.ago)
 
-      (0..5).each { |i| subject.count(layer, i).should eq 0 }
-      subject.count(layer, 6).should eq 1
+      (0..5).each { |i| expect(subject.count(layer, i)).to eq 0 }
+      expect(subject.count(layer, 6)).to eq 1
     end
 
     def role_group(role)

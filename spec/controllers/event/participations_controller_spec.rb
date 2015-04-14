@@ -50,17 +50,17 @@ describe Event::ParticipationsController do
     end.to change { Event::Participation.count }.by(1)
 
 
-    person.reload.canton.should eq 'be'
-    person.birthday.should eq Date.parse('2014-09-22')
-    person.ahv_number.should eq '123'
-    person.zip_code.should eq '1234'
+    expect(person.reload.canton).to eq 'be'
+    expect(person.birthday).to eq Date.parse('2014-09-22')
+    expect(person.ahv_number).to eq '123'
+    expect(person.zip_code).to eq '1234'
 
     %w(billing_course_zip_code correspondence_course_zip_code).each do |attr|
-      person.send(attr.to_sym).should eq 1234
+      expect(person.send(attr.to_sym)).to eq 1234
     end
 
     %w(correspondence_course_company billing_course_company).each do |attr|
-      person.send(attr.to_sym).should be_true
+      expect(person.send(attr.to_sym)).to be_truthy
     end
 
     %w(town address country
@@ -78,7 +78,7 @@ describe Event::ParticipationsController do
        billing_course_address
        billing_course_town
        billing_course_country).each do |attr|
-      person.send(attr.to_sym).should eq 'dummy'
+      expect(person.send(attr.to_sym)).to eq 'dummy'
     end
   end
 
@@ -123,9 +123,9 @@ describe Event::ParticipationsController do
           disability: 'seh' }
 
     participation.reload
-    participation.wheel_chair.should be false
-    participation.disability.should eq 'seh'
-    participation.multiple_disability.should be true
+    expect(participation.wheel_chair).to be false
+    expect(participation.disability).to eq 'seh'
+    expect(participation.multiple_disability).to be true
   end
 
   context 'internal fields' do
@@ -170,16 +170,16 @@ describe Event::ParticipationsController do
           it 'updates attributes on create' do
             post :create, group_id: group.id, event_id: course.id,
             event_participation: internal_fields
-            assigns(:participation).invoice_text.should eq 'test'
-            assigns(:participation).invoice_amount.should eq 1.2
+            expect(assigns(:participation).invoice_text).to eq 'test'
+            expect(assigns(:participation).invoice_amount).to eq 1.2
           end
         end
 
         it 'updates attributes on update' do
           patch :update, group_id: group.id, event_id: course.id, id: participation.id,
                          event_participation: internal_fields
-          participation.reload.invoice_text.should eq 'test'
-          participation.reload.invoice_amount.should eq 1.2
+          expect(participation.reload.invoice_text).to eq 'test'
+          expect(participation.reload.invoice_amount).to eq 1.2
         end
 
         it 'includes attributes in csv' do
@@ -189,11 +189,11 @@ describe Event::ParticipationsController do
                       filter: :participants,
                       details: true,
                       format: :csv
-          csv['Rollstuhl'].should eq %w(ja)
-          csv['Behinderung'].should eq %w(Hörbehindert)
-          csv['Mehrfachbehinderung'].should eq [nil]
-          csv['Rechnungstext'].should eq %w(test)
-          csv['Rechnungsbetrag'].should eq %w(1.2)
+          expect(csv['Rollstuhl']).to eq %w(ja)
+          expect(csv['Behinderung']).to eq %w(Hörbehindert)
+          expect(csv['Mehrfachbehinderung']).to eq [nil]
+          expect(csv['Rechnungstext']).to eq %w(test)
+          expect(csv['Rechnungsbetrag']).to eq %w(1.2)
         end
 
         context 'rendered pages' do
@@ -210,8 +210,8 @@ describe Event::ParticipationsController do
 
           after do
             html = Capybara::Node::Simple.new(response.body)
-            html.should have_content 'Rechnungstext'
-            html.should have_content 'Rechnungsbetrag'
+            expect(html).to have_content 'Rechnungstext'
+            expect(html).to have_content 'Rechnungsbetrag'
           end
         end
       end
@@ -227,26 +227,26 @@ describe Event::ParticipationsController do
 
       it 'ignores attributes on create' do
         post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
-        assigns(:participation).invoice_text.should be_blank
-        assigns(:participation).invoice_amount.should be_nil
+        expect(assigns(:participation).invoice_text).to be_blank
+        expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it 'ignores attributes on update' do
         patch :update, group_id: group.id, event_id: course.id, id: participation.id,
             event_participation: internal_fields
-        assigns(:participation).invoice_text.should be_blank
-        assigns(:participation).invoice_amount.should be_nil
+        expect(assigns(:participation).invoice_text).to be_blank
+        expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it 'does not include attributes in csv' do
         activate_participation
         get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
 
-        csv.headers.should_not include 'Behinderung'
-        csv.headers.should_not include 'Mehrfachbehindert'
-        csv.headers.should_not include 'Rollstuhl'
-        csv.headers.should_not include 'Rechnungstext'
-        csv.headers.should_not include 'Rechnungsbetrag'
+        expect(csv.headers).not_to include 'Behinderung'
+        expect(csv.headers).not_to include 'Mehrfachbehindert'
+        expect(csv.headers).not_to include 'Rollstuhl'
+        expect(csv.headers).not_to include 'Rechnungstext'
+        expect(csv.headers).not_to include 'Rechnungsbetrag'
       end
 
       context 'rendered pages' do
@@ -263,8 +263,8 @@ describe Event::ParticipationsController do
 
         after do
           html = Capybara::Node::Simple.new(response.body)
-          html.should_not have_content 'Rechnungstext'
-          html.should_not have_content 'Rechnungsbetrag'
+          expect(html).not_to have_content 'Rechnungstext'
+          expect(html).not_to have_content 'Rechnungsbetrag'
         end
       end
 

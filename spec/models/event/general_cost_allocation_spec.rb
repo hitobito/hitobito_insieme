@@ -26,12 +26,12 @@ describe Event::GeneralCostAllocation do
   context 'validations' do
     it 'may be attached to regionalverein' do
       a = Event::GeneralCostAllocation.new(group: groups(:be), year: 2014)
-      a.should be_valid
+      expect(a).to be_valid
     end
 
     it 'may not be attached to active' do
       a = Event::GeneralCostAllocation.new(group: groups(:aktiv), year: 2014)
-      a.should_not be_valid
+      expect(a).not_to be_valid
     end
   end
 
@@ -70,27 +70,27 @@ describe Event::GeneralCostAllocation do
     end
 
     it 'calculates total_costs bk' do
-      record.total_costs('bk').should eq 11000
+      expect(record.total_costs('bk')).to eq 11000
     end
 
     it 'calculates total_costs tk' do
-      record.total_costs('tk').should eq nil
+      expect(record.total_costs('tk')).to eq nil
     end
 
     it 'calculates total_costs sk' do
-      record.total_costs('sk').should eq 3000
+      expect(record.total_costs('sk')).to eq 3000
     end
 
     it 'calculates cost allowances blockkurse' do
-      record.general_costs_allowance('bk').should eq 0
+      expect(record.general_costs_allowance('bk')).to eq 0
     end
 
     it 'calculates cost allowances tageskurse' do
-      record.general_costs_allowance('tk').should be nil
+      expect(record.general_costs_allowance('tk')).to be nil
     end
 
     it 'calculates cost allowances semesterkurse' do
-      record.general_costs_allowance('sk').should be_within(0.0001).of(0.33333)
+      expect(record.general_costs_allowance('sk')).to be_within(0.0001).of(0.33333)
     end
 
   end

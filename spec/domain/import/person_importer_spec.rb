@@ -40,20 +40,20 @@ describe Import::PersonImporter do
     it 'keeps number of matching person' do
       existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true)
 
-      person.should eq existing
-      person.number.should eq 2
-      import_person.should be_valid
+      expect(person).to eq existing
+      expect(person.number).to eq 2
+      expect(import_person).to be_valid
 
       expect { importer.import }.not_to change { Person.count }
-      existing.reload.number.should eq 2
-      existing.first_name.should eq 'John'
-      existing.town.should eq 'Liverpool'
+      expect(existing.reload.number).to eq 2
+      expect(existing.first_name).to eq 'John'
+      expect(existing.town).to eq 'Liverpool'
     end
 
     it 'generates number for new person' do
-      person.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
-      person.should be_new_record
-      import_person.should be_valid
+      expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
+      expect(person).to be_new_record
+      expect(import_person).to be_valid
 
       expect { importer.import }.to change { Person.count }.by(1)
     end
@@ -74,21 +74,21 @@ describe Import::PersonImporter do
 
         it 'uses person with same automatic number from db' do
           existing = Person.create!(first_name: 'Hans', last_name: 'Lehmann')
-          existing.number.should eq number
+          expect(existing.number).to eq number
 
-          person.should eq existing
-          person.number.should eq number
-          import_person.should be_valid
+          expect(person).to eq existing
+          expect(person.number).to eq number
+          expect(import_person).to be_valid
 
           expect { importer.import }.not_to change { Person.count }
-          existing.reload.number.should eq number
-          existing.first_name.should eq 'Hans'
-          existing.town.should eq 'Liverpool'
+          expect(existing.reload.number).to eq number
+          expect(existing.first_name).to eq 'Hans'
+          expect(existing.town).to eq 'Liverpool'
         end
 
         it 'fails to create new person' do
-          person.errors.should_not be_empty
-          person.should be_new_record
+          expect(person.errors).not_to be_empty
+          expect(person).to be_new_record
 
           expect { importer.import }.not_to change { Person.count }
         end
@@ -99,31 +99,31 @@ describe Import::PersonImporter do
         it 'uses person with same manual number from db' do
           existing = Person.create!(first_name: 'Hans', last_name: 'Lehmann', number: number, manual_number: true)
 
-          person.should eq existing
-          person.number.should eq number
-          import_person.should be_valid
+          expect(person).to eq existing
+          expect(person.number).to eq number
+          expect(import_person).to be_valid
 
           expect { importer.import }.not_to change { Person.count }
-          existing.reload.number.should eq number
-          existing.first_name.should eq 'Hans'
-          existing.town.should eq 'Liverpool'
+          expect(existing.reload.number).to eq number
+          expect(existing.first_name).to eq 'Hans'
+          expect(existing.town).to eq 'Liverpool'
         end
 
         it 'fails if person with other number matches' do
           existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 456, manual_number: true)
 
-          person.should eq existing
-          import_person.person.errors.should_not be_empty
+          expect(person).to eq existing
+          expect(import_person.person.errors).not_to be_empty
 
           expect { importer.import }.not_to change { Person.count }
-          existing.reload.number.should eq 456
-          existing.town.should be_nil
+          expect(existing.reload.number).to eq 456
+          expect(existing.town).to be_nil
         end
 
         it 'creates person if no other is found' do
-          person.number.should eq 123
-          import_person.should be_valid
-          person.should be_new_record
+          expect(person.number).to eq 123
+          expect(import_person).to be_valid
+          expect(person).to be_new_record
           expect { importer.import }.to change { Person.count }.by(1)
         end
 
@@ -137,20 +137,20 @@ describe Import::PersonImporter do
       it 'keeps number of matching person' do
         existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true)
 
-        person.should eq existing
-        person.number.should eq 2
-        import_person.should be_valid
+        expect(person).to eq existing
+        expect(person.number).to eq 2
+        expect(import_person).to be_valid
 
         expect { importer.import }.not_to change { Person.count }
-        existing.reload.number.should eq 2
-        existing.first_name.should eq 'John'
-        existing.town.should eq 'Liverpool'
+        expect(existing.reload.number).to eq 2
+        expect(existing.first_name).to eq 'John'
+        expect(existing.town).to eq 'Liverpool'
       end
 
       it 'generates number when creating person' do
-        person.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
-        person.should be_new_record
-        import_person.should be_valid
+        expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
+        expect(person).to be_new_record
+        expect(import_person).to be_valid
 
         expect { importer.import }.to change { Person.count }.by(1)
       end

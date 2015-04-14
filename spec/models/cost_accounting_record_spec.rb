@@ -37,17 +37,17 @@ describe CostAccountingRecord do
   context 'validation' do
     it 'is fine with empty fields' do
       r = CostAccountingRecord.new(group: group, year: 2014, report: 'lohnaufwand')
-      r.should be_valid
+      expect(r).to be_valid
     end
 
     it 'fails for invalid report' do
       r = CostAccountingRecord.new(group: group, year: 2014, report: 'foo')
-      r.should_not be_valid
+      expect(r).not_to be_valid
     end
 
     it 'fails for invalid group' do
       r = CostAccountingRecord.new(group: groups(:aktiv), year: 2014, report: 'lohnaufwand')
-      r.should_not be_valid
+      expect(r).not_to be_valid
     end
   end
 

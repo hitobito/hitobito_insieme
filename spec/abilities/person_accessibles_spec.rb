@@ -37,12 +37,12 @@ describe PersonAccessibles do
           let(:group) { role.group }
 
           it 'may get himself' do
-            should include(role.person)
+            is_expected.to include(role.person)
           end
 
           it 'may get people with contact data' do
             other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
-            should include(other.person)
+            is_expected.to include(other.person)
           end
         end
 
@@ -51,12 +51,12 @@ describe PersonAccessibles do
 
           it 'may get people with contact data' do
             other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: group)
-            should include(other.person)
+            is_expected.to include(other.person)
           end
 
           it 'may not get people without contact data' do
             other = Fabricate(Group::RegionalvereinGremium::Mitglied.name.to_sym, group: group)
-            should_not include(other.person)
+            is_expected.not_to include(other.person)
           end
         end
 
@@ -65,7 +65,7 @@ describe PersonAccessibles do
 
           it 'may not get person with contact data' do
             other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
-            should_not include(other.person)
+            is_expected.not_to include(other.person)
           end
         end
       end

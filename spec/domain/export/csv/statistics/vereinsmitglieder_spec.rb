@@ -19,12 +19,12 @@ describe Export::Csv::Statistics::Vereinsmitglieder do
 
     it 'contains all counted roles' do
       counted = Statistics::Vereinsmitglieder::COUNTED_ROLES
-      (subject.keys & counted).size.should eq counted.size
+      expect((subject.keys & counted).size).to eq counted.size
     end
 
     it 'contains translated attribute labels' do
-      subject[:zip_code].should eq 'PLZ'
-      subject[:canton].should eq 'Kanton'
+      expect(subject[:zip_code]).to eq 'PLZ'
+      expect(subject[:canton]).to eq 'Kanton'
     end
   end
 
@@ -32,14 +32,14 @@ describe Export::Csv::Statistics::Vereinsmitglieder do
     subject { csv.list }
 
     it 'has one item per regional verein' do
-      subject.size.should eq 3
+      expect(subject.size).to eq 3
     end
 
     it 'contains the correct values' do
       row = subject.first
-      row[:name].should eq 'Biel-Seeland'
-      row[Group::Aktivmitglieder::Aktivmitglied].should eq 1
-      row[Group::Aktivmitglieder::AktivmitgliedOhneAbo].should eq 0
+      expect(row[:name]).to eq 'Biel-Seeland'
+      expect(row[Group::Aktivmitglieder::Aktivmitglied]).to eq 1
+      expect(row[Group::Aktivmitglieder::AktivmitgliedOhneAbo]).to eq 0
     end
   end
 

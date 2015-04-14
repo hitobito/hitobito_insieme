@@ -20,17 +20,17 @@ describe EventAbility do
 
   class << self
     def may_execute(*actions)
-      may_or_not(actions, :may, :should)
+      may_or_not(actions, 'may', :to)
     end
 
     def may_not_execute(*actions)
-      may_or_not(actions, :may, :should_not)
+      may_or_not(actions, 'may not', :not_to)
     end
 
     def may_or_not(actions, text, method)
       actions.each do |action|
-        it "#{text} execute #{action}"  do
-          ability.send(method, be_able_to(action, model))
+        it "#{text} execute #{action}" do
+          expect(ability).send(method, be_able_to(action, model))
         end
       end
     end
@@ -45,21 +45,21 @@ describe EventAbility do
 
       context 'regular event' do
         context 'in same layer' do
-          it { should be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
         end
 
         context 'in lower layer' do
-          it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
         end
       end
 
       context 'aggregate course' do
         context 'in same layer' do
-          it { should be_able_to(:read, Fabricate.build(:aggregate_course, groups: [role.group])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [role.group])) }
         end
 
         context 'in lower layer' do
-          it { should be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:seeland)])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:seeland)])) }
         end
       end
     end
@@ -69,45 +69,45 @@ describe EventAbility do
 
       context 'regular event' do
         context 'in same layer' do
-          it { should be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
         end
 
         context 'in upper layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:dachverein)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:event, groups: [groups(:dachverein)])) }
         end
 
         context 'in lower non-regionalverein layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:event, groups: [groups(:aktiv)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:event, groups: [groups(:aktiv)])) }
         end
 
         context 'in lower regionalverein layer' do
-          it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [groups(:seeland)])) }
         end
 
         context 'in other regionalverein layer' do
-          it { should be_able_to(:read, Fabricate.build(:event, groups: [groups(:fr)])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [groups(:fr)])) }
         end
       end
 
       context 'aggregate course' do
         context 'in same layer' do
-          it { should be_able_to(:read, Fabricate.build(:aggregate_course, groups: [role.group])) }
+          it { is_expected.to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [role.group])) }
         end
 
         context 'in upper layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:dachverein)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:dachverein)])) }
         end
 
         context 'in lower non-regionalverein layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:aktiv)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:aktiv)])) }
         end
 
         context 'in lower regionalverein layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:seeland)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:seeland)])) }
         end
 
         context 'in other regionalverein layer' do
-          it { should_not be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:fr)])) }
+          it { is_expected.not_to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [groups(:fr)])) }
         end
       end
 
@@ -118,7 +118,7 @@ describe EventAbility do
                     participation: Fabricate(:event_participation,
                                              event: event, person: role.person))
         end
-        it { should be_able_to(:read, event) }
+        it { is_expected.to be_able_to(:read, event) }
       end
     end
   end

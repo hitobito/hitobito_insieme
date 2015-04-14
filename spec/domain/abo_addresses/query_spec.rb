@@ -29,11 +29,11 @@ describe AboAddresses::Query do
         e_active = Fabricate(Group::Aktivmitglieder.name.to_sym, parent: externals)
         extern = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: e_active).person
 
-        should include(pa)
-        should include(people(:regio_aktiv))
-        should include(abo)
-        should_not include(pm)
-        should_not include(extern)
+        is_expected.to include(pa)
+        is_expected.to include(people(:regio_aktiv))
+        is_expected.to include(abo)
+        is_expected.not_to include(pm)
+        is_expected.not_to include(extern)
       end
 
       it 'contains no duplicate' do
@@ -42,7 +42,7 @@ describe AboAddresses::Query do
                   group: abos,
                   person: people(:regio_aktiv))
 
-        should have(1).item
+        is_expected.to have(1).item
       end
 
       it 'does not contain deleted roles' do
@@ -50,7 +50,7 @@ describe AboAddresses::Query do
         abo = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         abo.roles.first.update!(deleted_at: 1.year.ago)
 
-        should_not include(abo)
+        is_expected.not_to include(abo)
       end
 
       it 'contains empty correspondence_language as well' do
@@ -63,40 +63,40 @@ describe AboAddresses::Query do
         abo3.update!(correspondence_language: '')
         people(:regio_aktiv).update!(correspondence_language: 'de')
 
-        should include(abo1)
-        should include(people(:regio_aktiv))
-        should include(abo3)
-        should_not include(abo2)
+        is_expected.to include(abo1)
+        is_expected.to include(people(:regio_aktiv))
+        is_expected.to include(abo3)
+        is_expected.not_to include(abo2)
       end
 
       it 'contains person if country is null' do
         people(:regio_aktiv).update!(country: nil)
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'contains person if country is empty' do
         people(:regio_aktiv).update!(country: '  ')
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'contains person if country is Schweiz' do
         people(:regio_aktiv).update!(country: 'Schweiz')
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'contains person if country is suisse' do
         people(:regio_aktiv).update!(country: 'SUISSE ')
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'contains person if country is ch' do
         people(:regio_aktiv).update!(country: ' ch ')
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'does not contain person if country is DE' do
         people(:regio_aktiv).update!(country: 'DE')
-        should_not include(people(:regio_aktiv))
+        is_expected.not_to include(people(:regio_aktiv))
       end
     end
 
@@ -105,17 +105,17 @@ describe AboAddresses::Query do
 
       it 'contains person if language is fr' do
         people(:regio_aktiv).update!(correspondence_language: 'fr')
-        should include(people(:regio_aktiv))
+        is_expected.to include(people(:regio_aktiv))
       end
 
       it 'does not contain person if language is null' do
         people(:regio_aktiv).update!(correspondence_language: nil)
-        should_not include(people(:regio_aktiv))
+        is_expected.not_to include(people(:regio_aktiv))
       end
 
       it 'does not contain person if language is de' do
         people(:regio_aktiv).update!(correspondence_language: 'de')
-        should_not include(people(:regio_aktiv))
+        is_expected.not_to include(people(:regio_aktiv))
       end
     end
   end
@@ -125,27 +125,27 @@ describe AboAddresses::Query do
 
     it 'contains person if country is de' do
       people(:regio_aktiv).update!(country: ' de ')
-      should include(people(:regio_aktiv))
+      is_expected.to include(people(:regio_aktiv))
     end
 
     it 'contains person if country is 123' do
       people(:regio_aktiv).update!(country: '123')
-      should include(people(:regio_aktiv))
+      is_expected.to include(people(:regio_aktiv))
     end
 
     it 'does not contain person if country is ch' do
       people(:regio_aktiv).update!(country: 'CH')
-      should_not include(people(:regio_aktiv))
+      is_expected.not_to include(people(:regio_aktiv))
     end
 
     it 'does not contain person if country is empty' do
       people(:regio_aktiv).update!(country: '')
-      should_not include(people(:regio_aktiv))
+      is_expected.not_to include(people(:regio_aktiv))
     end
 
     it 'does not contain person if country is null' do
       people(:regio_aktiv).update!(country: nil)
-      should_not include(people(:regio_aktiv))
+      is_expected.not_to include(people(:regio_aktiv))
     end
   end
 

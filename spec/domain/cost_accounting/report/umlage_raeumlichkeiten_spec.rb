@@ -26,28 +26,28 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
       update_column(:raeumlichkeiten, nil)
 
     fields.each do |field|
-      report.send(field.to_sym).should be_nil
+      expect(report.send(field.to_sym)).to be_nil
     end
   end
 
 
   context 'without time record' do
     it 'allocates raeumlichkeiten proportionally' do
-      report.verwaltung.should eq 25
-      report.beratung.should eq 75
+      expect(report.verwaltung).to eq 25
+      expect(report.beratung).to eq 75
     end
 
     it 'total equals value of raeumlichkeiten' do
-      report.total.should eq 100
+      expect(report.total).to eq 100
     end
 
     it 'kontrolle is 0' do
-      report.kontrolle.should eq 0
+      expect(report.kontrolle).to eq 0
     end
 
     it 'leaves other values at 0' do
       (fields - %w(verwaltung beratung total)).each do |field|
-        report.send(field.to_sym).should eq 0
+        expect(report.send(field.to_sym)).to eq 0
       end
     end
   end
@@ -56,27 +56,27 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
     it 'calculates values' do
       create_time_record(verwaltung: 50, beratung: 30, blockkurse: 20)
 
-      report.verwaltung.should eq(50)
-      report.beratung.should eq(30)
-      report.blockkurse.should eq(20)
+      expect(report.verwaltung).to eq(50)
+      expect(report.beratung).to eq(30)
+      expect(report.blockkurse).to eq(20)
 
       (fields - %w(verwaltung beratung blockkurse total)).each do |field|
-        report.send(field.to_sym).should eq 0.0
+        expect(report.send(field.to_sym)).to eq 0.0
       end
     end
 
     it 'calculates verwaltung if only verwaltung is set' do
       create_time_record(verwaltung: 50)
-      report.verwaltung.to_f.should eq 100.0
-      report.beratung.to_f.should eq 0.0
+      expect(report.verwaltung.to_f).to eq 100.0
+      expect(report.beratung.to_f).to eq 0.0
     end
 
     it 'total equals value of raeumlichkeiten' do
-      report.total.should eq 100
+      expect(report.total).to eq 100
     end
 
     it 'kontrolle is 0' do
-      report.kontrolle.should eq 0
+      expect(report.kontrolle).to eq 0
     end
 
   end

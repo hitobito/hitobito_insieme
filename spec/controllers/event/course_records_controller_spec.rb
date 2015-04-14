@@ -25,10 +25,10 @@ describe Event::CourseRecordsController do
       end
     end
 
-    context :layer_and_below_full do
+    context 'layer_and_below_full' do
       it 'is allowed to update course record of regionalverein' do
         get :edit, group_id: group.id, event_id: event.id
-        response.should be_ok
+        expect(response).to be_ok
       end
     end
 
@@ -42,7 +42,7 @@ describe Event::CourseRecordsController do
 
       it 'is allowed to update course record of regionalverein' do
         get :edit, group_id: group.id, event_id: event.id
-        response.should be_ok
+        expect(response).to be_ok
       end
     end
 
@@ -57,7 +57,7 @@ describe Event::CourseRecordsController do
 
       it 'is allowed to update course record of regionalverein' do
         get :edit, group_id: group.id, event_id: event.id
-        response.should be_ok
+        expect(response).to be_ok
       end
     end
 
@@ -81,19 +81,19 @@ describe Event::CourseRecordsController do
   context '#edit' do
     it 'builds new course_record based on group and event' do
       get :edit, group_id: group.id, event_id: event.id
-      response.status.should eq(200)
+      expect(response.status).to eq(200)
 
-      assigns(:course_record).should_not be_persisted
-      assigns(:course_record).event.should eq event
+      expect(assigns(:course_record)).not_to be_persisted
+      expect(assigns(:course_record).event).to eq event
     end
 
     it 'assigns default values' do
       get :edit, group_id: group.id, event_id: event.id
 
-      assigns(:course_record).inputkriterien.should eq 'a'
-      assigns(:course_record).kursart.should eq 'weiterbildung'
-      assigns(:course_record).subventioniert.should eq true
-      assigns(:course_record).spezielle_unterkunft.should be_nil
+      expect(assigns(:course_record).inputkriterien).to eq 'a'
+      expect(assigns(:course_record).kursart).to eq 'weiterbildung'
+      expect(assigns(:course_record).subventioniert).to eq true
+      expect(assigns(:course_record).spezielle_unterkunft).to be_nil
     end
 
     it 'reuses existing course_record based on group and event' do
@@ -102,11 +102,11 @@ describe Event::CourseRecordsController do
                                            kursart: 'weiterbildung')
 
       get :edit, group_id: group.id, event_id: event.id
-      response.status.should eq(200)
+      expect(response.status).to eq(200)
 
-      assigns(:course_record).should eq record
-      assigns(:course_record).event.should eq event
-      assigns(:course_record).should be_persisted
+      expect(assigns(:course_record)).to eq record
+      expect(assigns(:course_record).event).to eq event
+      expect(assigns(:course_record)).to be_persisted
     end
 
 
@@ -121,7 +121,7 @@ describe Event::CourseRecordsController do
 
       it 'it renders 1.0 as 1' do
         get :edit, group_id: group.id, event_id: event.id
-        field.value.should eq '1'
+        expect(field.value).to eq '1'
       end
 
     end
@@ -159,18 +159,18 @@ describe Event::CourseRecordsController do
 
       attrs.each do |key, value|
         unless key.to_s =~ /_attributes$/
-          event.course_record.send(key).should eq value
+          expect(event.course_record.send(key)).to eq value
         end
       end
 
-      event.course_record.challenged_canton_count.should be_a(Event::ParticipationCantonCount)
-      event.course_record.challenged_canton_count.be.should eq(1)
-      event.course_record.challenged_canton_count.zh.should eq(2)
-      event.course_record.challenged_canton_count.other.should eq(3)
+      expect(event.course_record.challenged_canton_count).to be_a(Event::ParticipationCantonCount)
+      expect(event.course_record.challenged_canton_count.be).to eq(1)
+      expect(event.course_record.challenged_canton_count.zh).to eq(2)
+      expect(event.course_record.challenged_canton_count.other).to eq(3)
 
-      event.course_record.affiliated_canton_count.should be_a(Event::ParticipationCantonCount)
-      event.course_record.affiliated_canton_count.ag.should eq(4)
-      event.course_record.affiliated_canton_count.ge.should eq(5)
+      expect(event.course_record.affiliated_canton_count).to be_a(Event::ParticipationCantonCount)
+      expect(event.course_record.affiliated_canton_count.ag).to eq(4)
+      expect(event.course_record.affiliated_canton_count.ge).to eq(5)
     end
   end
 end

@@ -13,24 +13,24 @@ describe Event::Participation do
 
   it 'allows nil values for multiple disability' do
     participation.multiple_disability = true
-    participation.should be_valid
+    expect(participation).to be_valid
     participation.save!
-    participation.reload.multiple_disability.should be true
+    expect(participation.reload.multiple_disability).to be true
 
     participation.multiple_disability = nil
-    participation.should be_valid
+    expect(participation).to be_valid
     participation.save!
-    participation.reload.multiple_disability.should be nil
+    expect(participation.reload.multiple_disability).to be nil
   end
 
   it 'does not allow nil values for wheel chair' do
     participation.wheel_chair = false
-    participation.should be_valid
+    expect(participation).to be_valid
     participation.save!
-    participation.reload.wheel_chair.should be false
+    expect(participation.reload.wheel_chair).to be false
 
     participation.wheel_chair = nil
-    participation.should_not be_valid
+    expect(participation).not_to be_valid
   end
 
 end

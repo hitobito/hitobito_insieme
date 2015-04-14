@@ -25,8 +25,8 @@ describe CostAccountingController do
       before { get :index, id: group, year: year, format: :csv }
 
       it 'exports table' do
-        @response.body.should =~ /Report;Kontengruppe;Aufwand \/ Ertrag FIBU/
-        @response.body.should =~ /Total Aufwand\/Kosten/
+        expect(@response.body).to match(/Report;Kontengruppe;Aufwand \/ Ertrag FIBU/)
+        expect(@response.body).to match(/Total Aufwand\/Kosten/)
       end
 
       context 'no vid and bsv_number present' do

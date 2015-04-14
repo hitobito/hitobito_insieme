@@ -35,7 +35,7 @@ describe Export::Pdf::Labels do
     let(:address_type) { 'main' }
 
     it 'renders correct address' do
-      should eq "Top Leader\nMy Street\n Bern\n"
+      is_expected.to eq "Top Leader\nMy Street\n Bern\n"
     end
   end
 
@@ -43,7 +43,7 @@ describe Export::Pdf::Labels do
     let(:address_type) { 'correspondence_course' }
 
     it 'renders correct address' do
-      should eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
+      is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
     end
   end
 end

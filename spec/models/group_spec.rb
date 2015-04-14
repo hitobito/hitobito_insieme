@@ -62,15 +62,15 @@ describe Group do
   context 'canton_label' do
 
     it 'is blank for nil value' do
-      Group.new.canton_label.should be_blank
+      expect(Group.new.canton_label).to be_blank
     end
 
     it 'is blank for blank value' do
-      Group.new(canton: '').canton_label.should be_blank
+      expect(Group.new(canton: '').canton_label).to be_blank
     end
 
     it 'is locale specific value for valid key' do
-      Group.new(canton: 'be').canton_label.should eq 'Bern'
+      expect(Group.new(canton: 'be').canton_label).to eq 'Bern'
     end
   end
 

@@ -25,7 +25,7 @@ describe Event::RolesController do
           event_id: course.id,
           id: role.id
 
-      assigns(:possible_types).should eq [
+      expect(assigns(:possible_types)).to eq [
         ::Event::Course::Role::LeaderAdmin,
         ::Event::Course::Role::LeaderReporting,
         ::Event::Course::Role::LeaderBasic,
@@ -44,7 +44,7 @@ describe Event::RolesController do
           event_id: course.id,
           id: role.id
 
-      assigns(:possible_types).should eq [
+      expect(assigns(:possible_types)).to eq [
         ::Event::Course::Role::Challenged,
         ::Event::Course::Role::Affiliated,
         ::Event::Course::Role::NotEntitledForBenefit]

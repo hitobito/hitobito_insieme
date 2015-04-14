@@ -21,7 +21,7 @@ describe TimeRecordsController do
     it 'top leader is allowed to update dachverein' do
       sign_in(people(:top_leader))
       get :edit, id: group.id, year: 2014
-      response.should be_ok
+      expect(response).to be_ok
     end
 
     it 'regio leader is not allowed to update dachverein' do
@@ -37,18 +37,18 @@ describe TimeRecordsController do
 
     it 'builds new time_record based on group and year' do
       get :edit, id: group.id, year: 2014
-      response.status.should eq(200)
+      expect(response.status).to eq(200)
 
-      assigns(:record).should_not be_persisted
-      assigns(:record).group.should eq group
-      assigns(:record).year.should eq 2014
+      expect(assigns(:record)).not_to be_persisted
+      expect(assigns(:record).group).to eq group
+      expect(assigns(:record).year).to eq 2014
     end
 
     it 'reuses existing time_record based on group and year' do
       record = TimeRecord.create!(group: group, year: 2014)
       get :edit, id: group.id, year: 2014
-      assigns(:record).should eq record
-      assigns(:record).should be_persisted
+      expect(assigns(:record)).to eq record
+      expect(assigns(:record)).to be_persisted
     end
   end
 

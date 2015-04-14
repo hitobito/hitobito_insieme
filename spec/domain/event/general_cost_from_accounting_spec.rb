@@ -15,15 +15,15 @@ describe Event::GeneralCostFromAccounting do
 
   context 'without values' do
     it 'is zero for tageskurse' do
-      subject.general_cost('tk').should eq 0
+      expect(subject.general_cost('tk')).to eq 0
     end
 
     it 'is zero for blockkurse' do
-      subject.general_cost('bk').should eq 0
+      expect(subject.general_cost('bk')).to eq 0
     end
 
     it 'is zero for jahreskurse' do
-      subject.general_cost('sk').should eq 0
+      expect(subject.general_cost('sk')).to eq 0
     end
 
     it 'fails for other input' do
@@ -44,15 +44,15 @@ describe Event::GeneralCostFromAccounting do
     end
 
     it 'is correct for tageskurse' do
-      subject.general_cost('tk').should eq 87.5
+      expect(subject.general_cost('tk')).to eq 87.5
     end
 
     it 'is correct blockkurse' do
-      subject.general_cost('bk').should eq 350
+      expect(subject.general_cost('bk')).to eq 350
     end
 
     it 'is correct for jahreskurse' do
-      subject.general_cost('sk').should eq 0
+      expect(subject.general_cost('sk')).to eq 0
     end
   end
 

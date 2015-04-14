@@ -22,7 +22,7 @@ describe SubscriptionsController do
   it 'exports salutation, number, correspondence_language, language, canton and additional_information' do
     get :index,  group_id: group.id, mailing_list_id: list.id, format: :csv
 
-    response.body.should =~ /.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/
+    expect(response.body).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
   end
 end
 

@@ -36,17 +36,17 @@ describe CostAccounting::Report::TimeDistributed do
 
       context 'time fields' do
         it 'works for simple' do
-          report.verwaltung.should eq 500
+          expect(report.verwaltung).to eq 500
         end
 
         it 'works for lufeb' do
-          report.lufeb.should eq 200
+          expect(report.lufeb).to eq 200
         end
       end
 
       context '#total' do
         it 'is calculated correctly' do
-          report.total.should eq(1000.0)
+          expect(report.total).to eq(1000.0)
         end
       end
 
@@ -56,23 +56,23 @@ describe CostAccounting::Report::TimeDistributed do
 
       context 'time fields' do
         it 'works for simple' do
-          report.verwaltung.should be_nil
+          expect(report.verwaltung).to be_nil
         end
 
         it 'works for lufeb' do
-          report.lufeb.should be_nil
+          expect(report.lufeb).to be_nil
         end
       end
 
       context '#total' do
         it 'is calculated correctly' do
-          report.total.should eq(0.0)
+          expect(report.total).to eq(0.0)
         end
       end
 
       context '#kontrolle' do
         it 'is calculated correctly' do
-          report.kontrolle.should eq(-1000.0)
+          expect(report.kontrolle).to eq(-1000.0)
         end
       end
 
@@ -83,17 +83,17 @@ describe CostAccounting::Report::TimeDistributed do
   context 'without cost accounting record' do
      context 'time fields' do
       it 'works for simple' do
-        report.verwaltung.should be_nil
+        expect(report.verwaltung).to be_nil
       end
 
       it 'works for lufeb' do
-        report.lufeb.should be_nil
+        expect(report.lufeb).to be_nil
       end
     end
 
     context '#total' do
       it 'is calculated correctly' do
-        report.total.should eq(0.0)
+        expect(report.total).to eq(0.0)
       end
     end
   end

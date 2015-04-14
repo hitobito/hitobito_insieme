@@ -37,27 +37,27 @@ describe CostAccounting::Report::Subtotal do
 
   context 'summed fields' do
     it 'works for fibu' do
-      report.aufwand_ertrag_fibu.to_f.should eq 3050
+      expect(report.aufwand_ertrag_fibu.to_f).to eq 3050
     end
 
     it 'works for simple' do
-      report.verwaltung.to_f.should eq 1500
+      expect(report.verwaltung.to_f).to eq 1500
     end
 
     it 'works for lufeb' do
-      report.lufeb.to_f.should eq 600
+      expect(report.lufeb.to_f).to eq 600
     end
   end
 
   context '#aufwand_ertrag_ko_re' do
     it 'is calculated correctly' do
-      report.aufwand_ertrag_ko_re.to_f.should eq(3000.0)
+      expect(report.aufwand_ertrag_ko_re.to_f).to eq(3000.0)
     end
   end
 
   context '#total' do
     it 'is calculated correctly' do
-      report.total.to_f.should eq(3000.0)
+      expect(report.total.to_f).to eq(3000.0)
     end
   end
 

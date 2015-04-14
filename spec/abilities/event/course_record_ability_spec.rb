@@ -23,14 +23,14 @@ describe Event::CourseRecordAbility do
 
     context Event::Course do
       it 'may update report of event in his layer' do
-        should be_able_to(:update, record)
+        is_expected.to be_able_to(:update, record)
       end
 
       it 'may update report of event in lower layer' do
         other = Event::CourseRecord.new(event: Fabricate(:course,
                                                          groups: [groups(:seeland)],
                                                          leistungskategorie: 'bk'))
-        should be_able_to(:update, other)
+        is_expected.to be_able_to(:update, other)
       end
     end
   end
@@ -42,14 +42,14 @@ describe Event::CourseRecordAbility do
 
     context Event::Course do
       it 'may update report of event in his layer' do
-        should be_able_to(:update, record)
+        is_expected.to be_able_to(:update, record)
       end
 
       it 'may not update report of event in lower layer' do
         other = Event::CourseRecord.new(event: Fabricate(:course,
                                                          groups: [groups(:seeland)],
                                                          leistungskategorie: 'bk'))
-        should_not be_able_to(:update, other)
+        is_expected.not_to be_able_to(:update, other)
       end
 
       context 'in other layer' do
@@ -62,7 +62,7 @@ describe Event::CourseRecordAbility do
           other = Event::CourseRecord.new(event: Fabricate(:course,
                                                            groups: [groups(:be)],
                                                            leistungskategorie: 'bk'))
-          should_not be_able_to(:update, other)
+          is_expected.not_to be_able_to(:update, other)
         end
       end
     end
@@ -75,21 +75,21 @@ describe Event::CourseRecordAbility do
 
     context Event::Course do
       it 'may update report of event in his group' do
-        should be_able_to(:update, record)
+        is_expected.to be_able_to(:update, record)
       end
 
       it 'may not update report of event in his layer' do
         other = Event::CourseRecord.new(event: Fabricate(:course,
                                                          groups: [groups(:seeland)],
                                                          leistungskategorie: 'bk'))
-        should_not be_able_to(:update, other)
+        is_expected.not_to be_able_to(:update, other)
       end
 
       it 'may not update report of any other group' do
         other = Event::CourseRecord.new(event: Fabricate(:course,
                                                          groups: [groups(:fr)],
                                                          leistungskategorie: 'bk'))
-        should_not be_able_to(:update, other)
+        is_expected.not_to be_able_to(:update, other)
       end
     end
   end
@@ -110,7 +110,7 @@ describe Event::CourseRecordAbility do
       it 'may update report of event he manages' do
         participation = Fabricate(:event_participation, event: event, person: user)
         Event::Course::Role::LeaderAdmin.create!(participation: participation)
-        should be_able_to(:update, event)
+        is_expected.to be_able_to(:update, event)
       end
 
       it 'may not update report of event he doesn\'t manage' do
@@ -118,7 +118,7 @@ describe Event::CourseRecordAbility do
                   participation: Fabricate(:event_participation,
                                            event: event, person: user))
 
-        should_not be_able_to(:update, event)
+        is_expected.not_to be_able_to(:update, event)
       end
     end
   end

@@ -18,9 +18,9 @@ describe Export::Csv::AboAddresses::List do
     subject { list.attribute_labels }
 
     it 'contains hard-coded attribute labels' do
-      subject[:number].should eq 'Kd.Nr.'
-      subject[:name].should eq 'Vorname und Name'
-      subject[:address_1].should eq 'Adresse 1'
+      expect(subject[:number]).to eq 'Kd.Nr.'
+      expect(subject[:name]).to eq 'Vorname und Name'
+      expect(subject[:address_1]).to eq 'Adresse 1'
     end
   end
 
@@ -28,7 +28,7 @@ describe Export::Csv::AboAddresses::List do
     subject { [].tap { |csv| list.to_csv(csv) } }
 
     it 'has one item per person' do
-      subject.size.should eq 2
+      expect(subject.size).to eq 2
     end
 
     it 'contains the correct values' do
@@ -40,7 +40,7 @@ describe Export::Csv::AboAddresses::List do
                                    town: 'Bern',
                                    country: 'CH',
                                    number: 123)
-      subject.last.should eq [123,
+      expect(subject.last).to eq [123,
                               'Hans Muster',
                               'Firma',
                               'Eigerplatz 4',

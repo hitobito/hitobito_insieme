@@ -20,12 +20,12 @@ describe EventsController, type: :controller do
     context '.csv' do
       it 'renders event csv' do
         get :index, group_id: groups(:dachverein).id, year: 2014, format: :csv
-        response.body.lines.should have(2).items
+        expect(response.body.lines).to have(2).items
       end
 
       it 'renders course csv' do
         get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
-        response.body.lines.should have(2).items
+        expect(response.body.lines).to have(2).items
       end
     end
   end
@@ -35,7 +35,7 @@ describe EventsController, type: :controller do
       it 'should not be visible' do
         event = Fabricate(:event, groups: [group])
         get :show, group_id: group.id, id: event.id
-        dom.should_not have_content 'Kursabschluss'
+        expect(dom).not_to have_content 'Kursabschluss'
       end
     end
 
@@ -45,7 +45,7 @@ describe EventsController, type: :controller do
                           leistungskategorie: 'bk')
 
         get :show, group_id: group.id, id: event.id
-        dom.should have_content 'Kursabschluss'
+        expect(dom).to have_content 'Kursabschluss'
       end
 
       it 'should not be visible to participants' do
@@ -58,7 +58,7 @@ describe EventsController, type: :controller do
         sign_in(role.person)
 
         get :show, group_id: group.id, id: event.id
-        dom.should_not have_content 'Kursabschluss'
+        expect(dom).not_to have_content 'Kursabschluss'
       end
     end
   end

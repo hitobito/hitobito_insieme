@@ -24,15 +24,15 @@ describe PersonAbility do
 
       it 'may show person with contact data' do
         other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium).person
-        should be_able_to(:show, other)
+        is_expected.to be_able_to(:show, other)
       end
 
       it 'may index people in own group' do
-        should be_able_to(:index_people, group)
+        is_expected.to be_able_to(:index_people, group)
       end
 
       it 'may index people in other group' do
-        should be_able_to(:index_people, gremium)
+        is_expected.to be_able_to(:index_people, gremium)
       end
     end
 
@@ -41,11 +41,11 @@ describe PersonAbility do
 
       it 'may not show person with contact data' do
         other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: subgroup).person
-        should_not be_able_to(:show, other)
+        is_expected.not_to be_able_to(:show, other)
       end
 
       it 'may not index people' do
-        should_not be_able_to(:index_people, subgroup)
+        is_expected.not_to be_able_to(:index_people, subgroup)
       end
     end
   end

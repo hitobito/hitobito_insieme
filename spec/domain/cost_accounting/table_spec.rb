@@ -19,7 +19,7 @@ describe CostAccounting::Table do
         CostAccounting::Report::Base::FIELDS.each do |field|
           context "for #{key}-#{field}" do
             it 'without records' do
-              table.value_of(key, field).to_d.should eq(0.0)
+              expect(table.value_of(key, field).to_d).to eq(0.0)
             end
           end
         end

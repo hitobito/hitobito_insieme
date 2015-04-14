@@ -71,9 +71,9 @@ describe GroupsController, type: :controller  do
        sign_in(people(person))
        get :show, id: groups(group).id
        if state == :visible
-         dom.should have_content tab
+         expect(dom).to have_content tab
        else
-         dom.should_not have_content tab
+         expect(dom).not_to have_content tab
        end
     end
   end

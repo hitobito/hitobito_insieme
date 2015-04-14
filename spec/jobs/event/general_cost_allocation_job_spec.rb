@@ -36,7 +36,7 @@ describe Event::GeneralCostAllocationJob do
       @e1 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 5000)
       @e2 = create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 6000,
                                                          kursdauer: 1, teilnehmende_weitere: 10, inputkriterien: 'c')
-      @e2.reload.course_record.zugeteilte_kategorie.should eq('2')
+      expect(@e2.reload.course_record.zugeteilte_kategorie).to eq('2')
 
       @e3 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)
 
@@ -61,33 +61,33 @@ describe Event::GeneralCostAllocationJob do
 
     it 'sets gemeinkosten_updated_at of all considered records' do
       allocation.reload
-      @e1.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
-      @e2.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
-      @e3.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
-      @e4.reload.course_record.gemeinkosten_updated_at.should eq(allocation.updated_at)
+      expect(@e1.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
+      expect(@e2.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
+      expect(@e3.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
+      expect(@e4.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
     end
 
     it 'does not touch not considered records' do
-      @e5.reload.course_record.gemeinkosten_updated_at.should be nil
-      @e6.reload.course_record.gemeinkosten_updated_at.should be nil
+      expect(@e5.reload.course_record.gemeinkosten_updated_at).to be nil
+      expect(@e6.reload.course_record.gemeinkosten_updated_at).to be nil
     end
 
     it 'sets gemeinkostenanteil correct per leistungskategorie' do
-      @e1.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1363.636)
-      @e2.reload.course_record.gemeinkostenanteil.should be_within(0.005).of(1636.363)
-      @e3.reload.course_record.gemeinkostenanteil.should eq(0)
-      @e4.reload.course_record.gemeinkostenanteil.should eq(0)
+      expect(@e1.reload.course_record.gemeinkostenanteil).to be_within(0.005).of(1363.636)
+      expect(@e2.reload.course_record.gemeinkostenanteil).to be_within(0.005).of(1636.363)
+      expect(@e3.reload.course_record.gemeinkostenanteil).to eq(0)
+      expect(@e4.reload.course_record.gemeinkostenanteil).to eq(0)
     end
 
     it 're-calculates category' do
-      @e2.reload.course_record.zugeteilte_kategorie.should eq('3')
+      expect(@e2.reload.course_record.zugeteilte_kategorie).to eq('3')
     end
 
     it 'keeps gemeinkosten sums correct' do
       sums = allocation.considered_course_records.group('events.leistungskategorie').
                                                   sum(:gemeinkostenanteil)
-      sums['bk'].should eq allocation.general_costs_blockkurse
-      sums['sk'].should eq 0
+      expect(sums['bk']).to eq allocation.general_costs_blockkurse
+      expect(sums['sk']).to eq 0
     end
   end
 end

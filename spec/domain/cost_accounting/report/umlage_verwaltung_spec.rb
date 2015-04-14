@@ -29,16 +29,16 @@ describe CostAccounting::Report::UmlageVerwaltung do
         update_column(:raeumlichkeiten, nil)
 
       fields.each do |field|
-        report.send(field.to_sym).should be_nil
+        expect(report.send(field.to_sym)).to be_nil
       end
     end
 
     it 'total equals value of verwaltung' do
-      report.total.should eq 0
+      expect(report.total).to eq 0
     end
 
     it 'kontrolle is zero' do
-      report.kontrolle.should eq 0
+      expect(report.kontrolle).to eq 0
     end
 
   end
@@ -51,26 +51,26 @@ describe CostAccounting::Report::UmlageVerwaltung do
     end
 
     it 'verwaltung is correct' do
-      report.verwaltung.should eq(30)
+      expect(report.verwaltung).to eq(30)
     end
 
     context 'without time record' do
       it 'allocates verwaltung proportionally' do
-        report.beratung.should eq 22.5
-        report.tageskurse.should eq 7.5
+        expect(report.beratung).to eq 22.5
+        expect(report.tageskurse).to eq 7.5
       end
 
       it 'total equals value of verwaltung' do
-        report.total.should eq 30
+        expect(report.total).to eq 30
       end
 
       it 'kontrolle is zero' do
-        report.kontrolle.should eq 0
+        expect(report.kontrolle).to eq 0
       end
 
       it 'leaves other values at 0' do
         (fields - %w(beratung tageskurse)).each do |field|
-          report.send(field.to_sym).should eq 0
+          expect(report.send(field.to_sym)).to eq 0
         end
       end
     end
@@ -80,21 +80,21 @@ describe CostAccounting::Report::UmlageVerwaltung do
       it 'calculates values' do
         create_time_record(verwaltung: 50, beratung: 30, tageskurse: 20)
 
-        report.verwaltung.should eq(60)
-        report.beratung.should eq(36)
-        report.tageskurse.should eq(24)
-        report.total.should eq(60)
-        report.kontrolle.should eq(0)
+        expect(report.verwaltung).to eq(60)
+        expect(report.beratung).to eq(36)
+        expect(report.tageskurse).to eq(24)
+        expect(report.total).to eq(60)
+        expect(report.kontrolle).to eq(0)
 
         (fields - %w(verwaltung beratung tageskurse)).each do |field|
-          report.send(field.to_sym).should eq 0.0
+          expect(report.send(field.to_sym)).to eq 0.0
         end
       end
 
       it 'calculates nil value for empty field of time_record' do
         create_time_record(verwaltung: 50)
-        report.verwaltung.should eq 110
-        report.beratung.should be_nil
+        expect(report.verwaltung).to eq 110
+        expect(report.beratung).to be_nil
       end
     end
   end

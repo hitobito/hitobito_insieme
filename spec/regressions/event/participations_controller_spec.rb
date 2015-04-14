@@ -22,7 +22,7 @@ describe Event::ParticipationsController, type: :controller do
   context 'active memberships' do
     it 'contains heading' do
       get :show, group_id: group.id, event_id: course.id, id: test_entry.id
-      dom.should have_content('Aktivmitgliedschaften')
+      expect(dom).to have_content('Aktivmitgliedschaften')
     end
   end
 end

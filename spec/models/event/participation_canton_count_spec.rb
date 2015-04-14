@@ -49,14 +49,14 @@ describe Event::ParticipationCantonCount do
 
   context '#total' do
     it 'should be 0 without counts' do
-      counts.total.should eq 0
+      expect(counts.total).to eq 0
     end
 
     it 'should sum all canton counts' do
       Cantons::SHORT_NAMES.each do |attr|
         counts[attr] = 1
       end
-      counts.total.should eq 27
+      expect(counts.total).to eq 27
     end
   end
 

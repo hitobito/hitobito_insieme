@@ -36,9 +36,9 @@ describe PeopleController do
                                  manual_number: '1',
                                  reference_person_number: '3' }
 
-          assigns(:person).should be_valid
-          person.reload.number.should eq 2
-          person.reload.reference_person_number.should eq 3
+          expect(assigns(:person)).to be_valid
+          expect(person.reload.number).to eq 2
+          expect(person.reload.reference_person_number).to eq 3
         end
       end
 
@@ -50,10 +50,10 @@ describe PeopleController do
                                  manual_number: '1',
                                  reference_person_number: '3' }
 
-          assigns(:person).should be_valid
-          person.reload.number.should_not eq 2
-          person.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
-          person.reference_person_number.should be_nil
+          expect(assigns(:person)).to be_valid
+          expect(person.reload.number).not_to eq 2
+          expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
+          expect(person.reference_person_number).to be_nil
         end
       end
     end
@@ -64,8 +64,8 @@ describe PeopleController do
                    person: { number: 2,
                              manual_number: 0 }
 
-      assigns(:person).should be_valid
-      person.reload.number.should eq Person::AUTOMATIC_NUMBER_RANGE.first
+      expect(assigns(:person)).to be_valid
+      expect(person.reload.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
     end
 
     context 'dossier' do
@@ -80,8 +80,8 @@ describe PeopleController do
                        id: person.id,
                        person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
 
-          assigns(:person).should be_valid
-          person.reload.dossier.should eq 'http://en.wikipedia.org/wiki/James_Dean'
+          expect(assigns(:person)).to be_valid
+          expect(person.reload.dossier).to eq 'http://en.wikipedia.org/wiki/James_Dean'
         end
       end
 
@@ -91,8 +91,8 @@ describe PeopleController do
                        id: person.id,
                        person: { dossier: 'http://en.wikipedia.org/wiki/James_Dean' }
 
-          assigns(:person).should be_valid
-          person.reload.dossier.should be_nil
+          expect(assigns(:person)).to be_valid
+          expect(person.reload.dossier).to be_nil
         end
       end
 
@@ -103,8 +103,8 @@ describe PeopleController do
         put :update, group_id: group.id,
                      id: person.id,
                      person: { ahv_number: '123456789' }
-        assigns(:person).should be_valid
-        person.reload.ahv_number.should eq '123456789'
+        expect(assigns(:person)).to be_valid
+        expect(person.reload.ahv_number).to eq '123456789'
       end
     end
   end
@@ -117,7 +117,7 @@ describe PeopleController do
     it 'exports salutation, number and correspondence_language' do
       get :index, group_id: group, format: :csv
 
-      @response.body.should =~ /.*Personnr\.;Anrede;Korrespondenzsprache.*/
+      expect(@response.body).to match(/.*Personnr\.;Anrede;Korrespondenzsprache.*/)
     end
   end
 
@@ -130,9 +130,9 @@ describe PeopleController do
       people(:regio_leader).update!(number: 10007)
       get :query, q: '107', format: :json
 
-      @response.body.should =~ /107 Top Leader/
-      @response.body.should =~ /10107 Active Person/
-      @response.body.should_not =~ /Flock Leader/
+      expect(@response.body).to match(/107 Top Leader/)
+      expect(@response.body).to match(/10107 Active Person/)
+      expect(@response.body).not_to match(/Flock Leader/)
     end
   end
 end

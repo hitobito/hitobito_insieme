@@ -22,15 +22,15 @@ describe CostAccountingController, type: :controller  do
     context 'GET index' do
       it 'renders' do
         get :index, id: group.id, year: year
-        should render_template('index')
+        is_expected.to render_template('index')
       end
     end
 
     context 'GET edit' do
       it 'renders' do
         get :edit, id: group.id, year: year, report: report
-        should render_template('edit')
-        assigns(:record).should be_new_record
+        is_expected.to render_template('edit')
+        expect(assigns(:record)).to be_new_record
       end
     end
 
@@ -46,11 +46,11 @@ describe CostAccountingController, type: :controller  do
                            abgrenzung_fibu: nil }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-          r.aufwand_ertrag_fibu.should eq(2000)
-          r.abgrenzung_fibu.should be_nil
+          expect(r.aufwand_ertrag_fibu).to eq(2000)
+          expect(r.abgrenzung_fibu).to be_nil
         end
 
         it 'may only update editable fields' do
@@ -65,13 +65,13 @@ describe CostAccountingController, type: :controller  do
                            verwaltung: 30 }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-          r.aufwand_ertrag_fibu.should eq(2000)
-          r.abgrenzung_dachorganisation.should be_nil
-          r.tageskurse.should be_nil
-          r.verwaltung.should be_nil
+          expect(r.aufwand_ertrag_fibu).to eq(2000)
+          expect(r.abgrenzung_dachorganisation).to be_nil
+          expect(r.tageskurse).to be_nil
+          expect(r.verwaltung).to be_nil
         end
       end
 
@@ -91,14 +91,14 @@ describe CostAccountingController, type: :controller  do
                            verwaltung: 30 }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          should redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-          r.aufwand_ertrag_fibu.should eq(2000)
-          r.abgrenzung_fibu.should eq(50)
-          r.abgrenzung_dachorganisation.should eq(100)
-          r.tageskurse.should be_nil
-          r.verwaltung.should be_nil
+          expect(r.aufwand_ertrag_fibu).to eq(2000)
+          expect(r.abgrenzung_fibu).to eq(50)
+          expect(r.abgrenzung_dachorganisation).to eq(100)
+          expect(r.tageskurse).to be_nil
+          expect(r.verwaltung).to be_nil
         end
       end
 
@@ -118,15 +118,15 @@ describe CostAccountingController, type: :controller  do
     context 'GET index' do
       it 'renders' do
         get :index, id: group.id, year: year
-        should render_template('index')
+        is_expected.to render_template('index')
       end
     end
 
     context 'GET edit' do
       it 'renders' do
         get :edit, id: group.id, year: year, report: report
-        should render_template('edit')
-        assigns(:record).should be_persisted
+        is_expected.to render_template('edit')
+        expect(assigns(:record)).to be_persisted
       end
     end
 
@@ -141,11 +141,11 @@ describe CostAccountingController, type: :controller  do
                          abgrenzung_fibu: nil }
         end.not_to change { CostAccountingRecord.count }
 
-        should redirect_to(cost_accounting_group_path(group, year: year))
+        is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
 
         r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
-        r.aufwand_ertrag_fibu.should eq(2000)
-        r.abgrenzung_fibu.should be_nil
+        expect(r.aufwand_ertrag_fibu).to eq(2000)
+        expect(r.abgrenzung_fibu).to be_nil
       end
     end
   end

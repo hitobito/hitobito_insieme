@@ -58,113 +58,113 @@ describe Event::CourseRecord do
 
   context 'validation' do
     it 'is fine with empty fields' do
-      new_record(event_bk).should be_valid
+      expect(new_record(event_bk)).to be_valid
     end
 
     it 'fails for inputkriterien other than a, b or c' do
-      new_record(event_bk, inputkriterien: 'a').should be_valid
-      new_record(event_bk, inputkriterien: 'b').should be_valid
-      new_record(event_bk, inputkriterien: 'c').should be_valid
-      new_record(event_bk, inputkriterien: 'd').should_not be_valid
+      expect(new_record(event_bk, inputkriterien: 'a')).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'b')).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'c')).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'd')).not_to be_valid
     end
 
     it 'all inputkriterien are valid for subventioniert or not' do
-      new_record(event_bk, inputkriterien: 'a', subventioniert: true).should be_valid
-      new_record(event_bk, inputkriterien: 'b', subventioniert: true).should be_valid
-      new_record(event_bk, inputkriterien: 'a', subventioniert: false).should be_valid
-      new_record(event_bk, inputkriterien: 'b', subventioniert: false).should be_valid
+      expect(new_record(event_bk, inputkriterien: 'a', subventioniert: true)).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'b', subventioniert: true)).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'a', subventioniert: false)).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'b', subventioniert: false)).to be_valid
     end
 
     it 'sets inputkriterien to a for semester-/jahreskurs' do
-      new_record(event_sk, inputkriterien: 'b').inputkriterien.should eq 'a'
+      expect(new_record(event_sk, inputkriterien: 'b').inputkriterien).to eq 'a'
     end
 
     it 'fails for kursart other than weiterbildung or freizeit_und_sport' do
-      new_record(event_bk, kursart: 'weiterbildung').should be_valid
-      new_record(event_bk, kursart: 'freizeit_und_sport').should be_valid
-      new_record(event_bk, kursart: 'freizeit_und_sport').should be_valid
-      new_record(event_bk, kursart: 'foo').should_not be_valid
+      expect(new_record(event_bk, kursart: 'weiterbildung')).to be_valid
+      expect(new_record(event_bk, kursart: 'freizeit_und_sport')).to be_valid
+      expect(new_record(event_bk, kursart: 'freizeit_und_sport')).to be_valid
+      expect(new_record(event_bk, kursart: 'foo')).not_to be_valid
     end
 
     it 'is fine for decimal time values that are a multiple of 0.5 for bk/tk courses' do
-      new_record(event_bk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5).should be_valid
+      expect(new_record(event_bk, kursdauer: 1.5, absenzen_behinderte: 1.5,
+                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to be_valid
 
-      new_record(event_tk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5).should be_valid
+      expect(new_record(event_tk, kursdauer: 1.5, absenzen_behinderte: 1.5,
+                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to be_valid
     end
 
     it 'fails for decimal time values that are not a multiple of 0.5 for bk/tk courses' do
-      new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
-                 absenzen_weitere: 1.25).should have(4).errors
+      expect(new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
+                 absenzen_weitere: 1.25)).to have(4).errors
 
-      new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
-                 absenzen_weitere: 1.25).should have(4).errors
+      expect(new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
+                 absenzen_weitere: 1.25)).to have(4).errors
     end
 
     it 'only accepts integer time values for sk course' do
-      new_record(event_sk, kursdauer: 1, absenzen_behinderte: 1.0,
-                 absenzen_angehoerige: 2, absenzen_weitere: 0.0).should be_valid
+      expect(new_record(event_sk, kursdauer: 1, absenzen_behinderte: 1.0,
+                 absenzen_angehoerige: 2, absenzen_weitere: 0.0)).to be_valid
 
-      new_record(event_sk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5).should have(4).errors
+      expect(new_record(event_sk, kursdauer: 1.5, absenzen_behinderte: 1.5,
+                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to have(4).errors
     end
   end
 
   context 'default values' do
     it 'subventioniert defaults to true' do
-      new_record(event_bk).should be_subventioniert
+      expect(new_record(event_bk)).to be_subventioniert
     end
 
     it 'inputkriterien defaults to a' do
-      new_record(event_bk).inputkriterien.should eq('a')
+      expect(new_record(event_bk).inputkriterien).to eq('a')
     end
 
     it 'kursart defaults to weiterbildung' do
-      new_record(event_bk).kursart.should eq('weiterbildung')
+      expect(new_record(event_bk).kursart).to eq('weiterbildung')
     end
 
     it 'year defaults to first event date year' do
-      new_record(event_bk).year.should eq event_bk.years.first
+      expect(new_record(event_bk).year).to eq event_bk.years.first
     end
   end
 
 
   context 'spezielle_unterkunft' do
     it 'can be overriden for bk and tk course' do
-      new_record(event_bk).should_not be_spezielle_unterkunft
-      new_record(event_bk, spezielle_unterkunft: true).should be_spezielle_unterkunft
+      expect(new_record(event_bk)).not_to be_spezielle_unterkunft
+      expect(new_record(event_bk, spezielle_unterkunft: true)).to be_spezielle_unterkunft
 
-      new_record(event_tk).should_not be_spezielle_unterkunft
-      new_record(event_tk, spezielle_unterkunft: true).should be_spezielle_unterkunft
+      expect(new_record(event_tk)).not_to be_spezielle_unterkunft
+      expect(new_record(event_tk, spezielle_unterkunft: true)).to be_spezielle_unterkunft
     end
 
     it 'is always false for sk course' do
-      new_record(event_sk).should_not be_spezielle_unterkunft
-      new_record(event_sk, spezielle_unterkunft: true).should_not be_spezielle_unterkunft
+      expect(new_record(event_sk)).not_to be_spezielle_unterkunft
+      expect(new_record(event_sk, spezielle_unterkunft: true)).not_to be_spezielle_unterkunft
     end
   end
 
   context 'leistungskategorie helpers' do
     it 'should reflect bk course' do
       r = Event::CourseRecord.new(event: event_bk)
-      r.bk?.should be_true
-      r.tk?.should be_false
-      r.sk?.should be_false
+      expect(r.bk?).to be_truthy
+      expect(r.tk?).to be_falsey
+      expect(r.sk?).to be_falsey
     end
 
     it 'should reflect tk course' do
       r = Event::CourseRecord.new(event: event_tk)
-      r.bk?.should be_false
-      r.tk?.should be_true
-      r.sk?.should be_false
+      expect(r.bk?).to be_falsey
+      expect(r.tk?).to be_truthy
+      expect(r.sk?).to be_falsey
     end
 
     it 'should reflect sk course' do
       r = Event::CourseRecord.new(event: event_sk)
-      r.bk?.should be_false
-      r.tk?.should be_false
-      r.sk?.should be_true
+      expect(r.bk?).to be_falsey
+      expect(r.tk?).to be_falsey
+      expect(r.sk?).to be_truthy
     end
   end
 
@@ -189,55 +189,55 @@ describe Event::CourseRecord do
 
     context '#praesenz_prozent' do
       it 'is correct' do
-        subject.praesenz_prozent.should eq(94)
+        expect(subject.praesenz_prozent).to eq(94)
       end
     end
 
     context '#tage_behinderte' do
       it 'is correct' do
-        subject.tage_behinderte.should eq(23)
+        expect(subject.tage_behinderte).to eq(23)
       end
     end
 
     context '#tage_angehoerige' do
       it 'is correct' do
-        subject.tage_angehoerige.should eq(20)
+        expect(subject.tage_angehoerige).to eq(20)
       end
     end
 
     context '#tage_weitere' do
       it 'is correct' do
-        subject.tage_weitere.should eq(4)
+        expect(subject.tage_weitere).to eq(4)
       end
     end
 
     context '#total_tage_teilnehmende' do
       it 'is correct' do
-        subject.total_tage_teilnehmende.should eq(47)
+        expect(subject.total_tage_teilnehmende).to eq(47)
       end
     end
 
     context '#betreuungsschluessel' do
       it 'is correct' do
-        subject.betreuungsschluessel.should eq(5.to_d/6.to_d)
+        expect(subject.betreuungsschluessel).to eq(5.to_d/6.to_d)
       end
     end
 
     context '#direkter_aufwand' do
       it 'is correct' do
-        subject.direkter_aufwand.should eq(250.to_d)
+        expect(subject.direkter_aufwand).to eq(250.to_d)
       end
     end
 
     context '#total_vollkosten' do
       it 'is correct' do
-        subject.total_vollkosten.should eq(300.to_d)
+        expect(subject.total_vollkosten).to eq(300.to_d)
       end
     end
 
     context '#vollkosten_pro_le' do
       it 'is correct' do
-        subject.vollkosten_pro_le.should be_within(0.001).of(6.383.to_d)
+        expect(subject.vollkosten_pro_le).to be_within(0.001).of(6.383.to_d)
       end
     end
   end
@@ -251,55 +251,55 @@ describe Event::CourseRecord do
 
     context '#praesenz_prozent' do
       it 'is correct' do
-        subject.praesenz_prozent.should eq(100)
+        expect(subject.praesenz_prozent).to eq(100)
       end
     end
 
     context '#tage_behinderte' do
       it 'is correct' do
-        subject.tage_behinderte.should eq(0)
+        expect(subject.tage_behinderte).to eq(0)
       end
     end
 
     context '#tage_angehoerige' do
       it 'is correct' do
-        subject.tage_angehoerige.should eq(0)
+        expect(subject.tage_angehoerige).to eq(0)
       end
     end
 
     context '#tage_weitere' do
       it 'is correct' do
-        subject.tage_weitere.should eq(0)
+        expect(subject.tage_weitere).to eq(0)
       end
     end
 
     context '#total_tage_teilnehmende' do
       it 'is correct' do
-        subject.total_tage_teilnehmende.should eq(0)
+        expect(subject.total_tage_teilnehmende).to eq(0)
       end
     end
 
     context '#betreuungsschluessel' do
       it 'is correct' do
-        subject.betreuungsschluessel.should eq(0.to_d)
+        expect(subject.betreuungsschluessel).to eq(0.to_d)
       end
     end
 
     context '#direkter_aufwand' do
       it 'is correct' do
-        subject.direkter_aufwand.should eq(0.to_d)
+        expect(subject.direkter_aufwand).to eq(0.to_d)
       end
     end
 
     context '#total_vollkosten' do
       it 'is correct' do
-        subject.total_vollkosten.should eq(0.to_d)
+        expect(subject.total_vollkosten).to eq(0.to_d)
       end
     end
 
     context '#vollkosten_pro_le' do
       it 'is correct' do
-        subject.vollkosten_pro_le.should eq(0.to_d)
+        expect(subject.vollkosten_pro_le).to eq(0.to_d)
       end
     end
 
@@ -311,27 +311,27 @@ describe Event::CourseRecord do
     end
 
     it 'should default sums to 0' do
-      record.teilnehmende_behinderte.should be_nil
-      record.teilnehmende_angehoerige.should be_nil
-      record.teilnehmende_weitere.should be_nil
+      expect(record.teilnehmende_behinderte).to be_nil
+      expect(record.teilnehmende_angehoerige).to be_nil
+      expect(record.teilnehmende_weitere).to be_nil
     end
 
     it 'should be accessible through the associations' do
-      record.challenged_canton_count.should be_nil
-      record.affiliated_canton_count.should be_nil
+      expect(record.challenged_canton_count).to be_nil
+      expect(record.affiliated_canton_count).to be_nil
 
       record.build_challenged_canton_count
       record.build_affiliated_canton_count
 
-      record.challenged_canton_count.should_not be_nil
-      record.affiliated_canton_count.should_not be_nil
+      expect(record.challenged_canton_count).not_to be_nil
+      expect(record.affiliated_canton_count).not_to be_nil
     end
 
     context '#sum_canton_counts' do
       it 'should not fail if association is not present' do
         record.sum_canton_counts
-        record.teilnehmende_behinderte.should be_nil
-        record.teilnehmende_angehoerige.should be_nil
+        expect(record.teilnehmende_behinderte).to be_nil
+        expect(record.teilnehmende_angehoerige).to be_nil
       end
 
       it 'should set total' do
@@ -345,8 +345,8 @@ describe Event::CourseRecord do
 
         record.sum_canton_counts
 
-        record.teilnehmende_behinderte.should eq 5
-        record.teilnehmende_angehoerige.should eq 3
+        expect(record.teilnehmende_behinderte).to eq 5
+        expect(record.teilnehmende_angehoerige).to eq 3
       end
     end
   end

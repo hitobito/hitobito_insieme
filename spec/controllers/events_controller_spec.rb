@@ -18,9 +18,9 @@ describe EventsController do
     it 'sets defaults for course record' do
       get :new, group_id: group.id, event: { type: 'Event::Course' }
 
-      assigns(:event).course_record.kursart.should eq 'weiterbildung'
-      assigns(:event).course_record.inputkriterien.should eq 'a'
-      assigns(:event).course_record.should be_subventioniert
+      expect(assigns(:event).course_record.kursart).to eq 'weiterbildung'
+      expect(assigns(:event).course_record.inputkriterien).to eq 'a'
+      expect(assigns(:event).course_record).to be_subventioniert
     end
   end
 
@@ -35,17 +35,17 @@ describe EventsController do
 
     it 'creates new course with leistungskategorie' do
       expect { create('bk') }.to change { Event::Course.count }.by(1)
-      assigns(:event).leistungskategorie.should eq 'bk'
+      expect(assigns(:event).leistungskategorie).to eq 'bk'
     end
 
     it 'validates leistungskategorie presence' do
       expect { create }.not_to change { Event::Course.count }
-      assigns(:event).should have(1).error_on(:leistungskategorie)
+      expect(assigns(:event)).to have(1).error_on(:leistungskategorie)
     end
 
     it 'validates leistungskategorie value' do
       expect { create('test') }.not_to change { Event::Course.count }
-      assigns(:event).should have(1).error_on(:leistungskategorie)
+      expect(assigns(:event)).to have(1).error_on(:leistungskategorie)
     end
 
     context 'nested course_record fields' do
@@ -55,7 +55,7 @@ describe EventsController do
 
       it 'validates course record attributes' do
         expect { create('bk', { kursart: 'foo' }) }.not_to change { Event::CourseRecord.count }
-        assigns(:event).errors.keys.should eq [:"course_record.kursart"] # how to do this with error_on?
+        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart"] # how to do this with error_on?
       end
     end
 
@@ -67,7 +67,7 @@ describe EventsController do
 
       it 'assigns course record attributes' do
         expect { create('bk', { anzahl_kurse: 12 }) }.to change { Event::CourseRecord.count }
-        assigns(:event).course_record.anzahl_kurse.should eq 12
+        expect(assigns(:event).course_record.anzahl_kurse).to eq 12
       end
     end
 
@@ -84,7 +84,7 @@ describe EventsController do
       put :update, group_id: groups(:be).id, id: event.id,
         event: { leistungskategorie: 'sk' }
 
-      event.leistungskategorie.should eq 'bk'
+      expect(event.leistungskategorie).to eq 'bk'
     end
 
     context 'nested course_record fields' do
@@ -92,19 +92,19 @@ describe EventsController do
 
       it 'updates course record attribute' do
         update(inputkriterien: 'b')
-        assigns(:event).course_record.inputkriterien.should eq 'b'
+        expect(assigns(:event).course_record.inputkriterien).to eq 'b'
       end
 
       it 'validates course record attributes' do
         update(kursart: 'foo')
-        assigns(:event).errors.keys.should eq [:"course_record.kursart"]
+        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart"]
       end
 
       it 'only updates, does not change missing fields' do
         event.course_record.update_attribute(:kursdauer, 1)
         update(id: event.course_record.id, inputkriterien: 'b')
 
-        event.reload.course_record.kursdauer.should eq 1
+        expect(event.reload.course_record.kursdauer).to eq 1
       end
 
       it 'raises not_found when trying to update different course_record' do

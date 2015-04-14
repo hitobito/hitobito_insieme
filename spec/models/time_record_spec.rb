@@ -53,11 +53,11 @@ describe TimeRecord do
 
   context '#total' do
     it 'is 0 for new record' do
-      TimeRecord.new.total.should eq(0)
+      expect(TimeRecord.new.total).to eq(0)
     end
 
     it 'is the sum of the values set' do
-      TimeRecord.new(blockkurse: 3, mittelbeschaffung: 2, newsletter: 1).total.should eq(6)
+      expect(TimeRecord.new(blockkurse: 3, mittelbeschaffung: 2, newsletter: 1).total).to eq(6)
     end
   end
 

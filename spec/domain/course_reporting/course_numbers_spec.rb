@@ -16,13 +16,13 @@ describe CourseReporting::CourseNumbers do
 
   context 'duration days' do
     it 'is correct for half days' do
-      subject.duration_days.should eq(8.5)
+      expect(subject.duration_days).to eq(8.5)
     end
   end
 
   context 'duration hours' do
     it 'is correct for whole days' do
-      subject.duration_hours.should eq(7*24)
+      expect(subject.duration_hours).to eq(7*24)
     end
   end
 
@@ -30,19 +30,19 @@ describe CourseReporting::CourseNumbers do
 
     context '#challenged_count' do
       it 'is correct' do
-        subject.challenged_count.should eq(1)
+        expect(subject.challenged_count).to eq(1)
       end
     end
 
     context '#affiliated_count' do
       it 'is correct' do
-        subject.affiliated_count.should eq(0)
+        expect(subject.affiliated_count).to eq(0)
       end
 
       it 'is correct with duplicate roles' do
         Fabricate(Event::Course::Role::Affiliated.name.to_sym,
                   participation: event_participations(:top_participant))
-        subject.affiliated_count.should eq(0)
+        expect(subject.affiliated_count).to eq(0)
       end
     end
 
@@ -53,19 +53,19 @@ describe CourseReporting::CourseNumbers do
       end
 
       it 'is correct' do
-        subject.participant_count.should eq(2)
+        expect(subject.participant_count).to eq(2)
       end
 
       it 'is correct with duplicate roles' do
         Fabricate(Event::Course::Role::Affiliated.name.to_sym,
                   participation: event_participations(:top_participant))
-        subject.participant_count.should eq(2)
+        expect(subject.participant_count).to eq(2)
       end
     end
 
     context '#leader_count' do
       it 'is correct' do
-        subject.leader_count.should eq(1)
+        expect(subject.leader_count).to eq(1)
       end
     end
 
@@ -76,31 +76,31 @@ describe CourseReporting::CourseNumbers do
       end
 
       it 'is correct' do
-        subject.expert_count.should eq(1)
+        expect(subject.expert_count).to eq(1)
       end
 
       it 'is correct with duplicate lower roles' do
         Fabricate(Event::Course::Role::Expert.name.to_sym,
                   participation: event_participations(:top_participant))
-        subject.expert_count.should eq(2)
+        expect(subject.expert_count).to eq(2)
       end
 
       it 'is correct with duplicate higher roles' do
         Fabricate(Event::Course::Role::Expert.name.to_sym,
                   participation: event_participations(:top_leader))
-        subject.expert_count.should eq(1)
+        expect(subject.expert_count).to eq(1)
       end
     end
 
     context '#team_count' do
       it 'is correct' do
-        subject.team_count.should eq(1)
+        expect(subject.team_count).to eq(1)
       end
     end
 
     context '#invoice_amount_sum' do
       it 'is 0 for no participations' do
-        subject.invoice_amount_sum.should eq(0)
+        expect(subject.invoice_amount_sum).to eq(0)
       end
 
       it 'is sums all invoice_amounts' do
@@ -110,7 +110,7 @@ describe CourseReporting::CourseNumbers do
            event.participations.build(attrs)
          end
 
-         subject.invoice_amount_sum.should eq(3.to_d)
+         expect(subject.invoice_amount_sum).to eq(3.to_d)
       end
     end
 
@@ -140,7 +140,7 @@ describe CourseReporting::CourseNumbers do
             create_participant(role, '')
             create_participant(other_role, 'be')
 
-            subject.send(assoc).should eq('undefined' => 2,
+            expect(subject.send(assoc)).to eq('undefined' => 2,
                                           'be' => 2,
                                           'zh' => 1)
           end
@@ -160,12 +160,12 @@ describe CourseReporting::CourseNumbers do
 
     context '#challenged_multiple_count' do
       it 'is correct' do
-        subject.challenged_multiple_count.should eq(1)
+        expect(subject.challenged_multiple_count).to eq(1)
       end
 
       it 'only counts active participations' do
         participation.update_column(:active, false)
-        subject.challenged_multiple_count.should eq(0)
+        expect(subject.challenged_multiple_count).to eq(0)
       end
     end
   end
