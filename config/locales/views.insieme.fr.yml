@@ -54,7 +54,7 @@ fr:
         auswertungen: Evaluations
         updated_at: "Actualisé le  %{date}"
         info_not_subsidized: "Pas subventionné: les cours ne sont pas pris en compte dans la statistique de cours"
-        missing_cost_accounting_parameters: Aucun paramètre de comptabilité analytique n'est défini pour l'année correspondante. Veuillez vous adressez à l'organisations faîtière
+        missing_reporting_parameters: Aucun paramètre de rapport n'est défini pour l'année correspondante. Veuillez vous adressez à l'organisations faîtière
       canton_fields:
         change: Adapter
     general_cost_allocations:
@@ -104,7 +104,7 @@ fr:
       export: Exporter CSV
   shared:
     admin_nav_kinds_insieme:
-      cost_accounting_parameters: Paramètres
+      reporting_parameters: Paramètres
   time_records:
     edit:
       comment: Enregistrer uniquement les heures effectivement fournies qui concernent l'art. 74. Toutes les données en heures

@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-class CostAccountingParametersController < SimpleCrudController
+class ReportingParametersController < SimpleCrudController
 
   self.permitted_attrs = [:id,
                           :year,

@@ -274,9 +274,9 @@ de:
         one: Umlage Gemeinkosten
         other: Umlage Gemeinkosten
 
-      cost_accounting_parameter:
-        one: Kostenrechnung Parameter
-        other: Kostenrechnung Parameter
+      reporting_parameter:
+        one: Reportingparameter
+        other: Reportingparameter
         menu: Parameter
 
     attributes:
@@ -333,7 +333,7 @@ de:
         kontrolle: Kontrolle
         aufteilung_kontengruppen: Notizen
 
-      cost_accounting_parameter:
+      reporting_parameter:
         year: Jahr
         vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE
         vollkosten_le_schwelle2_blockkurs: Blockkurs Schwellenwert 2 Vollkosten/LE

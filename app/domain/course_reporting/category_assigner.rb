@@ -74,7 +74,7 @@ module CourseReporting
     end
 
     def globals
-      @globals ||= CostAccountingParameter.for(record.year)
+      @globals ||= ReportingParameter.for(record.year)
     end
   end
 end

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cost_accounting_parameters
+    resources :reporting_parameters
   end
 
 end
