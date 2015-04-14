@@ -55,7 +55,7 @@ module Export::Csv::AboAddresses
       private
 
       def address_line(line)
-        line = entry.address.to_s.split($/)[line]
+        line = entry.address.to_s.split($INPUT_RECORD_SEPARATOR)[line]
         line ? line.strip : nil
       end
     end

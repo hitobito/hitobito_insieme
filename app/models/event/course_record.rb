@@ -156,6 +156,7 @@ class Event::CourseRecord < ActiveRecord::Base
       end
   end
 
+  # rubocop:disable MethodLength
   def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
@@ -171,6 +172,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
     true # ensure callback chain continues
   end
+  # rubocop:enable MethodLength
 
   def compute_category
     assigner = CourseReporting::CategoryAssigner.new(self)
