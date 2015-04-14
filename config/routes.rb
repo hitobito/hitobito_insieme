@@ -31,10 +31,9 @@ Rails.application.routes.draw do
 
       end
 
-      resources :events do
+      resources :events, only: [] do # do not redefine events actions, only add new ones
         collection do
-          get 'simple' => 'events#index'
-          get 'course' => 'events#index', type: 'Event::Course'
+          get 'aggregate_course' => 'events#index', type: 'Event::AggregateCourse'
 
           scope 'general_cost_allocation' do
             get ':year/edit' => 'event/general_cost_allocations#edit',

@@ -12,6 +12,7 @@ module Insieme::VariousAbility
     on(Event::Kind) do
       permission(:admin).may(:manage).none
     end
+
     on(CostAccountingParameter) do
       permission(:admin).may(:manage).all
     end

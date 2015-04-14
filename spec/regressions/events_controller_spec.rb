@@ -34,7 +34,6 @@ describe EventsController, type: :controller do
     context 'simple event' do
       it 'should not be visible' do
         event = Fabricate(:event, groups: [group])
-
         get :show, group_id: group.id, id: event.id
         dom.should_not have_content 'Kursabschluss'
       end

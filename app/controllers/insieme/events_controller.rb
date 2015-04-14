@@ -12,14 +12,15 @@ module Insieme
     included do
       before_render_new :build_course_record
 
-      self.permitted_attrs += [course_record_attributes: [:id, :subventioniert, :inputkriterien,
-                                                          :spezielle_unterkunft, :kursart]]
+      self.permitted_attrs += [
+        course_record_attributes: [:id, :anzahl_kurse, :subventioniert, :inputkriterien,
+                                   :spezielle_unterkunft, :kursart]]
     end
 
     private
 
     def build_course_record
-      if entry.is_a?(Event::Course)
+      if entry.reportable?
         entry.build_course_record
         entry.course_record.set_defaults
       end

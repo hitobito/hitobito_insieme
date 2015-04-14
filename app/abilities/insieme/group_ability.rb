@@ -29,8 +29,18 @@ module Insieme::GroupAbility
         any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
 
       permission(:any).
-        may(:index_events).
+        may(:index_events, :'index_event/courses').
         any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
+
+      permission(:any).may(:'index_event/aggregate_courses').in_same_group
+      permission(:group_full).may(:'export_event/aggregate_courses').in_same_group
+      permission(:layer_read).
+        may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
+        in_same_layer
+      permission(:layer_and_below_read).
+        may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
+        in_same_layer_or_below
+
 
       permission(:any).
         may(:index_mailing_lists).

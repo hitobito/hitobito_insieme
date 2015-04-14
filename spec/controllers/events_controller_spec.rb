@@ -59,6 +59,18 @@ describe EventsController do
       end
     end
 
+    context 'for aggregate course' do
+      let(:course_attrs) { { group_ids: [group.id],
+                             name: 'foo',
+                             dates_attributes: [date],
+                             type: 'Event::AggregateCourse' } }
+
+      it 'assigns course record attributes' do
+        expect { create('bk', { anzahl_kurse: 12 }) }.to change { Event::CourseRecord.count }
+        assigns(:event).course_record.anzahl_kurse.should eq 12
+      end
+    end
+
     def create(leistungskategorie = nil, course_record_attributes = {})
       post :create, group_id: group.id, event: course_attrs.merge(leistungskategorie: leistungskategorie,
                                                                   course_record_attributes: course_record_attributes)

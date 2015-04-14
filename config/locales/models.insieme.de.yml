@@ -258,6 +258,11 @@ de:
         one: Nicht Bezugsberechtigt
 
 
+      event/aggregate_course:
+        one: Sammelkurs
+        other: Sammelkurse
+
+
       cost_accounting_record:
         one: Kostenrechnungsreport
         other: Kostenrechnungsreporte
@@ -267,8 +272,8 @@ de:
         other: Zeiterfassungen
 
       event/course_record:
-        one: Einzelkursreport
-        other: Einzelkursreporte
+        one: Kursreport
+        other: Kursreporte
 
       event/general_cost_allocation:
         one: Umlage Gemeinkosten
@@ -384,6 +389,7 @@ de:
         vollkosten_pro_le: Vollkosten pro LE
         zugeteilte_kategorie: Zugeteilte Kategorie
         year: Reporting im Jahr
+        anzahl_kurse: Anzahl Kurse
 
         kursarten:
           weiterbildung: Weiterbildung

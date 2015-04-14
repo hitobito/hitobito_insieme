@@ -3,8 +3,13 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-= f.fields_for(:event, f.object.event) do |ef|
-  = ef.labeled_readonly_value(:leistungskategorie)
+- if entry.event.leistungskategorie.present?
+  = f.fields_for(:event, f.object.event) do |ef|
+    = ef.labeled_readonly_value(:leistungskategorie)
+
+
+- if entry.event.is_a?(Event::AggregateCourse)
+  = f.labeled_input_field :anzahl_kurse
 
 = f.labeled_input_field :subventioniert
 

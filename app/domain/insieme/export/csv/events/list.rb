@@ -15,7 +15,7 @@ module Insieme::Export::Csv::Events
 
     def build_attribute_labels_with_insieme
       build_attribute_labels_without_insieme.tap do |labels|
-        if model_class <= Event::Course
+        if model_class <= Event::Reportable
           add_insieme_course_labels(labels)
           add_course_record_labels(labels)
         end
@@ -29,7 +29,7 @@ module Insieme::Export::Csv::Events
     end
 
     def add_course_record_labels(labels)
-      [:subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft].each do |attr|
+      [:subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft, :anzahl_kurse].each do |attr|
         labels[attr] = ::Event::CourseRecord.human_attribute_name(attr)
       end
     end

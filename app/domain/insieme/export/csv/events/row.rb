@@ -10,27 +10,20 @@ module Insieme::Export::Csv::Events
 
     extend ActiveSupport::Concern
 
+    included do
+      delegate :subventioniert, :inputkriterien, :spezielle_unterkunft, :anzahl_kurse,
+               to: :course_record, allow_nil: true
+    end
+
     def leistungskategorie
       entry.leistungskategorie && I18n.t('activerecord.attributes.event/course.' \
                                          "leistungskategorien.#{entry.leistungskategorie}")
     end
 
-    def subventioniert
-      entry.course_record && entry.course_record.subventioniert
-    end
-
-    def inputkriterien
-      entry.course_record && entry.course_record.inputkriterien
-    end
-
     def kursart
-      entry.course_record && entry.course_record.kursart &&
+      course_record && course_record.kursart &&
         I18n.t('activerecord.attributes.event/course_record.' \
                "kursarten.#{entry.course_record.kursart}")
-    end
-
-    def spezielle_unterkunft
-      entry.course_record && entry.course_record.spezielle_unterkunft
     end
 
     private

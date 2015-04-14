@@ -32,6 +32,7 @@ class Event::CourseRecordsController < CrudController
                           :unterkunft,
                           :uebriges,
                           :beitraege_teilnehmende,
+                          :anzahl_kurse,
                           :year,
                           challenged_canton_count_attributes: Cantons::SHORT_NAMES,
                           affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
@@ -53,7 +54,7 @@ class Event::CourseRecordsController < CrudController
   end
 
   def find_entry
-    not_found unless parent.is_a?(Event::Course)
+    not_found unless parent.reportable?
     parent.course_record || parent.build_course_record
   end
 

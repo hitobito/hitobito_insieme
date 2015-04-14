@@ -26,19 +26,55 @@ describe GroupsController, type: :controller  do
        [:top_leader, :be, :visible],
        [:regio_leader, :dachverein, :not_visible],
        [:regio_leader, :fr, :not_visible],
-       [:regio_leader, :be, :visible]].each do |person, group, state|
+       [:regio_leader, :be, :visible],
+       [:regio_aktiv, :be, :not_visible]].each do |person, group, state|
 
          it "is #{state} to #{person} on #{group}" do
-           sign_in(people(person))
-           get :show, id: groups(group).id
-           if state == :visible
-             dom.should have_content 'Reporting'
-           else
-             dom.should_not have_content 'Reporting'
-           end
+           assert_tab_visibility(person, group, 'Reporting', state)
          end
        end
     end
 
+    context 'course tab' do
+      [[:top_leader, :dachverein, :visible],
+       [:top_leader, :be, :visible],
+       [:regio_leader, :dachverein, :visible],
+       [:regio_leader, :fr, :visible],
+       [:regio_leader, :be, :visible],
+       [:regio_aktiv, :dachverein, :visible],
+       [:regio_aktiv, :be, :visible],
+       [:regio_aktiv, :fr, :visible]].each do |person, group, state|
+
+         it "is #{state} to #{person} on #{group}" do
+           assert_tab_visibility(person, group, 'Kurse', state)
+         end
+       end
+    end
+
+    context 'aggregate course tab' do
+      [[:top_leader, :dachverein, :visible],
+       [:top_leader, :be, :visible],
+       [:regio_leader, :dachverein, :not_visible],
+       [:regio_leader, :fr, :not_visible],
+       [:regio_leader, :be, :visible],
+       [:regio_aktiv, :dachverein, :not_visible],
+       [:regio_aktiv, :be, :not_visible],
+       [:regio_aktiv, :fr, :not_visible]].each do |person, group, state|
+
+         it "is #{state} to #{person} on #{group}" do
+           assert_tab_visibility(person, group, 'Sammelkurse', state)
+         end
+       end
+    end
+
+    def assert_tab_visibility(person, group, tab, state)
+       sign_in(people(person))
+       get :show, id: groups(group).id
+       if state == :visible
+         dom.should have_content tab
+       else
+         dom.should_not have_content tab
+       end
+    end
   end
 end

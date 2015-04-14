@@ -27,6 +27,7 @@ module HitobitoInsieme
       Group.send         :include, Insieme::Group
       Person.send        :include, Insieme::Person
       Person.send        :include, Insieme::PersonNumber
+      Event.send         :include, Insieme::Event
       Event::Course.send :include, Insieme::Event::Course
       Event::Participation.send :include, Insieme::Event::Participation
       Event::Role::Permissions << :reporting

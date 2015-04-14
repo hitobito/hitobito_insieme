@@ -11,7 +11,7 @@ top_leader:
   primary_group: dachverein
 
 regio_leader:
-  first_name: Flock
+  first_name: Regio
   last_name: Leader
   email: regio.leader@insieme.example.com
   contact_data_visible: true

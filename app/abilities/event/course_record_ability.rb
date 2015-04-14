@@ -15,11 +15,11 @@ class Event::CourseRecordAbility < AbilityDsl::Base
     permission(:layer_full).may(:update).in_same_layer
     permission(:layer_and_below_full).may(:update).in_same_layer_or_below
 
-    general(:update).for_course_event
+    general(:update).for_reportable_event
   end
 
-  def for_course_event
-    event.is_a?(Event::Course)
+  def for_reportable_event
+    event.reportable?
   end
 
   def for_reporting_or_controlling_events

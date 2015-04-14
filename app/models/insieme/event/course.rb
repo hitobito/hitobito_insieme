@@ -10,6 +10,8 @@ module Insieme
     module Course
       extend ActiveSupport::Concern
 
+      include ::Event::Reportable
+
       included do
         self.role_types = [::Event::Course::Role::LeaderAdmin,
                            ::Event::Course::Role::LeaderReporting,
@@ -23,34 +25,6 @@ module Insieme
                            ::Event::Course::Role::NotEntitledForBenefit]
 
         self.used_attributes -= [:kind_id, :group_ids]
-        self.used_attributes += [:leistungskategorie]
-
-        has_one :course_record, foreign_key: :event_id, dependent: :destroy, inverse_of: :event
-        accepts_nested_attributes_for :course_record
-
-        attr_readonly :leistungskategorie
-
-        LEISTUNGSKATEGORIEN = %w(bk tk sk)
-        validates :leistungskategorie, inclusion: LEISTUNGSKATEGORIEN
-
-
-        def self.available_leistungskategorien
-          LEISTUNGSKATEGORIEN.map do |period|
-            [period, I18n.t("activerecord.attributes.event/course.leistungskategorien.#{period}")]
-          end
-        end
-      end
-
-      ### INSTANCE METHODS
-
-      def years
-        dates.
-          map { |date| [date.start_at, date.finish_at] }.
-          flatten.
-          compact.
-          map(&:year).
-          uniq.
-          sort
       end
 
     end

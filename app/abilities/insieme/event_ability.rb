@@ -18,10 +18,15 @@ module Insieme::EventAbility
   end
 
   def participating_or_in_regionalverein_or_any_role_in_same_layer
-    user_context.participations.collect(&:event_id).include?(event.id) ||
-    event.groups.any? { |g| g.is_a?(Group::Regionalverein) } ||
-    contains_any?(user_context.layer_ids(user_context.user.groups),
-                  event.groups.collect(&:layer_group_id))
+    if event.is_a?(Event::AggregateCourse)
+      contains_any?(user_context.user.groups.collect(&:id),
+                    event.groups.collect(&:id))
+    else
+      user_context.participations.collect(&:event_id).include?(event.id) ||
+      event.groups.any? { |g| g.is_a?(Group::Regionalverein) } ||
+      contains_any?(user_context.layer_ids(user_context.user.groups),
+                    event.groups.collect(&:layer_group_id))
+    end
   end
 
 end

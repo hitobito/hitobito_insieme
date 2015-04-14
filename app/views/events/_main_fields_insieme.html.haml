@@ -3,7 +3,8 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-- if entry.is_a?(Event::Course) && entry.new_record?
-  = f.labeled_collection_select(:leistungskategorie,
-                                Event::Course.available_leistungskategorien,
-                                :first, :second, {prompt: true}, class: 'span6')
+- entry.used?(:leistungskategorie) do
+  - if entry.new_record?
+    = f.labeled_collection_select(:leistungskategorie,
+                                  entry.klass.available_leistungskategorien,
+                                  :first, :second, {prompt: true}, class: 'span6')

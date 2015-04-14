@@ -4,6 +4,7 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
+#
 # == Schema Information
 #
 # Table name: event_course_records
@@ -45,7 +46,7 @@ class Event::CourseRecord < ActiveRecord::Base
   INPUTKRITERIEN = %w(a b c)
   KURSARTEN = %w(weiterbildung freizeit_und_sport)
 
-  belongs_to :event, inverse_of: :course_record, class_name: 'Event::Course'
+  belongs_to :event
   belongs_to :challenged_canton_count, dependent: :destroy,
                                        class_name: 'Event::ParticipationCantonCount'
   belongs_to :affiliated_canton_count, dependent: :destroy,
@@ -161,6 +162,7 @@ class Event::CourseRecord < ActiveRecord::Base
     self.subventioniert ||= true if subventioniert.nil?
     self.total_direkte_kosten = direkter_aufwand
     self.year = event.years.first if event.years.size == 1
+    self.anzahl_kurse ||= 1
 
     if sk?
       self.spezielle_unterkunft = false
@@ -183,7 +185,7 @@ class Event::CourseRecord < ActiveRecord::Base
   private
 
   def assert_event_is_course
-    if event && event.class != Event::Course
+    if event && !event.reportable?
       errors.add(:event, :is_not_allowed)
     end
   end

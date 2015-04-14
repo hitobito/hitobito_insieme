@@ -4,6 +4,7 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag do
+
   = render 'main_fields',  f: f, sk: entry.sk?
 
   - duration = entry.sk? ? @numbers.duration_hours : @numbers.duration_days
