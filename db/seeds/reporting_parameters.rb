@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-CostAccountingParameter.seed_once(:year,
+ReportingParameter.seed_once(:year,
   { year: 2014,
     vollkosten_le_schwelle1_blockkurs: 442,
     vollkosten_le_schwelle2_blockkurs: 643,

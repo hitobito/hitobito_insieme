@@ -5,17 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Insieme::VariousAbility
-  extend ActiveSupport::Concern
 
-  included do
-    on(Event::Kind) do
-      permission(:admin).may(:manage).none
-    end
+module Sheet
+  class ReportingParameter < Sheet::Admin
 
-    on(ReportingParameter) do
-      permission(:admin).may(:manage).all
-    end
   end
-
 end

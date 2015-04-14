@@ -40,7 +40,7 @@ class Event::CourseRecordsController < CrudController
   before_render_form :set_defaults, if: -> { entry.new_record? }
   before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
   before_render_form :set_numbers
-  before_render_form :alert_missing_cost_accounting_parameters
+  before_render_form :alert_missing_reporting_parameters
   before_render_form :build_canton_counts
 
   private
@@ -82,9 +82,9 @@ class Event::CourseRecordsController < CrudController
     @numbers = CourseReporting::CourseNumbers.new(parent)
   end
 
-  def alert_missing_cost_accounting_parameters
-    unless CostAccountingParameter.for(entry.year)
-      flash.now[:alert] = t('event.course_records.form.missing_cost_accounting_parameters')
+  def alert_missing_reporting_parameters
+    unless ReportingParameter.for(entry.year)
+      flash.now[:alert] = t('event.course_records.form.missing_reporting_parameters')
     end
   end
 

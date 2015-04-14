@@ -5,6 +5,8 @@
 
 - @subtitle = t('.title')
 
+= action_button(t('.export'), params.merge(format: :csv), :download)
+
 .table-responsive.cost_accounting
   %table.table.table-hover
     %thead
@@ -23,9 +25,9 @@
             %td{colspan: 2 + @table.class.fields.length} &nbsp;
 
         %tr{class: report.kind}
-          %th
+          %th{title: h(report.human_name)}
             = link_to_if report.editable?,
-                         h(report.human_name),
+                         h(report.short_name),
                          edit_cost_accounting_report_group_path(group, year, report.key)
 
           %td.center= report.kontengruppe

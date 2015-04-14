@@ -194,9 +194,9 @@ fr:
       event/general_cost_allocation:
         one: Répartition des frais généraux
         other: Répartition des frais généraux
-      cost_accounting_parameter:
-        one: Paramètres de la comptabilité analytique
-        other: paramètres de la comptabilité analytique
+      reporting_parameter:
+        one: Paramètres de rapport
+        other: paramètres de rapport
         menu: Paramètres
     attributes:
       cantons:
@@ -250,7 +250,7 @@ fr:
         total: Total
         kontrolle: Contrôle
         aufteilung_kontengruppen: Notices
-      cost_accounting_parameter:
+      reporting_parameter:
         year: Année
         vollkosten_le_schwelle1_blockkurs: Cours en bloc Valeurs seuils 1 coûts complets/UP
         vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuil 2 coûts complets/UP

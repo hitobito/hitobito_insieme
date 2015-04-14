@@ -64,6 +64,10 @@ module CostAccounting
           name.demodulize.underscore
         end
 
+        def short_name
+          I18n.t("cost_accounting.report.#{key}.short_name")
+        end
+
         def human_name
           I18n.t("cost_accounting.report.#{key}.name")
         end
@@ -80,7 +84,7 @@ module CostAccounting
 
       attr_reader :table
 
-      delegate :key, :human_name, :editable?, to: :class
+      delegate :key, :human_name, :short_name, :editable?, to: :class
 
       def initialize(table)
         @table = table

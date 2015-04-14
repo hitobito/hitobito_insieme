@@ -38,6 +38,7 @@ de:
   cost_accounting:
     index:
       title: Übersicht Kostenrechnung
+      export: CSV Export
     edit:
       aufwand_fibu: Aufwand FIBU
       ertrag_fibu: Ertrag FIBU
@@ -69,7 +70,7 @@ de:
         auswertungen: Auswertungen
         updated_at: "aktualisiert am %{date}"
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
-        missing_cost_accounting_parameters: Für das entsprechende Jahr sind keine Kostenrechnung Parameter definiert. Bitte wenden Sie sich an den Dachverein.
+        missing_reporting_parameters: Für das entsprechende Jahr sind keine Reportingparameter definiert. Bitte wenden Sie sich an den Dachverein.
 
       canton_fields:
         change: Anpassen
@@ -130,7 +131,7 @@ de:
 
   shared:
     admin_nav_kinds_insieme:
-      cost_accounting_parameters: Parameter
+      reporting_parameters: Parameter
 
   time_records:
     edit:

@@ -7,15 +7,15 @@
 
 require 'spec_helper'
 
-describe CostAccountingParametersController, type: :controller do
+describe ReportingParametersController, type: :controller do
 
   class << self
     def it_should_redirect_to_show
-      it { should redirect_to cost_accounting_parameters_path(returning: true) }
+      it { should redirect_to reporting_parameters_path(returning: true) }
     end
   end
 
-  let(:test_entry) { cost_accounting_parameters(:p2014) }
+  let(:test_entry) { reporting_parameters(:p2014) }
   let(:test_entry_attrs) do
     { year: 2015,
       vollkosten_le_schwelle1_blockkurs: 440,

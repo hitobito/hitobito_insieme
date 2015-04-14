@@ -4,9 +4,10 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
+
 # == Schema Information
 #
-# Table name: cost_accounting_parameters
+# Table name: reporting_parameters
 #
 #  id                                :integer          not null, primary key
 #  year                              :integer          not null
@@ -18,11 +19,11 @@
 
 require 'spec_helper'
 
-describe CostAccountingParameter do
+describe ReportingParameter do
 
   describe '.current' do
-    let(:p2014) { cost_accounting_parameters(:p2014) }
-    subject { CostAccountingParameter.for(2014) }
+    let(:p2014) { reporting_parameters(:p2014) }
+    subject { ReportingParameter.for(2014) }
 
     it 'does not return parameter from future year' do
       create(p2014.year + 1)
@@ -43,7 +44,7 @@ describe CostAccountingParameter do
   end
 
   describe 'validations' do
-    subject { CostAccountingParameter.new }
+    subject { ReportingParameter.new }
 
     it 'validates presence of year, values' do
       should have(1).errors_on(:year)
@@ -52,13 +53,13 @@ describe CostAccountingParameter do
     end
 
     it 'validates uniqneness of year' do
-      CostAccountingParameter.new(year: 2014).should have(1).error_on(:year)
+      ReportingParameter.new(year: 2014).should have(1).error_on(:year)
     end
 
   end
 
   def create(year)
-    CostAccountingParameter.create!(
+    ReportingParameter.create!(
       year: year,
       vollkosten_le_schwelle1_blockkurs: 1,
       vollkosten_le_schwelle2_blockkurs: 2)
