@@ -50,6 +50,7 @@ describe ReportingParameter do
       is_expected.to have(1).errors_on(:year)
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle1_blockkurs)
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle2_blockkurs)
+      is_expected.to have(1).errors_on(:bsv_hours_per_year)
     end
 
     it 'validates uniqneness of year' do
@@ -62,6 +63,7 @@ describe ReportingParameter do
     ReportingParameter.create!(
       year: year,
       vollkosten_le_schwelle1_blockkurs: 1,
-      vollkosten_le_schwelle2_blockkurs: 2)
+      vollkosten_le_schwelle2_blockkurs: 2,
+      bsv_hours_per_year: 1900)
   end
 end

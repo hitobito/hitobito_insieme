@@ -271,6 +271,18 @@ de:
         one: Zeiterfassung
         other: Zeiterfassungen
 
+      time_record/employee_time:
+        one: Zeiterfassung Angestellte
+        menu: Angestellte
+
+      time_record/volunteer_without_verification_time:
+        one: Zeiterfassung Ehrenamtliche ohne Leistungsnachweis
+        menu: Ehrenamtliche
+
+      time_record/volunteer_with_verification_time:
+        one: Zeiterfassung Ehrenamtliche mit Leistungsnachweis
+        menu: Ehrenamtliche mit Leist.nachw.
+
       event/course_record:
         one: Kursreport
         other: Kursreporte
@@ -344,6 +356,7 @@ de:
         vollkosten_le_schwelle2_blockkurs: Blockkurs Schwellenwert 2 Vollkosten/LE
         vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
         vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
+        bsv_hours_per_year: BSV Stunden pro Jahr
 
       event:
         teamer_count: Anzahl BetreuerInnen
@@ -585,6 +598,7 @@ de:
         unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
 
         mittelbeschaffung: Mittelbeschaffung
+        nicht_art_74_leistungen: Leistungen
 
 
     errors:

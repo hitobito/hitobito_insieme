@@ -12,9 +12,9 @@ de:
 
   layouts:
     reporting_menu:
+      base_informations: Basisinformationen
       time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
-      general: Allgemeines
       course_statistics: Kursstatistik
       overview: Übersicht
       general_cost_allocation: Umlage Gemeinkosten
@@ -213,15 +213,23 @@ de:
       reporting_parameters: Parameter
 
   time_records:
+    index:
+      title: Basisinformationen
+      concerning_art_74: Art. 74 betreffend
+      not_concerning_art_74: Art. 74 nicht betreffend
+      whole_organization: Ganze Organisation
     edit:
-      comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen. Alle Angaben in Stunden.
-      general: Leistungen Allgemein
+      comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
+      employees: Angestellte MitarbeiterInnen, gemäss Arbeitsvertrag
       lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung Behinderter (LUFEB)
       lufeb_general : Allgemeine Medien- und Öffentlichkeitsarbeit
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
       lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
       lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
-      procurement: Mittelbeschaffung
+      courses: Kurse
+      additional_person_specific: Weitere personenspezifische Leistungen
+      remaining: Übrige Leistungen
+      not_art_74: Nicht Art. 74 betreffende Leistungen
 
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung

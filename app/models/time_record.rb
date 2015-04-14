@@ -50,9 +50,14 @@ class TimeRecord < ActiveRecord::Base
 
   belongs_to :group
 
-
   validates :year, uniqueness: { scope: [:group_id] }
   validate :assert_group_has_reporting
+
+  class << self
+    def key
+      name.demodulize.underscore
+    end
+  end
 
   # rubocop:disable MethodLength
   def lufeb

@@ -5,8 +5,10 @@
 
 
 %ul.nav.nav-list.cost-accounting-menu
-  %li.nav-header= t('.general')
-  = reporting_nav t('.time_records'), edit_time_record_group_path(group, year)
+  %li.nav-header= t('.time_records')
+  = reporting_nav t('.base_informations'), time_record_group_path(group, year: year)
+  - [TimeRecord::EmployeeTime, TimeRecord::VolunteerWithoutVerificationTime, TimeRecord::VolunteerWithVerificationTime].each do |record|
+    = reporting_nav t("activerecord.models.#{record.model_name.i18n_key}.menu"), edit_time_record_report_group_path(group, year, record.key)
 
   %li.nav-header= t('.course_statistics')
   = reporting_nav t('.general_cost_allocation'),

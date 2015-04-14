@@ -14,9 +14,10 @@ Rails.application.routes.draw do
     resources :groups do
       member do
         scope 'time_record' do
-          get ':year/edit' => 'time_records#edit', as: :edit_time_record
-          put ':year' => 'time_records#update', as: :time_record
-          get ':year' => 'time_records#edit' # route required for language switch
+          get '/' => 'time_records#index', as: :time_record
+          get ':year/:report/edit' => 'time_records#edit', as: :edit_time_record_report
+          put ':year/:report' => 'time_records#update', as: :time_record_report
+          get ':year/:report' => 'time_records#edit' # route required for language switch
         end
 
         scope 'cost_accounting' do

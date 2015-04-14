@@ -7,14 +7,33 @@
 
 class TimeRecordsController < ReportingBaseController
 
+  include ListController::Memory
+
+  self.remember_params = [:year]
+
+  def index
+  end
+
   private
 
   def entry
-    @record ||= TimeRecord.where(group_id: group.id, year: year).first_or_initialize
+    if report_class.present?
+      @report ||= report_class.where(group_id: group.id, year: year).first_or_initialize
+    end
+  end
+
+  def report_class
+    @report_class ||= "TimeRecord::#{params[:report].camelize}".constantize
+  rescue NameError
+    nil
   end
 
   def permitted_params
     params.require(:time_record).permit(TimeRecord.column_names - %w(id year group_id))
+  end
+
+  def show_path
+    time_record_group_path(group, year: year)
   end
 
 end
