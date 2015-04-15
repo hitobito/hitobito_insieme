@@ -296,6 +296,7 @@ de:
         other: Reportingparameter
         menu: Parameter
 
+
     attributes:
       cantons:
         ag: Aargau
@@ -616,6 +617,10 @@ de:
 
         total: Total
         total_pensum: Ausgedrückt in-100% Stellen
+
+      time_record/employee_pensum:
+        paragraph_74: Art. 74 betreffend in 100% Stellen
+        not_paragraph_74: Art. 74 nicht betreffend in 100% Stellen
 
     errors:
       attributes:

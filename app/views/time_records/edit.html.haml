@@ -16,7 +16,11 @@
 
   - if entry.class.key == 'employee_time'
     %h3= t('.employees')
-    TODO
+    = f.fields_for(:employee_pensum) do |nf|
+      = nf.hidden_field(:id)
+      = nf.labeled_input_field :paragraph_74, help_inline: t('.help_employee_pensum')
+      = nf.labeled_input_field :not_paragraph_74
+      = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: format_float(entry.employee_pensum.total)
 
   %h3= t('.lufeb')
   - if entry.class.key == 'volunteer_without_verification_time'

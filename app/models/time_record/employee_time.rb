@@ -7,6 +7,10 @@
 
 class TimeRecord::EmployeeTime < TimeRecord
 
+  has_one :employee_pensum, foreign_key: :time_record_id, dependent: :destroy,
+          inverse_of: :time_record
+  accepts_nested_attributes_for :employee_pensum
+
   before_save :update_lufeb_subtotals
 
   private

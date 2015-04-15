@@ -47,6 +47,7 @@
 #
 
 class TimeRecord < ActiveRecord::Base
+
   belongs_to :group
 
   validates :year, uniqueness: { scope: [:group_id, :type] }
@@ -174,4 +175,5 @@ class TimeRecord < ActiveRecord::Base
       beratung_fachhilfeorganisationen.to_i +
       unterstuetzung_behindertenhilfe.to_i
   end
+
 end

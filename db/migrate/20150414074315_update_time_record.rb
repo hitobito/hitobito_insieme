@@ -26,5 +26,12 @@ class UpdateTimeRecord < ActiveRecord::Migration
         change_column_default(:reporting_parameters, :bsv_hours_per_year, nil)
       end
     end
+
+    create_table :time_record_employee_pensums do |t|
+      t.belongs_to :time_record, null: false
+      t.decimal :paragraph_74, precision: 12, scale: 2
+      t.decimal :not_paragraph_74, precision: 12, scale: 2
+      t.timestamps
+    end
   end
 end

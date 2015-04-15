@@ -12,7 +12,7 @@ de:
 
   layouts:
     reporting_menu:
-      base_informations: Basisinformationen
+      ase_informations: Basisinformationen
       time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
       course_statistics: Kursstatistik
@@ -231,6 +231,13 @@ de:
       not_paragraph_74: Nicht Art. 74 betreffende Leistungen
       whole_organization: Ganze Organisation
 
+      help_employee_pensum: 70% Stellenprozent = 0.7 eingeben
+
+    lufeb_fields_full:
+      lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
+      lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
+      lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
+      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
       help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
@@ -245,8 +252,3 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
-    lufeb_fields_full:
-      lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
-      lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
-      lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
-      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
