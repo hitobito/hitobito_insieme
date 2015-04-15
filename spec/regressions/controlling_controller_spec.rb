@@ -24,4 +24,14 @@ describe ControllingController, type: :controller  do
     is_expected.to render_template('index')
   end
 
+  context 'GET cost_accounting.csv' do
+    before { get :cost_accounting, id: groups(:dachverein), year: 2014, format: :csv }
+
+    it 'exports table' do
+      expect(@response.body).to match(/Report;Kontengruppe;Aufwand \/ Ertrag FIBU/)
+      expect(@response.body).to match(/Total Aufwand\/Kosten/)
+    end
+  end
+
+
 end

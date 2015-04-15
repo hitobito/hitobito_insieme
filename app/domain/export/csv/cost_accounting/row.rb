@@ -10,17 +10,7 @@ module Export::Csv::CostAccounting
   class Row < Export::Csv::Row
 
     def report
-      entry.class.human_name
-    end
-
-    private
-
-    def value_for(attr)
-      if entry.respond_to?(attr, true)
-        entry.send(attr)
-      else
-        super
-      end
+      entry.human_name
     end
 
   end

@@ -46,8 +46,8 @@ describe CostAccounting::Report::Base do
     end
   end
 
-  CostAccounting::Table::REPORTS.each do |key, report|
-    context key do
+  CostAccounting::Table::REPORTS.each do |report|
+    context report.key do
       it 'has valid used fields' do
         expect(report.used_fields - CostAccounting::Report::Base::FIELDS).to eq []
       end

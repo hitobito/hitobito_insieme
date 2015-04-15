@@ -33,13 +33,13 @@ class CostAccountingRecord < ActiveRecord::Base
   belongs_to :group
 
   validates :report, uniqueness: { scope: [:group_id, :year] },
-                     inclusion: CostAccounting::Table::REPORTS.keys
+                     inclusion: CostAccounting::Table::REPORTS.collect(&:key)
   validate :assert_group_has_reporting
 
   scope :calculation_fields, -> { select(column_names - %w(aufteilung_kontengruppen)) }
 
   def report_class
-    CostAccounting::Table::REPORTS[report]
+    CostAccounting::Table::REPORTS.find { |r| r.key == report }
   end
 
   def to_s

@@ -37,6 +37,8 @@ de:
 
   controlling:
     title: Controlling
+    index:
+      cost_accounting: Konsolidierte Kostenrechnung
 
   cost_accounting:
     index:

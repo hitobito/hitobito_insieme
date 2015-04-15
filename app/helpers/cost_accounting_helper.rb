@@ -19,7 +19,7 @@ module CostAccountingHelper
   end
 
   def cost_accounting_reports
-    CostAccounting::Table::REPORTS.values
+    CostAccounting::Table::REPORTS
   end
 
   def base_time_record_group_path(group, _params = {})

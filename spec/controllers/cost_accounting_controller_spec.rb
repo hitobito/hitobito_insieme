@@ -17,7 +17,7 @@ describe CostAccountingController do
     end.to raise_error(CanCan::AccessDenied)
   end
 
-  context 'GET index' do
+  context 'GET index.csv' do
     context 'cost accounting csv export' do
       let(:group) { groups(:be) }
       let(:year) { 2014 }

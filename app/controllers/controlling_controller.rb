@@ -22,6 +22,12 @@ class ControllingController < ApplicationController
     year
   end
 
+  def cost_accounting
+    @table = CostAccounting::Aggregation.new(year)
+    csv = Export::Csv::CostAccounting::List.export(@table.reports.values)
+    send_data csv, type: :csv, filename: "cost_accounting_#{year}.csv"
+  end
+
   private
 
   def group

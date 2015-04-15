@@ -33,8 +33,7 @@ module CostAccounting
                 CostAccounting::Report::Deckungsbeitrag2,
                 CostAccounting::Report::Deckungsbeitrag3,
                 CostAccounting::Report::Deckungsbeitrag4,
-                CostAccounting::Report::Unternehmenserfolg
-               ].each_with_object({}) { |r, hash| hash[r.key] = r }
+                CostAccounting::Report::Unternehmenserfolg]
 
 
     attr_reader :group, :year
@@ -55,8 +54,8 @@ module CostAccounting
     end
 
     def reports
-      @reports ||= REPORTS.each_with_object({}) do |entry, hash|
-        hash[entry.first] = entry.last.new(self)
+      @reports ||= REPORTS.each_with_object({}) do |report, hash|
+        hash[report.key] = report.new(self)
       end
     end
 
@@ -67,6 +66,11 @@ module CostAccounting
     def cost_record(report_key)
       cost_records[report_key] ||=
         CostAccountingRecord.new(group_id: group.id, year: year, report: report_key)
+    end
+
+    def set_records(time_record, cost_records)
+      @time_record = time_record
+      @cost_records = cost_records
     end
 
     private
