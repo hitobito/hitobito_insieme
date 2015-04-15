@@ -560,13 +560,6 @@ de:
         billing_course_same_as_main: Rechnungsadresse Kurs gleich Hauptadresse
 
       time_record:
-        verwaltung:  Vereinsführung und Verwaltung
-        beratung: Sozialberatung
-        treffpunkte: Betreuung in Treffpunkten
-        blockkurse: Blockkurse
-        tageskurse: Tageskurse
-        jahreskurse: Semester-/Jahreskurse
-
         kontakte_medien: Kontakte zu Medien, zu Medienschaffenden
         interviews: Erteilen von Interviews
         publikationen: Publikation
@@ -597,9 +590,32 @@ de:
         beratung_fachhilfeorganisationen: Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe
         unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
 
+        total_lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
+        total_lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
+        total_lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
+        total_lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
+        total_lufeb: Total LUFEB-Leistungen
+
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        jahreskurse: Semester-/Jahreskurse
+
+        treffpunkte: Betreuung in Treffpunkten
+        beratung: Sozialberatung
+
         mittelbeschaffung: Mittelbeschaffung
+        verwaltung:  Vereinsführung und Verwaltung
+
+        total_paragraph_74: Total Art. 74 betreffend
+        total_paragraph_74_pensum: Ausgedrückt in-100% Stellen
+
         nicht_art_74_leistungen: Leistungen
 
+        total_not_paragraph_74: Total Art. 74 nicht betreffend
+        total_not_paragraph_74_pensum: Ausgedrückt in-100% Stellen
+
+        total: Total
+        total_pensum: Ausgedrückt in-100% Stellen
 
     errors:
       attributes:

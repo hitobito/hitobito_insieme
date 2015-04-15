@@ -215,21 +215,21 @@ de:
   time_records:
     index:
       title: Basisinformationen
-      concerning_art_74: Art. 74 betreffend
-      not_concerning_art_74: Art. 74 nicht betreffend
+      paragraph_74: Art. 74 betreffend
+      not_paragraph_74: Art. 74 nicht betreffend
       whole_organization: Ganze Organisation
     edit:
       comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
+      subtotal: Subtotal
+      total: Total
+
       employees: Angestellte MitarbeiterInnen, gemäss Arbeitsvertrag
       lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung Behinderter (LUFEB)
-      lufeb_general : Allgemeine Medien- und Öffentlichkeitsarbeit
-      lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
-      lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
-      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
       courses: Kurse
       additional_person_specific: Weitere personenspezifische Leistungen
       remaining: Übrige Leistungen
-      not_art_74: Nicht Art. 74 betreffende Leistungen
+      not_paragraph_74: Nicht Art. 74 betreffende Leistungen
+      whole_organization: Ganze Organisation
 
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
@@ -245,3 +245,8 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
+    lufeb_fields_full:
+      lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
+      lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
+      lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
+      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
