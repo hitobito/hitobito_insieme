@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         end
 
         get '/statistics' => 'statistics#show', as: :statistics
+        get '/controlling' => 'controlling#index', as: :controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
       end

@@ -34,6 +34,10 @@ describe GroupAbility do
           is_expected.to be_able_to(:statistics, group)
         end
 
+        it 'may :controlling on layer' do
+          is_expected.to be_able_to(:controlling, group)
+        end
+
         it 'may show layer below' do
           is_expected.to be_able_to(:show, groups(:be))
         end
@@ -83,6 +87,30 @@ describe GroupAbility do
       it 'may not :statistics on layer' do
         is_expected.not_to be_able_to(:statistics, group)
       end
+
+      it 'may not :controlling on layer' do
+        is_expected.not_to be_able_to(:controlling, group)
+      end
+    end
+
+    context Group::Dachverein::Controlling do
+      let(:role_name) { 'Group::Dachverein::Controlling' }
+
+      it 'may :statistics on layer' do
+        is_expected.to be_able_to(:statistics, group)
+      end
+
+      it 'may :reporting on layer' do
+        is_expected.to be_able_to(:reporting, group)
+      end
+
+      it 'may :controlling on layer' do
+        is_expected.to be_able_to(:controlling, group)
+      end
+
+      it 'may :reporting on layer below' do
+        is_expected.to be_able_to(:reporting, groups(:be))
+      end
     end
   end
 
@@ -117,6 +145,10 @@ describe GroupAbility do
 
       it 'may not :statistics on dachverein' do
         is_expected.not_to be_able_to(:statistics, groups(:dachverein))
+      end
+
+      it 'may not :controlling on dachverein' do
+        is_expected.not_to be_able_to(:controlling, groups(:dachverein))
       end
 
       it 'may create groups on same group' do
@@ -218,6 +250,10 @@ describe GroupAbility do
 
       it 'may not :statistics on dachverein' do
         is_expected.not_to be_able_to(:statistics, groups(:dachverein))
+      end
+
+      it 'may not :controlling on dachverein' do
+        is_expected.not_to be_able_to(:controlling, groups(:dachverein))
       end
 
       it 'may read group in same layer' do

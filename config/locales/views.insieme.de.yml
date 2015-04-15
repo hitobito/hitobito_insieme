@@ -35,6 +35,9 @@ de:
     single_address_fields:
       same_as_main: Gleich wie Hauptadresse
 
+  controlling:
+    title: Controlling
+
   cost_accounting:
     index:
       title: Übersicht Kostenrechnung

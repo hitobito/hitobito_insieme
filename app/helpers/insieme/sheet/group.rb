@@ -13,18 +13,20 @@ module Insieme::Sheet::Group
     tabs.insert(-2,
                 Sheet::Tab.new('statistics.title',
                                :statistics_group_path,
-                               if: lambda do |view, group|
-                                 group.is_a?(Group::Dachverein) && view.can?(:statistics, group)
-                               end))
+                               if: :statistics))
 
     tabs.insert(-2,
                 Sheet::Tab.new('reporting.title',
                                :cost_accounting_group_path,
                                alt: [:base_time_record_group_path],
                                params: { returning: true },
-                               if: lambda do |view, group|
-                                 group.reporting? && view.can?(:reporting, group)
-                               end))
+                               if: :reporting))
+
+    tabs.insert(-2,
+                Sheet::Tab.new('controlling.title',
+                               :controlling_group_path,
+                               params: { returning: true },
+                               if: :controlling))
   end
 
 end
