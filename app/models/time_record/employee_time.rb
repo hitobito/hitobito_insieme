@@ -12,10 +12,10 @@ class TimeRecord::EmployeeTime < TimeRecord
   private
 
   def update_lufeb_subtotals
-    self.total_lufeb_general = calculate_total_lufeb_general
-    self.total_lufeb_private = calculate_total_lufeb_private
-    self.total_lufeb_specific = calculate_total_lufeb_specific
-    self.total_lufeb_promoting = calculate_total_lufeb_promoting
+    calculate_total_lufeb_general!
+    calculate_total_lufeb_private!
+    calculate_total_lufeb_specific!
+    calculate_total_lufeb_promoting!
   end
 
 end

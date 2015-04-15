@@ -47,7 +47,6 @@
 #
 
 class TimeRecord < ActiveRecord::Base
-
   belongs_to :group
 
   validates :year, uniqueness: { scope: [:group_id, :type] }
@@ -100,9 +99,8 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def total
-    @total ||= (self.class.column_names - %w(id group_id year)).
-                 collect { |c| send(c).to_i }.
-                 sum
+    total_paragraph_74.to_i +
+    total_not_paragraph_74.to_i
   end
 
   def total_paragraph_74_pensum
@@ -133,41 +131,47 @@ class TimeRecord < ActiveRecord::Base
     @globals ||= ReportingParameter.for(year)
   end
 
-  def calculate_total_lufeb_general
-    kontakte_medien.to_i +
-    interviews.to_i +
-    publikationen.to_i +
-    referate.to_i +
-    medienkonferenzen.to_i +
-    informationsveranstaltungen.to_i +
-    sensibilisierungskampagnen.to_i +
-    allgemeine_auskunftserteilung.to_i +
-    kontakte_meinungsbildner.to_i +
-    beratung_medien.to_i
+  # rubocop:disable MethodLength
+  def calculate_total_lufeb_general!
+    self.total_lufeb_general =
+      kontakte_medien.to_i +
+      interviews.to_i +
+      publikationen.to_i +
+      referate.to_i +
+      medienkonferenzen.to_i +
+      informationsveranstaltungen.to_i +
+      sensibilisierungskampagnen.to_i +
+      allgemeine_auskunftserteilung.to_i +
+      kontakte_meinungsbildner.to_i +
+      beratung_medien.to_i
+  end
+  # rubocop:enable MethodLength
+
+  def calculate_total_lufeb_private!
+    self.total_lufeb_private =
+      eigene_zeitschriften.to_i +
+      newsletter.to_i +
+      informationsbroschueren.to_i +
+      eigene_webseite.to_i
   end
 
-  def calculate_total_lufeb_private
-    eigene_zeitschriften.to_i +
-    newsletter.to_i +
-    informationsbroschueren.to_i +
-    eigene_webseite.to_i
+  def calculate_total_lufeb_specific!
+    self.total_lufeb_specific =
+      erarbeitung_instrumente.to_i +
+      erarbeitung_grundlagen.to_i +
+      projekte.to_i +
+      vernehmlassungen.to_i +
+      gremien.to_i
   end
 
-  def calculate_total_lufeb_specific
-    erarbeitung_instrumente.to_i +
-    erarbeitung_grundlagen.to_i +
-    projekte.to_i +
-    vernehmlassungen.to_i +
-    gremien.to_i
-  end
-
-  def calculate_total_lufeb_promoting
-    auskunftserteilung.to_i +
-    vermittlung_kontakte.to_i +
-    unterstuetzung_selbsthilfeorganisationen.to_i +
-    koordination_selbsthilfe.to_i +
-    treffen_meinungsaustausch.to_i +
-    beratung_fachhilfeorganisationen.to_i +
-    unterstuetzung_behindertenhilfe.to_i
+  def calculate_total_lufeb_promoting!
+    self.total_lufeb_promoting =
+      auskunftserteilung.to_i +
+      vermittlung_kontakte.to_i +
+      unterstuetzung_selbsthilfeorganisationen.to_i +
+      koordination_selbsthilfe.to_i +
+      treffen_meinungsaustausch.to_i +
+      beratung_fachhilfeorganisationen.to_i +
+      unterstuetzung_behindertenhilfe.to_i
   end
 end

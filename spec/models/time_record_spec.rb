@@ -51,14 +51,122 @@ require 'spec_helper'
 
 describe TimeRecord do
 
-  context '#total' do
-    it 'is 0 for new record' do
-      expect(TimeRecord.new.total).to eq(0)
+  let(:record) do
+    TimeRecord.new(year: 2014, total_lufeb_general: 1, total_lufeb_private: 2,
+                   total_lufeb_specific: 3, total_lufeb_promoting: 4,
+                   blockkurse: 5, tageskurse: 6, jahreskurse: 7,
+                   treffpunkte: 8, beratung: 9,
+                   mittelbeschaffung: 10, verwaltung: 11,
+                   nicht_art_74_leistungen: 12)
+  end
+
+  context 'totals' do
+    context '#total_lufeb' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_lufeb).to eq 10
+      end
     end
 
-    it 'is the sum of the values set' do
-      expect(TimeRecord.new(blockkurse: 3, mittelbeschaffung: 2, newsletter: 1).total).to eq(6)
+    context '#total_courses' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total_courses).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_courses).to eq 18
+      end
     end
+
+    context '#total_additional_person_specific' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total_additional_person_specific).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_additional_person_specific).to eq 17
+      end
+    end
+
+    context '#total_remaining' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total_remaining).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_remaining).to eq 21
+      end
+    end
+
+    context '#total_paragraph_74' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total_paragraph_74).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_paragraph_74).to eq 66
+      end
+    end
+
+    context '#total_not_paragraph_74' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total_not_paragraph_74).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total_not_paragraph_74).to eq 12
+      end
+    end
+
+    context '#total' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new.total).to eq(0)
+      end
+
+      it 'is the sum the values set' do
+        expect(record.total).to eq 78
+      end
+    end
+  end
+
+  context 'pensums' do
+    it 'exists a bsv_hours_per_year reporting parameter' do
+      expect(ReportingParameter.for(2014).bsv_hours_per_year).to eq 1900
+    end
+
+    context '#total_paragraph_74_pensum' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new(year: 2014).total_paragraph_74_pensum).to eq(0)
+      end
+
+      it 'is the equivalent to 100%-jobs' do
+        expect(record.total_paragraph_74_pensum).to eq 66.to_d / 1900
+      end
+    end
+
+    context '#total_not_paragraph_74_pensum' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new(year: 2014).total_not_paragraph_74_pensum).to eq(0)
+      end
+
+      it 'is the equivalent to 100%-jobs' do
+        expect(record.total_not_paragraph_74_pensum).to eq 12.to_d / 1900
+      end
+    end
+
+    context '#total_pensum' do
+      it 'is 0 for new record' do
+        expect(TimeRecord.new(year: 2014).total_pensum).to eq(0)
+      end
+
+      it 'is the equivalent to 100%-jobs' do
+        expect(record.total_pensum).to eq 78.to_d / 1900
+      end
+    end
+
   end
 
 end
