@@ -58,6 +58,22 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
+  validates :anzahl_kurse, numericality: { greater_than: 0 }
+  validates :kursdauer,
+            :teilnehmende_behinderte,
+            :teilnehmende_angehoerige,
+            :teilnehmende_weitere,
+            :absenzen_behinderte,
+            :absenzen_angehoerige,
+            :absenzen_weitere,
+            :leiterinnen,
+            :fachpersonen,
+            :hilfspersonal_ohne_honorar,
+            :hilfspersonal_mit_honorar,
+            :kuechenpersonal,
+            :teilnehmende_mehrfachbehinderte,
+            numericality: { greater_than_or_equal_to: 0, allow_blank: true }
+
   validate :assert_mehrfachbehinderte_less_than_behinderte
   validate :assert_duration_values_precision
 
@@ -163,7 +179,7 @@ class Event::CourseRecord < ActiveRecord::Base
     self.subventioniert ||= true if subventioniert.nil?
     self.total_direkte_kosten = direkter_aufwand
     self.year = event.years.first if event.years.size == 1
-    self.anzahl_kurse ||= 1
+    self.anzahl_kurse = 1 if event.is_a?(Event::Course)
 
     if sk?
       self.spezielle_unterkunft = false

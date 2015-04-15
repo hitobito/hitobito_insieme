@@ -44,7 +44,7 @@ require 'spec_helper'
 describe Event::ParticipationCantonCount do
 
   let(:counts) do
-    Event::ParticipationCantonCount.create!
+    Event::ParticipationCantonCount.new
   end
 
   context '#total' do

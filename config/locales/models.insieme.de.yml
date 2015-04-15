@@ -351,9 +351,15 @@ de:
       event/course:
         leistungskategorie: Leistungskategorie
         leistungskategorien:
-          bk: Blockkurs
-          tk: Tageskurs
-          sk: Semester / Jahreskurs
+          bk:
+            one: Blockkurs
+            other: Blockkurse
+          tk:
+            one: Tageskurs
+            other: Tageskurse
+          sk:
+            one: Semester-/Jahreskurs
+            other: Semester-/Jahreskurse
 
       event/course_record:
         event_id: Kurs

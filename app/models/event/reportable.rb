@@ -41,7 +41,7 @@ module Event::Reportable
   module ClassMethods
     def available_leistungskategorien
       LEISTUNGSKATEGORIEN.map do |period|
-        [period, I18n.t("activerecord.attributes.event/course.leistungskategorien.#{period}")]
+        [period, I18n.t("activerecord.attributes.event/course.leistungskategorien.#{period}.one")]
       end
     end
   end

@@ -40,12 +40,18 @@
 #
 
 class Event::ParticipationCantonCount < ActiveRecord::Base
+
   has_one :course_record_as_challenged_canton_count, foreign_key: :challenged_canton_count_id,
                                                      class_name: 'Event::CourseRecord'
   has_one :course_record_as_affiliated_canton_count, foreign_key: :affiliated_canton_count_id,
                                                      class_name: 'Event::CourseRecord'
 
+  validates(*Cantons.short_names,
+            numericality: { greater_than_or_equal_to: 0, allow_blank: true })
+
+
   def total
     Cantons.short_name_strings.inject(0) { |sum, c| sum + attributes[c].to_i }
   end
+
 end

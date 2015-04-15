@@ -39,6 +39,7 @@ de:
     title: Controlling
     index:
       cost_accounting: Konsolidierte Kostenrechnung
+      client_statistics: KlientInnen Statistik
 
   cost_accounting:
     index:
@@ -49,6 +50,13 @@ de:
       ertrag_fibu: Ertrag FIBU
       kontengruppen: "Kontengruppe(n) %{kontengruppen}"
       remarks_placeholder: Hier können Sie Ihre Notizen oder Erklärungen anbringen (z.B. wie sich Aufwand auf Kontengruppen verteilt)
+
+  course_reporting:
+    client_statistics:
+      disability_or_canton: Behinderung / Kanton
+      total: Total
+      challenged: Anzahl Behinderte (Personen)
+      affiliated: Anzahl Angehörige (Personen)
 
   dropdown/abo_addresses_export:
     button: Adresslisten Abonnemente

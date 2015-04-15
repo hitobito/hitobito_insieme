@@ -30,6 +30,8 @@ Rails.application.routes.draw do
         get '/controlling' => 'controlling#index', as: :controlling
         get '/controlling/cost_accounting' => 'controlling#cost_accounting',
             as: :cost_accounting_controlling
+        get '/controlling/client_statistics' => 'controlling#client_statistics',
+            as: :client_statistics_controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
       end

@@ -33,5 +33,12 @@ describe ControllingController, type: :controller  do
     end
   end
 
+  context 'GET client_statistics.csv' do
+    before { get :client_statistics, id: groups(:dachverein), year: 2014, format: :csv }
+
+    it 'exports table' do
+      expect(@response.body).to match(/Behinderung \/ Kanton;Blockkurse Anzahl Behinderte \(Personen\);Blockkurse /)
+    end
+  end
 
 end

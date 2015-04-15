@@ -17,7 +17,7 @@ module Insieme::Export::Csv::Events
 
     def leistungskategorie
       entry.leistungskategorie && I18n.t('activerecord.attributes.event/course.' \
-                                         "leistungskategorien.#{entry.leistungskategorie}")
+                                         "leistungskategorien.#{entry.leistungskategorie}.one")
     end
 
     def kursart

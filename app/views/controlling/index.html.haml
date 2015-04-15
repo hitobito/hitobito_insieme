@@ -10,3 +10,7 @@
   = action_button(t('.cost_accounting'),
                   cost_accounting_controlling_group_path(year: year, format: :csv),
                   :download)
+
+  = action_button(t('.client_statistics'),
+                  client_statistics_controlling_group_path(year: year, format: :csv),
+                  :download)
