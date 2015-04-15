@@ -82,7 +82,7 @@ class Event::CourseRecord < ActiveRecord::Base
   before_validation :compute_category
   before_validation :sum_canton_counts
 
-  Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
+  Event::Reportable::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
       event.leistungskategorie == kategorie
     end

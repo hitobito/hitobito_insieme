@@ -13,7 +13,7 @@ class InsiemeEventSeeder < EventSeeder
 
   def course_attributes(values)
     attrs = super(values)
-    attrs[:leistungskategorie] = Insieme::Event::Course::LEISTUNGSKATEGORIEN.shuffle.first
+    attrs[:leistungskategorie] = Event::Reportable::LEISTUNGSKATEGORIEN.shuffle.first
     attrs
   end
 

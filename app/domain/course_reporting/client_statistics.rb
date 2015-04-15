@@ -28,7 +28,7 @@ module CourseReporting
     end
 
     def leistungskategorien
-      Event::Course::LEISTUNGSKATEGORIEN
+      Event::Reportable::LEISTUNGSKATEGORIEN
     end
 
     def canton_count(canton, leistungskategorie, role)
