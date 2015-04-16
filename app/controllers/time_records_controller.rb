@@ -18,17 +18,17 @@ class TimeRecordsController < ReportingBaseController
   private
 
   def entry
-    if report_class.present?
-      @report ||= report_class.where(group_id: group.id, year: year).first_or_initialize
-      if @report.is_a?(TimeRecord::EmployeeTime) && @report.employee_pensum.nil?
-        @report.build_employee_pensum
+    if record_class.present?
+      @record ||= record_class.where(group_id: group.id, year: year).first_or_initialize
+      if @record.is_a?(TimeRecord::EmployeeTime) && @record.employee_pensum.nil?
+        @record.build_employee_pensum
       end
-      @report
+      @record
     end
   end
 
-  def report_class
-    @report_class ||= "TimeRecord::#{params[:report].camelize}".constantize
+  def record_class
+    @record_class ||= "TimeRecord::#{params[:report].camelize}".constantize
   rescue NameError
     nil
   end

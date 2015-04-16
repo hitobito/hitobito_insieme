@@ -20,11 +20,11 @@ class CapitalSubstrateController < ReportingBaseController
   private
 
   def entry
-    @substrate ||= CapitalSubstrate.where(group_id: group.id, year: year).first_or_initialize
+    @record ||= CapitalSubstrate.where(group_id: group.id, year: year).first_or_initialize
   end
 
   def permitted_params
-    params.require(:time_record).permit(CapitalSubstrate.column_names - %w(id year group_id))
+    params.require(:capital_substrate).permit(CapitalSubstrate.column_names - %w(id year group_id))
   end
 
   def show_path
