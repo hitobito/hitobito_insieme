@@ -12,6 +12,7 @@ class TimeRecordsController < ReportingBaseController
   self.remember_params = [:year]
 
   def index
+    @table = TimeRecord::Table.new(group, year)
   end
 
   private

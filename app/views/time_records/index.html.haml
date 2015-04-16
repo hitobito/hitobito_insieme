@@ -15,8 +15,20 @@
         %th= t('.whole_organization')
 
     %tbody
-      %tr
-        %td
-        %td
-        %td
-        %td
+      - previous_kind = nil
+      - @table.reports.values.each do |report|
+        - if report.kind == :controlling && previous_kind != report.kind
+          %tr{class: 'separator heading'}
+            %th{colspan: 4}= t('.controlling')
+        - if report.kind == :capital_substrate && previous_kind != report.kind
+          %tr{class: 'separator'}
+            %td{colspan: 4} &nbsp;
+
+
+        %tr{class: report.kind}
+          %td= report.human_name
+          %td= f(report.paragraph_74)
+          %td= f(report.not_paragraph_74)
+          %td= f(report.total)
+
+        - previous_kind = report.kind

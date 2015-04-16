@@ -59,6 +59,10 @@ class TimeRecord < ActiveRecord::Base
     end
   end
 
+  def lufeb
+    total_lufeb
+  end
+
   def total_lufeb
     @total_lufeb ||=
       total_lufeb_general.to_i +

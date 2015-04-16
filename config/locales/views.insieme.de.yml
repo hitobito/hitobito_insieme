@@ -12,7 +12,7 @@ de:
 
   layouts:
     reporting_menu:
-      ase_informations: Basisinformationen
+      base_informations: Basisinformationen
       time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
       course_statistics: Kursstatistik
@@ -218,6 +218,7 @@ de:
       paragraph_74: Art. 74 betreffend
       not_paragraph_74: Art. 74 nicht betreffend
       whole_organization: Ganze Organisation
+      controlling: Kontrolle
     edit:
       comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
       subtotal: Subtotal
@@ -252,3 +253,21 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
+
+    report:
+      employee_pensum:
+        name: Angestellte MitarbeiterInnen. Gemäss Arbeitsvertrag (in 100% Stellen)
+      employee_time:
+        name: Angestellte MitarbeiterInnen. Zeiterfassung (in 100% Stellen)
+      volunteer_without_verification_time:
+        name: Ehrenamtliche Arbeit ohne Leistungsnachweis (in 100% Stellen)
+      volunteer_with_verification_time:
+        name: Ehrenamtliche Arbeit mit Leistungsnachweis (in 100% Stellen)
+      employee_efforts:
+        name: Personalaufwand inkl. Soz. Versicherung
+      employee_efforts_pensum:
+        name: Personalaufwand umgerechnet auf 100%-Stelle
+      capital_substrate:
+        name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
+      capital_substrate_limit:
+        name: Limite Kapitalsustrat

@@ -105,6 +105,17 @@
   }
 }
 
+.time-records {
+  .heading.separator > th,
+  .heading.separator > td{
+    padding-top: 1em;
+  }
+  .separator:hover > th,
+  .separator:hover > td {
+    background-color: $white;
+  }
+}
+
 .long-labeled {
   .control-label {
     width: 360px;
