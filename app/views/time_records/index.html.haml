@@ -18,11 +18,11 @@
       - previous_kind = nil
       - @table.reports.values.each do |report|
         - if report.kind == :controlling && previous_kind != report.kind
-          %tr{class: 'separator heading'}
+          %tr{class: 'separator'}
             %th{colspan: 4}= t('.controlling')
         - if report.kind == :capital_substrate && previous_kind != report.kind
           %tr{class: 'separator'}
-            %td{colspan: 4} &nbsp;
+            %th{colspan: 4}= t('.capital_substrate')
 
 
         %tr{class: report.kind}

@@ -8,15 +8,15 @@
 class TimeRecord::Report::VolunteerWithoutVerificationTime < TimeRecord::Report::Base
 
   def paragraph_74
-    table.volunteer_without_verification_time.total_paragraph_74_pensum
+    record.total_paragraph_74_pensum
   end
 
   def not_paragraph_74
-    table.volunteer_without_verification_time.total_not_paragraph_74_pensum
+    record.total_not_paragraph_74_pensum
   end
 
   def total
-    table.volunteer_without_verification_time.total_pensum
+    record.total_pensum
   end
 
 end

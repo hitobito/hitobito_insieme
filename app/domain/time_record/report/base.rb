@@ -34,4 +34,9 @@ class TimeRecord::Report::Base
 
   def total; end
 
+  private
+
+  def record
+    @record ||= table.record(key)
+  end
 end

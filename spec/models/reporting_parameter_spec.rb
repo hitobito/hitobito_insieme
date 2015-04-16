@@ -51,6 +51,7 @@ describe ReportingParameter do
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle1_blockkurs)
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle2_blockkurs)
       is_expected.to have(1).errors_on(:bsv_hours_per_year)
+      is_expected.to have(1).errors_on(:capital_substrate_exemption)
     end
 
     it 'validates uniqneness of year' do
@@ -64,6 +65,7 @@ describe ReportingParameter do
       year: year,
       vollkosten_le_schwelle1_blockkurs: 1,
       vollkosten_le_schwelle2_blockkurs: 2,
-      bsv_hours_per_year: 1900)
+      bsv_hours_per_year: 1900,
+      capital_substrate_exemption: 200_000)
   end
 end

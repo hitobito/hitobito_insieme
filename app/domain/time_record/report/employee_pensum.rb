@@ -8,15 +8,21 @@
 class TimeRecord::Report::EmployeePensum < TimeRecord::Report::Base
 
   def paragraph_74
-    table.employee_pensum.paragraph_74
+    record.paragraph_74
   end
 
   def not_paragraph_74
-    table.employee_pensum.not_paragraph_74
+    record.not_paragraph_74
   end
 
   def total
-    table.employee_pensum.total
+    record.total
+  end
+
+  private
+
+  def record
+    table.record('employee_time').employee_pensum
   end
 
 end

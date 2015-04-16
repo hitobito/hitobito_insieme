@@ -18,6 +18,7 @@ de:
       course_statistics: Kursstatistik
       overview: Übersicht
       general_cost_allocation: Umlage Gemeinkosten
+      capital_substrate: Kapitalsubstrat
     reporting_header:
       association_name: Vereinsname
 
@@ -219,6 +220,7 @@ de:
       not_paragraph_74: Art. 74 nicht betreffend
       whole_organization: Ganze Organisation
       controlling: Kontrolle
+      capital_substrate: Kapitalsubstrat
     edit:
       comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
       subtotal: Subtotal
@@ -270,4 +272,4 @@ de:
       capital_substrate:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
-        name: Limite Kapitalsustrat
+        name: Limite Kapitalsubstrat

@@ -27,6 +27,12 @@ Rails.application.routes.draw do
           get ':year/:report' => 'cost_accounting#edit' # route required for language switch
         end
 
+        scope 'capital_substrate' do
+          get ':year/edit' => 'capital_substrate#edit', as: :edit_capital_substrate
+          put ':year' => 'capital_substrate#update', as: :capital_substrate
+          get ':year' => 'capital_substrate#edit' # route required for language switch
+        end
+
         get '/statistics' => 'statistics#show', as: :statistics
         get '/controlling' => 'controlling#index', as: :controlling
         get '/controlling/cost_accounting' => 'controlling#cost_accounting',

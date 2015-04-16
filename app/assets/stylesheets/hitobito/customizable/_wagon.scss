@@ -106,13 +106,13 @@
 }
 
 .time-records {
-  .heading.separator > th,
-  .heading.separator > td{
+  .separator > th,
+  .separator > td{
     padding-top: 1em;
-  }
-  .separator:hover > th,
-  .separator:hover > td {
-    background-color: $white;
+
+    &:hover {
+      background-color: $white;
+    }
   }
 }
 

@@ -31,7 +31,6 @@ class UpdateTimeRecord < ActiveRecord::Migration
       t.belongs_to :time_record, null: false
       t.decimal :paragraph_74, precision: 12, scale: 2
       t.decimal :not_paragraph_74, precision: 12, scale: 2
-      t.timestamps
     end
   end
 end

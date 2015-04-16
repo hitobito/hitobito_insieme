@@ -296,6 +296,9 @@ de:
         other: Reportingparameter
         menu: Parameter
 
+      capital_substrate:
+        one: Kapitalsubstrat
+        other: Kapitalsubstrate
 
     attributes:
       cantons:
@@ -358,6 +361,7 @@ de:
         vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
         vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
         bsv_hours_per_year: BSV Stunden pro Jahr
+        capital_substrate_exemption: BSV Kapitalsubstrat Freibetrag
 
       event:
         teamer_count: Anzahl BetreuerInnen
@@ -621,6 +625,15 @@ de:
       time_record/employee_pensum:
         paragraph_74: Art. 74 betreffend in 100% Stellen
         not_paragraph_74: Art. 74 nicht betreffend in 100% Stellen
+
+      capital_substrate:
+        allocation_base: Schlüssel
+        organization_capital: Organisationskapital inkl. freie Reserven und freie Fonds
+        organization_capital_allocated: geschlüsseltes Organisationskapital
+        half_profit_margin: 50% Saldo Deckungsbeitragsrechnung
+        fund_building: Bildung gebundenenr Fonds aus freien Mitteln
+        exemption: abzüglich Freibetrag
+        capital_substrate_allocated: Geschlüsseltes Kapitalsubstrat Art. 74
 
     errors:
       attributes:

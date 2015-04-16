@@ -25,23 +25,10 @@ class TimeRecord::Table
     @cost_accounting_table = CostAccounting::Table.new(group, year)
   end
 
-  def employee_time
-    @employee_time ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year).
-      first_or_initialize
-  end
-
-  def employee_pensum
-    @employee_pensum ||= employee_time.employee_pensum
-  end
-
-  def volunteer_without_verification_time
-    @volunteer_without_verification_time ||= TimeRecord::VolunteerWithoutVerificationTime.
-      where(group_id: group.id, year: year).first_or_initialize
-  end
-
-  def volunteer_with_verification_time
-    @volunteer_with_verification_time ||= TimeRecord::VolunteerWithVerificationTime.
-      where(group_id: group.id, year: year).first_or_initialize
+  def reports
+    @reports ||= REPORTS.each_with_object({}) do |entry, hash|
+      hash[entry.first] = entry.last.new(self)
+    end
   end
 
   def value_of(report, field)
@@ -52,9 +39,25 @@ class TimeRecord::Table
     @cost_accounting_table.value_of(report, field)
   end
 
-  def reports
-    @reports ||= REPORTS.each_with_object({}) do |entry, hash|
-      hash[entry.first] = entry.last.new(self)
+  def record(report_key)
+    model = record_model(report_key)
+    records[report_key] ||= model && model.where(group_id: group.id, year: year).
+      first_or_initialize
+  end
+
+  private
+
+  def records
+    @records ||= {}
+  end
+
+  def record_model(report_key)
+    report_key.camelize.constantize
+  rescue NameError
+    begin
+      "TimeRecord::#{report_key.camelize}".constantize
+    rescue NameError
+      nil
     end
   end
 

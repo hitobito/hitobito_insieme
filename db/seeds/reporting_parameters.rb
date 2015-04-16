@@ -11,4 +11,5 @@ ReportingParameter.seed_once(:year,
                              vollkosten_le_schwelle2_blockkurs: 643,
                              vollkosten_le_schwelle1_tageskurs: 341,
                              vollkosten_le_schwelle2_tageskurs: 475,
-                             bsv_hours_per_year: 1900)
+                             bsv_hours_per_year: 1900,
+                             capital_substrate_exemption: 200_000)
