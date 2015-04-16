@@ -5,6 +5,18 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+# == Schema Information
+#
+# Table name: time_record_employee_pensums
+#
+#  id               :integer          not null, primary key
+#  time_record_id   :integer          not null
+#  paragraph_74     :decimal(12, 2)
+#  not_paragraph_74 :decimal(12, 2)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class TimeRecord::EmployeePensum < ActiveRecord::Base
 
   belongs_to :time_record

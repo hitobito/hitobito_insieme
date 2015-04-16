@@ -44,6 +44,12 @@
 #  unterstuetzung_behindertenhilfe          :integer
 #  mittelbeschaffung                        :integer
 #  allgemeine_auskunftserteilung            :integer
+#  type                                     :string(255)      not null
+#  total_lufeb_general                      :integer
+#  total_lufeb_private                      :integer
+#  total_lufeb_specific                     :integer
+#  total_lufeb_promoting                    :integer
+#  nicht_art_74_leistungen                  :integer
 #
 
 class TimeRecord < ActiveRecord::Base

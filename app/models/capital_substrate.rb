@@ -5,6 +5,19 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+# == Schema Information
+#
+# Table name: capital_substrates
+#
+#  id                   :integer          not null, primary key
+#  group_id             :integer          not null
+#  year                 :integer          not null
+#  organization_capital :decimal(12, 2)
+#  fund_building        :decimal(12, 2)
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
 class CapitalSubstrate < ActiveRecord::Base
 
   belongs_to :group

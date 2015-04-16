@@ -39,6 +39,7 @@
 #  zugeteilte_kategorie             :string(2)
 #  challenged_canton_count_id       :integer
 #  affiliated_canton_count_id       :integer
+#  anzahl_kurse                     :integer          default(1)
 #
 
 class Event::CourseRecord < ActiveRecord::Base
