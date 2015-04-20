@@ -22,7 +22,8 @@ class TimeRecord::Report::EmployeePensum < TimeRecord::Report::Base
   private
 
   def record
-    table.record('employee_time').employee_pensum
+    table.record('employee_time').employee_pensum ||
+      table.record('employee_time').build_employee_pensum
   end
 
 end

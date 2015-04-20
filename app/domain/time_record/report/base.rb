@@ -7,6 +7,8 @@
 
 class TimeRecord::Report::Base
 
+  FIELDS = %w(paragraph_74 not_paragraph_74 total)
+
   class << self
     def key
       name.demodulize.underscore
@@ -28,11 +30,10 @@ class TimeRecord::Report::Base
     @table = table
   end
 
-  def paragraph_74; end
-
-  def not_paragraph_74; end
-
-  def total; end
+  # define accessor methods for all fields, returning nil
+  FIELDS.each do |f|
+    define_method(f) {}
+  end
 
   private
 

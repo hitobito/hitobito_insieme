@@ -10,8 +10,12 @@ class TimeRecord::Report::CapitalSubstrate < TimeRecord::Report::Base
   self.kind = :capital_substrate
 
   def allocation_base
-    table.cost_accounting_value_of('vollkosten', 'total').to_d /
-    table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d
+    if table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero?
+      table.cost_accounting_value_of('vollkosten', 'total').to_d /
+      table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d
+    else
+      0
+    end
   end
 
   def organization_capital_allocated

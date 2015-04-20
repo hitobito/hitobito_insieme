@@ -14,10 +14,15 @@ class TimeRecord::Table
               TimeRecord::Report::EmployeeEfforts,
               TimeRecord::Report::EmployeeEffortsPensum,
               TimeRecord::Report::CapitalSubstrate,
-              TimeRecord::Report::CapitalSubstrateLimit
-             ].each_with_object({}) { |r, hash| hash[r.key] = r }
+              TimeRecord::Report::CapitalSubstrateLimit]
 
   attr_reader :group, :year
+
+  class << self
+    def fields
+      CostAccounting::Report::Base::FIELDS
+    end
+  end
 
   def initialize(group, year)
     @group = group
@@ -26,8 +31,8 @@ class TimeRecord::Table
   end
 
   def reports
-    @reports ||= REPORTS.each_with_object({}) do |entry, hash|
-      hash[entry.first] = entry.last.new(self)
+    @reports ||= REPORTS.each_with_object({}) do |report, hash|
+      hash[report.key] = report.new(self)
     end
   end
 
@@ -41,8 +46,10 @@ class TimeRecord::Table
 
   def record(report_key)
     model = record_model(report_key)
-    records[report_key] ||= model && model.where(group_id: group.id, year: year).
-      first_or_initialize
+    if model
+      records[report_key] ||= model && model.where(group_id: group.id, year: year).
+        first_or_initialize
+    end
   end
 
   private

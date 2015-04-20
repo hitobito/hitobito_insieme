@@ -7,16 +7,16 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Table do
+describe TimeRecord::Table do
 
   let(:group) { groups(:be) }
-  let(:table) { CostAccounting::Table.new(group, 2014) }
+  let(:table) { TimeRecord::Table.new(group, 2014) }
 
   context '#value_of' do
     it 'is initialized without records' do
       errors = []
-      CostAccounting::Table::REPORTS.each do |report|
-        CostAccounting::Report::Base::FIELDS.each do |field|
+      TimeRecord::Table::REPORTS.each do |report|
+        TimeRecord::Report::Base::FIELDS.each do |field|
           value = table.value_of(report.key, field).to_d
           if value != 0.0
             errors << "#{report.key}-#{field} is expected to be 0, got #{value}"
