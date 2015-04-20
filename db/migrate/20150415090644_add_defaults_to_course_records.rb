@@ -7,6 +7,8 @@
 
 class AddDefaultsToCourseRecords < ActiveRecord::Migration
   def up
+    Event::CourseRecord.where(subventioniert: nil).update_all(subventioniert: true)
+    Event::CourseRecord.where(spezielle_unterkunft: nil).update_all(spezielle_unterkunft: false)
     change_column(:event_course_records, :subventioniert, :boolean, null: false, default: true)
     change_column(:event_course_records, :spezielle_unterkunft, :boolean, null: false, default: false)
   end
