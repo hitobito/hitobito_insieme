@@ -76,6 +76,22 @@ describe CourseReporting::ClientStatistics do
     expect(stats.canton_total('sk', :affiliated)).to eq(0)
   end
 
+  it 'has correct participant counts' do
+    expect(stats.participant_count('bk', :challenged)).to eq(45)
+    expect(stats.participant_count('bk', :affiliated)).to eq(14)
+    expect(stats.participant_count('bk', :multiple)).to eq(14)
+
+    expect(stats.participant_count('tk', :challenged)).to eq(6)
+    expect(stats.participant_count('tk', :affiliated)).to eq(0)
+    expect(stats.participant_count('tk', :multiple)).to eq(2)
+
+    expect(stats.participant_count('sk', :challenged)).to eq(0)
+    expect(stats.participant_count('sk', :affiliated)).to eq(0)
+    expect(stats.participant_count('sk', :multiple)).to eq(0)
+  end
+
+  private
+
   def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {}, event_type = :course)
     event = Fabricate(event_type,
                       group_ids: [groups(group).id],
@@ -84,7 +100,7 @@ describe CourseReporting::ClientStatistics do
     r = Event::CourseRecord.create!(event_id: event.id, year: year)
     r.create_challenged_canton_count!(challenged) if challenged.present?
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
-    r.save!
+    r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 3)
   end
 
 end

@@ -32,13 +32,15 @@ describe Export::Csv::CourseReporting::ClientStatistics do
     let(:data) { [].tap { |csv| exporter.to_csv(csv) } }
 
     it 'exports data for all cantons' do
-      expect(data.size).to eq(1 + Cantons.short_names.size + 1)
+      expect(data.size).to eq(3 + Cantons.short_names.size + 1)
     end
 
     it 'contains correct sums' do
-      expect(data[1]).to eq(['Aargau', 6, 3, 1, 0, 0, 0])
-      expect(data[2]).to eq(['Appenzell Innerrhoden', 0, 0, 0, 0, 0, 0])
-      expect(data[4]).to eq(['Bern', 3, 1, 1, 0, 0, 0])
+      expect(data[1]).to eq(['Geistig-/Lernbehinderte', 30, 14, 3, 0, 0, 0])
+      expect(data[2]).to eq(['davon Mehrfachbehinderte', 15, nil, 1, nil, 0, nil])
+      expect(data[3]).to eq(['Aargau', 6, 3, 1, 0, 0, 0])
+      expect(data[4]).to eq(['Appenzell Innerrhoden', 0, 0, 0, 0, 0, 0])
+      expect(data[6]).to eq(['Bern', 3, 1, 1, 0, 0, 0])
       expect(data.last).to eq(['Total', 30, 14, 3, 0, 0, 0])
     end
 
@@ -64,7 +66,7 @@ describe Export::Csv::CourseReporting::ClientStatistics do
     r = Event::CourseRecord.create!(event_id: event.id, year: year)
     r.create_challenged_canton_count!(challenged) if challenged.present?
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
-    r.save!
+    r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 2)
   end
 
 end

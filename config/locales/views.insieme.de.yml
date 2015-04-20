@@ -57,6 +57,8 @@ de:
       total: Total
       challenged: Anzahl Behinderte (Personen)
       affiliated: Anzahl Angehörige (Personen)
+      participants: Geistig-/Lernbehinderte
+      multiple_challenged: davon Mehrfachbehinderte
 
     aggregations:
       index:

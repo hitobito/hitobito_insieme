@@ -13,6 +13,12 @@ module CourseReporting
       affiliated: :course_record_as_affiliated_canton_count
     }
 
+    ROLE_PARTICIPANTS = {
+      challenged: :teilnehmende_behinderte,
+      affiliated: :teilnehmende_angehoerige,
+      multiple:   :teilnehmende_mehrfachbehinderte
+    }
+
     attr_reader :year
 
     def initialize(year)
@@ -31,6 +37,10 @@ module CourseReporting
       Event::Reportable::LEISTUNGSKATEGORIEN
     end
 
+    def participant_count(leistungskategorie, role)
+      participant_counts[leistungskategorie].send(ROLE_PARTICIPANTS.fetch(role)).to_i
+    end
+
     def canton_count(canton, leistungskategorie, role)
       canton_counts[role][leistungskategorie].send(canton).to_i
     end
@@ -41,18 +51,38 @@ module CourseReporting
 
     private
 
+    def participant_counts
+      @participant_counts ||= begin
+        hash = Hash.new { |h, k| h[k] = Event::CourseRecord.new }
+        load_participant_counts.each do |record|
+          hash[record.leistungskategorie] = record
+        end
+        hash
+      end
+    end
+
+    def load_participant_counts
+      summed_columns = 'events.leistungskategorie, ' +
+                       select_sum(ROLE_PARTICIPANTS.values)
+
+      Event::CourseRecord.select(summed_columns).
+                          joins(:event).
+                          where(year: year).
+                          group('events.leistungskategorie')
+    end
+
     def canton_counts
       @canton_counts ||= begin
         roles.each_with_object({}) do |role, hash|
           hash[role] = Hash.new { |h, k| h[k] = Event::ParticipationCantonCount.new }
-          participation_canton_counts(role).each do |counts|
+          load_canton_counts(role).each do |counts|
             hash[role][counts.leistungskategorie] = counts
           end
         end
       end
     end
 
-    def participation_canton_counts(role)
+    def load_canton_counts(role)
       summed_columns = 'events.leistungskategorie, ' + select_sum(cantons)
 
       Event::ParticipationCantonCount.

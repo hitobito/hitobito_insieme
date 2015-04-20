@@ -25,6 +25,8 @@ module Export
 
         def to_csv(generator)
           generator << labels
+          generator << participant_values
+          generator << multiple_challenged_values
           stats.cantons.each do |canton|
             generator << canton_values(canton)
           end
@@ -39,6 +41,22 @@ module Export
             I18n.t("activerecord.attributes.event/course.leistungskategorien.#{lk}", count: 3) +
             ' ' +
             I18n.t("course_reporting.client_statistics.#{role}")
+          end
+        end
+
+        def participant_values
+          label = I18n.t('course_reporting.client_statistics.participants')
+          values(label) do |lk, role|
+            stats.participant_count(lk, role)
+          end
+        end
+
+        def multiple_challenged_values
+          label = I18n.t('course_reporting.client_statistics.multiple_challenged')
+          values(label) do |lk, role|
+            if role == :challenged
+              stats.participant_count(lk, :multiple)
+            end
           end
         end
 
