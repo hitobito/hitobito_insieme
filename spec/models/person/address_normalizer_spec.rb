@@ -11,7 +11,7 @@ describe Person::AddressNormalizer do
   let(:attrs) { { first_name: 'Puzzle',
                   last_name: 'ITC',
                   address: 'Eigerplatz 4',
-                  zip_code: 3007,
+                  zip_code: '3007',
                   town: 'Bern',
                   country: 'Schweiz' } }
 

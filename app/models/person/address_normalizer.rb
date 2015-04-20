@@ -62,7 +62,7 @@ class Person::AddressNormalizer
 
   def all_fields_equal_to_main?(type)
     fields(type).all? do |typed_field, field|
-      person.send(typed_field) == person.send(field)
+      person.send(typed_field).to_s == person.send(field).to_s
     end
   end
 
