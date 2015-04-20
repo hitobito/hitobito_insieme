@@ -10,7 +10,6 @@ module Export
   module Csv
     module CourseReporting
       class Aggregation
-        include ActionView::Helpers::NumberHelper
 
         ATTRIBUTES = [
           :anzahl_kurse,
@@ -53,9 +52,18 @@ module Export
 
         DURATION_ATTRS = [
           :kursdauer,
-          :total_absenzen, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-          :total_tage_teilnehmende, :tage_behinderte, :tage_angehoerige, :tage_weitere,
-          :direkte_kosten_pro_le, :vollkosten_pro_le,
+          :total_absenzen,
+          :absenzen_behinderte,
+          :absenzen_angehoerige,
+          :absenzen_weitere,
+
+          :total_tage_teilnehmende,
+          :tage_behinderte,
+          :tage_angehoerige,
+          :tage_weitere,
+
+          :direkte_kosten_pro_le,
+          :vollkosten_pro_le
         ]
 
         class << self
@@ -97,7 +105,7 @@ module Export
 
         def attributes(attr)
           values(t(attr)) do |kriterium, kursart|
-            f(aggregation.course_counts(kriterium, kursart, attr))
+            aggregation.course_counts(kriterium, kursart, attr)
           end
         end
 
@@ -109,30 +117,18 @@ module Export
           end
         end
 
-        def each_column
+        def each_column(&block)
           kriterien = blockkurs? ? aggregation.inputkriterien : %w(all)
           kursarten = blockkurs? ? aggregation.kursarten + %w(total) : aggregation.kursarten
 
           kriterien.
             product(kursarten).
             append(%w(all total)).
-            each do |kriterium, kursart|
-              yield(kriterium, kursart)
-            end
+            each(&block)
         end
 
         def blockkurs?
           aggregation.leistungskategorie == 'bk'
-        end
-
-        def f(value)
-          case value
-          when Float, BigDecimal then
-            number_with_precision(value,
-                                  precision: I18n.t('number.format.precision'),
-                                  delimiter: I18n.t('number.format.delimiter'))
-          else value.to_s
-          end
         end
 
       end

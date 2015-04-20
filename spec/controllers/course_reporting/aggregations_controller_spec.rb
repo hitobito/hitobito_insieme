@@ -11,6 +11,7 @@ describe CourseReporting::AggregationsController do
   let(:group) { groups(:dachverein) }
 
   before {  sign_in(people(:top_leader)) }
+
   render_views
 
   it 'index page renders ok' do
@@ -19,7 +20,7 @@ describe CourseReporting::AggregationsController do
   end
 
   it 'exprt renders ok' do
-    get :export, id: group.id, year: 2014, lk: 'bk', subsidized: true, categories: [1,2,3]
+    get :export, id: group.id, year: 2014, lk: 'bk', subsidized: 'true', categories: [1,2,3]
     expect(response).to be_ok
   end
 

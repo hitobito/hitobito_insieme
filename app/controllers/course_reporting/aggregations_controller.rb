@@ -6,6 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class CourseReporting::AggregationsController < ApplicationController
+
   include YearBasedPaging
   layout 'reporting'
   before_action :authorize
@@ -34,13 +35,21 @@ class CourseReporting::AggregationsController < ApplicationController
   def aggregation
     @aggregation ||= CourseReporting::Aggregation.new(group.id,
                                                       year,
-                                                      params.fetch(:lk),
+                                                      leistungskategorie,
                                                       categories,
-                                                      params.fetch(:subsidized))
+                                                      subsidized)
   end
 
   def group
     @group ||= Group.find(params[:id])
+  end
+
+  def subsidized
+    params[:subsidized].to_s.downcase == 'true'
+  end
+
+  def leistungskategorie
+    params.fetch(:lk).downcase
   end
 
   def categories
@@ -48,9 +57,10 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def filename
-    subsidized = params[:subsidized] ? :subsidized : :unsubsidized
-    lk = t("activerecord.attributes.event/course.leistungskategorien.#{params[:lk]}", count: 3)
-    "course_statistics_#{group.id}_#{year}_#{lk.downcase}_#{subsidized}_#{categories.join('_')}.csv"
+    subsi = subsidized ? 'subsidized' : 'unsubsidized'
+    lk = t('activerecord.attributes.event/course.leistungskategorien.' +
+           leistungskategorie, count: 3)
+    "course_statistics_#{group.id}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}.csv"
   end
 
 end

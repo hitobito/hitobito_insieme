@@ -32,13 +32,16 @@ module CourseReporting
 
       :beitraege_teilnehmende,
       :gemeinkostenanteil,
-      :total_direkte_kosten,
+      :total_direkte_kosten
     ]
 
     RUBY_SUMMED_ATTRS = COUNTS + [
       :anzahl_spezielle_unterkunft,
-      :tage_behinderte, :tage_angehoerige, :tage_weitere,
-      :direkte_kosten_pro_le, :vollkosten_pro_le,
+      :tage_behinderte,
+      :tage_angehoerige,
+      :tage_weitere,
+      :direkte_kosten_pro_le,
+      :vollkosten_pro_le,
       :betreuungsschluessel
     ]
 
@@ -67,20 +70,21 @@ module CourseReporting
     def scope
       Event::CourseRecord.
         joins(:event).
-        group(:kursart).
-        group(:inputkriterien).
-        merge(Event.in_year(year)).
+        group(:kursart, :inputkriterien).
         merge(Event.with_group_id(group_id)).
-        where(events: { leistungskategorie: leistungskategorie },
-              event_course_records: { zugeteilte_kategorie: zugeteilte_kategorien,
-                                      subventioniert: subventioniert })
+        where(events: {
+                leistungskategorie: leistungskategorie },
+              event_course_records: {
+                year: year,
+                zugeteilte_kategorie: zugeteilte_kategorien,
+                subventioniert: subventioniert })
     end
 
     private
 
     def data
       @data ||= begin
-        hash = Hash.new {|k, v| k[v] = {} }
+        hash = Hash.new { |k, v| k[v] = {} }
         build_categories(hash)
         build_totals(hash)
         hash
@@ -89,14 +93,18 @@ module CourseReporting
 
     def build_categories(hash)
       inputkriterien.each do |kriterium|
-        hash[kriterium]['total'] = sum(records_for(:inputkriterien, kriterium))
-        kursarten.each { |kursart| hash[kriterium][kursart] = find_record(kriterium, kursart) }
+        hash[kriterium]['total'] = total(records_for(:inputkriterien, kriterium))
+        kursarten.each do |kursart|
+          hash[kriterium][kursart] = find_record(kriterium, kursart)
+        end
       end
     end
 
     def build_totals(hash)
-      hash['all']['total'] = sum(records)
-      kursarten.each { |kursart| hash['all'][kursart] = sum(records_for(:kursart, kursart)) }
+      hash['all']['total'] = total(records)
+      kursarten.each do |kursart|
+        hash['all'][kursart] = total(records_for(:kursart, kursart))
+      end
     end
 
     def records_for(attr, value)
@@ -104,8 +112,8 @@ module CourseReporting
     end
 
     def find_record(inputkriterium, kursart)
-      records_for(:inputkriterien, inputkriterium).
-        find( -> { empty_course_record }) { |r| r.kursart == kursart }
+      records.find { |r| r.inputkriterien == inputkriterium && r.kursart == kursart } ||
+        empty_course_record
     end
 
     def records
@@ -116,32 +124,34 @@ module CourseReporting
       Event::CourseRecord.new(anzahl_kurse: nil)
     end
 
-    def sum(course_records)
+    def total(course_records)
       RUBY_SUMMED_ATTRS.each_with_object(empty_course_record) do |attr, total|
-        values = course_records.collect { |record| record.send(attr) }
-        summed = values.compact.inject { |sum, val| val + sum }
-        total.send("#{attr}=", summed)
+        sum = course_records.
+                collect { |record| record.send(attr) }.
+                compact.
+                sum
+        total.send("#{attr}=", sum)
       end
     end
 
     def select
-      plains = [ 'event_course_records.year',
-                 'event_course_records.kursart',
-                 'event_course_records.inputkriterien' ]
+      plains = ['event_course_records.year',
+                'event_course_records.kursart',
+                'event_course_records.inputkriterien']
 
-      (plains + sql_summed_attrs + sql_sum_unterkunft).join(', ')
+      (plains + sql_summed_attrs + [sql_sum_unterkunft]).join(', ')
     end
 
     def sql_summed_attrs
-      COUNTS.map {|sym| "sum(#{sym}) as #{sym}" }
+      COUNTS.map { |sym| "SUM(#{sym}) AS #{sym}" }
     end
 
     def sql_sum_unterkunft
       column = Event::CourseRecord.column_types['spezielle_unterkunft']
       quoted_true_value = Event::CourseRecord.connection.quote(true, column)
-      Array(["sum(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value}",
-             "THEN event_course_records.anzahl_kurse ELSE 0 END)",
-             "as anzahl_spezielle_unterkunft_db"].join(' '))
+      "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
+      'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \
+      'AS anzahl_spezielle_unterkunft_db'
     end
 
   end

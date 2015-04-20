@@ -5,25 +5,22 @@
 
 - @subtitle = t('.title')
 
-%legend= t('activerecord.attributes.event/course.leistungskategorien.bk', count: 3)
-%div{style: 'margin: 20px;'}
-  = course_aggregation_csv_button(lk: :bk)
-  = course_aggregation_csv_button(lk: :bk, categories: 1)
-  = course_aggregation_csv_button(lk: :bk, categories: 2)
-  = course_aggregation_csv_button(lk: :bk, categories: 3)
-  = course_aggregation_csv_button(lk: :bk, subsidized: false)
+%h3= t('activerecord.attributes.event/course.leistungskategorien.bk', count: 3)
+= course_aggregation_csv_button(lk: :bk)
+= course_aggregation_csv_button(lk: :bk, categories: 1)
+= course_aggregation_csv_button(lk: :bk, categories: 2)
+= course_aggregation_csv_button(lk: :bk, categories: 3)
+= course_aggregation_csv_button(lk: :bk, subsidized: false)
 
-%legend= t('activerecord.attributes.event/course.leistungskategorien.tk', count: 3)
-%div{style: 'margin: 20px;'}
-  = course_aggregation_csv_button(lk: :tk)
-  = course_aggregation_csv_button(lk: :tk, categories: 1)
-  = course_aggregation_csv_button(lk: :tk, categories: 2)
-  = course_aggregation_csv_button(lk: :tk, categories: 3)
-  = course_aggregation_csv_button(lk: :tk, subsidized: false)
-%br
+%h3= t('activerecord.attributes.event/course.leistungskategorien.tk', count: 3)
+= course_aggregation_csv_button(lk: :tk)
+= course_aggregation_csv_button(lk: :tk, categories: 1)
+= course_aggregation_csv_button(lk: :tk, categories: 2)
+= course_aggregation_csv_button(lk: :tk, categories: 3)
+= course_aggregation_csv_button(lk: :tk, subsidized: false)
 
-%legend= t('activerecord.attributes.event/course.leistungskategorien.sk', count: 3)
-%div{style: 'margin: 20px;'}
-  = course_aggregation_csv_button(lk: :sk)
-  = course_aggregation_csv_button(lk: :sk, subsidized: false)
-%br
+
+%h3= t('activerecord.attributes.event/course.leistungskategorien.sk', count: 3)
+= course_aggregation_csv_button(lk: :sk)
+= course_aggregation_csv_button(lk: :sk, subsidized: false)
+

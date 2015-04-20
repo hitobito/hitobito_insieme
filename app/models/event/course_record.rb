@@ -83,7 +83,7 @@ class Event::CourseRecord < ActiveRecord::Base
   before_validation :sum_canton_counts
 
   attr_writer :anzahl_spezielle_unterkunft, :tage_behinderte, :tage_angehoerige, :tage_weitere,
-    :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
+              :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do

@@ -65,11 +65,11 @@ describe CourseReporting::Aggregation do
 
       expect(course_totals(:anzahl_kurse, 'a')).to eq(1)
       expect(course_totals(:anzahl_kurse, 'b')).to eq(1)
-      expect(course_totals(:anzahl_kurse, 'c')).to be_nil
+      expect(course_totals(:anzahl_kurse, 'c')).to eq(0)
 
       kriterien.each do |k|
         expect(course_counts(:anzahl_kurse, :freizeit_und_sport, k)).to eq(1)
-        expect(course_counts(:anzahl_kurse, :weiterbildung, k)).to be_nil
+        expect(course_counts(:anzahl_kurse, :weiterbildung, k)).to eq(nil)
       end
     end
 
