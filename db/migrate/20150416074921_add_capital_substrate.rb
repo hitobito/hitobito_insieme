@@ -18,6 +18,10 @@ class AddCapitalSubstrate < ActiveRecord::Migration
     end
 
     add_column :reporting_parameters, :capital_substrate_exemption, :decimal,
-               null: false, default: 200_000, precision: 12, scale: 2
+               precision: 12, scale: 2
+    ReportingParameter.update_all(capital_substrate_exemption: 200_000)
+    change_column :reporting_parameters, :capital_substrate_exemption, :decimal,
+                  null: false, precision: 12, scale: 2
+    ReportingParameter.reset_column_information
   end
 end

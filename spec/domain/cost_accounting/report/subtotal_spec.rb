@@ -26,11 +26,11 @@ describe CostAccounting::Report::Subtotal do
                                  report: 'sozialversicherungsaufwand',
                                  aufwand_ertrag_fibu: 2000)
 
-    TimeRecord.create!(group_id: group.id,
-                       year: year,
-                       verwaltung: 50,
-                       mittelbeschaffung: 30,
-                       newsletter: 20)
+    TimeRecord::EmployeeTime.create!(group_id: group.id,
+                                     year: year,
+                                     verwaltung: 50,
+                                     mittelbeschaffung: 30,
+                                     newsletter: 20)
 
   end
 

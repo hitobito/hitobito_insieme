@@ -15,8 +15,10 @@ describe TimeRecord::Table do
   context '#value_of' do
     it 'is initialized without records' do
       errors = []
+      excludes = %w(capital_substrate-paragraph_74)
       TimeRecord::Table::REPORTS.each do |report|
         TimeRecord::Report::Base::FIELDS.each do |field|
+          next if excludes.include? "#{report.key}-#{field}"
           value = table.value_of(report.key, field).to_d
           if value != 0.0
             errors << "#{report.key}-#{field} is expected to be 0, got #{value}"

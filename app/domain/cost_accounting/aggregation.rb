@@ -46,7 +46,7 @@ module CostAccounting
 
     def time_records
       @time_record ||= begin
-        records = TimeRecord.where(year: year).includes(:group)
+        records = TimeRecord::EmployeeTime.where(year: year).includes(:group)
         records.each_with_object({}) { |r, hash| hash[r.group] = r }
       end
     end

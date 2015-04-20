@@ -14,6 +14,7 @@ class ReportingParametersController < SimpleCrudController
                           :vollkosten_le_schwelle2_blockkurs,
                           :vollkosten_le_schwelle1_tageskurs,
                           :vollkosten_le_schwelle2_tageskurs,
-                          :bsv_hours_per_year]
+                          :bsv_hours_per_year,
+                          :capital_substrate_exemption]
 
 end

@@ -50,7 +50,8 @@ module CostAccounting
     end
 
     def time_record
-      @time_record ||= TimeRecord.where(group_id: group.id, year: year).first_or_initialize
+      @time_record ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year).
+                                                first_or_initialize
     end
 
     def reports

@@ -7,25 +7,23 @@
 
 class UpdateTimeRecord < ActiveRecord::Migration
   def change
-    add_column :time_records, :type, :string, null: false, default: 'TimeRecord::EmployeeTime'
+    add_column :time_records, :type, :string
+    TimeRecord.update_all(type: 'TimeRecord::EmployeeTime')
+    change_column :time_records, :type, :string, null: false
+
     add_column :time_records, :total_lufeb_general, :integer
     add_column :time_records, :total_lufeb_private, :integer
     add_column :time_records, :total_lufeb_specific, :integer
     add_column :time_records, :total_lufeb_promoting, :integer
     add_column :time_records, :nicht_art_74_leistungen, :integer
 
-    add_column :reporting_parameters, :bsv_hours_per_year, :integer, null: false, default: 1900
+    add_column :reporting_parameters, :bsv_hours_per_year, :integer
+    ReportingParameter.update_all(bsv_hours_per_year: 1900)
+    change_column :reporting_parameters, :bsv_hours_per_year, :integer, null: false
 
     remove_index :time_records, [:group_id, :year]
     add_index :time_records, [:group_id, :year, :type], unique: true
-
-    # Remove defaults again
-    reversible do |dir|
-      dir.up do
-        change_column_default(:time_records, :type, nil)
-        change_column_default(:reporting_parameters, :bsv_hours_per_year, nil)
-      end
-    end
+    TimeRecord.reset_column_information
 
     create_table :time_record_employee_pensums do |t|
       t.belongs_to :time_record, null: false

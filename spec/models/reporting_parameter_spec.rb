@@ -63,11 +63,10 @@ describe ReportingParameter do
   end
 
   def create(year)
-    ReportingParameter.create!(
-      year: year,
-      vollkosten_le_schwelle1_blockkurs: 1,
-      vollkosten_le_schwelle2_blockkurs: 2,
-      bsv_hours_per_year: 1900,
-      capital_substrate_exemption: 200_000)
+    ReportingParameter.create!(year: year,
+                               vollkosten_le_schwelle1_blockkurs: 1,
+                               vollkosten_le_schwelle2_blockkurs: 2,
+                               bsv_hours_per_year: 1900,
+                               capital_substrate_exemption: 200_000)
   end
 end

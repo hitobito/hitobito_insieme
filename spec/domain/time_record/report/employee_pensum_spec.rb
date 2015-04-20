@@ -15,8 +15,8 @@ describe TimeRecord::Report::EmployeePensum do
   let(:report) { table.reports.fetch('employee_pensum') }
 
   before do
-    create_report(TimeRecord::EmployeeTime, employee_pensum: { paragraph_74: 1,
-                                                               not_paragraph_74: 2 })
+    create_report(TimeRecord::EmployeeTime, employee_pensum_attributes: { paragraph_74: 1,
+                                                                          not_paragraph_74: 2 })
   end
 
   context '#paragraph_74' do

@@ -27,7 +27,7 @@ describe CostAccounting::Report::TimeDistributed do
     context 'with time record' do
 
       before do
-        TimeRecord.create!(group_id: group.id,
+        TimeRecord::EmployeeTime.create!(group_id: group.id,
                            year: year,
                            verwaltung: 50,
                            mittelbeschaffung: 30,

@@ -55,8 +55,8 @@ describe CostAccounting::Report::Deckungsbeitrag3 do
   end
 
   def create_time_record(values)
-    TimeRecord.create!(values.merge(group_id: group.id,
-                                    year: year))
+    TimeRecord::EmployeeTime.create!(values.merge(group_id: group.id,
+                                                  year: year))
   end
 
   def create_report(name, values)

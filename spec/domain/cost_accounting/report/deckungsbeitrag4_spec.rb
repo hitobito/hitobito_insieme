@@ -43,13 +43,13 @@ describe CostAccounting::Report::Deckungsbeitrag4 do
   end
 
   it 'calculates db 2 + sonstige_beitraege' do
-    expect(report.beratung).to eq(110 - 7 - 30 + 20 + 1 + 1)
-    expect(report.treffpunkte).to eq(111 - 6 - 20 + 21 + 2 + 2)
-    expect(report.blockkurse).to eq(112 - 5 - 10 + 22 + 3 + 3)
-    expect(report.tageskurse).to eq(113 - 4 - 5 + 23 + 4 + 4)
-    expect(report.jahreskurse).to eq(114 - 3 - 25 + 24 + 5 + 5)
-    expect(report.lufeb).to eq(115 - 2 - 3 + 25 + 6 + 6)
-    expect(report.mittelbeschaffung).to eq(116 - 1 - 7 + 26 + 7)
+    expect(report.beratung.to_f).to eq(110 - 7 - 30 + 20 + 1 + 1)
+    expect(report.treffpunkte.to_f).to eq(111 - 6 - 20 + 21 + 2 + 2)
+    expect(report.blockkurse.to_f).to eq(112 - 5 - 10 + 22 + 3 + 3)
+    expect(report.tageskurse.to_f).to eq(113 - 4 - 5 + 23 + 4 + 4)
+    expect(report.jahreskurse.to_f).to eq(114 - 3 - 25 + 24 + 5 + 5)
+    expect(report.lufeb.to_f).to eq(115 - 2 - 3 + 25 + 6 + 6)
+    expect(report.mittelbeschaffung.to_f).to eq(116 - 1 - 7 + 26 + 7)
   end
 
   it 'calculates the correct total' do
@@ -57,8 +57,8 @@ describe CostAccounting::Report::Deckungsbeitrag4 do
   end
 
   def create_time_record(values)
-    TimeRecord.create!(values.merge(group_id: group.id,
-                                    year: year))
+    TimeRecord::EmployeeTime.create!(values.merge(group_id: group.id,
+                                                  year: year))
   end
 
   def create_report(name, values)

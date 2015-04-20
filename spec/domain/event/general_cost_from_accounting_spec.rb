@@ -57,7 +57,7 @@ describe Event::GeneralCostFromAccounting do
   end
 
   def create_time_record(values)
-    TimeRecord.create!(values.merge(group_id: group.id,
+    TimeRecord::EmployeeTime.create!(values.merge(group_id: group.id,
                                     year: 2014))
   end
 
