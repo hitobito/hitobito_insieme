@@ -12,12 +12,13 @@ de:
 
   layouts:
     reporting_menu:
+      base_informations: Basisinformationen
       time_records: Zeiterfassung
       cost_accounting: Kostenrechnung
-      general: Allgemeines
       course_statistics: Kursstatistik
       overview: Übersicht
       general_cost_allocation: Umlage Gemeinkosten
+      capital_substrate: Kapitalsubstrat
     reporting_header:
       association_name: Vereinsname
 
@@ -213,16 +214,33 @@ de:
       reporting_parameters: Parameter
 
   time_records:
+    index:
+      title: Basisinformationen
+      paragraph_74: Art. 74 betreffend
+      not_paragraph_74: Art. 74 nicht betreffend
+      whole_organization: Ganze Organisation
+      controlling: Kontrolle
+      capital_substrate: Kapitalsubstrat
     edit:
-      comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen. Alle Angaben in Stunden.
-      general: Leistungen Allgemein
+      comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
+      subtotal: Subtotal
+      total: Total
+
+      employees: Angestellte MitarbeiterInnen, gemäss Arbeitsvertrag
       lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung Behinderter (LUFEB)
-      lufeb_general : Allgemeine Medien- und Öffentlichkeitsarbeit
+      courses: Kurse
+      additional_person_specific: Weitere personenspezifische Leistungen
+      remaining: Übrige Leistungen
+      not_paragraph_74: Nicht Art. 74 betreffende Leistungen
+      whole_organization: Ganze Organisation
+
+      help_employee_pensum: 70% Stellenprozent = 0.7 eingeben
+
+    lufeb_fields_full:
+      lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
       lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
       lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
-      procurement: Mittelbeschaffung
-
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
       help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
@@ -237,3 +255,21 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
+
+    report:
+      employee_pensum:
+        name: Angestellte MitarbeiterInnen. Gemäss Arbeitsvertrag (in 100% Stellen)
+      employee_time:
+        name: Angestellte MitarbeiterInnen. Zeiterfassung (in 100% Stellen)
+      volunteer_without_verification_time:
+        name: Ehrenamtliche Arbeit ohne Leistungsnachweis (in 100% Stellen)
+      volunteer_with_verification_time:
+        name: Ehrenamtliche Arbeit mit Leistungsnachweis (in 100% Stellen)
+      employee_efforts:
+        name: Personalaufwand inkl. Soz. Versicherung
+      employee_efforts_pensum:
+        name: Personalaufwand umgerechnet auf 100%-Stelle
+      capital_substrate:
+        name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
+      capital_substrate_limit:
+        name: Limite Kapitalsubstrat

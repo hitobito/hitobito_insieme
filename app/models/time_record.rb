@@ -44,56 +44,86 @@
 #  unterstuetzung_behindertenhilfe          :integer
 #  mittelbeschaffung                        :integer
 #  allgemeine_auskunftserteilung            :integer
+#  type                                     :string(255)      not null
+#  total_lufeb_general                      :integer
+#  total_lufeb_private                      :integer
+#  total_lufeb_specific                     :integer
+#  total_lufeb_promoting                    :integer
+#  nicht_art_74_leistungen                  :integer
 #
 
 class TimeRecord < ActiveRecord::Base
 
   belongs_to :group
 
-
-  validates :year, uniqueness: { scope: [:group_id] }
+  validates :year, uniqueness: { scope: [:group_id, :type] }
   validate :assert_group_has_reporting
 
-  # rubocop:disable MethodLength
-  def lufeb
-    @lufeb ||= begin
-      kontakte_medien.to_i +
-      interviews.to_i +
-      publikationen.to_i +
-      referate.to_i +
-      medienkonferenzen.to_i +
-      informationsveranstaltungen.to_i +
-      sensibilisierungskampagnen.to_i +
-      allgemeine_auskunftserteilung.to_i +
-      kontakte_meinungsbildner.to_i +
-      beratung_medien.to_i +
-
-      eigene_zeitschriften.to_i +
-      newsletter.to_i +
-      informationsbroschueren.to_i +
-      eigene_webseite.to_i +
-
-      erarbeitung_instrumente.to_i +
-      erarbeitung_grundlagen.to_i +
-      projekte.to_i +
-      vernehmlassungen.to_i +
-      gremien.to_i +
-
-      auskunftserteilung.to_i +
-      vermittlung_kontakte.to_i +
-      unterstuetzung_selbsthilfeorganisationen.to_i +
-      koordination_selbsthilfe.to_i +
-      treffen_meinungsaustausch.to_i +
-      beratung_fachhilfeorganisationen.to_i +
-      unterstuetzung_behindertenhilfe.to_i
+  class << self
+    def key
+      name.demodulize.underscore
     end
   end
-  # rubocop:enable MethodLength
+
+  def lufeb
+    total_lufeb
+  end
+
+  def total_lufeb
+    @total_lufeb ||=
+      total_lufeb_general.to_i +
+      total_lufeb_private.to_i +
+      total_lufeb_specific.to_i +
+      total_lufeb_promoting.to_i
+  end
+
+  def total_courses
+    @total_courses ||=
+      blockkurse.to_i +
+      tageskurse.to_i +
+      jahreskurse.to_i
+  end
+
+  def total_additional_person_specific
+    @total_additional_person_specific ||=
+      treffpunkte.to_i +
+      beratung.to_i
+  end
+
+  def total_remaining
+    @total_remaining ||=
+      mittelbeschaffung.to_i +
+      verwaltung.to_i
+  end
+
+  def total_paragraph_74
+    @total_paragraph_74 ||=
+      total_lufeb.to_i +
+      total_courses.to_i +
+      total_additional_person_specific.to_i +
+      total_remaining.to_i
+  end
+
+  def total_not_paragraph_74
+    @total_not_paragraph_74 ||=
+      nicht_art_74_leistungen.to_i
+  end
 
   def total
-    @total ||= (self.class.column_names - %w(id group_id year)).
-                 collect { |c| send(c).to_i }.
-                 sum
+    total_paragraph_74.to_i +
+    total_not_paragraph_74.to_i
+  end
+
+  def total_paragraph_74_pensum
+    total_paragraph_74.to_d / globals.bsv_hours_per_year
+  end
+
+  def total_not_paragraph_74_pensum
+    total_not_paragraph_74.to_d / globals.bsv_hours_per_year
+  end
+
+  def total_pensum
+    total.to_d / globals.bsv_hours_per_year
   end
 
   def to_s
@@ -107,4 +137,53 @@ class TimeRecord < ActiveRecord::Base
       errors.add(:group_id, :is_not_allowed)
     end
   end
+
+  def globals
+    @globals ||= ReportingParameter.for(year)
+  end
+
+  # rubocop:disable MethodLength
+  def calculate_total_lufeb_general!
+    self.total_lufeb_general =
+      kontakte_medien.to_i +
+      interviews.to_i +
+      publikationen.to_i +
+      referate.to_i +
+      medienkonferenzen.to_i +
+      informationsveranstaltungen.to_i +
+      sensibilisierungskampagnen.to_i +
+      allgemeine_auskunftserteilung.to_i +
+      kontakte_meinungsbildner.to_i +
+      beratung_medien.to_i
+  end
+  # rubocop:enable MethodLength
+
+  def calculate_total_lufeb_private!
+    self.total_lufeb_private =
+      eigene_zeitschriften.to_i +
+      newsletter.to_i +
+      informationsbroschueren.to_i +
+      eigene_webseite.to_i
+  end
+
+  def calculate_total_lufeb_specific!
+    self.total_lufeb_specific =
+      erarbeitung_instrumente.to_i +
+      erarbeitung_grundlagen.to_i +
+      projekte.to_i +
+      vernehmlassungen.to_i +
+      gremien.to_i
+  end
+
+  def calculate_total_lufeb_promoting!
+    self.total_lufeb_promoting =
+      auskunftserteilung.to_i +
+      vermittlung_kontakte.to_i +
+      unterstuetzung_selbsthilfeorganisationen.to_i +
+      koordination_selbsthilfe.to_i +
+      treffen_meinungsaustausch.to_i +
+      beratung_fachhilfeorganisationen.to_i +
+      unterstuetzung_behindertenhilfe.to_i
+  end
+
 end

@@ -15,6 +15,8 @@
 #  vollkosten_le_schwelle2_blockkurs :decimal(12, 2)   not null
 #  vollkosten_le_schwelle1_tageskurs :decimal(12, 2)   default(0.0), not null
 #  vollkosten_le_schwelle2_tageskurs :decimal(12, 2)   default(0.0), not null
+#  bsv_hours_per_year                :integer          not null
+#  capital_substrate_exemption       :decimal(12, 2)   default(200000.0), not null
 #
 
 require 'spec_helper'
@@ -50,6 +52,8 @@ describe ReportingParameter do
       is_expected.to have(1).errors_on(:year)
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle1_blockkurs)
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle2_blockkurs)
+      is_expected.to have(1).errors_on(:bsv_hours_per_year)
+      is_expected.to have(1).errors_on(:capital_substrate_exemption)
     end
 
     it 'validates uniqneness of year' do
@@ -59,9 +63,10 @@ describe ReportingParameter do
   end
 
   def create(year)
-    ReportingParameter.create!(
-      year: year,
-      vollkosten_le_schwelle1_blockkurs: 1,
-      vollkosten_le_schwelle2_blockkurs: 2)
+    ReportingParameter.create!(year: year,
+                               vollkosten_le_schwelle1_blockkurs: 1,
+                               vollkosten_le_schwelle2_blockkurs: 2,
+                               bsv_hours_per_year: 1900,
+                               capital_substrate_exemption: 200_000)
   end
 end

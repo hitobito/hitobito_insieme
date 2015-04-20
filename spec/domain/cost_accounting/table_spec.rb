@@ -13,7 +13,7 @@ describe CostAccounting::Table do
   let(:table) { CostAccounting::Table.new(group, 2014) }
 
   context '#value_of' do
-    it 'is lazy initialized without records' do
+    it 'is initialized without records' do
       errors = []
       CostAccounting::Table::REPORTS.each do |report|
         CostAccounting::Report::Base::FIELDS.each do |field|

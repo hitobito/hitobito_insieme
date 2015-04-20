@@ -5,60 +5,64 @@
 
 - @subtitle = I18n.t('crud.edit.title', model: entry)
 
-
 = crud_form(entry,
-            url: time_record_group_path(group, year),
-            cancel_url: time_record_group_path(group, year),
+            url: time_record_report_group_path(group, year, entry.class.key),
+            cancel_url: time_record_group_path(group, year: year),
             buttons_bottom: true,
             method: :put,
             html: { class: 'long-labeled report' }) do |f|
 
   %p= t('.comment')
 
-  %h3= t('.general')
+  - if entry.class.key == 'employee_time'
+    %h3= t('.employees')
+    = f.fields_for(:employee_pensum) do |nf|
+      = nf.hidden_field(:id)
+      = nf.labeled_input_field :paragraph_74, help_inline: t('.help_employee_pensum')
+      = nf.labeled_input_field :not_paragraph_74
+      = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: format_float(entry.employee_pensum.total)
+
+  %h3= t('.lufeb')
+  - if entry.class.key == 'volunteer_without_verification_time'
+    = render 'lufeb_fields_sumarized', f: f
+  - else
+    = render 'lufeb_fields_full', f: f
+
   = field_set_tag do
-    = f.labeled_input_field :verwaltung, addon: t('global.hours_short')
-    = f.labeled_input_field :beratung, addon: t('global.hours_short')
-    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short')
+    = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
+
+  %h3= t('.courses')
+  = field_set_tag do
     = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
     = f.labeled_input_field :tageskurse, addon: t('global.hours_short')
     = f.labeled_input_field :jahreskurse, addon: t('global.hours_short')
+    = f.labeled_readonly_value :total_courses, label: t('.total'), value: format_hours(entry.total_courses)
 
-  %h3= t('.lufeb')
-  = field_set_tag(t('.lufeb_general')) do
-    = f.labeled_input_fields :kontakte_medien, addon: t('global.hours_short')
-    = f.labeled_input_field :interviews, addon: t('global.hours_short')
-    = f.labeled_input_field :publikationen, addon: t('global.hours_short'), help_inline: t('.help_publikationen')
-    = f.labeled_input_fields :referate, addon: t('global.hours_short')
-    = f.labeled_input_field :medienkonferenzen, addon: t('global.hours_short'), help_inline: t('.help_medienkonferenzen')
-    = f.labeled_input_fields :informationsveranstaltungen, addon: t('global.hours_short')
-    = f.labeled_input_field :sensibilisierungskampagnen, addon: t('global.hours_short')
-    = f.labeled_input_field :allgemeine_auskunftserteilung, addon: t('global.hours_short')
-    = f.labeled_input_field :kontakte_meinungsbildner, addon: t('global.hours_short'), help_inline: t('.help_kontakte_meinungsbildner')
-    = f.labeled_input_fields :beratung_medien, addon: t('global.hours_short')
-
-  = field_set_tag(t('.lufeb_private')) do
-    = f.labeled_input_fields :eigene_zeitschriften, addon: t('global.hours_short')
-    = f.labeled_input_field :newsletter, addon: t('global.hours_short')
-    = f.labeled_input_field :informationsbroschueren, addon: t('global.hours_short')
-    = f.labeled_input_field :eigene_webseite, addon: t('global.hours_short')
-
-  = field_set_tag(t('.lufeb_specific')) do
-    = f.labeled_input_field :erarbeitung_instrumente, addon: t('global.hours_short'), help_inline: t('.help_erarbeitung_instrumente')
-    = f.labeled_input_field :erarbeitung_grundlagen, addon: t('global.hours_short'), help_inline: t('.help_erarbeitung_grundlagen')
-    = f.labeled_input_fields :projekte, addon: t('global.hours_short')
-    = f.labeled_input_field :vernehmlassungen, addon: t('global.hours_short')
-    = f.labeled_input_field :gremien, addon: t('global.hours_short'), help_inline: t('.help_gremien')
-
-  = field_set_tag(t('.lufeb_promoting')) do
-    = f.labeled_input_field :auskunftserteilung, addon: t('global.hours_short'), help_inline: t('.help_auskunftserteilung')
-    = f.labeled_input_field :vermittlung_kontakte, addon: t('global.hours_short'), help_inline: t('.help_vermittlung_kontakte')
-    = f.labeled_input_field :unterstuetzung_selbsthilfeorganisationen, addon: t('global.hours_short'), help_inline: t('.help_unterstuetzung_selbsthilfeorganisationen')
-    = f.labeled_input_field :koordination_selbsthilfe, addon: t('global.hours_short'), help_inline: t('.help_koordination_selbsthilfe')
-    = f.labeled_input_field :treffen_meinungsaustausch, addon: t('global.hours_short'), help_inline: t('.help_treffen_meinungsaustausch')
-    = f.labeled_input_field :beratung_fachhilfeorganisationen, addon: t('global.hours_short')
-    = f.labeled_input_field :unterstuetzung_behindertenhilfe, addon: t('global.hours_short'), help_inline: t('.help_unterstuetzung_behindertenhilfe')
-
-  %h3= t('.procurement')
+  %h3= t('.additional_person_specific')
   = field_set_tag do
-    = f.labeled_input_fields :mittelbeschaffung, addon: t('global.hours_short')
+    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short')
+    = f.labeled_input_field :beratung, addon: t('global.hours_short')
+    = f.labeled_readonly_value :total_additional_person_specific, label: t('.total'), value: format_hours(entry.total_additional_person_specific)
+
+  %h3= t('.remaining')
+  = field_set_tag do
+    = f.labeled_input_field :mittelbeschaffung, addon: t('global.hours_short')
+    = f.labeled_input_field :verwaltung, addon: t('global.hours_short')
+    = f.labeled_readonly_value :total_remaining, label: t('.total'), value: format_hours(entry.total_remaining)
+
+  = field_set_tag do
+    = f.labeled_readonly_value :total_paragraph_74, value: format_hours(entry.total_paragraph_74)
+    = f.labeled_readonly_value :total_paragraph_74_pensum, value: format_float(entry.total_paragraph_74_pensum)
+
+  %h3= t('.not_paragraph_74')
+  = field_set_tag do
+    = f.labeled_input_field :nicht_art_74_leistungen, addon: t('global.hours_short')
+
+  = field_set_tag do
+    = f.labeled_readonly_value :total_not_paragraph_74, value: format_hours(entry.total_not_paragraph_74)
+    = f.labeled_readonly_value :total_not_paragraph_74_pensum, value: format_float(entry.total_not_paragraph_74_pensum)
+
+  %h3= t('.whole_organization')
+  = field_set_tag do
+    = f.labeled_readonly_value :total, value: format_hours(entry.total)
+    = f.labeled_readonly_value :total_pensum, value: format_float(entry.total_pensum)

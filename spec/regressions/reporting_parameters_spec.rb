@@ -21,7 +21,9 @@ describe ReportingParametersController, type: :controller do
       vollkosten_le_schwelle1_blockkurs: 440,
       vollkosten_le_schwelle2_blockkurs: 600,
       vollkosten_le_schwelle1_tageskurs: 300,
-      vollkosten_le_schwelle2_tageskurs: 450 }
+      vollkosten_le_schwelle2_tageskurs: 450,
+      bsv_hours_per_year: 1900,
+      capital_substrate_exemption: 200_000 }
   end
 
   before { sign_in(people(:top_leader)) }

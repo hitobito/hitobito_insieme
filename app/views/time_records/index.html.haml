@@ -1,0 +1,34 @@
+-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+- @subtitle = t('.title')
+
+.table-responsive.time-records
+  %table.table.table-hover
+    %thead
+      %tr
+        %th
+        %th= t('.paragraph_74')
+        %th= t('.not_paragraph_74')
+        %th= t('.whole_organization')
+
+    %tbody
+      - previous_kind = nil
+      - @table.reports.values.each do |report|
+        - if report.kind == :controlling && previous_kind != report.kind
+          %tr{class: 'separator'}
+            %th{colspan: 4}= t('.controlling')
+        - if report.kind == :capital_substrate && previous_kind != report.kind
+          %tr{class: 'separator'}
+            %th{colspan: 4}= t('.capital_substrate')
+
+
+        %tr{class: report.kind}
+          %td= report.human_name
+          %td= f(report.paragraph_74)
+          %td= f(report.not_paragraph_74)
+          %td= f(report.total)
+
+        - previous_kind = report.kind

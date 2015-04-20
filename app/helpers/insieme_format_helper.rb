@@ -24,4 +24,20 @@ module InsiemeFormatHelper
     end
   end
 
+  def format_hours(amount)
+    if amount
+      f(amount) + ' ' + t('global.hours_short')
+    else
+      ''
+    end
+  end
+
+  def format_float(amount)
+    if amount
+      f(amount)
+    else
+      ''
+    end
+  end
+
 end
