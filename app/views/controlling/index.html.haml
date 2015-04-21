@@ -14,3 +14,7 @@
   = action_button(t('.client_statistics'),
                   client_statistics_controlling_group_path(year: year, format: :csv),
                   :download)
+
+  = action_button(t('.group_figures'),
+                  group_figures_controlling_group_path(year: year, format: :csv),
+                  :download)

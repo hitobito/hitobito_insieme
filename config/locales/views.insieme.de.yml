@@ -41,6 +41,7 @@ de:
     index:
       cost_accounting: Konsolidierte Kostenrechnung
       client_statistics: KlientInnen Statistik
+      group_figures: Kennzahlen pro Verein
 
   cost_accounting:
     index:
