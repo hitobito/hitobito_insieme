@@ -212,8 +212,14 @@ describe Event::CourseRecord do
       end
     end
 
-    context '#total_tage_teilnehmende' do
+    context '#sum_total_tage_teilnehmende' do
+      it 'is called on save' do
+        expect(record).to receive(:sum_total_tage_teilnehmende)
+        record.save!
+      end
+
       it 'is correct' do
+        record.sum_total_tage_teilnehmende
         expect(subject.total_tage_teilnehmende).to eq(47)
       end
     end

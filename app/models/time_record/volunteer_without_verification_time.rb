@@ -53,4 +53,13 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-class TimeRecord::VolunteerWithoutVerificationTime < TimeRecord; end
+class TimeRecord::VolunteerWithoutVerificationTime < TimeRecord
+
+  private
+
+  def update_totals
+    # Don't update LUFEB subtotals, use manual values
+    calculate_total
+  end
+
+end

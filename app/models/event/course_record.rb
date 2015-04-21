@@ -82,6 +82,7 @@ class Event::CourseRecord < ActiveRecord::Base
   before_validation :set_defaults
   before_validation :compute_category
   before_validation :sum_canton_counts
+  before_save :sum_total_tage_teilnehmende
 
   attr_writer :anzahl_spezielle_unterkunft, :tage_behinderte, :tage_angehoerige, :tage_weitere,
               :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
@@ -132,12 +133,6 @@ class Event::CourseRecord < ActiveRecord::Base
   def tage_weitere
     @tage_weitere ||=
       (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
-  end
-
-  def total_tage_teilnehmende
-    tage_behinderte +
-    tage_angehoerige +
-    tage_weitere
   end
 
   def praesenz_prozent
@@ -213,6 +208,12 @@ class Event::CourseRecord < ActiveRecord::Base
   def sum_canton_counts
     self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
     self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
+  end
+
+  def sum_total_tage_teilnehmende
+    self.total_tage_teilnehmende = tage_behinderte +
+                                   tage_angehoerige +
+                                   tage_weitere
   end
 
   def anzahl_spezielle_unterkunft

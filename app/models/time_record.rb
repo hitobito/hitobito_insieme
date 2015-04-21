@@ -59,6 +59,8 @@ class TimeRecord < ActiveRecord::Base
   validates :year, uniqueness: { scope: [:group_id, :type] }
   validate :assert_group_has_reporting
 
+  before_save :update_totals
+
   class << self
     def key
       name.demodulize.underscore
@@ -109,11 +111,6 @@ class TimeRecord < ActiveRecord::Base
       nicht_art_74_leistungen.to_i
   end
 
-  def total
-    total_paragraph_74.to_i +
-    total_not_paragraph_74.to_i
-  end
-
   def total_paragraph_74_pensum
     total_paragraph_74.to_d / globals.bsv_hours_per_year
   end
@@ -143,7 +140,7 @@ class TimeRecord < ActiveRecord::Base
   end
 
   # rubocop:disable MethodLength
-  def calculate_total_lufeb_general!
+  def calculate_total_lufeb_general
     self.total_lufeb_general =
       kontakte_medien.to_i +
       interviews.to_i +
@@ -158,7 +155,7 @@ class TimeRecord < ActiveRecord::Base
   end
   # rubocop:enable MethodLength
 
-  def calculate_total_lufeb_private!
+  def calculate_total_lufeb_private
     self.total_lufeb_private =
       eigene_zeitschriften.to_i +
       newsletter.to_i +
@@ -166,7 +163,7 @@ class TimeRecord < ActiveRecord::Base
       eigene_webseite.to_i
   end
 
-  def calculate_total_lufeb_specific!
+  def calculate_total_lufeb_specific
     self.total_lufeb_specific =
       erarbeitung_instrumente.to_i +
       erarbeitung_grundlagen.to_i +
@@ -175,7 +172,7 @@ class TimeRecord < ActiveRecord::Base
       gremien.to_i
   end
 
-  def calculate_total_lufeb_promoting!
+  def calculate_total_lufeb_promoting
     self.total_lufeb_promoting =
       auskunftserteilung.to_i +
       vermittlung_kontakte.to_i +
@@ -184,6 +181,20 @@ class TimeRecord < ActiveRecord::Base
       treffen_meinungsaustausch.to_i +
       beratung_fachhilfeorganisationen.to_i +
       unterstuetzung_behindertenhilfe.to_i
+  end
+
+  def calculate_total
+    self.total =
+      total_paragraph_74.to_i +
+      total_not_paragraph_74.to_i
+  end
+
+  def update_totals
+    calculate_total_lufeb_general
+    calculate_total_lufeb_private
+    calculate_total_lufeb_specific
+    calculate_total_lufeb_promoting
+    calculate_total
   end
 
 end

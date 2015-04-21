@@ -57,7 +57,7 @@ require 'spec_helper'
 
 describe TimeRecord::EmployeeTime do
 
-  context '#update_lufeb_subtotals' do
+  context '#update_totals' do
     it 'updates the lufeb subtotals on save' do
       record = TimeRecord::EmployeeTime.new(year: 2014,
                                             group: groups(:be),
@@ -91,6 +91,7 @@ describe TimeRecord::EmployeeTime do
       expect(record.total_lufeb_private).to eq nil
       expect(record.total_lufeb_specific).to eq nil
       expect(record.total_lufeb_promoting).to eq nil
+      expect(record.total).to eq nil
 
       record.save!
 
@@ -98,6 +99,7 @@ describe TimeRecord::EmployeeTime do
       expect(record.total_lufeb_private).to eq 50
       expect(record.total_lufeb_specific).to eq 85
       expect(record.total_lufeb_promoting).to eq 161
+      expect(record.total).to eq 351
     end
   end
 
