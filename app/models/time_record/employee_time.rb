@@ -53,4 +53,8 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-class TimeRecord::EmployeeTime < TimeRecord; end
+class TimeRecord::EmployeeTime < TimeRecord
+  has_one :employee_pensum, foreign_key: :time_record_id, dependent: :destroy,
+          inverse_of: :time_record
+  accepts_nested_attributes_for :employee_pensum
+end

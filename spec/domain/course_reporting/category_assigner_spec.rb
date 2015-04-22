@@ -24,7 +24,7 @@ describe CourseReporting::CategoryAssigner do
       inputkriterien: inputkriterien,
       unterkunft: kosten,
       kursdauer: tage,
-      teilnehmende_behinderte: teilnehmende)
+      total_tage_teilnehmende: teilnehmende && teilnehmende * tage)
   end
 
 
