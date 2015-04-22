@@ -13,7 +13,7 @@ describe CourseReporting::Aggregation do
     { kursdauer: 0.5,
       challenged_canton_count_attributes: { be: 1, zh: 2 },
       affiliated_canton_count_attributes: { be: 2 },
-      teilnehmende_weitere: 3,
+      teilnehmende_weitere: 4,
       absenzen_behinderte: 0.5,
       absenzen_angehoerige: 0,
       absenzen_weitere: nil,
@@ -114,15 +114,15 @@ describe CourseReporting::Aggregation do
       expect_values(:anzahl_kurse, 3)
       expect_values(:kursdauer, 1.5)
 
-      expect_values(:teilnehmende, 24, 24, 0)
+      expect_values(:teilnehmende, 27, 27, 0)
       expect_values(:teilnehmende_behinderte, 9)
       expect_values(:teilnehmende_angehoerige, 6)
-      expect_values(:teilnehmende_weitere, 9)
+      expect_values(:teilnehmende_weitere, 12)
 
-      expect_values(:total_tage_teilnehmende, 10.5, 10.5, 0)
+      expect_values(:total_tage_teilnehmende, 12, 12, 0)
       expect_values(:tage_behinderte, 3, 3, 0)
       expect_values(:tage_angehoerige, 3, 3, 0)
-      expect_values(:tage_weitere, 4.5, 4.5, 0)
+      expect_values(:tage_weitere, 6, 6, 0)
 
       expect_values(:total_absenzen, 1.5, 1.5, 0)
       expect_values(:absenzen_behinderte, 1.5)
@@ -142,8 +142,8 @@ describe CourseReporting::Aggregation do
       expect_values(:unterkunft, 60)
       expect_values(:uebriges, 90)
 
-      dk_pro_le = 180.to_d / 10.5 # total_direkte_kosten / total_tage_teilnehmende
-      vk_pro_le = 210.to_d / 10.5 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = 180.to_d / 12.to_d # total_direkte_kosten / total_tage_teilnehmende
+      vk_pro_le = 210.to_d / 12.to_d # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, 0)
       expect_values(:total_vollkosten, 210, 210, 0)
@@ -164,15 +164,15 @@ describe CourseReporting::Aggregation do
       expect_values(:anzahl_kurse, 4, 2, 2)
       expect_values(:kursdauer, 2, 1, 1)
 
-      expect_values(:teilnehmende, 32, 16, 16)
+      expect_values(:teilnehmende, 36, 18, 18)
       expect_values(:teilnehmende_behinderte, 12, 6, 6)
       expect_values(:teilnehmende_angehoerige, 8, 4, 4)
-      expect_values(:teilnehmende_weitere, 12, 6, 6)
+      expect_values(:teilnehmende_weitere, 16, 8, 8)
 
-      expect_values(:total_tage_teilnehmende, 14, 7, 7)
+      expect_values(:total_tage_teilnehmende, 16, 8, 8)
       expect_values(:tage_behinderte, 4, 2, 2)
       expect_values(:tage_angehoerige, 4, 2, 2)
-      expect_values(:tage_weitere, 6, 3, 3)
+      expect_values(:tage_weitere, 8, 4, 4)
 
       expect_values(:total_absenzen, 2, 1, 1)
       expect_values(:absenzen_behinderte, 2, 1, 1)
@@ -191,8 +191,8 @@ describe CourseReporting::Aggregation do
       expect_values(:unterkunft, 80, 40, 40)
       expect_values(:uebriges, 120, 60, 60)
 
-      dk_pro_le = 240.to_d / 14 # total_direkte_kosten / total_tage_teilnehmende
-      vk_pro_le = 280.to_d / 14 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = 240.to_d / 16 # total_direkte_kosten / total_tage_teilnehmende
+      vk_pro_le = 280.to_d / 16 # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
       expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
