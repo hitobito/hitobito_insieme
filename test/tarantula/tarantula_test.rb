@@ -38,6 +38,7 @@ class TarantulaTest < ActionDispatch::IntegrationTest
 
     t.skip_uri_patterns << /groups\/\d+\/cost_accounting\/#{outside_three_years_window}/
     t.skip_uri_patterns << /groups\/\d+\/time_record\/#{outside_three_years_window}/
+    t.skip_uri_patterns << /groups\/\d+\/capital_substrate\/#{outside_three_years_window}/
 
     # already deleted in another language
     t.allow_404_for << /reporting_parameters\/\d+$/
