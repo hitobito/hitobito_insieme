@@ -177,17 +177,6 @@ describe TimeRecord do
         record.type = 'TimeRecord::EmployeeTime'
         record.save!
       end
-
-      it 'calls the calculation methods' do
-        expect(record).to receive(:calculate_total_lufeb_general)
-        expect(record).to receive(:calculate_total_lufeb_private)
-        expect(record).to receive(:calculate_total_lufeb_specific)
-        expect(record).to receive(:calculate_total_lufeb_promoting)
-        expect(record).to receive(:calculate_total)
-
-        record.type = 'TimeRecord::EmployeeTime'
-        record.save!
-      end
     end
 
     [[:total_lufeb_general, 145],

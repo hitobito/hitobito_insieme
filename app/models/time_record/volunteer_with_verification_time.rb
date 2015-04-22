@@ -53,4 +53,6 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-class TimeRecord::VolunteerWithVerificationTime < TimeRecord; end
+class TimeRecord::VolunteerWithVerificationTime < TimeRecord
+
+end

@@ -72,30 +72,26 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def total_lufeb
-    @total_lufeb ||=
-      total_lufeb_general.to_i +
-      total_lufeb_private.to_i +
-      total_lufeb_specific.to_i +
-      total_lufeb_promoting.to_i
+    total_lufeb_general.to_i +
+    total_lufeb_private.to_i +
+    total_lufeb_specific.to_i +
+    total_lufeb_promoting.to_i
   end
 
   def total_courses
-    @total_courses ||=
-      blockkurse.to_i +
-      tageskurse.to_i +
-      jahreskurse.to_i
+    blockkurse.to_i +
+    tageskurse.to_i +
+    jahreskurse.to_i
   end
 
   def total_additional_person_specific
-    @total_additional_person_specific ||=
-      treffpunkte.to_i +
-      beratung.to_i
+    treffpunkte.to_i +
+    beratung.to_i
   end
 
   def total_remaining
-    @total_remaining ||=
-      mittelbeschaffung.to_i +
-      verwaltung.to_i
+    mittelbeschaffung.to_i +
+    verwaltung.to_i
   end
 
   def total_paragraph_74
@@ -107,8 +103,12 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def total_not_paragraph_74
-    @total_not_paragraph_74 ||=
-      nicht_art_74_leistungen.to_i
+    nicht_art_74_leistungen.to_i
+  end
+
+  def total
+    total_paragraph_74.to_i +
+    total_not_paragraph_74.to_i
   end
 
   def total_paragraph_74_pensum
@@ -183,18 +183,12 @@ class TimeRecord < ActiveRecord::Base
       unterstuetzung_behindertenhilfe.to_i
   end
 
-  def calculate_total
-    self.total =
-      total_paragraph_74.to_i +
-      total_not_paragraph_74.to_i
-  end
-
   def update_totals
+    @total_paragraph_74 = nil
     calculate_total_lufeb_general
     calculate_total_lufeb_private
     calculate_total_lufeb_specific
     calculate_total_lufeb_promoting
-    calculate_total
   end
 
 end

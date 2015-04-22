@@ -80,12 +80,11 @@ class Event::CourseRecord < ActiveRecord::Base
 
 
   before_validation :set_defaults
-  before_validation :sum_canton_counts
-  before_validation :sum_total_tage_teilnehmende
+  before_validation :set_cached_values
   before_validation :compute_category
 
-  attr_writer :anzahl_spezielle_unterkunft, :tage_behinderte, :tage_angehoerige, :tage_weitere,
-              :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
+  attr_writer :tage_behinderte, :tage_angehoerige, :tage_weitere,
+              :anzahl_spezielle_unterkunft
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
@@ -122,16 +121,19 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def tage_behinderte
     @tage_behinderte ||=
+      attributes['tage_behinderte'] ||
       (kursdauer.to_d * teilnehmende_behinderte.to_i) - absenzen_behinderte.to_d
   end
 
   def tage_angehoerige
     @tage_angehoerige ||=
+      attributes['tage_angehoerige'] ||
       (kursdauer.to_d * teilnehmende_angehoerige.to_i) - absenzen_angehoerige.to_d
   end
 
   def tage_weitere
     @tage_weitere ||=
+      attributes['tage_weitere'] ||
       (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
   end
 
@@ -144,12 +146,11 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def betreuungsschluessel
-    @betreuungsschluessel ||=
-      if betreuende.to_d > 0
-        teilnehmende_behinderte.to_d / betreuende.to_d
-      else
-        0
-      end
+    if betreuende.to_d > 0
+      teilnehmende_behinderte.to_d / betreuende.to_d
+    else
+      0
+    end
   end
 
   def direkter_aufwand
@@ -163,31 +164,33 @@ class Event::CourseRecord < ActiveRecord::Base
     gemeinkostenanteil.to_d
   end
 
-  def vollkosten_pro_le
-    @vollkosten_pro_le ||=
-      if total_tage_teilnehmende > 0
-        total_vollkosten / total_tage_teilnehmende
-      else
-        0
-      end
-  end
-
   def direkte_kosten_pro_le
-    @direkte_kosten_pro_le ||=
-      if total_tage_teilnehmende > 0
-        total_direkte_kosten / total_tage_teilnehmende
-      else
-        0
-      end
+    if total_tage_teilnehmende > 0
+      total_direkte_kosten / total_tage_teilnehmende
+    else
+      0
+    end
   end
 
+  def vollkosten_pro_le
+    if total_tage_teilnehmende > 0
+      total_vollkosten / total_tage_teilnehmende
+    else
+      0
+    end
+  end
+
+  def anzahl_spezielle_unterkunft
+    @anzahl_spezielle_unterkunft ||
+      attributes['anzahl_spezielle_unterkunft'] ||
+      (spezielle_unterkunft ? 1 : 0)
+  end
 
   # rubocop:disable MethodLength
   def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
     self.subventioniert ||= true if subventioniert.nil?
-    self.total_direkte_kosten = direkter_aufwand
     self.year = event.years.first if event.years.size == 1
     self.anzahl_kurse = 1 if event.is_a?(Event::Course)
 
@@ -200,27 +203,23 @@ class Event::CourseRecord < ActiveRecord::Base
   end
   # rubocop:enable MethodLength
 
+  private
+
   def compute_category
     assigner = CourseReporting::CategoryAssigner.new(self)
     self.zugeteilte_kategorie = assigner.compute
   end
 
-  def sum_canton_counts
+
+  def set_cached_values
+    @tage_behinderte = @tage_angehoerige = @tage_weitere = nil
     self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
     self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
-  end
-
-  def sum_total_tage_teilnehmende
+    self.total_direkte_kosten = direkter_aufwand
     self.total_tage_teilnehmende = tage_behinderte +
                                    tage_angehoerige +
                                    tage_weitere
   end
-
-  def anzahl_spezielle_unterkunft
-    @anzahl_spezielle_unterkunft || try(:anzahl_spezielle_unterkunft_db)
-  end
-
-  private
 
   def assert_event_is_course
     if event && !event.reportable?

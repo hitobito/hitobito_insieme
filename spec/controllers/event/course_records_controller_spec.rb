@@ -87,15 +87,6 @@ describe Event::CourseRecordsController do
       expect(assigns(:course_record).event).to eq event
     end
 
-    it 'assigns default values' do
-      get :edit, group_id: group.id, event_id: event.id
-
-      expect(assigns(:course_record).inputkriterien).to eq 'a'
-      expect(assigns(:course_record).kursart).to eq 'weiterbildung'
-      expect(assigns(:course_record).subventioniert).to eq true
-      expect(assigns(:course_record).spezielle_unterkunft).to be_nil
-    end
-
     it 'reuses existing course_record based on group and event' do
       record = Event::CourseRecord.create!(event: event,
                                            inputkriterien: 'a',

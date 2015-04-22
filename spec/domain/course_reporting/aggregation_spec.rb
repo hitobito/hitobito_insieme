@@ -11,24 +11,35 @@ describe CourseReporting::Aggregation do
 
   let(:values) do
     { kursdauer: 0.5,
-      challenged_canton_count_attributes: { be: 1 },
+      challenged_canton_count_attributes: { be: 1, zh: 2 },
       affiliated_canton_count_attributes: { be: 2 },
       teilnehmende_weitere: 3,
-      absenzen_behinderte: 0.5, absenzen_angehoerige: 1, absenzen_weitere: 1.5,
-      leiterinnen: 1, fachpersonen: 2, hilfspersonal_ohne_honorar: 3, hilfspersonal_mit_honorar: 4, kuechenpersonal: 5,
-      honorare_inkl_sozialversicherung: 10, unterkunft: 20, uebriges: 30,
-      beitraege_teilnehmende: 10, spezielle_unterkunft: true,
+      absenzen_behinderte: 0.5,
+      absenzen_angehoerige: 0,
+      absenzen_weitere: nil,
+      leiterinnen: 1,
+      fachpersonen: 2,
+      hilfspersonal_ohne_honorar: 3,
+      hilfspersonal_mit_honorar: 4,
+      kuechenpersonal: 5,
+      honorare_inkl_sozialversicherung: 10,
+      unterkunft: 20,
+      uebriges: 30,
+      beitraege_teilnehmende: 10,
+      spezielle_unterkunft: true,
       gemeinkostenanteil: 10,
     }
   end
 
-  before { @aggregation = new_aggregation }
+  let(:aggregation) { new_aggregation }
+
+  before { Event::CourseRecord.destroy_all }
 
   context '#scope' do
     before { create!(create_course) }
 
     it 'returns records grouped by kursart and inputkriterien' do
-      expect(@aggregation.scope.count).to eq({ ['freizeit_und_sport', 'a'] => 1 })
+      expect(aggregation.scope.count).to eq({ ['freizeit_und_sport', 'a'] => 1 })
     end
 
     it 'filters based on leistungskategorie' do
@@ -74,12 +85,15 @@ describe CourseReporting::Aggregation do
     end
 
     %w(sk tk).each do |leistungskategorie|
-      it "#{leistungskategorie} sums once for all inputkriterien" do
-        @aggregation = new_aggregation(leistungskategorie: leistungskategorie)
-        kriterien.each { |k| create!(create_course(leistungskategorie), 'freizeit_und_sport', inputkriterien: k) }
+      context leistungskategorie do
+        let(:aggregation) { new_aggregation(leistungskategorie: leistungskategorie) }
 
-        expect(course_counts(:anzahl_kurse, 'freizeit_und_sport', 'all')).to eq(2)
-        expect(course_totals(:anzahl_kurse)).to eq(2)
+        it "sums once for all inputkriterien" do
+          kriterien.each { |k| create!(create_course(leistungskategorie), 'freizeit_und_sport', inputkriterien: k) }
+
+          expect(course_counts(:anzahl_kurse, 'freizeit_und_sport', 'all')).to eq(2)
+          expect(course_totals(:anzahl_kurse)).to eq(2)
+        end
       end
     end
   end
@@ -88,23 +102,32 @@ describe CourseReporting::Aggregation do
     it "builds total and value for three 'freizeit_und_sport' records" do
       3.times { create!(create_course, 'freizeit_und_sport', values) }
 
+      records = Event::CourseRecord.all.to_a
+      attrs = CourseReporting::Aggregation::RUBY_SUMMED_ATTRS -
+              [:direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel]
+      attrs.each do |attr|
+        expected = records.sum { |r| r.send(attr).to_d }
+        actual = course_totals(attr)
+        expect(actual).to eq(expected), "expected #{attr} to equal #{expected}, got #{actual}"
+      end
+
       expect_values(:anzahl_kurse, 3)
       expect_values(:kursdauer, 1.5)
 
-      expect_values(:teilnehmende, 18, 18, 0)
-      expect_values(:teilnehmende_behinderte, 3)
+      expect_values(:teilnehmende, 24, 24, 0)
+      expect_values(:teilnehmende_behinderte, 9)
       expect_values(:teilnehmende_angehoerige, 6)
       expect_values(:teilnehmende_weitere, 9)
 
-      expect_values(:total_tage_teilnehmende, 18, 18, 0)
+      expect_values(:total_tage_teilnehmende, 10.5, 10.5, 0)
       expect_values(:tage_behinderte, 3, 3, 0)
-      expect_values(:tage_angehoerige, 6, 6, 0)
-      expect_values(:tage_weitere, 9, 9, 0)
+      expect_values(:tage_angehoerige, 3, 3, 0)
+      expect_values(:tage_weitere, 4.5, 4.5, 0)
 
-      expect_values(:total_absenzen, 9, 9, 0)
+      expect_values(:total_absenzen, 1.5, 1.5, 0)
       expect_values(:absenzen_behinderte, 1.5)
-      expect_values(:absenzen_angehoerige, 3)
-      expect_values(:absenzen_weitere, 4.5)
+      expect_values(:absenzen_angehoerige, 0, 0, nil)
+      expect_values(:absenzen_weitere, 0, nil, nil)
 
       expect_values(:betreuende, 30, 30, 0)
       expect_values(:leiterinnen, 3)
@@ -119,8 +142,8 @@ describe CourseReporting::Aggregation do
       expect_values(:unterkunft, 60)
       expect_values(:uebriges, 90)
 
-      dk_pro_le = 180.to_d / 18 # total_direkte_kosten / total_tage_teilnehmende
-      vk_pro_le = 210.to_d / 18 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = 180.to_d / 10.5 # total_direkte_kosten / total_tage_teilnehmende
+      vk_pro_le = 210.to_d / 10.5 # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, 0)
       expect_values(:total_vollkosten, 210, 210, 0)
@@ -129,8 +152,9 @@ describe CourseReporting::Aggregation do
 
       expect_values(:beitraege_teilnehmende, 30)
       expect_values(:gemeinkostenanteil, 30)
+      expect_values(:betreuungsschluessel, 9/30.0, 9/30.0, 0)
 
-      expect_values(:anzahl_spezielle_unterkunft, 3)
+      expect_values(:anzahl_spezielle_unterkunft, 3, 3, 0)
     end
 
     it "builds total and value for two 'freizeit_und_sport' and two 'weiterbildung' records" do
@@ -140,20 +164,20 @@ describe CourseReporting::Aggregation do
       expect_values(:anzahl_kurse, 4, 2, 2)
       expect_values(:kursdauer, 2, 1, 1)
 
-      expect_values(:teilnehmende, 24, 12, 12)
-      expect_values(:teilnehmende_behinderte, 4, 2, 2)
+      expect_values(:teilnehmende, 32, 16, 16)
+      expect_values(:teilnehmende_behinderte, 12, 6, 6)
       expect_values(:teilnehmende_angehoerige, 8, 4, 4)
       expect_values(:teilnehmende_weitere, 12, 6, 6)
 
-      expect_values(:total_tage_teilnehmende, 12, 6, 6)
-      expect_values(:tage_behinderte, 2, 1, 1)
+      expect_values(:total_tage_teilnehmende, 14, 7, 7)
+      expect_values(:tage_behinderte, 4, 2, 2)
       expect_values(:tage_angehoerige, 4, 2, 2)
       expect_values(:tage_weitere, 6, 3, 3)
 
-      expect_values(:total_absenzen, 12, 6, 6)
+      expect_values(:total_absenzen, 2, 1, 1)
       expect_values(:absenzen_behinderte, 2, 1, 1)
-      expect_values(:absenzen_angehoerige, 4, 2, 2)
-      expect_values(:absenzen_weitere, 6, 3, 3)
+      expect_values(:absenzen_angehoerige, 0, 0, 0)
+      expect_values(:absenzen_weitere, 0, nil, nil)
 
       expect_values(:betreuende, 40, 20, 20)
       expect_values(:leiterinnen, 4, 2, 2)
@@ -167,15 +191,16 @@ describe CourseReporting::Aggregation do
       expect_values(:unterkunft, 80, 40, 40)
       expect_values(:uebriges, 120, 60, 60)
 
-      dk_pro_le = 240.to_d / 12 # total_direkte_kosten / total_tage_teilnehmende
-      vk_pro_le = 280.to_d / 12 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = 240.to_d / 14 # total_direkte_kosten / total_tage_teilnehmende
+      vk_pro_le = 280.to_d / 14 # total_vollkosten / total_tage_teilnehmende
 
-      expect_values(:direkte_kosten_pro_le, dk_pro_le * 2, dk_pro_le, dk_pro_le)
-      expect_values(:vollkosten_pro_le, vk_pro_le * 2, vk_pro_le, vk_pro_le)
+      expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
+      expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
       expect_values(:total_direkte_kosten, 240, 120, 120)
 
       expect_values(:beitraege_teilnehmende, 40, 20, 20)
       expect_values(:gemeinkostenanteil, 40, 20, 20)
+      expect_values(:betreuungsschluessel, 12/40.0, 12/40.0, 12/40.0)
 
       expect_values(:anzahl_spezielle_unterkunft, 4, 2, 2)
     end
@@ -188,21 +213,25 @@ describe CourseReporting::Aggregation do
   end
 
   def course_counts(attr, kursart = :freizeit_und_sport, kriterium = :a)
-    @aggregation.course_counts(kriterium.to_s, kursart.to_s, attr)
+    aggregation.course_counts(kriterium.to_s, kursart.to_s, attr)
   end
 
   def course_totals(attr, kriterium = :all)
     course_counts(attr, :total, kriterium)
   end
 
-  def expect_values(attribute, total, freizeit_und_sport = total, weiterbildung = nil)
-    expect(course_totals(attribute)).to eq(total)
-    expect(course_counts(attribute, :freizeit_und_sport)).to eq(freizeit_und_sport)
-    expect(course_counts(attribute, :weiterbildung)).to eq(weiterbildung)
+  def expect_values(attr, total, freizeit_und_sport = total, weiterbildung = nil)
+    expect(course_totals(attr)).to eq(total), "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
+    expect(course_counts(attr, :freizeit_und_sport)).to eq(freizeit_und_sport)
+    expect(course_counts(attr, :weiterbildung)).to eq(weiterbildung)
   end
 
   def new_aggregation(attrs = {})
-    defaults = { group_id: groups(:be).id, year: 2014, leistungskategorie: 'bk', zugeteilte_kategorie: [1], subventioniert: true }
+    defaults = { group_id: groups(:be).id,
+                 year: 2014,
+                 leistungskategorie: 'bk',
+                 zugeteilte_kategorie: [1],
+                 subventioniert: true }
     described_class.new(*defaults.merge(attrs).values)
   end
 
@@ -214,9 +243,7 @@ describe CourseReporting::Aggregation do
   end
 
   def create!(event, kursart = 'freizeit_und_sport', attrs = {})
-    record = Event::CourseRecord.create!(event: event, kursart: kursart.to_s)
-    record.update_attributes(attrs) # dont get set when used in create
-    record
+    Event::CourseRecord.create!(attrs.merge(event: event, kursart: kursart.to_s))
   end
 
 end

@@ -32,17 +32,16 @@ module CourseReporting
 
       :beitraege_teilnehmende,
       :gemeinkostenanteil,
-      :total_direkte_kosten
+      :total_direkte_kosten,
+
+      :total_tage_teilnehmende
     ]
 
     RUBY_SUMMED_ATTRS = COUNTS + [
-      :anzahl_spezielle_unterkunft,
       :tage_behinderte,
       :tage_angehoerige,
       :tage_weitere,
-      :direkte_kosten_pro_le,
-      :vollkosten_pro_le,
-      :betreuungsschluessel
+      :anzahl_spezielle_unterkunft
     ]
 
     attr_accessor :group_id, :year, :leistungskategorie, :zugeteilte_kategorien, :subventioniert
@@ -117,7 +116,7 @@ module CourseReporting
     end
 
     def records
-      @records ||= scope.select(select)
+      @records ||= scope.select(select_clause)
     end
 
     def empty_course_record
@@ -134,16 +133,23 @@ module CourseReporting
       end
     end
 
-    def select
-      plains = ['event_course_records.year',
-                'event_course_records.kursart',
-                'event_course_records.inputkriterien']
-
-      (plains + sql_summed_attrs + [sql_sum_unterkunft]).join(', ')
+    def select_clause
+      columns = ['event_course_records.year',
+                 'event_course_records.kursart',
+                 'event_course_records.inputkriterien']
+      columns.concat(sql_summed_attrs)
+      columns.concat(%w(behinderte angehoerige weitere).collect { |f| sql_sum_tage(f) })
+      columns << sql_sum_unterkunft
+      columns.join(', ')
     end
 
     def sql_summed_attrs
       COUNTS.map { |sym| "SUM(#{sym}) AS #{sym}" }
+    end
+
+    def sql_sum_tage(field)
+      "SUM((IFNULL(kursdauer, 0) * IFNULL(teilnehmende_#{field}, 0)) - " \
+      " IFNULL(absenzen_#{field}, 0)) AS tage_#{field}"
     end
 
     def sql_sum_unterkunft
@@ -151,7 +157,7 @@ module CourseReporting
       quoted_true_value = Event::CourseRecord.connection.quote(true, column)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
       'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \
-      'AS anzahl_spezielle_unterkunft_db'
+      'AS anzahl_spezielle_unterkunft'
     end
 
   end

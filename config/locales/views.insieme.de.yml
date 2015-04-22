@@ -86,24 +86,24 @@ de:
       teilnehmende_weitere: davon nicht Bezugsberechtigte
 
       total_absenzen:  Absenztage
-      absenzen_behinderte: dav. Absenztage Behinderte
-      absenzen_angehoerige: dav. Absenztage Angehörige
-      absenzen_weitere: dav. Absenztage nicht Bezugsberechtigte
+      absenzen_behinderte: davon Absenztage Behinderte
+      absenzen_angehoerige: davon Absenztage Angehörige
+      absenzen_weitere: davon Absenztage nicht Bezugsberechtigte
 
       total_absenzen_stunden:  Absenzstunden
-      absenzen_behinderte_stunden: dav. Absenzstunden Behinderte
-      absenzen_angehoerige_stunden: dav. Absenzstunden Angehörige
-      absenzen_weitere_stunden: dav. Absenzstunden nicht Bezugsberechtigte
+      absenzen_behinderte_stunden: davon Absenzstunden Behinderte
+      absenzen_angehoerige_stunden: davon Absenzstunden Angehörige
+      absenzen_weitere_stunden: davon Absenzstunden nicht Bezugsberechtigte
 
       total_tage_teilnehmende: Effektive TeilnehmerInnentage
-      tage_behinderte: dav. TeilnehmerInnentage Behinderte
-      tage_angehoerige: dav. TeilnehmerInnentage Angehörige
-      tage_weitere: dav. TeilnehmerInnentage nicht Bezugsberechtigte
+      tage_behinderte: davon TeilnehmerInnentage Behinderte
+      tage_angehoerige: davon TeilnehmerInnentage Angehörige
+      tage_weitere: davon TeilnehmerInnentage nicht Bezugsberechtigte
 
       total_tage_teilnehmende_stunden: Effektive TeilnehmerInnenstunden
-      tage_behinderte_stunden: dav. TeilnehmerInnenstunden Behinderte
-      tage_angehoerige_stunden: dav. TeilnehmerInnenstunden Angehörige
-      tage_weitere_stunden: dav. TeilnehmerInnenstunden nicht Bezugsberechtigte
+      tage_behinderte_stunden: davon TeilnehmerInnenstunden Behinderte
+      tage_angehoerige_stunden: davon TeilnehmerInnenstunden Angehörige
+      tage_weitere_stunden: davon TeilnehmerInnenstunden nicht Bezugsberechtigte
 
       betreuende: Anzahl Betreuungspersonal
       leiterinnen: davon LeiterInnen
@@ -120,8 +120,8 @@ de:
       direkte_kosten_pro_le: Durchschnittliche direkte Kosten pro TeilnehmerInnentag
       direkte_kosten_pro_le_stunden: Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde
       total_vollkosten: Vollkosten
-      vollkosten_pro_le: durchschnittliche Vollkosten pro TeilnehmerInnentag
-      vollkosten_pro_le_stunden: durchschnittliche Vollkosten pro TeilnehmerInnenstunde
+      vollkosten_pro_le: Durchschnittliche Vollkosten pro TeilnehmerInnentag
+      vollkosten_pro_le_stunden: Durchschnittliche Vollkosten pro TeilnehmerInnenstunde
       beitraege_teilnehmende: Beiträge Teilnehmende
       betreuungsschluessel: Betreuungschlüssel (Teilnehmende / Betreuende)
       anzahl_spezielle_unterkunft: Anzahl Kurse mit spezieller Unterkunft
@@ -209,6 +209,19 @@ de:
     show:
       title: Vereinsstatistik Mitglieder
       export: CSV Export
+    group_figures:
+      name: 'Vollständiger Name'
+      vid: VID
+      bsv: BSV Nummer
+      participant_days_bk_1: Blockkurse TN Tage Kat. 1
+      participant_days_bk_2: Blockkurse TN Tage Kat. 2
+      participant_days_bk_3: Blockkurse TN Tage Kat. 3
+      participant_days_tk_1: Tageskurse TN Tage Kat. 1
+      participant_days_tk_2: Tageskurse TN Tage Kat. 2
+      participant_days_tk_3: Tageskurse TN Tage Kat. 3
+      participant_days_sk_1: Semester-/Jahreskurse TN Stunden Kat. 1
+      lufeb_hours_employees: LUFEB Stunden Angestellte
+      lufeb_hours_volunteers: LUFEB Stunden Ehrenamtliche mit Leistungsausweis
 
   shared:
     admin_nav_kinds_insieme:

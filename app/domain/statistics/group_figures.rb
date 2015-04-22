@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module CostAccounting
+module Statistics
   class GroupFigures
 
     attr_reader :year
@@ -15,27 +15,29 @@ module CostAccounting
     end
 
     def groups
-
+      @groups ||= Group.where(type: [Group::Dachverein,
+                                     Group::Regionalverein,
+                                     Group::ExterneOrganisation].collect(&:sti_name))
     end
 
     def leistungskategorien
       Event::Reportable::LEISTUNGSKATEGORIEN
     end
 
-    def inputkriterien
-      Event::CourseRecord::INPUTKRITERIEN
+    def kategorien
+      %w(1 2 3)
     end
 
-    def participant_effort(group, leistungskategorie, inputkriterium)
-      participant_efforts[group.id][leistungskategorie][inputkriterium].to_d
+    def participant_effort(group, leistungskategorie, kategorie)
+      participant_efforts[group.id][leistungskategorie][kategorie].to_d
     end
 
     def employee_time(group)
-      time_records[group.id]['TimeRecord::EmployeeTime'].to_i
+      time_records[group.id][TimeRecord::EmployeeTime.sti_name].to_i
     end
 
     def volunteer_with_verification_time(group)
-      time_records[group.id]['TimeRecord::VolunteerWithVerificationTime'].to_i
+      time_records[group.id][TimeRecord::VolunteerWithVerificationTime.sti_name].to_i
     end
 
     private
@@ -44,7 +46,7 @@ module CostAccounting
       @participant_efforts ||= begin
         hash = Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }
         load_participant_efforts.each do |record|
-          hash[record.group_id][record.leistungskategorie][record.inputkriterien] =
+          hash[record.group_id][record.leistungskategorie][record.zugeteilte_kategorie] =
             record.total_tage_teilnehmende
         end
         hash
@@ -52,39 +54,32 @@ module CostAccounting
     end
 
     def load_participant_efforts
-      summed_columns = 'events_groups.group_id, events.leistungskategorie, ' \
-                       'event_course_records.inputkriterien, ' +
-                       select_sum(%w(total_tage_teilnehmende))
+      columns = 'events_groups.group_id, events.leistungskategorie, ' \
+                'event_course_records.zugeteilte_kategorie, ' \
+                'SUM(total_tage_teilnehmende) AS total_tage_teilnehmende'
 
-      Event::CourseRecord.select(summed_columns).
+      Event::CourseRecord.select(columns).
                           joins(:event).
                           joins('INNER JOIN events_groups ON events.id = events_groups.event_id').
                           where(year: year).
                           group('events_groups.group_id, events.leistungskategorie, ' \
-                                'event_course_records.inputkriterien')
+                                'event_course_records.zugeteilte_kategorie')
     end
 
     def time_records
       @time_records ||= begin
         hash = Hash.new { |h, k| h[k] = {} }
         load_time_records.each do |record|
-          hash[record.group_id][record.type] = record.total
+          hash[record.group_id][record.type] = record.total_lufeb
         end
         hash
       end
     end
 
     def load_time_records
-      summed_columns = 'time_records.group_id, time_records.type, time_records.total'
-
-      TimeRecord.select(summed_columns).
-                 where(year: year).
-                 where('type=? OR type=?', 'TimeRecord::EmployeeTime',
-                       'TimeRecord::VolunteerWithVerificationTime')
-    end
-
-    def select_sum(columns)
-      columns.collect { |c| "SUM(#{c}) AS #{c}" }.join(', ')
+      TimeRecord.where(year: year,
+                       type: [TimeRecord::EmployeeTime,
+                              TimeRecord::VolunteerWithVerificationTime].collect(&:sti_name))
     end
 
   end

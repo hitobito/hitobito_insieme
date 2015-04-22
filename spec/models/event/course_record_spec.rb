@@ -329,7 +329,7 @@ describe Event::CourseRecord do
 
     context '#sum_canton_counts' do
       it 'should not fail if association is not present' do
-        record.sum_canton_counts
+        record.valid?
         expect(record.teilnehmende_behinderte).to be_nil
         expect(record.teilnehmende_angehoerige).to be_nil
       end
@@ -343,7 +343,7 @@ describe Event::CourseRecord do
         record.affiliated_canton_count.fr = 2
         record.affiliated_canton_count.ne = 1
 
-        record.sum_canton_counts
+        record.valid?
 
         expect(record.teilnehmende_behinderte).to eq 5
         expect(record.teilnehmende_angehoerige).to eq 3

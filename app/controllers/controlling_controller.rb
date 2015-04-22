@@ -35,8 +35,8 @@ class ControllingController < ApplicationController
   end
 
   def group_figures
-    @stats = CourseReporting::GroupFigures.new(year)
-    csv = Export::Csv::CourseReporting::GroupFigures.export(@stats)
+    @stats = Statistics::GroupFigures.new(year)
+    csv = Export::Csv::Statistics::GroupFigures.export(@stats)
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 
