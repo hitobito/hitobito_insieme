@@ -82,7 +82,7 @@ describe TimeRecord::VolunteerWithoutVerificationTime do
       expect(record.total_lufeb_private).to eq 2
       expect(record.total_lufeb_specific).to eq 3
       expect(record.total_lufeb_promoting).to eq 4
-      expect(record.total).to eq nil
+      expect(record.total).to eq 0
 
       record.save!
 

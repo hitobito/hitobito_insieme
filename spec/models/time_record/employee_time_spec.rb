@@ -91,7 +91,7 @@ describe TimeRecord::EmployeeTime do
       expect(record.total_lufeb_private).to eq nil
       expect(record.total_lufeb_specific).to eq nil
       expect(record.total_lufeb_promoting).to eq nil
-      expect(record.total).to eq nil
+      expect(record.total).to eq 0
 
       record.save!
 

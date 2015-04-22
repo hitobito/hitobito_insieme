@@ -8,7 +8,7 @@
 class AddTotalsToTimeAndCourseRecord < ActiveRecord::Migration
   def change
     add_column :event_course_records, :total_tage_teilnehmende, :decimal,
-               precision: 12, scale: 2
+      precision: 12, scale: 2, default: 0.0
     Event::CourseRecord.reset_column_information
 
     # Cause sum_total_tage_teilnehmende to be called for each CourseRecord
@@ -16,7 +16,7 @@ class AddTotalsToTimeAndCourseRecord < ActiveRecord::Migration
       record.save!
     end
 
-    add_column :time_records, :total, :integer
+    add_column :time_records, :total, :integer, default: 0
     TimeRecord.reset_column_information
 
     # Cause update_totals to be called for each TimeRecord

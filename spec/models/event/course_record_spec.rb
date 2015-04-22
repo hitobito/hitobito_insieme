@@ -213,13 +213,7 @@ describe Event::CourseRecord do
     end
 
     context '#sum_total_tage_teilnehmende' do
-      it 'is called on save' do
-        expect(record).to receive(:sum_total_tage_teilnehmende)
-        record.save!
-      end
-
       it 'is correct' do
-        record.sum_total_tage_teilnehmende
         expect(subject.total_tage_teilnehmende).to eq(47)
       end
     end
@@ -309,7 +303,6 @@ describe Event::CourseRecord do
         expect(subject.vollkosten_pro_le).to eq(0.to_d)
       end
     end
-
   end
 
   context 'canton counts' do

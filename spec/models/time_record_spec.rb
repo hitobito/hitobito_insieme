@@ -196,8 +196,14 @@ describe TimeRecord do
      [:total_lufeb_promoting, 308],
      [:total, 776]].each do |method, value|
       context "##{method}" do
-        it 'is nil for new record before save' do
-          expect(TimeRecord.new.send(method)).to be_nil
+        if method == :total
+          it 'is 0 for new record before save' do
+            expect(TimeRecord.new.send(method)).to eq 0
+          end
+        else
+          it 'is nil for new record before save' do
+            expect(TimeRecord.new.send(method)).to be_nil
+          end
         end
 
         it 'is 0 for new record after save' do

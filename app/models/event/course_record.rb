@@ -80,9 +80,9 @@ class Event::CourseRecord < ActiveRecord::Base
 
 
   before_validation :set_defaults
-  before_validation :compute_category
   before_validation :sum_canton_counts
-  before_save :sum_total_tage_teilnehmende
+  before_validation :sum_total_tage_teilnehmende
+  before_validation :compute_category
 
   attr_writer :anzahl_spezielle_unterkunft, :tage_behinderte, :tage_angehoerige, :tage_weitere,
               :direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel
