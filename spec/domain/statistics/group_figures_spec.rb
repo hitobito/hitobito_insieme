@@ -52,10 +52,11 @@ describe Statistics::GroupFigures do
       %w(be fr).product(%w(bk sk), %w(1 2 3)).each do |group_key, lk, zk|
         group = groups(group_key)
         records = course_records(group, lk, zk)
-        summed_total_tage_teilnehmende = records.sum(&:total_tage_teilnehmende)
+        expected = records.sum(&:total_tage_teilnehmende)
+        actual = figures.participant_effort(groups(group_key), lk, zk)
+        msg = "expected figures.participant_effort(#{group_key}, #{lk}, #{zk}) to eq #{expected}, got: #{actual}"
 
-        expect(figures.participant_effort(groups(group_key), lk, zk)).to eq(summed_total_tage_teilnehmende),
-          "expected figures.participant_effort(#{group_key}, #{lk}, #{zk}) to eq #{summed_total_tage_teilnehmende}"
+        expect(actual).to eq(expected), msg
       end
 
       expect(figures.participant_effort(groups(:be), 'bk', '1')).to eq(10 * 100 + 11 * 101)
