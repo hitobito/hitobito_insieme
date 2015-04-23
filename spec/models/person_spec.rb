@@ -253,15 +253,16 @@ describe Person do
 
   Person::ADDRESS_TYPES.each do |type|
     context "#{type}_zip_code" do
-      let(:field) { "#{type}_zip_code".to_sym }
+      let(:zip_code) { "#{type}_zip_code".to_sym }
+      let(:country) { "#{type}_country".to_sym }
 
       it 'allows more than 4 digits for international plz' do
-        expect(new_person(field => 90210, country: 'USA')).to be_valid
+        expect(new_person(zip_code => 90210, country => 'USA')).to be_valid
       end
 
       it 'rejects more than 4 digits for swiss plz' do
-        expect(new_person(field => 90210)).to have(1).error_on(field)
-        expect(new_person(field => 9021)).to be_valid
+        expect(new_person(zip_code => 90210)).to have(1).error_on(zip_code)
+        expect(new_person(zip_code => 9021)).to be_valid
       end
     end
 
