@@ -1,4 +1,4 @@
-# encoding: utf-8
+#_ encoding: utf-8
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -248,6 +248,25 @@ describe Person do
       expect(person.disabled_person_zip_code).to be_nil
       expect(person.disabled_person_town).to be_nil
       expect(person.disabled_person_birthday).to be_nil
+    end
+  end
+
+  Person::ADDRESS_TYPES.each do |type|
+    context "#{type}_zip_code" do
+      let(:field) { "#{type}_zip_code".to_sym }
+
+      it 'allows more than 4 digits for international plz' do
+        expect(new_person(field => 90210, country: 'USA')).to be_valid
+      end
+
+      it 'rejects more than 4 digits for swiss plz' do
+        expect(new_person(field => 90210)).to have(1).error_on(field)
+        expect(new_person(field => 9021)).to be_valid
+      end
+    end
+
+    def new_person(attrs)
+      Person.new(attrs.merge(first_name: 'John')).tap { |p| p.valid? }
     end
   end
 

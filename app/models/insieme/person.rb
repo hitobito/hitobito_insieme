@@ -40,6 +40,8 @@ module Insieme::Person
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
     validates :number, presence: true, uniqueness: true
     validates :disabled_person_birthday, timeliness: { type: :date, allow_blank: true }
+
+    validate :assert_address_types_zip_is_valid_swiss_post_code, if: :swiss?
   end
 
   def reference_person
@@ -65,6 +67,16 @@ module Insieme::Person
   end
 
   private
+
+  def assert_address_types_zip_is_valid_swiss_post_code
+    ADDRESS_TYPES.map { |type| "#{type}_zip_code" }.each do |field|
+      value = send(field)
+
+      if value.present? && !value.to_s.strip.match(/^\d{4}$/)
+        errors.add(field)
+      end
+    end
+  end
 
   def normalize_i18n_keys
     canton.downcase! if canton?
