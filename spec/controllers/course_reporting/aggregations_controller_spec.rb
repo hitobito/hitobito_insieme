@@ -22,6 +22,7 @@ describe CourseReporting::AggregationsController do
   it 'exprt renders ok' do
     get :export, id: group.id, year: 2014, lk: 'bk', subsidized: 'true', categories: [1,2,3]
     expect(response).to be_ok
+    expect(response.headers["Content-Disposition"]).to eq "attachment; filename=\"course_statistics_insieme-schweiz_2014_blockkurse_subsidized_1_2_3.csv\""
   end
 
 end
