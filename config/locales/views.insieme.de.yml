@@ -25,6 +25,10 @@ de:
   navigation:
     groups: Vereine
 
+  capital_substrate:
+    edit:
+      help_per_date: per %{date}
+
   contactable:
     address_fields_insieme:
       main: Hauptadresse
