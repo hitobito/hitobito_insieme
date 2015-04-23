@@ -102,14 +102,7 @@ describe CourseReporting::Aggregation do
     it "builds total and value for three 'freizeit_und_sport' records" do
       3.times { create!(create_course, 'freizeit_und_sport', values) }
 
-      records = Event::CourseRecord.all.to_a
-      attrs = CourseReporting::Aggregation::RUBY_SUMMED_ATTRS -
-              [:direkte_kosten_pro_le, :vollkosten_pro_le, :betreuungsschluessel]
-      attrs.each do |attr|
-        expected = records.sum { |r| r.send(attr).to_d }
-        actual = course_totals(attr)
-        expect(actual).to eq(expected), "expected #{attr} to equal #{expected}, got #{actual}"
-      end
+      assert_summed_totals
 
       expect_values(:anzahl_kurse, 3)
       expect_values(:kursdauer, 1.5)
@@ -161,6 +154,8 @@ describe CourseReporting::Aggregation do
       2.times { create!(create_course, 'freizeit_und_sport', values) }
       2.times { create!(create_course, 'weiterbildung', values) }
 
+      assert_summed_totals
+
       expect_values(:anzahl_kurse, 4, 2, 2)
       expect_values(:kursdauer, 2, 1, 1)
 
@@ -209,6 +204,16 @@ describe CourseReporting::Aggregation do
       create!(create_course, 'freizeit_und_sport', values.merge(spezielle_unterkunft: false))
       create!(create_course, 'weiterbildung', values.merge(spezielle_unterkunft: true))
       expect_values(:anzahl_spezielle_unterkunft, 1, 0, 1)
+    end
+  end
+
+  def assert_summed_totals
+    records = Event::CourseRecord.all.to_a
+    attrs = CourseReporting::Aggregation::RUBY_SUMMED_ATTRS
+    attrs.each do |attr|
+      expected = records.sum { |r| r.send(attr).to_d }
+      actual = course_totals(attr)
+      expect(actual).to eq(expected), "expected #{attr} to equal #{expected}, got #{actual}"
     end
   end
 
