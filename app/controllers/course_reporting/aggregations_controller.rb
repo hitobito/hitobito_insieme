@@ -60,10 +60,14 @@ class CourseReporting::AggregationsController < ApplicationController
     subsi = subsidized ? 'subsidized' : 'unsubsidized'
     lk = t('activerecord.attributes.event/course.leistungskategorien.' +
            leistungskategorie, count: 3).downcase
+
+    "#{prefix}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}.csv"
+  end
+
+  def prefix
     vid = group.vid.present? && "_vid#{group.vid}" || ''
     bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
-
-    "course_statistics#{vid}#{bsv}_#{group.name.parameterize}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}.csv"
+    "course_statistics#{vid}#{bsv}_#{group.name.parameterize}"
   end
 
 end
