@@ -30,12 +30,34 @@ describe Statistics::GroupFigures do
 
     # other year
     create_course(2014, :fr, 'bk', '1', 17, 105)
+
+    @course_records = Event::CourseRecord.joins(:event).where(year: 2015)
   end
 
   let(:figures) { described_class.new(2015) }
 
+  context '#groups' do
+    it 'returns group sorted by type' do
+      expect(figures.groups).to eq [groups(:dachverein),
+                                    groups(:fr),
+                                    groups(:be),
+                                    groups(:seeland)]
+    end
+  end
+
+
+
   context '#participant_efforts' do
     it 'should return the summed totals' do
+      %w(be fr).product(%w(bk sk), %w(1 2 3)).each do |group_key, lk, zk|
+        group = groups(group_key)
+        records = course_records(group, lk, zk)
+        summed_total_tage_teilnehmende = records.sum(&:total_tage_teilnehmende)
+
+        expect(figures.participant_effort(groups(group_key), lk, zk)).to eq(summed_total_tage_teilnehmende),
+          "expected figures.participant_effort(#{group_key}, #{lk}, #{zk}) to eq #{summed_total_tage_teilnehmende}"
+      end
+
       expect(figures.participant_effort(groups(:be), 'bk', '1')).to eq(10 * 100 + 11 * 101)
       expect(figures.participant_effort(groups(:be), 'bk', '2')).to eq(12 * 450)
       expect(figures.participant_effort(groups(:be), 'bk', '3')).to eq(13 * 650)
@@ -62,6 +84,9 @@ describe Statistics::GroupFigures do
     it 'should return the totals' do
       expect(figures.employee_time(groups(:be))).to eq(10)
       expect(figures.employee_time(groups(:fr))).to eq(12)
+
+      expect(figures.employee_time(groups(:be))).to eq(employee_total_lufeb(:be))
+      expect(figures.employee_time(groups(:fr))).to eq(employee_total_lufeb(:fr))
     end
 
     it 'should return 0 for groups without records' do
@@ -73,6 +98,9 @@ describe Statistics::GroupFigures do
     it 'should return the totals' do
       expect(figures.volunteer_with_verification_time(groups(:be))).to eq(20)
       expect(figures.volunteer_with_verification_time(groups(:fr))).to eq(21)
+
+      expect(figures.volunteer_with_verification_time(groups(:be))).to eq(volunteer_total_lufeb(:be))
+      expect(figures.volunteer_with_verification_time(groups(:fr))).to eq(volunteer_total_lufeb(:fr))
     end
 
     it 'should return 0 for groups without records' do
@@ -81,6 +109,12 @@ describe Statistics::GroupFigures do
   end
 
   private
+
+  def course_records(group, leistungskategorie, zugeteilte_kategorie)
+    @course_records.select { |r| r.event.groups.first == group &&
+                             r.event.leistungskategorie == leistungskategorie  &&
+                             r.zugeteilte_kategorie == zugeteilte_kategorie }
+  end
 
   def create_course(year, group_key, leistungskategorie, kategorie, kursdauer, teilnehmende)
     event = Fabricate(:course, groups: [groups(group_key)],
@@ -91,6 +125,14 @@ describe Statistics::GroupFigures do
                                     kursdauer: kursdauer,
                                     teilnehmende_weitere: teilnehmende)
     r.update_column(:zugeteilte_kategorie, kategorie)
+  end
+
+  def employee_total_lufeb(group_key, year = 2015)
+    TimeRecord::EmployeeTime.find_by_group_id_and_year(groups(group_key).id, year).total_lufeb
+  end
+
+  def volunteer_total_lufeb(group_key, year = 2015)
+    TimeRecord::VolunteerWithVerificationTime.find_by_group_id_and_year(groups(group_key).id, year).total_lufeb
   end
 
 end

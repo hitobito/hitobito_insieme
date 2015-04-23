@@ -17,7 +17,7 @@ module Statistics
     def groups
       @groups ||= Group.where(type: [Group::Dachverein,
                                      Group::Regionalverein,
-                                     Group::ExterneOrganisation].collect(&:sti_name))
+                                     Group::ExterneOrganisation].collect(&:sti_name)).order_by_type
     end
 
     def leistungskategorien
