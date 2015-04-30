@@ -112,15 +112,15 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def total_paragraph_74_pensum
-    total_paragraph_74.to_d / globals.bsv_hours_per_year
+    total_paragraph_74.to_d / bsv_hours_per_year
   end
 
   def total_not_paragraph_74_pensum
-    total_not_paragraph_74.to_d / globals.bsv_hours_per_year
+    total_not_paragraph_74.to_d / bsv_hours_per_year
   end
 
   def total_pensum
-    total.to_d / globals.bsv_hours_per_year
+    total.to_d / bsv_hours_per_year
   end
 
   def to_s
@@ -133,6 +133,10 @@ class TimeRecord < ActiveRecord::Base
     unless group.reporting?
       errors.add(:group_id, :is_not_allowed)
     end
+  end
+
+  def bsv_hours_per_year
+    globals ? globals.bsv_hours_per_year : 1900
   end
 
   def globals

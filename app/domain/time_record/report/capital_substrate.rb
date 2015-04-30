@@ -27,7 +27,7 @@ class TimeRecord::Report::CapitalSubstrate < TimeRecord::Report::Base
   end
 
   def exemption
-    - globals.capital_substrate_exemption.to_d
+    globals ? - globals.capital_substrate_exemption.to_d : 0
   end
 
   def capital_substrate_allocated

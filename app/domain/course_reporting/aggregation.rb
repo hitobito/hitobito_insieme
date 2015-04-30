@@ -73,10 +73,10 @@ module CourseReporting
         merge(Event.with_group_id(group_id)).
         where(events: {
                 leistungskategorie: leistungskategorie },
-                event_course_records: {
-                  year: year,
-                  zugeteilte_kategorie: zugeteilte_kategorien,
-                  subventioniert: subventioniert })
+              event_course_records: {
+                year: year,
+                zugeteilte_kategorie: zugeteilte_kategorien,
+                subventioniert: subventioniert })
     end
 
     private
