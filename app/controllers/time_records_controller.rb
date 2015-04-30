@@ -7,9 +7,15 @@
 
 class TimeRecordsController < ReportingBaseController
 
+  TYPES = [TimeRecord::EmployeeTime,
+           TimeRecord::VolunteerWithVerificationTime,
+           TimeRecord::VolunteerWithoutVerificationTime]
+
   include ListController::Memory
 
   self.remember_params = [:year]
+
+  before_action :entry, except: :index
 
   def index
     @table = TimeRecord::Table.new(group, year)
@@ -18,19 +24,15 @@ class TimeRecordsController < ReportingBaseController
   private
 
   def entry
-    if record_class.present?
-      @record ||= record_class.where(group_id: group.id, year: year).first_or_initialize
-      if @record.is_a?(TimeRecord::EmployeeTime) && @record.employee_pensum.nil?
-        @record.build_employee_pensum
-      end
-      @record
+    @record ||= record_class.where(group_id: group.id, year: year).first_or_initialize
+    if @record.is_a?(TimeRecord::EmployeeTime) && @record.employee_pensum.nil?
+      @record.build_employee_pensum
     end
+    @record
   end
 
   def record_class
-    @record_class ||= "TimeRecord::#{params[:report].camelize}".constantize
-  rescue NameError
-    nil
+    TYPES.find { |t| t.name.demodulize.underscore == params[:report] } || not_found
   end
 
   def permitted_params

@@ -17,6 +17,13 @@ describe TimeRecordsController do
     end.to raise_error(CanCan::AccessDenied)
   end
 
+  it 'raises 404 for unsupported report type' do
+    sign_in(people(:top_leader))
+    expect do
+      get :edit, id: group.id, year: 2014, report: 'employee_tux'
+    end.to raise_error(ActionController::RoutingError)
+  end
+
   context 'authorization' do
     it 'top leader is allowed to update dachverein' do
       sign_in(people(:top_leader))
@@ -29,6 +36,16 @@ describe TimeRecordsController do
         sign_in(people(:regio_leader))
         get :edit, id: group.id, year: 2014, report: 'employee_time'
       end.to raise_error(CanCan::AccessDenied)
+    end
+  end
+
+  context '#index' do
+
+    before { sign_in(people(:top_leader)) }
+
+    it 'shows basic info' do
+      get :index, id: group.id, year: 2014
+      expect(response.status).to eq(200)
     end
   end
 
