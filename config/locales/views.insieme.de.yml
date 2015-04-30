@@ -12,11 +12,15 @@ de:
 
   layouts:
     reporting_menu:
-      base_informations: Basisinformationen
       time_records: Zeiterfassung
-      cost_accounting: Kostenrechnung
+      base_informations:
+        label: Basisinformationen
+        title: Ansicht Basisinformationen
       course_statistics: Kursstatistik
-      overview: Übersicht
+      cost_accounting: Kostenrechnung
+      overview:
+        label: Übersicht
+        title: Übersicht Kostenrechnung
       general_cost_allocation: Umlage Gemeinkosten
       capital_substrate: Kapitalsubstrat
     reporting_header:

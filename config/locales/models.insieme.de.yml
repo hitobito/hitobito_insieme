@@ -273,15 +273,15 @@ de:
 
       time_record/employee_time:
         one: Zeiterfassung Angestellte
-        menu: Angestellte
+        short: Angestellte
 
       time_record/volunteer_without_verification_time:
         one: Zeiterfassung Ehrenamtliche ohne Leistungsnachweis
-        menu: Ehrenamtliche
+        short: Ehrenamt. o. Leistungsnachweis
 
       time_record/volunteer_with_verification_time:
         one: Zeiterfassung Ehrenamtliche mit Leistungsnachweis
-        menu: Ehrenamtliche mit Leist.nachw.
+        short: Ehrenamt. mit Leistungsnachweis
 
       event/course_record:
         one: Kursreport
@@ -294,7 +294,6 @@ de:
       reporting_parameter:
         one: Reportingparameter
         other: Reportingparameter
-        menu: Parameter
 
       capital_substrate:
         one: Kapitalsubstrat
@@ -684,16 +683,16 @@ de:
         short_name: Beiträge IV
       sonstige_beitraege:
         name: Sonstige Beiträge Bund, Beiträge Kantone/Gemeinden
-        short_name: Sonstige Beiträge
+        short_name: Beiträge Kantone, Gemeinden
       direkte_spenden:
         name: Direkte Spenden, sonstige Erträge Art. 74
         short_name: Direkte Spenden (Art. 74)
       indirekte_spenden:
         name: Indirekte Spenden, sonstige Erträge (geschlüsselt)
-        short_name: Indirekte Spenden
+        short_name: Indirekte Spenden geschlüsselt
       direkte_spenden_ausserhalb:
-        name: Direkte Spenden, sonstige Erträge ausserhalb Art. 74
-        short_name: Direkte Spenden
+        name: "Direkte Spenden, sonstige Erträge ausserhalb Art. 74"
+        short_name: Direkte Spenden (nicht Art. 74)
       umlage_personal:
         name: Umlage Personal
         short_name: Umlage Personal

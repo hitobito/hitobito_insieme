@@ -6,18 +6,30 @@
 
 %ul.nav.nav-list.cost-accounting-menu
   %li.nav-header= t('.time_records')
-  = reporting_nav t('.base_informations'), time_record_group_path(group, year: year)
-  - [TimeRecord::EmployeeTime, TimeRecord::VolunteerWithoutVerificationTime, TimeRecord::VolunteerWithVerificationTime].each do |report|
-    = reporting_nav t("activerecord.models.#{report.model_name.i18n_key}.menu"), edit_time_record_report_group_path(group, year, report.key)
+  = reporting_nav t('.base_informations.label'),
+                  time_record_group_path(group, year: year),
+                  title: t('.base_informations.title')
+
+  - [TimeRecord::EmployeeTime,
+     TimeRecord::VolunteerWithoutVerificationTime,
+     TimeRecord::VolunteerWithVerificationTime].each do |report|
+    - prefix = "activerecord.models.#{report.model_name.i18n_key}"
+    = reporting_nav t("#{prefix}.short"),
+                    edit_time_record_report_group_path(group, year, report.key),
+                    title: t("#{prefix}.one")
 
   %li.nav-header= t('.course_statistics')
   = reporting_nav t('.general_cost_allocation'),
-                  edit_general_cost_allocation_group_events_path(group, year)
+                  edit_general_cost_allocation_group_events_path(group, year),
+                  title: t('.general_cost_allocation')
   = reporting_nav t('course_reporting.aggregations.index.title'),
-                  aggregations_group_path(group, year)
+                  aggregations_group_path(group, year),
+                  title: t('course_reporting.aggregations.index.title')
 
   %li.nav-header= t('.cost_accounting')
-  = reporting_nav t('.overview'), cost_accounting_group_path(group, year: year)
+  = reporting_nav t('.overview.label'),
+                  cost_accounting_group_path(group, year: year),
+                  title: t('.overview.title')
 
   - cost_accounting_reports.each do |report|
     - if report.editable?
@@ -26,4 +38,6 @@
                       title: h(report.human_name)
 
   %li.nav-header= t('.capital_substrate')
-  = reporting_nav t('.capital_substrate'), edit_capital_substrate_group_path(group, year)
+  = reporting_nav t('.capital_substrate'),
+                  edit_capital_substrate_group_path(group, year),
+                  title: t('.capital_substrate')
