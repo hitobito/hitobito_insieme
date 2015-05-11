@@ -1,0 +1,27 @@
+-#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+-#  hitobito and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito.
+
+- title @group.to_s
+
+= render 'shared/page_per_year'
+
+- if params[:type] == Event::AggregateCourse.sti_name
+  = crud_table do |t|
+    - t.col(Event.human_attribute_name(:name)) do |e|
+      %strong= link_to e.name, group_event_path(@group, e)
+    - t.attrs(:leistungskategorie)
+    - t.col(Event::CourseRecord.human_attribute_name(:anzahl_kurse)) do |e|
+      = f(e.course_record.anzahl_kurse)
+
+- else
+  = crud_table do |t|
+    - t.col(Event.human_attribute_name(:name)) do |e|
+      %strong= link_to e.name, group_event_path(@group, e)
+    - t.attrs(:dates_full)
+    - if params[:type].present?
+      - t.attrs(:leistungskategorie)
+    - t.attrs(:booking_info)
+
+

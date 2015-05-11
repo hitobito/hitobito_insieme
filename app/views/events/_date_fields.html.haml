@@ -1,0 +1,4 @@
+- if entry.is_a?(Event::AggregateCourse)
+  input year
+- else
+  = render file: Rails.root.join('app/views/events/_date_fields'), locals: { f: f }
