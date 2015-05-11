@@ -113,9 +113,9 @@ describe CourseReporting::Aggregation do
       expect_values(:teilnehmende_weitere, 12)
 
       expect_values(:total_tage_teilnehmende, 12, 12, 0)
-      expect_values(:tage_behinderte, 3, 3, 0)
-      expect_values(:tage_angehoerige, 3, 3, 0)
-      expect_values(:tage_weitere, 6, 6, 0)
+      expect_values(:tage_behinderte, 3, 3, nil)
+      expect_values(:tage_angehoerige, 3, 3, nil)
+      expect_values(:tage_weitere, 6, 6, nil)
 
       expect_values(:total_absenzen, 1.5, 1.5, 0)
       expect_values(:absenzen_behinderte, 1.5)
@@ -130,18 +130,18 @@ describe CourseReporting::Aggregation do
 
       expect_values(:kuechenpersonal, 15)
 
-      expect_values(:direkter_aufwand, 180, 180, 0)
+      expect_values(:direkter_aufwand, 180, 180, nil)
       expect_values(:honorare_inkl_sozialversicherung, 30)
       expect_values(:unterkunft, 60)
       expect_values(:uebriges, 90)
 
-      dk_pro_le = 180.to_d / 12.to_d # total_direkte_kosten / total_tage_teilnehmende
+      dk_pro_le = 180.to_d / 12.to_d # direkter_aufwand / total_tage_teilnehmende
       vk_pro_le = 210.to_d / 12.to_d # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, 0)
       expect_values(:total_vollkosten, 210, 210, 0)
       expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, 0)
-      expect_values(:total_direkte_kosten, 180)
+      expect_values(:direkter_aufwand, 180)
 
       expect_values(:beitraege_teilnehmende, 30)
       expect_values(:gemeinkostenanteil, 30)
@@ -186,12 +186,12 @@ describe CourseReporting::Aggregation do
       expect_values(:unterkunft, 80, 40, 40)
       expect_values(:uebriges, 120, 60, 60)
 
-      dk_pro_le = 240.to_d / 16 # total_direkte_kosten / total_tage_teilnehmende
+      dk_pro_le = 240.to_d / 16 # direkter_aufwand / total_tage_teilnehmende
       vk_pro_le = 280.to_d / 16 # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
       expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
-      expect_values(:total_direkte_kosten, 240, 120, 120)
+      expect_values(:direkter_aufwand, 240, 120, 120)
 
       expect_values(:beitraege_teilnehmende, 40, 20, 20)
       expect_values(:gemeinkostenanteil, 40, 20, 20)

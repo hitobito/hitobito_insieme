@@ -143,6 +143,14 @@ class TimeRecord < ActiveRecord::Base
     @globals ||= ReportingParameter.for(year)
   end
 
+  def update_totals
+    @total_paragraph_74 = nil
+    calculate_total_lufeb_general
+    calculate_total_lufeb_private
+    calculate_total_lufeb_specific
+    calculate_total_lufeb_promoting
+  end
+
   # rubocop:disable MethodLength
   def calculate_total_lufeb_general
     self.total_lufeb_general =
@@ -185,14 +193,6 @@ class TimeRecord < ActiveRecord::Base
       treffen_meinungsaustausch.to_i +
       beratung_fachhilfeorganisationen.to_i +
       unterstuetzung_behindertenhilfe.to_i
-  end
-
-  def update_totals
-    @total_paragraph_74 = nil
-    calculate_total_lufeb_general
-    calculate_total_lufeb_private
-    calculate_total_lufeb_specific
-    calculate_total_lufeb_promoting
   end
 
 end

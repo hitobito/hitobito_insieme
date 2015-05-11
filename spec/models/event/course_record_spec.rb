@@ -11,7 +11,7 @@
 #  id                               :integer          not null, primary key
 #  event_id                         :integer          not null
 #  inputkriterien                   :string(1)
-#  subventioniert                   :boolean
+#  subventioniert                   :boolean          default(TRUE), not null
 #  kursart                          :string(255)
 #  kursdauer                        :decimal(12, 2)
 #  teilnehmende_behinderte          :integer
@@ -29,16 +29,19 @@
 #  unterkunft                       :decimal(12, 2)
 #  uebriges                         :decimal(12, 2)
 #  beitraege_teilnehmende           :decimal(12, 2)
-#  spezielle_unterkunft             :boolean
+#  spezielle_unterkunft             :boolean          default(FALSE), not null
 #  year                             :integer
 #  teilnehmende_mehrfachbehinderte  :integer
-#  total_direkte_kosten             :decimal(12, 2)
+#  direkter_aufwand                 :decimal(12, 2)
 #  gemeinkostenanteil               :decimal(12, 2)
 #  gemeinkosten_updated_at          :datetime
 #  zugeteilte_kategorie             :string(2)
 #  challenged_canton_count_id       :integer
 #  affiliated_canton_count_id       :integer
 #  anzahl_kurse                     :integer          default(1)
+#  tage_behinderte                  :decimal(12, 2)
+#  tage_angehoerige                 :decimal(12, 2)
+#  tage_weitere                     :decimal(12, 2)
 #
 
 require 'spec_helper'
@@ -50,6 +53,7 @@ describe Event::CourseRecord do
   let(:event_bk) { events(:top_course) }
   let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk') }
   let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk') }
+  let(:aggregate_bk) { Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk') }
 
   def new_record(event, attrs = {})
     r = Event::CourseRecord.new(attrs.merge(event: event))
@@ -88,27 +92,85 @@ describe Event::CourseRecord do
     end
 
     it 'is fine for decimal time values that are a multiple of 0.5 for bk/tk courses' do
-      expect(new_record(event_bk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to be_valid
+      expect(new_record(event_bk,
+        kursdauer: 1.5,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 1 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.5,
+        absenzen_angehoerige: 1.5,
+        absenzen_weitere: 1.5)).to be_valid
 
-      expect(new_record(event_tk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to be_valid
+      expect(new_record(event_tk,
+        kursdauer: 1.5,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 1 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.5,
+        absenzen_angehoerige: 1.5,
+        absenzen_weitere: 1.5)).to be_valid
+    end
+
+    it 'is fine for decimal time values that are a multiple of 0.5 for aggregate bk courses' do
+      expect(new_record(aggregate_bk,
+        kursdauer: 1.5,
+        tage_behinderte: 4,
+        tage_angehoerige: 2.5,
+        tage_weitere: 0.5,
+        absenzen_behinderte: 1.5,
+        absenzen_angehoerige: 1.5,
+        absenzen_weitere: 1.5)).to be_valid
     end
 
     it 'fails for decimal time values that are not a multiple of 0.5 for bk/tk courses' do
-      expect(new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
-                 absenzen_weitere: 1.25)).to have(4).errors
+      expect(new_record(event_bk,
+        kursdauer: 1.25,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 1 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.25,
+        absenzen_angehoerige: 1.25,
+        absenzen_weitere: 1.25)).to have(4).errors
 
-      expect(new_record(event_bk, kursdauer: 1.25, absenzen_behinderte: 1.25, absenzen_angehoerige: 1.25,
-                 absenzen_weitere: 1.25)).to have(4).errors
+      expect(new_record(event_bk,
+        kursdauer: 1.25,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 1 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.25,
+        absenzen_angehoerige: 1.25,
+        absenzen_weitere: 1.25)).to have(4).errors
+    end
+
+    it 'fails for decimal time values that are not a multiple of 0.5 for aggregate bk courses' do
+      expect(new_record(aggregate_bk,
+        kursdauer: 1.5,
+        tage_behinderte: 4.25,
+        tage_angehoerige: 2.15,
+        tage_weitere: 0.75,
+        absenzen_behinderte: 1.5,
+        absenzen_angehoerige: 1.5,
+        absenzen_weitere: 1.5)).to have(3).errors
     end
 
     it 'only accepts integer time values for sk course' do
-      expect(new_record(event_sk, kursdauer: 1, absenzen_behinderte: 1.0,
-                 absenzen_angehoerige: 2, absenzen_weitere: 0.0)).to be_valid
+      expect(new_record(event_sk,
+        kursdauer: 1,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 3 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.0,
+        absenzen_angehoerige: 2,
+        absenzen_weitere: 0.0)).to be_valid
 
-      expect(new_record(event_sk, kursdauer: 1.5, absenzen_behinderte: 1.5,
-                 absenzen_angehoerige: 1.5, absenzen_weitere: 1.5)).to have(4).errors
+      expect(new_record(event_sk,
+        kursdauer: 1.5,
+        challenged_canton_count_attributes: { ag: 2 },
+        affiliated_canton_count_attributes: { ag: 1 },
+        teilnehmende_weitere: 3,
+        absenzen_behinderte: 1.5,
+        absenzen_angehoerige: 1.5,
+        absenzen_weitere: 1.5)).to have(4).errors
     end
   end
 

@@ -54,16 +54,20 @@ module Statistics
     end
 
     def load_participant_efforts
-      columns = 'events_groups.group_id, events.leistungskategorie, ' \
-                'event_course_records.zugeteilte_kategorie, ' \
-                'SUM(total_tage_teilnehmende) AS total_tage_teilnehmende'
-
-      Event::CourseRecord.select(columns).
+      Event::CourseRecord.select(course_record_columns).
                           joins(:event).
                           joins('INNER JOIN events_groups ON events.id = events_groups.event_id').
                           where(year: year).
                           group('events_groups.group_id, events.leistungskategorie, ' \
                                 'event_course_records.zugeteilte_kategorie')
+    end
+
+    def course_record_columns
+      'events_groups.group_id, events.leistungskategorie, ' \
+      'event_course_records.zugeteilte_kategorie, ' \
+      'SUM(tage_behinderte) AS tage_behinderte, ' \
+      'SUM(tage_angehoerige) AS tage_angehoerige, ' \
+      'SUM(tage_weitere) AS tage_weitere'
     end
 
     def time_records

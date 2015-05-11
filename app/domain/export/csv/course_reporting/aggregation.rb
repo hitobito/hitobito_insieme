@@ -50,22 +50,6 @@ module Export
           :anzahl_spezielle_unterkunft
         ]
 
-        DURATION_ATTRS = [
-          :kursdauer,
-          :total_absenzen,
-          :absenzen_behinderte,
-          :absenzen_angehoerige,
-          :absenzen_weitere,
-
-          :total_tage_teilnehmende,
-          :tage_behinderte,
-          :tage_angehoerige,
-          :tage_weitere,
-
-          :direkte_kosten_pro_le,
-          :vollkosten_pro_le
-        ]
-
         class << self
           def export(aggregation)
             Export::Csv::Generator.new(new(aggregation)).csv
@@ -89,17 +73,28 @@ module Export
 
         def labels
           values('') do |kriterium, kursart|
-            kriterium == 'all' ?  t(kursart) : "#{t(kriterium)} #{t(kursart)}"
+            if kriterium == 'all'
+              kursart_label(kursart)
+            else
+              "#{t(kriterium)} #{kursart_label(kursart)}"
+            end
           end
         end
 
         def t(attr)
-          if aggregation.kursarten.include?(attr)
-            I18n.t("activerecord.attributes.event/course_record.kursarten.#{attr}")
-          elsif DURATION_ATTRS.include?(attr) && !blockkurs?
-            I18n.t("course_reporting.aggregations.#{attr}_stunden")
+          if !blockkurs?
+            I18n.t("course_reporting.aggregations.#{attr}_stunden",
+                   default: :"course_reporting.aggregations.#{attr}")
           else
             I18n.t("course_reporting.aggregations.#{attr}")
+          end
+        end
+
+        def kursart_label(kursart)
+          if kursart == 'total'
+            I18n.t('course_reporting.aggregations.total')
+          else
+            I18n.t("activerecord.attributes.event/course_record.kursarten.#{kursart}")
           end
         end
 

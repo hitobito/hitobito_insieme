@@ -4,8 +4,23 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag(entry.presence_caption) do
-  = f.labeled_readonly_value :teilnehmende_behinderte, value: f(entry.tage_behinderte)
-  = f.labeled_readonly_value :teilnehmende_angehoerige, value: f(entry.tage_angehoerige)
-  = f.labeled_readonly_value :teilnehmende_weitere, value: f(entry.tage_weitere)
+  - if entry.event.is_a?(Event::AggregateCourse)
+    = f.labeled_input_field :tage_behinderte,
+                            addon: entry.duration_unit,
+                            label: entry.class.human_attribute_name(:teilnehmende_behinderte)
+    = f.labeled_input_field :tage_angehoerige,
+                            addon: entry.duration_unit,
+                            label: entry.class.human_attribute_name(:teilnehmende_angehoerige)
+    = f.labeled_input_field :tage_weitere,
+                            addon: entry.duration_unit,
+                            label: entry.class.human_attribute_name(:teilnehmende_weitere)
+  - else
+    = f.labeled_readonly_value :tage_behinderte,
+                               label: entry.class.human_attribute_name(:teilnehmende_behinderte)
+    = f.labeled_readonly_value :tage_angehoerige,
+                               label: entry.class.human_attribute_name(:teilnehmende_angehoerige)
+    = f.labeled_readonly_value :tage_weitere,
+                               label: entry.class.human_attribute_name(:teilnehmende_weitere)
 
-  = f.labeled_readonly_value :total, value: f(entry.total_tage_teilnehmende)
+  = f.labeled_readonly_value :total_tage_teilnehmende,
+                             label: entry.class.human_attribute_name(:total)

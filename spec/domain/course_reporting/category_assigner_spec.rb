@@ -22,9 +22,9 @@ describe CourseReporting::CategoryAssigner do
     event.build_course_record(
       year: year,
       inputkriterien: inputkriterien,
-      unterkunft: kosten,
+      direkter_aufwand: kosten,
       kursdauer: tage,
-      total_tage_teilnehmende: teilnehmende && teilnehmende * tage)
+      tage_behinderte: teilnehmende && teilnehmende * tage)
   end
 
 

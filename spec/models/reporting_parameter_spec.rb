@@ -4,7 +4,6 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: reporting_parameters
@@ -16,7 +15,7 @@
 #  vollkosten_le_schwelle1_tageskurs :decimal(12, 2)   default(0.0), not null
 #  vollkosten_le_schwelle2_tageskurs :decimal(12, 2)   default(0.0), not null
 #  bsv_hours_per_year                :integer          not null
-#  capital_substrate_exemption       :decimal(12, 2)   default(200000.0), not null
+#  capital_substrate_exemption       :decimal(12, 2)   not null
 #
 
 require 'spec_helper'

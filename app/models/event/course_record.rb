@@ -12,7 +12,7 @@
 #  id                               :integer          not null, primary key
 #  event_id                         :integer          not null
 #  inputkriterien                   :string(1)
-#  subventioniert                   :boolean
+#  subventioniert                   :boolean          default(TRUE), not null
 #  kursart                          :string(255)
 #  kursdauer                        :decimal(12, 2)
 #  teilnehmende_behinderte          :integer
@@ -30,16 +30,19 @@
 #  unterkunft                       :decimal(12, 2)
 #  uebriges                         :decimal(12, 2)
 #  beitraege_teilnehmende           :decimal(12, 2)
-#  spezielle_unterkunft             :boolean
+#  spezielle_unterkunft             :boolean          default(FALSE), not null
 #  year                             :integer
 #  teilnehmende_mehrfachbehinderte  :integer
-#  total_direkte_kosten             :decimal(12, 2)
+#  direkter_aufwand                 :decimal(12, 2)
 #  gemeinkostenanteil               :decimal(12, 2)
 #  gemeinkosten_updated_at          :datetime
 #  zugeteilte_kategorie             :string(2)
 #  challenged_canton_count_id       :integer
 #  affiliated_canton_count_id       :integer
 #  anzahl_kurse                     :integer          default(1)
+#  tage_behinderte                  :decimal(12, 2)
+#  tage_angehoerige                 :decimal(12, 2)
+#  tage_weitere                     :decimal(12, 2)
 #
 
 class Event::CourseRecord < ActiveRecord::Base
@@ -67,6 +70,9 @@ class Event::CourseRecord < ActiveRecord::Base
             :absenzen_behinderte,
             :absenzen_angehoerige,
             :absenzen_weitere,
+            :tage_behinderte,
+            :tage_angehoerige,
+            :tage_weitere,
             :leiterinnen,
             :fachpersonen,
             :hilfspersonal_ohne_honorar,
@@ -83,8 +89,7 @@ class Event::CourseRecord < ActiveRecord::Base
   before_validation :set_cached_values
   before_validation :compute_category
 
-  attr_writer :tage_behinderte, :tage_angehoerige, :tage_weitere,
-              :anzahl_spezielle_unterkunft
+  attr_writer :anzahl_spezielle_unterkunft
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
@@ -119,22 +124,10 @@ class Event::CourseRecord < ActiveRecord::Base
     hilfspersonal_ohne_honorar.to_i
   end
 
-  def tage_behinderte
-    @tage_behinderte ||=
-      attributes['tage_behinderte'] ||
-      (kursdauer.to_d * teilnehmende_behinderte.to_i) - absenzen_behinderte.to_d
-  end
-
-  def tage_angehoerige
-    @tage_angehoerige ||=
-      attributes['tage_angehoerige'] ||
-      (kursdauer.to_d * teilnehmende_angehoerige.to_i) - absenzen_angehoerige.to_d
-  end
-
-  def tage_weitere
-    @tage_weitere ||=
-      attributes['tage_weitere'] ||
-      (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
+  def total_tage_teilnehmende
+    tage_behinderte.to_d +
+    tage_angehoerige.to_d +
+    tage_weitere.to_d
   end
 
   def praesenz_prozent
@@ -153,20 +146,14 @@ class Event::CourseRecord < ActiveRecord::Base
     end
   end
 
-  def direkter_aufwand
-    honorare_inkl_sozialversicherung.to_d +
-    unterkunft.to_d +
-    uebriges.to_d
-  end
-
   def total_vollkosten
-    direkter_aufwand +
+    direkter_aufwand.to_d +
     gemeinkostenanteil.to_d
   end
 
   def direkte_kosten_pro_le
     if total_tage_teilnehmende > 0
-      total_direkte_kosten / total_tage_teilnehmende
+      direkter_aufwand.to_d / total_tage_teilnehmende
     else
       0
     end
@@ -210,15 +197,33 @@ class Event::CourseRecord < ActiveRecord::Base
     self.zugeteilte_kategorie = assigner.compute
   end
 
-
   def set_cached_values
-    @tage_behinderte = @tage_angehoerige = @tage_weitere = nil
     self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
     self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
-    self.total_direkte_kosten = direkter_aufwand
-    self.total_tage_teilnehmende = tage_behinderte +
-                                   tage_angehoerige +
-                                   tage_weitere
+    self.direkter_aufwand = calculate_direkter_aufwand
+    unless event.is_a?(Event::AggregateCourse)
+      self.tage_behinderte = calculate_tage_behinderte
+      self.tage_angehoerige = calculate_tage_angehoerige
+      self.tage_weitere = calculate_tage_weitere
+    end
+  end
+
+  def calculate_tage_behinderte
+    (kursdauer.to_d * teilnehmende_behinderte.to_i) - absenzen_behinderte.to_d
+  end
+
+  def calculate_tage_angehoerige
+    (kursdauer.to_d * teilnehmende_angehoerige.to_i) - absenzen_angehoerige.to_d
+  end
+
+  def calculate_tage_weitere
+    (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
+  end
+
+  def calculate_direkter_aufwand
+    honorare_inkl_sozialversicherung.to_d +
+    unterkunft.to_d +
+    uebriges.to_d
   end
 
   def assert_event_is_course
@@ -234,7 +239,7 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def assert_duration_values_precision
-    [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere].each do |attr|
+    duration_attrs.each do |attr|
       value = send(attr)
       next unless value
 
@@ -245,6 +250,14 @@ class Event::CourseRecord < ActiveRecord::Base
         check_modulus(attr, value, 0.5, msg)
       end
     end
+  end
+
+  def duration_attrs
+    attrs = [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere]
+    if event.is_a?(Event::AggregateCourse)
+      attrs += [:tage_behinderte, :tage_angehoerige, :tage_weitere]
+    end
+    attrs
   end
 
   def check_modulus(attr, value, multiple, message)

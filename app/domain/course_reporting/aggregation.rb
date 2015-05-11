@@ -32,15 +32,14 @@ module CourseReporting
 
       :beitraege_teilnehmende,
       :gemeinkostenanteil,
-      :total_direkte_kosten,
+      :direkter_aufwand,
 
-      :total_tage_teilnehmende
+      :tage_behinderte,
+      :tage_angehoerige,
+      :tage_weitere
     ]
 
     RUBY_SUMMED_ATTRS = COUNTS + [
-      :tage_behinderte,
-      :tage_angehoerige,
-      :tage_weitere,
       :anzahl_spezielle_unterkunft
     ]
 
@@ -138,18 +137,12 @@ module CourseReporting
                  'event_course_records.kursart',
                  'event_course_records.inputkriterien']
       columns.concat(sql_summed_attrs)
-      columns.concat(%w(behinderte angehoerige weitere).collect { |f| sql_sum_tage(f) })
       columns << sql_sum_unterkunft
       columns.join(', ')
     end
 
     def sql_summed_attrs
       COUNTS.map { |sym| "SUM(#{sym}) AS #{sym}" }
-    end
-
-    def sql_sum_tage(field)
-      "SUM((IFNULL(kursdauer, 0) * IFNULL(teilnehmende_#{field}, 0)) - " \
-      " IFNULL(absenzen_#{field}, 0)) AS tage_#{field}"
     end
 
     def sql_sum_unterkunft

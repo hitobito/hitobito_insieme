@@ -6,7 +6,7 @@
 = field_set_tag(t('event.course_records.form.auswertungen')) do
 
   = f.labeled_readonly_value :total_direkte_kosten,
-                             value: format_money(entry.total_direkte_kosten)
+                             value: format_money(entry.direkter_aufwand)
   = f.labeled_readonly_value :gemeinkostenanteil,
                              value: gemeinkostenanteil_with_updated_at(entry)
   = f.labeled_readonly_value :total_vollkosten,

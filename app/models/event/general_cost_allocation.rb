@@ -62,7 +62,7 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
 
   def total_costs_by_lk
     @total_costs ||= considered_course_records.group('events.leistungskategorie').
-                                               sum(:total_direkte_kosten)
+                                               sum(:direkter_aufwand)
   end
 
   def calculate_general_costs_allowance(leistungskategorie)
