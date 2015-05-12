@@ -38,12 +38,26 @@
 
 class Event::AggregateCourse < Event
 
+  attr_accessor :year
+
   # All attributes actually used (and mass-assignable) by the respective STI type.
-  self.used_attributes = [:name, :description]
+  self.used_attributes = [:name, :description, :year]
 
   # No participations possible
   self.role_types = []
 
   include Event::Reportable
+
+  validates :year, numericality: { only_integer: true }
+
+  before_validation :update_dates
+
+  private
+
+  def update_dates
+    dates.build(event: self,
+                start_at: Time.zone.local(year.to_i, 1, 1),
+                finish_at: Time.zone.local(year.to_i, 12, 31))
+  end
 
 end

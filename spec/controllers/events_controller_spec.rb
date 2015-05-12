@@ -62,7 +62,7 @@ describe EventsController do
     context 'for aggregate course' do
       let(:course_attrs) { { group_ids: [group.id],
                              name: 'foo',
-                             dates_attributes: [date],
+                             year: Date.today.year,
                              type: 'Event::AggregateCourse' } }
 
       it 'assigns course record attributes' do

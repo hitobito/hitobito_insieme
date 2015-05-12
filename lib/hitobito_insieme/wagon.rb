@@ -63,6 +63,7 @@ module HitobitoInsieme
 
       # decorators
       PersonDecorator.send :include, Insieme::PersonDecorator
+      EventDecorator.send :include, Insieme::EventDecorator
 
       # domain
       Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
