@@ -11,7 +11,7 @@ module Insieme::Export::Csv::Events
     extend ActiveSupport::Concern
 
     included do
-      delegate :subventioniert, :inputkriterien, :spezielle_unterkunft, :anzahl_kurse,
+      delegate :year, :subventioniert, :inputkriterien, :spezielle_unterkunft, :anzahl_kurse,
                to: :course_record, allow_nil: true
     end
 
