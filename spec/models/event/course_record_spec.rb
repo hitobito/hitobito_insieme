@@ -53,7 +53,9 @@ describe Event::CourseRecord do
   let(:event_bk) { events(:top_course) }
   let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk') }
   let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk') }
-  let(:aggregate_bk) { Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk') }
+  let(:aggregate_bk) do
+    Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', year: 2000)
+  end
 
   def new_record(event, attrs = {})
     r = Event::CourseRecord.new(attrs.merge(event: event))
