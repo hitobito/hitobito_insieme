@@ -71,31 +71,40 @@ describe CourseReporting::Aggregation do
   context 'structure and counting courses' do
     let(:kriterien) { %w(a b) }
 
-    it 'bk sums by inputkriterien' do
-      kriterien.each { |k| create!(create_course, :freizeit_und_sport, inputkriterien: k) }
-
-      expect(course_totals(:anzahl_kurse, 'a')).to eq(1)
-      expect(course_totals(:anzahl_kurse, 'b')).to eq(1)
-      expect(course_totals(:anzahl_kurse, 'c')).to eq(0)
-
-      kriterien.each do |k|
-        expect(course_counts(:anzahl_kurse, :freizeit_und_sport, k)).to eq(1)
-        expect(course_counts(:anzahl_kurse, :weiterbildung, k)).to eq(nil)
-      end
-    end
-
-    %w(sk tk).each do |leistungskategorie|
+    %w(bk tk).each do |leistungskategorie|
       context leistungskategorie do
         let(:aggregation) { new_aggregation(leistungskategorie: leistungskategorie) }
 
-        it "sums once for all inputkriterien" do
-          kriterien.each { |k| create!(create_course(leistungskategorie), 'freizeit_und_sport', inputkriterien: k) }
+        it 'sums by inputkritierien' do
+          kriterien.each do |k|
+            create!(create_course(leistungskategorie), :freizeit_und_sport, inputkriterien: k)
+          end
 
-          expect(course_counts(:anzahl_kurse, 'freizeit_und_sport', 'all')).to eq(2)
-          expect(course_totals(:anzahl_kurse)).to eq(2)
+          expect(course_totals(:anzahl_kurse, 'a')).to eq(1)
+          expect(course_totals(:anzahl_kurse, 'b')).to eq(1)
+          expect(course_totals(:anzahl_kurse, 'c')).to eq(0)
+
+          kriterien.each do |k|
+            expect(course_counts(:anzahl_kurse, :freizeit_und_sport, k)).to eq(1)
+            expect(course_counts(:anzahl_kurse, :weiterbildung, k)).to eq(nil)
+          end
         end
       end
     end
+
+    context 'sk' do
+      let(:aggregation) { new_aggregation(leistungskategorie: 'sk') }
+
+      it 'sums once for all inputkriterien' do
+        kriterien.each do |k|
+          create!(create_course('sk'), 'freizeit_und_sport', inputkriterien: k)
+        end
+
+        expect(course_counts(:anzahl_kurse, 'freizeit_und_sport', 'all')).to eq(2)
+        expect(course_totals(:anzahl_kurse)).to eq(2)
+      end
+    end
+
   end
 
   context 'summed and aggregated values' do

@@ -82,7 +82,7 @@ module Export
         end
 
         def t(attr)
-          if !blockkurs?
+          if jahreskurs?
             I18n.t("course_reporting.aggregations.#{attr}_stunden",
                    default: :"course_reporting.aggregations.#{attr}")
           else
@@ -113,17 +113,38 @@ module Export
         end
 
         def each_column(&block)
-          kriterien = blockkurs? ? aggregation.inputkriterien : %w(all)
-          kursarten = blockkurs? ? aggregation.kursarten + %w(total) : aggregation.kursarten
-
           kriterien.
             product(kursarten).
             append(%w(all total)).
             each(&block)
         end
 
+        def kriterien
+          if blockkurs? || tageskurs?
+            aggregation.inputkriterien
+          else
+            %w(all)
+          end
+        end
+
+        def kursarten
+          if blockkurs? || tageskurs?
+            aggregation.kursarten + %w(total)
+          else
+            aggregation.kursarten
+          end
+        end
+
         def blockkurs?
           aggregation.leistungskategorie == 'bk'
+        end
+
+        def tageskurs?
+          aggregation.leistungskategorie == 'tk'
+        end
+
+        def jahreskurs?
+          aggregation.leistungskategorie == 'sk'
         end
 
       end
