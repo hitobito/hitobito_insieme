@@ -4,7 +4,7 @@
     = f.readonly_value(attr)
     .inline= link_to(t('.change'), '#', data: { hide: 'canton_counts_%s' % attr })
     = f.help_inline(muted(t('event.course_records.form.according_to_list',
-                            count: f(suggestion))))
+                            count: fnumber(suggestion))).html_safe)
 
 .participation-canton-counts{id: "canton_counts_#{attr}", style: 'display: none;'}
   = f.fields_for(cantons_attr) do |nf|

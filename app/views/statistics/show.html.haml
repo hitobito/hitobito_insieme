@@ -11,6 +11,6 @@
 
   - @vereinsmitglieder.role_types do |role, index|
     - t.col(role.label_short, class: 'right', title: role.label_plural, style: 'width: 60px;') do |e|
-      - f(@vereinsmitglieder.count(e, index))
+      - fnumber(@vereinsmitglieder.count(e, index))
 
   - t.attrs(:full_name, :address, :zip_code, :town, :canton)

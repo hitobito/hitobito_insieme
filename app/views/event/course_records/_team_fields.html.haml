@@ -10,9 +10,9 @@
   = participant_field_with_suggestion(f, :hilfspersonal_ohne_honorar, @numbers.helper_unpaid_count)
 
   = f.labeled_readonly_value :total,
-                             value: f(entry.betreuende),
+                             value: fnumber(entry.betreuende),
                              help_inline: muted(t('event.course_records.form.according_to_list',
-                                                  count: f(@numbers.team_count)))
+                                                  count: fnumber(@numbers.team_count)).html_safe)
 
   = f.labeled_readonly_value :betreuungsschluessel,
                               value: t('event.course_records.form.challenged_per_team', ratio: f(entry.betreuungsschluessel))

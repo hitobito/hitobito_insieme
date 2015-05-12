@@ -13,4 +13,4 @@
 = field_set_tag(t('event.course_records.form.ertrag')) do
   = f.labeled_input_field :beitraege_teilnehmende, addon: t('global.currency'),
         help_inline: muted(t('event.course_records.form.according_to_list',
-                           count: format_money(@numbers.invoice_amount_sum)))
+                           count: format_money(@numbers.invoice_amount_sum)).html_safe)

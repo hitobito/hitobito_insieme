@@ -10,7 +10,7 @@
   = f.labeled_input_field field,
                           addon: t('global.currency'),
                           help_inline: t('.cost_from_accounting',
-                                         value: f(general_cost_from_accounting.general_cost(lk))).html_safe
+                                         value: fnumber(general_cost_from_accounting.general_cost(lk))).html_safe
 
   = f.labeled_readonly_value :general_costs_allowance,
                              value: format_general_cost_allowance_percent(entry.general_costs_allowance(lk))

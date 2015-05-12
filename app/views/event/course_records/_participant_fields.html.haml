@@ -19,6 +19,6 @@
   = participant_field_with_suggestion(f, :teilnehmende_weitere, @numbers.not_entitled_for_benefit_count)
 
   = f.labeled_readonly_value :total,
-                             value: f(entry.teilnehmende),
+                             value: fnumber(entry.teilnehmende),
                              help_inline: muted(t('event.course_records.form.according_to_list',
-                                                  count: f(@numbers.participant_count)))
+                                                  count: fnumber(@numbers.participant_count)).html_safe)

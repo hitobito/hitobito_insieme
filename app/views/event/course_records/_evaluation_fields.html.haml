@@ -12,7 +12,7 @@
   = f.labeled_readonly_value :total_vollkosten,
                              value: format_money(entry.total_vollkosten)
   = f.labeled_readonly_value :anzahl_le,
-                             value: f(entry.total_tage_teilnehmende)
+                             value: fnumber(entry.total_tage_teilnehmende)
   = f.labeled_readonly_value :vollkosten_pro_le,
                              value: format_money(entry.vollkosten_pro_le)
   = f.labeled_readonly_value :zugeteilte_kategorie,

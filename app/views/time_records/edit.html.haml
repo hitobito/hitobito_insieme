@@ -19,7 +19,7 @@
     = f.fields_for(:employee_pensum) do |nf|
       = nf.labeled_input_field :paragraph_74, help_inline: t('.help_employee_pensum')
       = nf.labeled_input_field :not_paragraph_74
-      = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: format_float(entry.employee_pensum.total)
+      = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: fnumber(entry.employee_pensum.total)
 
   %h3= t('.lufeb')
   - if entry.class.key == 'volunteer_without_verification_time'
@@ -51,7 +51,7 @@
 
   = field_set_tag do
     = f.labeled_readonly_value :total_paragraph_74, value: format_hours(entry.total_paragraph_74)
-    = f.labeled_readonly_value :total_paragraph_74_pensum, value: format_float(entry.total_paragraph_74_pensum)
+    = f.labeled_readonly_value :total_paragraph_74_pensum, value: fnumber(entry.total_paragraph_74_pensum)
 
   %h3= t('.not_paragraph_74')
   = field_set_tag do
@@ -59,9 +59,9 @@
 
   = field_set_tag do
     = f.labeled_readonly_value :total_not_paragraph_74, value: format_hours(entry.total_not_paragraph_74)
-    = f.labeled_readonly_value :total_not_paragraph_74_pensum, value: format_float(entry.total_not_paragraph_74_pensum)
+    = f.labeled_readonly_value :total_not_paragraph_74_pensum, value: fnumber(entry.total_not_paragraph_74_pensum)
 
   %h3= t('.whole_organization')
   = field_set_tag do
     = f.labeled_readonly_value :total, value: format_hours(entry.total)
-    = f.labeled_readonly_value :total_pensum, value: format_float(entry.total_pensum)
+    = f.labeled_readonly_value :total_pensum, value: fnumber(entry.total_pensum)

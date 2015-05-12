@@ -13,7 +13,7 @@
       %strong= link_to e.name, group_event_path(@group, e)
     - t.attrs(:leistungskategorie)
     - t.col(Event::CourseRecord.human_attribute_name(:anzahl_kurse)) do |e|
-      = f(e.course_record.anzahl_kurse)
+      = fnumber(e.course_record.anzahl_kurse)
 
 - else
   = crud_table do |t|
@@ -23,5 +23,3 @@
     - if params[:type].present?
       - t.attrs(:leistungskategorie)
     - t.attrs(:booking_info)
-
-

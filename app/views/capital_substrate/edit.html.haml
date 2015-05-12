@@ -13,7 +13,7 @@
             html: { class: 'long-labeled report' }) do |f|
 
   = field_set_tag do
-    = f.labeled_readonly_value :allocation_base, value: format_float(report.allocation_base)
+    = f.labeled_readonly_value :allocation_base, value: fnumber(report.allocation_base)
     = f.labeled_input_field :organization_capital, addon: t('global.currency'), help_inline: t('.help_per_date', date: f(Date.new(year).beginning_of_year))
     = f.labeled_readonly_value :organization_capital_allocated, value: format_money(report.organization_capital_allocated)
     = f.labeled_readonly_value :half_profit_margin, value: format_money(report.half_profit_margin)
