@@ -131,8 +131,8 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def praesenz_prozent
-    if kursdauer.to_d > 0 && teilnehmende > 0
-      100 - ((total_absenzen / (kursdauer.to_d * teilnehmende)) * 100).round
+    if total_tage_teilnehmende > 0
+      100 - ((total_absenzen / total_tage_teilnehmende) * 100).round
     else
       100
     end
