@@ -38,7 +38,7 @@
 
 class Event::AggregateCourse < Event
 
-  attr_accessor :year
+  attr_writer :year
 
   # All attributes actually used (and mass-assignable) by the respective STI type.
   self.used_attributes = [:name, :description, :year]
@@ -52,12 +52,19 @@ class Event::AggregateCourse < Event
 
   before_validation :update_dates
 
+  def year
+    @year || dates.present? && dates.first.start_at.present? && dates.first.start_at.year || nil
+  end
+
   private
 
   def update_dates
-    dates.build(event: self,
-                start_at: Time.zone.local(year.to_i, 1, 1),
-                finish_at: Time.zone.local(year.to_i, 12, 31))
+    if @year
+      dates.destroy_all
+      dates.build(event: self,
+                  start_at: Time.zone.local(@year.to_i, 1, 1),
+                  finish_at: Time.zone.local(@year.to_i, 12, 31))
+    end
   end
 
 end

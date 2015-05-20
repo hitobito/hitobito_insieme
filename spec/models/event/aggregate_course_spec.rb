@@ -45,24 +45,30 @@ describe Event::AggregateCourse do
                                  name: 'Foo')
     end
 
-    it 'should cause a validation error if not set' do
+    it 'causes a validation error if not set' do
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'should cause a validation error if string' do
+    it 'causes a validation error if empty string' do
+      event.year = ''
+      expect(event.valid?).to be_falsey
+      expect(event.errors[:year]).to be_present
+    end
+
+    it 'causes a validation error if string' do
       event.year = 'asdf'
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'should cause a validation error if float' do
+    it 'causes a validation error if float' do
       event.year = 1.5
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'should add date according to given year' do
+    it 'adds date according to given year' do
       event.year = 2000
       expect(event.valid?).to be_truthy
 
@@ -76,5 +82,36 @@ describe Event::AggregateCourse do
       expect(finish_at.day).to eq(31)
     end
 
+    it 'represents year of first date' do
+      event.year = 2000
+      expect(event.year).to eq(2000)
+      event.save!
+      expect(Event::AggregateCourse.find(event.id).year).to eq(2000)
+    end
+
+    it 'can be updated' do
+      event.year = 2000
+      event.save!
+      event_id = event.id
+
+      event.year = 2001
+      expect(event.year).to eq(2001)
+      event.save!
+
+      event = Event::AggregateCourse.find(event_id)
+      expect(event.dates.length).to eq(1)
+      expect(event.year).to eq(2001)
+    end
+
+    it 'causes a validation error on invalid update' do
+      event.year = 2000
+      event.save!
+      event_id = event.id
+
+      event = Event::AggregateCourse.find(event_id)
+      event.year = ''
+      expect(event.valid?).to be_falsey
+      expect(event.errors[:year]).to be_present
+    end
   end
 end
