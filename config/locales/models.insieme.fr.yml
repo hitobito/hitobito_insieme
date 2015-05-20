@@ -182,22 +182,36 @@ fr:
         one: Proche
       event/course/role/not_entitled_for_benefit:
         one: Autres, ne donnant pas droit à des subsides
+      event/aggregate_course:
+        one: Plusieurs cours
+        other: Plusieurs cours
       cost_accounting_record:
         one: Report comptabilité analytique
         other: Reports comptabilité analytique
       time_record:
         one: Décompte des heures de travail
         other: Décomptes de heures de travail
+      time_record/employee_time:
+        one: Enregistrement des heures de travail des employé-e-s
+        short: Employé-e-s
+      time_record/volunteer_without_verification_time:
+        one: Enregistrement des heures de travail des bénévoles sans preuve de prestations
+        short: Bénévole sans preuve de prestations
+      time_record/volunteer_with_verification_time:
+        one: Enregistrement des heures de travail des bénévoles avec preuve des prestations
+        short: Bénévole avec preuve de prestations
       event/course_record:
-        one: Report de cours individuel
-        other: Reports de cours individuels
+        one: Reports des cours
+        other: Reports des cours
       event/general_cost_allocation:
         one: Répartition des frais généraux
         other: Répartition des frais généraux
       reporting_parameter:
-        one: Paramètres de rapport
-        other: paramètres de rapport
-        menu: Paramètres
+        one: Paramètre du reporting
+        other: Paramètre du reporting
+      capital_substrate:
+        one: Substrat de capital
+        other: Substrats de capital
     attributes:
       cantons:
         ag: Aargau
@@ -252,18 +266,29 @@ fr:
         aufteilung_kontengruppen: Notices
       reporting_parameter:
         year: Année
-        vollkosten_le_schwelle1_blockkurs: Cours en bloc Valeurs seuils 1 coûts complets/UP
-        vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuil 2 coûts complets/UP
+        vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP
+        vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuils 2 coûts complets/UP
         vollkosten_le_schwelle1_tageskurs: Cours d'un jour valeurs seuils 1 coûts complets/UP
-        vollkosten_le_schwelle2_tageskurs: Cours d'un jour valeurs seuils 2 coûts complets/UP
+        vollkosten_le_schwelle2_tageskurs: Cours en bloc valeurs seuils 2 coûts complets/UP
+        bsv_hours_per_year: Heures OFAS par année
+        capital_substrate_exemption: Substrat de capital OFAS montant libre
       event:
         teamer_count: Nombre de personnel d'encadrement
+      event/aggregate_course:
+        year: Année
+        dates_full: Année
       event/course:
         leistungskategorie: Catégorie de prestations
         leistungskategorien:
-          bk: Cours en bloc
-          tk: Cours d'un jour
-          sk: Cours semestriel /annuel
+          bk:
+            one: Cours en bloc
+            other: Cours en bloc
+          tk:
+            one: Cours d'un jour
+            other: Cours d'un jour
+          sk:
+            one: Cours semestriels/annuels
+            other: Cours semestriels/annuels
       event/course_record:
         event_id: Cours
         event: Cours
@@ -279,6 +304,9 @@ fr:
         absenzen_behinderte: Personne handicapée
         absenzen_angehoerige: Proche
         absenzen_weitere: Autres, ne donnant pas droit à des subsides
+        tage_behinderte: Personne handicapée
+        tage_angehoerige: Proches
+        tage_weitere: Autres, ne donnant pas droit à des subsides
         leiterinnen: Responsables
         fachpersonen: Spécialistes hautement qualifiés
         hilfspersonal_ohne_honorar: Personnel auxiliaire sans honoraire
@@ -298,6 +326,7 @@ fr:
         vollkosten_pro_le: Frais totaux par UP
         zugeteilte_kategorie: Catégorie attribuée
         year: Reporting dans l'année
+        anzahl_kurse: Nombre de cours
         kursarten:
           weiterbildung: Formation continue
           freizeit_und_sport: Loisirs et sport
@@ -432,12 +461,6 @@ fr:
         billing_course_country: Pays adresse de facturation pour les cours
         billing_course_same_as_main: Même adresse de facturation que l'adresse principale
       time_record:
-        verwaltung: Direction de l'association et administration
-        beratung: Conseil social
-        treffpunkte: Prise en charge dans les lieux d'accueil
-        blockkurse: Cours en bloc
-        tageskurse: Cours d'un jour
-        jahreskurse: Cours annuels/semestriels
         kontakte_medien: Contacts avec les médias, les journalistes
         interviews: Accorder des interviews
         publikationen: Publication
@@ -464,7 +487,36 @@ fr:
         treffen_meinungsaustausch: Planification, organisation et tenue de réunions informelles
         beratung_fachhilfeorganisationen: Information et conseil aux organisations d'aide spécialisée concernant l'encouragement de l'entraide
         unterstuetzung_behindertenhilfe: Soutien aux personnes handicapées dans les organes directeurs des organisations de l'aide privée aux personnes handicapées
+        total_lufeb_general: Tâches générales d'information et de relations publiques
+        total_lufeb_private: Médias et publications de l'organisation accessibles au public
+        total_lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
+        total_lufeb_promoting: Prestations de base pour l'encouragement de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers
+        total_lufeb: Total des prestations de la PROSPREH
+        blockkurse: Cours en bloc
+        tageskurse: Cours d'un jour
+        jahreskurse: Cours annuels/semestriels
+        treffpunkte: Prise en charge dans les lieux d'accueil
+        beratung: Conseil social
         mittelbeschaffung: Collecte de fonds
+        verwaltung: Direction de l'association et administration
+        total_paragraph_74: Total concernant l'art. 74
+        total_paragraph_74_pensum: Exprimé en postes à 100%
+        nicht_art_74_leistungen: Prestations
+        total_not_paragraph_74: Total ne concernant pas l'art. 74
+        total_not_paragraph_74_pensum: Exprimé en postes à 100%
+        total: Total
+        total_pensum: Exprimé en postes à 100%
+      time_record/employee_pensum:
+        paragraph_74: Art. 74 relatif aux postes à 100%
+        not_paragraph_74: Art. 74 pas relatif aux postes à 100%
+      capital_substrate:
+        allocation_base: Barème
+        organization_capital: Capitaux de l'organisation incl. réserves et fonds libres
+        organization_capital_allocated: Capitaux de l'organisation codés
+        half_profit_margin: 50% du solde du calcul de la marge sur coût variable
+        fund_building: Formation des fonds liés provenant des liquidités libres
+        exemption: Montant libre déduit
+        capital_substrate_allocated: Substrat de capital codé art. 74
     errors:
       attributes:
         group_id:
@@ -478,39 +530,81 @@ fr:
     report:
       lohnaufwand:
         name: Charges salariales
+        short_name: Charges salariales
       sozialversicherungsaufwand:
         name: Charges des assurances sociales
+        short_name: Charges assurances sociales
       uebriger_personalaufwand:
         name: Autre charges de personnel
+        short_name: Autres charges de personnel
       honorare:
         name: Honoraires
+        short_name: Honoraires
       total_personalaufwand:
         name: Total chages de personnel/coûts
+        short_name: Total chages de personnel/coûts
       raumaufwand:
         name: Frais de locaux
+        short_name: Frais de locaux
       uebriger_sachaufwand:
         name: Autre charges de matériel
+        short_name: Autres charges de matériel
       abschreibungen:
         name: Amortissement (immeubles exclus)
+        short_name: Amortissements
       total_aufwand:
         name: Total des charges/coûts
+        short_name: Total des charges/coûts
       leistungsertrag:
         name: Produit des prestations
+        short_name: Produit des prestations
       beitraege_iv:
         name: Contributions AI
+        short_name: Contributions AI
       sonstige_beitraege:
         name: Autres contributions de la confédération, contributions des cantons/communes
+        short_name: Contributions des cantons, des communes
       direkte_spenden:
         name: Dons directs, autres produits art. 74
+        short_name: Dons directs (art. 74)
+      indirekte_spenden:
+        name: Dons indirects, autres produits (codés)
+        short_name: Dons indirects codés
+      direkte_spenden_ausserhalb:
+        name: "Dons directs, autres produits non inclus dans l'art. 74"
+        short_name: Dons directs (pas art. 74)
       umlage_personal:
         name: Répartition personnel
+        short_name: Participation personnel
       umlage_raeumlichkeiten:
         name: Répartition des frais des locaux
+        short_name: Participation locaux
       umlage_verwaltung:
         name: Répartition administration
+        short_name: Participation administration
       total_umlagen:
         name: Total des répartitions
+        short_name: Total participation
       vollkosten:
         name: Coûts globaux après participation
+        short_name: Frais totaux après participation
+      total_ertraege:
+        name: Total des produits
+        short_name: Total des produits
+      deckungsbeitrag1:
+        name: Marge de contribution 1 (produit des prestations- coûts directs)
+        short_name: Marge de contribution 1
+      deckungsbeitrag2:
+        name: Marge de contribution 2 (MC 1 - frais généraux + dons directs / autres produits art. 74 + dons indirects / autres produits codés)
+        short_name: Marge de contribution 2
+      deckungsbeitrag3:
+        name: Marge de contribution 3 ( MC 2 + autres contributions confédération, cantons, communes)
+        short_name: Marge de contribution 3
+      deckungsbeitrag4:
+        name: 'Marge de contribution 4 (MC 3 + subventions AI) '
+        short_name: Marge de contribution 4
+      unternehmenserfolg:
+        name: Résultat de l'entreprise
+        short_name: Résultat de l'entreprise
   import/person_doublette_finder:
     duplicate_with_different_number: Une même personne mais avec un autre numéro de personne (%{number}) a été trouvée.

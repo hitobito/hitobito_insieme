@@ -7,13 +7,23 @@ fr:
   layouts:
     reporting_menu:
       time_records: Enregistrement des heures de travail
-      cost_accounting: Comptabilité analytique
-      general: Généralités
+      base_informations:
+        label: Informations de base
+        title: Consultation des informations de base
       course_statistics: Statistique de cours
-      overview: Vue d'ensemble
+      cost_accounting: Comptabilité analytique
+      overview:
+        label: Vue d'ensemble
+        title: Vue d'ensemble de la comptabilité analytique
       general_cost_allocation: Répartition des frais généraux
+      capital_substrate: Substrat de capital
+    reporting_header:
+      association_name: Nom de l'association
   navigation:
     groups: Associations
+  capital_substrate:
+    edit:
+      help_per_date: en %{donnée}
   contactable:
     address_fields_insieme:
       main: Adresse principale
@@ -23,14 +33,82 @@ fr:
       billing_course: Adresse de facturation pour les cours
     single_address_fields:
       same_as_main: Même que l'adresse principale
+  controlling:
+    title: Controlling
+    index:
+      cost_accounting: Comptabilité analytique consolidée
+      client_statistics: Statistique des client-e-s
+      group_figures: Chiffres indicatifs par association
   cost_accounting:
     index:
       title: Vue d'ensemble comptabilité analytique
+      export: Exporter CSV
     edit:
       aufwand_fibu: Charges comptabilité financière
       ertrag_fibu: Produits comptabilité financière
       kontengruppen: "Groupe(s) de comptes %{kontengruppen}"
       remarks_placeholder: Vous pouvez joindre ici vos notes et explications (p. ex. de quelle manière les charges se répartissent sur les groupes de compte)
+  course_reporting:
+    client_statistics:
+      disability_or_canton: Handicap / canton
+      total: Total
+      challenged: Nombre de personnes handicapées (personnes)
+      affiliated: Nombre de proches (personnes)
+      participants: Handicap mental et difficultés d'apprentissage
+      multiple_challenged: dont personnes plusrihandicapées
+    aggregations:
+      index:
+        title: Exportation de statistique de cours
+        subsidized_1_2_3: Tous subventionnés
+        unsubsidized_1_2_3: Pas tous subventionnés
+        subsidized_1: Subv. cat. 1
+        subsidized_2: Subv. cat. 2
+        subsidized_3: Subv. cat. 3
+      a: Catégorie A
+      b: Catégorie B
+      c: Catégorie C
+      total: Total
+      anzahl_kurse: Nombre de cours
+      kursdauer: Nombre de jours de cours
+      kursdauer_stunden: Nombre d'heures de cours
+      teilnehmende: Nombre effectif de participant-e-s
+      teilnehmende_behinderte: dont personnes handicapées
+      teilnehmende_angehoerige: dont proches
+      teilnehmende_weitere: dont bénéficiaires non reconnus
+      total_absenzen: Jours d'absence
+      absenzen_behinderte: dont jours d'absence de personnes handicapées
+      absenzen_angehoerige: dont jours d'absence de proches
+      absenzen_weitere: dont jours d'absence de bénéficiaires non reconnus
+      total_absenzen_stunden: Heures d'absence
+      absenzen_behinderte_stunden: dont heures d'absence de personnes handicapées
+      absenzen_angehoerige_stunden: dont heures d'absence de proches
+      absenzen_weitere_stunden: dont heures d'absence de bénéficiares non reconnus
+      total_tage_teilnehmende: Journées participants effectives
+      tage_behinderte: dont journées participants handicapés
+      tage_angehoerige: dont journées participants proches
+      tage_weitere: dont journées participants bénéficiaires non reconnus
+      total_tage_teilnehmende_stunden: dont heures participants effectives
+      tage_behinderte_stunden: dont heures participants handicapés
+      tage_angehoerige_stunden: dont heures participants proches
+      tage_weitere_stunden: dont heures participants bénéficiaires non reconnus
+      betreuende: Nombre de personnel d'encadrement
+      leiterinnen: dont responsables
+      fachpersonen: dont spécialistes hautement qualifiés
+      hilfspersonal_ohne_honorar: dont personnel auxiliaire sans honoraire
+      hilfspersonal_mit_honorar: dont personnel auxiliaire avec honoraire
+      kuechenpersonal: Nombre de personnel en cuisine
+      direkter_aufwand: Charge totale des frais directs
+      honorare_inkl_sozialversicherung: dont honoraires
+      unterkunft: dont logement/charge de locaux
+      uebriges: dont autres charges incl. logement
+      direkte_kosten_pro_le: Moyenne des frais directs par journée participant
+      direkte_kosten_pro_le_stunden: Moyenne des frais directs par heure participant
+      total_vollkosten: Frais totaux
+      vollkosten_pro_le: Moyenne des frais totaux par journée participant
+      vollkosten_pro_le_stunden: Moyenne des frais totaux par heure participant
+      beitraege_teilnehmende: Contributions participant-e-s
+      betreuungsschluessel: Personnel d'encadrement (participant / auxiliaire
+      anzahl_spezielle_unterkunft: Nombre de cours avec logement spécialement équipé
   dropdown/abo_addresses_export:
     button: Liste d'adresse pour les abonnements
     ch_de: Suisse allemand
@@ -54,7 +132,7 @@ fr:
         auswertungen: Evaluations
         updated_at: "Actualisé le  %{date}"
         info_not_subsidized: "Pas subventionné: les cours ne sont pas pris en compte dans la statistique de cours"
-        missing_reporting_parameters: Aucun paramètre de rapport n'est défini pour l'année correspondante. Veuillez vous adressez à l'organisations faîtière
+        missing_reporting_parameters: Aucun paramètre du reporting n'est défini pour l'année correspondante. Veuillez vous adresser à l'organisation faîtière.
       canton_fields:
         change: Adapter
     general_cost_allocations:
@@ -102,28 +180,73 @@ fr:
     show:
       title: Statistique des membres de l'association
       export: Exporter CSV
+    group_figures:
+      name: 'Nom complet'
+      vid: Identification de l'association IDA
+      bsv: Numéro OFAS
+      participant_days_bk_1: Cours en bloc journées participant cat. 1
+      participant_days_bk_2: Cours en bloc journées participant cat. 2
+      participant_days_bk_3: Cours en bloc journées participant cat. 3
+      participant_days_tk_1: Cours d'un jour journées participant cat. 1
+      participant_days_tk_2: Cours d'un jour journées participant cat. 2
+      participant_days_tk_3: Cours d'un jour journées participant cat. 3
+      participant_days_sk_1: Cours semestriels/annuels heures participant cat. 1
+      lufeb_hours_employees: Heures PROSPREH heures des employé-e-s
+      lufeb_hours_volunteers: Heures PROSPREH bénévoles avec preuve de prestations
   shared:
     admin_nav_kinds_insieme:
-      reporting_parameters: Paramètres
+      reporting_parameters: Paramètre
   time_records:
+    index:
+      title: Informations de base
+      paragraph_74: Relatif à l'art. 74
+      not_paragraph_74: Pas relatif à l'art. 74
+      whole_organization: Organisation entière
+      controlling: Contrôle
+      capital_substrate: Substrat de capital
     edit:
-      comment: Enregistrer uniquement les heures effectivement fournies qui concernent l'art. 74. Toutes les données en heures
-      general: Prestations en général
+      comment: Saisir que les heures fournies qui concernent l'art. 74, sauf indication contraire
+      subtotal: Sous-total
+      total: Total
+      employees: Collaborateurs/trices employé-e-s, selon contrat de travail
       lufeb: Prestations ayant pour objet de soutenir et promouvoir la réadaptation des personnes handicapées (PROSPREH)
-      lufeb_general: Tâches générales d'information et de relations publiques
+      courses: Cours
+      additional_person_specific: Autres besoins personnels spécifiques
+      remaining: Autres prestations
+      not_paragraph_74: Prestations pas relatives à l'art. 74
+      whole_organization: Organisation entière
+      help_employee_pensum: Place de travail à 70% = introduire 0.7
+    lufeb_fields_full:
+      lufeb_general: 'Tâches générales d''information et de relations publiques '
       lufeb_private: Médias et publications de l'organisation accessibles au public
       lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
-      lufeb_promoting: Prestations de base pour encourager l’entraide ou conseil aux organisations et groupes d'entraide ainsi qu’aux particuliers
-      procurement: Collecte de fonds
-      help_publikationen: Pas dans la publication de l'organisation ou le site internet
-      help_medienkonferenzen: Planification resp. organisation
-      help_kontakte_meinungsbildner: par ex. décideurs issus d'institutions, de l'administration, des milieux politiques et de l'économie
-      help_erarbeitung_instrumente: par ex. pour les prestations de service, le conseil, les campagnes d'informations
-      help_erarbeitung_grundlagen: par ex. enquêtes, études, documents de base sur différents thèmes
-      help_gremien: resp. commissions spécialisées, commissions d'experts, etc.
-      help_auskunftserteilung: de personnes elles-mêmes handicapées (sans qualification particulière) à des particuliers, des organisations ou des institutions d'entraide (en ligne, par écrit, par téléphone, lors d'entretien)
+      lufeb_promoting: Prestations de base pour l'encouragement de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers
+      help_publikationen: en dehors de la revue/du site internet propre à l'organisation
+      help_medienkonferenzen: Planificaation resp. organisation
+      help_kontakte_meinungsbildner: p. ex. décideurs issus d'institutions, de l'administration, des milieux politiques et de l'économie
+      help_erarbeitung_instrumente: p. ex.  pour les prestations de services, le conseil, les campagnes d'information, etc
+      help_erarbeitung_grundlagen: p. ex. enquêtes, études, documents de base sur différents thèmes
+      help_gremien: resp. commissions spécialisées, commissions d'experts, groupes de projet, etc
+      help_auskunftserteilung: de personnes elles-mêmes handicapées ( sans qualification particulière pour le conseil) à des particuliers, des organisations ou des institutions d'entraide (en ligne, par écrit, par téléphone, lors d'entreprise).
       help_vermittlung_kontakte: Adresses, etc
-      help_unterstuetzung_selbsthilfeorganisationen: Soutien en faveur d'organisations et de groupes d'entraide
+      help_unterstuetzung_selbsthilfeorganisationen: soutien en faveur d'organisations et de groupes d'entraide
       help_koordination_selbsthilfe: Organisations, groupes, groupes de travail, fonction de plaque tournante
-      help_treffen_meinungsaustausch: De personnes handicapées et de proches personnes à des fins d'échange d’opinions et d’expériences
-      help_unterstuetzung_behindertenhilfe: En moyenne max. 100 heures par année par organisation
+      help_treffen_meinungsaustausch: de personnes handicapées et de proches personnes à des fins d'échange d'opinion et d'expérience
+      help_unterstuetzung_behindertenhilfe: En moyenne max. 100 heures par année et organisation.
+    report:
+      employee_pensum:
+        name: Collaborateurs-trices employé-e-s. Selon contrat de travail (place à 100%).
+      employee_time:
+        name: Collaborateurs/trices employé-e-s. Relevé du temps de travail (places à 100%)
+      volunteer_without_verification_time:
+        name: Travail bénévole sans preuve de prestations (place à 100%)
+      volunteer_with_verification_time:
+        name: Travail bénévole avec preuve de prestations (place à 100%)
+      employee_efforts:
+        name: Charges de personnel incl. assurance sociale
+      employee_efforts_pensum:
+        name: Charges de personnel convertis en une place à 100%
+      capital_substrate:
+        name: Substrat de capital conformément à l'art. 74 LAI
+      capital_substrate_limit:
+        name: Limite substrat de capital
