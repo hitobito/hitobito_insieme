@@ -10,10 +10,5 @@ class AddTotalsToTimeAndCourseRecord < ActiveRecord::Migration
     add_column :event_course_records, :total_tage_teilnehmende, :decimal,
                precision: 12, scale: 2, default: 0.0
     Event::CourseRecord.reset_column_information
-
-    # Cause sum_total_tage_teilnehmende to be called for each CourseRecord
-    Event::CourseRecord.find_each do |record|
-      record.save!
-    end
   end
 end
