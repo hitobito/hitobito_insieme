@@ -44,6 +44,10 @@ module Insieme::Person
     validate :assert_address_types_zip_is_valid_swiss_post_code
   end
 
+  def canton
+    self[:canton] || super
+  end
+
   def reference_person
     @reference_person ||= reference_person_number &&
       Person.find_by(number: reference_person_number)
