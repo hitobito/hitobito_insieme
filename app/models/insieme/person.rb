@@ -39,7 +39,8 @@ module Insieme::Person
 
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
     validates :number, presence: true, uniqueness: true
-    validates :disabled_person_birthday, timeliness: { type: :date, allow_blank: true }
+    validates :disabled_person_birthday,
+              timeliness: { type: :date, allow_blank: true, before: Date.new(9999, 12, 31) }
 
     validate :assert_address_types_zip_is_valid_swiss_post_code
   end
