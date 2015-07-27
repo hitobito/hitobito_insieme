@@ -187,6 +187,11 @@ de:
   events:
     tabs:
       participants: 'Team & Teilnehmende'
+    global:
+      link:
+        add_event/aggregate_course: Sammelkurs erstellen
+    new:
+      title_event/aggregate_course: Sammelkurs erstellen
 
   event/course_record_decorator:
     absenztage: Absenztage
@@ -211,6 +216,13 @@ de:
 
   reporting:
     title: Reporting
+
+  reporting_parameters:
+    global:
+      link:
+        add: Reportingparameter erstellen
+    new:
+      title: Reportingparameter erstellen
 
   statistics:
     title: Statistik
