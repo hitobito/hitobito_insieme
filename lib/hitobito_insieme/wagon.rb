@@ -43,7 +43,7 @@ module HitobitoInsieme
       PersonAbility.send      :include, Insieme::PersonAbility
       MailingListAbility.send :include, Insieme::MailingListAbility
       VariousAbility.send     :include, Insieme::VariousAbility
-      PersonAccessibles.send  :include, Insieme::PersonAccessibles
+      PersonReadables.send  :include, Insieme::PersonReadables
       Ability.store.register Event::CourseRecordAbility
 
       # controllers
