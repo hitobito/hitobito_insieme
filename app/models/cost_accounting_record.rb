@@ -32,6 +32,7 @@ class CostAccountingRecord < ActiveRecord::Base
 
   belongs_to :group
 
+  validates_by_schema
   validates :report, uniqueness: { scope: [:group_id, :year] },
                      inclusion: CostAccounting::Table::REPORTS.collect(&:key)
   validate :assert_group_has_reporting

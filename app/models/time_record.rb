@@ -56,6 +56,7 @@ class TimeRecord < ActiveRecord::Base
 
   belongs_to :group
 
+  validates_by_schema
   validates :year, uniqueness: { scope: [:group_id, :type] }
   validate :assert_group_has_reporting
 

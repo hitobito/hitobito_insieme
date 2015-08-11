@@ -14,7 +14,7 @@ class AddCapitalSubstrate < ActiveRecord::Migration
       t.decimal :organization_capital, precision: 12, scale: 2
       t.decimal :fund_building, precision: 12, scale: 2
 
-      t.timestamps
+      t.timestamps null: true
     end
 
     add_column :reporting_parameters, :capital_substrate_exemption, :decimal,

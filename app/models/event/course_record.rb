@@ -59,6 +59,8 @@ class Event::CourseRecord < ActiveRecord::Base
   accepts_nested_attributes_for :challenged_canton_count
   accepts_nested_attributes_for :affiliated_canton_count
 
+  validates_by_schema
+  validates :event_id, uniqueness: true
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }

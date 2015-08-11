@@ -22,6 +22,7 @@ class CapitalSubstrate < ActiveRecord::Base
 
   belongs_to :group
 
+  validates_by_schema
   validates :year, uniqueness: { scope: [:group_id] }
   validate :assert_group_has_reporting
 

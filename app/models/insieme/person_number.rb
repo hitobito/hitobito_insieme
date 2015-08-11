@@ -50,7 +50,7 @@ module Insieme::PersonNumber
 
   def generate_automatic_number
     unless manual_number
-      self.reset_number!
+      self.restore_number!
       unless number_in_automatic_range?
         self.number = self.class.next_automatic_number
       end

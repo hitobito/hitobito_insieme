@@ -146,7 +146,7 @@ module CourseReporting
     end
 
     def sql_sum_unterkunft
-      column = Event::CourseRecord.column_types['spezielle_unterkunft']
+      column = Event::CourseRecord.columns_hash['spezielle_unterkunft']
       quoted_true_value = Event::CourseRecord.connection.quote(true, column)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
       'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \

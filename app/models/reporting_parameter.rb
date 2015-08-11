@@ -20,6 +20,9 @@
 
 class ReportingParameter < ActiveRecord::Base
 
+  validates_by_schema
+  validates :year, uniqueness: true
+
   scope :list, -> { order(:year) }
 
   def self.for(year)
