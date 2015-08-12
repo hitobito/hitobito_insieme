@@ -11,5 +11,7 @@ class AddInsiemeGroupFields < ActiveRecord::Migration
     add_column :groups, :vid, :integer
     add_column :groups, :bsv_number, :integer
     add_column :groups, :canton, :string
+
+    Group.reset_column_information
   end
 end

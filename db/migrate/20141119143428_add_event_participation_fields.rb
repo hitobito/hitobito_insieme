@@ -10,6 +10,7 @@ class AddEventParticipationFields < ActiveRecord::Migration
     add_column :people, :ahv_number, :string
 
     Event::Question.where(event_id: nil).destroy_all
+    Event::Participation.reset_column_information
   end
 
   def down

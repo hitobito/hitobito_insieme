@@ -14,5 +14,7 @@ class AddPeopleDisabledPersonReference < ActiveRecord::Migration
     add_column :people, :disabled_person_zip_code, :integer
     add_column :people, :disabled_person_town, :string
     add_column :people, :disabled_person_birthday, :date
+
+    Person.reset_column_information
   end
 end
