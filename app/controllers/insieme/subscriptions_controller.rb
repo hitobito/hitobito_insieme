@@ -27,7 +27,7 @@ module Insieme
     private
 
 
-    class SubscriptionsAddress <  ::Export::Csv::People::PeopleAddress
+    class SubscriptionsAddress < ::Export::Csv::People::PeopleAddress
       def additional_person_attributes
         super + [:language, :salutation, :canton, :additional_information]
       end

@@ -16,7 +16,7 @@
 #  label            :string(255)
 #
 
-class Event::Course::Role::HelperUnpaid <  Event::Role
+class Event::Course::Role::HelperUnpaid < Event::Role
 
   self.permissions = [:participations_read]
 

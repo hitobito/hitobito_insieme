@@ -11,13 +11,13 @@ module CostAccounting
 
       delegate :time_record, to: :table
 
-      FIELDS =  %w(beratung
-                   treffpunkte
-                   blockkurse
-                   tageskurse
-                   jahreskurse
-                   lufeb
-                   mittelbeschaffung)
+      FIELDS = %w(beratung
+                  treffpunkte
+                  blockkurse
+                  tageskurse
+                  jahreskurse
+                  lufeb
+                  mittelbeschaffung)
 
       FIELDS.each do |field|
         define_method(field) do

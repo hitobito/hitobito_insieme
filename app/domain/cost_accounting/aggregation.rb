@@ -23,7 +23,7 @@ module CostAccounting
     def value_of(report, field)
       values = @tables.collect { |t| t.value_of(report, field) }
       if values.compact.present?
-        values.sum { |v| v.to_d }
+        values.sum(&:to_d)
       end
     end
 

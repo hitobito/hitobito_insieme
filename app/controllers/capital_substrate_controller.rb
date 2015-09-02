@@ -10,7 +10,6 @@ class CapitalSubstrateController < ReportingBaseController
   helper_method :report
 
   def edit
-
   end
 
   def report

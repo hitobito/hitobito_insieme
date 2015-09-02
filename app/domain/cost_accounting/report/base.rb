@@ -9,23 +9,23 @@ module CostAccounting
   module Report
     class Base
 
-      FIELDS =  %w(aufwand_ertrag_fibu
-                   abgrenzung_fibu
-                   abgrenzung_dachorganisation
-                   aufwand_ertrag_ko_re
+      FIELDS = %w(aufwand_ertrag_fibu
+                  abgrenzung_fibu
+                  abgrenzung_dachorganisation
+                  aufwand_ertrag_ko_re
 
-                   personal
-                   raeumlichkeiten
-                   verwaltung
-                   beratung
-                   treffpunkte
-                   blockkurse
-                   tageskurse
-                   jahreskurse
-                   lufeb
-                   mittelbeschaffung
-                   total
-                   kontrolle)
+                  personal
+                  raeumlichkeiten
+                  verwaltung
+                  beratung
+                  treffpunkte
+                  blockkurse
+                  tageskurse
+                  jahreskurse
+                  lufeb
+                  mittelbeschaffung
+                  total
+                  kontrolle)
 
       # The fields displayed in the detail view of the report.
       class_attribute :used_fields

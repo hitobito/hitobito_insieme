@@ -7,17 +7,11 @@
 
 class TimeRecord::Report::EmployeePensum < TimeRecord::Report::Base
 
-  def paragraph_74
-    record.paragraph_74
-  end
+  delegate :paragraph_74, to: :record
 
-  def not_paragraph_74
-    record.not_paragraph_74
-  end
+  delegate :not_paragraph_74, to: :record
 
-  def total
-    record.total
-  end
+  delegate :total, to: :record
 
   private
 

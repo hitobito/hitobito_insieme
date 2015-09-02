@@ -116,7 +116,7 @@ module Insieme::GroupAbility
   end
 
   def if_group_in_hierarchy
-    user_context.user.groups.collect { |g| g.hierarchy }.flatten.include?(group)
+    user_context.user.groups.collect(&:hierarchy).flatten.include?(group)
   end
 
   def if_regionalverein_and_not_external_member

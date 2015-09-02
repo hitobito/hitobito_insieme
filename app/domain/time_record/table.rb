@@ -7,14 +7,14 @@
 
 class TimeRecord::Table
 
-  REPORTS =  [TimeRecord::Report::EmployeePensum,
-              TimeRecord::Report::EmployeeTime,
-              TimeRecord::Report::VolunteerWithoutVerificationTime,
-              TimeRecord::Report::VolunteerWithVerificationTime,
-              TimeRecord::Report::EmployeeEfforts,
-              TimeRecord::Report::EmployeeEffortsPensum,
-              TimeRecord::Report::CapitalSubstrate,
-              TimeRecord::Report::CapitalSubstrateLimit]
+  REPORTS = [TimeRecord::Report::EmployeePensum,
+             TimeRecord::Report::EmployeeTime,
+             TimeRecord::Report::VolunteerWithoutVerificationTime,
+             TimeRecord::Report::VolunteerWithVerificationTime,
+             TimeRecord::Report::EmployeeEfforts,
+             TimeRecord::Report::EmployeeEffortsPensum,
+             TimeRecord::Report::CapitalSubstrate,
+             TimeRecord::Report::CapitalSubstrateLimit]
 
   attr_reader :group, :year
 

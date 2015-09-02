@@ -56,7 +56,6 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
                         where(subventioniert: subventioniert,
                               year: year,
                               events_groups: { group_id: group.id })
-
   end
 
   private

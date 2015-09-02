@@ -16,7 +16,7 @@
 #  label            :string(255)
 #
 
-class Event::Course::Role::Challenged <  Event::Course::Role::Participant
+class Event::Course::Role::Challenged < Event::Course::Role::Participant
 
   self.permissions = []
 

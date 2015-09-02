@@ -57,7 +57,7 @@ class Person::AddressNormalizer
   end
 
   def all_fields_empty?(type)
-    fields(type).all? { |typed_field, _| person.send(typed_field).blank?  }
+    fields(type).all? { |typed_field, _| person.send(typed_field).blank? }
   end
 
   def all_fields_equal_to_main?(type)
