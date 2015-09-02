@@ -45,6 +45,16 @@ describe ReportingParameter do
   end
 
   describe 'validations' do
+
+    before do
+      # required when migration was run in this same process, after model class got loaded
+      # for the first time.
+      if ReportingParameter.validators_on(:vollkosten_le_schwelle1_blockkurs).blank?
+        ReportingParameter.validates_by_schema
+      end
+    end
+
+
     subject { ReportingParameter.new }
 
     it 'validates presence of year, values' do
