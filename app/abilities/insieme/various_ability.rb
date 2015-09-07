@@ -14,6 +14,7 @@ module Insieme::VariousAbility
     end
 
     on(ReportingParameter) do
+      class_side(:index).if_admin
       permission(:admin).may(:manage).all
     end
   end

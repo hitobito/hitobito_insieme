@@ -36,6 +36,7 @@ module Insieme::GroupAbility
 
       permission(:any).may(:'index_event/aggregate_courses').in_same_group
       permission(:group_full).may(:'export_event/aggregate_courses').in_same_group
+      permission(:group_and_below_full).may(:'export_event/aggregate_courses').in_same_group_or_below
       permission(:layer_read).
         may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
         in_same_layer
@@ -59,6 +60,7 @@ module Insieme::GroupAbility
         if_dachverein_controlling_or_regionalverein_manager_in_same_group
 
       permission(:group_read).may(:statistics).in_same_group
+      permission(:group_and_below_read).may(:statistics).in_same_group
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
