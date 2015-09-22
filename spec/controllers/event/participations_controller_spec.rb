@@ -151,25 +151,28 @@ describe Event::ParticipationsController do
     end
 
     [
-      { permission: ':layer_full', group_role: Group::Regionalverein::Geschaeftsfuehrung,
-        group_name: :be, course_role: Event::Course::Role::LeaderBasic },
-      { permission: ':participations_full', group_role: Group::Dachverein::Geschaeftsfuehrung,
-        group_name: :dachverein, course_role: Event::Course::Role::LeaderAdmin }
+      { permission: ':layer_full',
+        group_role: Group::Regionalverein::Geschaeftsfuehrung,
+        group_name: :be,
+        course_role: Event::Course::Role::LeaderBasic },
+      { permission: ':participations_full',
+        group_role: Group::Dachverein::Geschaeftsfuehrung,
+        group_name: :dachverein,
+        course_role: Event::Course::Role::LeaderAdmin }
     ].each do |attrs|
       context "with #{attrs[:permission]} permission" do
         let(:person) do
           Fabricate(attrs[:group_role].name.to_sym, group: groups(attrs[:group_name])).person
         end
         let(:participation) do
-          p = Fabricate(:event_participation, event: course, person: person)
+          p = Fabricate(:event_participation, event: course, person: person, active: true)
           p.roles << Fabricate(:event_role, type: attrs[:course_role].name)
           p
         end
 
         if attrs[:permission] != ':participations_full'
           it 'updates attributes on create' do
-            post :create, group_id: group.id, event_id: course.id,
-            event_participation: internal_fields
+            post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
             expect(assigns(:participation).invoice_text).to eq 'test'
             expect(assigns(:participation).invoice_amount).to eq 1.2
           end
