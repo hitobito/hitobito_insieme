@@ -36,7 +36,9 @@ module Insieme::GroupAbility
 
       permission(:any).may(:'index_event/aggregate_courses').in_same_group
       permission(:group_full).may(:'export_event/aggregate_courses').in_same_group
-      permission(:group_and_below_full).may(:'export_event/aggregate_courses').in_same_group_or_below
+      permission(:group_and_below_full).
+        may(:'export_event/aggregate_courses').
+        in_same_group_or_below
       permission(:layer_read).
         may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
         in_same_layer
