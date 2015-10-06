@@ -10,6 +10,15 @@ module Insieme::Sheet::Group
   extend ActiveSupport::Concern
 
   included do
+    tabs.insert(4,
+                Sheet::Tab.new('activerecord.models.event/aggregate_course.other',
+                               :aggregate_course_group_events_path,
+                               params: { returning: true },
+                               if: lambda do |view, group|
+                                 group.event_types.include?(::Event::AggregateCourse) &&
+                                   view.can?(:'index_event/aggregate_courses', group)
+                               end))
+
     tabs.insert(-2,
                 Sheet::Tab.new('statistics.title',
                                :statistics_group_path,
