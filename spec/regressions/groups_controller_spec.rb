@@ -38,10 +38,10 @@ describe GroupsController, type: :controller  do
     context 'course tab' do
       [[:top_leader, :dachverein, :visible],
        [:top_leader, :be, :visible],
-       [:regio_leader, :dachverein, :visible],
+       [:regio_leader, :dachverein, :not_visible],
        [:regio_leader, :fr, :visible],
        [:regio_leader, :be, :visible],
-       [:regio_aktiv, :dachverein, :visible],
+       [:regio_aktiv, :dachverein, :not_visible],
        [:regio_aktiv, :be, :visible],
        [:regio_aktiv, :fr, :visible]].each do |person, group, state|
 
@@ -71,9 +71,9 @@ describe GroupsController, type: :controller  do
        sign_in(people(person))
        get :show, id: groups(group).id
        if state == :visible
-         expect(dom).to have_content tab
+         expect(dom.find('.sheet .nav')).to have_content tab
        else
-         expect(dom).not_to have_content tab
+         expect(dom.find('.sheet .nav')).not_to have_content tab
        end
     end
   end
