@@ -54,7 +54,7 @@ be:
   rgt: 9
   name: Kanton Bern
   type: Group::Regionalverein
-  country: Schweiz
+  country: CH
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:be) %>
 
 fr:
@@ -63,7 +63,7 @@ fr:
   rgt: 3
   name: Freiburg
   type: Group::Regionalverein
-  country: Schweiz
+  country: CH
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:fr) %>
 
 seeland:
@@ -72,7 +72,7 @@ seeland:
   rgt: 8
   name: Biel-Seeland
   type: Group::Regionalverein
-  country: Schweiz
+  country: CH
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
 
 aktiv:

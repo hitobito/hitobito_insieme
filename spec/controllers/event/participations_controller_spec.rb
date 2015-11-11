@@ -24,7 +24,7 @@ describe Event::ParticipationsController do
                                zip_code: '1234',
                                town: 'dummy',
                                address: 'dummy',
-                               country: 'dummy',
+                               country: 'DE',
                                ahv_number: '123',
                                correspondence_course_same_as_main: false,
                                correspondence_course_salutation: 'dummy',
@@ -35,7 +35,7 @@ describe Event::ParticipationsController do
                                correspondence_course_address: 'dummy',
                                correspondence_course_zip_code: '1234',
                                correspondence_course_town: 'dummy',
-                               correspondence_course_country: 'dummy',
+                               correspondence_course_country: 'DE',
                                billing_course_same_as_main: '0',
                                billing_course_salutation: 'dummy',
                                billing_course_first_name: 'dummy',
@@ -45,7 +45,7 @@ describe Event::ParticipationsController do
                                billing_course_address: 'dummy',
                                billing_course_zip_code: '1234',
                                billing_course_town: 'dummy',
-                               billing_course_country: 'dummy' } }
+                               billing_course_country: 'DE' } }
 
     end.to change { Event::Participation.count }.by(1)
 
@@ -63,23 +63,27 @@ describe Event::ParticipationsController do
       expect(person.send(attr.to_sym)).to be_truthy
     end
 
-    %w(town address country
+    %w(town
+       address
+
        correspondence_course_salutation
        correspondence_course_first_name
        correspondence_course_last_name
        correspondence_course_company_name
        correspondence_course_address
        correspondence_course_town
-       correspondence_course_country
+
        billing_course_salutation
        billing_course_first_name
        billing_course_last_name
        billing_course_company_name
        billing_course_address
-       billing_course_town
-       billing_course_country).each do |attr|
+       billing_course_town).each do |attr|
       expect(person.send(attr.to_sym)).to eq 'dummy'
     end
+    expect(person.country).to eq 'DE'
+    expect(person.correspondence_course_country).to eq 'DE'
+    expect(person.billing_course_country).to eq 'DE'
   end
 
   it 'POST create does not allow to update different person' do

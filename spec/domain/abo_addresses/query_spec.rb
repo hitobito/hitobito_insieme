@@ -80,17 +80,7 @@ describe AboAddresses::Query do
       end
 
       it 'contains person if country is Schweiz' do
-        people(:regio_aktiv).update!(country: 'Schweiz')
-        is_expected.to include(people(:regio_aktiv))
-      end
-
-      it 'contains person if country is suisse' do
-        people(:regio_aktiv).update!(country: 'SUISSE ')
-        is_expected.to include(people(:regio_aktiv))
-      end
-
-      it 'contains person if country is ch' do
-        people(:regio_aktiv).update!(country: ' ch ')
+        people(:regio_aktiv).update!(country: 'CH')
         is_expected.to include(people(:regio_aktiv))
       end
 
@@ -124,12 +114,7 @@ describe AboAddresses::Query do
     let(:swiss) { false }
 
     it 'contains person if country is de' do
-      people(:regio_aktiv).update!(country: ' de ')
-      is_expected.to include(people(:regio_aktiv))
-    end
-
-    it 'contains person if country is 123' do
-      people(:regio_aktiv).update!(country: '123')
+      people(:regio_aktiv).update!(country: 'DE')
       is_expected.to include(people(:regio_aktiv))
     end
 

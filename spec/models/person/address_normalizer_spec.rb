@@ -13,7 +13,7 @@ describe Person::AddressNormalizer do
                   address: 'Eigerplatz 4',
                   zip_code: '3007',
                   town: 'Bern',
-                  country: 'Schweiz' } }
+                  country: 'CH' } }
 
   let(:person) { Person.new(attrs) }
   before { Person::AddressNormalizer.new(person).run }
@@ -26,7 +26,7 @@ describe Person::AddressNormalizer do
         expect(value(type, :address)).to eq 'Eigerplatz 4'
         expect(value(type, :zip_code)).to eq 3007
         expect(value(type, :town)).to eq 'Bern'
-        expect(value(type, :country)).to eq 'Schweiz'
+        expect(value(type, :country)).to eq 'CH'
         expect(value(type, :company)).to be_falsey
         expect(value(type, :same_as_main)).to be_truthy
       end
@@ -57,7 +57,7 @@ describe Person::AddressNormalizer do
                                           billing_course_address: 'Eigerplatz 4',
                                           billing_course_zip_code: 3007,
                                           billing_course_town: 'Bern',
-                                          billing_course_country: 'Schweiz',
+                                          billing_course_country: 'CH',
                                           billing_course_same_as_main: false)) }
     it 'keeps values identical' do
       expect(value(:billing_course, :first_name)).to eq 'Puzzle'
@@ -65,7 +65,7 @@ describe Person::AddressNormalizer do
       expect(value(:billing_course, :address)).to eq 'Eigerplatz 4'
       expect(value(:billing_course, :zip_code)).to eq 3007
       expect(value(:billing_course, :town)).to eq 'Bern'
-      expect(value(:billing_course, :country)).to eq 'Schweiz'
+      expect(value(:billing_course, :country)).to eq 'CH'
       expect(value(:billing_course, :company)).to be_falsey
     end
 

@@ -53,7 +53,7 @@ module AboAddresses
     def country_condition
       normalized_country = "TRIM(LOWER(COALESCE(people.country, '')))"
       in_or_not = swiss ? 'IN' : 'NOT IN'
-      swiss_countries = ['', *Settings.address.switzerland_variations]
+      swiss_countries = ['', 'ch']
 
       ["#{normalized_country} #{in_or_not} (?)", swiss_countries]
     end
