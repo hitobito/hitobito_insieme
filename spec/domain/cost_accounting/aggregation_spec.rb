@@ -60,7 +60,8 @@ describe CostAccounting::Aggregation do
                                      verwaltung: 50,
                                      treffpunkte: 20,
                                      mittelbeschaffung: 30,
-                                     newsletter: 20)
+                                     newsletter: 20,
+                                     nicht_art_74_leistungen: 10)
     # fr
     CostAccountingRecord.create!(group_id: groups(:fr).id,
                                  year: year,

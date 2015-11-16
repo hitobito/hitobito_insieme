@@ -17,4 +17,10 @@ class ReportingParametersController < SimpleCrudController
                           :bsv_hours_per_year,
                           :capital_substrate_exemption]
 
+  private
+
+  def list_entries
+    super.list
+  end
+
 end

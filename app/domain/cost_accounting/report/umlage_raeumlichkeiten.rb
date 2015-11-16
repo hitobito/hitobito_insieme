@@ -74,7 +74,7 @@ module CostAccounting
       end
 
       def relevante_zeit
-        time_record.total
+        time_record.total_paragraph_74
       end
 
       def relevanter_aufwand

@@ -27,11 +27,14 @@ describe CostAccounting::Report::TimeDistributed do
     context 'with time record' do
 
       before do
-        TimeRecord::EmployeeTime.create!(group_id: group.id,
-                           year: year,
-                           verwaltung: 50,
-                           mittelbeschaffung: 30,
-                           newsletter: 20)
+        TimeRecord::EmployeeTime.create!(
+          group_id: group.id,
+          year: year,
+          verwaltung: 50,
+          mittelbeschaffung: 30,
+          newsletter: 20,
+          nicht_art_74_leistungen: 10
+        )
       end
 
       context 'time fields' do

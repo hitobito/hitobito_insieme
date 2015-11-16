@@ -31,10 +31,11 @@ module CostAccounting
         define_method(f) do
           @time_fields ||= {}
           @time_fields[f] ||=
-            if aufwand_ertrag_ko_re > 0 && time_record.total > 0
+            if aufwand_ertrag_ko_re > 0 && time_record.total_paragraph_74 > 0
               aufwand_ertrag_ko_re *
-              time_record.send(f).to_d / time_record.total
+              time_record.send(f).to_d / time_record.total_paragraph_74
             end
+
         end
       end
 

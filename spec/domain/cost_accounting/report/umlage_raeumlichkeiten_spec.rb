@@ -54,7 +54,7 @@ describe CostAccounting::Report::UmlageRaeumlichkeiten do
 
   context 'with time record' do
     it 'calculates values' do
-      create_time_record(verwaltung: 50, beratung: 30, blockkurse: 20)
+      create_time_record(verwaltung: 50, beratung: 30, blockkurse: 20, nicht_art_74_leistungen: 10)
 
       expect(report.verwaltung).to eq(50)
       expect(report.beratung).to eq(30)
