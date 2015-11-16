@@ -66,6 +66,12 @@ describe Export::Csv::People do
                                   zip_code: 1234, town: 'New York',
                                   additional_information: 'English musician'))
 
+      person.country = 'US'
+      person.correspondence_general_same_as_main = false
+      person.correspondence_general_first_name = 'Töp'
+      person.correspondence_general_country = 'FR'
+      person
+
       person.reference_person_number = '123'
 
       person.disabled_person_reference = true
@@ -95,12 +101,18 @@ describe Export::Csv::People do
         its(['Nachname']) { should eq person.last_name }
         its(['Haupt-E-Mail']) { should eq person.email }
         its(['Ort']) { should eq person.town }
+        its(['Land']) { should eq person.country_label }
+        its(['Vorname Korrespondenzadresse allgemein']) { should eq 'Töp' }
+        its(['Land Korrespondenzadresse allgemein']) { should eq 'Frankreich' }
         its(['Geschlecht']) { should eq person.gender_label }
         its(['Rollen']) { should eq 'Geschäftsführung insieme Schweiz' }
       end
     end
 
     context 'export_full' do
+
+      let(:data) { Export::Csv::People::PeopleFull.export(list) }
+
       its(:headers) { should include('Anrede') }
       its(:headers) { should include('AHV Nummer') }
       its(:headers) { should include('Bezugspersonennr.') }
@@ -111,7 +123,7 @@ describe Export::Csv::People do
       its(:headers) { should include('Ort Bezugsperson') }
       its(:headers) { should include('Aktivmitgliedschaft Rollen Bezugsperson') }
       its(:headers) { should include('Zusätzliche Angaben Bezugsperson') }
-      let(:data) { Export::Csv::People::PeopleFull.export(list) }
+
 
       context 'first row' do
         subject { csv[0] }

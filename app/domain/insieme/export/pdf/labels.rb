@@ -41,7 +41,7 @@ module Insieme
           end
 
           def ignored_country?
-            ['', *Settings.address.switzerland_variations].include?(country.to_s.strip.downcase)
+            Countries.swiss?(country)
           end
 
           def respond_to?(name)

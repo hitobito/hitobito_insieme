@@ -257,7 +257,7 @@ describe Person do
       let(:country) { "#{type}_country".to_sym }
 
       it 'allows more than 4 digits for international plz' do
-        expect(new_person(zip_code => 90210, country => 'USA')).to be_valid
+        expect(new_person(zip_code => 90210, country => 'US')).to be_valid
       end
 
       it 'rejects more than 4 digits for swiss plz' do

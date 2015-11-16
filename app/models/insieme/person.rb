@@ -8,18 +8,18 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
+  LANGUAGES = %w(de fr it en other)
+  CORRESPONDENCE_LANGUAGES = %w(de fr)
+
+  ADDRESS_TYPES = %w(correspondence_general
+                     billing_general
+                     correspondence_course
+                     billing_course)
+
+  ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
+                      address zip_code town country)
+
   included do
-    LANGUAGES = %w(de fr it en other)
-    CORRESPONDENCE_LANGUAGES = %w(de fr)
-
-    ADDRESS_TYPES = %w(correspondence_general
-                       billing_general
-                       correspondence_course
-                       billing_course)
-
-    ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
-                        address zip_code town country)
-
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
     ADDRESS_TYPES.each do |prefix|
@@ -28,6 +28,8 @@ module Insieme::Person
       end
 
       i18n_boolean_setter "#{prefix}_company"
+
+      validates "#{prefix}_country", inclusion: Countries.codes, allow_blank: true
     end
 
     i18n_enum :language, LANGUAGES
@@ -71,21 +73,29 @@ module Insieme::Person
     Cantons.full_name(canton)
   end
 
+
+  ADDRESS_TYPES.each do |prefix|
+    define_method("#{prefix}_country_label") do
+      Countries.label(send("#{prefix}_country"))
+    end
+
+    define_method("#{prefix}_country=") do |value|
+      super(Countries.normalize(value))
+      value
+    end
+  end
+
   private
 
   def assert_address_types_zip_is_valid_swiss_post_code
     ADDRESS_TYPES.each do |address_type|
       zip_code = send("#{address_type}_zip_code").to_s.strip
-      country =  send("#{address_type}_country").to_s.strip.downcase
+      country = send("#{address_type}_country")
 
-      if swiss_country?(country) && zip_code.present? && !zip_code.match(/^\d{4}$/)
+      if Countries.swiss?(country) && zip_code.present? && !zip_code.match(/^\d{4}$/)
         errors.add("#{address_type}_zip_code")
       end
     end
-  end
-
-  def swiss_country?(country)
-    ['', *Settings.address.switzerland_variations].include?(country)
   end
 
   def normalize_i18n_keys

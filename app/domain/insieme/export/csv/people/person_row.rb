@@ -44,7 +44,11 @@ module Insieme::Export::Csv::People
       entry.reference_person && entry.reference_person.additional_information
     end
 
-    private
+    Person::ADDRESS_TYPES.each do |type|
+      define_method("#{type}_country") do
+        entry.send("#{type}_country_label")
+      end
+    end
 
   end
 end
