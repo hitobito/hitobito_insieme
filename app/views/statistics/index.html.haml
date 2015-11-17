@@ -1,5 +1,3 @@
-- title t('.title')
-
 - content_for(:toolbar) do
   = action_button(t('.export'), url_for(format: :csv), :download)
   - if can?(:index_deep_full_people, @group)

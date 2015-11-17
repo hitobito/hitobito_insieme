@@ -33,7 +33,7 @@ Rails.application.routes.draw do
           get ':year' => 'capital_substrate#edit' # route required for language switch
         end
 
-        get '/statistics' => 'statistics#show', as: :statistics
+        get '/statistics' => 'statistics#index', as: :statistics
         get '/controlling' => 'controlling#index', as: :controlling
         get '/controlling/cost_accounting' => 'controlling#cost_accounting',
             as: :cost_accounting_controlling

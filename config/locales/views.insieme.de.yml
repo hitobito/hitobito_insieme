@@ -47,9 +47,13 @@ de:
   controlling:
     title: Controlling
     index:
+      controlling: Allgemein
       cost_accounting: Konsolidierte Kostenrechnung
       client_statistics: KlientInnen Statistik
       group_figures: Kennzahlen pro Verein
+      export_bk: Konsolidierte Kursstatistik Blockkurse
+      export_tk: Konsolidierte Kursstatistik Tageskurse
+      export_sk: Konsolidierte Kursstatistik Semester/-Jahreskurse
 
   cost_accounting:
     index:
@@ -226,8 +230,7 @@ de:
 
   statistics:
     title: Statistik
-    show:
-      title: Vereinsstatistik Mitglieder
+    index:
       export: CSV Export
     group_figures:
       name: 'Vollständiger Name'

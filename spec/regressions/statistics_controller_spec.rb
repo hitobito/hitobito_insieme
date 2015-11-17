@@ -15,17 +15,17 @@ describe StatisticsController, type: :controller  do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :show, id: groups(:aktiv).id
+      get :index, id: groups(:aktiv).id
     end.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'shows stats' do
-    get :show, id: groups(:dachverein).id
-    is_expected.to render_template('show')
+    get :index, id: groups(:dachverein).id
+    is_expected.to render_template('index')
   end
 
   it 'exports csv' do
-    get :show, id: groups(:dachverein).id, format: :csv
+    get :index, id: groups(:dachverein).id, format: :csv
     csv = response.body
     expect(csv).to match(/\AVID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;/)
     expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;Bern$/)

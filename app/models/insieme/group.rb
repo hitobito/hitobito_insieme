@@ -47,7 +47,7 @@ module Insieme::Group
   end
 
   def canton
-    self[:canton] || super
+    self[:canton]
   end
 
   def canton_label

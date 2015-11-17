@@ -13,7 +13,7 @@ class StatisticsController < ApplicationController
 
   respond_to :html
 
-  def show
+  def index
     @vereinsmitglieder = Statistics::Vereinsmitglieder.new
 
     respond_to do |format|

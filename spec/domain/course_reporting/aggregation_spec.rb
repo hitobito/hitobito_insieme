@@ -216,6 +216,82 @@ describe CourseReporting::Aggregation do
     end
   end
 
+  context 'over all groups' do
+    let(:aggregation) { new_aggregation(group_id: nil) }
+    it 'sums the individual group aggregations' do
+      2.times { create!(create_course, 'freizeit_und_sport', values) }
+      2.times { create!(create_course, 'weiterbildung', values) }
+      2.times { create!(create_course('bk', [groups(:fr)]), 'weiterbildung', values) }
+
+      assert_summed_totals
+
+      aggregation_be_1 = new_aggregation
+      aggregation_fr_1 = new_aggregation(group_id: groups(:fr).id)
+      aggregation_be_123 = new_aggregation(zugeteilte_kategorie: [1,2,3])
+      aggregation_fr_123 = new_aggregation(group_id: groups(:fr).id, zugeteilte_kategorie: [1,2,3])
+      aggregation_123 = new_aggregation(group_id: nil, zugeteilte_kategorie: [1,2,3])
+
+      [
+      :anzahl_kurse,
+      :kursdauer,
+
+      :teilnehmende,
+      :teilnehmende_behinderte,
+      :teilnehmende_angehoerige,
+      :teilnehmende_weitere,
+
+      :total_tage_teilnehmende,
+      :tage_behinderte,
+      :tage_angehoerige,
+      :tage_weitere,
+
+      :total_absenzen,
+      :absenzen_behinderte,
+      :absenzen_angehoerige,
+      :absenzen_weitere,
+
+      :betreuende,
+      :leiterinnen,
+      :fachpersonen,
+      :hilfspersonal_ohne_honorar,
+      :hilfspersonal_mit_honorar,
+      :kuechenpersonal,
+
+      :direkter_aufwand,
+      :honorare_inkl_sozialversicherung,
+      :unterkunft,
+      :uebriges,
+
+      :direkter_aufwand,
+
+      :beitraege_teilnehmende,
+      :gemeinkostenanteil,
+      :anzahl_spezielle_unterkunft].each do |attr|
+        assert_summed(attr, :total, :all, aggregation, aggregation_be_1, aggregation_fr_1)
+        assert_summed(attr, :freizeit_und_sport, :a, aggregation, aggregation_be_1, aggregation_fr_1)
+        assert_summed(attr, :weiterbildung, :a, aggregation, aggregation_be_1, aggregation_fr_1)
+
+        assert_summed(attr, :total, :all, aggregation_123, aggregation_be_123, aggregation_fr_123)
+        assert_summed(attr, :freizeit_und_sport, :a, aggregation_123, aggregation_be_123, aggregation_fr_123)
+        assert_summed(attr, :weiterbildung, :a, aggregation_123, aggregation_be_123, aggregation_fr_123)
+      end
+
+
+      dk_pro_le = 360.to_d / 24 # direkter_aufwand / total_tage_teilnehmende
+      vk_pro_le = 420.to_d / 24 # total_vollkosten / total_tage_teilnehmende
+
+      expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
+      expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
+      expect_values(:betreuungsschluessel, 18/60.0, 18/60.0, 18/60.0)
+    end
+
+    def assert_summed(attr, kursart, kriterium, overall, *aggregations)
+      sum = aggregations.sum { |a| a.course_counts(kriterium.to_s, kursart.to_s, attr).to_d }
+      actual = overall.course_counts(kriterium.to_s, kursart.to_s, attr).to_d
+      expect(actual).to eq(sum)
+    end
+  end
+
   def assert_summed_totals
     records = Event::CourseRecord.all.to_a
     attrs = CourseReporting::Aggregation::RUBY_SUMMED_ATTRS

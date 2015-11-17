@@ -8,7 +8,9 @@
 class CourseReporting::AggregationsController < ApplicationController
 
   include YearBasedPaging
+
   layout 'reporting'
+
   before_action :authorize
 
   respond_to :html
@@ -33,11 +35,19 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def aggregation
-    @aggregation ||= CourseReporting::Aggregation.new(group.id,
+    @aggregation ||= CourseReporting::Aggregation.new(aggregation_group_id,
                                                       year,
                                                       leistungskategorie,
                                                       categories,
                                                       subsidized)
+  end
+
+  def aggregation_group_id
+    if params[:consolidate] && can?(:controlling, group)
+      nil
+    else
+      group.id
+    end
   end
 
   def group
@@ -60,8 +70,8 @@ class CourseReporting::AggregationsController < ApplicationController
     subsi = subsidized ? 'subsidized' : 'unsubsidized'
     lk = t('activerecord.attributes.event/course.leistungskategorien.' +
            leistungskategorie, count: 3).downcase
-
-    "#{prefix}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}.csv"
+    consolidated = aggregation_group_id.nil? ? '_consolidated' : ''
+    "#{prefix}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}#{consolidated}.csv"
   end
 
   def prefix

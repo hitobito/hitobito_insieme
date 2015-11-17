@@ -7,7 +7,6 @@
 
 class ControllingController < ApplicationController
 
-  extend ActiveModel::Callbacks
   include YearBasedPaging
 
   respond_to :html
