@@ -231,17 +231,26 @@ de:
       export: CSV Export
     group_figures:
       name: 'Vollständiger Name'
+      canton: Kanton
       vid: VID
       bsv: BSV Nummer
-      participant_days_bk_1: Blockkurse TN Tage Kat. 1
-      participant_days_bk_2: Blockkurse TN Tage Kat. 2
-      participant_days_bk_3: Blockkurse TN Tage Kat. 3
-      participant_days_tk_1: Tageskurse TN Tage Kat. 1
-      participant_days_tk_2: Tageskurse TN Tage Kat. 2
-      participant_days_tk_3: Tageskurse TN Tage Kat. 3
-      participant_days_sk_1: Semester-/Jahreskurse TN Stunden Kat. 1
+      kategorie: Kat. %{number}
+      leistungskategorie_bk: Blockkurse
+      leistungskategorie_tk: Tageskurse
+      leistungskategorie_sk: Semester-/Jahreskurse
+      anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{kategorie}"
+      total_vollkosten: "%{leistungskategorie} Total Vollkosten %{kategorie}"
+      tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{kategorie}"
+      tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{kategorie}"
+      tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{kategorie}"
+      tage_total: "%{leistungskategorie} TN Tage Total %{kategorie}"
       lufeb_hours_employees: LUFEB Stunden Angestellte
       lufeb_hours_volunteers: LUFEB Stunden Ehrenamtliche mit Leistungsausweis
+      lufeb_hours_volunteers_without: LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)
+      fte_employees_total: VZÄ angestellte Mitarbeiter (ganze Organisation)
+      fte_employees_only_art_74: VZÄ angestellte Mitarbeiter (Art. 74)
+      fte_volunteers_with_verification_total: VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)
+      fte_volunteers_with_verification_only_art_74: VZÄ ehrenamtliche Mitarbeiter (Art. 74)
 
   shared:
     admin_nav_kinds_insieme:
@@ -274,7 +283,7 @@ de:
       lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
       lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
-      lufeb_promoting: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und –gruppen sowie Einzelpersonen
+      lufeb_promoting: "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen"
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
       help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft

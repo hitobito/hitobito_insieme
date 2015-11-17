@@ -28,7 +28,7 @@ describe StatisticsController, type: :controller  do
     get :show, id: groups(:dachverein).id, format: :csv
     csv = response.body
     expect(csv).to match(/\AVID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;/)
-    expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;$/)
+    expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;Bern$/)
   end
 
 end

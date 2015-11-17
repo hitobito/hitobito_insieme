@@ -28,26 +28,29 @@ module Statistics
       %w(1 2 3)
     end
 
-    def participant_effort(group, leistungskategorie, kategorie)
-      participant_efforts[group.id][leistungskategorie][kategorie].to_d
+    def course_record(group, leistungskategorie, kategorie)
+      course_records[group.id][leistungskategorie][kategorie]
     end
 
     def employee_time(group)
-      time_records[group.id][TimeRecord::EmployeeTime.sti_name].to_i
+      time_records[group.id][TimeRecord::EmployeeTime.sti_name]
     end
 
     def volunteer_with_verification_time(group)
-      time_records[group.id][TimeRecord::VolunteerWithVerificationTime.sti_name].to_i
+      time_records[group.id][TimeRecord::VolunteerWithVerificationTime.sti_name]
+    end
+
+    def volunteer_without_verification_time(group)
+      time_records[group.id][TimeRecord::VolunteerWithoutVerificationTime.sti_name]
     end
 
     private
 
-    def participant_efforts
-      @participant_efforts ||= begin
+    def course_records
+      @course_records ||= begin
         hash = Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }
         load_participant_efforts.each do |record|
-          hash[record.group_id][record.leistungskategorie][record.zugeteilte_kategorie] =
-            record.total_tage_teilnehmende
+          hash[record.group_id][record.leistungskategorie][record.zugeteilte_kategorie] = record
         end
         hash
       end
@@ -65,25 +68,26 @@ module Statistics
     def course_record_columns
       'events_groups.group_id, events.leistungskategorie, ' \
       'event_course_records.zugeteilte_kategorie, ' \
+      'SUM(anzahl_kurse) AS anzahl_kurse, ' \
       'SUM(tage_behinderte) AS tage_behinderte, ' \
       'SUM(tage_angehoerige) AS tage_angehoerige, ' \
-      'SUM(tage_weitere) AS tage_weitere'
+      'SUM(tage_weitere) AS tage_weitere, ' \
+      'SUM(direkter_aufwand) AS direkter_aufwand, ' \
+      'SUM(gemeinkostenanteil) AS gemeinkostenanteil'
     end
 
     def time_records
       @time_records ||= begin
         hash = Hash.new { |h, k| h[k] = {} }
         load_time_records.each do |record|
-          hash[record.group_id][record.type] = record.total_lufeb
+          hash[record.group_id][record.type] = record
         end
         hash
       end
     end
 
     def load_time_records
-      TimeRecord.where(year: year,
-                       type: [TimeRecord::EmployeeTime,
-                              TimeRecord::VolunteerWithVerificationTime].collect(&:sti_name))
+      TimeRecord.where(year: year)
     end
 
   end

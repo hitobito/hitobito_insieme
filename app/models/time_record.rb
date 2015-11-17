@@ -54,6 +54,8 @@
 
 class TimeRecord < ActiveRecord::Base
 
+  DEFAULT_BSV_HOURS_PER_YEAR = 1900
+
   belongs_to :group
 
   validates_by_schema
@@ -137,7 +139,7 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def bsv_hours_per_year
-    globals ? globals.bsv_hours_per_year : 1900
+    globals ? globals.bsv_hours_per_year : DEFAULT_BSV_HOURS_PER_YEAR
   end
 
   def globals
