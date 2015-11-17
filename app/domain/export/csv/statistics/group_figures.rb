@@ -33,9 +33,6 @@ module Export
 
         private
 
-        #Zusätzlich Stellenprozente aus Reporting - Basisinformationen (VZÄ angestellte Mitarbeiter (ganze Organisation), VZÄ angestellte Mitarbeiter (Art. 74), VZÄ ehrenamtliche Mitarbeiter (ganze Organisation), VZÄ ehrenamtliche Mitarbeiter (Art. 74))
-        #Zusätzliche Spalten: geschlüsseltes Kapitalsubstrat nach Art. 74 , Totaler Aufwand gemäss FIBU, Volkosten nach Umlagen Betrieb Art. 74, IV-Beitrag, Deckungsbeitrag 4
-
         def labels
           labels = [t('name'), t('canton'), t('vid'), t('bsv')]
           append_course_labels(labels)
@@ -60,10 +57,9 @@ module Export
         def append_time_labels(labels)
           %w(employees volunteers).each do |type|
             prefix = t("lufeb_hours_#{type}")
-            labels << prefix + ': ' + I18n.t('time_records.lufeb_fields_full.lufeb_general')
-            labels << prefix + ': ' + I18n.t('time_records.lufeb_fields_full.lufeb_private')
-            labels << prefix + ': ' + I18n.t('time_records.lufeb_fields_full.lufeb_specific')
-            labels << prefix + ': ' + I18n.t('time_records.lufeb_fields_full.lufeb_promoting')
+            %w(general private specific promoting).each do |section|
+              labels << prefix + ': ' + I18n.t("time_records.lufeb_fields_full.lufeb_#{section}")
+            end
           end
           labels << t('lufeb_hours_volunteers_without')
         end
