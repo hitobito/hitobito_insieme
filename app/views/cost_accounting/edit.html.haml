@@ -36,7 +36,18 @@
   - if group.is_a?(Group::Dachverein)
     = cost_accounting_input_fields(f, :abgrenzung_dachorganisation)
 
+  - unless report == CostAccounting::Report::DirekteSpendenAusserhalb
+    - factor = report == CostAccounting::Report::IndirekteSpenden ? table.value_of(report.key, 'abgrenzung_factor') : nil
+    = f.labeled(:aufwand_ertrag_ko_re) do
+      .inline#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor}}
+
   - if (report.editable_fields & section_fields).present?
     %hr/
 
     = cost_accounting_input_fields(f, *section_fields)
+
+    = f.labeled(:kontrolle) do
+      .inline#control_value
+
+- content_for(:javascripts) do
+  new Application.CostAccountingCalculator().updateValues();

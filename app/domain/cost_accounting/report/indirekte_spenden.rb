@@ -26,10 +26,13 @@ module CostAccounting
                                   mittelbeschaffung)
 
       def abgrenzung_fibu
-        @abgrenzung_fibu ||= table.value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero? && \
-                             (1 - table.value_of('vollkosten', 'total').to_d / \
-                              table.value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d) * \
-                              aufwand_ertrag_fibu.to_d
+        abgrenzung_factor && (abgrenzung_factor * aufwand_ertrag_fibu.to_d)
+      end
+
+      def abgrenzung_factor
+        @abgrenzung_factor ||= table.value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero? && \
+                               (1 - table.value_of('vollkosten', 'total').to_d / \
+                                table.value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d)
       end
 
     end

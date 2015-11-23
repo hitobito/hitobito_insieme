@@ -11,10 +11,10 @@ class CostAccountingController < ReportingBaseController
 
   self.remember_params = [:year]
 
-  helper_method :report
+  helper_method :report, :table
 
   def index
-    @table = CostAccounting::Table.new(group, year)
+    table
     respond_to do |format|
       format.html
       format.csv { render_csv }
@@ -30,6 +30,10 @@ class CostAccountingController < ReportingBaseController
 
   def report
     @report ||= entry.report_class || fail(ActiveRecord::RecordNotFound)
+  end
+
+  def table
+    @table ||= CostAccounting::Table.new(group, year)
   end
 
   def permitted_params
