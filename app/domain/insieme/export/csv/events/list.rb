@@ -31,8 +31,12 @@ module Insieme::Export::Csv::Events
     def add_course_record_labels(labels)
       [:year, :subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft, :anzahl_kurse].
       each do |attr|
-        labels[attr] = ::Event::CourseRecord.human_attribute_name(attr)
+        add_course_record_label(labels, attr)
       end
+    end
+
+    def add_course_record_label(labels, attr)
+      labels[attr] = ::Event::CourseRecord.human_attribute_name(attr)
     end
   end
 end

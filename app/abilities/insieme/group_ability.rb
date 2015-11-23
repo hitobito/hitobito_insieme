@@ -23,7 +23,6 @@ module Insieme::GroupAbility
                            Group::ExterneOrganisation::Adressverwaltung,
                            Group::ExterneOrganisation::Controlling]
 
-
   included do
     on(Group) do
       permission(:any).
@@ -46,6 +45,8 @@ module Insieme::GroupAbility
         may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
         in_same_layer_or_below
 
+      permission(:any).may(:export_course_records).
+        if_dachverein_reporting_or_regionalverein_reporting_in_same_group
 
       permission(:any).
         may(:index_mailing_lists).
@@ -59,39 +60,38 @@ module Insieme::GroupAbility
 
       permission(:any).
         may(:reporting).
-        if_dachverein_controlling_or_regionalverein_manager_in_same_group
+        if_dachverein_reporting_or_regionalverein_reporting_in_same_group
 
       permission(:group_read).may(:statistics).in_same_group
       permission(:group_and_below_read).may(:statistics).in_same_group
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
-      permission(:any).may(:controlling).if_dachverein_controlling
+      permission(:any).may(:controlling).if_dachverein_reporting
 
       general(:reporting).for_reporting_group
       general(:statistics).for_dachverein
       general(:controlling).for_dachverein
+
     end
   end
 
-  def if_dachverein_controlling_or_regionalverein_manager_in_same_group
-    if_dachverein_controlling ||
-    if_regionalverein_manager_in_same_group
+  def if_dachverein_reporting_or_regionalverein_reporting_in_same_group
+    if_dachverein_reporting ||
+    if_regionalverein_reporting_in_same_group
   end
 
-  def if_regionalverein_manager_in_same_group
+  def if_regionalverein_reporting_in_same_group
     roles = user_context.user.roles.select { |role| role.group_id == group.id }
     contains_any?(roles.collect(&:class), REPORTING_REGIO_ROLES)
   end
 
   def if_dachverein_manager
-    roles = user_context.user.roles
-    contains_any?(roles.collect(&:class), DACH_MANAGER_ROLES)
+    role_type?(*DACH_MANAGER_ROLES)
   end
 
-  def if_dachverein_controlling
-    roles = user_context.user.roles
-    contains_any?(roles.collect(&:class), REPORTING_DACH_ROLES)
+  def if_dachverein_reporting
+    role_type?(*REPORTING_DACH_ROLES)
   end
 
   def any_role_in_same_layer_or_layer_group_or_if_dachverein_manager

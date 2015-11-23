@@ -15,6 +15,8 @@ module Insieme
       self.permitted_attrs += [
         course_record_attributes: [:id, :anzahl_kurse, :subventioniert, :inputkriterien,
                                    :spezielle_unterkunft, :kursart]]
+
+      alias_method_chain :render_csv, :details
     end
 
     private
@@ -24,6 +26,18 @@ module Insieme
         entry.build_course_record
         entry.course_record.set_defaults
       end
+    end
+
+    def render_csv_with_details(entries)
+      if course_records? && can?(:export_course_records, @group)
+        send_data ::Export::Csv::Events::DetailList.export(entries), type: :csv
+      else
+        render_csv_without_details(entries)
+      end
+    end
+
+    def course_records?
+      entries.first.respond_to?(:course_record)
     end
   end
 end

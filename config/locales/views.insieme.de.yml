@@ -327,3 +327,9 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+
+  export/csv/events/detail_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
