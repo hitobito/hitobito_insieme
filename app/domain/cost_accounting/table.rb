@@ -70,8 +70,8 @@ module CostAccounting
     end
 
     def set_records(time_record, cost_records)
-      @time_record = time_record
-      @cost_records = cost_records
+      @time_record = time_record || TimeRecord::EmployeeTime.new(group_id: group.id, year: year)
+      @cost_records = cost_records || {}
     end
 
     private

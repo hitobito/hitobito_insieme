@@ -38,7 +38,7 @@
 
   - unless report == CostAccounting::Report::DirekteSpendenAusserhalb
     - factor = report == CostAccounting::Report::IndirekteSpenden ? table.value_of(report.key, 'abgrenzung_factor') : nil
-    = f.labeled(:aufwand_ertrag_ko_re) do
+    = f.labeled(:aufwand_ertrag_ko_re, report.aufwand ? t('.aufwand_ko_re') : t('.ertrag_ko_re')) do
       .inline#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor}}
 
   - if (report.editable_fields & section_fields).present?

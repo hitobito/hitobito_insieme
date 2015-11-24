@@ -22,6 +22,25 @@ describe Statistics::GroupFigures do
     TimeRecord::VolunteerWithoutVerificationTime.create!(
       group: groups(:be), year: 2015, total_lufeb_promoting: 30)
 
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'raumaufwand',
+                                 raeumlichkeiten: 100)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'honorare',
+                                 aufwand_ertrag_fibu: 100, verwaltung: 10,
+                                 beratung: 30, tageskurse: 10)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'leistungsertrag',
+                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+                                 lufeb: 20)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'direkte_spenden',
+                                 aufwand_ertrag_fibu: 10, lufeb: 2, tageskurse: 8)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'beitraege_iv',
+                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+                                 lufeb: 20)
+
+    CapitalSubstrate.create!(
+      group: groups(:be), year: 2015, organization_capital: 500_000, fund_building: 25_000)
+    CapitalSubstrate.create!(
+      group: groups(:be), year: 2014, organization_capital: 200_000, fund_building: 15_000)
+
     create_course(2015, :be, 'bk', '1', kursdauer: 10, challenged_canton_count_attributes: { zh: 100 }, unterkunft: 500)
     create_course(2015, :be, 'bk', '1', kursdauer: 11, affiliated_canton_count_attributes: { zh: 101 }, gemeinkostenanteil: 600)
     create_course(2015, :be, 'bk', '2', kursdauer: 12, challenged_canton_count_attributes: { zh: 450 }, unterkunft: 800)
@@ -51,7 +70,7 @@ describe Statistics::GroupFigures do
 
 
   context '#participant_efforts' do
-    it 'should return the summed totals' do
+    it 'returns the summed totals' do
       %w(be fr).product(%w(bk sk), %w(1 2 3)).each do |group_key, lk, zk|
         group = groups(group_key)
         records = course_records(group, lk, zk)
@@ -105,13 +124,13 @@ describe Statistics::GroupFigures do
       expect(figures.course_record(groups(:fr), 'sk', '1')).to be_nil
     end
 
-    it 'should return nil for groups without records' do
+    it 'returns nil for groups without records' do
       expect(figures.course_record(groups(:seeland), 'bk', '1')).to be_nil
     end
   end
 
   context '#employee_time' do
-    it 'should return the totals' do
+    it 'returns the totals' do
       time = figures.employee_time(groups(:be))
       expect(time.total_lufeb).to eq(10)
       expect(time.total_lufeb_general).to eq(10)
@@ -133,13 +152,13 @@ describe Statistics::GroupFigures do
       expect(time.total_paragraph_74_pensum).to eq(12.to_d/1900)
     end
 
-    it 'should return nil for groups without records' do
+    it 'returns nil for groups without records' do
       expect(figures.employee_time(groups(:seeland))).to be_nil
     end
   end
 
   context '#volunteer_with_verification_time' do
-    it 'should return the totals' do
+    it 'returns the totals' do
       time = figures.volunteer_with_verification_time(groups(:be))
       expect(time.total_lufeb).to eq(20)
       expect(time.total_lufeb_promoting).to eq(20)
@@ -161,29 +180,62 @@ describe Statistics::GroupFigures do
       expect(time.total_paragraph_74_pensum).to eq(21.to_d/1900)
     end
 
-    it 'should return nil for groups without records' do
+    it 'returns nil for groups without records' do
       expect(figures.volunteer_with_verification_time(groups(:seeland))).to be_nil
     end
   end
 
   context '#volunteer_without_verification_time' do
-    it 'should return the totals' do
+    it 'returns the totals' do
       time = figures.volunteer_without_verification_time(groups(:be))
       expect(time.total_lufeb).to eq(30)
       expect(time.total_lufeb_promoting).to eq(30)
     end
 
-    it 'should return nil for groups without records' do
+    it 'returns nil for groups without records' do
       expect(figures.volunteer_without_verification_time(groups(:seeland))).to be_nil
+    end
+  end
+
+  context 'capital substrate' do
+    it 'returns the correct substrate' do
+      substrate = figures.capital_substrate(groups(:be))
+      expect(substrate.paragraph_74).to eq(574_950.0)
+    end
+
+    it 'returns negative exemption for groups without records' do
+      expect(figures.capital_substrate(groups(:seeland)).paragraph_74).to eq(-200_000)
+    end
+
+    it 'returns the same substrate like the time record table' do
+      substrate = figures.capital_substrate(groups(:be)).paragraph_74
+      table = TimeRecord::Table.new(groups(:be), 2015)
+      expect(substrate).to eq(table.value_of('capital_substrate', 'paragraph_74'))
+    end
+  end
+
+  context 'cost accounting' do
+    it 'contains the correct values' do
+      table = figures.cost_accounting_table(groups(:be))
+      expect(table.value_of('total_aufwand', 'aufwand_ertrag_fibu')).to eq(100)
+      expect(table.value_of('vollkosten', 'total')).to eq(150)
+      expect(table.value_of('beitraege_iv', 'total')).to eq(20)
+      expect(table.value_of('deckungsbeitrag4', 'total')).to eq(-100)
+    end
+
+    it 'returns nil for groups without records' do
+      expect(figures.cost_accounting_table(groups(:seeland))).to be_nil
     end
   end
 
   private
 
   def course_records(group, leistungskategorie, zugeteilte_kategorie)
-    @course_records.select { |r| r.event.groups.first == group &&
-                             r.event.leistungskategorie == leistungskategorie  &&
-                             r.zugeteilte_kategorie == zugeteilte_kategorie }
+    @course_records.select do |r|
+      r.event.groups.first == group &&
+      r.event.leistungskategorie == leistungskategorie  &&
+      r.zugeteilte_kategorie == zugeteilte_kategorie
+    end
   end
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)

@@ -21,7 +21,7 @@ module CostAccounting
     end
 
     def value_of(report, field)
-      values = @tables.collect { |t| t.value_of(report, field) }
+      values = @tables.values.collect { |t| t.value_of(report, field) }
       if values.compact.present?
         values.sum(&:to_d)
       end
@@ -33,19 +33,23 @@ module CostAccounting
       end
     end
 
+    def table(group)
+      @tables[group]
+    end
+
     private
 
     def build_tables
       groups = (time_records.keys + cost_records.keys).uniq
-      @tables = groups.collect do |group|
-        Table.new(group, year).tap do |t|
+      @tables = groups.each_with_object({}) do |group, hash|
+        hash[group] = Table.new(group, year).tap do |t|
           t.set_records(time_records[group], cost_records[group])
         end
       end
     end
 
     def time_records
-      @time_record ||= begin
+      @time_records ||= begin
         records = TimeRecord::EmployeeTime.where(year: year).includes(:group)
         records.each_with_object({}) { |r, hash| hash[r.group] = r }
       end

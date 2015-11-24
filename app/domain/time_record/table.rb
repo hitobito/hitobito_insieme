@@ -24,10 +24,10 @@ class TimeRecord::Table
     end
   end
 
-  def initialize(group, year)
+  def initialize(group, year, cost_accounting_table = nil)
     @group = group
     @year = year
-    @cost_accounting_table = CostAccounting::Table.new(group, year)
+    @cost_accounting_table = cost_accounting_table || CostAccounting::Table.new(group, year)
   end
 
   def reports
@@ -50,6 +50,10 @@ class TimeRecord::Table
       records[report_key] ||= model && model.where(group_id: group.id, year: year).
         first_or_initialize
     end
+  end
+
+  def set_records(records)
+    @records = records
   end
 
   private

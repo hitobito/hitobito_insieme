@@ -44,6 +44,19 @@ module Statistics
       time_records[group.id][TimeRecord::VolunteerWithoutVerificationTime.sti_name]
     end
 
+    def cost_accounting_table(group)
+      cost_accounting.table(group)
+    end
+
+    def capital_substrate(group)
+      cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
+      substrate = capital_substrates[group.id] || CapitalSubstrate.new
+      time_table = TimeRecord::Table.new(group, year, cost_table).tap do |t|
+        t.set_records(TimeRecord::Report::CapitalSubstrate.key => substrate)
+      end
+      TimeRecord::Report::CapitalSubstrate.new(time_table)
+    end
+
     private
 
     def course_records
@@ -79,15 +92,29 @@ module Statistics
     def time_records
       @time_records ||= begin
         hash = Hash.new { |h, k| h[k] = {} }
-        load_time_records.each do |record|
+        TimeRecord.where(year: year).each do |record|
           hash[record.group_id][record.type] = record
         end
         hash
       end
     end
 
-    def load_time_records
-      TimeRecord.where(year: year)
+    def cost_accounting
+      @cost_accounting ||= CostAccounting::Aggregation.new(year)
+    end
+
+    def nil_cost_accounting_table(group)
+      CostAccounting::Table.new(group, year).tap do |table|
+        table.set_records(nil, nil)
+      end
+    end
+
+    def capital_substrates
+      @capital_substrates ||= begin
+        CapitalSubstrate.where(year: year).each_with_object({}) do |record, hash|
+          hash[record.group_id] = record
+        end
+      end
     end
 
   end

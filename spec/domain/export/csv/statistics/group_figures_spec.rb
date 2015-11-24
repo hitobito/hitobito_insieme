@@ -22,6 +22,25 @@ describe Export::Csv::Statistics::GroupFigures do
     TimeRecord::VolunteerWithoutVerificationTime.create!(
       group: groups(:be), year: 2015, total_lufeb_promoting: 30)
 
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'raumaufwand',
+                                 raeumlichkeiten: 100)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'honorare',
+                                 aufwand_ertrag_fibu: 100, verwaltung: 10,
+                                 beratung: 30, tageskurse: 10)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'leistungsertrag',
+                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+                                 lufeb: 20)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'direkte_spenden',
+                                 aufwand_ertrag_fibu: 10, lufeb: 2, tageskurse: 8)
+    CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'beitraege_iv',
+                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+                                 lufeb: 20)
+
+    CapitalSubstrate.create!(
+      group: groups(:be), year: 2015, organization_capital: 500_000, fund_building: 25_000)
+    CapitalSubstrate.create!(
+      group: groups(:fr), year: 2015, organization_capital: 250_000, fund_building: 15_000)
+
     create_course(2015, :be, 'bk', '1', kursdauer: 10, challenged_canton_count_attributes: { zh: 100 }, unterkunft: 500)
     create_course(2015, :be, 'bk', '1', kursdauer: 11, affiliated_canton_count_attributes: { zh: 101 }, gemeinkostenanteil: 600)
     create_course(2015, :be, 'bk', '2', kursdauer: 12, challenged_canton_count_attributes: { zh: 450 }, unterkunft: 800)
@@ -109,10 +128,16 @@ describe Export::Csv::Statistics::GroupFigures do
 
                           "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)",
 
-                         "VZÄ angestellte Mitarbeiter (ganze Organisation)",
-                         "VZÄ angestellte Mitarbeiter (Art. 74)",
-                         "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)",
-                         "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" ]
+                          "VZÄ angestellte Mitarbeiter (ganze Organisation)",
+                          "VZÄ angestellte Mitarbeiter (Art. 74)",
+                          "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)",
+                          "VZÄ ehrenamtliche Mitarbeiter (Art. 74)",
+
+                          "Geschlüsseltes Kapitalsubstrat nach Art. 74",
+                          "Totaler Aufwand gemäss FIBU",
+                          "Vollkosten nach Umlagen Betrieb Art. 74",
+                          "IV-Beitrag",
+                          "Deckungsbeitrag 4"]
   end
 
   it 'contains correct summed values' do
@@ -129,7 +154,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 0, 0,
        0, 0, 0, 0,
        0,
-       0.0, 0.0, 0.0, 0.0].collect(&:to_s),
+       0.0, 0.0, 0.0, 0.0,
+       -200000.0, 0.0, 0.0, 0.0, 0.0].collect(&:to_s),
       ["Freiburg", 'Freiburg', nil, nil,
        1, 0.to_d, 1545.0, 0.0, 0.0, 1545.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -141,7 +167,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 12, 0,
        21, 0, 0, 0,
        0,
-       12.to_d/1900, 12.to_d/1900, 21.to_d/1900, 21.to_d/1900].collect(&:to_s),
+       12.to_d/1900, 12.to_d/1900, 21.to_d/1900, 21.to_d/1900,
+       -185000.0, 0.0, 0.0, 0.0, 0.0].collect(&:to_s),
       ["Kanton Bern", 'Bern', nil, nil,
        2, 1100.to_d, 1000.0, 1111.0, 0.0, 2111.0,
        1, 800.to_d, 5400.0, 0.0, 0.0, 5400.0,
@@ -153,7 +180,8 @@ describe Export::Csv::Statistics::GroupFigures do
        10, 0, 0, 0,
        0, 0, 0, 20,
        30,
-       10.to_d/1900, 10.to_d/1900, 20.to_d/1900, 20.to_d/1900].collect(&:to_s),
+       10.to_d/1900, 10.to_d/1900, 20.to_d/1900, 20.to_d/1900,
+       574950.0, 100.0, 150.0, 20.0, -100.0].collect(&:to_s),
       ["Biel-Seeland", 'Bern', nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -165,7 +193,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 0, 0,
        0, 0, 0, 0,
        0,
-       0.0, 0.0, 0.0, 0.0].collect(&:to_s),
+       0.0, 0.0, 0.0, 0.0,
+       -200000.0, 0.0, 0.0, 0.0, 0.0].collect(&:to_s),
     ]
   end
 

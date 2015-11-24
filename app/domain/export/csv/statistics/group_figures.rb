@@ -38,6 +38,7 @@ module Export
           append_course_labels(labels)
           append_time_labels(labels)
           append_fte_labels(labels)
+          append_cost_accounting_labels(labels)
           labels
         end
 
@@ -71,6 +72,14 @@ module Export
           labels << t('fte_volunteers_with_verification_only_art_74')
         end
 
+        def append_cost_accounting_labels(labels)
+          labels << t('geschluesseltes_kapitalsubstrat')
+          labels << t('total_aufwand')
+          labels << t('vollkosten_nach_umlagen_betrieb')
+          labels << t('iv_beitrag')
+          labels << t('deckungsbeitrag_4')
+        end
+
         def values(group)
           values = [group.full_name.presence || group.name,
                     group.canton_label,
@@ -87,6 +96,9 @@ module Export
 
           append_fte_values(values, figures.employee_time(group))
           append_fte_values(values, figures.volunteer_with_verification_time(group))
+
+          append_capital_substrate_values(values, figures.capital_substrate(group))
+          append_cost_accounting_values(values, figures.cost_accounting_table(group))
           values
         end
 
@@ -120,6 +132,21 @@ module Export
             values << record.total_paragraph_74_pensum
           else
             values << 0.0 << 0.0
+          end
+        end
+
+        def append_capital_substrate_values(values, report)
+          values << report.paragraph_74
+        end
+
+        def append_cost_accounting_values(values, table)
+          if table
+            values << table.value_of('total_aufwand', 'aufwand_ertrag_fibu')
+            values << table.value_of('vollkosten', 'total')
+            values << table.value_of('beitraege_iv', 'total')
+            values << table.value_of('deckungsbeitrag4', 'total')
+          else
+            values << 0.0 << 0.0 << 0.0 << 0.0
           end
         end
 
