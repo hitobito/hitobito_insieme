@@ -267,6 +267,10 @@ de:
         one: Kostenrechnungsreport
         other: Kostenrechnungsreporte
 
+      global_value:
+        one: Globale Werte
+        other: Globale Werte
+
       time_record:
         one: Zeiterfassung
         other: Zeiterfassungen
@@ -327,14 +331,8 @@ de:
         kontrolle: Kontrolle
         aufteilung_kontengruppen: Notizen
 
-      reporting_parameter:
-        year: Jahr
-        vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE
-        vollkosten_le_schwelle2_blockkurs: Blockkurs Schwellenwert 2 Vollkosten/LE
-        vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
-        vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
-        bsv_hours_per_year: BSV Stunden pro Jahr
-        capital_substrate_exemption: BSV Kapitalsubstrat Freibetrag
+      global_value:
+        default_reporting_year: Default Reporting Jahr
 
       event:
         teamer_count: Anzahl BetreuerInnen
@@ -543,6 +541,15 @@ de:
         billing_course_town: Ort Rechnungsadresse Kurs
         billing_course_country: Land Rechnungsadresse Kurs
         billing_course_same_as_main: Rechnungsadresse Kurs gleich Hauptadresse
+
+      reporting_parameter:
+        year: Jahr
+        vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE
+        vollkosten_le_schwelle2_blockkurs: Blockkurs Schwellenwert 2 Vollkosten/LE
+        vollkosten_le_schwelle1_tageskurs: Tageskurs Schwellenwert 1 Vollkosten/LE
+        vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
+        bsv_hours_per_year: BSV Stunden pro Jahr
+        capital_substrate_exemption: BSV Kapitalsubstrat Freibetrag
 
       time_record:
         kontakte_medien: Kontakte zu Medien, zu Medienschaffenden

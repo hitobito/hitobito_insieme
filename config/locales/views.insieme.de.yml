@@ -265,6 +265,7 @@ de:
   shared:
     admin_nav_kinds_insieme:
       reporting_parameters: Parameter
+      global_values: Globale Werte
 
   time_records:
     index:

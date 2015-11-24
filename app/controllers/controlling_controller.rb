@@ -45,6 +45,10 @@ class ControllingController < ApplicationController
     @group ||= Group::Dachverein.find(params[:id])
   end
 
+  def default_year
+    @default_year ||= GlobalValue.default_reporting_year
+  end
+
   def authorize
     authorize!(:controlling, group)
   end

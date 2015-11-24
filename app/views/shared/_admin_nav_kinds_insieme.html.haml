@@ -4,4 +4,7 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 - if can?(:index, ReportingParameter)
-    = nav t('.reporting_parameters'), reporting_parameters_path, %w(reporting_parameters)
+  = nav t('.reporting_parameters'), reporting_parameters_path, %w(reporting_parameters)
+
+- if can?(:update, GlobalValue)
+  = nav t('.global_values'), edit_global_value_path, %w(global_value)

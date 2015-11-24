@@ -49,6 +49,10 @@ class ReportingBaseController < ApplicationController
     @group ||= Group.find(params[:id])
   end
 
+  def default_year
+    @default_year ||= GlobalValue.default_reporting_year
+  end
+
   def authorize
     authorize!(:reporting, group)
   end

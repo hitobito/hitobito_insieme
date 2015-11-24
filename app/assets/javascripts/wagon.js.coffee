@@ -5,6 +5,9 @@
 
 #= require ./_cost_accounting_calculator.js.coffee
 
+$(document).on('click', '.cancel[href=#]', (event) ->
+  $(this).closest('form').get(0).reset())
+
 $ ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )

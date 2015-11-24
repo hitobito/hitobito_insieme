@@ -17,6 +17,14 @@ describe CostAccountingController do
     end.to raise_error(CanCan::AccessDenied)
   end
 
+  context 'GET index.html' do
+    it 'uses default reporting year' do
+      GlobalValue.first.update!(default_reporting_year: 2010)
+      get :index, id: groups(:be).id
+      expect(assigns(:year)).to eq(2010)
+    end
+  end
+
   context 'GET index.csv' do
     context 'cost accounting csv export' do
       let(:group) { groups(:be) }

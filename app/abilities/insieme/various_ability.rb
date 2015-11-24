@@ -17,6 +17,10 @@ module Insieme::VariousAbility
       class_side(:index).if_admin
       permission(:admin).may(:manage).all
     end
+
+    on(GlobalValue) do
+      permission(:admin).may(:show, :update).all
+    end
   end
 
 end

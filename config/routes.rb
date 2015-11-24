@@ -72,7 +72,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :reporting_parameters
+    resource :global_value, only: [:show, :edit, :update]
+
+    resources :reporting_parameters, except: :show
+
   end
 
 end
