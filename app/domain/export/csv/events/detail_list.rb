@@ -7,15 +7,29 @@
 
 module Export::Csv::Events
   class DetailList < Export::Csv::Events::List
-    ADD_COURSE_RECORD_ATTRS = [:teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
-                               :teilnehmende_angehoerige, :teilnehmende_weitere,
-                               :leiterinnen, :fachpersonen,
-                               :hilfspersonal_ohne_honorar, :hilfspersonal_mit_honorar,
-                               :kuechenpersonal, :honorare_inkl_sozialversicherung,
-                               :unterkunft, :uebriges,
-                               :beitraege_teilnehmende, :direkter_aufwand,
-                               :gemeinkostenanteil, :zugeteilte_kategorie,
-                               :tage_behinderte, :tage_angehoerige, :tage_weitere]
+    COURSE_RECORD_ATTRS = [
+                 :kursdauer,
+                 ## effektiv teilnehmende
+                 :teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
+                 :teilnehmende_angehoerige, :teilnehmende_weitere,
+                 ## absenztage
+                 :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+                 ## total teilnehmerinnentage
+                 :tage_behinderte, :tage_angehoerige, :tage_weitere,
+                 ## betreuerinnen
+                 :leiterinnen, :fachpersonen,
+                 :hilfspersonal_mit_honorar, :hilfspersonal_ohne_honorar,
+                 ## personal ohne betreuungsfunktion
+                 :kuechenpersonal,
+                 ## direkter aufwand
+                 :honorare_inkl_sozialversicherung, :unterkunft, :uebriges,
+                 :direkter_aufwand,
+                 # ertrag
+                 :beitraege_teilnehmende, 
+                 # auswertungen
+                 :gemeinkostenanteil, :total_vollkosten,
+                 :total_tage_teilnehmende, :vollkosten_pro_le, 
+                 :zugeteilte_kategorie ]
 
     self.row_class = Export::Csv::Events::DetailRow
 
@@ -27,11 +41,10 @@ module Export::Csv::Events
     end
 
     def add_additional_course_record_labels(labels)
-      ADD_COURSE_RECORD_ATTRS.each do |attr|
+      COURSE_RECORD_ATTRS.each do |attr|
         add_course_record_label(labels, attr)
       end
     end
-
 
   end
 end
