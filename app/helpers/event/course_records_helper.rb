@@ -33,12 +33,16 @@ module Event::CourseRecordsHelper
   end
 
   def participant_field(form, attr, opts = {})
-    form.labeled_input_field(attr, opts.merge(addon: t('global.persons_short')))
+    opts.merge!(addon: t('global.persons_short')) unless opts[:addon]
+    form.labeled_input_field(attr, opts)
   end
 
-  def participant_field_with_suggestion(form, attr, suggestion)
-    help_text = t('event.course_records.form.according_to_list', count: f(suggestion))
-    participant_field(form, attr, help_inline: muted(help_text))
+  def participant_field_with_suggestion(form, attr, suggestion, opts = {})
+    if event_may_have_participants?
+      help_text = t('event.course_records.form.according_to_list', count: f(suggestion))
+      opts[:help_inline] = muted(help_text)
+    end
+    participant_field(form, attr, opts)
   end
 
   def format_general_cost_allowance_percent(allowance)
@@ -47,6 +51,19 @@ module Event::CourseRecordsHelper
     else
       ''
     end
+  end
+
+  def participant_readonly_value_with_suggestion(form, attr, value, suggestion, opts = {})
+    opts[:value] = value
+    if event_may_have_participants?
+      help_text = t('event.course_records.form.according_to_list', count: suggestion)
+      opts[:help_inline] = help_text
+    end
+    form.labeled_readonly_value(attr, opts)
+  end
+
+  def event_may_have_participants?
+    entry.event.class.role_types.present?
   end
 
 end
