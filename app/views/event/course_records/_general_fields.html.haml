@@ -7,13 +7,7 @@
 
   = render 'main_fields',  f: f, sk: entry.sk?
 
-  - duration = entry.sk? ? @numbers.duration_hours : @numbers.duration_days
-  = f.labeled_input_field :kursdauer,
-                          addon: entry.duration_unit,
-                          label: entry.kursdauer_label,
-                          help_inline: muted(t('event.course_records.form.according_to_course_dates',
-                            duration: number_with_precision(duration, precision: 1,
-                                                                      delimiter: t('number.format.delimiter'))).html_safe)
+  = kursdauer_field(f, :kursdauer)
 
   - if entry.event.years.size > 1
     = f.labeled_collection_select(:year, entry.event.years, :to_s, :to_s, {}, class: 'span2')

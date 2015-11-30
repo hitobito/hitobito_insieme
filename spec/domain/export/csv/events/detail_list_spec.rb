@@ -27,16 +27,30 @@ describe Export::Csv::Events::DetailList do
                  :maximum_participants, :external_applications, :priorization,
                  :teamer_count, :participant_count, :applicant_count,
                  :leistungskategorie, :year, :subventioniert, :inputkriterien, :kursart,
-                 :spezielle_unterkunft, :anzahl_kurse,
+                 :spezielle_unterkunft, :anzahl_kurse, 
+                 # additional course record attributes
+                 :kursdauer,
+                 ## effektiv teilnehmende
                  :teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
                  :teilnehmende_angehoerige, :teilnehmende_weitere,
+                 ## absenztage
+                 :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+                 ## total teilnehmerinnentage
+                 :tage_behinderte, :tage_angehoerige, :tage_weitere,
+                 ## betreuerinnen
                  :leiterinnen, :fachpersonen,
-                 :hilfspersonal_ohne_honorar, :hilfspersonal_mit_honorar,
-                 :kuechenpersonal, :honorare_inkl_sozialversicherung,
-                 :unterkunft, :uebriges,
-                 :beitraege_teilnehmende, :direkter_aufwand,
-                 :gemeinkostenanteil, :zugeteilte_kategorie,
-                 :tage_behinderte, :tage_angehoerige, :tage_weitere]
+                 :hilfspersonal_mit_honorar, :hilfspersonal_ohne_honorar,
+                 ## personal ohne betreuungsfunktion
+                 :kuechenpersonal,
+                 ## direkter aufwand
+                 :honorare_inkl_sozialversicherung, :unterkunft, :uebriges,
+                 :direkter_aufwand,
+                 # ertrag
+                 :beitraege_teilnehmende, 
+                 # auswertungen
+                 :gemeinkostenanteil, :total_vollkosten,
+                 :total_tage_teilnehmende, :vollkosten_pro_le,
+                 :zugeteilte_kategorie]
     end
 
     its(:labels) do
@@ -53,14 +67,28 @@ describe Export::Csv::Events::DetailList do
                  'Anzahl BetreuerInnen', 'Anzahl Teilnehmende', 'Anzahl Anmeldungen',
                  'Leistungskategorie', 'Reporting im Jahr', 'Subventioniert', 'Inputkriterien',
                  'Kursart', 'Spezielle Unterkunft', 'Anzahl Kurse',
-                 'Behinderte', 'Mehrfachbehinderte', 'Angehörige',
-                 'Weitere, nicht Beitragsberechtigt', 'LeiterInnen',
-                 'Fachpersonen hochqualifiziert', 'Hilfspersonal ohne Honorar',
-                 'Hilfspersonal mit Honorar', 'Küchenpersonal', 'Honorare inkl. Sozialversicherung',
-                 'Unterkunft / Raumaufwand', 'Übriges inkl. Verpflegung',
-                 'Beiträge TN', 'Direkter aufwand', 'Gemeinkostenanteil',
-                 'Zugeteilte Kategorie', 'Behinderte', 'Angehörige',
-                 'Weitere, nicht Beitragsberechtigt']
+                 # additional course record attributes
+                 'Kursdauer', 
+                 ## effektiv teilnehmende
+                 'Effektiv Teilnehmende Behinderte', 'Effektiv Teilnehmende Mehrfachbehinderte', 'Effektiv Teilnehmende Angehörige',
+                 'Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt',
+                 ## absenztage
+                 'Absenzen Behinderte', 'Absenzen Angehörige', 'Absenzen Weitere, nicht Beitragsberechtigt',
+                 ## total teilnehmerinnentage
+                 'Total TeilnehmerInnentage Behinderte', 'Total TeilnehmerInnentage Angehörige', 'Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt',
+                 ## betreuerinnen
+                 'LeiterInnen', 'Fachpersonen hochqualifiziert', 'Hilfspersonal mit Honorar',
+                 'Hilfspersonal ohne Honorar', 
+                 ## personal ohne betreuungsfunktion
+                 'Küchenpersonal', 
+                 ## direkter aufwand
+                 'Honorare inkl. Sozialversicherung', 'Unterkunft / Raumaufwand', 'Übriges inkl. Verpflegung',
+                 'Direkter Aufwand',
+                 ## ertrag
+                 'Beiträge TN',
+                 # auswertungen
+                 'Gemeinkostenanteil', 'Total Vollkosten', 'Anzahl tatsächliche LE',
+                 'Vollkosten pro LE', 'Zugeteilte Kategorie']
     end
   end
 
@@ -78,15 +106,19 @@ describe Export::Csv::Events::DetailList do
     before do
       course1.build_course_record(subventioniert: true, inputkriterien: 'a',
                                   kursart: 'freizeit_und_sport', spezielle_unterkunft: true,
+                                  kursdauer: 47,
                                   teilnehmende_behinderte: 33, teilnehmende_mehrfachbehinderte: 22,
                                   teilnehmende_angehoerige: 12, teilnehmende_weitere: 11,
-                                  leiterinnen: 2, fachpersonen: 3,
-                                  hilfspersonal_ohne_honorar: 4, hilfspersonal_mit_honorar: 5,
-                                  kuechenpersonal: 1, honorare_inkl_sozialversicherung: 500,
-                                  unterkunft: 444, uebriges: 222, beitraege_teilnehmende: 33,
-                                  direkter_aufwand: 55, gemeinkostenanteil: 56, zugeteilte_kategorie: 3,
+                                  absenzen_behinderte: 3, absenzen_angehoerige: 1, absenzen_weitere: 2,
                                   tage_behinderte: 34, tage_angehoerige: 13,
-                                  tage_weitere: 42)
+                                  tage_weitere: 42,
+                                  leiterinnen: 2, fachpersonen: 3, hilfspersonal_mit_honorar: 4, hilfspersonal_ohne_honorar: 5,
+                                  kuechenpersonal: 1, 
+                                  honorare_inkl_sozialversicherung: 500,
+                                  unterkunft: 444, uebriges: 222, direkter_aufwand: 55,
+                                  beitraege_teilnehmende: 33,
+                                  gemeinkostenanteil: 56, zugeteilte_kategorie: 3
+                                 )
       Fabricate(:event_participation, event: course1, active: true,
                 roles: [Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.sti_name)])
       Fabricate(:event_participation, event: course1, active: true,
@@ -101,15 +133,30 @@ describe Export::Csv::Events::DetailList do
     context 'first row' do
       let(:row) { csv[0].split(';') }
       it 'should contain the additional course and record fields' do
-        expect(row.count).to eq(63)
-        expect(row[44..-1]).to eq ['Behinderte', 'Mehrfachbehinderte', 'Angehörige',
-                                   'Weitere, nicht Beitragsberechtigt', 'LeiterInnen',
-                                   'Fachpersonen hochqualifiziert', 'Hilfspersonal ohne Honorar',
-                                   'Hilfspersonal mit Honorar', 'Küchenpersonal', 'Honorare inkl. Sozialversicherung',
-                                   'Unterkunft / Raumaufwand', 'Übriges inkl. Verpflegung',
-                                   'Beiträge TN', 'Direkter aufwand', 'Gemeinkostenanteil',
-                                   'Zugeteilte Kategorie', 'Behinderte', 'Angehörige',
-                                   'Weitere, nicht Beitragsberechtigt']
+        expect(row.count).to eq(70)
+        expect(row[44..-1]).to eq [
+                 # additional course record attributes
+                 'Kursdauer', 
+                 ## effektiv teilnehmende
+                 'Effektiv Teilnehmende Behinderte', 'Effektiv Teilnehmende Mehrfachbehinderte', 'Effektiv Teilnehmende Angehörige',
+                 'Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt',
+                 ## absenztage
+                 'Absenzen Behinderte', 'Absenzen Angehörige', 'Absenzen Weitere, nicht Beitragsberechtigt',
+                 ## total teilnehmerinnentage
+                 'Total TeilnehmerInnentage Behinderte', 'Total TeilnehmerInnentage Angehörige', 'Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt',
+                 ## betreuerinnen
+                 'LeiterInnen', 'Fachpersonen hochqualifiziert', 'Hilfspersonal mit Honorar',
+                 'Hilfspersonal ohne Honorar', 
+                 ## personal ohne betreuungsfunktion
+                 'Küchenpersonal', 
+                 ## direkter aufwand
+                 'Honorare inkl. Sozialversicherung', 'Unterkunft / Raumaufwand', 'Übriges inkl. Verpflegung',
+                 'Direkter Aufwand',
+                 ## ertrag
+                 'Beiträge TN',
+                 # auswertungen
+                 'Gemeinkostenanteil', 'Total Vollkosten', 'Anzahl tatsächliche LE',
+                 'Vollkosten pro LE', 'Zugeteilte Kategorie']
       end
     end
 
@@ -119,9 +166,13 @@ describe Export::Csv::Events::DetailList do
         expect(row[27..-1]).to eq ['All for one', '1000', '2000-01-01', '2000-02-01', '10',
                                    'nein', 'nein', '1', '2', '3', 'Blockkurs', '2012', 'ja', 'a',
                                    'Freizeit und Sport', 'ja', '1',
-                                   '33', '22', '12', '11', '2', '3', '4', '5', '1', '500.0',
-                                   '444.0', '222.0', '33.0', '55.0', '56.0', '3', '34.0', '13.0',
-                                   '42.0']
+                                   '47.0',
+                                   '33', '22', '12', '11', 
+                                   '3.0', '1.0', '2.0', 
+                                   '34.0', '13.0', '42.0',
+                                   '2', '3', '4', '5',
+                                   '1',
+                                   '500.0', '444.0', '222.0', '55.0', '33.0', '56.0', '111.0', '89.0', '1.247191011235955056', '3' ]
       end
     end
 
