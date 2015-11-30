@@ -20,6 +20,7 @@ module Export::Csv::Events
     self.row_class = Export::Csv::Events::DetailRow
 
     private
+
     def build_attribute_labels
       super.tap do |labels|
         add_additional_course_record_labels(labels)
@@ -31,7 +32,6 @@ module Export::Csv::Events
         add_course_record_label(labels, attr)
       end
     end
-
 
   end
 end

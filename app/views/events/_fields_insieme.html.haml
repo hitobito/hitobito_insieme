@@ -4,7 +4,8 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 - if entry.is_a?(Event::AggregateCourse)
-  = f.labeled_number_field(:year)
+  = field_set_tag do
+    = f.labeled_number_field(:year)
 
 - if entry.reportable?
   = field_set_tag Event::CourseRecord.model_name.human do
