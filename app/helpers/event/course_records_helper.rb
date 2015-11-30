@@ -32,17 +32,17 @@ module Event::CourseRecordsHelper
     end
   end
 
-  def participant_field(form, attr, opts = {})
-    opts.merge!(addon: t('global.persons_short')) unless opts[:addon]
-    form.labeled_input_field(attr, opts)
+  def participant_field(form, attr, options = {})
+    options.merge!(addon: t('global.persons_short')) unless options[:addon]
+    form.labeled_input_field(attr, options)
   end
 
-  def participant_field_with_suggestion(form, attr, suggestion, opts = {})
+  def participant_field_with_suggestion(form, attr, suggestion, options = {})
     if event_may_have_participants?
       help_text = t('event.course_records.form.according_to_list', count: f(suggestion))
-      opts[:help_inline] = muted(help_text)
+      options[:help_inline] = muted(help_text)
     end
-    participant_field(form, attr, opts)
+    participant_field(form, attr, options)
   end
 
   def format_general_cost_allowance_percent(allowance)
@@ -53,17 +53,37 @@ module Event::CourseRecordsHelper
     end
   end
 
-  def participant_readonly_value_with_suggestion(form, attr, value, suggestion, opts = {})
-    opts[:value] = value
+  def participant_readonly_value_with_suggestion(form, attr, value, suggestion, options = {})
+    options[:value] = value
     if event_may_have_participants?
       help_text = t('event.course_records.form.according_to_list', count: suggestion)
-      opts[:help_inline] = help_text
+      options[:help_inline] = help_text
     end
-    form.labeled_readonly_value(attr, opts)
+    form.labeled_readonly_value(attr, options)
+  end
+
+  def kursdauer_field(form, attr)
+    options = {}
+    options[:addon] = entry.duration_unit
+    options[:label] = entry.kursdauer_label
+    if event_may_have_participants?
+      options[:help_inline] = kursdauer_help_inline
+    end
+    participant_field(form, attr, options)
   end
 
   def event_may_have_participants?
     entry.event.class.role_types.present?
+  end
+
+  private
+  def kursdauer_help_inline
+    duration = entry.sk? ? @numbers.duration_hours : @numbers.duration_days
+    help_text = t('event.course_records.form.according_to_course_dates',
+                duration: number_with_precision(
+                duration, precision: 1, delimiter: t('number.format.delimiter'))
+                )
+    muted(help_text.html_safe)
   end
 
 end

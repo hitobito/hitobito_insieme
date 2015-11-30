@@ -21,13 +21,15 @@ describe Event::CourseRecordsHelper do
     context 'aggregate course' do
 
       let(:event) { Fabricate(:aggregate_course, leistungskategorie: 'sk') }
-      let(:entry) { event.course_record }
+      let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
 
       it 'does not show inline help text if aggregate course' do
         field = participant_field_with_suggestion(form, :teilnehmende, '42')
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
+        kursdauer = kursdauer_field(form, :kursdauer)
         expect(field).not_to match /<span class="muted">gemäss TN-Liste/
         expect(readonly_value).not_to match /<span class="help-inline">gemäss TN-Liste/
+        expect(kursdauer).not_to match /<span class="muted">gemäss Kursdaten/
       end
 
     end
@@ -35,13 +37,16 @@ describe Event::CourseRecordsHelper do
     context 'course' do
 
       let(:event) { Fabricate(:course, leistungskategorie: 'sk') }
-      let(:entry) { event.course_record }
+      let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
 
       it 'shows inline help text if course' do
+        @numbers = CourseReporting::CourseNumbers.new(event)
         field = participant_field_with_suggestion(form, :teilnehmende, '42')
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
+        kursdauer = kursdauer_field(form, :kursdauer)
         expect(field).to match /<span class="muted">gemäss TN-Liste/
         expect(readonly_value).to match /<span class="help-inline">gemäss TN-Liste/
+        expect(kursdauer).to match /<span class="muted">gemäss Kursdaten/
       end
 
     end
