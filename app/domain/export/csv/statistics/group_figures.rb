@@ -95,7 +95,9 @@ module Export
           values << figures.volunteer_without_verification_time(group).try(:total_lufeb).to_i
 
           append_fte_values(values, figures.employee_time(group))
-          append_fte_values(values, figures.volunteer_with_verification_time(group))
+          append_fte_values(values,
+                            figures.volunteer_with_verification_time(group),
+                            figures.volunteer_without_verification_time(group))
 
           append_capital_substrate_values(values, figures.capital_substrate(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
@@ -126,10 +128,11 @@ module Export
           end
         end
 
-        def append_fte_values(values, record)
-          if record
-            values << record.total_pensum
-            values << record.total_paragraph_74_pensum
+        def append_fte_values(values, *records)
+          records.compact!
+          if records.present?
+            values << records.sum(&:total_pensum)
+            values << records.sum(&:total_paragraph_74_pensum)
           else
             values << 0.0 << 0.0
           end

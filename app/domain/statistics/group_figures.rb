@@ -62,18 +62,18 @@ module Statistics
     def course_records
       @course_records ||= begin
         hash = Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }
-        load_participant_efforts.each do |record|
+        load_course_records.each do |record|
           hash[record.group_id][record.leistungskategorie][record.zugeteilte_kategorie] = record
         end
         hash
       end
     end
 
-    def load_participant_efforts
+    def load_course_records
       Event::CourseRecord.select(course_record_columns).
                           joins(:event).
                           joins('INNER JOIN events_groups ON events.id = events_groups.event_id').
-                          where(year: year).
+                          where(year: year, subventioniert: true).
                           group('events_groups.group_id, events.leistungskategorie, ' \
                                 'event_course_records.zugeteilte_kategorie')
     end

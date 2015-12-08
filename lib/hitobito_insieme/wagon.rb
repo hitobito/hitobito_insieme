@@ -82,6 +82,9 @@ module HitobitoInsieme
       Export::Csv::Events::List.send :include, Insieme::Export::Csv::Events::List
       Export::Csv::Events::Row.send :include, Insieme::Export::Csv::Events::Row
       # rubocop:enable SingleSpaceBeforeFirstArg
+
+      admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
+      admin[:active_for] << 'reporting_parameters' << 'global_value'
     end
 
     initializer 'insieme.add_settings' do |_app|

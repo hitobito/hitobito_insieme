@@ -52,6 +52,8 @@ describe Statistics::GroupFigures do
 
     # other year
     create_course(2014, :fr, 'bk', '1', kursdauer: 17, teilnehmende_weitere: 105)
+    # not subventioniert
+    create_course(2015, :fr, 'tk', '3', kursdauer: 5, challenged_canton_count_attributes: { zh: 500 }, uebriges: 600, subventioniert: false)
 
     @course_records = Event::CourseRecord.joins(:event).where(year: 2015)
   end
