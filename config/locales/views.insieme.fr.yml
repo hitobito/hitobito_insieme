@@ -23,7 +23,7 @@ fr:
     groups: Associations
   capital_substrate:
     edit:
-      help_per_date: en %{donnée}
+      help_per_date: en %{date}
   contactable:
     address_fields_insieme:
       main: Adresse principale
@@ -36,9 +36,13 @@ fr:
   controlling:
     title: Controlling
     index:
+      controlling: Général
       cost_accounting: Comptabilité analytique consolidée
       client_statistics: Statistique des client-e-s
       group_figures: Chiffres indicatifs par association
+      export_bk: Consolidation de la statistque des cours des cours en bloc
+      export_tk: Consolidation de la statistique des cours d'un jour
+      export_sk: Consolidation de la statistique des cours des cours semestriels/annuels
   cost_accounting:
     index:
       title: Vue d'ensemble comptabilité analytique
@@ -46,6 +50,8 @@ fr:
     edit:
       aufwand_fibu: Charges comptabilité financière
       ertrag_fibu: Produits comptabilité financière
+      aufwand_ko_re: Coûts comptabilité analytique
+      ertrag_ko_re: Produits comptabilité analytique
       kontengruppen: "Groupe(s) de comptes %{kontengruppen}"
       remarks_placeholder: Vous pouvez joindre ici vos notes et explications (p. ex. de quelle manière les charges se répartissent sur les groupes de compte)
   course_reporting:
@@ -156,6 +162,11 @@ fr:
   events:
     tabs:
       participants: 'Equipe & Participants'
+    global:
+      link:
+        add_event/aggregate_course: Etablir plusieurs cours
+    new:
+      title_event/aggregate_course: Etablir plusieurs cours
   event/course_record_decorator:
     absenztage: Jours d'absence
     absenzstunden: Heures d'absence
@@ -175,27 +186,47 @@ fr:
       reference: Référence à la personne avec handicap
   reporting:
     title: Reporting
+  reporting_parameters:
+    global:
+      link:
+        add: Etablir les paramètres du reporting
+    new:
+      title: Etablir les paramères du reporting
   statistics:
     title: Statistique
-    show:
-      title: Statistique des membres de l'association
-      export: Exporter CSV
+    index:
+      export: CSV Export
     group_figures:
       name: 'Nom complet'
+      canton: Canton
       vid: Identification de l'association IDA
       bsv: Numéro OFAS
-      participant_days_bk_1: Cours en bloc journées participant cat. 1
-      participant_days_bk_2: Cours en bloc journées participant cat. 2
-      participant_days_bk_3: Cours en bloc journées participant cat. 3
-      participant_days_tk_1: Cours d'un jour journées participant cat. 1
-      participant_days_tk_2: Cours d'un jour journées participant cat. 2
-      participant_days_tk_3: Cours d'un jour journées participant cat. 3
-      participant_days_sk_1: Cours semestriels/annuels heures participant cat. 1
+      kategorie: Cat. %{number}
+      leistungskategorie_bk: Cours en bloc
+      leistungskategorie_tk: Cours d'un  jour
+      leistungskategorie_sk: Cours semestriels/annuels
+      anzahl_kurse: "%{leistungskategorie} nombre de cours %{kategorie}"
+      total_vollkosten: "%{leistungskategorie} total coûts complets %{kategorie}"
+      tage_behinderte: "%{leistungskategorie} journées participant personnes handicapées %{kategorie}"
+      tage_angehoerige: "%{leistungskategorie} journées participant proches %{kategorie}"
+      tage_weitere: "%{leistungskategorie} journées participants pour les bénéficiaires non reconnus %{kategorie}"
+      tage_total: "%{leistungskategorie} journées participant total %{kategorie}"
       lufeb_hours_employees: Heures PROSPREH heures des employé-e-s
       lufeb_hours_volunteers: Heures PROSPREH bénévoles avec preuve de prestations
+      lufeb_hours_volunteers_without: PROSPREH heures bénévoles sans preuve de prestations
+      fte_employees_total: Collaborateurs/trices employé-e-s EPT (organisation en entier)
+      fte_employees_only_art_74: Collaborateurs/trices EPT (art. 74)
+      fte_volunteers_with_verification_total: Collaborateurs/trices bénévoles EPT (organisation en entier)
+      fte_volunteers_with_verification_only_art_74: Collaborateurs/trices bénévoles EPT (art. 74)
+      geschluesseltes_kapitalsubstrat: Substrat de capital codé art. 74
+      total_aufwand: Total charges comptabilité financière
+      vollkosten_nach_umlagen_betrieb: Coûts complet après participation à l'art. 74
+      iv_beitrag: Contribution AI
+      deckungsbeitrag_4: Marge de contribution 4
   shared:
     admin_nav_kinds_insieme:
       reporting_parameters: Paramètre
+      global_values: Valeurs globales
   time_records:
     index:
       title: Informations de base
@@ -220,7 +251,7 @@ fr:
       lufeb_general: 'Tâches générales d''information et de relations publiques '
       lufeb_private: Médias et publications de l'organisation accessibles au public
       lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
-      lufeb_promoting: Prestations de base pour l'encouragement de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers
+      lufeb_promoting: "Prestations de base pour l'encouragement de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers"
       help_publikationen: en dehors de la revue/du site internet propre à l'organisation
       help_medienkonferenzen: Planificaation resp. organisation
       help_kontakte_meinungsbildner: p. ex. décideurs issus d'institutions, de l'administration, des milieux politiques et de l'économie
@@ -250,3 +281,19 @@ fr:
         name: Substrat de capital conformément à l'art. 74 LAI
       capital_substrate_limit:
         name: Limite substrat de capital
+  export/csv/events/detail_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+    teilnehmende_behinderte: Nombre effectif de participants handicapés
+    teilnehmende_angehoerige: Nombre effectis de participants proches
+    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
+    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
+    absenzen_behinderte: Absences personnes handicapées
+    absenzen_angehoerige: Absences proches
+    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
+    tage_behinderte: Total des journées participants handicapés
+    tage_angehoerige: Total des journées participants proches
+    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
+    total_tage_teilnehmende: Nombre d'UP effective
+    direkter_aufwand: Charges directes

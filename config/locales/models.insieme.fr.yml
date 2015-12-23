@@ -188,6 +188,9 @@ fr:
       cost_accounting_record:
         one: Report comptabilité analytique
         other: Reports comptabilité analytique
+      global_value:
+        one: Valeurs globales
+        other: Valeurs globales
       time_record:
         one: Décompte des heures de travail
         other: Décomptes de heures de travail
@@ -214,32 +217,6 @@ fr:
         other: Substrats de capital
     attributes:
       cantons:
-        ag: Aargau
-        ai: Appenzell Rhôdes intérieurs
-        ar: Appenzell Rhôdes extérieurs
-        be: Berne
-        bl: Bâle Canton
-        bs: Bâle Ville
-        fr: Fribourg
-        ge: Genève
-        gl: Glaris
-        gr: Grisons
-        ju: Jura
-        lu: Lucerne
-        ne: Neuchâtel
-        nw: Nidwalden
-        ow: Obwald
-        sg: Saint Gall
-        sh: Schaffhouse
-        so: Soleure
-        sz: Schwyz
-        tg: Thurgovie
-        ti: Tessin
-        ur: Uri
-        vd: Vaud
-        vs: Valais
-        zg: Zoug
-        zh: Zurich
         other: Autre provenance
       cost_accounting_record:
         group_id: Groupe
@@ -264,14 +241,8 @@ fr:
         total: Total
         kontrolle: Contrôle
         aufteilung_kontengruppen: Notices
-      reporting_parameter:
-        year: Année
-        vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP
-        vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuils 2 coûts complets/UP
-        vollkosten_le_schwelle1_tageskurs: Cours d'un jour valeurs seuils 1 coûts complets/UP
-        vollkosten_le_schwelle2_tageskurs: Cours en bloc valeurs seuils 2 coûts complets/UP
-        bsv_hours_per_year: Heures OFAS par année
-        capital_substrate_exemption: Substrat de capital OFAS montant libre
+      global_value:
+        default_reporting_year: Année Default Reporting
       event:
         teamer_count: Nombre de personnel d'encadrement
       event/aggregate_course:
@@ -460,6 +431,14 @@ fr:
         billing_course_town: Lieu adresse de facturation pour les cours
         billing_course_country: Pays adresse de facturation pour les cours
         billing_course_same_as_main: Même adresse de facturation que l'adresse principale
+      reporting_parameter:
+        year: Année
+        vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP
+        vollkosten_le_schwelle2_blockkurs: Cours en bloc valeurs seuils 2 coûts complets/UP
+        vollkosten_le_schwelle1_tageskurs: Cours d'un jour valeurs seuils 1 coûts complets/UP
+        vollkosten_le_schwelle2_tageskurs: Cours en bloc valeurs seuils 2 coûts complets/UP
+        bsv_hours_per_year: Heures OFAS par année
+        capital_substrate_exemption: Substrat de capital OFAS montant libre
       time_record:
         kontakte_medien: Contacts avec les médias, les journalistes
         interviews: Accorder des interviews
