@@ -109,8 +109,6 @@ describe PeopleController do
     end
   end
 
-
-
   context 'GET index' do
     before { sign_in(person) }
 
@@ -121,18 +119,4 @@ describe PeopleController do
     end
   end
 
-  context 'GET query' do
-    before { sign_in(person) }
-
-    it 'searches number as well' do
-      people(:top_leader).update!(number: 107)
-      people(:regio_aktiv).update!(number: 10107)
-      people(:regio_leader).update!(number: 10007)
-      get :query, q: '107', format: :json
-
-      expect(@response.body).to match(/107 Top Leader/)
-      expect(@response.body).to match(/10107 Active Person/)
-      expect(@response.body).not_to match(/Flock Leader/)
-    end
-  end
 end

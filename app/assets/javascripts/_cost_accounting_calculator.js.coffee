@@ -1,4 +1,4 @@
-app = window.Application ||= {}
+app = window.App ||= {}
 
 class app.CostAccountingCalculator
   constructor: () ->

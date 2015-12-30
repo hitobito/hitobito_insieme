@@ -7,7 +7,7 @@
 
 class CostAccountingController < ReportingBaseController
 
-  include ListController::Memory
+  include Rememberable
 
   self.remember_params = [:year]
 

@@ -96,7 +96,6 @@ describe TimeRecordsController do
         medienkonferenzen: 10,
         informationsveranstaltungen: 10,
         sensibilisierungskampagnen: 10,
-        auskunftserteilung: 10,
         kontakte_meinungsbildner: 10,
         beratung_medien: 10,
 

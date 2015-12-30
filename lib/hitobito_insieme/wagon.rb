@@ -56,6 +56,7 @@ module HitobitoInsieme
       Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
       Event::ParticipationsController.send :include, Insieme::RenderPeopleExports
       Event::RegisterController.send       :include, Insieme::Event::RegisterController
+      Person::QueryController.search_columns << :number
 
       # helpers
       Sheet::Base.send  :include, Insieme::Sheet::Base

@@ -11,7 +11,7 @@ class TimeRecordsController < ReportingBaseController
            TimeRecord::VolunteerWithVerificationTime,
            TimeRecord::VolunteerWithoutVerificationTime]
 
-  include ListController::Memory
+  include Rememberable
 
   self.remember_params = [:year]
 
