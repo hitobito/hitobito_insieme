@@ -246,6 +246,7 @@ fr:
       event:
         teamer_count: Nombre de personnel d'encadrement
       event/aggregate_course:
+        leistungskategorie: Catégorie de prestations
         year: Année
         dates_full: Année
       event/course:
