@@ -338,6 +338,7 @@ de:
         teamer_count: Anzahl BetreuerInnen
 
       event/aggregate_course:
+        leistungskategorie: Leistungskategorie
         year: Jahr
         dates_full: Jahr
 
