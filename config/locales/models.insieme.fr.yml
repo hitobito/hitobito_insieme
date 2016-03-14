@@ -214,7 +214,7 @@ fr:
         other: Paramètre du reporting
       capital_substrate:
         one: Substrat de capital
-        other: Substrats de capital
+        other: Substrats du capital
     attributes:
       cantons:
         other: Autre provenance
