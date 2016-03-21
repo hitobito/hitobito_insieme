@@ -174,6 +174,12 @@ describe Event::CourseRecord do
         absenzen_angehoerige: 1.5,
         absenzen_weitere: 1.5)).to have(4).errors
     end
+
+    it 'does not throw error if event has no leistungskategorie (regression for #16047)' do
+      event_bk.update(leistungskategorie: nil)
+      expect(new_record(event_bk, inputkriterien: 'a', kursart: 'freizeit_und_sport')).to be_valid
+      expect(new_record(event_bk, inputkriterien: 'c', kursart: 'freizeit_und_sport')).to be_valid
+    end
   end
 
   context 'default values' do

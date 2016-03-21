@@ -196,7 +196,11 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def compute_category
     assigner = CourseReporting::CategoryAssigner.new(self)
-    self.zugeteilte_kategorie = assigner.compute
+    begin
+      self.zugeteilte_kategorie = assigner.compute
+    rescue NotImplementedError
+      self.zugeteilte_kategorie = nil
+    end
   end
 
   def set_cached_values
