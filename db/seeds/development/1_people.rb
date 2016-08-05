@@ -23,6 +23,7 @@ puzzlers = ['Pascal Zumkehr',
             'Andreas Maierhofer',
             'Andre Kunz',
             'Roland Studer',
+            'Janiss Binder',
             'Mathis Hofer',
             'Pascal Simon',
             'Bruno Santschi']
