@@ -6,8 +6,8 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export::Csv::CostAccounting
-  class Row < Export::Csv::Row
+module Export::Xlsx::CostAccounting
+  class Row < Export::Xlsx::Row
 
     def report
       entry.human_name
