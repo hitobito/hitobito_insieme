@@ -16,3 +16,8 @@ application:
 # This person should only be used by the operators of the application, not the customers.
 # Initially, a password reset token may be mailed from the application to this address to set a password.
 root_email: hitobito-insieme@puzzle.ch
+
+sphinx:
+  index:
+    # interval to index for full-text search in minutes
+    interval: 5
