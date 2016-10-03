@@ -20,6 +20,8 @@
 
 class CapitalSubstrate < ActiveRecord::Base
 
+  include Insieme::ReportingFreezable
+
   belongs_to :group
 
   validates_by_schema

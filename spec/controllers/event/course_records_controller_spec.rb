@@ -120,6 +120,7 @@ describe Event::CourseRecordsController do
 
   context '#edit' do
     it 'builds new course_record based on group and event' do
+      event.course_record.destroy!
       get :edit, group_id: group.id, event_id: event.id
       expect(response.status).to eq(200)
 
@@ -128,9 +129,8 @@ describe Event::CourseRecordsController do
     end
 
     it 'reuses existing course_record based on group and event' do
-      record = Event::CourseRecord.create!(event: event,
-                                           inputkriterien: 'a',
-                                           kursart: 'weiterbildung')
+      record = event.course_record
+      record.update!(inputkriterien: 'a', kursart: 'weiterbildung')
 
       get :edit, group_id: group.id, event_id: event.id
       expect(response.status).to eq(200)
@@ -184,9 +184,7 @@ describe Event::CourseRecordsController do
     end
 
     it 'assigns all permitted params' do
-      expect do
-        put :update, group_id: group.id, event_id: event.id, event_course_record: attrs
-      end.to change { Event::CourseRecord.count }.by(1)
+      put :update, group_id: group.id, event_id: event.id, event_course_record: attrs
 
       attrs.each do |key, value|
         unless key.to_s =~ /_attributes$/

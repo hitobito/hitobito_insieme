@@ -255,4 +255,26 @@ describe TimeRecord do
 
   end
 
+  context 'frozen reporting year' do
+    before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+    after  { GlobalValue.clear_cache }
+
+    it 'cannot create new record' do
+      record = TimeRecord.new(group: groups(:be), year: 2014, type: 'TimeRecord::EmployeeTime')
+      expect(record).to have(1).error_on(:year)
+    end
+
+    it 'cannot change year to frozen period' do
+      record = TimeRecord.create!(group: groups(:be), year: 2016, type: 'TimeRecord::EmployeeTime')
+      record.year = 2015
+      expect(record).to have(1).error_on(:year)
+    end
+
+    it 'cannot destroy record in frozen year' do
+      record = TimeRecord.create!(group: groups(:be), year: 2016, type: 'TimeRecord::EmployeeTime')
+      record.update_column(:year, 2015)
+      expect{ record.destroy }.not_to change { TimeRecord.count }
+    end
+  end
+
 end

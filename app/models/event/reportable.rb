@@ -20,6 +20,7 @@ module Event::Reportable
     attr_readonly :leistungskategorie
 
     validates :leistungskategorie, inclusion: LEISTUNGSKATEGORIEN
+    validate :assert_year_not_frozen
   end
 
   ### INSTANCE METHODS
@@ -36,6 +37,15 @@ module Event::Reportable
 
   def reportable?
     true
+  end
+
+  private
+
+  def assert_year_not_frozen
+    frozen = GlobalValue.reporting_frozen_until_year
+    if frozen && course_record && course_record.year <= frozen
+      errors.add(:base, :event_reporting_frozen)
+    end
   end
 
   module ClassMethods

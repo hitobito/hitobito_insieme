@@ -15,6 +15,7 @@ describe Event::GeneralCostAllocationJob do
 
   context 'without courses' do
     it 'performs without doing anything' do
+      Event::CourseRecord.delete_all
       expect do
         job.perform
       end.not_to change { Event::CourseRecord.maximum(:gemeinkosten_updated_at) }
@@ -50,7 +51,8 @@ describe Event::GeneralCostAllocationJob do
 
     def create_course_and_course_record(group, leistungskategorie, course_record_attrs)
       course = Event::Course.create!(name: 'dummy',
-                                     groups: [ group ], leistungskategorie: leistungskategorie,
+                                     groups: [ group ],
+                                     leistungskategorie: leistungskategorie,
                                      dates_attributes: [{ start_at: "#{course_record_attrs.delete(:year)}-05-11" }])
 
       course.create_course_record!(course_record_attrs)

@@ -5,14 +5,16 @@
 
 - @subtitle = I18n.t('crud.edit.title', model: entry)
 
+= reporting_frozen_message
+
 = crud_form(entry,
             url: general_cost_allocation_group_events_path(group, year),
             cancel_url: general_cost_allocation_group_events_path(group, year),
             buttons_top: false,
-            buttons_bottom: true,
+            buttons_bottom: !reporting_frozen?,
             submit_label: t('.start_allocation'),
             method: :put,
-            html: { class: 'report' }) do |f|
+            html: { class: 'report', data: { readonly: reporting_frozen? } }) do |f|
 
   = render 'leistungskategorie_fields',
            f: f,

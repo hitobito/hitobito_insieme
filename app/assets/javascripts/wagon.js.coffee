@@ -12,3 +12,9 @@ $ ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )
 
+  $('form[data-readonly=true] input, ' +
+    'form[data-readonly=true] textarea, ' +
+    'form[data-readonly=true] select').attr('readonly', 'readonly')
+
+  $('form[data-readonly=true] input[type=checkbox], ' +
+    'form[data-readonly=true] input[type=radio]').attr('disabled', 'disabled')

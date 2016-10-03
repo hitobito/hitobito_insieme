@@ -58,6 +58,7 @@ describe Event::CourseRecord do
   end
 
   def new_record(event, attrs = {})
+    event.course_record.try(:destroy!)
     r = Event::CourseRecord.new(attrs.merge(event: event))
     r.valid?
     r

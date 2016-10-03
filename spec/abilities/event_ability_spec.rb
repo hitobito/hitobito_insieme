@@ -142,7 +142,7 @@ describe EventAbility do
     end
 
     context 'course_record' do
-      let(:model) { event.create_course_record! }
+      let(:model) { event.course_record }
       may_execute(:update)
     end
   end
@@ -168,7 +168,7 @@ describe EventAbility do
     end
 
     context 'course_record' do
-      let(:model) { event.create_course_record! }
+      let(:model) { event.course_record }
       may_execute(:update)
     end
   end
@@ -199,7 +199,7 @@ describe EventAbility do
       end
 
       context 'course_record' do
-        let(:model) { event.create_course_record! }
+        let(:model) { event.course_record }
         may_not_execute(:update)
       end
     end
@@ -225,7 +225,7 @@ describe EventAbility do
     end
 
     context 'course_record' do
-      let(:model) { event.create_course_record! }
+      let(:model) { event.course_record }
       may_not_execute(:update)
     end
   end
@@ -263,7 +263,7 @@ describe EventAbility do
       end
 
       context 'course_record' do
-        let(:model) { event.create_course_record! }
+        let(:model) { event.course_record }
         may_not_execute(:update)
       end
      end

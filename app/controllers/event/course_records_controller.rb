@@ -85,6 +85,8 @@ class Event::CourseRecordsController < CrudController
   before_render_form :alert_missing_reporting_parameters
   before_render_form :build_canton_counts
 
+  helper_method :year
+
   private
 
   def entry
@@ -98,6 +100,10 @@ class Event::CourseRecordsController < CrudController
 
   def event_year
     parent.dates.first.start_at.year
+  end
+
+  def year
+    entry.year_changed? ? entry.year_was : entry.year
   end
 
   def return_path

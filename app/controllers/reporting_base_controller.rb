@@ -56,4 +56,5 @@ class ReportingBaseController < ApplicationController
   def authorize
     authorize!(:reporting, group)
   end
+
 end

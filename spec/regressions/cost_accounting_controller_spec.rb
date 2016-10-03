@@ -73,6 +73,22 @@ describe CostAccountingController, type: :controller  do
           expect(r.tageskurse).to be_nil
           expect(r.verwaltung).to be_nil
         end
+
+        context 'frozen year' do
+          before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+          after { GlobalValue.clear_cache }
+
+          it 'may not update values' do
+            expect do
+              put :update, id: group.id,
+                  year: 2015,
+                  report: report,
+                  cost_accounting_record: {
+                    aufwand_ertrag_fibu: 2000,
+                    abgrenzung_fibu: nil }
+            end.not_to change { CostAccountingRecord.count }
+          end
+        end
       end
 
       context 'in dachverein' do

@@ -44,12 +44,13 @@ require 'spec_helper'
 
 describe Event::AggregateCourse do
 
+  let(:event) do
+    Event::AggregateCourse.new(groups: [groups(:dachverein)],
+                               leistungskategorie: 'bk',
+                               name: 'Foo')
+  end
+
   context '#year' do
-    let(:event) do
-      Event::AggregateCourse.new(groups: [groups(:dachverein)],
-                                 leistungskategorie: 'bk',
-                                 name: 'Foo')
-    end
 
     it 'causes a validation error if not set' do
       expect(event.valid?).to be_falsey
@@ -120,4 +121,33 @@ describe Event::AggregateCourse do
       expect(event.errors[:year]).to be_present
     end
   end
+
+  context 'frozen reporting' do
+    before { event.build_course_record }
+    before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+    after  { GlobalValue.clear_cache }
+
+    it 'cannot create new record' do
+      event.year = 2014
+      expect(event).to have(1).error_on(:base)
+      expect(event.errors.full_messages.uniq.size).to eq(1) # just one message for the same issue
+    end
+
+    it 'cannot change year into frozen period' do
+      event.year = 2016
+      event.save!
+      event.year = 2015
+      expect(event).to have(1).error_on(:base)
+    end
+
+    it 'cannot destroy frozen period' do
+      GlobalValue.first.update!(reporting_frozen_until_year: 2015)
+      event.year = 2016
+      event.save!
+      GlobalValue.first.update!(reporting_frozen_until_year: 2016)
+      expect { event.destroy }.not_to change { Event.count }
+    end
+
+  end
+
 end

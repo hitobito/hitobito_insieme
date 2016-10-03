@@ -15,11 +15,14 @@
 -                     lufeb
 -                     mittelbeschaffung)
 
+= reporting_frozen_message
+
 = crud_form(entry, url: cost_accounting_report_group_path(group, year, entry.report),
-                     cancel_url: cost_accounting_group_path(group, year: year),
-                     buttons_bottom: true,
-                     method: :put,
-                     html: { class: 'report' }) do |f|
+                   cancel_url: cost_accounting_group_path(group, year: year),
+                   buttons_top: !reporting_frozen?,
+                   buttons_bottom: !reporting_frozen?,
+                   method: :put,
+                   html: { class: 'report', data: { readonly: reporting_frozen? } }) do |f|
 
   - if report.editable_fields.include?('aufwand_ertrag_fibu')
     = f.labeled_input_field(:aufwand_ertrag_fibu,

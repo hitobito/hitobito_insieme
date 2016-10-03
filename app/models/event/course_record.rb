@@ -50,6 +50,8 @@ class Event::CourseRecord < ActiveRecord::Base
   INPUTKRITERIEN = %w(a b c)
   KURSARTEN = %w(weiterbildung freizeit_und_sport)
 
+  include Insieme::ReportingFreezable
+
   belongs_to :event
   belongs_to :challenged_canton_count, dependent: :destroy,
                                        class_name: 'Event::ParticipationCantonCount'

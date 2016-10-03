@@ -5,12 +5,15 @@
 
 - @subtitle = I18n.t('crud.edit.title', model: entry)
 
+= reporting_frozen_message
+
 = crud_form(entry,
             url: capital_substrate_group_path(group, year),
             cancel_url: capital_substrate_group_path(group, year: year),
-            buttons_bottom: true,
+            buttons_top: !reporting_frozen?,
+            buttons_bottom: !reporting_frozen?,
             method: :put,
-            html: { class: 'long-labeled report' }) do |f|
+            html: { class: 'long-labeled report', data: { readonly: reporting_frozen? } }) do |f|
 
   = field_set_tag do
     = f.labeled_readonly_value :allocation_base, value: fnumber(report.allocation_base)

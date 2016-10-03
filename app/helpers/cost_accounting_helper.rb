@@ -31,4 +31,15 @@ module CostAccountingHelper
       link_to(label, path, options)
     end
   end
+
+  def reporting_frozen?
+    frozen = GlobalValue.reporting_frozen_until_year
+    frozen && year <= frozen
+  end
+
+  def reporting_frozen_message
+    if reporting_frozen?
+      content_tag(:div, t('reporting.frozen_warning'), class: 'alert alert-warning')
+    end
+  end
 end

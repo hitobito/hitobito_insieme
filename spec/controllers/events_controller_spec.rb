@@ -48,6 +48,18 @@ describe EventsController do
       expect(assigns(:event)).to have(1).error_on(:leistungskategorie)
     end
 
+    context 'reporting frozen' do
+      before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+      after { GlobalValue.clear_cache }
+
+      let(:date) {{ label: 'foo', start_at_date: Date.new(2015, 3, 1), finish_at_date: Date.new(2015, 3, 8) }}
+
+      it 'cannot create course in frozen year' do
+        expect { create('bk') }.not_to change { Event::Course.count }
+        expect(assigns(:event)).to have(1).error_on(:'course_record.year')
+      end
+    end
+
     context 'nested course_record fields' do
       it 'creates course record attribute' do
         expect { create('bk') }.to change { Event::CourseRecord.count }.by(1)
@@ -84,12 +96,39 @@ describe EventsController do
       put :update, group_id: groups(:be).id, id: event.id,
         event: { leistungskategorie: 'sk' }
 
-      expect(event.leistungskategorie).to eq 'bk'
+      expect(event.reload.leistungskategorie).to eq 'bk'
+    end
+
+    context 'reporting frozen' do
+      before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+      after { GlobalValue.clear_cache }
+
+      it 'cannot update course in frozen year' do
+        put :update,
+            group_id: groups(:be).id,
+            id: event.id,
+            event: { name: 'other' }
+        expect(event.reload.name).to eq 'Top Course'
+        expect(response.status).to eq(200)
+        expect(assigns(:event)).to have(1).error_on(:'course_record.year')
+      end
+
+      it 'cannot change course year into non-frozen year' do
+        put :update,
+            group_id: groups(:be).id,
+            id: event.id,
+            event: {
+              dates_attributes: {
+                event_dates(:first).id.to_s => { id: event_dates(:first).id, label: 'foo', start_at_date: Date.today, start_at_hour: '10' },
+                event_dates(:first_two).id.to_s => { id: event_dates(:first_two).id, _destroy: true }
+              } }
+        expect(response.status).to eq(200)
+        expect(event.reload.dates.size).to eq(2)
+        expect(assigns(:event)).to have(1).error_on(:'course_record.year')
+      end
     end
 
     context 'nested course_record fields' do
-      before { event.create_course_record! }
-
       it 'updates course record attribute' do
         update(inputkriterien: 'b')
         expect(assigns(:event).course_record.inputkriterien).to eq 'b'
@@ -126,7 +165,7 @@ describe EventsController do
         c = Fabricate(:course, groups: [groups(:dachverein)], kind: Event::Kind.first,
                                             leistungskategorie: 'bk')
         Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
-      end 
+      end
       let(:group) { groups(:dachverein) }
 
       it 'creates default export for events' do
@@ -176,7 +215,24 @@ describe EventsController do
 
   end
 
-private
+  context 'DELETE#destroy' do
+    let(:event) { events(:top_course) }
+
+    context 'reporting frozen' do
+      before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+      after { GlobalValue.clear_cache }
+
+      it 'cannot destroy course in frozen year' do
+        sign_in(people(:regio_leader))
+        expect do
+          delete :destroy, group_id: groups(:be).id, id: event.id
+        end.not_to change { Event.count }
+      end
+    end
+  end
+
+  private
+
   def expect_default_export
     headers = response.body.lines.first.split(';')
     expect(headers.count).to eq(44)

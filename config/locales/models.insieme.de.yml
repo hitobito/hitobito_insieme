@@ -554,6 +554,7 @@ de:
         capital_substrate_exemption: BSV Kapitalsubstrat Freibetrag
 
       time_record:
+        year: Jahr
         kontakte_medien: Kontakte zu Medien, zu Medienschaffenden
         interviews: Erteilen von Interviews
         publikationen: Publikation
@@ -616,6 +617,7 @@ de:
         not_paragraph_74: Art. 74 nicht betreffend in 100% Stellen
 
       capital_substrate:
+        year: Jahr
         allocation_base: Schlüssel
         organization_capital: Organisationskapital inkl. freie Reserven und freie Fonds
         organization_capital_allocated: geschlüsseltes Organisationskapital
@@ -634,6 +636,8 @@ de:
         manual_number_in_automatic_range: darf nicht zwischen %{lower} und %{upper} liegen, wenn sie manuell gesetzt wird.
         automatic_number_in_manual_range: muss zwischen %{lower} und %{upper} liegen, wenn sie automatisch gesetzt wird.
         less_than_teilnehmende_behinderte: muss kleiner gleich Anzahl Behinderter sein.
+        reporting_frozen: ist abgeschlossen und wurde gesperrt.
+        event_reporting_frozen: Reporting im Jahr ist abgeschlossen und wurde gesperrt.
 
 
   cost_accounting:

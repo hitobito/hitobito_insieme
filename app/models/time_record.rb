@@ -56,6 +56,8 @@ class TimeRecord < ActiveRecord::Base
 
   DEFAULT_BSV_HOURS_PER_YEAR = 1900
 
+  include Insieme::ReportingFreezable
+
   belongs_to :group
 
   validates_by_schema
@@ -154,7 +156,7 @@ class TimeRecord < ActiveRecord::Base
     calculate_total_lufeb_promoting
   end
 
-  # rubocop:disable MethodLength
+  # rubocop:disable MethodLength, Metrics/AbcSize
   def calculate_total_lufeb_general
     self.total_lufeb_general =
       kontakte_medien.to_i +
@@ -168,7 +170,7 @@ class TimeRecord < ActiveRecord::Base
       kontakte_meinungsbildner.to_i +
       beratung_medien.to_i
   end
-  # rubocop:enable MethodLength
+  # rubocop:enable MethodLength, Metrics/AbcSize
 
   def calculate_total_lufeb_private
     self.total_lufeb_private =
@@ -187,6 +189,7 @@ class TimeRecord < ActiveRecord::Base
       gremien.to_i
   end
 
+  # rubocop:disable Metrics/AbcSize
   def calculate_total_lufeb_promoting
     self.total_lufeb_promoting =
       auskunftserteilung.to_i +
@@ -197,5 +200,6 @@ class TimeRecord < ActiveRecord::Base
       beratung_fachhilfeorganisationen.to_i +
       unterstuetzung_behindertenhilfe.to_i
   end
+  # rubocop:enable Metrics/AbcSize
 
 end

@@ -25,7 +25,8 @@ class GlobalValue < ActiveRecord::Base
 
   class << self
 
-    (GlobalValue.column_names - %w(id)).each do |attr|
+    %w(default_reporting_year
+       reporting_frozen_until_year).each do |attr|
       define_method(attr) do
         cached[attr]
       end

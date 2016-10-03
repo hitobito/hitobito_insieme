@@ -5,12 +5,15 @@
 
 - title @event.to_s
 
+= reporting_frozen_message
+
 = crud_form(entry,
             url: group_event_course_record_path(*parents),
             cancel_url: group_event_path(*parents),
-            buttons_bottom: true,
+            buttons_top: !reporting_frozen?,
+            buttons_bottom: !reporting_frozen?,
             method: :put,
-            html: { class: 'course-record report long-labeled' }) do |f|
+            html: { class: 'course-record report long-labeled', data: { readonly: reporting_frozen? } }) do |f|
 
   = render 'general_fields', f: f
   = render 'participant_fields', f: f
