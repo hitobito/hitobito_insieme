@@ -1,2 +1,11 @@
+# == Schema Information
+#
+# Table name: global_values
+#
+#  id                          :integer          not null, primary key
+#  default_reporting_year      :integer          not null
+#  reporting_frozen_until_year :integer
+#
+
 a:
   default_reporting_year: 2014

@@ -1,4 +1,18 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: event_general_cost_allocations
+#
+#  id                          :integer          not null, primary key
+#  group_id                    :integer          not null
+#  year                        :integer          not null
+#  general_costs_blockkurse    :decimal(12, 2)
+#  general_costs_tageskurse    :decimal(12, 2)
+#  general_costs_semesterkurse :decimal(12, 2)
+#  created_at                  :datetime
+#  updated_at                  :datetime
+#
+
 
 #  Copyright (c) 2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3

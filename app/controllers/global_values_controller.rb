@@ -1,4 +1,13 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: global_values
+#
+#  id                          :integer          not null, primary key
+#  default_reporting_year      :integer          not null
+#  reporting_frozen_until_year :integer
+#
+
 
 #  Copyright (c) 2012-2015, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,7 +16,7 @@
 
 class GlobalValuesController < SimpleCrudController
 
-  self.permitted_attrs = [:default_reporting_year]
+  self.permitted_attrs = [:default_reporting_year, :reporting_frozen_until_year]
 
   def show
     redirect_to edit_global_value_path

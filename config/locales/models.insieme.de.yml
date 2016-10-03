@@ -333,6 +333,7 @@ de:
 
       global_value:
         default_reporting_year: Default Reporting Jahr
+        reporting_frozen_until_year: Reporting gesperrt bis
 
       event:
         teamer_count: Anzahl BetreuerInnen

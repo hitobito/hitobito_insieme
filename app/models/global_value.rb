@@ -4,13 +4,13 @@
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
-
 # == Schema Information
 #
 # Table name: global_values
 #
-#  id                     :integer          not null, primary key
-#  default_reporting_year :integer          not null
+#  id                          :integer          not null, primary key
+#  default_reporting_year      :integer          not null
+#  reporting_frozen_until_year :integer
 #
 
 class GlobalValue < ActiveRecord::Base
@@ -25,8 +25,10 @@ class GlobalValue < ActiveRecord::Base
 
   class << self
 
-    def default_reporting_year
-      cached['default_reporting_year']
+    (GlobalValue.column_names - %w(id)).each do |attr|
+      define_method(attr) do
+        cached[attr]
+      end
     end
 
     def cached
