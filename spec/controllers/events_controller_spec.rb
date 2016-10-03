@@ -175,9 +175,11 @@ describe EventsController do
       end
 
       it 'creates detail export for courses' do
+        group.update_attributes!(vid: 42, bsv_number: '99')
         get :index, group_id: group.id, type: 'Event::Course', format: 'csv', year: '2012'
 
         expect_detail_export
+        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.csv')
       end
 
       it 'creates default export for courses if requested by Präsident' do
@@ -202,6 +204,7 @@ describe EventsController do
         get :index, group_id: group.id, type: 'Event::Course', format: 'csv', year: '2012'
 
         expect_detail_export
+        expect(filename).to eq('course_kanton-bern_2012.csv')
       end
 
       it 'denies export to controlling if not controlling in group' do
@@ -245,6 +248,11 @@ describe EventsController do
     expect(headers.count).to eq(70)
     expect(headers).to include 'Kursdauer'
     expect(headers).to include "Zugeteilte Kategorie\n"
+  end
+
+  def filename
+    content_dispo = response.headers['Content-Disposition']
+    content_dispo.split("\"").last
   end
 
 end
