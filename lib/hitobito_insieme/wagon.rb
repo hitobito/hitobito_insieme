@@ -24,7 +24,7 @@ module HitobitoInsieme
       # extend application classes here
 
       # models
-      Cantons::SHORT_NAMES << :other
+      Cantons::SHORT_NAMES << :another
 
       Group.send         :include, Insieme::Group
       Person.send        :include, Insieme::Person

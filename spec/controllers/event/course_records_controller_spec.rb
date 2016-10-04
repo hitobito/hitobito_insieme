@@ -166,7 +166,7 @@ describe Event::CourseRecordsController do
         spezielle_unterkunft: false,
         kursdauer: 10,
         teilnehmende_mehrfachbehinderte: 3,
-        challenged_canton_count_attributes: { 'be' => 1, 'zh' => 2, 'other' => 3 },
+        challenged_canton_count_attributes: { 'be' => 1, 'zh' => 2, 'another' => 3 },
         affiliated_canton_count_attributes: { 'ag' => 4, 'ge' => 5 },
         teilnehmende_weitere: 10,
         absenzen_behinderte: 10,
@@ -195,7 +195,7 @@ describe Event::CourseRecordsController do
       expect(event.course_record.challenged_canton_count).to be_a(Event::ParticipationCantonCount)
       expect(event.course_record.challenged_canton_count.be).to eq(1)
       expect(event.course_record.challenged_canton_count.zh).to eq(2)
-      expect(event.course_record.challenged_canton_count.other).to eq(3)
+      expect(event.course_record.challenged_canton_count.another).to eq(3)
 
       expect(event.course_record.affiliated_canton_count).to be_a(Event::ParticipationCantonCount)
       expect(event.course_record.affiliated_canton_count.ag).to eq(4)

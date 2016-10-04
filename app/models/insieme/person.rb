@@ -8,7 +8,7 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(de fr it en other)
+  LANGUAGES = %w(de fr it en another)
   CORRESPONDENCE_LANGUAGES = %w(de fr)
 
   ADDRESS_TYPES = %w(correspondence_general

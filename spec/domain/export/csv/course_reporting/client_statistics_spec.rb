@@ -16,16 +16,16 @@ describe Export::Csv::CourseReporting::ClientStatistics do
 
   before do
     create_course(2015, :be, 'bk',
-                  { be: 1, ag: 2, zh: 3, other: 4 },
-                  { be: 0, ag: 1, zh: 1, other: 2 })
+                  { be: 1, ag: 2, zh: 3, another: 4 },
+                  { be: 0, ag: 1, zh: 1, another: 2 })
 
     create_course(2015, :be, 'bk',
-                  { be: 2, ag: 4, zh: 6, other: 8 },
-                  { be: 1, ag: 2, zh: 3, other: 4 },
+                  { be: 2, ag: 4, zh: 6, another: 8 },
+                  { be: 1, ag: 2, zh: 3, another: 4 },
                   :aggregate_course)
 
     create_course(2015, :fr, 'tk',
-                  { be: 1, ag: 1, other: 1 })
+                  { be: 1, ag: 1, another: 1 })
   end
 
   context '#to_csv' do

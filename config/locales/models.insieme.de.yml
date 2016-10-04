@@ -354,7 +354,7 @@ de:
 
     attributes:
       cantons:
-        other: Andere Herkunft
+        another: Andere Herkunft
 
       cost_accounting_record:
         group_id: Gruppe
@@ -502,7 +502,7 @@ de:
         vs: VS
         zg: ZG
         zh: ZH
-        other: Andere Herkunft
+        another: Andere Herkunft
         undefined: Nicht festgelegt
 
       group:
@@ -520,7 +520,7 @@ de:
           fr: Französisch
           it: Italienisch
           en: Englisch
-          other: Andere
+          another: Andere
           _nil: ''
 
         correspondence_language: Korrespondenzsprache

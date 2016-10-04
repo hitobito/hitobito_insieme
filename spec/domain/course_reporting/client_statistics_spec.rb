@@ -11,27 +11,27 @@ describe CourseReporting::ClientStatistics do
 
   before do
     create_course(2015, :be, 'bk',
-                  { be: 1, ag: 2, zh: 3, other: 4 },
-                  { be: 0, ag: 1, zh: 1, other: 2 })
+                  { be: 1, ag: 2, zh: 3, another: 4 },
+                  { be: 0, ag: 1, zh: 1, another: 2 })
 
     create_course(2015, :be, 'bk',
-                  { be: 2, ag: 4, zh: 6, other: 8 },
-                  { be: 1, ag: 2, zh: 3, other: 4 },
+                  { be: 2, ag: 4, zh: 6, another: 8 },
+                  { be: 1, ag: 2, zh: 3, another: 4 },
                   :aggregate_course)
 
     create_course(2015, :fr, 'bk',
-                  { be: 3, ag: 3, zh: 3, tg: 3, other: 3 })
+                  { be: 3, ag: 3, zh: 3, tg: 3, another: 3 })
 
     create_course(2015, :fr, 'tk',
-                  { be: 1, ag: 1, other: 1 })
+                  { be: 1, ag: 1, another: 1 })
 
     create_course(2015, :fr, 'tk',
-                  { be: 1, zh: 1, other: 1 })
+                  { be: 1, zh: 1, another: 1 })
 
     # other year
     create_course(2014, :fr, 'bk',
-                  { be: 4, ag: 4, zh: 4, tg: 4, other: 4 },
-                  { be: 2, ag: 2, zh: 2, other: 2 })
+                  { be: 4, ag: 4, zh: 4, tg: 4, another: 4 },
+                  { be: 2, ag: 2, zh: 2, another: 2 })
   end
 
   let(:stats) { described_class.new(2015) }
@@ -45,8 +45,8 @@ describe CourseReporting::ClientStatistics do
     expect(stats.canton_count(:zh, 'bk', :affiliated)).to eq(4)
     expect(stats.canton_count(:tg, 'bk', :challenged)).to eq(3)
     expect(stats.canton_count(:tg, 'bk', :affiliated)).to eq(0)
-    expect(stats.canton_count(:other, 'bk', :challenged)).to eq(15)
-    expect(stats.canton_count(:other, 'bk', :affiliated)).to eq(6)
+    expect(stats.canton_count(:another, 'bk', :challenged)).to eq(15)
+    expect(stats.canton_count(:another, 'bk', :affiliated)).to eq(6)
 
     expect(stats.canton_count(:be, 'tk', :challenged)).to eq(2)
     expect(stats.canton_count(:be, 'tk', :affiliated)).to eq(0)
@@ -56,13 +56,13 @@ describe CourseReporting::ClientStatistics do
     expect(stats.canton_count(:zh, 'tk', :affiliated)).to eq(0)
     expect(stats.canton_count(:tg, 'tk', :challenged)).to eq(0)
     expect(stats.canton_count(:tg, 'tk', :affiliated)).to eq(0)
-    expect(stats.canton_count(:other, 'tk', :challenged)).to eq(2)
-    expect(stats.canton_count(:other, 'tk', :affiliated)).to eq(0)
+    expect(stats.canton_count(:another, 'tk', :challenged)).to eq(2)
+    expect(stats.canton_count(:another, 'tk', :affiliated)).to eq(0)
 
     expect(stats.canton_count(:be, 'sk', :challenged)).to eq(0)
     expect(stats.canton_count(:be, 'sk', :affiliated)).to eq(0)
-    expect(stats.canton_count(:other, 'sk', :challenged)).to eq(0)
-    expect(stats.canton_count(:other, 'sk', :affiliated)).to eq(0)
+    expect(stats.canton_count(:another, 'sk', :challenged)).to eq(0)
+    expect(stats.canton_count(:another, 'sk', :affiliated)).to eq(0)
   end
 
   it 'has correct totals' do
