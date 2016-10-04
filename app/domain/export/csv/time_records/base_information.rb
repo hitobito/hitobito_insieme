@@ -34,9 +34,9 @@ module Export
 
         def labels
           [nil,
-           I18n.t('time_records.index.paragraph_74'),
-           I18n.t('time_records.index.not_paragraph_74'),
-           I18n.t('time_records.index.whole_organization')]
+           I18n.t('time_record.base_informations.index.paragraph_74'),
+           I18n.t('time_record.base_informations.index.not_paragraph_74'),
+           I18n.t('time_record.base_informations.index.whole_organization')]
         end
 
         def report_values(report)

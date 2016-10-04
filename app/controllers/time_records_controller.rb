@@ -66,12 +66,10 @@ class TimeRecordsController < ReportingBaseController
   before_action :entry, except: [:index, :exports]
 
   def index
-    @table = TimeRecord::Table.new(group, year)
-
     respond_to do |format|
-      format.html
+      format.html { redirect_to time_record_base_information_group_path(group, year) }
       format.csv do
-        send_data Export::Csv::TimeRecords::BaseInformation.export(@table), type: :csv
+        send_data Export::Csv::TimeRecords::List.export(list_entries), type: :csv
       end
     end
   end
@@ -81,6 +79,10 @@ class TimeRecordsController < ReportingBaseController
   end
 
   private
+
+  def list_entries
+    TimeRecord.where(group_id: group.id, year: year)
+  end
 
   def entry
     @record ||= record_class.where(group_id: group.id, year: year).first_or_initialize
@@ -103,7 +105,7 @@ class TimeRecordsController < ReportingBaseController
   end
 
   def show_path
-    time_record_group_path(group, year: year)
+    time_record_base_information_group_path(group, year: year)
   end
 
 end

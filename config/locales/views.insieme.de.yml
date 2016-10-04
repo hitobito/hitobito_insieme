@@ -269,14 +269,17 @@ de:
       reporting_parameters: Parameter
       global_values: Globale Werte
 
+  time_record:
+    base_informations:
+      index:
+        title: Basisinformationen
+        paragraph_74: Art. 74 betreffend
+        not_paragraph_74: Art. 74 nicht betreffend
+        whole_organization: Ganze Organisation
+        controlling: Kontrolle
+        capital_substrate: Kapitalsubstrat
+
   time_records:
-    index:
-      title: Basisinformationen
-      paragraph_74: Art. 74 betreffend
-      not_paragraph_74: Art. 74 nicht betreffend
-      whole_organization: Ganze Organisation
-      controlling: Kontrolle
-      capital_substrate: Kapitalsubstrat
     edit:
       comment: Nur geleistete Stunden erfassen welche Art. 74 betreffen, ausser anders gekennzeichnet.
       subtotal: Subtotal
@@ -294,7 +297,7 @@ de:
     exports:
       title: Exporte Zeiterfassung
       base_information: Basisinformationen
-
+      time_records: Zeiterfassung
 
     lufeb_fields_full:
       lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit

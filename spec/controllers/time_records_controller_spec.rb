@@ -87,16 +87,6 @@ describe TimeRecordsController do
     end
   end
 
-  context '#index' do
-
-    before { sign_in(people(:top_leader)) }
-
-    it 'shows basic info' do
-      get :index, id: group.id, year: 2014
-      expect(response.status).to eq(200)
-    end
-  end
-
   context '#edit' do
     before { sign_in(people(:top_leader)) }
 

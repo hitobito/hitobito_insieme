@@ -9,7 +9,7 @@
 
 = crud_form(entry,
             url: time_record_report_group_path(group, year, entry.class.key),
-            cancel_url: time_record_group_path(group, year: year),
+            cancel_url: time_record_base_information_group_path(group, year: year),
             buttons_top: !reporting_frozen?,
             buttons_bottom: !reporting_frozen?,
             method: :put,

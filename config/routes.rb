@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       member do
         scope 'time_record' do
           get '/' => 'time_records#index', as: :time_record
+          get ':year/base_information' => 'time_record/base_informations#index',
+              as: :time_record_base_information
           get ':year/exports' => 'time_records#exports', as: :time_record_exports
           get ':year/:report/edit' => 'time_records#edit', as: :edit_time_record_report
           put ':year/:report' => 'time_records#update', as: :time_record_report

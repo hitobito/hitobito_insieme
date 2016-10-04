@@ -7,7 +7,7 @@
 %ul.nav.nav-list.cost-accounting-menu
   %li.nav-header= t('.time_records')
   = reporting_nav t('.base_informations.label'),
-                  time_record_group_path(group, year: year),
+                  time_record_base_information_group_path(group, year: year),
                   title: t('.base_informations.title')
 
   - [TimeRecord::EmployeeTime,
