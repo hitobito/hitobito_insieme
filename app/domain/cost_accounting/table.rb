@@ -91,7 +91,8 @@ module CostAccounting
 
     def prepare_course_costs
       nested_hash = Hash.new { |h, k| h[k] = {} }
-      load_course_costs.each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
+      load_course_costs.
+        each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
         hash[lk] = { 'honorare'             => honorare,
                      'raumaufwand'          => unterkunft,
                      'uebriger_sachaufwand' => uebriges }
