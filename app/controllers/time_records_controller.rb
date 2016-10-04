@@ -63,10 +63,21 @@ class TimeRecordsController < ReportingBaseController
 
   self.remember_params = [:year]
 
-  before_action :entry, except: :index
+  before_action :entry, except: [:index, :exports]
 
   def index
     @table = TimeRecord::Table.new(group, year)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data Export::Csv::TimeRecords::BaseInformation.export(@table), type: :csv
+      end
+    end
+  end
+
+  def exports
+    year
   end
 
   private

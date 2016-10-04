@@ -16,6 +16,7 @@ de:
       base_informations:
         label: Basisinformationen
         title: Ansicht Basisinformationen
+      time_record_exports: Exporte Zeiterfassung
       course_statistics: Kursstatistik
       cost_accounting: Kostenrechnung
       overview:
@@ -290,6 +291,10 @@ de:
       whole_organization: Ganze Organisation
 
       help_employee_pensum: 70% Stellenprozent = 0.7 eingeben
+    exports:
+      title: Exporte Zeiterfassung
+      base_information: Basisinformationen
+
 
     lufeb_fields_full:
       lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit

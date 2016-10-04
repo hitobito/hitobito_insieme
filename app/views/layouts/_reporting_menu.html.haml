@@ -17,6 +17,9 @@
     = reporting_nav t("#{prefix}.short"),
                     edit_time_record_report_group_path(group, year, report.key),
                     title: t("#{prefix}.one")
+  = reporting_nav t('.time_record_exports'),
+                  time_record_exports_group_path(group, year),
+                  title: t('.time_record_exports')
 
   %li.nav-header= t('.course_statistics')
   = reporting_nav t('.general_cost_allocation'),
