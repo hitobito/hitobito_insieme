@@ -29,24 +29,23 @@ module Insieme
     end
 
     def render_csv_with_details(entries)
-      if course_records? && can?(:export_course_records, @group)
-        course_list = ::Export::Csv::Events::DetailList.export(entries)
-      else
-        course_list = ::Export::Csv::Events::List.export(entries)
-      end
-      send_data course_list, type: :csv, filename: filename
+      send_data(csv_exporter.export(entries), type: :csv, filename: csv_filename)
     end
 
-    def filename
-      type = aggregate_course? ? 'aggregate_course' : 'course'
+    def csv_exporter
+      if course_records? && can?(:export_course_records, @group)
+        ::Export::Csv::Events::DetailList
+      else
+        ::Export::Csv::Events::List
+      end
+    end
+
+    def csv_filename
+      type = request.path.split('/').last.split('.').first
       group_name = group.name.parameterize
       vid = group.vid.present? && "_vid#{group.vid}" || ''
       bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
       "#{type}#{vid}#{bsv}_#{group_name}_#{year}.csv"
-    end
-
-    def aggregate_course?
-      params[:type] == 'Event::AggregateCourse'
     end
 
     def course_records?
