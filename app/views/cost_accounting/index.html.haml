@@ -14,7 +14,6 @@
     %thead
       %tr
         %th
-        %th= CostAccountingRecord.human_attribute_name(:kontengruppe)
         - @table.class.fields.each do |f|
           %th{class: cost_account_field_class(f)}
             = CostAccountingRecord.human_attribute_name(f)
