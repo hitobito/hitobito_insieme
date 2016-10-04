@@ -7,7 +7,9 @@
 
 module CostAccounting
   module Report
-    class Honorare < Base
+    class Honorare < CourseRelated
+
+      self.kontengruppe = '509/4300'
 
       self.used_fields += %w(verwaltung)
 
@@ -19,13 +21,8 @@ module CostAccounting
                                   verwaltung
                                   beratung
                                   treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
                                   lufeb
                                   mittelbeschaffung)
-
-      self.kontengruppe = '509/4300'
 
     end
   end

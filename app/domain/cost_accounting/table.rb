@@ -60,6 +60,11 @@ module CostAccounting
       end
     end
 
+    def course_costs(report_key, leistungskategorie)
+      @course_costs ||= prepare_course_costs
+      @course_costs[leistungskategorie][report_key]
+    end
+
     def value_of(report, field)
       reports.fetch(report).send(field)
     end
@@ -69,9 +74,10 @@ module CostAccounting
         CostAccountingRecord.new(group_id: group.id, year: year, report: report_key)
     end
 
-    def set_records(time_record, cost_records)
+    def set_records(time_record, cost_records, course_costs)
       @time_record = time_record || TimeRecord::EmployeeTime.new(group_id: group.id, year: year)
       @cost_records = cost_records || {}
+      @course_costs = course_costs || Hash.new { |h, k| h[k] = {} }
     end
 
     private
@@ -81,6 +87,25 @@ module CostAccounting
         records = CostAccountingRecord.calculation_fields.where(group_id: group.id, year: year)
         records.each_with_object({}) { |r, hash| hash[r.report] = r }
       end
+    end
+
+    def prepare_course_costs
+      nested_hash = Hash.new { |h, k| h[k] = {} }
+      load_course_costs.each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
+        hash[lk] = { 'honorare'             => honorare,
+                     'raumaufwand'          => unterkunft,
+                     'uebriger_sachaufwand' => uebriges }
+      end
+    end
+
+    def load_course_costs
+      Event::CourseRecord.
+        joins(:event).
+        group('events.leistungskategorie').
+        where(year: year).
+        merge(Event.with_group_id(group.id)).
+        pluck('leistungskategorie, ' \
+              'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
     end
 
   end

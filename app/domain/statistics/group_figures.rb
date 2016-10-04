@@ -105,7 +105,7 @@ module Statistics
 
     def nil_cost_accounting_table(group)
       CostAccounting::Table.new(group, year).tap do |table|
-        table.set_records(nil, nil)
+        table.set_records(nil, nil, nil)
       end
     end
 

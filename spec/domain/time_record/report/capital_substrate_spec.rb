@@ -15,9 +15,10 @@ describe TimeRecord::Report::CapitalSubstrate do
   let(:report) { table.reports.fetch('capital_substrate') }
 
   before do
+    create_course_record('tk', 10)
     create_cost_accounting_report('raumaufwand', raeumlichkeiten: 100)
     create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 100, verwaltung: 10,
-                                              beratung: 30, tageskurse: 10)
+                                              beratung: 30)
     create_report(TimeRecord::EmployeeTime, verwaltung: 50, beratung: 30, tageskurse: 20)
     CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 300_000,
                              fund_building: 1000)
@@ -81,4 +82,12 @@ describe TimeRecord::Report::CapitalSubstrate do
   def create_report(model_name, values)
     model_name.create!(values.merge(group_id: group.id, year: year))
   end
+
+  def create_course_record(lk, honorare)
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      honorare_inkl_sozialversicherung: honorare
+    )
+  end
+
 end

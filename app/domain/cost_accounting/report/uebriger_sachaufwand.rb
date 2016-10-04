@@ -7,7 +7,7 @@
 
 module CostAccounting
   module Report
-    class UebrigerSachaufwand < Base
+    class UebrigerSachaufwand < CourseRelated
 
       self.kontengruppe = '40-43/61-67'
 
@@ -21,9 +21,6 @@ module CostAccounting
                                   verwaltung
                                   beratung
                                   treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
                                   lufeb
                                   mittelbeschaffung)
 

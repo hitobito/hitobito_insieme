@@ -15,10 +15,12 @@ describe CostAccounting::Report::Deckungsbeitrag1 do
   let(:report) { table.reports.fetch('deckungsbeitrag1') }
 
   before do
+    create_course_record('bk', 5)
+    create_course_record('tk', 4)
+    create_course_record('sk', 3)
     create_report('leistungsertrag', beratung: 10, treffpunkte: 11, blockkurse: 12,
                   tageskurse: 13, jahreskurse: 14, lufeb: 15, mittelbeschaffung: 16)
-    create_report('raumaufwand', beratung: 7, treffpunkte: 6, blockkurse: 5,
-                  tageskurse: 4, jahreskurse: 3, lufeb: 2, mittelbeschaffung: 1)
+    create_report('raumaufwand', beratung: 7, treffpunkte: 6, lufeb: 2, mittelbeschaffung: 1)
   end
 
   it 'sets unused fields to nil' do
@@ -52,4 +54,12 @@ describe CostAccounting::Report::Deckungsbeitrag1 do
                                               year: year,
                                               report: name))
   end
+
+  def create_course_record(lk, unterkunft)
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      unterkunft: unterkunft
+    )
+  end
+
 end

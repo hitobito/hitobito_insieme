@@ -15,10 +15,13 @@ describe CostAccounting::Report::Deckungsbeitrag4 do
   let(:report) { table.reports.fetch('deckungsbeitrag4') }
 
   before do
+    create_course_record('bk', 5)
+    create_course_record('tk', 4)
+    create_course_record('sk', 3)
     create_report('leistungsertrag', beratung: 110, treffpunkte: 111, blockkurse: 112,
                   tageskurse: 113, jahreskurse: 114, lufeb: 115, mittelbeschaffung: 116)
     create_report('raumaufwand', raeumlichkeiten: 100, beratung: 7, treffpunkte: 6,
-                  blockkurse: 5, tageskurse: 4, jahreskurse: 3, lufeb: 2, mittelbeschaffung: 1)
+                  lufeb: 2, mittelbeschaffung: 1)
     create_report('direkte_spenden', beratung: 20, treffpunkte: 21, blockkurse: 22,
                   tageskurse: 23, jahreskurse: 24, lufeb: 25, mittelbeschaffung: 26)
     create_report('sonstige_beitraege', beratung: 1, treffpunkte: 2, blockkurse: 3,
@@ -66,4 +69,12 @@ describe CostAccounting::Report::Deckungsbeitrag4 do
                                               year: year,
                                               report: name))
   end
+
+  def create_course_record(lk, unterkunft)
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      unterkunft: unterkunft
+    )
+  end
+
 end

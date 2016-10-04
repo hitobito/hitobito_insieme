@@ -26,7 +26,7 @@ describe Export::Csv::Statistics::GroupFigures do
                                  raeumlichkeiten: 100)
     CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'honorare',
                                  aufwand_ertrag_fibu: 100, verwaltung: 10,
-                                 beratung: 30, tageskurse: 10)
+                                 beratung: 30)
     CostAccountingRecord.create!(group: groups(:be), year: 2015, report: 'leistungsertrag',
                                  aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
                                  lufeb: 20)
@@ -41,14 +41,21 @@ describe Export::Csv::Statistics::GroupFigures do
     CapitalSubstrate.create!(
       group: groups(:fr), year: 2015, organization_capital: 250_000, fund_building: 15_000)
 
-    create_course(2015, :be, 'bk', '1', kursdauer: 10, challenged_canton_count_attributes: { zh: 100 }, unterkunft: 500)
-    create_course(2015, :be, 'bk', '1', kursdauer: 11, affiliated_canton_count_attributes: { zh: 101 }, gemeinkostenanteil: 600)
-    create_course(2015, :be, 'bk', '2', kursdauer: 12, challenged_canton_count_attributes: { zh: 450 }, unterkunft: 800)
+    create_course(2015, :be, 'bk', '1', kursdauer: 10, unterkunft: 500,
+                  challenged_canton_count_attributes: { zh: 100 })
+    create_course(2015, :be, 'bk', '1', kursdauer: 11, gemeinkostenanteil: 600,
+                  affiliated_canton_count_attributes: { zh: 101 })
+    create_course(2015, :be, 'bk', '2', kursdauer: 12, unterkunft: 800,
+                  challenged_canton_count_attributes: { zh: 450 })
     create_course(2015, :be, 'bk', '3', kursdauer: 13, teilnehmende_weitere: 650, uebriges: 200)
-    create_course(2015, :be, 'sk', '1', kursdauer: 14, challenged_canton_count_attributes: { zh: 102 }, unterkunft: 400)
-    create_course(2015, :fr, 'bk', '1', kursdauer: 15, challenged_canton_count_attributes: { zh: 103 }, unterkunft: 0)
+    create_course(2015, :be, 'sk', '1', kursdauer: 14, unterkunft: 400,
+                  honorare_inkl_sozialversicherung: 10,
+                  challenged_canton_count_attributes: { zh: 102 })
+    create_course(2015, :fr, 'bk', '1', kursdauer: 15, unterkunft: 0,
+                  challenged_canton_count_attributes: { zh: 103 })
     create_course(2015, :fr, 'tk', '1', kursdauer: 16, teilnehmende_weitere: 104, unterkunft: 500)
-    create_course(2015, :fr, 'tk', '3', kursdauer: 17, challenged_canton_count_attributes: { zh: 500 }, uebriges: 600)
+    create_course(2015, :fr, 'tk', '3', kursdauer: 17, uebriges: 600,
+                  challenged_canton_count_attributes: { zh: 500 })
 
     # other year
     create_course(2014, :fr, 'bk', '1', kursdauer: 17, teilnehmende_weitere: 105)
@@ -143,8 +150,8 @@ describe Export::Csv::Statistics::GroupFigures do
   it 'contains correct summed values' do
     data = export(figures)[1..-1]
     data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
-    expect(data).to eq [
-      ["insieme Schweiz", nil, nil, nil,
+    expect(data.first).to eq [
+       "insieme Schweiz", nil, nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -156,8 +163,10 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 0, 0,
        0,
        0.0, 0.0, 0.0, 0.0,
-       -200000.0, 0.0, 0.0, 0.0, 0.0], #.collect(&:to_s),
-      ["Freiburg", 'Freiburg', nil, nil,
+       -200000.0, 0.0, 0.0, 0.0, 0.0] #.collect(&:to_s),
+
+    expect(data.second).to eq [
+       "Freiburg", 'Freiburg', nil, nil,
        1, 0.0, 1545.0, 0.0, 0.0, 1545.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -169,21 +178,25 @@ describe Export::Csv::Statistics::GroupFigures do
        21, 0, 0, 0,
        0,
        (12.0/1900).round(5), (12.0/1900).round(5), (21.0/1900).round(5), (21.0/1900).round(5),
-       -185000.0, 0.0, 0.0, 0.0, 0.0], #.collect(&:to_s),
-      ["Kanton Bern", 'Bern', nil, nil,
+       -185550.0, 0.0, 1100.0, 0.0, -1100.0] #.collect(&:to_s),
+
+    expect(data.third).to eq [
+       "Kanton Bern", 'Bern', nil, nil,
        2, 1100.0, 1000.0, 1111.0, 0.0, 2111.0,
        1, 800.0, 5400.0, 0.0, 0.0, 5400.0,
        1, 200.0, 0.0, 0.0, 8450.0, 8450.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
-       1, 400.0, 1428.0, 0.0, 0.0, 1428.0,
+       1, 410.0, 1428.0, 0.0, 0.0, 1428.0,
        10, 0, 0, 0,
        0, 0, 0, 20,
        30,
        (10.0/1900).round(5), (10.0/1900).round(5), (50.0/1900).round(5), (50.0/1900).round(5),
-       574950.0, 100.0, 150.0, 20.0, -100.0], #.collect(&:to_s),
-      ["Biel-Seeland", 'Bern', nil, nil,
+       10_074_000.0, 100.0, 2050.0, 20.0, -2000.0] #.collect(&:to_s),
+
+    expect(data.fourth).to eq [
+       "Biel-Seeland", 'Bern', nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -196,7 +209,6 @@ describe Export::Csv::Statistics::GroupFigures do
        0,
        0.0, 0.0, 0.0, 0.0,
        -200000.0, 0.0, 0.0, 0.0, 0.0] #.collect(&:to_s)
-    ]
   end
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)

@@ -7,7 +7,7 @@
 
 module CostAccounting
   module Report
-    class Raumaufwand < Base
+    class Raumaufwand < CourseRelated
 
       self.kontengruppe = '600'
 
@@ -21,9 +21,6 @@ module CostAccounting
                                   raeumlichkeiten
                                   beratung
                                   treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
                                   lufeb
                                   mittelbeschaffung)
 

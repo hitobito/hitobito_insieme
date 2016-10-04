@@ -35,7 +35,6 @@ module CostAccounting
               aufwand_ertrag_ko_re *
               time_record.send(f).to_d / time_record.total_paragraph_74
             end
-
         end
       end
 

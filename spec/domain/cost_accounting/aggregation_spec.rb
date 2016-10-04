@@ -18,6 +18,7 @@ describe CostAccounting::Aggregation do
 
   before do
     # be
+    create_course_record(groups(:be), 'tk', nil, 100)
     CostAccountingRecord.create!(group_id: groups(:be).id,
                                  year: year,
                                  report: 'lohnaufwand',
@@ -29,7 +30,6 @@ describe CostAccounting::Aggregation do
                                  aufwand_ertrag_fibu: 2000,
                                  verwaltung: 1000,
                                  treffpunkte: 200,
-                                 tageskurse: 100,
                                  lufeb: 200,
                                  mittelbeschaffung: 500)
     CostAccountingRecord.create!(group_id: groups(:be).id,
@@ -63,6 +63,8 @@ describe CostAccounting::Aggregation do
                                      newsletter: 20,
                                      nicht_art_74_leistungen: 10)
     # fr
+    create_course_record(groups(:fr), 'tk', nil, 100)
+    create_course_record(groups(:fr), 'bk', nil, 500)
     CostAccountingRecord.create!(group_id: groups(:fr).id,
                                  year: year,
                                  report: 'lohnaufwand',
@@ -73,8 +75,6 @@ describe CostAccounting::Aggregation do
                                  aufwand_ertrag_fibu: 3000,
                                  verwaltung: 1000,
                                  treffpunkte: 200,
-                                 tageskurse: 100,
-                                 blockkurse: 500,
                                  lufeb: 700,
                                  mittelbeschaffung: 500)
     CostAccountingRecord.create!(group_id: groups(:fr).id,
@@ -100,6 +100,7 @@ describe CostAccounting::Aggregation do
                                      blockkurse: 30,
                                      gremien: 20)
     # seeland
+    create_course_record(groups(:seeland), 'sk', 500, nil)
     CostAccountingRecord.create!(group_id: groups(:seeland).id,
                                  year: year,
                                  report: 'lohnaufwand',
@@ -158,4 +159,13 @@ describe CostAccounting::Aggregation do
       expect(lohnaufwand.kontrolle).to be_within(0.0001).of(-500)
     end
   end
+
+  def create_course_record(group, lk, unterkunft = nil, honorare = nil)
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      unterkunft: unterkunft,
+      honorare_inkl_sozialversicherung: honorare
+    )
+  end
+
 end
