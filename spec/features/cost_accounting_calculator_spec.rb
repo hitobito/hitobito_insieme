@@ -38,7 +38,7 @@ describe 'CostAccountingCalculator', js: true do
       expect(find('#aufwand_ertrag_ko_re')).to have_content('800.00 CHF')
       expect(find('#control_value')).to have_content('-600.00 CHF')
 
-      fill_in('cost_accounting_record_tageskurse', with: '600')
+      fill_in('cost_accounting_record_treffpunkte', with: '600')
       expect(find('#aufwand_ertrag_ko_re')).to have_content('800.00 CHF')
       expect(find('#control_value')).to have_content('0.00 CHF')
     end
