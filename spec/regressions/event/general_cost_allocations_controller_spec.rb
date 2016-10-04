@@ -15,6 +15,22 @@ describe Event::GeneralCostAllocationsController, type: :controller do
 
   before { sign_in(people(:top_leader)) }
 
+  context '#show' do
+
+    it 'redirects to edit if format is html' do
+      get :show, group_id: group.id, year: 2014
+      is_expected.to redirect_to(edit_general_cost_allocation_group_events_path(group, 2014))
+    end
+
+    it 'renders csv' do
+      get :show, group_id: group.id, year: 2014, format: :csv
+      csv = response.body
+      expect(csv).to match(/\A;/)
+      expect(csv).to match(/^;Total direkte Kosten;Total Gemeinkosten;Gemeinkostenzuschlag$/)
+    end
+
+  end
+
   context '#edit' do
 
     it 'builds new time_record based on group and year' do
@@ -45,9 +61,9 @@ describe Event::GeneralCostAllocationsController, type: :controller do
 
     it 'assigns all permitted params' do
       expect do
-      expect do
-        put :update, group_id: group.id, year: 2014, event_general_cost_allocation: attrs
-      end.to change { Event::GeneralCostAllocation.count }.by(1)
+        expect do
+          put :update, group_id: group.id, year: 2014, event_general_cost_allocation: attrs
+        end.to change { Event::GeneralCostAllocation.count }.by(1)
       end.to change { Delayed::Job.count }.by(1)
 
       is_expected.to redirect_to(edit_general_cost_allocation_group_events_path(group, 2014))

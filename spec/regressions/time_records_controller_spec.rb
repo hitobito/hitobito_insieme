@@ -21,7 +21,7 @@ describe TimeRecordsController, type: :controller  do
     end
 
     it 'redirects to base information' do
-      get :index, id: groups(:dachverein).id
+      get :index, id: groups(:dachverein).id, year: 2014
       is_expected.to redirect_to(time_record_base_information_group_path(groups(:dachverein), 2014))
     end
 

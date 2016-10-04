@@ -1,4 +1,10 @@
 # encoding: utf-8
+
+#  Copyright (c) 2014, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 # == Schema Information
 #
 # Table name: event_general_cost_allocations
@@ -12,18 +18,20 @@
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #
-
-
-#  Copyright (c) 2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
-
 class Event::GeneralCostAllocationsController < ReportingBaseController
 
   helper_method :general_cost_from_accounting
 
   after_save :schedule_allocation_job
+
+  def show
+    respond_to do |format|
+      format.html { redirect_to edit_general_cost_allocation_group_events_path(group, year) }
+      format.csv do
+        send_data Export::Csv::Event::GeneralCostAllocation.export(entry), type: :csv
+      end
+    end
+  end
 
   private
 

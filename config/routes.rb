@@ -57,15 +57,11 @@ Rails.application.routes.draw do
           get 'aggregate_course' => 'events#index', type: 'Event::AggregateCourse'
 
           scope 'general_cost_allocation' do
+            get ':year' => 'event/general_cost_allocations#show', as: :general_cost_allocation
             get ':year/edit' => 'event/general_cost_allocations#edit',
                 as: :edit_general_cost_allocation
-            put ':year' => 'event/general_cost_allocations#update',
-                as: :general_cost_allocation
-            get ':year' => 'event/general_cost_allocations#edit' # route required for language switch
+            put ':year' => 'event/general_cost_allocations#update'
           end
-
-          # get 'course_statistics' => 'course_statistics#index'
-          # get 'course_statistics/show' => 'course_stat'
         end
 
         scope module: 'event' do

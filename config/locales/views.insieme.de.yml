@@ -184,6 +184,7 @@ de:
         general_cost_allowance: Gemeinkostenzuschlag
         start_allocation: Umlage starten
         last_allocation: "Letzte Gemeinkostenumlage: %{date}"
+        export: CSV Export
       leistungskategorie_fields:
         cost_from_accounting: "Ausgewiesener Betrag aus der Kostenrechnung: %{value} CHF"
 
