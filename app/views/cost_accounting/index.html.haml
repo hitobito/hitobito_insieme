@@ -31,7 +31,6 @@
                          h(report.short_name),
                          edit_cost_accounting_report_group_path(group, year, report.key)
 
-          %td.center= report.kontengruppe
           - @table.class.fields.each do |f|
             %td.right{class: cost_account_field_class(f)}
               = f(report.send(f))
