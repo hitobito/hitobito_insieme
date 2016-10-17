@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2016 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,9 +9,9 @@
 module Export
   module Csv
     module TimeRecords
-      class List
+      class Vereinsliste < Export::Csv::Base
 
-        ATTRIBUTES = [
+        ATTRS_LUFEB = [
           :kontakte_medien,
           :interviews,
           :publikationen,
@@ -44,8 +44,17 @@ module Export
           :treffen_meinungsaustausch,
           :beratung_fachhilfeorganisationen,
           :unterstuetzung_behindertenhilfe,
-          :total_lufeb_promoting,
+          :total_lufeb_promoting
+        ]
 
+        ATTRS_LUFEB_SUM = [
+          :total_lufeb_general,
+          :total_lufeb_private,
+          :total_lufeb_specific,
+          :total_lufeb_promoting
+        ]
+
+        ATTRS_GENERAL = [
           :total_lufeb,
 
           :blockkurse,
@@ -62,68 +71,56 @@ module Export
           :total_remaining,
 
           :total_paragraph_74,
-          :total_paragraph_74_pensum,
-
           :total_not_paragraph_74,
-          :total_not_paragraph_74_pensum,
 
-          :total,
-          :total_pensum
-        ]
-
-        PENSUM_ATTRIBUTES = [
-          :paragraph_74,
-          :not_paragraph_74,
           :total
         ]
 
-        class << self
-          def export(records)
-            Export::Csv::Generator.new(new(records)).csv
-          end
-        end
+        self.model_class = TimeRecord
 
-        attr_reader :records
+        attr_reader :liste
 
-        def initialize(records)
-          @records = records.each_with_object({}) { |r, hash| hash[r.class.key] = r }
-        end
-
-        def to_csv(generator)
-          generator << labels
-          PENSUM_ATTRIBUTES.each do |attr|
-            generator << pensum_attributes(attr)
-          end
-          ATTRIBUTES.each do |attr|
-            generator << attributes(attr)
-          end
+        def initialize(liste)
+          super(liste.vereine)
+          @liste = liste
         end
 
         private
 
-        def labels
-          [nil,
-           TimeRecord::EmployeeTime.model_name.human,
-           TimeRecord::VolunteerWithVerificationTime.model_name.human,
-           TimeRecord::VolunteerWithoutVerificationTime.model_name.human]
+        def attributes
+          [:group].tap do |attrs|
+            if liste.type == TimeRecord::VolunteerWithoutVerificationTime.sti_name
+              attrs.concat(ATTRS_LUFEB_SUM)
+            else
+              attrs.concat(ATTRS_LUFEB)
+            end
+            attrs.concat(ATTRS_GENERAL)
+          end
         end
 
-        def pensum_attributes(attr)
-          [TimeRecord::EmployeePensum.human_attribute_name(attr),
-           records['employee_time'].try(:employee_pensum).try(attr),
-           nil,
-           nil]
+        def row_for(verein)
+          Row.new(verein, liste.time_record(verein))
         end
 
-        def attributes(attr)
-          [TimeRecord.human_attribute_name(attr),
-           value(TimeRecord::EmployeeTime, attr),
-           value(TimeRecord::VolunteerWithVerificationTime, attr),
-           value(TimeRecord::VolunteerWithoutVerificationTime, attr)]
-        end
+        class Row
 
-        def value(klass, attr)
-          records[klass.key].try(attr)
+          attr_reader :verein, :record
+
+          def initialize(verein, record)
+            @verein = verein
+            @record = record
+          end
+
+          def fetch(attr)
+            if attr == :group
+              verein.to_s
+            elsif record
+              record.send(attr)
+            else
+              nil
+            end
+          end
+
         end
 
       end

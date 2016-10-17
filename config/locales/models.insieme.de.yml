@@ -604,6 +604,8 @@ de:
 
       time_record:
         year: Jahr
+        group: Gruppe
+        group_id: Gruppe
         kontakte_medien: Kontakte zu Medien, zu Medienschaffenden
         interviews: Erteilen von Interviews
         publikationen: Publikation

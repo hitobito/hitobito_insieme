@@ -11,7 +11,8 @@ module CourseReporting::AggregationHelper
     attrs = { categories: [1, 2, 3], subsidized: true, format: :csv }.merge(attrs)
     key = [attrs[:subsidized] ? :subsidized : :unsubsidized, Array(attrs[:categories])]
     action_button(t("course_reporting.aggregations.index.#{key.join('_')}"),
-                  aggregation_export_group_path(attrs))
+                  aggregation_export_group_path(attrs),
+                  :download)
   end
 
 end

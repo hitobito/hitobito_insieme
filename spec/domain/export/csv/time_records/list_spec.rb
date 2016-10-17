@@ -55,8 +55,8 @@ describe Export::Csv::TimeRecords::List do
       expect(data[35]).to eq(['Blockkurse', 300.0, 400.0, nil])
       expect(data[36]).to eq(['Tageskurse', nil, nil, 55.0])
 
-      expect(data[50]).to eq(['Total', 880.0, 638.0, 405.0])
-      expect(data[51]).to eq(['Ausgedrückt in-100% Stellen', 0.46, 0.34, 0.21])
+      expect(data[49]).to eq(['Total', 880.0, 638.0, 405.0])
+      expect(data[50]).to eq(['Ausgedrückt in-100% Stellen', 0.46, 0.34, 0.21])
     end
 
   end

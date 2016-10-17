@@ -41,4 +41,21 @@ describe ControllingController, type: :controller  do
     end
   end
 
+  context 'GET time_records.csv' do
+    before do
+      get :time_records,
+          id: groups(:dachverein),
+          year: 2014,
+          type: TimeRecord::EmployeeTime.sti_name,
+          format: :csv
+    end
+
+    it 'exports table' do
+      expect(@response.body).to match(/^Gruppe;Kontakte zu Medien, zu Medienschaffenden;.+;Total$/)
+      expect(@response.body).to match(/^insieme Schweiz;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
+      expect(@response.body).to match(/^Kanton Bern;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
+    end
+  end
+
+
 end

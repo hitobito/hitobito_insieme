@@ -44,6 +44,8 @@ Rails.application.routes.draw do
             as: :client_statistics_controlling
         get '/controlling/group_figures' => 'controlling#group_figures',
             as: :group_figures_controlling
+        get '/controlling/time_records' => 'controlling#time_records',
+            as: :time_records_controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
         scope module: 'course_reporting' do

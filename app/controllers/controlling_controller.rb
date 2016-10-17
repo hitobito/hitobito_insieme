@@ -39,6 +39,13 @@ class ControllingController < ApplicationController
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 
+  def time_records
+    @list = TimeRecord::Vereinsliste.new(year, params[:type])
+    csv = Export::Csv::TimeRecords::Vereinsliste.export(@list)
+    filename = "#{params[:type].to_s.underscore.gsub('/', '_')}_#{year}.csv"
+    send_data csv, type: :csv, filename: filename
+  end
+
   private
 
   def group
