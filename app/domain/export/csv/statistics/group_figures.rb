@@ -100,7 +100,7 @@ module Export
 
           append_capital_substrate_values(values, figures.capital_substrate(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
-          
+
           values
         end
 

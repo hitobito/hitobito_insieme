@@ -27,9 +27,11 @@ class TimeRecord::Vereinsliste
   end
 
   def time_records
-    @time_records ||= TimeRecord.where(type: type, year: year).each_with_object({}) do |record, hash|
-      hash[record.group_id] = record
-    end
+    @time_records ||=
+      TimeRecord.where(type: type, year: year).
+        each_with_object({}) do |record, hash|
+        hash[record.group_id] = record
+      end
   end
 
 end

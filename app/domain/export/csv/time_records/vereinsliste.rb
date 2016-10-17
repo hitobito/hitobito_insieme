@@ -116,8 +116,6 @@ module Export
               verein.to_s
             elsif record
               record.send(attr)
-            else
-              nil
             end
           end
 
