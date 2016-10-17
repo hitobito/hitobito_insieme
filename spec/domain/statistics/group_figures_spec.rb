@@ -10,10 +10,17 @@ require 'spec_helper'
 describe Statistics::GroupFigures do
 
   before do
-    TimeRecord::EmployeeTime.create!(group: groups(:be), year: 2016, interviews: 10,
-                                     nicht_art_74_leistungen: 5)
+    TimeRecord::EmployeeTime.create!(group: groups(:be),
+                                     year: 2016,
+                                     interviews: 10,
+                                     nicht_art_74_leistungen: 5,
+                                     employee_pensum_attributes: { paragraph_74: 0.25 })
     TimeRecord::EmployeeTime.create!(group: groups(:be), year: 2015, newsletter: 11)
-    TimeRecord::EmployeeTime.create!(group: groups(:fr), year: 2016, projekte: 12)
+    TimeRecord::EmployeeTime.create!(group: groups(:fr),
+                                     year: 2016,
+                                     projekte: 12,
+                                     employee_pensum_attributes: {
+                                       paragraph_74: 1.6, not_paragraph_74: 0.4 })
 
     TimeRecord::VolunteerWithVerificationTime.create!(
       group: groups(:be), year: 2016, vermittlung_kontakte: 20)
@@ -168,6 +175,15 @@ describe Statistics::GroupFigures do
 
     it 'returns nil for groups without records' do
       expect(figures.employee_time(groups(:seeland))).to be_nil
+    end
+
+    context 'pensums' do
+      it 'returns' do
+        pensum = figures.employee_pensum(groups(:fr))
+        expect(pensum.total).to eq(2.0)
+        expect(pensum.paragraph_74).to eq(1.6)
+        expect(pensum.not_paragraph_74).to eq(0.4)
+      end
     end
   end
 

@@ -92,15 +92,15 @@ module Export
 
           append_time_values(values, figures.employee_time(group))
           append_time_values(values, figures.volunteer_with_verification_time(group))
+
           values << figures.volunteer_without_verification_time(group).try(:total_lufeb).to_i
 
-          append_fte_values(values, figures.employee_time(group))
-          append_fte_values(values,
-                            figures.volunteer_with_verification_time(group),
-                            figures.volunteer_without_verification_time(group))
+          append_employee_fte_values(values, group)
+          append_volunteer_fte_values(values, group)
 
           append_capital_substrate_values(values, figures.capital_substrate(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
+          
           values
         end
 
@@ -128,14 +128,17 @@ module Export
           end
         end
 
-        def append_fte_values(values, *records)
-          records.compact!
-          if records.present?
-            values << records.sum(&:total_pensum)
-            values << records.sum(&:total_paragraph_74_pensum)
-          else
-            values << 0.0 << 0.0
-          end
+        def append_employee_fte_values(values, group)
+          pensum = figures.employee_pensum(group) || TimeRecord::EmployeePensum.new
+          values << pensum.total.to_d
+          values << pensum.paragraph_74.to_d
+        end
+
+        def append_volunteer_fte_values(values, group)
+          records = [figures.volunteer_with_verification_time(group),
+                     figures.volunteer_without_verification_time(group)].compact
+          values << records.sum(&:total_pensum).to_d
+          values << records.sum(&:total_paragraph_74_pensum).to_d
         end
 
         def append_capital_substrate_values(values, report)

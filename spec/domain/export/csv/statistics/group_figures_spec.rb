@@ -10,9 +10,16 @@ require 'spec_helper'
 describe Export::Csv::Statistics::GroupFigures do
 
   before do
-    TimeRecord::EmployeeTime.create!(group: groups(:be), year: 2016, interviews: 10)
+    TimeRecord::EmployeeTime.create!(group: groups(:be),
+                                     year: 2016,
+                                     interviews: 10,
+                                     employee_pensum_attributes: { paragraph_74: 0.25 })
     TimeRecord::EmployeeTime.create!(group: groups(:be), year: 2015, newsletter: 11)
-    TimeRecord::EmployeeTime.create!(group: groups(:fr), year: 2016, projekte: 12)
+    TimeRecord::EmployeeTime.create!(group: groups(:fr),
+                                     year: 2016,
+                                     projekte: 12,
+                                     employee_pensum_attributes: {
+                                       paragraph_74: 1.6, not_paragraph_74: 0.4 })
 
     TimeRecord::VolunteerWithVerificationTime.create!(
       group: groups(:be), year: 2016, vermittlung_kontakte: 20)
@@ -70,88 +77,88 @@ describe Export::Csv::Statistics::GroupFigures do
 
   it 'contains correct headers' do
     labels = export(figures)[0]
-    expect(labels).to eq ["Vollständiger Name",
-                          "Kanton",
-                          "VID",
-                          "BSV Nummer",
-                          "Blockkurse Anzahl Kurse Kat. 1",
-                          "Blockkurse Total Vollkosten Kat. 1",
-                          "Blockkurse TN Tage Behinderte Kat. 1",
-                          "Blockkurse TN Tage Angehörige Kat. 1",
-                          "Blockkurse TN Tage nicht Bezugsberechtigte Kat. 1",
-                          "Blockkurse TN Tage Total Kat. 1",
+    expect(labels).to eq ['Vollständiger Name',
+                          'Kanton',
+                          'VID',
+                          'BSV Nummer',
+                          'Blockkurse Anzahl Kurse Kat. 1',
+                          'Blockkurse Total Vollkosten Kat. 1',
+                          'Blockkurse TN Tage Behinderte Kat. 1',
+                          'Blockkurse TN Tage Angehörige Kat. 1',
+                          'Blockkurse TN Tage nicht Bezugsberechtigte Kat. 1',
+                          'Blockkurse TN Tage Total Kat. 1',
 
-                          "Blockkurse Anzahl Kurse Kat. 2",
-                          "Blockkurse Total Vollkosten Kat. 2",
-                          "Blockkurse TN Tage Behinderte Kat. 2",
-                          "Blockkurse TN Tage Angehörige Kat. 2",
-                          "Blockkurse TN Tage nicht Bezugsberechtigte Kat. 2",
-                          "Blockkurse TN Tage Total Kat. 2",
+                          'Blockkurse Anzahl Kurse Kat. 2',
+                          'Blockkurse Total Vollkosten Kat. 2',
+                          'Blockkurse TN Tage Behinderte Kat. 2',
+                          'Blockkurse TN Tage Angehörige Kat. 2',
+                          'Blockkurse TN Tage nicht Bezugsberechtigte Kat. 2',
+                          'Blockkurse TN Tage Total Kat. 2',
 
-                          "Blockkurse Anzahl Kurse Kat. 3",
-                          "Blockkurse Total Vollkosten Kat. 3",
-                          "Blockkurse TN Tage Behinderte Kat. 3",
-                          "Blockkurse TN Tage Angehörige Kat. 3",
-                          "Blockkurse TN Tage nicht Bezugsberechtigte Kat. 3",
-                          "Blockkurse TN Tage Total Kat. 3",
+                          'Blockkurse Anzahl Kurse Kat. 3',
+                          'Blockkurse Total Vollkosten Kat. 3',
+                          'Blockkurse TN Tage Behinderte Kat. 3',
+                          'Blockkurse TN Tage Angehörige Kat. 3',
+                          'Blockkurse TN Tage nicht Bezugsberechtigte Kat. 3',
+                          'Blockkurse TN Tage Total Kat. 3',
 
-                          "Tageskurse Anzahl Kurse Kat. 1",
-                          "Tageskurse Total Vollkosten Kat. 1",
-                          "Tageskurse TN Tage Behinderte Kat. 1",
-                          "Tageskurse TN Tage Angehörige Kat. 1",
-                          "Tageskurse TN Tage nicht Bezugsberechtigte Kat. 1",
-                          "Tageskurse TN Tage Total Kat. 1",
+                          'Tageskurse Anzahl Kurse Kat. 1',
+                          'Tageskurse Total Vollkosten Kat. 1',
+                          'Tageskurse TN Tage Behinderte Kat. 1',
+                          'Tageskurse TN Tage Angehörige Kat. 1',
+                          'Tageskurse TN Tage nicht Bezugsberechtigte Kat. 1',
+                          'Tageskurse TN Tage Total Kat. 1',
 
-                          "Tageskurse Anzahl Kurse Kat. 2",
-                          "Tageskurse Total Vollkosten Kat. 2",
-                          "Tageskurse TN Tage Behinderte Kat. 2",
-                          "Tageskurse TN Tage Angehörige Kat. 2",
-                          "Tageskurse TN Tage nicht Bezugsberechtigte Kat. 2",
-                          "Tageskurse TN Tage Total Kat. 2",
+                          'Tageskurse Anzahl Kurse Kat. 2',
+                          'Tageskurse Total Vollkosten Kat. 2',
+                          'Tageskurse TN Tage Behinderte Kat. 2',
+                          'Tageskurse TN Tage Angehörige Kat. 2',
+                          'Tageskurse TN Tage nicht Bezugsberechtigte Kat. 2',
+                          'Tageskurse TN Tage Total Kat. 2',
 
-                          "Tageskurse Anzahl Kurse Kat. 3",
-                          "Tageskurse Total Vollkosten Kat. 3",
-                          "Tageskurse TN Tage Behinderte Kat. 3",
-                          "Tageskurse TN Tage Angehörige Kat. 3",
-                          "Tageskurse TN Tage nicht Bezugsberechtigte Kat. 3",
-                          "Tageskurse TN Tage Total Kat. 3",
+                          'Tageskurse Anzahl Kurse Kat. 3',
+                          'Tageskurse Total Vollkosten Kat. 3',
+                          'Tageskurse TN Tage Behinderte Kat. 3',
+                          'Tageskurse TN Tage Angehörige Kat. 3',
+                          'Tageskurse TN Tage nicht Bezugsberechtigte Kat. 3',
+                          'Tageskurse TN Tage Total Kat. 3',
 
-                          "Semester-/Jahreskurse Anzahl Kurse Kat. 1",
-                          "Semester-/Jahreskurse Total Vollkosten Kat. 1",
-                          "Semester-/Jahreskurse TN Tage Behinderte Kat. 1",
-                          "Semester-/Jahreskurse TN Tage Angehörige Kat. 1",
-                          "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Kat. 1",
-                          "Semester-/Jahreskurse TN Tage Total Kat. 1",
+                          'Semester-/Jahreskurse Anzahl Kurse Kat. 1',
+                          'Semester-/Jahreskurse Total Vollkosten Kat. 1',
+                          'Semester-/Jahreskurse TN Tage Behinderte Kat. 1',
+                          'Semester-/Jahreskurse TN Tage Angehörige Kat. 1',
+                          'Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Kat. 1',
+                          'Semester-/Jahreskurse TN Tage Total Kat. 1',
 
-                          "LUFEB Stunden Angestellte: Allgemeine Medien- und Öffentlichkeitsarbeit",
-                          "LUFEB Stunden Angestellte: Eigene öffentlich zugängliche Medien und Publikationen",
-                          "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit / Projekte",
-                          "LUFEB Stunden Angestellte: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+                          'LUFEB Stunden Angestellte: Allgemeine Medien- und Öffentlichkeitsarbeit',
+                          'LUFEB Stunden Angestellte: Eigene öffentlich zugängliche Medien und Publikationen',
+                          'LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit / Projekte',
+                          'LUFEB Stunden Angestellte: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen',
 
-                          "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien- und Öffentlichkeitsarbeit",
-                          "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Eigene öffentlich zugängliche Medien und Publikationen",
-                          "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit / Projekte",
-                          "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+                          'LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien- und Öffentlichkeitsarbeit',
+                          'LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Eigene öffentlich zugängliche Medien und Publikationen',
+                          'LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit / Projekte',
+                          'LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen',
 
-                          "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)",
+                          'LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)',
 
-                          "VZÄ angestellte Mitarbeiter (ganze Organisation)",
-                          "VZÄ angestellte Mitarbeiter (Art. 74)",
-                          "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)",
-                          "VZÄ ehrenamtliche Mitarbeiter (Art. 74)",
+                          'VZÄ angestellte Mitarbeiter (ganze Organisation)',
+                          'VZÄ angestellte Mitarbeiter (Art. 74)',
+                          'VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)',
+                          'VZÄ ehrenamtliche Mitarbeiter (Art. 74)',
 
-                          "Geschlüsseltes Kapitalsubstrat nach Art. 74",
-                          "Totaler Aufwand gemäss FIBU",
-                          "Vollkosten nach Umlagen Betrieb Art. 74",
-                          "IV-Beitrag",
-                          "Deckungsbeitrag 4"]
+                          'Geschlüsseltes Kapitalsubstrat nach Art. 74',
+                          'Totaler Aufwand gemäss FIBU',
+                          'Vollkosten nach Umlagen Betrieb Art. 74',
+                          'IV-Beitrag',
+                          'Deckungsbeitrag 4']
   end
 
   it 'contains correct summed values' do
     data = export(figures)[1..-1]
     data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
     expect(data.first).to eq [
-       "insieme Schweiz", nil, nil, nil,
+       'insieme Schweiz', nil, nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -166,7 +173,7 @@ describe Export::Csv::Statistics::GroupFigures do
        -200000.0, 0.0, 0.0, 0.0, 0.0] #.collect(&:to_s),
 
     expect(data.second).to eq [
-       "Freiburg", 'Freiburg', nil, nil,
+       'Freiburg', 'Freiburg', nil, nil,
        1, 0.0, 1545.0, 0.0, 0.0, 1545.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -177,11 +184,11 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 12, 0,
        21, 0, 0, 0,
        0,
-       (12.0/1900).round(5), (12.0/1900).round(5), (21.0/1900).round(5), (21.0/1900).round(5),
+       2.0, 1.6, (21.0/1900).round(5), (21.0/1900).round(5),
        -185550.0, 0.0, 1100.0, 0.0, -1100.0] #.collect(&:to_s),
 
     expect(data.third).to eq [
-       "Kanton Bern", 'Bern', nil, nil,
+       'Kanton Bern', 'Bern', nil, nil,
        2, 1100.0, 1000.0, 1111.0, 0.0, 2111.0,
        1, 800.0, 5400.0, 0.0, 0.0, 5400.0,
        1, 200.0, 0.0, 0.0, 8450.0, 8450.0,
@@ -192,11 +199,11 @@ describe Export::Csv::Statistics::GroupFigures do
        10, 0, 0, 0,
        0, 0, 0, 20,
        30,
-       (10.0/1900).round(5), (10.0/1900).round(5), (50.0/1900).round(5), (50.0/1900).round(5),
+       0.25, 0.25, (50.0/1900).round(5), (50.0/1900).round(5),
        10_074_000.0, 100.0, 2050.0, 20.0, -2000.0] #.collect(&:to_s),
 
     expect(data.fourth).to eq [
-       "Biel-Seeland", 'Bern', nil, nil,
+       'Biel-Seeland', 'Bern', nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,

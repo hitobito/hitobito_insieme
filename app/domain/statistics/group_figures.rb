@@ -44,6 +44,10 @@ module Statistics
       time_records[group.id][TimeRecord::VolunteerWithoutVerificationTime.sti_name]
     end
 
+    def employee_pensum(group)
+      employee_pensums[group.id]
+    end
+
     def cost_accounting_table(group)
       cost_accounting.table(group)
     end
@@ -97,6 +101,17 @@ module Statistics
         end
         hash
       end
+    end
+
+    def employee_pensums
+      @employee_pensums ||=
+        TimeRecord::EmployeePensum.
+          select('*, time_records.group_id AS group_id').
+          joins(:time_record).
+          where(time_records: { year: year }).
+          each_with_object({}) do |p, hash|
+          hash[p.group_id] = p
+        end
     end
 
     def cost_accounting
