@@ -10,7 +10,7 @@ require 'spec_helper'
 describe CostAccounting::Table do
 
   let(:group) { groups(:be) }
-  let(:table) { CostAccounting::Table.new(group, 2014) }
+  let(:table) { CostAccounting::Table.new(group, 2016) }
 
   context '#value_of' do
     it 'is initialized without records' do

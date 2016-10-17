@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe CostAccounting::Report::Deckungsbeitrag3 do
 
-  let(:year) { 2014 }
+  let(:year) { 2016 }
   let(:group) { groups(:be) }
   let(:table) { CostAccounting::Table.new(group, year) }
   let(:report) { table.reports.fetch('deckungsbeitrag3') }

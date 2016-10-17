@@ -9,32 +9,72 @@ require 'spec_helper'
 
 describe CostAccounting::Report::CourseRelated do
 
-  let(:year) { 2014 }
   let(:group) { groups(:be) }
   let(:table) { CostAccounting::Table.new(group, year) }
   let(:report) { table.reports.fetch('raumaufwand') }
 
-  context 'with cost accounting record' do
+  context 'based on courses' do
 
-    before do
-      CostAccountingRecord.create!(group_id: group.id,
-                                   year: year,
-                                   report: 'raumaufwand',
-                                   aufwand_ertrag_fibu: 1050,
-                                   abgrenzung_fibu: 50)
+    let(:year) { 2016 }
+
+    context 'with cost accounting record' do
+
+      before do
+        CostAccountingRecord.create!(group_id: group.id,
+                                     year: year,
+                                     report: 'raumaufwand',
+                                     aufwand_ertrag_fibu: 1050,
+                                     abgrenzung_fibu: 50)
+      end
+
+
+      context 'with courses' do
+
+        before { create_course_records }
+
+        context 'fields' do
+          it 'works if present' do
+            expect(report.blockkurse).to eq 49000
+          end
+
+          it 'works if nil' do
+            expect(report.jahreskurse).to be_nil
+          end
+        end
+
+        context '#total' do
+          it 'is calculated correctly' do
+            expect(report.total).to eq(49050.0)
+          end
+        end
+
+      end
+
+      context 'without courses' do
+
+        context 'time fields' do
+          it 'works if nil' do
+            expect(report.blockkurse).to be_nil
+          end
+        end
+
+        context '#total' do
+          it 'is calculated correctly' do
+            expect(report.total).to eq(0.0)
+          end
+        end
+
+      end
     end
 
-
-    context 'with courses' do
-
+    context 'without cost accounting record' do
       before { create_course_records }
 
       context 'fields' do
-        it 'works if present' do
-          expect(report.blockkurse).to eq 49000
+        it 'work the same way' do
+          expect(report.blockkurse).to eq(49000)
         end
-
-        it 'works if nil' do
+        it 'work the same way if nil' do
           expect(report.jahreskurse).to be_nil
         end
       end
@@ -44,43 +84,41 @@ describe CostAccounting::Report::CourseRelated do
           expect(report.total).to eq(49050.0)
         end
       end
-
     end
 
-    context 'without courses' do
-
-      context 'time fields' do
-        it 'works if nil' do
-          expect(report.blockkurse).to be_nil
-        end
-      end
-
-      context '#total' do
-        it 'is calculated correctly' do
-          expect(report.total).to eq(0.0)
-        end
-      end
-
-    end
   end
 
-  context 'without cost accounting record' do
+  context 'based on manual values' do
+
+    let(:year) { 2015 }
+
+    before do
+      CostAccountingRecord.create!(group_id: group.id,
+                                   year: year,
+                                   report: 'raumaufwand',
+                                   aufwand_ertrag_fibu: 1050,
+                                   abgrenzung_fibu: 50,
+                                   jahreskurse: 45_000,
+                                   tageskurse: 30)
+    end
     before { create_course_records }
 
     context 'fields' do
-      it 'work the same way' do
-        expect(report.blockkurse).to eq(49000)
+      it 'works if present' do
+        expect(report.jahreskurse).to eq 45_000
       end
-      it 'work the same way if nil' do
-        expect(report.jahreskurse).to be_nil
+
+      it 'works if nil' do
+        expect(report.blockkurse).to be_nil
       end
     end
 
     context '#total' do
       it 'is calculated correctly' do
-        expect(report.total).to eq(49050.0)
+        expect(report.total).to eq(45_030.0)
       end
     end
+
   end
 
   def create_course_records

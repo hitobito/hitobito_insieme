@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe TimeRecord::Report::CapitalSubstrate do
 
-  let(:year) { 2014 }
+  let(:year) { 2016 }
   let(:group) { groups(:be) }
   let(:table) { TimeRecord::Table.new(group, year) }
   let(:report) { table.reports.fetch('capital_substrate') }

@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe CostAccounting::Aggregation do
 
-  let(:year) { 2014 }
+  let(:year) { 2016 }
   let(:aggregation) { CostAccounting::Aggregation.new(year) }
 
   let(:table_be) { CostAccounting::Table.new(groups(:be), year) }
