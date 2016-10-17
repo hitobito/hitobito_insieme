@@ -43,6 +43,7 @@ module CostAccounting
           table.value_of('umlage_raeumlichkeiten', 'verwaltung').to_d
       end
 
+      # rubocop:disable Metrics/AbcSize
       def total
         @total ||= begin
           beratung.to_d +
@@ -54,6 +55,7 @@ module CostAccounting
           mittelbeschaffung.to_d
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def kontrolle
         total - verwaltung

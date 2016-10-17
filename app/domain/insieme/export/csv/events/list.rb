@@ -37,7 +37,8 @@ module Insieme::Export::Csv::Events
 
     def add_course_record_label(labels, attr)
       label = translate(attr.to_s, default: ::Event::CourseRecord.human_attribute_name(attr))
-      labels[attr] = label 
+      labels[attr] = label
     end
+
   end
 end

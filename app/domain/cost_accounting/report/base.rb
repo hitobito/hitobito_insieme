@@ -103,7 +103,7 @@ module CostAccounting
         end
       end
 
-      # rubocop:disable MethodLength
+      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def total
         @total ||= begin
           raeumlichkeiten.to_d +
@@ -117,7 +117,7 @@ module CostAccounting
           mittelbeschaffung.to_d
         end
       end
-      # rubocop:enable MethodLength
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       def kontrolle
         total - aufwand_ertrag_ko_re

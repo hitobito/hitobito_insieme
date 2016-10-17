@@ -117,12 +117,13 @@ module Event::CourseRecordsHelper
   end
 
   private
+
   def kursdauer_help_inline
     duration = entry.sk? ? @numbers.duration_hours : @numbers.duration_days
     help_text = t('event.course_records.form.according_to_course_dates',
-                duration: number_with_precision(
-                duration, precision: 1, delimiter: t('number.format.delimiter'))
-                )
+                  duration: number_with_precision(duration,
+                                                  precision: 1,
+                                                  delimiter: t('number.format.delimiter')))
     muted(help_text.html_safe)
   end
 

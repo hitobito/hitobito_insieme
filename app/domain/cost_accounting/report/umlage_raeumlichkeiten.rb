@@ -38,6 +38,7 @@ module CostAccounting
         nil
       end
 
+      # rubocop:disable Metrics/AbcSize
       def total
         @total ||= begin
           verwaltung.to_d +
@@ -50,6 +51,7 @@ module CostAccounting
           mittelbeschaffung.to_d
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       def kontrolle
         total - raeumlichkeiten.to_d

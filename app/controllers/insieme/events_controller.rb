@@ -41,15 +41,19 @@ module Insieme
     end
 
     def csv_filename
-      type = request.path.split('/').last.split('.').first
+      vid = group.vid.present? ? "_vid#{group.vid}" : ''
+      bsv = group.bsv_number.present? ? "_bsv#{group.bsv_number}" : ''
       group_name = group.name.parameterize
-      vid = group.vid.present? && "_vid#{group.vid}" || ''
-      bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
-      "#{type}#{vid}#{bsv}_#{group_name}_#{year}.csv"
+      "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.csv"
     end
 
     def course_records?
       entries.first.respond_to?(:course_record)
     end
+
+    def request_event_type
+      request.path.split('/').last.split('.').first
+    end
+
   end
 end

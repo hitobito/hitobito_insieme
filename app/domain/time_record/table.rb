@@ -18,6 +18,8 @@ class TimeRecord::Table
 
   attr_reader :group, :year
 
+  attr_writer :records
+
   class << self
     def fields
       CostAccounting::Report::Base::FIELDS
@@ -47,13 +49,9 @@ class TimeRecord::Table
   def record(report_key)
     model = record_model(report_key)
     if model
-      records[report_key] ||= model && model.where(group_id: group.id, year: year).
-        first_or_initialize
+      records[report_key] ||=
+        model.where(group_id: group.id, year: year).first_or_initialize
     end
-  end
-
-  def set_records(records)
-    @records = records
   end
 
   private

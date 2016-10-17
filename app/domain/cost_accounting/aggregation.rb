@@ -56,23 +56,22 @@ module CostAccounting
     end
 
     def cost_records
-      @cost_records ||= begin
-        records = CostAccountingRecord.where(year: year).calculation_fields.includes(:group)
-        hash = Hash.new { |h, k| h[k] = {} }
-        records.each_with_object(hash) { |r, hash| hash[r.group][r.report] = r }
-      end
+      @cost_records ||=
+        Hash.new { |h, k| h[k] = {} }.tap do |hash|
+          records = CostAccountingRecord.where(year: year).calculation_fields.includes(:group)
+          records.each { |r| hash[r.group][r.report] = r }
+        end
     end
 
     def course_costs
-      @course_costs ||= begin
-        nested_hash = Hash.new { |h, k| h[k] = Hash.new { |h, k| h[k] = {} } }
-        load_course_costs.
-          each_with_object(nested_hash) do |(group_id, lk, honorare, unterkunft, uebriges), hash|
-          hash[group_id][lk] = { 'honorare'             => honorare,
-                                 'raumaufwand'          => unterkunft,
-                                 'uebriger_sachaufwand' => uebriges }
+      @course_costs ||=
+        Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }.tap do |hash|
+          load_course_costs.each do |group_id, lk, honorare, unterkunft, uebriges|
+            hash[group_id][lk] = { 'honorare'             => honorare,
+                                   'raumaufwand'          => unterkunft,
+                                   'uebriger_sachaufwand' => uebriges }
+          end
         end
-      end
     end
 
     def load_course_costs

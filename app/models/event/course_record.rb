@@ -177,7 +177,6 @@ class Event::CourseRecord < ActiveRecord::Base
       (spezielle_unterkunft ? 1 : 0)
   end
 
-  # rubocop:disable MethodLength
   def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
@@ -192,7 +191,6 @@ class Event::CourseRecord < ActiveRecord::Base
 
     true # ensure callback chain continues
   end
-  # rubocop:enable MethodLength
 
   private
 

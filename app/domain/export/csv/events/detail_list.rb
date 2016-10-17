@@ -7,29 +7,31 @@
 
 module Export::Csv::Events
   class DetailList < Export::Csv::Events::List
+
     COURSE_RECORD_ATTRS = [
-                 :kursdauer,
-                 ## effektiv teilnehmende
-                 :teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
-                 :teilnehmende_angehoerige, :teilnehmende_weitere,
-                 ## absenztage
-                 :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-                 ## total teilnehmerinnentage
-                 :tage_behinderte, :tage_angehoerige, :tage_weitere,
-                 ## betreuerinnen
-                 :leiterinnen, :fachpersonen,
-                 :hilfspersonal_mit_honorar, :hilfspersonal_ohne_honorar,
-                 ## personal ohne betreuungsfunktion
-                 :kuechenpersonal,
-                 ## direkter aufwand
-                 :honorare_inkl_sozialversicherung, :unterkunft, :uebriges,
-                 :direkter_aufwand,
-                 # ertrag
-                 :beitraege_teilnehmende, 
-                 # auswertungen
-                 :gemeinkostenanteil, :total_vollkosten,
-                 :total_tage_teilnehmende, :vollkosten_pro_le, 
-                 :zugeteilte_kategorie ]
+      :kursdauer,
+      ## effektiv teilnehmende
+      :teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
+      :teilnehmende_angehoerige, :teilnehmende_weitere,
+      ## absenztage
+      :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+      ## total teilnehmerinnentage
+      :tage_behinderte, :tage_angehoerige, :tage_weitere,
+      ## betreuerinnen
+      :leiterinnen, :fachpersonen,
+      :hilfspersonal_mit_honorar, :hilfspersonal_ohne_honorar,
+      ## personal ohne betreuungsfunktion
+      :kuechenpersonal,
+      ## direkter aufwand
+      :honorare_inkl_sozialversicherung, :unterkunft, :uebriges,
+      :direkter_aufwand,
+      # ertrag
+      :beitraege_teilnehmende,
+      # auswertungen
+      :gemeinkostenanteil, :total_vollkosten,
+      :total_tage_teilnehmende, :vollkosten_pro_le,
+      :zugeteilte_kategorie
+    ]
 
     self.row_class = Export::Csv::Events::DetailRow
 
