@@ -68,7 +68,8 @@ module Export
         def append_fte_labels(labels)
           labels << t('fte_employees_total')
           labels << t('fte_employees_only_art_74')
-          labels << t('fte_volunteers_with_verification_total')
+          labels << t('fte_volunteers_total')
+          labels << t('fte_volunteers_only_art_74')
           labels << t('fte_volunteers_with_verification_only_art_74')
         end
 
@@ -80,6 +81,7 @@ module Export
           labels << t('deckungsbeitrag_4')
         end
 
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def values(group)
           values = [group.full_name.presence || group.name,
                     group.canton_label,
@@ -103,6 +105,7 @@ module Export
 
           values
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def append_course_values(values, record)
           if record
@@ -135,10 +138,13 @@ module Export
         end
 
         def append_volunteer_fte_values(values, group)
-          records = [figures.volunteer_with_verification_time(group),
-                     figures.volunteer_without_verification_time(group)].compact
+          with = figures.volunteer_with_verification_time(group)
+          without = figures.volunteer_without_verification_time(group)
+          records = [with, without].compact
+
           values << records.sum(&:total_pensum).to_d
           values << records.sum(&:total_paragraph_74_pensum).to_d
+          values << with.try(:total_paragraph_74_pensum).to_d
         end
 
         def append_capital_substrate_values(values, report)

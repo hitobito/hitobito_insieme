@@ -146,6 +146,7 @@ describe Export::Csv::Statistics::GroupFigures do
                           'VZÄ angestellte Mitarbeiter (Art. 74)',
                           'VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)',
                           'VZÄ ehrenamtliche Mitarbeiter (Art. 74)',
+                          'VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)',
 
                           'Geschlüsseltes Kapitalsubstrat nach Art. 74',
                           'Totaler Aufwand gemäss FIBU',
@@ -157,6 +158,7 @@ describe Export::Csv::Statistics::GroupFigures do
   it 'contains correct summed values' do
     data = export(figures)[1..-1]
     data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
+
     expect(data.first).to eq [
        'insieme Schweiz', nil, nil, nil,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -169,8 +171,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 0, 0,
        0, 0, 0, 0,
        0,
-       0.0, 0.0, 0.0, 0.0,
-       -200000.0, 0.0, 0.0, 0.0, 0.0] #.collect(&:to_s),
+       0.0, 0.0, 0.0, 0.0, 0.0,
+       -200000.0, 0.0, 0.0, 0.0, 0.0]
 
     expect(data.second).to eq [
        'Freiburg', 'Freiburg', nil, nil,
@@ -184,8 +186,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 12, 0,
        21, 0, 0, 0,
        0,
-       2.0, 1.6, (21.0/1900).round(5), (21.0/1900).round(5),
-       -185550.0, 0.0, 1100.0, 0.0, -1100.0] #.collect(&:to_s),
+       2.0, 1.6, (21.0/1900).round(5), (21.0/1900).round(5), (21.0/1900).round(5),
+       -185550.0, 0.0, 1100.0, 0.0, -1100.0]
 
     expect(data.third).to eq [
        'Kanton Bern', 'Bern', nil, nil,
@@ -199,8 +201,8 @@ describe Export::Csv::Statistics::GroupFigures do
        10, 0, 0, 0,
        0, 0, 0, 20,
        30,
-       0.25, 0.25, (50.0/1900).round(5), (50.0/1900).round(5),
-       10_074_000.0, 100.0, 2050.0, 20.0, -2000.0] #.collect(&:to_s),
+       0.25, 0.25, (50.0/1900).round(5), (50.0/1900).round(5), (20.0/1900).round(5),
+       10_074_000.0, 100.0, 2050.0, 20.0, -2000.0]
 
     expect(data.fourth).to eq [
        'Biel-Seeland', 'Bern', nil, nil,
@@ -214,8 +216,8 @@ describe Export::Csv::Statistics::GroupFigures do
        0, 0, 0, 0,
        0, 0, 0, 0,
        0,
-       0.0, 0.0, 0.0, 0.0,
-       -200000.0, 0.0, 0.0, 0.0, 0.0] #.collect(&:to_s)
+       0.0, 0.0, 0.0, 0.0, 0.0,
+       -200000.0, 0.0, 0.0, 0.0, 0.0]
   end
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)

@@ -263,8 +263,9 @@ de:
       lufeb_hours_volunteers_without: LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)
       fte_employees_total: VZÄ angestellte Mitarbeiter (ganze Organisation)
       fte_employees_only_art_74: VZÄ angestellte Mitarbeiter (Art. 74)
-      fte_volunteers_with_verification_total: VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)
-      fte_volunteers_with_verification_only_art_74: VZÄ ehrenamtliche Mitarbeiter (Art. 74)
+      fte_volunteers_total: VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)
+      fte_volunteers_only_art_74: VZÄ ehrenamtliche Mitarbeiter (Art. 74)
+      fte_volunteers_with_verification_only_art_74: VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)
       geschluesseltes_kapitalsubstrat: Geschlüsseltes Kapitalsubstrat nach Art. 74
       total_aufwand: Totaler Aufwand gemäss FIBU
       vollkosten_nach_umlagen_betrieb: Vollkosten nach Umlagen Betrieb Art. 74
