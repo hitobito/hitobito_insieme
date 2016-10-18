@@ -7,6 +7,15 @@
 
 = reporting_frozen_message
 
+= action_button(t('.export_base_information'),
+                time_record_base_information_group_path(group, year: year, format: :csv),
+                :download)
+
+= action_button(t('.export_time_records'),
+                time_record_group_path(group, year: year, format: :csv),
+                :download)
+
+
 .table-responsive.time-records
   %table.table.table-hover
     %thead

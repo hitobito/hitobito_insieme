@@ -33,11 +33,4 @@ describe TimeRecordsController, type: :controller  do
     end
   end
 
-  context 'GET#exports' do
-    it 'renders buttons' do
-      get :exports, id: groups(:dachverein).id, year: 2014
-      is_expected.to render_template('exports')
-    end
-  end
-
 end
