@@ -14,7 +14,8 @@ module Insieme
 
       self.permitted_attrs += [
         course_record_attributes: [:id, :anzahl_kurse, :subventioniert, :inputkriterien,
-                                   :spezielle_unterkunft, :kursart]]
+                                   :spezielle_unterkunft, :kursart]
+      ]
 
       alias_method_chain :render_xlsx, :details
     end
@@ -30,7 +31,9 @@ module Insieme
 
     def render_xlsx_with_details(entries)
       title = t('export/xlsx/events.title')
-      send_data(xlsx_exporter.export(entries, group.name, year, title), type: :xlsx, filename: xlsx_filename)
+      send_data(xlsx_exporter.export(entries, group.name, year, title),
+                type: :xlsx,
+                filename: xlsx_filename)
     end
 
     def xlsx_exporter

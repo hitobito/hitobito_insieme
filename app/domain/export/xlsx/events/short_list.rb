@@ -21,7 +21,7 @@ module Export::Xlsx::Events
     private
 
     def build_attribute_labels
-      super.tap{|labels| }
+      super.tap { |labels| }
     end
 
     def add_header_rows

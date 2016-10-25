@@ -17,10 +17,8 @@ module Export::Xlsx::Events
       @title = title
       add_header_rows
     end
-    
+
     COURSE_RECORD_ATTRS = [
-      :leistungskategorie, :year,:subventioniert, :inputkriterien,
-      :kursart, :spezielle_unterkunft, :anzahl_kurse,
       :kursdauer,
       ## effektiv teilnehmende
       :teilnehmende_behinderte, :teilnehmende_mehrfachbehinderte,
@@ -43,9 +41,9 @@ module Export::Xlsx::Events
       :gemeinkostenanteil, :total_vollkosten,
       :total_tage_teilnehmende, :vollkosten_pro_le,
       :zugeteilte_kategorie
-    ]
+    ].freeze
 
-    self.row_class = Export::Csv::Events::DetailRow
+    self.row_class = Export::Xlsx::Events::DetailRow
 
     private
 
@@ -59,11 +57,6 @@ module Export::Xlsx::Events
       COURSE_RECORD_ATTRS.each do |attr|
         add_course_record_label(labels, attr)
       end
-    end
-    
-    def add_course_record_label(labels, attr)
-      label = translate(attr.to_s, default: ::Event::CourseRecord.human_attribute_name(attr))
-      labels[attr] = label
     end
 
     def add_header_rows
