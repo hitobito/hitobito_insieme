@@ -160,6 +160,10 @@ de:
     add_to_event/course: 'BetreuerIn hinzufügen'
 
   event:
+    lists:
+      courses:
+        xlsx_export_button: 'Excel Export'
+        xlsx_export_title: Liste
     course_records:
       title: Kursabschluss
       form:
@@ -344,8 +348,15 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+  export/xlsx/events:
+    title: Kurse
 
-  export/csv/events/detail_list:
+  export/xlsx/events/short_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
+  export/xlsx/events/detail_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"

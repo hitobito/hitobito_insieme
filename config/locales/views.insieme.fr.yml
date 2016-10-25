@@ -281,7 +281,13 @@ fr:
         name: Substrat de capital conformément à l'art. 74 LAI
       capital_substrate_limit:
         name: Limite substrat de capital
-  export/csv/events/detail_list:
+          
+  export/xlsx/events/short_list:
+    group_names: 'organisateurs'
+    duration: Délai
+    date: "Date %{index}"
+
+  export/xlsx/events/detail_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"

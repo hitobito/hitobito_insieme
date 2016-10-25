@@ -16,7 +16,7 @@ module Insieme
         course_record_attributes: [:id, :anzahl_kurse, :subventioniert, :inputkriterien,
                                    :spezielle_unterkunft, :kursart]]
 
-      alias_method_chain :render_csv, :details
+      alias_method_chain :render_xlsx, :details
     end
 
     private
@@ -28,23 +28,24 @@ module Insieme
       end
     end
 
-    def render_csv_with_details(entries)
-      send_data(csv_exporter.export(entries), type: :csv, filename: csv_filename)
+    def render_xlsx_with_details(entries)
+      title = t('export/xlsx/events.title')
+      send_data(xlsx_exporter.export(entries, group.name, year, title), type: :xlsx, filename: xlsx_filename)
     end
 
-    def csv_exporter
+    def xlsx_exporter
       if course_records? && can?(:export_course_records, @group)
-        ::Export::Csv::Events::DetailList
+        ::Export::Xlsx::Events::DetailList
       else
-        ::Export::Csv::Events::List
+        ::Export::Xlsx::Events::ShortList
       end
     end
 
-    def csv_filename
+    def xlsx_filename
       vid = group.vid.present? ? "_vid#{group.vid}" : ''
       bsv = group.bsv_number.present? ? "_bsv#{group.bsv_number}" : ''
       group_name = group.name.parameterize
-      "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.csv"
+      "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.xlsx"
     end
 
     def course_records?

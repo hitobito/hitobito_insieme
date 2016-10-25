@@ -157,7 +157,7 @@ describe EventsController do
     end
   end
 
-  context 'GET#index as CSV' do
+  context 'GET#index as XLSX' do
 
     context 'dachverein' do
       before do
@@ -169,25 +169,14 @@ describe EventsController do
       let(:group) { groups(:dachverein) }
 
       it 'creates default export for events' do
-        get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
-
-        expect_default_export
+        get :index, group_id: group.id, event: { type: 'Event' }, format: 'xlsx'
       end
 
       it 'creates detail export for courses' do
         group.update_attributes!(vid: 42, bsv_number: '99')
-        get :index, group_id: group.id, type: 'Event::Course', format: 'csv', year: '2012'
+        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
 
-        expect_detail_export
-        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.csv')
-      end
-
-      it 'creates default export for courses if requested by Präsident' do
-        get :index, group_id: group.id, event: { type: 'Event::Course' }, format: 'csv'
-        praesident = Fabricate(Group::Dachverein::Praesident.name.to_sym, group: group).person
-        sign_in(praesident)
-
-        expect_default_export
+        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.xlsx')
       end
     end
 
@@ -201,17 +190,16 @@ describe EventsController do
       let(:group) { groups(:be) }
 
       it 'creates detail export for courses' do
-        get :index, group_id: group.id, type: 'Event::Course', format: 'csv', year: '2012'
+        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
 
-        expect_detail_export
-        expect(filename).to eq('course_kanton-bern_2012.csv')
+        expect(filename).to eq('course_kanton-bern_2012.xlsx')
       end
 
       it 'denies export to controlling if not controlling in group' do
         controlling = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:fr)).person
         expect do
           sign_in(controlling)
-          get :index, group_id: group.id, type: 'Event::Course', format: 'csv', year: '2012'
+          get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -235,20 +223,6 @@ describe EventsController do
   end
 
   private
-
-  def expect_default_export
-    headers = response.body.lines.first.split(';')
-    expect(headers.count).to eq(44)
-    expect(headers).not_to include 'Kursdauer'
-    expect(headers).not_to include "Zugeteilte Kategorie\n"
-  end
-
-  def expect_detail_export
-    headers = response.body.lines.first.split(';')
-    expect(headers.count).to eq(70)
-    expect(headers).to include 'Kursdauer'
-    expect(headers).to include "Zugeteilte Kategorie\n"
-  end
 
   def filename
     content_dispo = response.headers['Content-Disposition']
