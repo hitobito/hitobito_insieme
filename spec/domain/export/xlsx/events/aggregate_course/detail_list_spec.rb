@@ -22,6 +22,11 @@ describe Export::Xlsx::Events::AggregateCourse::DetailList do
       .with(*column_widths)
       .and_call_original
 
+    expect_any_instance_of(Export::Xlsx::Generator)
+      .to receive(:data_row_height)
+      .with(130)
+      .and_call_original
+
     Export::Xlsx::Events::AggregateCourse::DetailList.export(courses, 'test group name', '2014')
   end
 

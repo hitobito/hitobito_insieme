@@ -12,11 +12,15 @@ module Insieme::Export::Xlsx::Events
     CURRENCY = 2
     DATE = 14
 
+    self.data_row_height = 130
+
     self.style_definition_labels += [:header, :default_border,
                                      :centered_border, :vertical_centered,
                                      :currency, :date,
-                                     :centered_border_small, :centered_border_wrap]
+                                     :centered_border_small, :centered_border_wrap,
+                                     :vertical_centered_wrap]
 
+    # rubocop:disable MethodLength
     def column_widths
       [12, 20, 3.3, 40, 2.57, 7.43] +
       Array.new(9, 2.57) +
@@ -31,17 +35,13 @@ module Insieme::Export::Xlsx::Events
       [8.14, 9.14, 5.71, 2.54]
     end
 
-    def row_styles
-      [].tap do |row|
-      end
-    end
-
     def default_style_data_rows
       Array.new(2, :centered_border_wrap) +
       [:centered_border] +
       [:centered_border_small] +
       [:centered_border] +
-      Array.new(22, :vertical_centered) +
+      [:vertical_centered_wrap] +
+      Array.new(21, :vertical_centered) +
       [:centered_border_small] +
       [:currency] +
       [:date, :date] +
@@ -50,6 +50,12 @@ module Insieme::Export::Xlsx::Events
       Array.new(2, :centered_border) +
       Array.new(3, :currency) +
       [:centered_border]
+    end
+    # rubocop:enable MethodLength
+
+    def row_styles
+      [].tap do |row|
+      end
     end
 
     def style_title_header_row
@@ -79,6 +85,14 @@ module Insieme::Export::Xlsx::Events
           alignment: { text_rotation: 90, vertical: :center, horizontal: :center }
         },
         height: 300
+      )
+    end
+
+    def vertical_centered_wrap_style
+      vertical_centered_style.deep_merge(
+        style: {
+          alignment: { wrap_text: true }
+        }
       )
     end
 
