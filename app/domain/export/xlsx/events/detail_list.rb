@@ -8,13 +8,14 @@
 module Export::Xlsx::Events
   class DetailList < ::Export::Xlsx::Events::List
 
+    TITLE = I18n.t('export/xlsx/events.title')
+
     self.style_class = Insieme::Export::Xlsx::Events::Style
 
-    def initialize(list, group_name, year, title)
+    def initialize(list, group_name, year)
       @group_name = group_name
       @year = year
       @list = list
-      @title = title
       add_header_rows
     end
 
@@ -80,7 +81,7 @@ module Export::Xlsx::Events
       str = ''
       str << I18n.t('event.lists.courses.xlsx_export_title')
       str << ': '
-      str << @title
+      str << self.class::TITLE
       str
     end
 

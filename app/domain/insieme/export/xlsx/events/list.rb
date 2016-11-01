@@ -39,6 +39,5 @@ module Insieme::Export::Xlsx::Events
       label = translate(attr.to_s, default: ::Event::CourseRecord.human_attribute_name(attr))
       labels[attr] = label
     end
-
   end
 end

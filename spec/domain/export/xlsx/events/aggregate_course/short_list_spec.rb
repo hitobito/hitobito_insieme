@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Export::Xlsx::Events::ShortList do
+describe Export::Xlsx::Events::AggregateCourse::ShortList do
 
   let(:courses) { [course1] }
   let(:course1) do
@@ -22,22 +22,18 @@ describe Export::Xlsx::Events::ShortList do
       .with(*column_widths)
       .and_call_original
 
-    Export::Xlsx::Events::ShortList.export(courses, 'test group name', '2014')
+    Export::Xlsx::Events::AggregateCourse::ShortList.export(courses, 'test group name', '2014')
   end
 
   private
 
-  def column_widths
-    [12, 20, 3.3, 40, 2.57, 7.43]+
-      Array.new(9, 2.57)+
-      Array.new(12, 3)+
-      [40, 5.7, 9.14, 9.14, 2.57, 3.7, 3,7]+
-      [2.57, 2.57, 17.14, 4.29, 3.71, 2.57]+
-      [11.57, 3.71, 2.57, 4.29, 3.29]+
-      Array.new(3, 2.57)+
-      [5.29, 2.57, 2.57, 6.29]+
-      Array.new(7, 2.57)+
-      [8.14, 5.71, 7.14, 8.14, 2.57, 2.57]+
-      [8.14, 9.14, 5.71, 2.54]
-  end
+
+    def column_widths
+      [18, 12.86, 40]+
+      Array.new(24, 2.57)+
+      [17.14, 4.29, 3.71, 2.57, 14]+
+      Array.new(18, 4.29)+
+      Array.new(9, 7.5)+
+      [3.13]
+    end
 end

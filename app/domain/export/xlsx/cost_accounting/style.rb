@@ -15,6 +15,10 @@ module Export::Xlsx::CostAccounting
                                      :reporting_jahr, :default_border,
                                      :centered_border]
 
+    def column_widths
+      [57.62]
+    end
+
     def row_styles
       [].tap do |row|
         row[4] = style_total_rows
@@ -47,7 +51,7 @@ module Export::Xlsx::CostAccounting
         style: {
           bg_color: LABEL_BACKGROUND,
           alignment: { text_rotation: 90, vertical: :center, horizontal: :center } },
-        height: 130
+        height: 150
       )
     end
 

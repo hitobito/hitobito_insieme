@@ -30,18 +30,20 @@ module Insieme
     end
 
     def render_xlsx_with_details(entries)
-      title = t('export/xlsx/events.title')
-      send_data(xlsx_exporter.export(entries, group.name, year, title),
+      send_data(xlsx_exporter.export(entries, group.name, year),
                 type: :xlsx,
                 filename: xlsx_filename)
     end
 
     def xlsx_exporter
-      if course_records? && can?(:export_course_records, @group)
-        ::Export::Xlsx::Events::DetailList
-      else
-        ::Export::Xlsx::Events::ShortList
+      list_type = 'ShortList'
+
+      if can?(:export_course_records, @group) && course_records?
+        list_type = 'DetailList'
       end
+
+      list_type = "AggregateCourse::#{list_type}" if aggregate_course?  
+      "::Export::Xlsx::Events::#{list_type}".constantize
     end
 
     def xlsx_filename
@@ -49,6 +51,10 @@ module Insieme
       bsv = group.bsv_number.present? ? "_bsv#{group.bsv_number}" : ''
       group_name = group.name.parameterize
       "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.xlsx"
+    end
+    
+    def aggregate_course?
+      request_event_type == 'aggregate_course'
     end
 
     def course_records?

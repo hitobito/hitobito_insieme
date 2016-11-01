@@ -22,13 +22,13 @@ describe Export::Xlsx::Events::DetailList do
       .with(*column_widths)
       .and_call_original
 
-    Export::Xlsx::Events::DetailList.export(courses, 'test group name', '2014', 'test title')
+    Export::Xlsx::Events::DetailList.export(courses, 'test group name', '2014')
   end
 
   private
 
   def column_widths
-    [18, 12, 3.3, 40, 2.57, 7.43]+
+    [12, 20, 3.3, 40, 2.57, 7.43]+
       Array.new(9, 2.57)+
       Array.new(12, 3)+
       [40, 5.7, 9.14, 9.14, 2.57, 3.7, 3,7]+

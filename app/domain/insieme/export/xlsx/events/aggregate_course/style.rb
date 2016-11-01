@@ -5,12 +5,14 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Insieme::Export::Xlsx::Events
+module Insieme::Export::Xlsx::Events::AggregateCourse
   class Style < Export::Xlsx::Style
 
     BLACK = '000000'.freeze
     CURRENCY = 2
     DATE = 14
+
+    self.data_row_height = 130
 
     self.style_definition_labels += [:header, :default_border,
                                      :centered_border, :vertical_centered,
@@ -18,17 +20,12 @@ module Insieme::Export::Xlsx::Events
                                      :centered_border_small, :centered_border_wrap]
 
     def column_widths
-      [12, 20, 3.3, 40, 2.57, 7.43] +
-      Array.new(9, 2.57) +
-      Array.new(12, 3) +
-      [40, 5.7, 9.14, 9.14, 2.57, 3.7, 3, 7] +
-      [2.57, 2.57, 17.14, 4.29, 3.71, 2.57] +
-      [11.57, 3.71, 2.57, 4.29, 3.29] +
-      Array.new(3, 2.57) +
-      [5.29, 2.57, 2.57, 6.29] +
-      Array.new(7, 2.57) +
-      [8.14, 5.71, 7.14, 8.14, 2.57, 2.57] +
-      [8.14, 9.14, 5.71, 2.54]
+      [18, 12.86, 40] +
+        Array.new(24, 2.57) +
+        [17.14, 4.29, 3.71, 2.57, 14] +
+        Array.new(18, 4.29) +
+        Array.new(9, 7.5) +
+        [3.13]
     end
 
     def row_styles
@@ -38,28 +35,25 @@ module Insieme::Export::Xlsx::Events
 
     def default_style_data_rows
       Array.new(2, :centered_border_wrap) +
-      [:centered_border] +
-      [:centered_border_small] +
-      [:centered_border] +
-      Array.new(22, :vertical_centered) +
-      [:centered_border_small] +
-      [:currency] +
-      [:date, :date] +
-      Array.new(29, :centered_border) +
-      Array.new(4, :currency) +
-      Array.new(2, :centered_border) +
-      Array.new(3, :currency) +
-      [:centered_border]
+        [:centered_border_small] +
+        Array.new(21, :vertical_centered) +
+        Array.new(2, :centered_border) +
+        [:centered_border_wrap] +
+        Array.new(4, :centered_border) +
+        [:centered_border_wrap] +
+        Array.new(18, :centered_border) +
+        Array.new(9, :currency) +
+        [:centered_border]
     end
 
     def style_title_header_row
       [:header] +
-      Array.new(3, :header) +
-      Array.new(12, :header) +
-      Array.new(31, :default) +
-      Array.new(33, :default) +
-      Array.new(66, :default) +
-      Array.new(67, :default)
+        Array.new(3, :header) +
+        Array.new(12, :header) +
+        Array.new(31, :default) +
+        Array.new(33, :default) +
+        Array.new(66, :default) +
+        Array.new(67, :default)
     end
 
     private
@@ -78,7 +72,7 @@ module Insieme::Export::Xlsx::Events
           bg_color: LABEL_BACKGROUND,
           alignment: { text_rotation: 90, vertical: :center, horizontal: :center }
         },
-        height: 300
+        height: 285
       )
     end
 

@@ -105,9 +105,9 @@ describe EventsController do
 
       it 'cannot update course in frozen year' do
         put :update,
-            group_id: groups(:be).id,
-            id: event.id,
-            event: { name: 'other' }
+          group_id: groups(:be).id,
+          id: event.id,
+          event: { name: 'other' }
         expect(event.reload.name).to eq 'Top Course'
         expect(response.status).to eq(200)
         expect(assigns(:event)).to have(1).error_on(:'course_record.year')
@@ -115,13 +115,13 @@ describe EventsController do
 
       it 'cannot change course year into non-frozen year' do
         put :update,
-            group_id: groups(:be).id,
-            id: event.id,
-            event: {
-              dates_attributes: {
-                event_dates(:first).id.to_s => { id: event_dates(:first).id, label: 'foo', start_at_date: Date.today, start_at_hour: '10' },
-                event_dates(:first_two).id.to_s => { id: event_dates(:first_two).id, _destroy: true }
-              } }
+          group_id: groups(:be).id,
+          id: event.id,
+          event: {
+          dates_attributes: {
+            event_dates(:first).id.to_s => { id: event_dates(:first).id, label: 'foo', start_at_date: Date.today, start_at_hour: '10' },
+            event_dates(:first_two).id.to_s => { id: event_dates(:first_two).id, _destroy: true }
+          } }
         expect(response.status).to eq(200)
         expect(event.reload.dates.size).to eq(2)
         expect(assigns(:event)).to have(1).error_on(:'course_record.year')
@@ -163,16 +163,34 @@ describe EventsController do
       before do
         sign_in(people(:top_leader))
         c = Fabricate(:course, groups: [groups(:dachverein)], kind: Event::Kind.first,
-                                            leistungskategorie: 'bk')
+                      leistungskategorie: 'bk')
         Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
       end
       let(:group) { groups(:dachverein) }
 
       it 'creates default export for events' do
-        get :index, group_id: group.id, event: { type: 'Event' }, format: 'xlsx'
+        get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
       end
 
       it 'creates detail export for courses' do
+        expect_any_instance_of(::Export::Xlsx::Events::DetailList)
+          .to receive(:data_rows)
+          .and_call_original
+
+        group.update_attributes!(vid: 42, bsv_number: '99')
+        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
+
+        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.xlsx')
+      end
+
+      it 'creates short export for courses' do
+        vorstand = Fabricate(:role, group: groups(:dachverein), type: 'Group::Dachverein::Vorstandsmitglied').person
+        sign_in(vorstand)
+
+        expect_any_instance_of(::Export::Xlsx::Events::ShortList)
+          .to receive(:data_rows)
+          .and_call_original
+
         group.update_attributes!(vid: 42, bsv_number: '99')
         get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
 
@@ -184,7 +202,9 @@ describe EventsController do
       before do
         sign_in(people(:regio_leader))
         c = Fabricate(:course, groups: [groups(:be)], kind: Event::Kind.first,
-                                            leistungskategorie: 'bk')
+                      leistungskategorie: 'bk')
+        Fabricate(:aggregate_course, groups: [groups(:be)],
+                  leistungskategorie: 'bk')
         Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
       end
       let(:group) { groups(:be) }
@@ -201,6 +221,31 @@ describe EventsController do
           sign_in(controlling)
           get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
         end.to raise_error(CanCan::AccessDenied)
+      end
+
+      it 'creates detail export for aggregate courses' do
+        expect_any_instance_of(::Export::Xlsx::Events::AggregateCourse::DetailList)
+          .to receive(:data_rows)
+          .and_call_original
+
+        group.update_attributes!(vid: 42, bsv_number: '99')
+        get :index, group_id: group.id, type: 'Event::AggregateCourse', format: 'xlsx', year: '2012'
+
+        expect(filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.xlsx')
+      end
+
+      it 'creates short export for aggregate courses' do
+        vorstand = Fabricate(:role, group: groups(:be), type: 'Group::Regionalverein::Vorstandsmitglied').person
+        sign_in(vorstand)
+
+        expect_any_instance_of(::Export::Xlsx::Events::AggregateCourse::ShortList)
+          .to receive(:data_rows)
+          .and_call_original
+
+        group.update_attributes!(vid: 42, bsv_number: '99')
+        get :index, group_id: group.id, type: 'Event::AggregateCourse', format: 'xlsx', year: '2012'
+
+        expect(filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.xlsx')
       end
     end
 

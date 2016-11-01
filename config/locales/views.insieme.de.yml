@@ -373,3 +373,25 @@ de:
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
 
+  export/xlsx/events/aggregate_course/short_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
+  export/xlsx/events/aggregate_course/detail_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
+    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
+    teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
+    absenzen_behinderte: Absenzen Behinderte
+    absenzen_angehoerige: Absenzen Angehörige
+    absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
+    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_angehoerige: Total TeilnehmerInnentage Angehörige
+    tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
+    total_tage_teilnehmende: Anzahl tatsächliche LE
+    direkter_aufwand: Direkter Aufwand
+
