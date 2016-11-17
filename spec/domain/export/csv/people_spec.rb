@@ -13,7 +13,7 @@ describe Export::Csv::People do
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
     %w(Vorname Nachname Übername Firmenname Firma Haupt-E-Mail Adresse PLZ Ort Land
-       Geschlecht Geburtstag Rollen Personnr. Anrede Korrespondenzsprache) +
+       Geschlecht Geburtstag Rollen Tags Personnr. Anrede Korrespondenzsprache) +
        [
          'Anrede Korrespondenzadresse allgemein',
          'Vorname Korrespondenzadresse allgemein',
