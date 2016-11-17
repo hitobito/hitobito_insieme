@@ -20,7 +20,8 @@ module Insieme::ReportingFreezable
   def assert_year_not_frozen
     frozen = GlobalValue.reporting_frozen_until_year
     if frozen
-      if year <= frozen || (year_changed? && year_was && year_was <= frozen)
+      if (year && year <= frozen) ||
+        (year_changed? && year_was && year_was <= frozen)
         errors.add(:year, :reporting_frozen)
       end
     end

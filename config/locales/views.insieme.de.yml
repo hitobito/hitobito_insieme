@@ -9,6 +9,7 @@ de:
     hours_short: Std.
     days_short: Tg.
     persons_short: Pers.
+    printed: Druck
 
   layouts:
     reporting_menu:
@@ -65,6 +66,8 @@ de:
     index:
       title: Übersicht Kostenrechnung
       export: CSV Export
+      xlsx_export: Excel Export
+      reporting_year: Reporting Jahr
     edit:
       aufwand_fibu: Aufwand FIBU
       ertrag_fibu: Ertrag FIBU
@@ -157,6 +160,10 @@ de:
     add_to_event/course: 'BetreuerIn hinzufügen'
 
   event:
+    lists:
+      courses:
+        xlsx_export_button: 'Excel Export'
+        xlsx_export_title: Liste
     course_records:
       title: Kursabschluss
       form:
@@ -341,8 +348,37 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+  export/xlsx/events:
+    title: Kurse
 
-  export/csv/events/detail_list:
+  export/xlsx/events/short_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
+  export/xlsx/events/detail_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
+    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
+    teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
+    absenzen_behinderte: Absenzen Behinderte
+    absenzen_angehoerige: Absenzen Angehörige
+    absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
+    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_angehoerige: Total TeilnehmerInnentage Angehörige
+    tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
+    total_tage_teilnehmende: Anzahl tatsächliche LE
+    direkter_aufwand: Direkter Aufwand
+
+  export/xlsx/events/aggregate_course/short_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
+  export/xlsx/events/aggregate_course/detail_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"

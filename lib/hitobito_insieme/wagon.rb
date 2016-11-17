@@ -80,8 +80,8 @@ module HitobitoInsieme
       Export::Csv::People::ParticipationRow.send(
         :include,
         Insieme::Export::Csv::People::ParticipationRow)
-      Export::Csv::Events::List.send :include, Insieme::Export::Csv::Events::List
-      Export::Csv::Events::Row.send :include, Insieme::Export::Csv::Events::Row
+      Export::Xlsx::Events::List.send :include, Insieme::Export::Xlsx::Events::List
+      Export::Xlsx::Events::Row.send :include, Insieme::Export::Xlsx::Events::Row
       # rubocop:enable SingleSpaceBeforeFirstArg
 
       admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }

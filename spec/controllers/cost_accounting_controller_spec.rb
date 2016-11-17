@@ -25,22 +25,17 @@ describe CostAccountingController do
     end
   end
 
-  context 'GET index.csv' do
-    context 'cost accounting csv export' do
+  context 'GET index.xlsx' do
+    context 'cost accounting xlsx export' do
       let(:group) { groups(:be) }
       let(:year) { 2014 }
 
-      before { get :index, id: group, year: year, format: :csv }
-
-      it 'exports table' do
-        expect(@response.body).to match(/Report;Kontengruppe;Aufwand \/ Ertrag FIBU/)
-        expect(@response.body).to match(/Total Aufwand\/Kosten/)
-      end
+      before { get :index, id: group, year: year, format: :xlsx }
 
       context 'no vid and bsv_number present' do
         it 'should use a filename containing only group name and year' do
           expect(@response['Content-Disposition']).to match(
-            /filename="cost_accounting_kanton-bern_2014\.csv"/)
+            /filename="cost_accounting_kanton-bern_2014\.xlsx"/)
         end
       end
 
@@ -53,10 +48,9 @@ describe CostAccountingController do
 
         it 'should use a filename containing vid, bsv_number, group name and year' do
           expect(@response['Content-Disposition']).to match(
-            /filename="cost_accounting_vid12_bsv3456_kanton-bern_2014\.csv"/)
+            /filename="cost_accounting_vid12_bsv3456_kanton-bern_2014\.xlsx"/)
         end
       end
     end
   end
-
 end

@@ -17,7 +17,7 @@ class CostAccountingController < ReportingBaseController
     table
     respond_to do |format|
       format.html
-      format.csv { render_csv }
+      format.xlsx { render_xlsx }
     end
   end
 
@@ -42,15 +42,14 @@ class CostAccountingController < ReportingBaseController
     params.require(:cost_accounting_record).permit(fields)
   end
 
-  def render_csv
-    csv = Export::Csv::CostAccounting::List.export(@table.reports.values)
-    send_data csv, type: :csv, filename: csv_filename
+  def render_xlsx
+    xlsx = Export::Xlsx::CostAccounting::List.export(@table.reports.values, group.name, year)
+    send_data xlsx, type: :xlsx, filename: xlsx_filename
   end
 
-  def csv_filename
+  def xlsx_filename
     vid = group.vid.present? && "_vid#{group.vid}" || ''
     bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
-    "cost_accounting#{vid}#{bsv}_#{group.name.parameterize}_#{year}.csv"
+    "cost_accounting#{vid}#{bsv}_#{group.name.parameterize}_#{year}.xlsx"
   end
-
 end
