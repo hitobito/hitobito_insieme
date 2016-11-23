@@ -46,6 +46,21 @@ describe EventAbility do
       context 'regular event' do
         context 'in same layer' do
           it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+
+          it { is_expected.to be_able_to(:update, Fabricate.build(:event, groups: [role.group])) }
+
+          it { is_expected.to be_able_to(:destroy, Fabricate.build(:event, groups: [role.group])) }
+
+          context 'with reporting frozen' do
+            before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+            after { GlobalValue.clear_cache }
+
+            it { is_expected.to be_able_to(:read, Fabricate.build(:event, groups: [role.group])) }
+
+            it { is_expected.to be_able_to(:update, Fabricate.build(:event, groups: [role.group])) }
+
+            it { is_expected.to be_able_to(:destroy, Fabricate.build(:event, groups: [role.group])) }
+          end
         end
 
         context 'in lower layer' do
@@ -54,8 +69,48 @@ describe EventAbility do
       end
 
       context 'aggregate course' do
+
+        let(:year) { 2016 }
+
+        before do
+          @course = Fabricate(:aggregate_course,
+                              groups: [role.group],
+                              year: year,
+                              leistungskategorie: 'bk',
+                              course_record_attributes: { year: year })
+        end
+
         context 'in same layer' do
-          it { is_expected.to be_able_to(:read, Fabricate.build(:aggregate_course, groups: [role.group])) }
+          it { is_expected.to be_able_to(:read, @course) }
+
+          it { is_expected.to be_able_to(:update, @course) }
+
+          it { is_expected.to be_able_to(:destroy, @course) }
+
+          context 'with reporting frozen' do
+            before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
+            after { GlobalValue.clear_cache }
+
+            context 'later' do
+              let(:year) { 2016 }
+
+              it { is_expected.to be_able_to(:update, @course) }
+
+              it { is_expected.to be_able_to(:destroy, @course) }
+            end
+
+            context 'before' do
+              let(:year) { 2015 }
+
+              it { is_expected.to be_able_to(:read, @course) }
+
+              it { is_expected.not_to be_able_to(:update, @course) }
+
+              it { is_expected.not_to be_able_to(:destroy, @course) }
+            end
+
+
+          end
         end
 
         context 'in lower layer' do

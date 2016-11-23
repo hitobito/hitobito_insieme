@@ -1,0 +1,15 @@
+-#  Copyright (c) 2012-2016, Insieme Schweiz. This file is part of
+-#  hitobito and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+- title entry.to_s
+
+- content_for(:toolbar, render('actions_show'))
+
+- if entry.is_a?(Event::Reportable) && entry.reporting_frozen?
+  .alert.alert-warning= t('reporting.frozen_warning')
+
+= render 'attrs'
+
+

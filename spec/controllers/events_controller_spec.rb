@@ -104,27 +104,12 @@ describe EventsController do
       after { GlobalValue.clear_cache }
 
       it 'cannot update course in frozen year' do
-        put :update,
-          group_id: groups(:be).id,
-          id: event.id,
-          event: { name: 'other' }
-        expect(event.reload.name).to eq 'Top Course'
-        expect(response.status).to eq(200)
-        expect(assigns(:event)).to have(1).error_on(:'course_record.year')
-      end
-
-      it 'cannot change course year into non-frozen year' do
-        put :update,
-          group_id: groups(:be).id,
-          id: event.id,
-          event: {
-          dates_attributes: {
-            event_dates(:first).id.to_s => { id: event_dates(:first).id, label: 'foo', start_at_date: Date.today, start_at_hour: '10' },
-            event_dates(:first_two).id.to_s => { id: event_dates(:first_two).id, _destroy: true }
-          } }
-        expect(response.status).to eq(200)
-        expect(event.reload.dates.size).to eq(2)
-        expect(assigns(:event)).to have(1).error_on(:'course_record.year')
+        expect do
+          put :update,
+            group_id: groups(:be).id,
+            id: event.id,
+            event: { name: 'other' }
+        end.to raise_error(CanCan::AccessDenied)
       end
     end
 
@@ -262,7 +247,7 @@ describe EventsController do
         sign_in(people(:regio_leader))
         expect do
           delete :destroy, group_id: groups(:be).id, id: event.id
-        end.not_to change { Event.count }
+        end.to raise_error(CanCan::AccessDenied)
       end
     end
   end

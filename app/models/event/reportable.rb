@@ -39,11 +39,15 @@ module Event::Reportable
     true
   end
 
+  def reporting_frozen?
+    frozen = GlobalValue.reporting_frozen_until_year
+    frozen && course_record && course_record.year <= frozen
+  end
+
   private
 
   def assert_year_not_frozen
-    frozen = GlobalValue.reporting_frozen_until_year
-    if frozen && course_record && course_record.year <= frozen
+    if reporting_frozen?
       errors.add(:base, :event_reporting_frozen)
     end
   end

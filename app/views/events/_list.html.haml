@@ -7,6 +7,9 @@
 
 = render 'shared/page_per_year'
 
+- if params[:type].present?
+  = reporting_frozen_message
+
 - if params[:type] == Event::AggregateCourse.sti_name
   = crud_table do |t|
     - t.col(Event.human_attribute_name(:name)) do |e|

@@ -14,6 +14,9 @@ module Insieme::EventAbility
       permission(:layer_and_below_read).may(:read).in_same_layer_or_below
 
       permission(:any).may(:application_market).for_participations_full_events
+
+      general(:update).reporting_not_frozen
+      general(:destroy).reporting_not_frozen_and_at_least_one_group_not_deleted
     end
   end
 
@@ -23,6 +26,14 @@ module Insieme::EventAbility
     else
       participating || in_regionalverein || in_same_layer
     end
+  end
+
+  def reporting_not_frozen
+    !event.is_a?(Event::Reportable) || !event.reporting_frozen?
+  end
+
+  def reporting_not_frozen_and_at_least_one_group_not_deleted
+    reporting_not_frozen && at_least_one_group_not_deleted
   end
 
   private
