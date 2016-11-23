@@ -23,7 +23,6 @@ module Export::Xlsx::CostAccounting
     def build_attribute_labels
       {}.tap do |labels|
         labels[:report] = human(:report)
-        labels[:kontengruppe] = human(:kontengruppen)
 
         ::CostAccounting::Report::Base::FIELDS.each do |field|
           labels[field.to_sym] = human(field)

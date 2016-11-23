@@ -16,7 +16,7 @@ module Export::Xlsx::CostAccounting
                                      :centered_border]
 
     def column_widths
-      [57.62]
+      [57.62, nil, nil, nil, nil, 3]
     end
 
     def row_styles
