@@ -141,6 +141,13 @@ describe CostAccounting::Report::CourseRelated do
       unterkunft: 50,
       uebriges: 8000
     )
+    # not subventioniert are ignored
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', year: year),
+      unterkunft: 500,
+      uebriges: 8000,
+      subventioniert: false
+    )
   end
 
 end

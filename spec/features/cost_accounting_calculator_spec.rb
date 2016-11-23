@@ -9,38 +9,64 @@ require 'spec_helper'
 
 describe 'CostAccountingCalculator', js: true do
 
-  let(:year) { 2014 }
+  let(:year) { 2016 }
   let(:group) { groups(:be) }
 
   context 'honorare' do
     let(:report) { 'honorare' }
 
-    it 'calculates with empty values' do
+    it 'calculates with empty values and course amounts' do
+      create_course_record
+
       sign_in
       visit edit_cost_accounting_report_group_path(year: year, id: group.id, report: report)
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('0.00 CHF')
-      expect(find('#control_value')).to have_content('0.00 CHF')
 
-      fill_in('cost_accounting_record_aufwand_ertrag_fibu', with: '1000')
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('1000.00 CHF')
-      expect(find('#control_value')).to have_content('-1000.00 CHF')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('0.00 CHF')
+      expect(find('#control_value')).to have_content('5000.00 CHF')
+
+      fill_in('cost_accounting_record_aufwand_ertrag_fibu', with: '10000')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('10000.00 CHF')
+      expect(find('#control_value')).to have_content('-5000.00 CHF')
 
       fill_in('cost_accounting_record_abgrenzung_fibu', with: 'jada')
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('1000.00 CHF')
-      expect(find('#control_value')).to have_content('-1000.00 CHF')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('10000.00 CHF')
+      expect(find('#control_value')).to have_content('-5000.00 CHF')
 
-      fill_in('cost_accounting_record_abgrenzung_fibu', with: '200')
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('800.00 CHF')
-      expect(find('#control_value')).to have_content('-800.00 CHF')
-
+      fill_in('cost_accounting_record_abgrenzung_fibu', with: '2000')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('8000.00 CHF')
+      expect(find('#control_value')).to have_content('-3000.00 CHF')
 
       fill_in('cost_accounting_record_verwaltung', with: '200')
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('800.00 CHF')
-      expect(find('#control_value')).to have_content('-600.00 CHF')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('8000.00 CHF')
+      expect(find('#control_value')).to have_content('-2800.00 CHF')
 
-      fill_in('cost_accounting_record_treffpunkte', with: '600')
-      expect(find('#aufwand_ertrag_ko_re')).to have_content('800.00 CHF')
-      expect(find('#control_value')).to have_content('0.00 CHF')
+      fill_in('cost_accounting_record_treffpunkte', with: '800')
+      expect(find('#aufwand_ertrag_ko_re')).to have_content('8000.00 CHF')
+      expect(find('#control_value')).to have_content('-2000.00 CHF')
+
+      page.all('form.report button[type=submit]').first.click
+
+      expect(page).to have_content('Übersicht Kostenrechnung')
+      record = CostAccountingRecord.find_by(group_id: group.id, year: year, report: report)
+      expect(record.aufwand_ertrag_fibu).to eq(10000.0)
+      expect(record.abgrenzung_fibu).to eq(2000.0)
+      expect(record.verwaltung).to eq(200.0)
+      expect(record.treffpunkte).to eq(800.0)
+      expect(record.tageskurse).to be_nil
+      expect(record.blockkurse).to be_nil
+      expect(record.jahreskurse).to be_nil
+    end
+
+    def create_course_record
+      Event::CourseRecord.create!(
+        event: Fabricate(:course,
+                         groups: [group],
+                         leistungskategorie: 'bk',
+                         dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
+        year: year,
+        honorare_inkl_sozialversicherung: 5000,
+        uebriges: 600
+      )
     end
   end
 
@@ -95,5 +121,6 @@ describe 'CostAccountingCalculator', js: true do
                                                 year: year,
                                                 report: name))
     end
+
   end
 end
