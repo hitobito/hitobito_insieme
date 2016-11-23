@@ -50,8 +50,8 @@ describe Export::Csv::TimeRecords::List do
       expect(data[4]).to eq(['Kontakte zu Medien, zu Medienschaffenden', nil, 100.0, nil])
       expect(data[5]).to eq(['Erteilen von Interviews', nil, nil, nil])
 
-      expect(data[15]).to eq(['Allgemeine Medien- und Öffentlichkeitsarbeit', 0.0, 100.0, 300.0])
-      expect(data[16]).to eq(['Eigene Zeitschriften', 200.0, nil, nil])
+      expect(data[14]).to eq(['Allgemeine Medien- und Öffentlichkeitsarbeit', 0.0, 100.0, 300.0])
+      expect(data[15]).to eq(['Eigene Zeitschriften', 200.0, nil, nil])
       expect(data[35]).to eq(['Blockkurse', 300.0, 400.0, nil])
       expect(data[36]).to eq(['Tageskurse', nil, nil, 55.0])
 
