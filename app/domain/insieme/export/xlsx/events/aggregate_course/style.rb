@@ -20,12 +20,13 @@ module Insieme::Export::Xlsx::Events::AggregateCourse
                                      :centered_border_small, :centered_border_wrap]
 
     def column_widths
-      [18, 12.86, 40] +
-        Array.new(24, 2.57) +
-        [17.14, 4.29, 3.71, 2.57, 14] +
-        Array.new(18, 4.29) +
-        Array.new(9, 7.5) +
-        [3.13]
+      [18, 12.86, 20] + # #1-3
+      Array.new(24, 2.57) + # #4-27
+      [17.14, 4.29, 3.71, 2.57, 14, 4.29, 4.29] + # #28-34
+      Array.new(11, 7.5) + # #35-45
+      Array.new(5, 7.5) + # #46-50
+      Array.new(4, 8.5) + # #51-54
+      [7.5, 7.5, 8.5, 8.5, 7.5, 3.13] # #55-60
     end
 
     def row_styles
