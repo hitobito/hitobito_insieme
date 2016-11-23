@@ -20,7 +20,6 @@ module Export
           :informationsveranstaltungen,
           :sensibilisierungskampagnen,
           :allgemeine_auskunftserteilung,
-          :auskunftserteilung,
           :kontakte_meinungsbildner,
           :beratung_medien,
           :total_lufeb_general,
@@ -38,6 +37,7 @@ module Export
           :gremien,
           :total_lufeb_specific,
 
+          :auskunftserteilung,
           :vermittlung_kontakte,
           :unterstuetzung_selbsthilfeorganisationen,
           :koordination_selbsthilfe,
