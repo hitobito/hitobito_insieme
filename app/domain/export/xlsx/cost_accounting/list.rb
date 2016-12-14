@@ -46,8 +46,8 @@ module Export::Xlsx::CostAccounting
       row = Array.new(18)
       row[0] = @group_name
       row[1] = reporting_year
-      row[16] = "#{I18n.t('global.printed')}: "
-      row[17] = printed_at
+      row[14] = "#{I18n.t('global.printed')}: "
+      row[15] = printed_at
       row
     end
 

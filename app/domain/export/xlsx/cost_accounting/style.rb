@@ -51,8 +51,16 @@ module Export::Xlsx::CostAccounting
         style: {
           bg_color: LABEL_BACKGROUND,
           alignment: { text_rotation: 90, vertical: :center, horizontal: :center } },
-        height: 150
+        height: 230
       )
+    end
+
+    # override default style
+    def default_style
+      { style: {
+        sz: 16,
+        font_name: Settings.xlsx.font_name, alignment: { horizontal: :left } }
+      }
     end
 
     def total_label_style
@@ -70,11 +78,11 @@ module Export::Xlsx::CostAccounting
     end
 
     def vereinsname_style
-      default_style.deep_merge(style: { sz: 16 })
+      default_style.deep_merge(style: { sz: 20 })
     end
 
     def reporting_jahr_style
-      centered_style.merge(style: { sz: 16 })
+      centered_style.merge(style: { sz: 20 ,font_name: Settings.xlsx.font_name })
     end
 
     def default_border_style
@@ -87,6 +95,10 @@ module Export::Xlsx::CostAccounting
 
     def border_styling
       { style: { border: { style: :thin, color: BLACK } } }
+    end
+
+    def centered_style
+      default_style.deep_merge(style: { alignment: { horizontal: :center } })
     end
   end
 end
