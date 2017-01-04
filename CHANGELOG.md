@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## Version 1.14
+## Version 1.13
 
 *   Jahr Freeze
 *   Anpassung Dateinamen Kursexporte
