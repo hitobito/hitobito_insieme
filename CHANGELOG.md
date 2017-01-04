@@ -1,8 +1,12 @@
 # Hitobito Insieme Changelog
 
-## Version 1.13
+## Version 1.14
 
-*   
+*   Jahr Freeze
+*   Anpassung Dateinamen Kursexporte
+*   Optimierungen Kostenrechnung
+*   Excel-Export Kursstatistik und Kostenrechnung
+*   Zeiterfassung: Zusammenzug aller Vereine
 
 ## Version 1.10
 
