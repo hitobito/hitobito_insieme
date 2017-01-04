@@ -58,56 +58,82 @@ fr:
         other: Présidents
       group/dachverein/vorstandsmitglied:
         one: Membre du comité
+        other: Membre du comité
       group/dachverein/geschaeftsfuehrung:
         one: Direction
+        other: Direction
       group/dachverein/sekretariat:
         one: Secrétariat
+        other: Secrétariat
       group/dachverein/adressverwaltung:
         one: Gestion des adresses
+        other: Gestion des adresses
       group/dachverein/controlling:
-        one: Reporting
+        one: Controlling
+        other: Controlling
       group/dachverein/external:
         one: Externe
+        other: Externe
       group/dachverein_liste/listenverwaltung:
         one: Gestion des listes
+        other: Gestion des listes
       group/dachverein_liste/person:
-        one: Personne
+        one: Personnes
+        other: Personnes
       group/dachverein_gremium/leitung:
-        one: Direction
+        one: D
+        other: Direction
       group/dachverein_gremium/mitglied:
-        one: Membre
+        one: Membres
+        other: Membres
       group/dachverein_abonnemente/einzelabo:
-        one: Abonnement individuel
+        one: Abos individuels
+        other: Abos individuels
       group/dachverein_abonnemente/geschenkabo:
-        one: Abonnement cadeau
+        one: Abos cadeau
+        other: Abos cadeau
       group/dachverein_abonnemente/gratisabo:
-        one: Abonnement gratuit
+        one: Abos gratuits
+        other: Abos gratuits
       group/regionalverein/praesident:
-        one: Président-e
+        one: Président-e-s
+        other: Président-e-s
       group/regionalverein/vorstandsmitglied:
-        one: Membre du comité
+        one: 'Membres du comité '
+        other: 'Membres du comité '
       group/regionalverein/geschaeftsfuehrung:
-        one: Direction
+        one: d
+        other: Direction
       group/regionalverein/sekretariat:
         one: Secrétariat
+        other: Secrétariat
       group/regionalverein/adressverwaltung:
         one: Gestion des adresses
+        other: Gestion des adresses
       group/regionalverein/versandadresse:
-        one: Adresse de correspondance
+        one: Adresse d'envoi
+        other: Adresse d'envoi
       group/regionalverein/rechnungsadresse:
         one: Adresse de facturation
+        other: Adresse de facturation
       group/regionalverein/controlling:
         one: Reporting
+        other: Reporting
       group/regionalverein/external:
-        one: Externe
+        one: E
+        other: Externe
       group/regionalverein_liste/listenverwaltung:
-        one: Gestion des listes
+        one: Li
+        other: Gestion des listes
       group/regionalverein_liste/person:
-        one: Personne
+        one: Pe
+        other: Personnes
       group/regionalverein_gremium/leitung:
-        one: Direction
+        one: D
+        other: Direction
       group/regionalverein_gremium/mitglied:
-        one: Membre
+        one: M
+        other: Membres
       group/aktivmitglieder/aktivmitglied:
         one: Membre actif
         other: Membre actif
@@ -137,51 +163,74 @@ fr:
         other: Membre collectif avec abo
         short: Collectif avec abo
       group/externe_organisation/praesident:
-        one: Président-e
+        one: Président-e-s
+        other: Président-e-s
       group/externe_organisation/vorstandsmitglied:
         one: Membre du comité
+        other: Membre du comité
       group/externe_organisation/geschaeftsfuehrung:
         one: Direction
+        other: D
       group/externe_organisation/sekretariat:
         one: Secrétariat
+        other: Secrétariat
       group/externe_organisation/adressverwaltung:
         one: Gestion des adresses
+        other: Gestion des adresses
       group/externe_organisation/versandadresse:
-        one: Adresse de correspondance
+        one: Adresse d'envoi
+        other: Adresse d'envoi
       group/externe_organisation/rechnungsadresse:
         one: Adresse de facturation
+        other: Adresse de facturation
       group/externe_organisation/controlling:
-        one: Controlling
+        one: Reporting
+        other: Reporting
       group/externe_organisation/external:
         one: Externe
+        other: Externe
       group/externe_organisation_liste/listenverwaltung:
         one: Gestion des listes
+        other: Gestion des listes
       group/externe_organisation_liste/person:
-        one: Personne
+        one: Personnes
+        other: Personnes
       group/externe_organisation_gremium/leitung:
         one: Direction
+        other: DIrection
       group/externe_organisation_gremium/mitglied:
-        one: Membre
+        one: M
+        other: Membres
       event/course/role/leader_admin:
         one: Direction (administration)
+        other: Direction (administration)
       event/course/role/leader_reporting:
         one: Direction (reporting)
+        other: Direction (reporting)
       event/course/role/leader_basic:
         one: Direction
+        other: Direction
       event/course/role/expert:
-        one: Spécialiste hautement qualifié
+        one: Spécialistes hautement qualifiés
+        other: Spécialistes hautement qualifiés
       event/course/role/helper_paid:
         one: Personnel auxiliaire avec honoraire
+        other: Personnel auxiliaire avec honoraire
       event/course/role/helper_unpaid:
         one: Personnel auxiliaire sans honoraire
+        other: Personnel auxiliaire sans honoraire
       event/course/role/kitchen:
         one: Cuisine
+        other: Cuisine
       event/course/role/challenged:
         one: Personne handicapée
+        other: Personne handicapée
       event/course/role/affiliated:
-        one: Proche
+        one: Proches
+        other: Proches
       event/course/role/not_entitled_for_benefit:
         one: Autres, ne donnant pas droit à des subsides
+        other: Autres, ne donnant pas droit à des subsides
       event/aggregate_course:
         one: Plusieurs cours
         other: Plusieurs cours
@@ -217,7 +266,7 @@ fr:
         other: Substrats du capital
     attributes:
       cantons:
-        other: Autre provenance
+        another: Autre provenance
       cost_accounting_record:
         group_id: Groupe
         group: Groupe
@@ -243,6 +292,7 @@ fr:
         aufteilung_kontengruppen: Notices
       global_value:
         default_reporting_year: Année Default Reporting
+        reporting_frozen_until_year: Reporting bloqué jusqu'au
       event:
         teamer_count: Nombre de personnel d'encadrement
       event/aggregate_course:
@@ -270,7 +320,7 @@ fr:
         spezielle_unterkunft: Hébergement spécial
         kursdauer: Durée du cours
         teilnehmende_behinderte: Personne handicapée
-        teilnehmende_mehrfachbehinderte: Personnes plurihandicapées
+        teilnehmende_mehrfachbehinderte: dont personnes plurihandicapées
         teilnehmende_angehoerige: Proches
         teilnehmende_weitere: Autres, n'étant pas reconnu comme ayant droits
         absenzen_behinderte: Personne handicapée
@@ -353,7 +403,7 @@ fr:
         vs: VS
         zg: ZG
         zh: ZH
-        other: Autre provenance
+        another: Autre provenance
         undefined: Pas fixé
       group:
         full_name: Nom complet
@@ -369,7 +419,7 @@ fr:
           fr: Français
           it: Italien
           en: Anglais
-          other: Autre
+          another: Autre
         correspondence_language: Langue de correspondance
         correspondence_languages:
           de: Allemand
@@ -441,6 +491,9 @@ fr:
         bsv_hours_per_year: Heures OFAS par année
         capital_substrate_exemption: Substrat de capital OFAS montant libre
       time_record:
+        year: Année
+        group: Groupe
+        group_id: Groupe
         kontakte_medien: Contacts avec les médias, les journalistes
         interviews: Accorder des interviews
         publikationen: Publication
@@ -470,15 +523,18 @@ fr:
         total_lufeb_general: Tâches générales d'information et de relations publiques
         total_lufeb_private: Médias et publications de l'organisation accessibles au public
         total_lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
-        total_lufeb_promoting: Prestations de base pour l'encouragement de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers
+        total_lufeb_promoting: "Prestations de base pour l'encouragment de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers"
         total_lufeb: Total des prestations de la PROSPREH
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
         jahreskurse: Cours annuels/semestriels
+        total_courses: Total des cours
         treffpunkte: Prise en charge dans les lieux d'accueil
         beratung: Conseil social
+        total_additional_person_specific: Total des autres besoins personnels spécifiques
         mittelbeschaffung: Collecte de fonds
         verwaltung: Direction de l'association et administration
+        total_remaining: Total des autres prestations
         total_paragraph_74: Total concernant l'art. 74
         total_paragraph_74_pensum: Exprimé en postes à 100%
         nicht_art_74_leistungen: Prestations
@@ -490,6 +546,7 @@ fr:
         paragraph_74: Art. 74 relatif aux postes à 100%
         not_paragraph_74: Art. 74 pas relatif aux postes à 100%
       capital_substrate:
+        year: Année
         allocation_base: Barème
         organization_capital: Capitaux de l'organisation incl. réserves et fonds libres
         organization_capital_allocated: Capitaux de l'organisation codés
@@ -506,6 +563,8 @@ fr:
         manual_number_in_automatic_range: Ne doit pas être compris entre %{lower} et %{upper}, s'il est inscrit manuellement.
         automatic_number_in_manual_range: Doit être compris entre %{lower} et %{upper}, s'il est inscrit automatiquement.
         less_than_teilnehmende_behinderte: Doit être inférieur ou égal au nombre de personnes handicapées.
+        reporting_frozen: Est bouclé et a été bloqué
+        event_reporting_frozen: Cette année de reporting est bouclée et a été bloquée
   cost_accounting:
     report:
       lohnaufwand:

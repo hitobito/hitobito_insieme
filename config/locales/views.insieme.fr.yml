@@ -4,6 +4,7 @@ fr:
     hours_short: Heures
     days_short: Jours
     persons_short: Personnes
+    printed: Impression
   layouts:
     reporting_menu:
       time_records: Enregistrement des heures de travail
@@ -40,13 +41,20 @@ fr:
       cost_accounting: Comptabilité analytique consolidée
       client_statistics: Statistique des client-e-s
       group_figures: Chiffres indicatifs par association
+      export_time_records: Résumé du décompte des heures de travail
       export_bk: Consolidation de la statistque des cours des cours en bloc
       export_tk: Consolidation de la statistique des cours d'un jour
       export_sk: Consolidation de la statistique des cours des cours semestriels/annuels
+      time_records:
+        employee_time: Employé-e
+        volunteer_with_verification_time: Bénévoles avec preuve de prestation
+        volunteer_without_verification_time: Bénévole sans preuve de prestations
   cost_accounting:
     index:
       title: Vue d'ensemble comptabilité analytique
       export: Exporter CSV
+      xlsx_export: Exporter Excel
+      reporting_year: Année de reporting
     edit:
       aufwand_fibu: Charges comptabilité financière
       ertrag_fibu: Produits comptabilité financière
@@ -124,6 +132,10 @@ fr:
   dropdown/event/role_add:
     add_to_event/course: 'Ajouter personnel d''encadrement'
   event:
+    lists:
+      courses:
+        xlsx_export_button: 'Excel Export'
+        xlsx_export_title: Liste
     course_records:
       title: Clôture du cours
       form:
@@ -154,6 +166,7 @@ fr:
         general_cost_allowance: Suppléments de frais généraux
         start_allocation: Lancer la répartition
         last_allocation: "Dernière répartition des frais généraux: %{date}"
+        export: Exporter CSV
       leistungskategorie_fields:
         cost_from_accounting: "Montant indiqué de la comptabilité analytique: %{value} CHF"
     participations:
@@ -186,6 +199,7 @@ fr:
       reference: Référence à la personne avec handicap
   reporting:
     title: Reporting
+    frozen_warning: Cette année de reporting est bouclée et a été bloquée
   reporting_parameters:
     global:
       link:
@@ -216,8 +230,9 @@ fr:
       lufeb_hours_volunteers_without: PROSPREH heures bénévoles sans preuve de prestations
       fte_employees_total: Collaborateurs/trices employé-e-s EPT (organisation en entier)
       fte_employees_only_art_74: Collaborateurs/trices EPT (art. 74)
-      fte_volunteers_with_verification_total: Collaborateurs/trices bénévoles EPT (organisation en entier)
-      fte_volunteers_with_verification_only_art_74: Collaborateurs/trices bénévoles EPT (art. 74)
+      fte_volunteers_total: Collaborateurs/trices bénévoles EPT (organisation en entier)
+      fte_volunteers_only_art_74: Collaborateurs/trices bénévoles EPT (art. 74)
+      fte_volunteers_with_verification_only_art_74: Collaborateurs/trices bénévoles EPT avec preuve du besoin (art. 74)
       geschluesseltes_kapitalsubstrat: Substrat de capital codé art. 74
       total_aufwand: Total charges comptabilité financière
       vollkosten_nach_umlagen_betrieb: Coûts complet après participation à l'art. 74
@@ -227,14 +242,18 @@ fr:
     admin_nav_kinds_insieme:
       reporting_parameters: Paramètre
       global_values: Valeurs globales
+  time_record:
+    base_informations:
+      index:
+        title: Informations de base
+        export_base_information: Exporter CSV
+        export_time_records: Exporter CSV décompte des heures de travail
+        paragraph_74: Relatif à l'art. 74
+        not_paragraph_74: Pas relatif à l'art. 74
+        whole_organization: Organisation entière
+        controlling: Contrôle
+        capital_substrate: Substrat de capital
   time_records:
-    index:
-      title: Informations de base
-      paragraph_74: Relatif à l'art. 74
-      not_paragraph_74: Pas relatif à l'art. 74
-      whole_organization: Organisation entière
-      controlling: Contrôle
-      capital_substrate: Substrat de capital
     edit:
       comment: Saisir que les heures fournies qui concernent l'art. 74, sauf indication contraire
       subtotal: Sous-total
@@ -281,12 +300,12 @@ fr:
         name: Substrat de capital conformément à l'art. 74 LAI
       capital_substrate_limit:
         name: Limite substrat de capital
-          
+  export/xlsx/events:
+    title: Cours
   export/xlsx/events/short_list:
-    group_names: 'organisateurs'
-    duration: Délai
+    group_names: 'Organisateurs'
+    duration: Période
     date: "Date %{index}"
-
   export/xlsx/events/detail_list:
     group_names: 'Organisateurs'
     duration: Période
@@ -301,5 +320,25 @@ fr:
     tage_behinderte: Total des journées participants handicapés
     tage_angehoerige: Total des journées participants proches
     tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effective
+    total_tage_teilnehmende: Nombre d'UP effectives
+    direkter_aufwand: Charges directes
+  export/xlsx/events/aggregate_course/short_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+  export/xlsx/events/aggregate_course/detail_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+    teilnehmende_behinderte: Nombre effectif de participants handicapés
+    teilnehmende_angehoerige: Nombre effectis de participants proches
+    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
+    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
+    absenzen_behinderte: Absences personnes handicapées
+    absenzen_angehoerige: Absences proches
+    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
+    tage_behinderte: Total des journées participants handicapés
+    tage_angehoerige: Total des journées participants proches
+    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
+    total_tage_teilnehmende: Nombre d'UP effectives
     direkter_aufwand: Charges directes
