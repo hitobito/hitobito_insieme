@@ -8,6 +8,7 @@
 = reporting_frozen_message
 
 = action_button(t('.xlsx_export'), params.merge(format: :xlsx), :download)
+= action_button(t('.pdf_export'), params.merge(format: :pdf), :download)
 
 .table-responsive.cost_accounting
   %table.table.table-hover

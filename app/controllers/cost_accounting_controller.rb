@@ -18,6 +18,7 @@ class CostAccountingController < ReportingBaseController
     respond_to do |format|
       format.html
       format.xlsx { render_xlsx }
+      format.pdf { render_pdf }
     end
   end
 
@@ -44,12 +45,23 @@ class CostAccountingController < ReportingBaseController
 
   def render_xlsx
     xlsx = Export::Xlsx::CostAccounting::List.export(@table.reports.values, group.name, year)
-    send_data xlsx, type: :xlsx, filename: xlsx_filename
+    send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 
-  def xlsx_filename
-    vid = group.vid.present? && "_vid#{group.vid}" || ''
-    bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
-    "cost_accounting#{vid}#{bsv}_#{group.name.parameterize}_#{year}.xlsx"
+  def render_pdf
+    pdf = Export::Pdf::CostAccounting.new(@table.reports.values, group.name, year)
+    send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
+  end
+
+  def export_filename(extension)
+    "cost_accounting#{vid}#{bsv}_#{group.name.parameterize}_#{year}.#{extension}"
+  end
+
+  def vid
+    group.vid.present? && "_vid#{group.vid}" || ''
+  end
+
+  def bsv
+    group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
   end
 end

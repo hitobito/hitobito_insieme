@@ -6,6 +6,7 @@
 *   Anpassung Dateinamen Kursexporte
 *   Optimierungen Kostenrechnung
 *   Excel-Export Kursstatistik und Kostenrechnung
+*   PDF-Export Kostenrechnung
 *   Zeiterfassung: Zusammenzug aller Vereine
 
 ## Version 1.10

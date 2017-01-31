@@ -7,6 +7,7 @@
 
 require 'wagons'
 # require 'your_wagon_dependencies'
+require 'prawn/table/cell/text_with_rotate'
 require 'hitobito_insieme/wagon'
 
 module HitobitoInsieme

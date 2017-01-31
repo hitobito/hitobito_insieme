@@ -67,6 +67,7 @@ de:
       title: Übersicht Kostenrechnung
       export: CSV Export
       xlsx_export: Excel Export
+      pdf_export: PDF Export
       reporting_year: Reporting Jahr
     edit:
       aufwand_fibu: Aufwand FIBU

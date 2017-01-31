@@ -53,4 +53,33 @@ describe CostAccountingController do
       end
     end
   end
+
+  context 'GET index.pdf' do
+    context 'cost accounting pdf export' do
+      let(:group) { groups(:be) }
+      let(:year) { 2014 }
+
+      before { get :index, id: group, year: year, format: :pdf }
+
+      context 'no vid and bsv_number present' do
+        it 'should use a filename containing only group name and year' do
+          expect(@response['Content-Disposition']).to match(
+            /filename="cost_accounting_kanton-bern_2014\.pdf"/)
+        end
+      end
+
+      context 'all group infos present' do
+        let(:group) do
+          group = groups(:be)
+          group.update(vid: 12, bsv_number: 3456)
+          group
+        end
+
+        it 'should use a filename containing vid, bsv_number, group name and year' do
+          expect(@response['Content-Disposition']).to match(
+            /filename="cost_accounting_vid12_bsv3456_kanton-bern_2014\.pdf"/)
+        end
+      end
+    end
+  end
 end
