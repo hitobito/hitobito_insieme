@@ -54,6 +54,7 @@ fr:
       title: Vue d'ensemble comptabilité analytique
       export: Exporter CSV
       xlsx_export: Exporter Excel
+      pdf_export: Exporter PDF
       reporting_year: Année de reporting
     edit:
       aufwand_fibu: Charges comptabilité financière
