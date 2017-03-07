@@ -23,12 +23,12 @@ module Insieme
       end
 
       def add_label_format_items_with_different_addresses(parent)
-        LabelFormat.all_as_hash.each do |id, label|
-          format_item = export_label_item(id, :main, label)
+        LabelFormat.list.for_person(user).each do |label_format|
+          format_item = export_label_item(label_format.id, :main, label_format.to_s)
           parent.sub_items << format_item
 
           ([:main] + Person::ADDRESS_TYPES).each do |type|
-            format_item.sub_items << export_label_item(id, type)
+            format_item.sub_items << export_label_item(label_format.id, type)
           end
         end
       end
