@@ -46,9 +46,30 @@ module Export::Pdf
     end
 
     def data_rows
-      @list.collect do |entry|
-        values(entry)
+      @list.collect.with_index do |entry, row|
+        row_content = []
+        values(entry).collect.with_index do |value, cell|
+          next if unneeded_cell?(cell, row)
+          row_content << (special_cell?(cell, row)? special_cell(value, row) : value)
+        end
+        row_content
       end
+    end
+
+    def unneeded_cell?(cell, row)
+      (row == 22 && (1..7).to_a.include?(cell)) || 
+        (row == 23 && [1, 2].include?(cell))
+    end
+   
+    # checks if the cell needs multiple colspans
+    def special_cell?(cell, row)
+      cell == 0 && (row == 22 || row == 23)
+    end
+
+    # returns special cell with multiple colspan
+    def special_cell(v, row)
+      colspan = (row == 22 ? 8 : 3)
+      { content: v, colspan: colspan }
     end
 
     def add_header(pdf)

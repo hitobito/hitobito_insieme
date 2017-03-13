@@ -16,9 +16,9 @@ module Export::Pdf::CostAccounting::Style
 
   def style_table(table)
     table.column(1..16).align = :center
-    table.column(1..16).padding_left = 0
+    table.column(1..16).padding_left = 2
+    table.column(1..16).padding_right = 2
     table.column(0).width = 210
-    table.row(23).height = 19
     cell_style(table)
     color_table(table)
     align_header(table)
@@ -50,7 +50,6 @@ module Export::Pdf::CostAccounting::Style
     header_row.width = 24
     header_row.padding_top = -5
     header_row.padding_left = 12
-    header_row.font_style = :bold
   end
 
   def table_width(table)
