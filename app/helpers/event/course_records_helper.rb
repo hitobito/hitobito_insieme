@@ -73,7 +73,7 @@ module Event::CourseRecordsHelper
   end
 
   def participant_field(form, attr, options = {})
-    options.merge!(addon: t('global.persons_short')) unless options[:addon]
+    options[:addon] ||= t('global.persons_short')
     form.labeled_input_field(attr, options)
   end
 
