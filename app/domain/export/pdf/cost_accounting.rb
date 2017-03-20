@@ -10,6 +10,10 @@ module Export::Pdf
   class CostAccounting < ::Export::Base
     include CostAccounting::Style
 
+    COLSPANS = { 22 => [0, 1, 2, 3, 4, 5, 6, 7], 
+                 23 => [0, 1, 2] 
+    }.freeze
+
     class_attribute :row_class
     self.row_class = Row
 
@@ -48,28 +52,32 @@ module Export::Pdf
     def data_rows
       @list.collect.with_index do |entry, row|
         row_content = []
-        values(entry).collect.with_index do |value, cell|
-          next if unneeded_cell?(cell, row)
-          row_content << (special_cell?(cell, row)? special_cell(value, row) : value)
+        values(entry).each_with_index do |value, cell|
+          next if skip_cell?(row, cell)
+          row_content << cell_value(row, cell, value)
         end
         row_content
       end
     end
 
-    def unneeded_cell?(cell, row)
-      (row == 22 && (1..7).to_a.include?(cell)) || 
-        (row == 23 && [1, 2].include?(cell))
-    end
-   
-    # checks if the cell needs multiple colspans
-    def special_cell?(cell, row)
-      cell == 0 && (row == 22 || row == 23)
+    def cell_value(row, cell, value)
+      colspan_cell?(row, cell) ? colspan_cell(row, value) : value
     end
 
-    # returns special cell with multiple colspan
-    def special_cell(v, row)
-      colspan = (row == 22 ? 8 : 3)
-      { content: v, colspan: colspan }
+    def skip_cell?(row, cell)
+      return false unless COLSPANS.has_key?(row)
+      return false if colspan_cell?(row, cell)
+      COLSPANS[row].include?(cell)
+    end
+   
+    def colspan_cell?(row, cell)
+      return false unless COLSPANS.has_key?(row)
+      COLSPANS[row].first == cell
+    end
+
+    def colspan_cell(row, value)
+      colspan_length = COLSPANS[row].count
+      { content: value, colspan: colspan_length }
     end
 
     def add_header(pdf)
