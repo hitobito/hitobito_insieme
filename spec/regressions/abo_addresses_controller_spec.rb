@@ -27,7 +27,7 @@ describe AboAddressesController, type: :controller  do
   end
 
   it 'raises not allowed without required permissions' do
-    controller = Fabricate(Group::Dachverein::Controlling.name.to_sym,
+    controller = Fabricate(Group::Dachverein::External.name.to_sym,
                            group: groups(:dachverein)).person
     sign_in(controller)
     expect do
