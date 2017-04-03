@@ -1,6 +1,13 @@
+# encoding: utf-8
+
+#  Copyright (c) 2012-2017, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 require 'spec_helper'
 
-describe Export::Xlsx::Events::AggregateCourse::ShortList do
+describe Export::Tabular::Events::AggregateCourse::ShortList do
 
   let(:courses) { [course1] }
   let(:course1) do
@@ -11,7 +18,6 @@ describe Export::Xlsx::Events::AggregateCourse::ShortList do
   end
 
   it 'exports short events list as xlsx' do
-
     expect_any_instance_of(Axlsx::Worksheet)
       .to receive(:add_row)
       .exactly(5).times
@@ -27,12 +33,14 @@ describe Export::Xlsx::Events::AggregateCourse::ShortList do
       .with(130)
       .and_call_original
 
-    Export::Xlsx::Events::AggregateCourse::ShortList.export(courses, 'test group name', '2014')
+    Export::Tabular::Events::AggregateCourse::ShortList.xlsx(courses, 'test group name', '2014')
   end
 
   private
 
   def column_widths
-    [18,12.86,20,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,17.14,4.29,3.71,2.57,14,4.29,4.29,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,7.5,3.13]
+    [18,12.86,20,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,
+     2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,17.14,4.29,3.71,2.57,14,4.29,4.29,7.5,7.5,7.5,7.5,
+     7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,7.5,3.13]
   end
 end

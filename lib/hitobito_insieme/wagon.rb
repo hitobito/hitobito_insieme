@@ -69,20 +69,32 @@ module HitobitoInsieme
       EventDecorator.send :include, Insieme::EventDecorator
 
       # domain
-      Export::Csv::People::PeopleAddress.send :include, Insieme::Export::Csv::People::PeopleAddress
-      Export::Csv::People::PeopleFull.send(:include, Insieme::Export::Csv::People::PeopleFull)
-      Export::Csv::People::PersonRow.send(:include, Insieme::Export::Csv::People::PersonRow)
+      Export::Tabular::People::PeopleAddress.send(
+        :include, Insieme::Export::Tabular::People::PeopleAddress)
+      Export::Tabular::People::PeopleFull.send(
+        :include, Insieme::Export::Tabular::People::PeopleFull)
+      Export::Tabular::People::PersonRow.send(
+        :include, Insieme::Export::Tabular::People::PersonRow)
+      Export::Tabular::People::ParticipationsFull.send(
+        :include, Insieme::Export::Tabular::People::ParticipationsFull)
+      Export::Tabular::People::ParticipationRow.send(
+        :include, Insieme::Export::Tabular::People::ParticipationRow)
+      Export::Tabular::Events::List.send :include, Insieme::Export::Tabular::Events::List
+      Export::Tabular::Events::Row.send :include, Insieme::Export::Tabular::Events::Row
       Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
-      Export::Csv::People::ParticipationsFull.send(
-        :include,
-        Insieme::Export::Csv::People::ParticipationsFull)
-      Export::Csv::People::ParticipationRow.send(
-        :include,
-        Insieme::Export::Csv::People::ParticipationRow)
-      Export::Xlsx::Events::List.send :include, Insieme::Export::Xlsx::Events::List
-      Export::Xlsx::Events::Row.send :include, Insieme::Export::Xlsx::Events::Row
       # rubocop:enable SingleSpaceBeforeFirstArg
+
+      Export::Xlsx::Style.register(Export::Xlsx::CostAccounting::Style,
+                                   Export::Tabular::CostAccounting::List)
+
+      Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
+                                   Export::Tabular::Events::DetailList,
+                                   Export::Tabular::Events::ShortList)
+
+      Export::Xlsx::Style.register(Export::Xlsx::Events::AggregateCourse::Style,
+                                   Export::Tabular::Events::AggregateCourse::DetailList,
+                                   Export::Tabular::Events::AggregateCourse::ShortList)
 
       admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
       admin[:active_for] << 'reporting_parameters' << 'global_value'

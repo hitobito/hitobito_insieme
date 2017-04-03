@@ -13,7 +13,7 @@ module Export::Pdf
 
     attr_reader :entry
 
-    def initialize(entry)
+    def initialize(entry, _format = nil)
       @entry = entry
     end
 

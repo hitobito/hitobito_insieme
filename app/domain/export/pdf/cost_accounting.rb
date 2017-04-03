@@ -1,20 +1,19 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2016-2017 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
 
 module Export::Pdf
-  class CostAccounting < ::Export::Base
+  class CostAccounting < ::Export::Tabular::Base
     include CostAccounting::Style
 
-    COLSPANS = { 22 => [0, 1, 2, 3, 4, 5, 6, 7], 
-                 23 => [0, 1, 2] 
+    COLSPANS = { 22 => [0, 1, 2, 3, 4, 5, 6, 7],
+                 23 => [0, 1, 2]
     }.freeze
 
-    class_attribute :row_class
     self.row_class = Row
 
     def initialize(list, group_name, year)
@@ -36,17 +35,10 @@ module Export::Pdf
     private
 
     def cost_accounting_table(pdf)
-      data = generate_data
+      data = [labels] + data_rows
       pdf.table(data) do |t|
         style_table(t)
       end
-    end
-
-    def generate_data
-      data = []
-      data += [labels]
-      data += data_rows
-      data
     end
 
     def data_rows
@@ -69,7 +61,7 @@ module Export::Pdf
       return false if colspan_cell?(row, cell)
       COLSPANS[row].include?(cell)
     end
-   
+
     def colspan_cell?(row, cell)
       return false unless COLSPANS.has_key?(row)
       COLSPANS[row].first == cell

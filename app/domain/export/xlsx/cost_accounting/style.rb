@@ -8,8 +8,10 @@
 
 module Export::Xlsx::CostAccounting
   class Style < Export::Xlsx::Style
+
     BLACK = '000000'
     CURRENCY = 2
+
     self.style_definition_labels += [:total_label, :total_currency,
                                      :currency, :vereinsname,
                                      :reporting_jahr, :default_border,
@@ -17,6 +19,10 @@ module Export::Xlsx::CostAccounting
 
     def column_widths
       [57.62, nil, nil, nil, nil, 3]
+    end
+
+    def header_styles
+      [nil, style_title_header_row, nil]
     end
 
     def row_styles

@@ -60,9 +60,9 @@ describe 'CostAccountingCalculator', js: true do
     def create_course_record
       Event::CourseRecord.create!(
         event: Fabricate(:course,
-                         groups: [group],
-                         leistungskategorie: 'bk',
-                         dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
+                          groups: [group],
+                          leistungskategorie: 'bk',
+                          dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
         year: year,
         honorare_inkl_sozialversicherung: 5000,
         uebriges: 600

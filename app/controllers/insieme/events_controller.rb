@@ -17,7 +17,7 @@ module Insieme
                                    :spezielle_unterkunft, :kursart]
       ]
 
-      alias_method_chain :render_xlsx, :details
+      alias_method_chain :render_tabular, :details
     end
 
     private
@@ -29,30 +29,30 @@ module Insieme
       end
     end
 
-    def render_xlsx_with_details(entries)
-      send_data(xlsx_exporter.export(entries, group.name, year),
-                type: :xlsx,
-                filename: xlsx_filename)
+    def render_tabular_with_details(format, entries)
+      send_data(tabular_exporter.export(format, entries, group.name, year),
+                type: format,
+                filename: tabular_filename(format))
     end
 
-    def xlsx_exporter
+    def tabular_exporter
       list_type = 'ShortList'
 
       if can?(:export_course_records, @group) && course_records?
         list_type = 'DetailList'
       end
 
-      list_type = "AggregateCourse::#{list_type}" if aggregate_course?  
-      "::Export::Xlsx::Events::#{list_type}".constantize
+      list_type = "AggregateCourse::#{list_type}" if aggregate_course?
+      "::Export::Tabular::Events::#{list_type}".constantize
     end
 
-    def xlsx_filename
+    def tabular_filename(format)
       vid = group.vid.present? ? "_vid#{group.vid}" : ''
       bsv = group.bsv_number.present? ? "_bsv#{group.bsv_number}" : ''
       group_name = group.name.parameterize
-      "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.xlsx"
+      "#{request_event_type}#{vid}#{bsv}_#{group_name}_#{year}.#{format}"
     end
-    
+
     def aggregate_course?
       request_event_type == 'aggregate_course'
     end

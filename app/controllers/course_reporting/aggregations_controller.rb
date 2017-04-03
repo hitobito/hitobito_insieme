@@ -24,7 +24,7 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def export
-    csv = Export::Csv::CourseReporting::Aggregation.export(aggregation)
+    csv = Export::Tabular::CourseReporting::Aggregation.csv(aggregation)
     send_data csv, type: :csv, filename: filename
   end
 

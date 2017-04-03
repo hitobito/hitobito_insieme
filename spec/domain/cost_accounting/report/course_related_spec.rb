@@ -124,9 +124,9 @@ describe CostAccounting::Report::CourseRelated do
   def create_course_records
     Event::CourseRecord.create!(
       event: Fabricate(:course,
-                       groups: [group],
-                       leistungskategorie: 'bk',
-                       dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
+                        groups: [group],
+                        leistungskategorie: 'bk',
+                        dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
       year: year,
       unterkunft: 5000,
       uebriges: 600

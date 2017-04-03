@@ -25,7 +25,7 @@ class StatisticsController < ApplicationController
   private
 
   def csv
-    Export::Csv::Statistics::Vereinsmitglieder.export(@vereinsmitglieder)
+    Export::Tabular::Statistics::Vereinsmitglieder.csv(@vereinsmitglieder)
   end
 
   def group

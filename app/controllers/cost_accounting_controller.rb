@@ -44,7 +44,7 @@ class CostAccountingController < ReportingBaseController
   end
 
   def render_xlsx
-    xlsx = Export::Xlsx::CostAccounting::List.export(@table.reports.values, group.name, year)
+    xlsx = Export::Tabular::CostAccounting::List.xlsx(@table.reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 

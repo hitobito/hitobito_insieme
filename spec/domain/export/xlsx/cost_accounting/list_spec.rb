@@ -1,12 +1,18 @@
+# encoding: utf-8
+
+#  Copyright (c) 2012-2017, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 require 'spec_helper'
 
-describe Export::Xlsx::CostAccounting::List do
+describe Export::Tabular::CostAccounting::List do
 
   let(:group) { groups(:aktiv) }
   let(:values) { CostAccounting::Table.new(group, '2010').reports.values }
 
   it 'exports cost accounting list as xlsx' do
-
     expect_any_instance_of(Axlsx::Worksheet)
       .to receive(:column_widths)
       .with(*column_widths)
@@ -17,11 +23,11 @@ describe Export::Xlsx::CostAccounting::List do
       .exactly(30).times
       .and_call_original
 
-    Export::Xlsx::CostAccounting::List.export(values, 'test group name', '2014')
-
+    Export::Tabular::CostAccounting::List.xlsx(values, 'test group name', '2014')
   end
 
   private
+
   def column_widths
     [57.62, nil, nil, nil, nil, 3]
   end

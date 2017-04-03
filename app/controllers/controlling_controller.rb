@@ -23,25 +23,25 @@ class ControllingController < ApplicationController
 
   def cost_accounting
     @table = CostAccounting::Aggregation.new(year)
-    xlsx = Export::Xlsx::CostAccounting::List.export(@table.reports.values, group.name, year)
+    xlsx = Export::Tabular::CostAccounting::List.xlsx(@table.reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: "cost_accounting_#{year}.xlsx"
   end
 
   def client_statistics
     @stats = CourseReporting::ClientStatistics.new(year)
-    csv = Export::Csv::CourseReporting::ClientStatistics.export(@stats)
+    csv = Export::Tabular::CourseReporting::ClientStatistics.csv(@stats)
     send_data csv, type: :csv, filename: "client_statistics_#{year}.csv"
   end
 
   def group_figures
     @stats = Statistics::GroupFigures.new(year)
-    csv = Export::Csv::Statistics::GroupFigures.export(@stats)
+    csv = Export::Tabular::Statistics::GroupFigures.csv(@stats)
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 
   def time_records
     @list = TimeRecord::Vereinsliste.new(year, params[:type])
-    csv = Export::Csv::TimeRecords::Vereinsliste.export(@list)
+    csv = Export::Tabular::TimeRecords::Vereinsliste.csv(@list)
     filename = "#{params[:type].to_s.underscore.tr('/', '_')}_#{year}.csv"
     send_data csv, type: :csv, filename: filename
   end

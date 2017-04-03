@@ -9,7 +9,6 @@ require 'spec_helper'
 
 describe EventsController do
 
-
   before { sign_in(people(:top_leader)) }
 
   context 'GET#new' do
@@ -94,7 +93,7 @@ describe EventsController do
 
     it 'ignores changes to leistungskategorie' do
       put :update, group_id: groups(:be).id, id: event.id,
-        event: { leistungskategorie: 'sk' }
+          event: { leistungskategorie: 'sk' }
 
       expect(event.reload.leistungskategorie).to eq 'bk'
     end
@@ -106,9 +105,9 @@ describe EventsController do
       it 'cannot update course in frozen year' do
         expect do
           put :update,
-            group_id: groups(:be).id,
-            id: event.id,
-            event: { name: 'other' }
+              group_id: groups(:be).id,
+              id: event.id,
+              event: { name: 'other' }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -158,8 +157,9 @@ describe EventsController do
       end
 
       it 'creates detail export for courses' do
-        expect_any_instance_of(::Export::Xlsx::Events::DetailList)
+        expect_any_instance_of(::Export::Tabular::Events::DetailList)
           .to receive(:data_rows)
+          .twice
           .and_call_original
 
         group.update_attributes!(vid: 42, bsv_number: '99')
@@ -172,8 +172,9 @@ describe EventsController do
         vorstand = Fabricate(:role, group: groups(:dachverein), type: 'Group::Dachverein::Vorstandsmitglied').person
         sign_in(vorstand)
 
-        expect_any_instance_of(::Export::Xlsx::Events::ShortList)
-          .to receive(:data_rows)
+        expect_any_instance_of(::Export::Tabular::Events::ShortList)
+          .to(receive(:data_rows))
+          .twice
           .and_call_original
 
         group.update_attributes!(vid: 42, bsv_number: '99')
@@ -209,8 +210,9 @@ describe EventsController do
       end
 
       it 'creates detail export for aggregate courses' do
-        expect_any_instance_of(::Export::Xlsx::Events::AggregateCourse::DetailList)
+        expect_any_instance_of(::Export::Tabular::Events::AggregateCourse::DetailList)
           .to receive(:data_rows)
+          .twice
           .and_call_original
 
         group.update_attributes!(vid: 42, bsv_number: '99')
@@ -223,8 +225,9 @@ describe EventsController do
         vorstand = Fabricate(:role, group: groups(:be), type: 'Group::Regionalverein::Vorstandsmitglied').person
         sign_in(vorstand)
 
-        expect_any_instance_of(::Export::Xlsx::Events::AggregateCourse::ShortList)
+        expect_any_instance_of(::Export::Tabular::Events::AggregateCourse::ShortList)
           .to receive(:data_rows)
+          .twice
           .and_call_original
 
         group.update_attributes!(vid: 42, bsv_number: '99')

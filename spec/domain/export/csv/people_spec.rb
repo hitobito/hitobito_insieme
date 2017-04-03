@@ -8,7 +8,7 @@
 require 'spec_helper'
 require 'csv'
 
-describe Export::Csv::People do
+describe Export::Tabular::People do
 
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
@@ -56,7 +56,7 @@ describe Export::Csv::People do
          'Land Rechnungsadresse Kurs']
   end
 
-  describe Export::Csv::People do
+  describe Export::Tabular::People do
 
     before do
       Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
@@ -86,7 +86,7 @@ describe Export::Csv::People do
     end
 
     let(:list) { [person] }
-    let(:data) { Export::Csv::People::PeopleAddress.export(list) }
+    let(:data) { Export::Tabular::People::PeopleAddress.csv(list) }
     let(:csv)  { CSV.parse(data, headers: true, col_sep: Settings.csv.separator) }
 
     subject { csv }
@@ -111,7 +111,7 @@ describe Export::Csv::People do
 
     context 'export_full' do
 
-      let(:data) { Export::Csv::People::PeopleFull.export(list) }
+      let(:data) { Export::Tabular::People::PeopleFull.csv(list) }
 
       its(:headers) { should include('Anrede') }
       its(:headers) { should include('AHV Nummer') }

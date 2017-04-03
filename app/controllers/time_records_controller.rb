@@ -69,7 +69,7 @@ class TimeRecordsController < ReportingBaseController
     respond_to do |format|
       format.html { redirect_to time_record_base_information_group_path(group, year) }
       format.csv do
-        send_data Export::Csv::TimeRecords::List.export(list_entries), type: :csv
+        send_data Export::Tabular::TimeRecords::List.csv(list_entries), type: :csv
       end
     end
   end

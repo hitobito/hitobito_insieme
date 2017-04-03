@@ -5,10 +5,10 @@
 
 #= require ./_cost_accounting_calculator.js.coffee
 
-$(document).on('click', '.cancel[href=#]', (event) ->
+$(document).on('click', '.cancel[href="#"]', (event) ->
   $(this).closest('form').get(0).reset())
 
-$ ->
+$(document).on('turbolinks:load', ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )
 
@@ -18,3 +18,4 @@ $ ->
 
   $('form[data-readonly=true] input[type=checkbox], ' +
     'form[data-readonly=true] input[type=radio]').attr('disabled', 'disabled')
+)

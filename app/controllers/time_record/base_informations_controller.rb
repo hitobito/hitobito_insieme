@@ -19,7 +19,7 @@ class TimeRecord::BaseInformationsController < ReportingBaseController
     respond_to do |format|
       format.html
       format.csv do
-        send_data Export::Csv::TimeRecords::BaseInformation.export(@table), type: :csv
+        send_data Export::Tabular::TimeRecords::BaseInformation.csv(@table), type: :csv
       end
     end
   end

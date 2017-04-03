@@ -28,7 +28,7 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
     respond_to do |format|
       format.html { redirect_to edit_general_cost_allocation_group_events_path(group, year) }
       format.csv do
-        send_data Export::Csv::Event::GeneralCostAllocation.export(entry), type: :csv
+        send_data Export::Tabular::Events::GeneralCostAllocation.csv(entry), type: :csv
       end
     end
   end
