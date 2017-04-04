@@ -11,6 +11,7 @@ module Export::Tabular::CostAccounting
 
     self.model_class = ::CostAccounting::Report::Base
     self.row_class = Export::Tabular::CostAccounting::Row
+    self.auto_filter = false
 
     def initialize(list, group_name, year)
       @group_name = group_name
