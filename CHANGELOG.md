@@ -1,5 +1,10 @@
 # Hitobito Insieme Changelog
 
+## Version 1.14
+
+*   Zusätzliche Rechte für die Rolle Controlling im Dachverein
+
+
 ## Version 1.13
 
 *   Jahr Freeze

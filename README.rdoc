@@ -11,7 +11,7 @@ This hitobito wagon defines the organization hierarchy with groups and roles of 
     * Geschäftsführung: [:admin, :layer_and_below_full, :contact_data]
     * Sekretariat: [:layer_and_below_full, :contact_data]
     * Adressverwaltung: [:layer_and_below_full, :contact_data]
-    * Controlling: [:contact_data]
+    * Controlling: [:admin, :layer_and_below_full, :contact_data]
   * Liste
     * Listenverwaltung: [:group_full]
     * Person: []
