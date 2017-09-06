@@ -14,10 +14,12 @@ dachverein = Group.roots.first
 srand(42)
 
 unless dachverein.address.present?
- dachverein.update_attributes($seeder.group_attributes)
- dachverein.default_children.each do |child_class|
-   child_class.first.update_attributes($seeder.group_attributes)
- end
+  # avoid callbacks to prevent creating default groups twice
+  dachverein.update_columns($seeder.group_attributes)
+
+  dachverein.default_children.each do |child_class|
+    child_class.first.update_attributes($seeder.group_attributes)
+  end
 end
 
 def seed_group(group, *attrs)
