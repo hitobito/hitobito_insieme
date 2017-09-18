@@ -10,19 +10,14 @@ require 'spec_helper'
 describe SubscriptionsController do
   let(:group) { groups(:dachverein) }
   let(:person) { people(:top_leader) }
-
-  let!(:list) { Fabricate(:mailing_list, group: group) }
-  let!(:subscription) { Fabricate(:subscription, mailing_list: list) }
-
+  let(:list) { Fabricate(:mailing_list, group: group) }
 
   before { sign_in(person) }
 
-  render_views
+  it 'exports in the background' do
+    get :index, group_id: group.id, mailing_list_id: list.id, format: :csv
 
-  it 'exports salutation, number, correspondence_language, language, canton and additional_information' do
-    get :index,  group_id: group.id, mailing_list_id: list.id, format: :csv
-
-    expect(response.body).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
+    expect(response).to redirect_to group_mailing_list_subscriptions_path(group_id: group.id, mailing_list_id: list.id)
   end
 end
 
