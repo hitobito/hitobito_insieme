@@ -11,6 +11,6 @@ module Export::Tabular::People
     def additional_person_attributes
       super + [:language, :salutation, :canton, :additional_information]
     end
-    
+
   end
 end
