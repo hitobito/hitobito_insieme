@@ -78,7 +78,7 @@ module CostAccounting
       Event::CourseRecord.
         joins(event: :groups).
         group('groups.id, events.leistungskategorie').
-        where(year: year).
+        where(year: year, subventioniert: true).
         pluck('groups.id AS group_id, leistungskategorie, ' \
               'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
     end
