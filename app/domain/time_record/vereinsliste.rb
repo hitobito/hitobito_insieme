@@ -18,7 +18,10 @@ class TimeRecord::Vereinsliste
     @vereine ||=
       Group.
         without_deleted.
-        where(type: [Group::Dachverein, Group::Regionalverein].collect(&:sti_name)).
+        where(type: [Group::Dachverein,
+                     Group::Regionalverein,
+                     Group::ExterneOrganisation].
+                     collect(&:sti_name)).
         order_by_type
   end
 

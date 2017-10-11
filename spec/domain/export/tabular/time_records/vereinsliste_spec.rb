@@ -133,6 +133,18 @@ describe Export::Tabular::TimeRecords::Vereinsliste do
                                530, 300, nil, nil, 300, nil, nil, 0, nil, nil, 0,
                                830, 50, 880])
       end
+
+      it 'includes externe organisation' do
+        external_group = Group.create!(parent: groups(:dachverein),
+                                       name: 'externa',
+                                       type: Group::ExterneOrganisation.sti_name)
+        TimeRecord::EmployeeTime.create!(
+          group: external_group, year: year, eigene_zeitschriften: 42, eigene_webseite: 230, blockkurse: 200,
+          nicht_art_74_leistungen: 00)
+        data = export
+
+        expect(data.last.first).to eq('externa')
+      end 
     end
 
     context 'for volunteer wthout verification time' do
