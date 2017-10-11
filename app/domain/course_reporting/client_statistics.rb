@@ -67,7 +67,7 @@ module CourseReporting
 
       Event::CourseRecord.select(summed_columns).
                           joins(:event).
-                          where(year: year).
+                          where(year: year, subventioniert: true).
                           group('events.leistungskategorie')
     end
 
@@ -88,7 +88,7 @@ module CourseReporting
       Event::ParticipationCantonCount.
         select(summed_columns).
         joins(ROLE_ASSOCIATIONS[role] => :event).
-        where(event_course_records: { year: year }).
+        where(event_course_records: { year: year, subventioniert: true }).
         group('events.leistungskategorie')
     end
 

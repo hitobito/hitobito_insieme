@@ -17,6 +17,7 @@ describe CourseReporting::ClientStatistics do
     create_course(2015, :be, 'bk',
                   { be: 2, ag: 4, zh: 6, another: 8 },
                   { be: 1, ag: 2, zh: 3, another: 4 },
+                  true,
                   :aggregate_course)
 
     create_course(2015, :fr, 'bk',
@@ -32,6 +33,13 @@ describe CourseReporting::ClientStatistics do
     create_course(2014, :fr, 'bk',
                   { be: 4, ag: 4, zh: 4, tg: 4, another: 4 },
                   { be: 2, ag: 2, zh: 2, another: 2 })
+
+    # same year, non subventioniert
+    create_course(2015, :be, 'bk',
+                  { be: 1, ag: 2, zh: 3, another: 4 },
+                  { be: 0, ag: 1, zh: 1, another: 2 },
+                  false)
+
   end
 
   let(:stats) { described_class.new(2015) }
@@ -93,7 +101,7 @@ describe CourseReporting::ClientStatistics do
   private
 
   def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {},
-                    event_type = :course)
+                    subventioniert = true, event_type = :course)
     event = nil
     if event_type == :aggregate_course
       event = Fabricate(event_type,
@@ -106,7 +114,7 @@ describe CourseReporting::ClientStatistics do
                         leistungskategorie: leistungskategorie)
       event.dates.create!(start_at: Time.zone.local(year, 05, 11))
     end
-    r = Event::CourseRecord.create!(event_id: event.id, year: year)
+    r = Event::CourseRecord.create!(event_id: event.id, year: year, subventioniert: subventioniert)
     r.create_challenged_canton_count!(challenged) if challenged.present?
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
     r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 3)
