@@ -101,6 +101,8 @@ module HitobitoInsieme
 
       # jobs
       Export::SubscriptionsJob.send :include, Insieme::Export::SubscriptionsJob
+      Export::EventsExportJob.send :include, Insieme::Export::EventsExportJob
+
 
       admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
       admin[:active_for] << 'reporting_parameters' << 'global_value'
