@@ -6,6 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 require 'spec_helper'
+require 'csv'
 
 describe Event::ParticipationsController do
   let(:event) { events(:top_course) }
@@ -133,7 +134,7 @@ describe Event::ParticipationsController do
   end
 
   context 'internal fields' do
-    let(:csv) { CSV.parse(response.body, headers: true, col_sep: ';') }
+    let(:csv) { CSV.parse(Delayed::Job.last.payload_object.data, headers: true, col_sep: ';') }
     let(:internal_fields) { { invoice_text: 'test', invoice_amount: '1.2' } }
 
     let(:group) { groups(:be) }

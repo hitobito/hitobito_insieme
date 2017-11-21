@@ -18,14 +18,15 @@ describe EventsController, type: :controller do
 
   context 'GET index' do
     context '.csv' do
+      let(:lines) { Delayed::Job.last.payload_object.data }
       it 'renders event csv' do
         get :index, group_id: groups(:dachverein).id, year: 2014, format: :csv
-        expect(response.body.lines).to have(2).items
+        expect(lines).to be_present
       end
 
       it 'renders course csv' do
         get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
-        expect(response.body.lines).to have(2).items
+        expect(lines).to be_present
       end
     end
   end

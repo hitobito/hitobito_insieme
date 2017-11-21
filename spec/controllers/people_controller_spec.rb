@@ -113,9 +113,11 @@ describe PeopleController do
     before { sign_in(person) }
 
     it 'exports salutation, number and correspondence_language' do
-      get :index, group_id: group, format: :csv
-
-      expect(@response.body).to match(/.*Personnr\.;Anrede;Korrespondenzsprache.*/)
+      expect do
+        get :index, group_id: group, format: :csv
+      end.to change { Delayed::Job.count }.by(1)
+      payload = Delayed::Job.last.payload_object.data
+      expect(payload).to match(/.*Personnr\.;Anrede;Korrespondenzsprache.*/)
     end
   end
 
