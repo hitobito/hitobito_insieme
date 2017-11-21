@@ -142,7 +142,6 @@ describe EventsController do
   end
 
   context 'GET#index as XLSX' do
-
     context 'dachverein' do
       before do
         sign_in(people(:top_leader))
@@ -152,41 +151,17 @@ describe EventsController do
       end
       let(:group) { groups(:dachverein) }
 
-      it 'creates default export for events' do
-        get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
-      end
-
-      it 'creates detail export for courses' do
-        expect_any_instance_of(::Export::Tabular::Events::DetailList)
-          .to receive(:data_rows)
-          .twice
-          .and_call_original
-
-        group.update_attributes!(vid: 42, bsv_number: '99')
-        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
-
-        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.xlsx')
-      end
-
-      it 'creates short export for courses' do
-        vorstand = Fabricate(:role, group: groups(:dachverein), type: 'Group::Dachverein::Vorstandsmitglied').person
-        sign_in(vorstand)
-
-        expect_any_instance_of(::Export::Tabular::Events::ShortList)
-          .to(receive(:data_rows))
-          .twice
-          .and_call_original
-
-        group.update_attributes!(vid: 42, bsv_number: '99')
-        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
-
-        expect(filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.xlsx')
+      it 'creats export job for events' do
+        expect do
+          get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
+          expect(flash[:notice]).to be_present
+          expect(response).to redirect_to(simple_group_events_path(group))
+        end.to change { Delayed::Job.count }.by(1)
       end
     end
 
     context 'regionalverein' do
       before do
-        sign_in(people(:regio_leader))
         c = Fabricate(:course, groups: [groups(:be)], kind: Event::Kind.first,
                       leistungskategorie: 'bk')
         Fabricate(:aggregate_course, groups: [groups(:be)],
@@ -196,9 +171,12 @@ describe EventsController do
       let(:group) { groups(:be) }
 
       it 'creates detail export for courses' do
-        get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
-
-        expect(filename).to eq('course_kanton-bern_2012.xlsx')
+        expect do
+          sign_in(people(:regio_leader))
+          get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
+          expect(flash[:notice]).to be_present
+          expect(response).to redirect_to(course_group_events_path(group))
+        end.to change { Delayed::Job.count }.by(1)
       end
 
       it 'denies export to controlling if not controlling in group' do
@@ -208,35 +186,7 @@ describe EventsController do
           get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
         end.to raise_error(CanCan::AccessDenied)
       end
-
-      it 'creates detail export for aggregate courses' do
-        expect_any_instance_of(::Export::Tabular::Events::AggregateCourse::DetailList)
-          .to receive(:data_rows)
-          .twice
-          .and_call_original
-
-        group.update_attributes!(vid: 42, bsv_number: '99')
-        get :index, group_id: group.id, type: 'Event::AggregateCourse', format: 'xlsx', year: '2012'
-
-        expect(filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.xlsx')
-      end
-
-      it 'creates short export for aggregate courses' do
-        vorstand = Fabricate(:role, group: groups(:be), type: 'Group::Regionalverein::Vorstandsmitglied').person
-        sign_in(vorstand)
-
-        expect_any_instance_of(::Export::Tabular::Events::AggregateCourse::ShortList)
-          .to receive(:data_rows)
-          .twice
-          .and_call_original
-
-        group.update_attributes!(vid: 42, bsv_number: '99')
-        get :index, group_id: group.id, type: 'Event::AggregateCourse', format: 'xlsx', year: '2012'
-
-        expect(filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.xlsx')
-      end
     end
-
   end
 
   context 'DELETE#destroy' do
