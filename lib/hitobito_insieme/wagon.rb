@@ -61,7 +61,7 @@ module HitobitoInsieme
       Sheet::Base.send  :include, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event
-      Dropdown::PeopleExport.send :include, Insieme::Dropdown::PeopleExport
+      Dropdown::LabelItems.send :include, Insieme::Dropdown::LabelItems
 
       # decorators
       PersonDecorator.send :include, Insieme::PersonDecorator

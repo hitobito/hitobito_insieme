@@ -7,7 +7,7 @@
 
 module Insieme
   module Dropdown
-    module PeopleExport
+    module LabelItems
       extend ActiveSupport::Concern
 
       included do
