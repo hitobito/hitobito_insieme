@@ -14,9 +14,13 @@ module Insieme
       alias_method_chain :generate_pdf, :address_type
     end
 
-    def generate_pdf_with_address_type(people)
-      ::Export::Pdf::Labels.new(find_and_remember_label_format, params[:address_type]).
-                            generate(people)
+    def generate_pdf_with_address_type(people, group)
+      if params[:label_format_id]
+        ::Export::Pdf::Labels.new(find_and_remember_label_format, params[:address_type]).
+          generate(people)
+      else
+        ::Export::Pdf::List.render(people, group)
+      end
     end
   end
 end
