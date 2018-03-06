@@ -22,11 +22,12 @@ module Insieme
           @address_type = address_type if Person::ADDRESS_TYPES.include?(address_type.to_s)
         end
 
-        def address_with_type(contactable)
+        def address_with_type(contactable, name)
           if contactable.is_a?(Person) && @address_type
-            address_without_type(AddressProxy.new(contactable, @address_type))
+            proxy = AddressProxy.new(contactable, @address_type)
+            address_without_type(proxy, proxy.full_name)
           else
-            address_without_type(contactable)
+            address_without_type(contactable, name)
           end
         end
 

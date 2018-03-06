@@ -14,7 +14,11 @@ describe Export::Pdf::Labels do
 
   let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), address_type) }
 
-  subject { labels.send(:address, person) }
+  subject { labels.send(:address, person, to_name(person)) }
+
+  def to_name(contactable)
+    Export::Tabular::People::HouseholdRow.new(contactable).name
+  end
 
   before do
     person.update!(
