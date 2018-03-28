@@ -12,7 +12,7 @@
 
   = f.labeled_i18n_enum_field :correspondence_language, Person.correspondence_language_labels, prompt: true
 
-- if entry.id != current_user.id
+- if current_user && entry.id != current_user.id
   = field_set_tag do
     = f.labeled(:number) do
       = f.input_field :number, disabled: !entry.manual_number
