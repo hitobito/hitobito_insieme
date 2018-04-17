@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe Export::SubscriptionsJob do
 
-  subject { Export::SubscriptionsJob.new(format, list.id, person.id) }
+  subject { Export::SubscriptionsJob.new(format, list.id, person.id, true) }
 
 
   let(:group) { groups(:dachverein) }
