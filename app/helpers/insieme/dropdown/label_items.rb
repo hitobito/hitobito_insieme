@@ -13,7 +13,6 @@ module Insieme
       included do
         alias_method_chain :add_last_used_format_item, :different_addresses
         alias_method_chain :add_label_format_items, :different_addresses
-        alias_method_chain :add_condensed_labels_option_items, :not
       end
 
       private
@@ -39,10 +38,6 @@ module Insieme
                                           label_format_id: format_id,
                                           address_type: type),
                              target: :new)
-      end
-
-      def add_condensed_labels_option_items_with_not(label_item)
-        # do not add this option for insieme, as it does not (yet) work with mutliple address types
       end
 
     end

@@ -18,8 +18,7 @@ describe 'Insieme::Dropdown::PeopleExport' do
     Dropdown::PeopleExport.new(self,
                                user,
                                { controller: 'people', group_id: groups(:dachverein).id },
-                               false,
-                               false)
+                               households: false, labels: false)
   end
 
   subject { dropdown.to_s }
