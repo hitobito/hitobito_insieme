@@ -17,8 +17,8 @@
 #  participant_number  :string(255)
 #
 
-bund:
-  group: bund
+dachverein:
+  group: dachverein
   sequence_number: 1
   beneficiary: 'Hitobito AG'
   payee: 'Hans Gerber'
