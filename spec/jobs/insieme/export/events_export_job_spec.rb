@@ -11,7 +11,7 @@ describe Insieme::Export::EventsExportJob do
 
   subject { Export::EventsExportJob.new(:csv, person.id, event_filter) }
 
-  let(:event_filter) { EventFilter.new(type, 'all', group, 2012, false) }
+  let(:event_filter) { Event::Filter.new(type, 'all', group, 2012, false) }
 
   context 'dachverein' do
     let(:group) { groups(:dachverein) }
