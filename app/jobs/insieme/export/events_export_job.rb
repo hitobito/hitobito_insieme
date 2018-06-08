@@ -24,13 +24,13 @@ module Insieme
     end
 
     def data_with_insieme
-      exporter_class.export(@format, entries, group_name, @year)
+      exporter_class.export(@format, entries, group_name, year)
     end
 
     def exporter_class
       list_type = 'ShortList'
 
-      if can?(:export_course_records, @parent) && course_records?
+      if can?(:export_course_records, parent) && course_records?
         list_type = 'DetailList'
       end
 
@@ -39,25 +39,37 @@ module Insieme
     end
 
     def filename
-      vid = @parent.vid.present? ? "_vid#{@parent.vid}" : ''
-      bsv = @parent.bsv_number.present? ? "_bsv#{@parent.bsv_number}" : ''
-      "#{filename_prefix}#{vid}#{bsv}_#{group_name}_#{@year}.#{@format}"
+      vid = parent.vid.present? ? "_vid#{parent.vid}" : ''
+      bsv = parent.bsv_number.present? ? "_bsv#{parent.bsv_number}" : ''
+      "#{filename_prefix}#{vid}#{bsv}_#{group_name}_#{year}.#{@format}"
     end
 
     def aggregate_course?
-      @event_type == ::Event::AggregateCourse.sti_name
+      type == ::Event::AggregateCourse.sti_name
     end
 
     def group_name
-      @parent.name.parameterize
+      parent.name.parameterize
     end
 
     def filename_prefix
-      @event_type.to_s.demodulize.underscore || 'simple'
+      type.to_s.demodulize.underscore || 'simple'
     end
 
     def course_records?
       entries.first.respond_to?(:course_record)
+    end
+
+    def parent
+      @event_filter.group
+    end
+
+    def year
+      @event_filter.year
+    end
+
+    def type
+      @event_filter.type
     end
 
   end
