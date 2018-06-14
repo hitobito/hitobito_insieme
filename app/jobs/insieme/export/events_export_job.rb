@@ -19,10 +19,6 @@ module Insieme
       @tempfile_name = filename
     end
 
-    def can?(action, object)
-      Ability.new(::Person.find(@user_id)).can?(action, object)
-    end
-
     def data_with_insieme
       exporter_class.export(@format, entries, group_name, year)
     end
@@ -30,7 +26,7 @@ module Insieme
     def exporter_class
       list_type = 'ShortList'
 
-      if can?(:export_course_records, parent) && course_records?
+      if ability.can?(:export_course_records, parent) && course_records?
         list_type = 'DetailList'
       end
 
@@ -61,15 +57,15 @@ module Insieme
     end
 
     def parent
-      @event_filter.group
+      @filter.group
     end
 
     def year
-      @event_filter.year
+      @filter.year
     end
 
     def type
-      @event_filter.type
+      @filter.type
     end
 
   end
