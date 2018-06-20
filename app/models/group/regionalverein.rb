@@ -84,6 +84,11 @@ class Group::Regionalverein < Group
     self.permissions = [:contact_data]
   end
 
+  class Invoicing < ::Role
+    self.permissions = [:layer_and_below_read, :finance]
+  end
+
+
   class External < ::Role
     self.permissions = []
     self.visible_from_above = false
@@ -98,6 +103,7 @@ class Group::Regionalverein < Group
         Versandadresse,
         Rechnungsadresse,
         Controlling,
+        Invoicing,
         External
 
 end

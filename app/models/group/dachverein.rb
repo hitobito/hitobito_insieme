@@ -75,6 +75,10 @@ class Group::Dachverein < Group
     self.permissions = [:admin, :layer_and_below_full, :contact_data]
   end
 
+  class Invoicing < ::Role
+    self.permissions = [:layer_and_below_read, :finance]
+  end
+
   class External < ::Role
     self.permissions = []
     self.visible_from_above = false
@@ -88,6 +92,7 @@ class Group::Dachverein < Group
         Sekretariat,
         Adressverwaltung,
         Controlling,
+        Invoicing,
         External
 
 end
