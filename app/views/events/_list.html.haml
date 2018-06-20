@@ -5,7 +5,11 @@
 
 - title @group.to_s
 
-= render 'shared/page_per_year'
+- content_for :filter do
+  - if parent.layer? && @group.has_sublayers?
+    = FilterNavigation::Events.new(self, @group).to_s
+  .pull-right
+    = render 'shared/page_per_year'
 
 - if params[:type].present?
   = reporting_frozen_message
@@ -13,7 +17,7 @@
 - if params[:type] == Event::AggregateCourse.sti_name
   = crud_table do |t|
     - t.col(Event.human_attribute_name(:name)) do |e|
-      %strong= link_to e.name, group_event_path(@group, e)
+      %strong= link_to e.name, group_event_path(e.groups.first, e)
     - t.attrs(:leistungskategorie)
     - t.col(Event::CourseRecord.human_attribute_name(:anzahl_kurse)) do |e|
       = fnumber(e.course_record.anzahl_kurse)
@@ -21,8 +25,9 @@
 - else
   = crud_table do |t|
     - t.col(Event.human_attribute_name(:name)) do |e|
-      %strong= link_to e.name, group_event_path(@group, e)
-    - t.attrs(:dates_full)
+      %strong= link_to e.name, group_event_path(e.groups.first, e)
+    - t.sortable_attr(:group_ids)
+    - t.sortable_attr(:dates_full)
     - if params[:type].present?
       - t.attrs(:leistungskategorie)
     - t.attrs(:booking_info)
