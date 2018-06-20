@@ -162,7 +162,7 @@ de:
         one: Controlling
         other: Controlling
         description:
-      group/regionalverein/invoincing:
+      group/regionalverein/invoicing:
         *invoicing
       group/regionalverein/external:
         one: Extern
