@@ -10,6 +10,13 @@ $insieme_color_d: #cdf1ff;
 $insieme_color_e: #a30075;
 $insieme_color_f: #760054;
 
+$logoUrl:               "logo.png"; // put under app/assets/images
+$logoWidth:             222px;      // has to bet set as the logo is a background image
+$logoHeight:            41px;       // will also set the minimal width of the navigation
+                                    // must be set in pixel
+
+// optional backgroundcolor, creates a box around the logo, if changed from 'none'
+$logoBackgroundColor:   white;
 
 /* Bootstrap variable definition here */
 
