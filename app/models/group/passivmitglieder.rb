@@ -49,4 +49,5 @@ class Group::Passivmitglieder < Group
   roles Passivmitglied,
         PassivmitgliedMitAbo
 
+  self.default_role = Passivmitglied
 end

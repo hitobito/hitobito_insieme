@@ -105,5 +105,4 @@ class Group::Regionalverein < Group
         Controlling,
         Invoicing,
         External
-
 end

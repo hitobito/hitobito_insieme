@@ -51,4 +51,6 @@ class Group::Aktivmitglieder < Group
   roles Aktivmitglied,
         AktivmitgliedOhneAbo,
         Zweitmitgliedschaft
+
+  self.default_role = Aktivmitglied
 end

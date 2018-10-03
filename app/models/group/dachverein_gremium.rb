@@ -52,5 +52,5 @@ class Group::DachvereinGremium < Group
 
   roles Leitung,
         Mitglied
-
+  self.default_role = Mitglied
 end

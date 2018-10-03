@@ -51,4 +51,5 @@ class Group::DachvereinListe < Group
   roles Listenverwaltung,
         Person
 
+  self.default_role = Person
 end
