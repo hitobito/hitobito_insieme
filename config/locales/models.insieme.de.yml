@@ -94,6 +94,10 @@ de:
         one: Rechnungen
         other: Rechnungen
         description:
+      group/dachverein/it_support:
+        one: IT Support
+        other: IT Support
+        description:
       group/dachverein/external:
         one: Extern
         other: Externe

@@ -79,6 +79,10 @@ class Group::Dachverein < Group
     self.permissions = [:layer_and_below_read, :finance]
   end
 
+  class ItSupport < ::Role
+    self.permissions = [:admin, :layer_and_below_full, :impersonation]
+  end
+
   class External < ::Role
     self.permissions = []
     self.visible_from_above = false
@@ -93,6 +97,7 @@ class Group::Dachverein < Group
         Adressverwaltung,
         Controlling,
         Invoicing,
+        ItSupport,
         External
 
 end
