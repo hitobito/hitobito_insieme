@@ -16,7 +16,7 @@ module Insieme
 
     def initialize_with_insieme(*args)
       initialize_without_insieme(*args)
-      @tempfile_name = filename
+      @options[:filename] = overwrite_filename
     end
 
     def data_with_insieme
@@ -34,10 +34,10 @@ module Insieme
       "::Export::Tabular::Events::#{list_type}".constantize
     end
 
-    def filename
+    def overwrite_filename
       vid = parent.vid.present? ? "_vid#{parent.vid}" : ''
       bsv = parent.bsv_number.present? ? "_bsv#{parent.bsv_number}" : ''
-      "#{filename_prefix}#{vid}#{bsv}_#{group_name}_#{year}.#{@format}"
+      AsyncDownloadFile.create_name("#{filename_prefix}#{vid}#{bsv}_#{group_name}_#{year}", user.id)
     end
 
     def aggregate_course?

@@ -17,6 +17,17 @@ module Insieme
                                    :spezielle_unterkunft, :kursart]
       ]
 
+      alias_method_chain :render_tabular_in_background, :custom_filename
+
+    end
+
+    def render_tabular_in_background_with_custom_filename(format)
+      job = ::Export::EventsExportJob.new(format,
+                                    current_person.id,
+                                    event_filter, {})
+      AsyncDownloadCookie.new(cookies).set(job.filename, format)
+      job.enqueue!
+      flash[:notice] = translate(:export_enqueued)
     end
 
     private
