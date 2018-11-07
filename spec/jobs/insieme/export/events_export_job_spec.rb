@@ -9,7 +9,7 @@ require 'spec_helper'
 
 describe Insieme::Export::EventsExportJob do
 
-  subject { Export::EventsExportJob.new(:csv, person.id, event_filter) }
+  subject { Export::EventsExportJob.new(:csv, person.id, event_filter, {}) }
 
   let(:event_filter) { Event::Filter.new(type, 'all', group, 2012, false) }
 
@@ -28,7 +28,8 @@ describe Insieme::Export::EventsExportJob do
 
       it 'creates detail export for cources' do
         expect(subject.exporter_class).to eq(Export::Tabular::Events::DetailList)
-        expect(subject.filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.csv')
+        expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
+        expect(subject.filename).to end_with("-#{person.id}")
         expect(subject.data).to be_present
       end
     end
@@ -38,7 +39,8 @@ describe Insieme::Export::EventsExportJob do
 
       it 'creates detail export for cources' do
         expect(subject.exporter_class).to eq(Export::Tabular::Events::ShortList)
-        expect(subject.filename).to eq('course_vid42_bsv99_insieme-schweiz_2012.csv')
+        expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
+        expect(subject.filename).to end_with("-#{person.id}")
         expect(subject.data).to be_present
       end
     end
@@ -60,7 +62,7 @@ describe Insieme::Export::EventsExportJob do
       it 'creates detail export for aggregate courses' do
         group.update_attributes!(vid: 42, bsv_number: '99')
         expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::DetailList
-        expect(subject.filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.csv')
+        expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end
     end
 
@@ -70,7 +72,7 @@ describe Insieme::Export::EventsExportJob do
       it 'creates short export for aggregate courses' do
         group.update_attributes!(vid: 42, bsv_number: '99')
         expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::ShortList
-        expect(subject.filename).to eq('aggregate_course_vid42_bsv99_kanton-bern_2012.csv')
+        expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end
     end
 

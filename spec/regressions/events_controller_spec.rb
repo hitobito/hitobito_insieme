@@ -11,10 +11,11 @@ describe EventsController, type: :controller do
 
   render_views
 
+  let(:user) { people(:top_leader)}
   let(:group) { groups(:be) }
   let(:dom) { Capybara::Node::Simple.new(response.body) }
 
-  before { sign_in(people(:top_leader)) }
+  before { sign_in(user) }
 
   context 'GET index' do
     context '.csv' do
@@ -27,6 +28,16 @@ describe EventsController, type: :controller do
       it 'renders course csv' do
         get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
         expect(lines).to be_present
+      end
+
+      it 'background job gets same filename as async download cookie' do
+        get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
+        expect(Delayed::Job.count).to be 1
+        job = YAML::load(Delayed::Job.first.handler)
+        async_cookie = JSON.parse(cookies[:async_downloads])
+        expect(job.filename).to eq async_cookie.first["name"]
+        # async download file names should include user id for security reasons
+        expect(job.filename).to include("-#{user.id}")
       end
     end
   end
