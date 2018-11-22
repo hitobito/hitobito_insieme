@@ -25,7 +25,7 @@ module Insieme
       job = ::Export::EventsExportJob.new(format,
                                     current_person.id,
                                     event_filter, {})
-      AsyncDownloadCookie.new(cookies).set(job.filename, format)
+      Cookies::AsyncDownload.new(cookies).set(name: job.filename, type: format)
       job.enqueue!
       flash[:notice] = translate(:export_enqueued)
     end
