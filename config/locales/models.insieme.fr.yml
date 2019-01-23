@@ -71,6 +71,15 @@ fr:
       group/dachverein/controlling:
         one: Controlling
         other: Controlling
+      group/dachverein/invoicing:
+        one: Facturation
+        other: Facturation
+      group/externe_organisation/invoicing:
+        one: Facturation
+        other: Facturation
+      group/regionalverein/invoicing:
+        one: Facturation
+        other: Facturation
       group/dachverein/external:
         one: Externe
         other: Externe
