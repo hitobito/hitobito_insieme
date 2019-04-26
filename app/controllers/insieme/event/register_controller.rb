@@ -10,16 +10,16 @@ module Insieme::Event::RegisterController
   extend ActiveSupport::Concern
 
   included do
-    alias_method_chain :create_person, :role
+    alias_method_chain :save_entry, :role
   end
 
-  def create_person_with_role
-    if create_person_without_role
+  def save_entry_with_role
+    if save_entry_without_role
       role = external_role_class.new
       role.group = group.layer_group
-      role.person = person
+      role.person = entry.person
       role.save!
-      person.roles << role
+      entry.person.roles << role
       true
     end
   end
