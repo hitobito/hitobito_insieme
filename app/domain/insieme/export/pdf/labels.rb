@@ -45,6 +45,10 @@ module Insieme
             Countries.swiss?(country)
           end
 
+          def company?
+            @person.company?
+          end
+
           def respond_to?(name)
             @person.respond_to?("#{@address_type}_#{name}") || super
           end

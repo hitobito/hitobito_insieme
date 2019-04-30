@@ -35,19 +35,45 @@ describe Export::Pdf::Labels do
     )
   end
 
-  context 'for main address' do
-    let(:address_type) { 'main' }
+  context 'form person' do
 
-    it 'renders correct address' do
-      is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+    context 'for main address' do
+      let(:address_type) { 'main' }
+
+      it 'renders correct address' do
+        is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+      end
+    end
+
+    context 'for correspondence course address' do
+      let(:address_type) { 'correspondence_course' }
+
+      it 'renders correct address' do
+        is_expected.to eq "Course Leader\nCourse Street\n3030 Wabern\n"
+      end
     end
   end
 
-  context 'for correspondence course address' do
-    let(:address_type) { 'correspondence_course' }
+  context 'for company person' do
+    before do
+      person.update(company: true, company_name: 'Chiefs Incorporated')
+    end
 
-    it 'renders correct address' do
-      is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
+    context 'for main address' do
+      let(:address_type) { 'main' }
+
+      it 'renders correct address' do
+        is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+      end
+    end
+
+    context 'for correspondence course address' do
+      let(:address_type) { 'correspondence_course' }
+
+      it 'renders correct address' do
+        is_expected.to eq "Course Leader\nCourse Street\n3030 Wabern\n"
+      end
     end
   end
+
 end
