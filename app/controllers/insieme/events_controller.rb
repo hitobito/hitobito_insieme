@@ -22,12 +22,13 @@ module Insieme
     end
 
     def render_tabular_in_background_with_custom_filename(format)
-      job = ::Export::EventsExportJob.new(format,
-                                    current_person.id,
-                                    event_filter, {})
-      Cookies::AsyncDownload.new(cookies).set(name: job.filename, type: format)
-      job.enqueue!
-      flash[:notice] = translate(:export_enqueued)
+      name = ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
+      with_async_download_cookie(format, name) do |filename|
+        ::Export::EventsExportJob.new(format,
+                                      current_person.id,
+                                      event_filter,
+                                      filename: filename).enqueue!
+      end
     end
 
     private

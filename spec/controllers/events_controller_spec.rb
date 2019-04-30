@@ -155,7 +155,7 @@ describe EventsController do
         expect do
           get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
           expect(flash[:notice]).to be_present
-          expect(response).to redirect_to(simple_group_events_path(group))
+          expect(response).to redirect_to(simple_group_events_path(group, returning: true))
         end.to change { Delayed::Job.count }.by(1)
       end
     end
@@ -175,7 +175,7 @@ describe EventsController do
           sign_in(people(:regio_leader))
           get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
           expect(flash[:notice]).to be_present
-          expect(response).to redirect_to(course_group_events_path(group))
+          expect(response).to redirect_to(course_group_events_path(group, returning: true))
         end.to change { Delayed::Job.count }.by(1)
       end
 

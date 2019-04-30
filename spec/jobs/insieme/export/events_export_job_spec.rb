@@ -9,7 +9,8 @@ require 'spec_helper'
 
 describe Insieme::Export::EventsExportJob do
 
-  subject { Export::EventsExportJob.new(:csv, person.id, event_filter, {}) }
+  let(:filename) { Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s }
+  subject { Export::EventsExportJob.new(:csv, person.id, event_filter, filename: filename) }
 
   let(:event_filter) { Event::Filter.new(type, 'all', group, 2012, false) }
 
@@ -29,7 +30,6 @@ describe Insieme::Export::EventsExportJob do
       it 'creates detail export for cources' do
         expect(subject.exporter_class).to eq(Export::Tabular::Events::DetailList)
         expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
-        expect(subject.filename).to end_with("-#{person.id}")
         expect(subject.data).to be_present
       end
     end
@@ -40,7 +40,6 @@ describe Insieme::Export::EventsExportJob do
       it 'creates detail export for cources' do
         expect(subject.exporter_class).to eq(Export::Tabular::Events::ShortList)
         expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
-        expect(subject.filename).to end_with("-#{person.id}")
         expect(subject.data).to be_present
       end
     end
