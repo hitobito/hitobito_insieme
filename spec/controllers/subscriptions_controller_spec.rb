@@ -16,8 +16,11 @@ describe SubscriptionsController do
 
   it 'exports in the background' do
     get :index, group_id: group.id, mailing_list_id: list.id, format: :csv
+    return_path = group_mailing_list_subscriptions_path(group_id: group.id,
+                                                        mailing_list_id: list.id,
+                                                        returning: true)
 
-    expect(response).to redirect_to group_mailing_list_subscriptions_path(group_id: group.id, mailing_list_id: list.id)
+    expect(response).to redirect_to return_path
   end
 end
 

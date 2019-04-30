@@ -134,7 +134,7 @@ describe Event::ParticipationsController do
   end
 
   context 'internal fields' do
-    let(:csv) { CSV.parse(Delayed::Job.last.payload_object.data, headers: true, col_sep: ';') }
+    let(:csv) { CSV.parse(Delayed::Job.last.payload_object.send(:data), headers: true, col_sep: ';') }
     let(:internal_fields) { { invoice_text: 'test', invoice_amount: '1.2' } }
 
     let(:group) { groups(:be) }
