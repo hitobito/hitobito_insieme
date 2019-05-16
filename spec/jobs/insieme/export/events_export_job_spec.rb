@@ -10,9 +10,9 @@ require 'spec_helper'
 describe Insieme::Export::EventsExportJob do
 
   let(:filename) { Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s }
-  subject { Export::EventsExportJob.new(:csv, person.id, event_filter, filename: filename) }
+  subject { Export::EventsExportJob.new(:csv, person.id, group.id, event_filter.to_h, filename: filename) }
 
-  let(:event_filter) { Event::Filter.new(type, 'all', group, 2012, false) }
+  let(:event_filter) { Event::Filter.new(group, type, 'all', 2012, false) }
 
   context 'dachverein' do
     let(:group) { groups(:dachverein) }

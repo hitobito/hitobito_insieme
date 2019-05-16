@@ -11,7 +11,6 @@ module Insieme
 
     included do
       alias_method_chain :data, :insieme
-      alias_method_chain :initialize, :insieme
     end
 
     def initialize_with_insieme(*args)
@@ -19,13 +18,16 @@ module Insieme
     end
 
     def data_with_insieme
+      year = filter.year
+      group_name = filter.group.name.parameterize
+
       exporter_class.export(@format, entries, group_name, year)
     end
 
     def exporter_class
       list_type = 'ShortList'
 
-      if ability.can?(:export_course_records, parent) && course_records?
+      if ability.can?(:export_course_records, group) && course_records?
         list_type = 'DetailList'
       end
 
@@ -34,27 +36,11 @@ module Insieme
     end
 
     def aggregate_course?
-      type == ::Event::AggregateCourse.sti_name
-    end
-
-    def group_name
-      parent.name.parameterize
+      filter.type == ::Event::AggregateCourse.sti_name
     end
 
     def course_records?
       entries.first.respond_to?(:course_record)
-    end
-
-    def parent
-      @filter.group
-    end
-
-    def year
-      @filter.year
-    end
-
-    def type
-      @filter.type
     end
 
   end
