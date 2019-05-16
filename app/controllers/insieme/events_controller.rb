@@ -22,13 +22,7 @@ module Insieme
     end
 
     def render_tabular_in_background_with_custom_filename(format)
-      name = ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
-      with_async_download_cookie(format, name) do |filename|
-        ::Export::EventsExportJob.new(format,
-                                      current_person.id,
-                                      event_filter,
-                                      filename: filename).enqueue!
-      end
+      render_tabular_in_background_without_custom_filename(format, custom_filename)
     end
 
     private
@@ -38,6 +32,10 @@ module Insieme
         entry.build_course_record
         entry.course_record.set_defaults
       end
+    end
+
+    def custom_filename
+      ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
     end
 
   end
