@@ -8,6 +8,11 @@
 application:
   name: insieme desk
 
+  logo:
+    width: 222
+    height: 41
+    background_color: white
+
   languages:
     de: Deutsch
     fr: Français
