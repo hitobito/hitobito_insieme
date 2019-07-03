@@ -31,11 +31,13 @@ describe EventsController, type: :controller do
       end
 
       it 'background job gets same filename as async download cookie' do
-        get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
-        expect(Delayed::Job.count).to be 2
+        expect do
+          get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
+        end.to change{ Delayed::Job.count }.by 1
+
         job = YAML::load(Delayed::Job.find_by("handler LIKE '%filename%'").handler)
-        async_cookie = JSON.parse(cookies[:async_downloads])
         expect(job.filename).to include("-#{user.id}")
+        expect(cookies[:async_downloads]).to include(job.filename)
       end
     end
   end
