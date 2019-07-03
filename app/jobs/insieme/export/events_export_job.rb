@@ -13,10 +13,6 @@ module Insieme
       alias_method_chain :data, :insieme
     end
 
-    def initialize_with_insieme(*args)
-      initialize_without_insieme(*args)
-    end
-
     def data_with_insieme
       year = filter.year
       group_name = filter.group.name.parameterize
