@@ -49,21 +49,61 @@ describe Export::Pdf::Labels do
       let(:address_type) { 'correspondence_course' }
 
       it 'renders correct address' do
-        is_expected.to eq "Course Leader\nCourse Street\n3030 Wabern\n"
+        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
       end
     end
   end
 
   context 'for company person' do
+    let(:company) { true }
+    let(:company_name) { 'Chiefs Incorporated' }
     before do
-      person.update(company: true, company_name: 'Chiefs Incorporated')
+      person.update(company: company, company_name: company_name)
     end
 
     context 'for main address' do
       let(:address_type) { 'main' }
 
-      it 'renders correct address' do
-        is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+      context 'with a company-name set' do
+        let(:company_name) { 'Chiefs Incorporated' }
+        let(:address_type) { 'main' }
+
+        context 'when marked as a company' do
+          let(:company) { true }
+
+          it 'renders company_name' do
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+          end
+        end
+
+        context 'when not marked as a company' do
+          let(:company) { false }
+
+          it 'does also render company_name' do
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+          end
+        end
+      end
+
+      context 'with no company-name set' do
+        let(:company_name) { nil }
+        let(:address_type) { 'main' }
+
+        context 'when marked as a company' do
+          let(:company) { true }
+
+          it 'does not render company_name' do
+            is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+          end
+        end
+
+        context 'when not marked as a company' do
+          let(:company) { false }
+
+          it 'does also not render company_name' do
+            is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+          end
+        end
       end
     end
 
@@ -71,9 +111,10 @@ describe Export::Pdf::Labels do
       let(:address_type) { 'correspondence_course' }
 
       it 'renders correct address' do
-        is_expected.to eq "Course Leader\nCourse Street\n3030 Wabern\n"
+        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
       end
     end
-  end
 
+
+  end
 end

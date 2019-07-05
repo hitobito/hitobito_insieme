@@ -15,6 +15,7 @@ module Insieme
         included do
           alias_method_chain :initialize, :address_type
           alias_method_chain :address, :type
+          alias_method_chain :print_company?, :name
         end
 
         def initialize_with_address_type(format, address_type = nil)
@@ -29,6 +30,10 @@ module Insieme
           else
             address_without_type(contactable, name)
           end
+        end
+
+        def print_company_with_name?(contactable)
+          contactable.company_name?
         end
 
         class AddressProxy
