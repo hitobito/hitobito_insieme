@@ -51,6 +51,8 @@ describe Export::Tabular::CourseReporting::ClientStatistics do
                                 'Tageskurse Anzahl Angehörige (Personen)',
                                 'Semester-/Jahreskurse Anzahl Behinderte (Personen)',
                                 'Semester-/Jahreskurse Anzahl Angehörige (Personen)',
+                                'Treffpunkte Anzahl Behinderte (Personen)',
+                                'Treffpunkte Anzahl Angehörige (Personen)',
                                 ])
     end
 
