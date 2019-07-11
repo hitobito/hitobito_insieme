@@ -9,7 +9,7 @@ module Event::Reportable
 
   extend ActiveSupport::Concern
 
-  LEISTUNGSKATEGORIEN = %w(bk tk sk)
+  LEISTUNGSKATEGORIEN = %w(bk tk sk tp).freeze
 
   included do
     self.used_attributes += [:leistungskategorie]

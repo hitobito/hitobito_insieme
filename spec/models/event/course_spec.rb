@@ -43,4 +43,60 @@ describe Event::Course do
     end
   end
 
+  context 'leistungskategorien' do
+    let(:course) do
+      Fabricate(:course, groups: [groups(:dachverein)], leistungskategorie: leistungskategorie)
+    end
+
+    context "contains Blockkurse" do
+      let(:leistungskategorie) { 'bk' }
+
+      it 'and is valid' do
+        expect(course).to be_valid
+      end
+    end
+
+    context "contains Tageskurse" do
+      let(:leistungskategorie) { 'tk' }
+
+      it 'and is valid' do
+        expect(course).to be_valid
+      end
+    end
+
+    context "contains Semesterkurse" do
+      let(:leistungskategorie) { 'sk' }
+
+      it 'and is valid' do
+        expect(course).to be_valid
+      end
+    end
+
+    context "contains Treffpunkte" do
+      let(:leistungskategorie) { 'tp' }
+
+      it 'and is valid' do
+        expect(course).to be_valid
+      end
+    end
+  end
+
+  context '#available_leistungskategorien' do
+    it 'transslates Blockkurs' do
+      expect(described_class.available_leistungskategorien).to include(['bk', 'Blockkurs'])
+    end
+
+    it 'transslates Tageskurs' do
+      expect(described_class.available_leistungskategorien).to include(['tk', 'Tageskurs'])
+    end
+
+    it 'transslates Semesterkurs' do
+      expect(described_class.available_leistungskategorien).to include(['sk', 'Semester-/Jahreskurs'])
+    end
+
+    it 'transslates Treffpunkt' do
+      expect(described_class.available_leistungskategorien).to include(['tp', 'Treffpunkt'])
+    end
+  end
+
 end
