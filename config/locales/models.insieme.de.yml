@@ -416,6 +416,9 @@ de:
           sk:
             one: Semester-/Jahreskurs
             other: Semester-/Jahreskurse
+          tp:
+            one: Treffpunkt
+            other: Treffpunkte
 
       event/course_record:
         event_id: Kurs
