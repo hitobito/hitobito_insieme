@@ -82,19 +82,19 @@ describe Event::Course do
   end
 
   context '#available_leistungskategorien' do
-    it 'transslates Blockkurs' do
+    it 'translates Blockkurs' do
       expect(described_class.available_leistungskategorien).to include(['bk', 'Blockkurs'])
     end
 
-    it 'transslates Tageskurs' do
+    it 'translates Tageskurs' do
       expect(described_class.available_leistungskategorien).to include(['tk', 'Tageskurs'])
     end
 
-    it 'transslates Semesterkurs' do
+    it 'translates Semesterkurs' do
       expect(described_class.available_leistungskategorien).to include(['sk', 'Semester-/Jahreskurs'])
     end
 
-    it 'transslates Treffpunkt' do
+    it 'translates Treffpunkt' do
       expect(described_class.available_leistungskategorien).to include(['tp', 'Treffpunkt'])
     end
   end
