@@ -80,7 +80,7 @@ class Event::CourseRecordsController < CrudController
                           challenged_canton_count_attributes: Cantons::SHORT_NAMES,
                           affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
 
-  before_render_form :replace_decimal_with_integer, if: -> { entry.sk? }
+  before_render_form :replace_decimal_with_integer, if: -> { entry.duration_in_hours? }
   before_render_form :set_numbers
   before_render_form :alert_missing_reporting_parameters
   before_render_form :build_canton_counts

@@ -13,15 +13,15 @@
 
 = f.labeled_input_field :subventioniert
 
-- unless sk
+- if !(sk || tp)
   = f.labeled(:inputkriterien) do
     - [:a, :b, :c].each do |key|
       = f.inline_radio_button(:inputkriterien, key, key.to_s.upcase)
 
-= f.labeled(:kursart) do
-  - [:weiterbildung, :freizeit_und_sport].each do |key|
-    = f.inline_radio_button(:kursart, key, kursart_label(key))
+- unless tp
+  = f.labeled(:kursart) do
+    - [:weiterbildung, :freizeit_und_sport].each do |key|
+      = f.inline_radio_button(:kursart, key, kursart_label(key))
 
-- unless sk
+- if !(sk || tp)
   = f.labeled_input_field :spezielle_unterkunft
-

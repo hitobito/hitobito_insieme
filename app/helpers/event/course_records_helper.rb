@@ -119,8 +119,10 @@ module Event::CourseRecordsHelper
   private
 
   def kursdauer_help_inline
-    duration = entry.sk? ? @numbers.duration_hours : @numbers.duration_days
-    help_text = t('event.course_records.form.according_to_course_dates',
+    duration = entry.duration_in_hours? ? @numbers.duration_hours : @numbers.duration_days
+    i18n_key = entry.tp? ? 'event.course_records.form.vor_und_nacharbeit' : 'event.course_records.form.according_to_course_dates'
+
+    help_text = t(i18n_key,
                   duration: number_with_precision(duration,
                                                   precision: 1,
                                                   delimiter: t('number.format.delimiter')))

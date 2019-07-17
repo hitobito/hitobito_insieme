@@ -12,4 +12,4 @@
     #course_record_fields
       = f.fields_for(:course_record) do |nf|
         = nf.hidden_field(:id)
-        = render 'event/course_records/main_fields', f: nf, sk: entry.leistungskategorie == 'sk'
+        = render 'event/course_records/main_fields', f: nf, sk: entry.leistungskategorie == 'sk', tp: entry.leistungskategorie == 'tp'

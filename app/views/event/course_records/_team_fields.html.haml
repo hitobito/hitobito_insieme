@@ -14,5 +14,6 @@
   = f.labeled_readonly_value :betreuungsschluessel,
                               value: t('event.course_records.form.challenged_per_team', ratio: f(entry.betreuungsschluessel))
 
-= field_set_tag(t('event.course_records.form.personal')) do
-  = participant_field_with_suggestion(f, :kuechenpersonal, @numbers.kitchen_count)
+- unless entry.tp?
+  = field_set_tag(t('event.course_records.form.personal')) do
+    = participant_field_with_suggestion(f, :kuechenpersonal, @numbers.kitchen_count)

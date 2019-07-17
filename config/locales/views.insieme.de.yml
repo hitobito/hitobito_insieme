@@ -173,6 +173,7 @@ de:
         personal: Personal ohne Betreuungsfunktion
         aufwand: Direkter Aufwand
         ertrag: Ertrag
+        betreuungsstunden: Betreuungsstunden
         according_to_course_dates: "gemäss Kursdaten: %{duration}"
         according_to_list: "gemäss TN-Liste: %{count}"
         challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
@@ -180,6 +181,7 @@ de:
         updated_at: "aktualisiert am %{date}"
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
         missing_reporting_parameters: Für das entsprechende Jahr sind keine Reportingparameter definiert. Bitte wenden Sie sich an den Dachverein.
+        vor_und_nacharbeit: "inkl. 1h Vor- und Nachbereitung"
 
       canton_fields:
         change: Anpassen

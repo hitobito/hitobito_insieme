@@ -15,5 +15,6 @@
                              value: fnumber(entry.total_tage_teilnehmende)
   = f.labeled_readonly_value :vollkosten_pro_le,
                              value: format_money(entry.vollkosten_pro_le)
-  = f.labeled_readonly_value :zugeteilte_kategorie,
-                             value: zugeteilte_kategorie_with_info(entry)
+  - unless entry.tp?
+    = f.labeled_readonly_value :zugeteilte_kategorie,
+                               value: zugeteilte_kategorie_with_info(entry)
