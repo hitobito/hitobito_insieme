@@ -134,6 +134,10 @@ class Event::CourseRecord < ActiveRecord::Base
     tage_weitere.to_d
   end
 
+  def total_stunden_betreuung
+    betreuende * kursdauer.to_d
+  end
+
   def praesenz_prozent
     if total_tage_teilnehmende > 0
       ((total_tage_teilnehmende / (total_tage_teilnehmende + total_absenzen)) * 100).round
@@ -190,6 +194,14 @@ class Event::CourseRecord < ActiveRecord::Base
     end
 
     true # ensure callback chain continues
+  end
+
+  def duration_in_days?
+    return !duration_in_hours?
+  end
+
+  def duration_in_hours?
+    return sk? || tp?
   end
 
   private
@@ -249,7 +261,7 @@ class Event::CourseRecord < ActiveRecord::Base
       value = send(attr)
       next unless value
 
-      if sk?
+      if duration_in_hours?
         check_modulus(attr, value, 1, :not_an_integer)
       else
         msg = I18n.t('activerecord.errors.messages.must_be_multiple_of', multiple: 0.5)

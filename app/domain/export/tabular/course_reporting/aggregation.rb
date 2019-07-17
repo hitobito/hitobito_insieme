@@ -83,7 +83,7 @@ module Export
         private
 
         def t(attr)
-          if jahreskurs?
+          if abrechnung_in_stunden?
             I18n.t("course_reporting.aggregations.#{attr}_stunden",
                    default: :"course_reporting.aggregations.#{attr}")
           else
@@ -146,6 +146,14 @@ module Export
 
         def jahreskurs?
           aggregation.leistungskategorie == 'sk'
+        end
+
+        def treffpunkt?
+          aggregation.leistungskategorie == 'tp'
+        end
+
+        def abrechnung_in_stunden?
+          jahreskurs? || treffpunkt?
         end
 
       end

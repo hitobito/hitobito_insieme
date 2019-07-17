@@ -5,7 +5,7 @@
 
 = field_set_tag do
 
-  = render 'main_fields',  f: f, sk: entry.sk?
+  = render 'main_fields',  f: f, sk: entry.sk?, tp: entry.tp?
 
   = kursdauer_field(f, :kursdauer)
 
