@@ -197,11 +197,11 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def duration_in_days?
-    return !duration_in_hours?
+    !duration_in_hours?
   end
 
   def duration_in_hours?
-    return sk? || tp?
+    sk? || tp?
   end
 
   private
