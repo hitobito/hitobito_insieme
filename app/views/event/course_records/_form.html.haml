@@ -20,7 +20,7 @@
   = render 'absence_fields', f: f
   - if entry.tp?
     = render 'care_hours', f: f
-  - unless entry.tp?
+  - else
     = render 'presence_fields', f: f
   = render 'team_fields', f: f
   = render 'cost_fields', f: f
