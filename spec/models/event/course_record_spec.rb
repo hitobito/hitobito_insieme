@@ -396,8 +396,8 @@ describe Event::CourseRecord do
       context 'bk' do
         let(:record) { new_record(event_bk) }
 
-        it 'is expected to be false' do
-          expect(subject.duration_in_days?).to eq(true)
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_days
         end
       end
 
@@ -405,15 +405,15 @@ describe Event::CourseRecord do
         let(:record) { new_record(event_sk) }
 
         it 'is expected to be false' do
-          expect(subject.duration_in_days?).to eq(false)
+          expect(subject).to_not be_duration_in_days
         end
       end
 
       context 'tk' do
         let(:record) { new_record(event_tk) }
 
-        it 'is expected to be false' do
-          expect(subject.duration_in_days?).to eq(true)
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_days
         end
       end
 
@@ -421,7 +421,7 @@ describe Event::CourseRecord do
         let(:record) { new_record(event_tp) }
 
         it 'is expected to be false' do
-          expect(subject.duration_in_days?).to eq(false)
+          expect(subject).to_not be_duration_in_days
         end
       end
     end
@@ -431,15 +431,15 @@ describe Event::CourseRecord do
         let(:record) { new_record(event_bk) }
 
         it 'is expected to be false' do
-          expect(subject.duration_in_hours?).to eq(false)
+          expect(subject).to_not be_duration_in_hours
         end
       end
 
       context 'sk' do
         let(:record) { new_record(event_sk) }
 
-        it 'is expected to be false' do
-          expect(subject.duration_in_hours?).to eq(true)
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_hours
         end
       end
 
@@ -447,15 +447,15 @@ describe Event::CourseRecord do
         let(:record) { new_record(event_tk) }
 
         it 'is expected to be false' do
-          expect(subject.duration_in_hours?).to eq(false)
+          expect(subject).to_not be_duration_in_hours
         end
       end
 
       context 'tp' do
         let(:record) { new_record(event_tp) }
 
-        it 'is expected to be false' do
-          expect(subject.duration_in_hours?).to eq(true)
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_hours
         end
       end
     end
