@@ -56,6 +56,7 @@ de:
       export_bk: Konsolidierte Kursstatistik Blockkurse
       export_tk: Konsolidierte Kursstatistik Tageskurse
       export_sk: Konsolidierte Kursstatistik Semester/-Jahreskurse
+      export_tp: Konsolidierte Kursstatistik Treffpunkte
       time_records:
         employee_time: Angestellte
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
@@ -128,6 +129,8 @@ de:
       tage_behinderte_stunden: davon TeilnehmerInnenstunden Behinderte
       tage_angehoerige_stunden: davon TeilnehmerInnenstunden Angehörige
       tage_weitere_stunden: davon TeilnehmerInnenstunden nicht Bezugsberechtigte
+
+      total_stunden_betreuung_stunden: Anzahl Betreuungsstunden
 
       betreuende: Anzahl Betreuungspersonal
       leiterinnen: davon LeiterInnen
