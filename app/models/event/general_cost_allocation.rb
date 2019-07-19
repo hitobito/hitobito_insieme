@@ -16,6 +16,7 @@
 #  general_costs_blockkurse    :decimal(12, 2)
 #  general_costs_tageskurse    :decimal(12, 2)
 #  general_costs_semesterkurse :decimal(12, 2)
+#  general_costs_treffpunkte   :decimal(12, 2)
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #
@@ -38,6 +39,7 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
     when 'bk' then general_costs_blockkurse
     when 'tk' then general_costs_tageskurse
     when 'sk' then general_costs_semesterkurse
+    when 'tp' then general_costs_treffpunkte
     else fail ArgumentError
     end
   end
