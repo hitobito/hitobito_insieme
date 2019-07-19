@@ -10,46 +10,6 @@ module Export
   module Tabular
     module CourseReporting
       class Aggregation
-
-        ATTRIBUTES = [
-          :anzahl_kurse,
-          :kursdauer,
-
-          :teilnehmende,
-          :teilnehmende_behinderte,
-          :teilnehmende_angehoerige,
-          :teilnehmende_weitere,
-
-          :total_absenzen,
-          :absenzen_behinderte,
-          :absenzen_angehoerige,
-          :absenzen_weitere,
-
-          :total_tage_teilnehmende,
-          :tage_behinderte,
-          :tage_angehoerige,
-          :tage_weitere,
-
-          :betreuende,
-          :leiterinnen,
-          :fachpersonen,
-          :hilfspersonal_ohne_honorar,
-          :hilfspersonal_mit_honorar,
-          :kuechenpersonal,
-
-          :direkter_aufwand,
-          :honorare_inkl_sozialversicherung,
-          :unterkunft,
-          :uebriges,
-
-          :direkte_kosten_pro_le,
-          :total_vollkosten,
-          :vollkosten_pro_le,
-          :beitraege_teilnehmende,
-          :betreuungsschluessel,
-          :anzahl_spezielle_unterkunft
-        ]
-
         class << self
           def csv(aggregation)
             Export::Csv::Generator.new(new(aggregation)).call
@@ -65,7 +25,7 @@ module Export
         def data_rows(_format = nil)
           return enum_for(:data_rows) unless block_given?
 
-          ATTRIBUTES.each do |attr|
+          attributes_of_leistungskategorie.each do |attr|
             yield attributes(attr)
           end
         end
@@ -97,6 +57,58 @@ module Export
           else
             I18n.t("activerecord.attributes.event/course_record.kursarten.#{kursart}")
           end
+        end
+
+        def attributes_of_leistungskategorie
+          attrs = [
+            :anzahl_kurse,
+            :kursdauer,
+
+            :teilnehmende,
+            :teilnehmende_behinderte,
+            :teilnehmende_angehoerige,
+            :teilnehmende_weitere,
+          ]
+
+          if treffpunkt?
+            attrs += [ :total_stunden_betreuung ]
+          else
+            attrs += [
+              :total_absenzen,
+              :absenzen_behinderte,
+              :absenzen_angehoerige,
+              :absenzen_weitere,
+
+              :total_tage_teilnehmende,
+              :tage_behinderte,
+              :tage_angehoerige,
+              :tage_weitere,
+            ]
+          end
+
+          attrs += [
+            :betreuende,
+            :leiterinnen,
+            :fachpersonen,
+            :hilfspersonal_ohne_honorar,
+            :hilfspersonal_mit_honorar,
+          ]
+
+          attrs += [ :kuechenpersonal ] unless treffpunkt?
+
+          attrs += [
+            :direkter_aufwand,
+            :honorare_inkl_sozialversicherung,
+            :unterkunft,
+            :uebriges,
+
+            :direkte_kosten_pro_le,
+            :total_vollkosten,
+            :vollkosten_pro_le,
+            :beitraege_teilnehmende,
+            :betreuungsschluessel,
+            :anzahl_spezielle_unterkunft
+          ]
         end
 
         def attributes(attr)

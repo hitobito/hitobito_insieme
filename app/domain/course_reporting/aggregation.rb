@@ -58,6 +58,7 @@ module CourseReporting
     end
 
     def kursarten
+      return [] if leistungskategorie == 'tp'
       Event::CourseRecord::KURSARTEN
     end
 
