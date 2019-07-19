@@ -163,13 +163,27 @@ module Export
         end
 
         def iterate_courses
-          figures.leistungskategorien.each do |lk|
-            figures.kategorien.each do |cat|
-              unless lk == 'sk' && %w(2 3).include?(cat)
-                yield lk, cat
-              end
+          figures.leistungskategorien.each do |leistungskategorie|
+            figures.kategorien.each do |category|
+              next if leistungskategorie_hides_category?(leistungskategorie, category)
+
+              yield leistungskategorie, category
             end
           end
+        end
+
+        def leistungskategorie_hides_category?(leistungskategorie, category)
+          # The category 1 is the default value if a leistungskategorie
+          # has no customer-visible categories. Therefore we do not hide it.
+          # Also, `category` is a String, not a number...
+          return false if category == '1'
+
+          # Semesterkurse and Treffpunkte hide categories
+          return true if leistungskategorie == 'sk'
+          return true if leistungskategorie == 'tp'
+
+          # by default we do not hide categories, except in the cases above :rolling_eyes:
+          false
         end
 
         def t(field, options = {})
