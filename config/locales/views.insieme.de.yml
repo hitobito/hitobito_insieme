@@ -264,6 +264,7 @@ de:
       leistungskategorie_bk: Blockkurse
       leistungskategorie_tk: Tageskurse
       leistungskategorie_sk: Semester-/Jahreskurse
+      leistungskategorie_tp: Treffpunkte
       anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{kategorie}"
       total_vollkosten: "%{leistungskategorie} Total Vollkosten %{kategorie}"
       tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{kategorie}"

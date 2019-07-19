@@ -9,7 +9,8 @@ class Event::GeneralCostFromAccounting
 
   LEISTUNGSKATEGORIE_MAPPING = { 'bk' => 'blockkurse',
                                  'tk' => 'tageskurse',
-                                 'sk' => 'jahreskurse' }
+                                 'sk' => 'jahreskurse',
+                                 'tp' => 'treffpunkte' }
 
   def initialize(group, year)
     @table = CostAccounting::Table.new(group, year)
