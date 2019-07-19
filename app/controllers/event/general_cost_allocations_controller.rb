@@ -15,6 +15,7 @@
 #  general_costs_blockkurse    :decimal(12, 2)
 #  general_costs_tageskurse    :decimal(12, 2)
 #  general_costs_semesterkurse :decimal(12, 2)
+#  general_costs_treffpunkte   :decimal(12, 2)
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #
@@ -52,7 +53,8 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
     params.require(:event_general_cost_allocation).
            permit(:general_costs_blockkurse,
                   :general_costs_tageskurse,
-                  :general_costs_semesterkurse)
+                  :general_costs_semesterkurse,
+                  :general_costs_treffpunkte)
   end
 
   def show_path

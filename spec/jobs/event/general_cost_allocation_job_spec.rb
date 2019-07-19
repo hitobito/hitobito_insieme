@@ -30,7 +30,8 @@ describe Event::GeneralCostAllocationJob do
         year: 2014,
         general_costs_blockkurse: 3000,
         general_costs_tageskurse: 5000,
-        general_costs_semesterkurse: nil)
+        general_costs_semesterkurse: nil,
+        general_costs_treffpunkte: 1000)
     end
 
     before do
@@ -40,6 +41,8 @@ describe Event::GeneralCostAllocationJob do
       expect(@e2.reload.course_record.zugeteilte_kategorie).to eq('2')
 
       @e3 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)
+      @e7 = create_course_and_course_record(group, 'tp', year: 2014, subventioniert: true, unterkunft: 5000)
+      @e8 = create_course_and_course_record(group, 'tp', year: 2014, subventioniert: true, unterkunft: 2500)
 
       # not subsidized
       @e4 = create_course_and_course_record(group, 'sk', year: 2014, subventioniert: false, unterkunft: 1000)
@@ -67,6 +70,7 @@ describe Event::GeneralCostAllocationJob do
       expect(@e2.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
       expect(@e3.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
       expect(@e4.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
+      expect(@e7.reload.course_record.gemeinkosten_updated_at).to eq(allocation.updated_at)
     end
 
     it 'does not touch not considered records' do
@@ -79,6 +83,8 @@ describe Event::GeneralCostAllocationJob do
       expect(@e2.reload.course_record.gemeinkostenanteil).to be_within(0.005).of(1636.363)
       expect(@e3.reload.course_record.gemeinkostenanteil).to eq(0)
       expect(@e4.reload.course_record.gemeinkostenanteil).to eq(0)
+      expect(@e7.reload.course_record.gemeinkostenanteil).to be_within(0.005).of(666.67)
+      expect(@e8.reload.course_record.gemeinkostenanteil).to be_within(0.005).of(333.33)
     end
 
     it 're-calculates category' do

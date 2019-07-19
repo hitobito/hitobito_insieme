@@ -15,6 +15,7 @@
 #  general_costs_blockkurse    :decimal(12, 2)
 #  general_costs_tageskurse    :decimal(12, 2)
 #  general_costs_semesterkurse :decimal(12, 2)
+#  general_costs_treffpunkte   :decimal(12, 2)
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #
@@ -44,7 +45,8 @@ describe Event::GeneralCostAllocation do
         year: 2014,
         general_costs_blockkurse: nil,
         general_costs_tageskurse: 5000,
-        general_costs_semesterkurse: 1000)
+        general_costs_semesterkurse: 1000,
+        general_costs_treffpunkte: 200)
     end
 
     before do
@@ -52,10 +54,13 @@ describe Event::GeneralCostAllocation do
       create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 5000)
       create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 6000)
       create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)
+      create_course_and_course_record(group, 'tp', year: 2014, subventioniert: true, unterkunft: 2000)
+
+      # wrong year
+      create_course_and_course_record(group, 'tk', year: 2013, subventioniert: true, unterkunft: 4000)
 
       # not subsidized
       create_course_and_course_record(group, 'sk', year: 2014, subventioniert: false, unterkunft: 1000)
-      create_course_and_course_record(group, 'tk', year: 2013, subventioniert: true, unterkunft: 4000)
 
       # other group
       create_course_and_course_record(groups(:seeland), 'bk', year: 2014, subventioniert: true, unterkunft: 2000)
@@ -81,6 +86,10 @@ describe Event::GeneralCostAllocation do
       expect(record.total_costs('sk')).to eq 3000
     end
 
+    it 'calculates total_costs tp' do
+      expect(record.total_costs('tp')).to eq 2000
+    end
+
     it 'calculates cost allowances blockkurse' do
       expect(record.general_costs_allowance('bk')).to eq 0
     end
@@ -91,6 +100,10 @@ describe Event::GeneralCostAllocation do
 
     it 'calculates cost allowances semesterkurse' do
       expect(record.general_costs_allowance('sk')).to be_within(0.0001).of(0.33333)
+    end
+
+    it 'calculates cost allowances treffpunkte' do
+      expect(record.general_costs_allowance('tp')).to be_within(0.0001).of(0.1)
     end
 
   end
