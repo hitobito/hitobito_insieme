@@ -26,6 +26,7 @@ module Insieme::Export::Tabular::Events
 
     def add_insieme_course_labels(labels)
       labels[:leistungskategorie] = human_attribute(:leistungskategorie)
+      labels[:fachkonzept] = human_attribute(:fachkonzept)
     end
 
     def add_course_record_labels(labels)
