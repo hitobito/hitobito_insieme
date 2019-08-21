@@ -1,7 +1,10 @@
 language: ruby
 cache: bundler
+dist: xenial
 addons:
   firefox: 45.0
+services:
+  - mysql
 python:
   - "2.7"
 branches:
