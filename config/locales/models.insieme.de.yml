@@ -90,7 +90,7 @@ de:
         one: Controlling
         other: Controlling
         description:
-      group/dachverein/invoicing: &invoicing
+      group/dachverein/invoicing:
         one: Rechnungen
         other: Rechnungen
         description:
@@ -167,7 +167,9 @@ de:
         other: Controlling
         description:
       group/regionalverein/invoicing:
-        *invoicing
+        one: Rechnungen
+        other: Rechnungen
+        description:
       group/regionalverein/external:
         one: Extern
         other: Externe
@@ -262,7 +264,9 @@ de:
         other: Controlling
         description:
       group/externe_organisation/invoicing:
-        *invoicing
+        one: Rechnungen
+        other: Rechnungen
+        description:
       group/externe_organisation/external:
         one: Extern
         other: Externe
