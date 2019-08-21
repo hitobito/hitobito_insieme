@@ -322,7 +322,6 @@ de:
         one: Nicht Bezugsberechtigt
         other: Nicht Bezugsberechtigte
 
-
       event/aggregate_course:
         one: Sammelkurs
         other: Sammelkurse
@@ -727,7 +726,6 @@ de:
         less_than_teilnehmende_behinderte: muss kleiner gleich Anzahl Behinderter sein.
         reporting_frozen: ist abgeschlossen und wurde gesperrt.
         event_reporting_frozen: Reporting im Jahr ist abgeschlossen und wurde gesperrt.
-
 
   cost_accounting:
     report:
