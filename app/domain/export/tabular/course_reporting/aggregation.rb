@@ -59,7 +59,7 @@ module Export
           end
         end
 
-        def attributes_of_leistungskategorie
+        def attributes_of_leistungskategorie # rubocop:disable Metrics/MethodLength This is more data than function
           attrs = [
             :anzahl_kurse,
             :kursdauer,
@@ -67,34 +67,34 @@ module Export
             :teilnehmende,
             :teilnehmende_behinderte,
             :teilnehmende_angehoerige,
-            :teilnehmende_weitere,
+            :teilnehmende_weitere
           ]
 
-          if treffpunkt?
-            attrs += [ :total_stunden_betreuung ]
-          else
-            attrs += [
-              :total_absenzen,
-              :absenzen_behinderte,
-              :absenzen_angehoerige,
-              :absenzen_weitere,
+          attrs += if treffpunkt?
+                     [:total_stunden_betreuung]
+                   else
+                     [
+                       :total_absenzen,
+                       :absenzen_behinderte,
+                       :absenzen_angehoerige,
+                       :absenzen_weitere,
 
-              :total_tage_teilnehmende,
-              :tage_behinderte,
-              :tage_angehoerige,
-              :tage_weitere,
-            ]
-          end
+                       :total_tage_teilnehmende,
+                       :tage_behinderte,
+                       :tage_angehoerige,
+                       :tage_weitere
+                     ]
+                   end
 
           attrs += [
             :betreuende,
             :leiterinnen,
             :fachpersonen,
             :hilfspersonal_ohne_honorar,
-            :hilfspersonal_mit_honorar,
+            :hilfspersonal_mit_honorar
           ]
 
-          attrs += [ :kuechenpersonal ] unless treffpunkt?
+          attrs += [:kuechenpersonal] unless treffpunkt?
 
           attrs += [
             :direkter_aufwand,
@@ -109,6 +109,8 @@ module Export
             :betreuungsschluessel,
             :anzahl_spezielle_unterkunft
           ]
+
+          attrs
         end
 
         def attributes(attr)

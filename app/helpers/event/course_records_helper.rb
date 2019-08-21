@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: event_course_records
@@ -55,7 +56,7 @@ module Event::CourseRecordsHelper
     string = format_money(record.gemeinkostenanteil)
     if record.gemeinkosten_updated_at
       string = safe_join([string,
-                          ' &nbsp; &nbsp; '.html_safe,
+                          ' &nbsp; &nbsp; '.html_safe, # rubocop:disable Rails/OutputSafety
                           t('event.course_records.form.updated_at',
                             date: format_attr(record, :gemeinkosten_updated_at))])
     end
@@ -67,7 +68,7 @@ module Event::CourseRecordsHelper
       record.zugeteilte_kategorie
     else
       safe_join([record.zugeteilte_kategorie.to_s,
-                 ' &nbsp; &nbsp; '.html_safe,
+                 ' &nbsp; &nbsp; '.html_safe, # rubocop:disable Rails/OutputSafety
                  t('event.course_records.form.info_not_subsidized')])
     end
   end
@@ -120,13 +121,14 @@ module Event::CourseRecordsHelper
 
   def kursdauer_help_inline
     duration = entry.duration_in_hours? ? @numbers.duration_hours : @numbers.duration_days
-    i18n_key = entry.tp? ? 'event.course_records.form.vor_und_nacharbeit' : 'event.course_records.form.according_to_course_dates'
+    i18n_key = entry.tp? ? 'vor_und_nacharbeit' : 'according_to_course_dates'
 
     help_text = t(i18n_key,
+                  scope: 'event.course_records.form',
                   duration: number_with_precision(duration,
                                                   precision: 1,
                                                   delimiter: t('number.format.delimiter')))
-    muted(help_text.html_safe)
+    muted(help_text.html_safe) # rubocop:disable Rails/OutputSafety
   end
 
 end
