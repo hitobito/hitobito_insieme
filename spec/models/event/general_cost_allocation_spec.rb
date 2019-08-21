@@ -51,24 +51,24 @@ describe Event::GeneralCostAllocation do
 
     before do
       # Avoid Fabricate(:course) as it sets event_dates (used by course_record)
-      create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 5000)
-      create_course_and_course_record(group, 'bk', year: 2014, subventioniert: true, unterkunft: 6000)
-      create_course_and_course_record(group, 'sk', year: 2014, subventioniert: true, unterkunft: 3000)
-      create_course_and_course_record(group, 'tp', year: 2014, subventioniert: true, unterkunft: 2000)
+      create_course_and_course_record(group, 'bk', 'sport_jugend', year: 2014, subventioniert: true, unterkunft: 5000)
+      create_course_and_course_record(group, 'bk', 'sport_jugend', year: 2014, subventioniert: true, unterkunft: 6000)
+      create_course_and_course_record(group, 'sk', 'sport_jugend', year: 2014, subventioniert: true, unterkunft: 3000)
+      create_course_and_course_record(group, 'tp', 'treffpunkt', year: 2014, subventioniert: true, unterkunft: 2000)
 
       # wrong year
-      create_course_and_course_record(group, 'tk', year: 2013, subventioniert: true, unterkunft: 4000)
+      create_course_and_course_record(group, 'tk', 'sport_jugend', year: 2013, subventioniert: true, unterkunft: 4000)
 
       # not subsidized
-      create_course_and_course_record(group, 'sk', year: 2014, subventioniert: false, unterkunft: 1000)
+      create_course_and_course_record(group, 'sk', 'sport_jugend', year: 2014, subventioniert: false, unterkunft: 1000)
 
       # other group
-      create_course_and_course_record(groups(:seeland), 'bk', year: 2014, subventioniert: true, unterkunft: 2000)
+      create_course_and_course_record(groups(:seeland), 'bk', 'sport_jugend', year: 2014, subventioniert: true, unterkunft: 2000)
     end
 
-    def create_course_and_course_record(group, leistungskategorie, course_record_attrs)
+    def create_course_and_course_record(group, leistungskategorie, fachkonzept, course_record_attrs)
       course = Event::Course.create!(name: 'dummy',
-                                     groups: [ group ], leistungskategorie: leistungskategorie,
+                                     groups: [ group ], leistungskategorie: leistungskategorie, fachkonzept: fachkonzept,
                                      dates_attributes: [{ start_at: "#{course_record_attrs.delete(:year)}-05-11" }])
 
       course.create_course_record!(course_record_attrs)

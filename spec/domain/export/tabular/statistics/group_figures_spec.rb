@@ -233,7 +233,8 @@ describe Export::Tabular::Statistics::GroupFigures do
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)
     event = Fabricate(:course, groups: [groups(group_key)],
-                      leistungskategorie: leistungskategorie)
+                      leistungskategorie: leistungskategorie,
+                      fachkonzept: 'sport_jugend')
     event.dates.create!(start_at: Time.zone.local(year, 05, 11))
     r = Event::CourseRecord.create!(attrs.merge(event_id: event.id, year: year))
     r.update_column(:zugeteilte_kategorie, kategorie)

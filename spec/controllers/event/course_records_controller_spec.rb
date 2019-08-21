@@ -143,7 +143,7 @@ describe Event::CourseRecordsController do
     context 'number formatting' do
       let(:field) { dom.find('#event_course_record_kursdauer') }
       let(:dom) { Capybara::Node::Simple.new(response.body) }
-      let(:event) { Fabricate(:course, groups: [group], leistungskategorie: leistungskategorie) }
+      let(:event) { Fabricate(:course, groups: [group], leistungskategorie: leistungskategorie, fachkonzept: 'sport_jugend') }
 
       context 'for sk', db: :mysql do
         let(:leistungskategorie) { 'sk' }

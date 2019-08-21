@@ -149,7 +149,7 @@ describe Export::Tabular::CourseReporting::Aggregation do
   def create_course(leistungskategorie = 'bk', group_list = [groups(:be)], year = 2014)
     Event::Course.create!(groups: group_list,
                           name: 'test',
-                          leistungskategorie: leistungskategorie,
+                          leistungskategorie: leistungskategorie, fachkonzept: 'sport_jugend',
                           dates_attributes: [{ start_at: DateTime.new(year, 04, 15, 12, 00) }])
   end
 

@@ -107,11 +107,13 @@ describe CourseReporting::ClientStatistics do
       event = Fabricate(event_type,
                         group_ids: [groups(group).id],
                         leistungskategorie: leistungskategorie,
+                        fachkonzept: 'sport_jugend',
                         year: year)
     else
       event = Fabricate(event_type,
                         group_ids: [groups(group).id],
-                        leistungskategorie: leistungskategorie)
+                        leistungskategorie: leistungskategorie,
+                        fachkonzept: 'sport_jugend')
       event.dates.create!(start_at: Time.zone.local(year, 05, 11))
     end
     r = Event::CourseRecord.create!(event_id: event.id, year: year, subventioniert: subventioniert)

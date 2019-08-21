@@ -53,9 +53,11 @@ describe Event::GeneralCostAllocationJob do
     end
 
     def create_course_and_course_record(group, leistungskategorie, course_record_attrs)
+      fachkonzept = leistungskategorie == 'tp' ? 'treffpunkt' : 'sport_jugend'
       course = Event::Course.create!(name: 'dummy',
                                      groups: [ group ],
                                      leistungskategorie: leistungskategorie,
+                                     fachkonzept: fachkonzept,
                                      dates_attributes: [{ start_at: "#{course_record_attrs.delete(:year)}-05-11" }])
 
       course.create_course_record!(course_record_attrs)

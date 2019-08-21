@@ -19,7 +19,7 @@ describe Insieme::Export::EventsExportJob do
     let(:type) { 'Event::Course' }
 
     before do
-      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: 'bk')
+      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
       group.update_attributes!(vid: 42, bsv_number: '99')
       Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
     end
@@ -50,8 +50,8 @@ describe Insieme::Export::EventsExportJob do
     let(:type) { 'Event::AggregateCourse' }
 
     before do
-      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: 'bk')
-      Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk')
+      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
+      Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
       Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
     end
 

@@ -14,7 +14,7 @@ describe Export::Tabular::Events::ShortList do
     Fabricate(:course, groups: [groups(:be)], motto: 'All for one', cost: 1000,
               application_opening_at: '01.01.2000', application_closing_at: '01.02.2000',
               maximum_participants: 10, external_applications: false, priorization: false,
-              leistungskategorie: 'bk')
+              leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
   end
 
   it 'exports short events list as xlsx' do

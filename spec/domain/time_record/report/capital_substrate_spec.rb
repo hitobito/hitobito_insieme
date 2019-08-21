@@ -85,7 +85,7 @@ describe TimeRecord::Report::CapitalSubstrate do
 
   def create_course_record(lk, honorare)
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: 'sport_jugend', year: year),
       honorare_inkl_sozialversicherung: honorare
     )
   end

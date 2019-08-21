@@ -84,6 +84,7 @@ describe EventsController do
 
     def create(leistungskategorie = nil, course_record_attributes = {})
       post :create, group_id: group.id, event: course_attrs.merge(leistungskategorie: leistungskategorie,
+                                                                  fachkonzept: 'sport_jugend',
                                                                   course_record_attributes: course_record_attributes)
     end
   end
@@ -120,7 +121,7 @@ describe EventsController do
 
       it 'validates course record attributes' do
         update(kursart: 'foo')
-        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart"]
+        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart", :fachkonzept]
       end
 
       it 'only updates, does not change missing fields' do
@@ -131,7 +132,7 @@ describe EventsController do
       end
 
       it 'raises not_found when trying to update different course_record' do
-        other = Fabricate(:course, groups: [groups(:be)], leistungskategorie: 'sk', course_record_attributes: { kursdauer: 10 } )
+        other = Fabricate(:course, groups: [groups(:be)], leistungskategorie: 'sk', fachkonzept: 'sport_jugend', course_record_attributes: { kursdauer: 10 } )
         expect { update(id: other.course_record.id, kursdauer: 1) }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -146,7 +147,7 @@ describe EventsController do
       before do
         sign_in(people(:top_leader))
         c = Fabricate(:course, groups: [groups(:dachverein)], kind: Event::Kind.first,
-                      leistungskategorie: 'bk')
+                      leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
         Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
       end
       let(:group) { groups(:dachverein) }
@@ -163,9 +164,9 @@ describe EventsController do
     context 'regionalverein' do
       before do
         c = Fabricate(:course, groups: [groups(:be)], kind: Event::Kind.first,
-                      leistungskategorie: 'bk')
+                      leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
         Fabricate(:aggregate_course, groups: [groups(:be)],
-                  leistungskategorie: 'bk')
+                  leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
         Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
       end
       let(:group) { groups(:be) }

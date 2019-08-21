@@ -423,6 +423,14 @@ de:
           tp:
             one: Treffpunkt
             other: Treffpunkte
+        fachkonzept: Fachkonzept
+        fachkonzepte:
+          freizeit_jugend: Freizeit Kinder & Jugendliche
+          freizeit_erwachsen: Freizeit Erwachsene & altersdurchmischt
+          sport_jugend: Sport Kinder & Jugendliche
+          sport_erwachsen: Sport Erwachsene & altersdurchmischt
+          autonomie_foerderung: Förderung der Autonomie/Bildung
+          treffpunkt: Treffpunkt
 
       event/course_record:
         event_id: Kurs
@@ -701,6 +709,13 @@ de:
         capital_substrate_allocated: Geschlüsseltes Kapitalsubstrat Art. 74
 
     errors:
+      models:
+        event/course:
+          attributes:
+            fachkonzept:
+              invalid_for_course_leistungskategorie: muss ein Kurs-Fachkonzept sein, wenn die Leistungskategorie ein Kurs ist.
+              invalid_for_treffpunkt_leistungskategorie: muss Treffpunkt sein, wenn die Leistungskategorie Treffpunkt ist.
+
       attributes:
         group_id:
           is_not_allowed: kann nicht für das Reporting verwendet werden.

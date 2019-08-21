@@ -76,7 +76,7 @@ describe EventAbility do
           @course = Fabricate(:aggregate_course,
                               groups: [role.group],
                               year: year,
-                              leistungskategorie: 'bk',
+                              leistungskategorie: 'bk', fachkonzept: 'sport_jugend',
                               course_record_attributes: { year: year })
         end
 

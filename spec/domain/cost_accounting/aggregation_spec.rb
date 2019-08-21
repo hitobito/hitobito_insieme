@@ -201,7 +201,7 @@ describe CostAccounting::Aggregation do
 
   def create_course_record(group, lk, unterkunft = nil, honorare = nil, uebriger_sachaufwand = nil, subventioniert = true)
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: 'sport_jugend', year: year),
       unterkunft: unterkunft,
       honorare_inkl_sozialversicherung: honorare,
       uebriges: uebriger_sachaufwand,
