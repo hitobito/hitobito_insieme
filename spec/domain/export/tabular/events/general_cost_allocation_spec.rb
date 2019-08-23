@@ -38,13 +38,15 @@ describe Export::Tabular::Events::GeneralCostAllocation do
                                            year: 2014,
                                            general_costs_blockkurse: nil,
                                            general_costs_tageskurse: 5000,
-                                           general_costs_semesterkurse: 1000)
+                                           general_costs_semesterkurse: 1000,
+                                           general_costs_treffpunkte: 500)
     end
 
     before do
       create_course_and_course_record(group, 'bk', year: year, subventioniert: true, unterkunft: 5000)
       create_course_and_course_record(group, 'bk', year: year, subventioniert: true, unterkunft: 6000)
       create_course_and_course_record(group, 'sk', year: year, subventioniert: true, unterkunft: 3000)
+      create_course_and_course_record(group, 'tp', year: year, subventioniert: true, unterkunft: 1500)
     end
 
     it 'contains all data' do
@@ -52,6 +54,7 @@ describe Export::Tabular::Events::GeneralCostAllocation do
       expect(data[0]).to eq(['Blockkurse', 11000.0, nil, 0.0])
       expect(data[1]).to eq(['Tageskurse', nil, 5000.0, nil])
       expect(data[2]).to eq(['Semester-/Jahreskurse', 3000.0, 1000.0, 0.33])
+      expect(data[3]).to eq(['Treffpunkte', 1500.0, 500.0, 0.33])
     end
   end
 
@@ -61,8 +64,10 @@ describe Export::Tabular::Events::GeneralCostAllocation do
   end
 
   def create_course_and_course_record(group, leistungskategorie, course_record_attrs)
+    fachkonzept = leistungskategorie == 'tp' ? 'treffpunkt' : 'sport_jugend'
     course = Event::Course.create!(name: 'dummy',
                                    groups: [ group ], leistungskategorie: leistungskategorie,
+                                   fachkonzept: fachkonzept,
                                    dates_attributes: [{ start_at: "#{course_record_attrs.delete(:year)}-05-11" }])
 
     course.create_course_record!(course_record_attrs)

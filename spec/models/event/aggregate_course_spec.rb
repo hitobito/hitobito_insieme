@@ -47,6 +47,7 @@ describe Event::AggregateCourse do
   let(:event) do
     Event::AggregateCourse.new(groups: [groups(:dachverein)],
                                leistungskategorie: 'bk',
+                               fachkonzept: 'sport_jugend',
                                name: 'Foo')
   end
 

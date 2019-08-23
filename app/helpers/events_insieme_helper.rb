@@ -12,4 +12,10 @@ module EventsInsiemeHelper
              "#{entry.leistungskategorie}.one")
     end
   end
+
+  def format_fachkonzept(entry)
+    if entry.fachkonzept?
+      I18n.t("activerecord.attributes.event/course.fachkonzepte.#{entry.fachkonzept}")
+    end
+  end
 end

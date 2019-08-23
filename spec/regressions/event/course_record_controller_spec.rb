@@ -14,15 +14,15 @@ describe Event::CourseRecordsController, type: :controller do
   let(:group) { groups(:dachverein) }
   let(:event_bk) do
     Fabricate(:course, groups: [group], kind: Event::Kind.first,
-              leistungskategorie: 'bk')
+              leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
   end
   let(:event_tk) do
     Fabricate(:course, groups: [group], kind: Event::Kind.first,
-              leistungskategorie: 'tk')
+              leistungskategorie: 'tk', fachkonzept: 'sport_jugend')
   end
   let(:event_sk) do
     Fabricate(:course, groups: [group], kind: Event::Kind.first,
-              leistungskategorie: 'sk')
+              leistungskategorie: 'sk', fachkonzept: 'sport_jugend')
   end
 
   let(:dom) { Capybara::Node::Simple.new(response.body) }

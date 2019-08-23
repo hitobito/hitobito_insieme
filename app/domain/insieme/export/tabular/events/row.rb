@@ -20,6 +20,11 @@ module Insieme::Export::Tabular::Events
                                          "leistungskategorien.#{entry.leistungskategorie}.one")
     end
 
+    def fachkonzept
+      entry.fachkonzept? && I18n.t('activerecord.attributes.event/course.fachkonzepte.' \
+                                   "#{entry.fachkonzept}")
+    end
+
     def kursart
       course_record && course_record.kursart &&
         I18n.t('activerecord.attributes.event/course_record.' \

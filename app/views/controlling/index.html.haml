@@ -53,3 +53,7 @@
 %h3= t('.export_sk')
 = course_aggregation_csv_button(lk: :sk, consolidate: true, year: @year)
 = course_aggregation_csv_button(lk: :sk, subsidized: false, consolidate: true, year: @year)
+
+%h3= t('.export_tp')
+= course_aggregation_csv_button(lk: :tp, consolidate: true, year: @year)
+= course_aggregation_csv_button(lk: :tp, subsidized: false, consolidate: true, year: @year)

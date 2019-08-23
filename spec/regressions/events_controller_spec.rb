@@ -54,7 +54,7 @@ describe EventsController, type: :controller do
     context 'course' do
       it 'should be visible to top leader' do
         event = Fabricate(:course, groups: [group], kind: Event::Kind.first,
-                          leistungskategorie: 'bk')
+                          leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
 
         get :show, group_id: group.id, id: event.id
         expect(dom).to have_content 'Kursabschluss'
@@ -62,7 +62,7 @@ describe EventsController, type: :controller do
 
       it 'should not be visible to participants' do
         event = Fabricate(:course, groups: [group], kind: Event::Kind.first,
-                          leistungskategorie: 'bk')
+                          leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
         role = Fabricate(Group::Regionalverein::Versandadresse.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
                   participation: Fabricate(:event_participation,

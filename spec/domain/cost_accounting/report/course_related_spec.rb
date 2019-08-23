@@ -125,25 +125,25 @@ describe CostAccounting::Report::CourseRelated do
     Event::CourseRecord.create!(
       event: Fabricate(:course,
                         groups: [group],
-                        leistungskategorie: 'bk',
+                        leistungskategorie: 'bk', fachkonzept: 'sport_jugend',
                         dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
       year: year,
       unterkunft: 5000,
       uebriges: 600
     )
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend', year: year),
       unterkunft: 44000,
       uebriges: 700
     )
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'tk', year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'tk', fachkonzept: 'sport_jugend', year: year),
       unterkunft: 50,
       uebriges: 8000
     )
     # not subventioniert are ignored
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend', year: year),
       unterkunft: 500,
       uebriges: 8000,
       subventioniert: false

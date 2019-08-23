@@ -56,6 +56,7 @@ de:
       export_bk: Konsolidierte Kursstatistik Blockkurse
       export_tk: Konsolidierte Kursstatistik Tageskurse
       export_sk: Konsolidierte Kursstatistik Semester/-Jahreskurse
+      export_tp: Konsolidierte Kursstatistik Treffpunkte
       time_records:
         employee_time: Angestellte
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
@@ -129,6 +130,8 @@ de:
       tage_angehoerige_stunden: davon TeilnehmerInnenstunden Angehörige
       tage_weitere_stunden: davon TeilnehmerInnenstunden nicht Bezugsberechtigte
 
+      total_stunden_betreuung_stunden: Anzahl Betreuungsstunden
+
       betreuende: Anzahl Betreuungspersonal
       leiterinnen: davon LeiterInnen
       fachpersonen: davon Fachpersonen hochqualifiziert
@@ -173,6 +176,7 @@ de:
         personal: Personal ohne Betreuungsfunktion
         aufwand: Direkter Aufwand
         ertrag: Ertrag
+        betreuungsstunden: Betreuungsstunden
         according_to_course_dates: "gemäss Kursdaten: %{duration}"
         according_to_list: "gemäss TN-Liste: %{count}"
         challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
@@ -180,6 +184,7 @@ de:
         updated_at: "aktualisiert am %{date}"
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
         missing_reporting_parameters: Für das entsprechende Jahr sind keine Reportingparameter definiert. Bitte wenden Sie sich an den Dachverein.
+        vor_und_nacharbeit: "inkl. 1h Vor- und Nachbereitung"
 
       canton_fields:
         change: Anpassen
@@ -259,6 +264,7 @@ de:
       leistungskategorie_bk: Blockkurse
       leistungskategorie_tk: Tageskurse
       leistungskategorie_sk: Semester-/Jahreskurse
+      leistungskategorie_tp: Treffpunkte
       anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{kategorie}"
       total_vollkosten: "%{leistungskategorie} Total Vollkosten %{kategorie}"
       tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{kategorie}"

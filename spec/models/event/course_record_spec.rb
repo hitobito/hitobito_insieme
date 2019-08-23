@@ -51,10 +51,11 @@ describe Event::CourseRecord do
   let(:group) { groups(:be) }
 
   let(:event_bk) { events(:top_course) }
-  let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk') }
-  let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk') }
+  let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk', fachkonzept: 'sport_jugend') }
+  let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk', fachkonzept: 'sport_jugend') }
+  let(:event_tp) { Fabricate(:course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt') }
   let(:aggregate_bk) do
-    Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', year: 2000)
+    Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend', year: 2000)
   end
 
   def new_record(event, attrs = {})
@@ -223,6 +224,7 @@ describe Event::CourseRecord do
       expect(r.bk?).to be_truthy
       expect(r.tk?).to be_falsey
       expect(r.sk?).to be_falsey
+      expect(r.tp?).to be_falsey
     end
 
     it 'should reflect tk course' do
@@ -230,6 +232,7 @@ describe Event::CourseRecord do
       expect(r.bk?).to be_falsey
       expect(r.tk?).to be_truthy
       expect(r.sk?).to be_falsey
+      expect(r.tp?).to be_falsey
     end
 
     it 'should reflect sk course' do
@@ -237,6 +240,15 @@ describe Event::CourseRecord do
       expect(r.bk?).to be_falsey
       expect(r.tk?).to be_falsey
       expect(r.sk?).to be_truthy
+      expect(r.tp?).to be_falsey
+    end
+
+    it 'should reflect sk course' do
+      r = Event::CourseRecord.new(event: event_tp)
+      expect(r.bk?).to be_falsey
+      expect(r.tk?).to be_falsey
+      expect(r.sk?).to be_falsey
+      expect(r.tp?).to be_truthy
     end
   end
 
@@ -322,9 +334,7 @@ describe Event::CourseRecord do
   end
 
   context 'blank record values' do
-    let(:record) do
-      new_record(event_bk)
-    end
+    let(:record) { new_record(event_bk) }
 
     subject { record }
 
@@ -379,6 +389,88 @@ describe Event::CourseRecord do
     context '#vollkosten_pro_le' do
       it 'is correct' do
         expect(subject.vollkosten_pro_le).to eq(0.to_d)
+      end
+    end
+
+    context '#duration_in_days?' do
+      context 'bk' do
+        let(:record) { new_record(event_bk) }
+
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_days
+        end
+      end
+
+      context 'sk' do
+        let(:record) { new_record(event_sk) }
+
+        it 'is expected to be false' do
+          expect(subject).to_not be_duration_in_days
+        end
+      end
+
+      context 'tk' do
+        let(:record) { new_record(event_tk) }
+
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_days
+        end
+      end
+
+      context 'tp' do
+        let(:record) { new_record(event_tp) }
+
+        it 'is expected to be false' do
+          expect(subject).to_not be_duration_in_days
+        end
+      end
+    end
+
+    context '#duration_in_hours?' do
+      context 'bk' do
+        let(:record) { new_record(event_bk) }
+
+        it 'is expected to be false' do
+          expect(subject).to_not be_duration_in_hours
+        end
+      end
+
+      context 'sk' do
+        let(:record) { new_record(event_sk) }
+
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_hours
+        end
+      end
+
+      context 'tk' do
+        let(:record) { new_record(event_tk) }
+
+        it 'is expected to be false' do
+          expect(subject).to_not be_duration_in_hours
+        end
+      end
+
+      context 'tp' do
+        let(:record) { new_record(event_tp) }
+
+        it 'is expected to be true' do
+          expect(subject).to be_duration_in_hours
+        end
+      end
+    end
+
+    context '#total_stunden_betreuung' do
+      let(:record) do
+        new_record(event_tp,
+                   kursdauer: 5,
+                   leiterinnen: 3,
+                   fachpersonen: 1,
+                   hilfspersonal_mit_honorar: 2)
+      end
+
+      it 'is the expected value' do
+        expect(subject.total_stunden_betreuung).to eq(5*(3+1+2))
       end
     end
   end

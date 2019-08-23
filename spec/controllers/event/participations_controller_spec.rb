@@ -138,7 +138,7 @@ describe Event::ParticipationsController do
     let(:internal_fields) { { invoice_text: 'test', invoice_amount: '1.2' } }
 
     let(:group) { groups(:be) }
-    let(:course) { Fabricate(:course, groups: [group], leistungskategorie: 'bk') }
+    let(:course) { Fabricate(:course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend') }
 
     before do
       course.update_attribute(:state, :application_open)

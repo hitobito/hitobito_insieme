@@ -26,11 +26,13 @@ module Insieme::Export::Tabular::Events
 
     def add_insieme_course_labels(labels)
       labels[:leistungskategorie] = human_attribute(:leistungskategorie)
+      labels[:fachkonzept] = human_attribute(:fachkonzept)
     end
 
     def add_course_record_labels(labels)
-      [:year, :subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft, :anzahl_kurse].
-      each do |attr|
+      [
+        :year, :subventioniert, :inputkriterien, :kursart, :spezielle_unterkunft, :anzahl_kurse
+      ].each do |attr|
         add_course_record_label(labels, attr)
       end
     end

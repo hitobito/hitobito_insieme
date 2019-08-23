@@ -130,6 +130,13 @@ describe Export::Tabular::Statistics::GroupFigures do
                           'Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Kat. 1',
                           'Semester-/Jahreskurse TN Tage Total Kat. 1',
 
+                          'Treffpunkte Anzahl Kurse Kat. 1',
+                          'Treffpunkte Total Vollkosten Kat. 1',
+                          'Treffpunkte TN Tage Behinderte Kat. 1',
+                          'Treffpunkte TN Tage Angehörige Kat. 1',
+                          'Treffpunkte TN Tage nicht Bezugsberechtigte Kat. 1',
+                          'Treffpunkte TN Tage Total Kat. 1',
+
                           'LUFEB Stunden Angestellte: Allgemeine Medien- und Öffentlichkeitsarbeit',
                           'LUFEB Stunden Angestellte: Eigene öffentlich zugängliche Medien und Publikationen',
                           'LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit / Projekte',
@@ -168,6 +175,7 @@ describe Export::Tabular::Statistics::GroupFigures do
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
+       0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0, 0, 0,
        0, 0, 0, 0,
        0,
@@ -182,6 +190,7 @@ describe Export::Tabular::Statistics::GroupFigures do
        1, 500.0, 0.0, 0.0, 1664.0, 1664.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        1, 600.0, 8500.0, 0.0, 0.0, 8500.0,
+       0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0, 12, 0,
        21, 0, 0, 0,
@@ -198,6 +207,7 @@ describe Export::Tabular::Statistics::GroupFigures do
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        1, 410.0, 1428.0, 0.0, 0.0, 1428.0,
+       0, 0.0, 0.0, 0.0, 0.0, 0.0,
        10, 0, 0, 0,
        0, 0, 0, 20,
        30,
@@ -206,6 +216,7 @@ describe Export::Tabular::Statistics::GroupFigures do
 
     expect(data.fourth).to eq [
        'Biel-Seeland', 'Bern', nil, nil,
+       0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -222,7 +233,8 @@ describe Export::Tabular::Statistics::GroupFigures do
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)
     event = Fabricate(:course, groups: [groups(group_key)],
-                      leistungskategorie: leistungskategorie)
+                      leistungskategorie: leistungskategorie,
+                      fachkonzept: 'sport_jugend')
     event.dates.create!(start_at: Time.zone.local(year, 05, 11))
     r = Event::CourseRecord.create!(attrs.merge(event_id: event.id, year: year))
     r.update_column(:zugeteilte_kategorie, kategorie)

@@ -8,19 +8,23 @@
 class Event::CourseRecordDecorator < ApplicationDecorator
 
   def absence_caption
-    translate(sk? && '.absenzstunden' || '.absenztage')
+    return translate('.absenzstunden') if duration_in_hours?
+    translate('.absenztage')
   end
 
   def presence_caption
-    translate(sk? && '.teilnehmer_stunden' || '.teilnehmer_tage')
+    return translate('.teilnehmer_stunden') if duration_in_hours?
+    translate('.teilnehmer_tage')
   end
 
   def kursdauer_label
-    translate(sk? && '.kursdauer_h' || '.kursdauer_d')
+    return translate('.kursdauer_h') if duration_in_hours?
+    translate('.kursdauer_d')
   end
 
   def duration_unit
-    I18n.t(sk? && 'global.hours_short' || 'global.days_short')
+    return I18n.t('global.hours_short') if duration_in_hours?
+    I18n.t('global.days_short')
   end
 
 end

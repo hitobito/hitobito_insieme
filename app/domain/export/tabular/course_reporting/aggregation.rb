@@ -10,46 +10,6 @@ module Export
   module Tabular
     module CourseReporting
       class Aggregation
-
-        ATTRIBUTES = [
-          :anzahl_kurse,
-          :kursdauer,
-
-          :teilnehmende,
-          :teilnehmende_behinderte,
-          :teilnehmende_angehoerige,
-          :teilnehmende_weitere,
-
-          :total_absenzen,
-          :absenzen_behinderte,
-          :absenzen_angehoerige,
-          :absenzen_weitere,
-
-          :total_tage_teilnehmende,
-          :tage_behinderte,
-          :tage_angehoerige,
-          :tage_weitere,
-
-          :betreuende,
-          :leiterinnen,
-          :fachpersonen,
-          :hilfspersonal_ohne_honorar,
-          :hilfspersonal_mit_honorar,
-          :kuechenpersonal,
-
-          :direkter_aufwand,
-          :honorare_inkl_sozialversicherung,
-          :unterkunft,
-          :uebriges,
-
-          :direkte_kosten_pro_le,
-          :total_vollkosten,
-          :vollkosten_pro_le,
-          :beitraege_teilnehmende,
-          :betreuungsschluessel,
-          :anzahl_spezielle_unterkunft
-        ]
-
         class << self
           def csv(aggregation)
             Export::Csv::Generator.new(new(aggregation)).call
@@ -65,7 +25,7 @@ module Export
         def data_rows(_format = nil)
           return enum_for(:data_rows) unless block_given?
 
-          ATTRIBUTES.each do |attr|
+          attributes_of_leistungskategorie.each do |attr|
             yield attributes(attr)
           end
         end
@@ -83,7 +43,7 @@ module Export
         private
 
         def t(attr)
-          if jahreskurs?
+          if abrechnung_in_stunden?
             I18n.t("course_reporting.aggregations.#{attr}_stunden",
                    default: :"course_reporting.aggregations.#{attr}")
           else
@@ -97,6 +57,60 @@ module Export
           else
             I18n.t("activerecord.attributes.event/course_record.kursarten.#{kursart}")
           end
+        end
+
+        def attributes_of_leistungskategorie # rubocop:disable Metrics/MethodLength This is more data than function
+          attrs = [
+            :anzahl_kurse,
+            :kursdauer,
+
+            :teilnehmende,
+            :teilnehmende_behinderte,
+            :teilnehmende_angehoerige,
+            :teilnehmende_weitere
+          ]
+
+          attrs += if treffpunkt?
+                     [:total_stunden_betreuung]
+                   else
+                     [
+                       :total_absenzen,
+                       :absenzen_behinderte,
+                       :absenzen_angehoerige,
+                       :absenzen_weitere,
+
+                       :total_tage_teilnehmende,
+                       :tage_behinderte,
+                       :tage_angehoerige,
+                       :tage_weitere
+                     ]
+                   end
+
+          attrs += [
+            :betreuende,
+            :leiterinnen,
+            :fachpersonen,
+            :hilfspersonal_ohne_honorar,
+            :hilfspersonal_mit_honorar
+          ]
+
+          attrs += [:kuechenpersonal] unless treffpunkt?
+
+          attrs += [
+            :direkter_aufwand,
+            :honorare_inkl_sozialversicherung,
+            :unterkunft,
+            :uebriges,
+
+            :direkte_kosten_pro_le,
+            :total_vollkosten,
+            :vollkosten_pro_le,
+            :beitraege_teilnehmende,
+            :betreuungsschluessel,
+            :anzahl_spezielle_unterkunft
+          ]
+
+          attrs
         end
 
         def attributes(attr)
@@ -146,6 +160,14 @@ module Export
 
         def jahreskurs?
           aggregation.leistungskategorie == 'sk'
+        end
+
+        def treffpunkt?
+          aggregation.leistungskategorie == 'tp'
+        end
+
+        def abrechnung_in_stunden?
+          jahreskurs? || treffpunkt?
         end
 
       end

@@ -56,7 +56,8 @@ describe Event::GeneralCostAllocationsController, type: :controller do
     let(:attrs) do
       { general_costs_blockkurse: 300,
         general_costs_tageskurse: 400,
-        general_costs_semesterkurse: 500 }
+        general_costs_semesterkurse: 500,
+        general_costs_treffpunkte: 600 }
     end
 
     it 'assigns all permitted params' do
@@ -72,6 +73,7 @@ describe Event::GeneralCostAllocationsController, type: :controller do
       expect(r.general_costs_blockkurse).to eq 300
       expect(r.general_costs_tageskurse).to eq 400
       expect(r.general_costs_semesterkurse).to eq 500
+      expect(r.general_costs_treffpunkte).to eq 600
     end
   end
 
