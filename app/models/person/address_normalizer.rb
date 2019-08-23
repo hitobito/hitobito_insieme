@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -44,11 +44,9 @@ class Person::AddressNormalizer
     person.send("#{type}_same_as_main?")
   end
 
-  # rubocop:disable Style/AccessorMethodName
-  def set_same_as_main(type)
+  def set_same_as_main(type) # rubocop:disable Naming/AccessorMethodName
     person.send("#{type}_same_as_main=", true)
   end
-  # rubocop:enable Style/AccessorMethodName
 
   def copy_fields_from_main(type)
     fields(type).each do |typed_field, field|
