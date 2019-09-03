@@ -92,7 +92,10 @@ describe Export::Tabular::People do
     subject { csv }
 
     context 'export' do
-      its(:headers) { should == simple_headers }
+      its(:headers) do
+        should match_array(simple_headers)
+        should == simple_headers
+      end
 
       context 'first row' do
         subject { csv[0] }
