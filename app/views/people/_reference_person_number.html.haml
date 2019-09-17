@@ -18,7 +18,7 @@
           - entry.reference_person.grouped_active_membership_roles.each do |group, roles|
             %tr
               %td
-                = icon(entry.reference_person.primary_group_id == group.id ? 'star' : 'star-empty')
+                = icon('star', filled: (entry.reference_person.primary_group_id == group.id))
               %td
                 = GroupDecorator.new(group).link_with_layer
                 %br/
