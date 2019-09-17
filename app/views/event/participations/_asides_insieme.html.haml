@@ -13,7 +13,7 @@
           %tr
             %td
               - if can?(:primary_group, entry.person)
-                = icon(entry.person.primary_group_id == group.id ? 'star' : 'star-empty')
+                = icon('star', filled: (entry.person.primary_group_id == group.id))
             %td
               %strong= GroupDecorator.new(group).link_with_layer
               %br/
