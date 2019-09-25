@@ -107,7 +107,7 @@ module Event::CourseRecordsHelper
     options = {}
     options[:addon] = entry.duration_unit
     options[:label] = entry.kursdauer_label
-    if event_may_have_participants?
+    if event_may_have_participants? || entry.tp?
       options[:help_inline] = kursdauer_help_inline
     end
     participant_field(form, attr, options)

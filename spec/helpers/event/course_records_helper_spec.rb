@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
+#  Copyright (c) 2015-2019, insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito.
@@ -34,7 +34,7 @@ describe Event::CourseRecordsHelper do
 
     end
 
-    context 'course "sammelkurs"' do
+    context 'course "semesterkurs"' do
 
       let(:event) { Fabricate(:course, leistungskategorie: 'sk', fachkonzept: 'sport_jugend') }
       let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
@@ -47,6 +47,25 @@ describe Event::CourseRecordsHelper do
         expect(field).to match(/<span class="muted">gemäss TN-Liste/)
         expect(readonly_value).to match(/<span class="help-inline">gemäss TN-Liste/)
         expect(kursdauer).to match(/<span class="muted">gemäss Kursdaten/)
+      end
+
+    end
+
+    context 'aggregate course "treffpunkt"' do
+
+      let(:event) { Fabricate(:aggregate_course, leistungskategorie: 'tp', fachkonzept: 'treffpunkt') }
+      let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
+
+      it 'shows only some inline help text' do
+        @numbers = CourseReporting::CourseNumbers.new(event)
+        field = participant_field_with_suggestion(form, :teilnehmende, '42')
+        expect(field).to_not match(/<span class="muted">gemäss TN-Liste/)
+
+        readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
+        expect(readonly_value).to_not match(/<span class="help-inline">gemäss TN-Liste/)
+
+        kursdauer = kursdauer_field(form, :kursdauer)
+        expect(kursdauer).to match(/<span class="muted">inkl. 1h Vor- und Nachbereitung/)
       end
 
     end
