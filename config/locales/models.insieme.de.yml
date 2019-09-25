@@ -422,7 +422,7 @@ de:
           tp:
             one: Treffpunkt
             other: Treffpunkte
-        fachkonzept: Fachkonzept
+        fachkonzept: Kursinhalt
         fachkonzepte:
           freizeit_jugend: Freizeit Kinder & Jugendliche
           freizeit_erwachsen: Freizeit Erwachsene & altersdurchmischt
@@ -712,7 +712,7 @@ de:
         event/course:
           attributes:
             fachkonzept:
-              invalid_for_course_leistungskategorie: muss ein Kurs-Fachkonzept sein, wenn die Leistungskategorie ein Kurs ist.
+              invalid_for_course_leistungskategorie: muss ein Kursinhalt sein, wenn die Leistungskategorie ein Kurs ist.
               invalid_for_treffpunkt_leistungskategorie: muss Treffpunkt sein, wenn die Leistungskategorie Treffpunkt ist.
 
       attributes:
