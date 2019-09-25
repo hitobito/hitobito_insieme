@@ -92,9 +92,32 @@ describe CourseReporting::CourseNumbers do
       end
     end
 
-    context '#team_count' do
+    context '#caretaker_count' do
+      before do
+        Fabricate(Event::Course::Role::Caretaker.name.to_sym,
+                  participation: event_participations(:top_participant))
+      end
+
       it 'is correct' do
-        expect(subject.team_count).to eq(1)
+        expect(subject.caretaker_count).to eq(1)
+      end
+
+      it 'is correct with duplicate roles' do
+        Fabricate(Event::Course::Role::Caretaker.name.to_sym,
+                  participation: event_participations(:top_participant))
+        expect(subject.caretaker_count).to eq(1)
+      end
+    end
+
+    context '#team_count' do
+      before do
+        Fabricate(Event::Course::Role::Caretaker.name.to_sym,  participation: Fabricate(:event_participation, event: event))
+        Fabricate(Event::Course::Role::Expert.name.to_sym,     participation: Fabricate(:event_participation, event: event))
+        Fabricate(Event::Course::Role::Affiliated.name.to_sym, participation: Fabricate(:event_participation, event: event))
+      end
+
+      it 'is correct' do
+        expect(subject.team_count).to eq(3) # 1 from fixtures, but affiliated is not counted
       end
     end
 

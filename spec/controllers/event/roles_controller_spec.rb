@@ -32,6 +32,7 @@ describe Event::RolesController do
         ::Event::Course::Role::Expert,
         ::Event::Course::Role::HelperPaid,
         ::Event::Course::Role::HelperUnpaid,
+        ::Event::Course::Role::Caretaker,
         ::Event::Course::Role::Kitchen ]
     end
 

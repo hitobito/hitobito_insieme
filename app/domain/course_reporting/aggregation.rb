@@ -24,6 +24,7 @@ module CourseReporting
       :fachpersonen,
       :hilfspersonal_ohne_honorar,
       :hilfspersonal_mit_honorar,
+      :betreuerinnen,
       :kuechenpersonal,
 
       :honorare_inkl_sozialversicherung,

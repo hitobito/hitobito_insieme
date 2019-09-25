@@ -4,12 +4,15 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag(t('event.course_records.form.betreuerinnen')) do
-  = participant_field_with_suggestion(f, :leiterinnen, @numbers.leader_count)
-  = participant_field_with_suggestion(f, :fachpersonen, @numbers.expert_count)
-  = participant_field_with_suggestion(f, :hilfspersonal_mit_honorar, @numbers.helper_paid_count)
-  = participant_field_with_suggestion(f, :hilfspersonal_ohne_honorar, @numbers.helper_unpaid_count)
+  - if entry.tp?
+    = participant_field_with_suggestion(f, :betreuerinnen, @numbers.caretaker_count)
+  - else
+    = participant_field_with_suggestion(f, :leiterinnen, @numbers.leader_count)
+    = participant_field_with_suggestion(f, :fachpersonen, @numbers.expert_count)
+    = participant_field_with_suggestion(f, :hilfspersonal_mit_honorar, @numbers.helper_paid_count)
+    = participant_field_with_suggestion(f, :hilfspersonal_ohne_honorar, @numbers.helper_unpaid_count)
 
-  = participant_readonly_value_with_suggestion(f, :total, fnumber(entry.betreuende), fnumber(@numbers.team_count))
+    = participant_readonly_value_with_suggestion(f, :total, fnumber(entry.betreuende), fnumber(@numbers.team_count))
 
   = f.labeled_readonly_value :betreuungsschluessel,
                               value: t('event.course_records.form.challenged_per_team', ratio: f(entry.betreuungsschluessel))

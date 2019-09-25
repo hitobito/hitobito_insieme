@@ -134,6 +134,7 @@ describe CourseReporting::Aggregation do
       expect_values(:betreuende, 30, 30, 0)
       expect_values(:leiterinnen, 3)
       expect_values(:fachpersonen, 6)
+      expect_values(:betreuerinnen, 0, nil)
       expect_values(:hilfspersonal_ohne_honorar, 9)
       expect_values(:hilfspersonal_mit_honorar, 12)
 
@@ -186,6 +187,7 @@ describe CourseReporting::Aggregation do
       expect_values(:betreuende, 40, 20, 20)
       expect_values(:leiterinnen, 4, 2, 2)
       expect_values(:fachpersonen, 8, 4, 4)
+      expect_values(:betreuerinnen, 0, nil, nil)
       expect_values(:hilfspersonal_ohne_honorar, 12, 6, 6)
       expect_values(:hilfspersonal_mit_honorar, 16, 8, 8)
       expect_values(:kuechenpersonal, 20, 10, 10)

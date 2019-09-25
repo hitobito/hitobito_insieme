@@ -82,6 +82,7 @@ class Event::CourseRecord < ActiveRecord::Base
             :hilfspersonal_ohne_honorar,
             :hilfspersonal_mit_honorar,
             :kuechenpersonal,
+            :betreuerinnen,
             :teilnehmende_mehrfachbehinderte,
             numericality: { greater_than_or_equal_to: 0, allow_blank: true }
 
@@ -125,7 +126,8 @@ class Event::CourseRecord < ActiveRecord::Base
     leiterinnen.to_i +
     fachpersonen.to_i +
     hilfspersonal_mit_honorar.to_i +
-    hilfspersonal_ohne_honorar.to_i
+    hilfspersonal_ohne_honorar.to_i +
+    betreuerinnen.to_i
   end
 
   def total_tage_teilnehmende

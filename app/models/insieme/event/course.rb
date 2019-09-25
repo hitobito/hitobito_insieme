@@ -19,6 +19,7 @@ module Insieme
                            ::Event::Course::Role::Expert,
                            ::Event::Course::Role::HelperPaid,
                            ::Event::Course::Role::HelperUnpaid,
+                           ::Event::Course::Role::Caretaker,
                            ::Event::Course::Role::Kitchen,
                            ::Event::Course::Role::Challenged,
                            ::Event::Course::Role::Affiliated,

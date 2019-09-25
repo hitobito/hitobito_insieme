@@ -78,11 +78,16 @@ module CourseReporting
       role_count(Event::Course::Role::Kitchen)
     end
 
+    def caretaker_count
+      role_count(Event::Course::Role::Caretaker)
+    end
+
     def team_count
       leader_count +
       expert_count +
       helper_paid_count +
-      helper_unpaid_count
+      helper_unpaid_count +
+      caretaker_count
     end
 
     def participant_count

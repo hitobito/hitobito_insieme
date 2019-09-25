@@ -300,6 +300,9 @@ de:
       event/course/role/leader_basic:
         one: Leitung
         other: Leitung
+      event/course/role/caretaker:
+        one: Betreuungsperson
+        other: Betreuungspersonen
       event/course/role/expert:
         one: Fachperson hochqualifiziert
         other: Fachpersonen hochqualifiziert
@@ -454,6 +457,7 @@ de:
         hilfspersonal_ohne_honorar: Hilfspersonal ohne Honorar
         hilfspersonal_mit_honorar: Hilfspersonal mit Honorar
         kuechenpersonal: Küchenpersonal
+        betreuerinnen: Betreuungspersonen
         honorare_inkl_sozialversicherung: Honorare inkl. Sozialversicherung
         unterkunft: Unterkunft / Raumaufwand
         uebriges: Übriges inkl. Verpflegung
