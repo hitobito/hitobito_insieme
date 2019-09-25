@@ -92,7 +92,17 @@ module Event::Reportable
     end
 
     def available_fachkonzepte
-      FACHKONZEPTE.map do |period|
+      translate_fachkonzepte(FACHKONZEPTE)
+    end
+
+    def available_kursfachkonzepte
+      translate_fachkonzepte(FACHKONZEPTE - ['treffpunkt'])
+    end
+
+    private
+
+    def translate_fachkonzepte(list)
+      list.map do |period|
         [period, I18n.t("activerecord.attributes.event/course.fachkonzepte.#{period}")]
       end
     end

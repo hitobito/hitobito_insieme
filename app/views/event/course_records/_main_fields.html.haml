@@ -6,6 +6,10 @@
 - if entry.event.leistungskategorie.present?
   = f.fields_for(:event, f.object.event) do |ef|
     = ef.labeled_readonly_value(:leistungskategorie)
+    - unless tp
+      = ef.labeled_collection_select(:fachkonzept,
+                                    ef.object.class.available_kursfachkonzepte,
+                                    :first, :second, {prompt: true}, class: 'span6')
 
 
 - if entry.event.is_a?(Event::AggregateCourse)
