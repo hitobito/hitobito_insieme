@@ -39,11 +39,12 @@
            field: :general_costs_semesterkurse,
            lk: 'sk'
 
-  = render 'leistungskategorie_fields',
-           f: f,
-           caption: t('.treffpunkte'),
-           field: :general_costs_treffpunkte,
-           lk: 'tp'
+  - if false # disabled until next extension in summer 2020
+    = render 'leistungskategorie_fields',
+             f: f,
+             caption: t('.treffpunkte'),
+             field: :general_costs_treffpunkte,
+             lk: 'tp'
 
 
 %p= t('.last_allocation', date: format_attr(entry, :updated_at)).html_safe
