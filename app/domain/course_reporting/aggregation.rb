@@ -38,11 +38,11 @@ module CourseReporting
       :tage_behinderte,
       :tage_angehoerige,
       :tage_weitere
-    ]
+    ].freeze
 
     RUBY_SUMMED_ATTRS = COUNTS + [
       :anzahl_spezielle_unterkunft
-    ]
+    ].freeze
 
     attr_accessor :group_id, :year, :leistungskategorie, :zugeteilte_kategorien, :subventioniert
 
@@ -72,12 +72,12 @@ module CourseReporting
         joins(:event).
         group(:kursart, :inputkriterien).
         merge(group_id ? Event.with_group_id(group_id) : nil).
-        where(events: {
-                leistungskategorie: leistungskategorie },
+        where(events: { leistungskategorie: leistungskategorie },
               event_course_records: {
                 year: year,
                 zugeteilte_kategorie: zugeteilte_kategorien,
-                subventioniert: subventioniert })
+                subventioniert: subventioniert
+              })
     end
 
     private
@@ -126,10 +126,10 @@ module CourseReporting
 
     def total(course_records)
       RUBY_SUMMED_ATTRS.each_with_object(empty_course_record) do |attr, total|
-        sum = course_records.
-                collect { |record| record.send(attr) }.
-                compact.
-                sum
+        sum = course_records
+              .collect { |record| record.send(attr) }
+              .compact
+              .sum
         total.send("#{attr}=", sum)
       end
     end

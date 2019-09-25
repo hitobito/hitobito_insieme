@@ -10,7 +10,8 @@ require 'spec_helper'
 describe CourseReporting::Aggregation do
 
   let(:values) do
-    { kursdauer: 0.5,
+    {
+      kursdauer: 0.5,
       challenged_canton_count_attributes: { be: 1, zh: 2 },
       affiliated_canton_count_attributes: { be: 2 },
       teilnehmende_weitere: 4,

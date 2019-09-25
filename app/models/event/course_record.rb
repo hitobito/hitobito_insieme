@@ -47,8 +47,8 @@
 
 class Event::CourseRecord < ActiveRecord::Base
 
-  INPUTKRITERIEN = %w(a b c)
-  KURSARTEN = %w(weiterbildung freizeit_und_sport)
+  INPUTKRITERIEN = %w(a b c).freeze
+  KURSARTEN = %w(weiterbildung freizeit_und_sport).freeze
 
   include Insieme::ReportingFreezable
 

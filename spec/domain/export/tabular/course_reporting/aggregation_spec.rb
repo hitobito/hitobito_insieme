@@ -10,7 +10,8 @@ require 'spec_helper'
 describe Export::Tabular::CourseReporting::Aggregation do
 
   let(:values) do
-    { kursdauer: 2,
+    {
+      kursdauer: 2,
       challenged_canton_count_attributes: { be: 1 },
       affiliated_canton_count_attributes: { be: 2 },
       teilnehmende_weitere: nil,

@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == Schema Information
 #
 # Table name: event_course_records
@@ -40,7 +41,7 @@
 #
 
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2019, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -88,6 +89,10 @@ class Event::CourseRecordsController < CrudController
 
   helper_method :year
 
+  def self.model_class
+    Event::CourseRecord
+  end
+
   private
 
   def entry
@@ -109,10 +114,6 @@ class Event::CourseRecordsController < CrudController
 
   def return_path
     edit_group_event_course_record_path(*parents)
-  end
-
-  def self.model_class
-    Event::CourseRecord
   end
 
   # with mysql when saving value 1 it is rerenderd as 1.0 which is considered decimal

@@ -33,11 +33,11 @@ module CourseReporting
 
     def challenged_multiple_count
       @challenged_multiple_count ||=
-        event.participations.joins(:roles).
-                             where(active: true, multiple_disability: true).
-                             where(event_roles: { type: Event::Course::Role::Challenged.sti_name }).
-                             distinct.
-                             count
+        event.participations.joins(:roles)
+             .where(active: true, multiple_disability: true)
+             .where(event_roles: { type: Event::Course::Role::Challenged.sti_name })
+             .distinct
+             .count
     end
 
     def affiliated_count
@@ -128,9 +128,10 @@ module CourseReporting
     end
 
     def canton_counts(role)
-      counts = event.participations.includes(:roles).joins(:roles, :person).
-        where(event_roles: { type: role.sti_name }).
-        group('people.canton').count
+      counts = event.participations.includes(:roles)
+                    .joins(:roles, :person)
+                    .where(event_roles: { type: role.sti_name })
+                    .group('people.canton').count
       counts['undefined'] = ((counts.delete(nil) || 0) + (counts.delete('') || 0))
       counts
     end
