@@ -17,9 +17,7 @@
 
   = render 'general_fields', f: f
   = render 'participant_fields', f: f
-  - if entry.tp?
-    = render 'care_hours', f: f
-  - else
+  - if !entry.tp?
     = render 'absence_fields', f: f
     = render 'presence_fields', f: f
   = render 'team_fields', f: f

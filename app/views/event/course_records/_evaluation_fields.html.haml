@@ -11,10 +11,14 @@
                              value: gemeinkostenanteil_with_updated_at(entry)
   = f.labeled_readonly_value :total_vollkosten,
                              value: format_money(entry.total_vollkosten)
-  = f.labeled_readonly_value :anzahl_le,
-                             value: fnumber(entry.total_tage_teilnehmende)
-  = f.labeled_readonly_value :vollkosten_pro_le,
-                             value: format_money(entry.vollkosten_pro_le)
-  - unless entry.tp?
+  - if entry.tp?
+    = f.labeled_readonly_value :betreuungsstunden,
+                               value: fnumber(entry.total_stunden_betreuung),
+                               label: t('event.course_records.form.betreuungsstunden')
+  - else
+    = f.labeled_readonly_value :anzahl_le,
+                               value: fnumber(entry.total_tage_teilnehmende)
+    = f.labeled_readonly_value :vollkosten_pro_le,
+                               value: format_money(entry.vollkosten_pro_le)
     = f.labeled_readonly_value :zugeteilte_kategorie,
                                value: zugeteilte_kategorie_with_info(entry)
