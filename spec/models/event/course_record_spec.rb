@@ -461,15 +461,32 @@ describe Event::CourseRecord do
     end
 
     context '#total_stunden_betreuung' do
+      context 'tp' do
+        let(:record) do
+          new_record(event_tp,
+                     kursdauer: 5,
+                     leiterinnen: 3,
+                     fachpersonen: 1,
+                     hilfspersonal_mit_honorar: 2,
+                     betreuerinnen: 4)
+        end
+
+        it 'uses only betreuerinnen and time' do
+          expect(subject.total_stunden_betreuung).to eq(5*4)
+        end
+      end
+
+      context 'tk'
       let(:record) do
-        new_record(event_tp,
+        new_record(event_tk,
                    kursdauer: 5,
                    leiterinnen: 3,
                    fachpersonen: 1,
-                   hilfspersonal_mit_honorar: 2)
+                   hilfspersonal_mit_honorar: 2,
+                   betreuerinnen: 4)
       end
 
-      it 'is the expected value' do
+      it 'ignores betreuerinnen in calculation' do
         expect(subject.total_stunden_betreuung).to eq(5*(3+1+2))
       end
     end

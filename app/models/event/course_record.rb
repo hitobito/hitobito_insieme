@@ -123,11 +123,14 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def betreuende
-    leiterinnen.to_i +
-    fachpersonen.to_i +
-    hilfspersonal_mit_honorar.to_i +
-    hilfspersonal_ohne_honorar.to_i +
-    betreuerinnen.to_i
+    if tp?
+      betreuerinnen.to_i
+    else
+      leiterinnen.to_i +
+      fachpersonen.to_i +
+      hilfspersonal_mit_honorar.to_i +
+      hilfspersonal_ohne_honorar.to_i
+    end
   end
 
   def total_tage_teilnehmende
