@@ -68,15 +68,9 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
   validates :anzahl_kurse, numericality: { greater_than: 0 }
   validates :kursdauer,
-            :teilnehmende_behinderte,
-            :teilnehmende_angehoerige,
-            :teilnehmende_weitere,
-            :absenzen_behinderte,
-            :absenzen_angehoerige,
-            :absenzen_weitere,
-            :tage_behinderte,
-            :tage_angehoerige,
-            :tage_weitere,
+            :teilnehmende_behinderte, :teilnehmende_angehoerige, :teilnehmende_weitere,
+            :absenzen_behinderte,     :absenzen_angehoerige,     :absenzen_weitere,
+            :tage_behinderte,         :tage_angehoerige,         :tage_weitere,
             :leiterinnen,
             :fachpersonen,
             :hilfspersonal_ohne_honorar,
