@@ -74,12 +74,9 @@ fr:
       group/dachverein/invoicing:
         one: Facturation
         other: Facturation
-      group/externe_organisation/invoicing:
-        one: Facturation
-        other: Facturation
-      group/regionalverein/invoicing:
-        one: Facturation
-        other: Facturation
+      group/dachverein/it_support:
+        one: support informatique
+        other: support informatique
       group/dachverein/external:
         one: Externe
         other: Externe
@@ -128,6 +125,9 @@ fr:
       group/regionalverein/controlling:
         one: Reporting
         other: Reporting
+      group/regionalverein/invoicing:
+        one: Facturation
+        other: Facturation
       group/regionalverein/external:
         one: E
         other: Externe
@@ -195,6 +195,9 @@ fr:
       group/externe_organisation/controlling:
         one: Reporting
         other: Reporting
+      group/externe_organisation/invoicing:
+        one: Facturation
+        other: Facturation
       group/externe_organisation/external:
         one: Externe
         other: Externe
@@ -219,6 +222,9 @@ fr:
       event/course/role/leader_basic:
         one: Direction
         other: Direction
+      event/course/role/caretaker:
+        one: personne soignant
+        other: personnel soignant
       event/course/role/expert:
         one: Spécialistes hautement qualifiés
         other: Spécialistes hautement qualifiés
@@ -308,6 +314,7 @@ fr:
         leistungskategorie: Catégorie de prestations
         year: Année
         dates_full: Année
+        fachkonzept: Contenu du cours
       event/course:
         leistungskategorie: Catégorie de prestations
         leistungskategorien:
@@ -320,6 +327,17 @@ fr:
           sk:
             one: Cours semestriels/annuels
             other: Cours semestriels/annuels
+          tp:
+            one: Lieu d’accueil
+            other: Lieux d’accueil
+        fachkonzept: Contenu du cours
+        fachkonzepte:
+          freizeit_jugend: loisirs enfants et jeunes
+          freizeit_erwachsen: loisirs adultes et personnes d'âge mixte
+          sport_jugend: sports enfants et jeunes
+          sport_erwachsen: sports adultes et personnes d'âge mixte
+          autonomie_foerderung: aide à l’entraide / éducation
+          treffpunkt: Lieux d’accueil
       event/course_record:
         event_id: Cours
         event: Cours
@@ -343,6 +361,7 @@ fr:
         hilfspersonal_ohne_honorar: Personnel auxiliaire sans honoraire
         hilfspersonal_mit_honorar: Personnel auxiliaire avec honoraire
         kuechenpersonal: Personnel en cuisine
+        betreuerinnen: personnel soignant
         honorare_inkl_sozialversicherung: Honoraires, assurance sociale y comprise
         unterkunft: 'Hébergement / charges de locaux '
         uebriges: Autres y compris nourriture
@@ -367,6 +386,7 @@ fr:
         general_costs_blockkurse: Total des frais généraux
         general_costs_tageskurse: Total des frais généraux
         general_costs_semesterkurse: Total des frais généraux
+        general_costs_treffpunkte: Total des frais généraux
         total_direct_costs: Total des frais directs
         general_costs_allowance: Suppléments de frais généraux
       event/participation:
@@ -564,6 +584,12 @@ fr:
         exemption: Montant libre déduit
         capital_substrate_allocated: Substrat de capital codé art. 74
     errors:
+      models:
+        event/course:
+          attributes:
+            fachkonzept:
+              invalid_for_course_leistungskategorie: doit être un contenu de cours si la catégorie de performance est un cours.
+              invalid_for_treffpunkt_leistungskategorie: doit être le lieu d'accueil si la catégorie de performance est lieux d'accueils.
       attributes:
         group_id:
           is_not_allowed: Ne peut par être utilisé pour le reporting

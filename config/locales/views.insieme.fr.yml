@@ -45,6 +45,7 @@ fr:
       export_bk: Consolidation de la statistque des cours des cours en bloc
       export_tk: Consolidation de la statistique des cours d'un jour
       export_sk: Consolidation de la statistique des cours des cours semestriels/annuels
+      export_tp: Statistiques consolidées des cours pour lieux d'accueil
       time_records:
         employee_time: Employé-e
         volunteer_with_verification_time: Bénévoles avec preuve de prestation
@@ -106,6 +107,7 @@ fr:
       tage_behinderte_stunden: dont heures participants handicapés
       tage_angehoerige_stunden: dont heures participants proches
       tage_weitere_stunden: dont heures participants bénéficiaires non reconnus
+      total_stunden_betreuung_stunden: Nombre d'heures de soins
       betreuende: Nombre de personnel d'encadrement
       leiterinnen: dont responsables
       fachpersonen: dont spécialistes hautement qualifiés
@@ -145,13 +147,15 @@ fr:
         personal: Personnel sans fonction d'encadrement
         aufwand: Charges directes
         ertrag: Produit
+        betreuungsstunden: heures de soins
         according_to_course_dates: "Selon les données des cours: %{duration}"
         according_to_list: "Selon la liste des participants: %{count}"
         challenged_per_team: "%{ratio} Personnes handicapées par personnel d'encadrement"
         auswertungen: Evaluations
-        updated_at: "Actualisé le %{date}"
+        updated_at: "Actualisé le  %{date}"
         info_not_subsidized: "Pas subventionné: les cours ne sont pas pris en compte dans la statistique de cours"
         missing_reporting_parameters: Aucun paramètre du reporting n'est défini pour l'année correspondante. Veuillez vous adresser à l'organisation faîtière.
+        vor_und_nacharbeit: "y compris 1h de préparation et de post-traitement"
       canton_fields:
         change: Adapter
     general_cost_allocations:
@@ -220,6 +224,7 @@ fr:
       leistungskategorie_bk: Cours en bloc
       leistungskategorie_tk: Cours d'un  jour
       leistungskategorie_sk: Cours semestriels/annuels
+      leistungskategorie_tp: lieux d'accueil
       anzahl_kurse: "%{leistungskategorie} nombre de cours %{kategorie}"
       total_vollkosten: "%{leistungskategorie} total coûts complets %{kategorie}"
       tage_behinderte: "%{leistungskategorie} journées participant personnes handicapées %{kategorie}"
