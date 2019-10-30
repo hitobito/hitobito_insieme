@@ -92,7 +92,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
   Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
     define_method(:"#{kategorie}?") do
-      event.leistungskategorie == kategorie
+      event.leistungskategorie == kategorie if event
     end
   end
 
