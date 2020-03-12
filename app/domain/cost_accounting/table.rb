@@ -23,7 +23,7 @@ module CostAccounting
                CostAccounting::Report::TotalUmlagen,
                CostAccounting::Report::Vollkosten,
                CostAccounting::Report::Leistungsertrag,
-               CostAccounting::Report::BeitraegeIV,
+               CostAccounting::Report::BeitraegeIv,
                CostAccounting::Report::SonstigeBeitraege,
                CostAccounting::Report::DirekteSpenden,
                CostAccounting::Report::IndirekteSpenden,

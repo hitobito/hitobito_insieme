@@ -7,7 +7,7 @@
 
 module CostAccounting
   module Report
-    class BeitraegeIV < Base
+    class BeitraegeIv < Base
 
       self.kontengruppe = '330'
 
