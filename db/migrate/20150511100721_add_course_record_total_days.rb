@@ -1,4 +1,4 @@
-class AddCourseRecordTotalDays < ActiveRecord::Migration
+class AddCourseRecordTotalDays < ActiveRecord::Migration[4.2]
   def up
     add_column :event_course_records, :tage_behinderte, :decimal, precision: 12, scale: 2
     add_column :event_course_records, :tage_angehoerige, :decimal, precision: 12, scale: 2

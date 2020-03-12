@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class CreateParticipationCantonCountsModel < ActiveRecord::Migration
+class CreateParticipationCantonCountsModel < ActiveRecord::Migration[4.2]
   def change
     create_table :event_participation_canton_counts do |t|
       t.integer :ag

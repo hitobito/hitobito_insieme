@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddCourseRecordSpezielleUnterkunft < ActiveRecord::Migration
+class AddCourseRecordSpezielleUnterkunft < ActiveRecord::Migration[4.2]
   def change
     add_column(:event_course_records, :spezielle_unterkunft, :boolean)
   end

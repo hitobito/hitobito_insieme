@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class RenameCostAccountingParameters < ActiveRecord::Migration
+class RenameCostAccountingParameters < ActiveRecord::Migration[4.2]
   def change
     rename_table :cost_accounting_parameters, :reporting_parameters
   end

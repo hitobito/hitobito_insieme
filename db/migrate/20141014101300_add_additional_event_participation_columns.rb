@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddAdditionalEventParticipationColumns < ActiveRecord::Migration
+class AddAdditionalEventParticipationColumns < ActiveRecord::Migration[4.2]
   def change
     add_column(:event_participations, :internal_invoice_text, :text)
     add_column(:event_participations, :internal_invoice_amount, :decimal, precision: 12, scale: 2)

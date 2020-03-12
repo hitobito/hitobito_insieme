@@ -1,4 +1,4 @@
-class AddEventParticipationFields < ActiveRecord::Migration
+class AddEventParticipationFields < ActiveRecord::Migration[4.2]
   def up
     add_column :event_participations, :disability, :string
     add_column :event_participations, :multiple_disability, :boolean

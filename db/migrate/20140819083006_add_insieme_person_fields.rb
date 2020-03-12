@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddInsiemePersonFields < ActiveRecord::Migration
+class AddInsiemePersonFields < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :salutation, :string
     add_column :people, :canton, :string

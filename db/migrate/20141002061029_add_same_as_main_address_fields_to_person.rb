@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddSameAsMainAddressFieldsToPerson < ActiveRecord::Migration
+class AddSameAsMainAddressFieldsToPerson < ActiveRecord::Migration[4.2]
   def change
     Person::ADDRESS_TYPES.each do |prefix|
       add_column :people, "#{prefix}_same_as_main", :boolean, default: true

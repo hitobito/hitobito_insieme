@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddPersonAddresses < ActiveRecord::Migration
+class AddPersonAddresses < ActiveRecord::Migration[4.2]
   def add_address_columns(prefix)
     add_column :people, "#{prefix}_name", :string
     add_column :people, "#{prefix}_company_name", :string

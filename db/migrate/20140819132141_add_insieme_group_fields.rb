@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddInsiemeGroupFields < ActiveRecord::Migration
+class AddInsiemeGroupFields < ActiveRecord::Migration[4.2]
   def change
     add_column :groups, :full_name, :string
     add_column :groups, :vid, :integer

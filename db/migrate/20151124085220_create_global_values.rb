@@ -1,4 +1,4 @@
-class CreateGlobalValues < ActiveRecord::Migration
+class CreateGlobalValues < ActiveRecord::Migration[4.2]
   def change
     create_table :global_values do |t|
       t.integer :default_reporting_year, null: false

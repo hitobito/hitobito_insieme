@@ -1,4 +1,4 @@
-class ChangeCantonOtherToAnother < ActiveRecord::Migration
+class ChangeCantonOtherToAnother < ActiveRecord::Migration[4.2]
   def change
     # transifex forbidds keys be called `other` unless they contain the plural form
     # of a corresponding `one` key.

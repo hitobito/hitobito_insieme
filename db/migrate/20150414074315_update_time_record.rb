@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class UpdateTimeRecord < ActiveRecord::Migration
+class UpdateTimeRecord < ActiveRecord::Migration[4.2]
   def change
     add_column :time_records, :type, :string
     TimeRecord.update_all(type: 'TimeRecord::EmployeeTime')

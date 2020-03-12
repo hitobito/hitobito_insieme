@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class RenamePersonInsiemeFullName < ActiveRecord::Migration
+class RenamePersonInsiemeFullName < ActiveRecord::Migration[4.2]
   def change
     rename_column :people, :full_name, :insieme_full_name
   end

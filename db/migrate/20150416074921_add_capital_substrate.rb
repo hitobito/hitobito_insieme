@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddCapitalSubstrate < ActiveRecord::Migration
+class AddCapitalSubstrate < ActiveRecord::Migration[4.2]
   def change
     create_table :capital_substrates do |t|
       t.belongs_to :group, null: false

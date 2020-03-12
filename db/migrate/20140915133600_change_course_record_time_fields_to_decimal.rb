@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class ChangeCourseRecordTimeFieldsToDecimal < ActiveRecord::Migration
+class ChangeCourseRecordTimeFieldsToDecimal < ActiveRecord::Migration[4.2]
   def change
     change_column :event_course_records, :kurstage, :decimal, precision: 12, scale: 2
     change_column :event_course_records, :absenztage_behinderte, :decimal, precision: 12, scale: 2

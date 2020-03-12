@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class UpdatePersonAddresses < ActiveRecord::Migration
+class UpdatePersonAddresses < ActiveRecord::Migration[4.2]
 
   def update_address_columns(prefix)
     remove_column :people, "#{prefix}_full_name", :string

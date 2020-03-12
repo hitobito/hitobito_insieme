@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class CreateCourseRecordsModel < ActiveRecord::Migration
+class CreateCourseRecordsModel < ActiveRecord::Migration[4.2]
   def change
     create_table :event_course_records do |t|
       t.belongs_to :event, null: false

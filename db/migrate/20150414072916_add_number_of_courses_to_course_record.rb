@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddNumberOfCoursesToCourseRecord < ActiveRecord::Migration
+class AddNumberOfCoursesToCourseRecord < ActiveRecord::Migration[4.2]
   def change
     add_column :event_course_records, :anzahl_kurse, :integer, default: 1
 

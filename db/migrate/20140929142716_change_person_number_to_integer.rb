@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class ChangePersonNumberToInteger < ActiveRecord::Migration
+class ChangePersonNumberToInteger < ActiveRecord::Migration[4.2]
   def up
     remove_column :people, :number
     add_column :people, :number, :integer

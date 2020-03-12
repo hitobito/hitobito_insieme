@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class AddDefaultsToCourseRecords < ActiveRecord::Migration
+class AddDefaultsToCourseRecords < ActiveRecord::Migration[4.2]
   def up
     Event::CourseRecord.where(subventioniert: nil).update_all(subventioniert: true)
     Event::CourseRecord.where(spezielle_unterkunft: nil).update_all(spezielle_unterkunft: false)
