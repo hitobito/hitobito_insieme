@@ -15,17 +15,17 @@ describe TimeRecord::BaseInformationsController, type: :controller  do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :index, id: groups(:aktiv).id, year: 2014
+      get :index, params: { id: groups(:aktiv).id, year: 2014 }
     end.to raise_error(CanCan::AccessDenied)
   end
 
   it 'shows base information' do
-    get :index, id: groups(:dachverein).id, year: 2014
+    get :index, params: { id: groups(:dachverein).id, year: 2014 }
     is_expected.to render_template('index')
   end
 
   it 'exports csv' do
-    get :index, id: groups(:dachverein).id, year: 2014, format: :csv
+    get :index, params: { id: groups(:dachverein).id, year: 2014 }, format: :csv
     csv = response.body
     expect(csv).to match(/\A;Art\. 74 betreffend;Art\. 74 nicht betreffend;Ganze Organisation/)
     expect(csv).to match(/^Angestellte MitarbeiterInnen\. Gemäss Arbeitsvertrag \(in 100% Stellen\);;;0\.0$/)

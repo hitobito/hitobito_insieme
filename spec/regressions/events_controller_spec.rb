@@ -21,18 +21,18 @@ describe EventsController, type: :controller do
     context '.csv' do
       let(:lines) { Delayed::Job.last.payload_object.data }
       it 'renders event csv' do
-        get :index, group_id: groups(:dachverein).id, year: 2014, format: :csv
+        get :index, params: { group_id: groups(:dachverein).id, year: 2014 }, format: :csv
         expect(lines).to be_present
       end
 
       it 'renders course csv' do
-        get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
+        get :index, params: { group_id: group.id, year: 2014, type: Event::Course.sti_name }, format: :csv
         expect(lines).to be_present
       end
 
       it 'background job gets same filename as async download cookie' do
         expect do
-          get :index, group_id: group.id, year: 2014, format: :csv, type: Event::Course.sti_name
+          get :index, params: { group_id: group.id, year: 2014, type: Event::Course.sti_name }, format: :csv
         end.to change{ Delayed::Job.count }.by 1
 
         job = YAML::load(Delayed::Job.find_by("handler LIKE '%filename%'").handler)
@@ -46,7 +46,7 @@ describe EventsController, type: :controller do
     context 'simple event' do
       it 'should not be visible' do
         event = Fabricate(:event, groups: [group])
-        get :show, group_id: group.id, id: event.id
+        get :show, params: { group_id: group.id, id: event.id }
         expect(dom).not_to have_content 'Kursabschluss'
       end
     end
@@ -56,7 +56,7 @@ describe EventsController, type: :controller do
         event = Fabricate(:course, groups: [group], kind: Event::Kind.first,
                           leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
 
-        get :show, group_id: group.id, id: event.id
+        get :show, params: { group_id: group.id, id: event.id }
         expect(dom).to have_content 'Kursabschluss'
       end
 
@@ -69,7 +69,7 @@ describe EventsController, type: :controller do
                                            event: event, person: role.person))
         sign_in(role.person)
 
-        get :show, group_id: group.id, id: event.id
+        get :show, params: { group_id: group.id, id: event.id }
         expect(dom).not_to have_content 'Kursabschluss'
       end
     end

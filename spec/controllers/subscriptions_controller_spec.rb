@@ -15,7 +15,7 @@ describe SubscriptionsController do
   before { sign_in(person) }
 
   it 'exports in the background' do
-    get :index, group_id: group.id, mailing_list_id: list.id, format: :csv
+    get :index, params: { group_id: group.id, mailing_list_id: list.id }, format: :csv
     return_path = group_mailing_list_subscriptions_path(group_id: group.id,
                                                         mailing_list_id: list.id,
                                                         returning: true)

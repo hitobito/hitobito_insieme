@@ -13,14 +13,14 @@ describe CostAccountingController do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :index, id: groups(:aktiv).id
+      get :index, params: { id: groups(:aktiv).id }
     end.to raise_error(CanCan::AccessDenied)
   end
 
   context 'GET index.html' do
     it 'uses default reporting year' do
       GlobalValue.first.update!(default_reporting_year: 2010)
-      get :index, id: groups(:be).id
+      get :index, params: { id: groups(:be).id }
       expect(assigns(:year)).to eq(2010)
     end
   end
@@ -30,7 +30,7 @@ describe CostAccountingController do
       let(:group) { groups(:be) }
       let(:year) { 2014 }
 
-      before { get :index, id: group, year: year, format: :xlsx }
+      before { get :index, params: { id: group, year: year }, format: :xlsx }
 
       context 'no vid and bsv_number present' do
         it 'should use a filename containing only group name and year' do
@@ -59,7 +59,7 @@ describe CostAccountingController do
       let(:group) { groups(:be) }
       let(:year) { 2014 }
 
-      before { get :index, id: group, year: year, format: :pdf }
+      before { get :index, params: { id: group, year: year }, format: :pdf }
 
       context 'no vid and bsv_number present' do
         it 'should use a filename containing only group name and year' do

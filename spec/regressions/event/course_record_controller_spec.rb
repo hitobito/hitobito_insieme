@@ -31,19 +31,19 @@ describe Event::CourseRecordsController, type: :controller do
 
   context 'inputkriterien and spezielle_unterkunft' do
     it 'should display inputkriterien/spezielle_unterkunft for bk course' do
-      get :edit, group_id: group.id, event_id: event_bk.id
+      get :edit, params: { group_id: group.id, event_id: event_bk.id }
       expect(dom).to have_content 'Inputkriterien'
       expect(dom).to have_content 'Spezielle Unterkunft'
     end
 
     it 'should display inputkriterien/spezielle_unterkunft for tk course' do
-      get :edit, group_id: group.id, event_id: event_tk.id
+      get :edit, params: { group_id: group.id, event_id: event_tk.id }
       expect(dom).to have_content 'Inputkriterien'
       expect(dom).to have_content 'Spezielle Unterkunft'
     end
 
     it 'should display inputkriterien/spezielle_unterkunft for sk course' do
-      get :edit, group_id: group.id, event_id: event_sk.id
+      get :edit, params: { group_id: group.id, event_id: event_sk.id }
       expect(dom).not_to have_content 'Inputkriterien'
       expect(dom).not_to have_content 'Spezielle Unterkunft'
     end
@@ -51,7 +51,7 @@ describe Event::CourseRecordsController, type: :controller do
 
   context 'canton counts' do
     it 'should hide canton counts initially' do
-      get :edit, group_id: group.id, event_id: event_bk.id
+      get :edit, params: { group_id: group.id, event_id: event_bk.id }
 
       expect(dom).to have_css '#canton_counts_teilnehmende_behinderte', visible: false
       expect(dom).to have_css '#canton_counts_teilnehmende_angehoerige', visible: false

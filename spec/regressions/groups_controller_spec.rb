@@ -69,7 +69,7 @@ describe GroupsController, type: :controller  do
 
     def assert_tab_visibility(person, group, tab, state)
        sign_in(people(person))
-       get :show, id: groups(group).id
+       get :show, params: { id: groups(group).id }
        if state == :visible
          expect(dom.find('.sheet .nav')).to have_content tab
        else

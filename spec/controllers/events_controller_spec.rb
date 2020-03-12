@@ -15,7 +15,7 @@ describe EventsController do
     let(:group) { groups(:dachverein) }
 
     it 'sets defaults for course record' do
-      get :new, group_id: group.id, event: { type: 'Event::Course' }
+      get :new, params: { group_id: group.id, event: { type: 'Event::Course' } }
 
       expect(assigns(:event).course_record.kursart).to eq 'weiterbildung'
       expect(assigns(:event).course_record.inputkriterien).to eq 'a'
@@ -83,9 +83,9 @@ describe EventsController do
     end
 
     def create(leistungskategorie = nil, course_record_attributes = {})
-      post :create, group_id: group.id, event: course_attrs.merge(leistungskategorie: leistungskategorie,
+      post :create, params: { group_id: group.id, event: course_attrs.merge(leistungskategorie: leistungskategorie,
                                                                   fachkonzept: 'sport_jugend',
-                                                                  course_record_attributes: course_record_attributes)
+                                                                  course_record_attributes: course_record_attributes) }
     end
   end
 
@@ -93,8 +93,7 @@ describe EventsController do
     let(:event) { events(:top_course) }
 
     it 'ignores changes to leistungskategorie' do
-      put :update, group_id: groups(:be).id, id: event.id,
-          event: { leistungskategorie: 'sk' }
+      put :update, params: { group_id: groups(:be).id, id: event.id, event: { leistungskategorie: 'sk' } }
 
       expect(event.reload.leistungskategorie).to eq 'bk'
     end
@@ -106,9 +105,11 @@ describe EventsController do
       it 'cannot update course in frozen year' do
         expect do
           put :update,
-              group_id: groups(:be).id,
-              id: event.id,
-              event: { name: 'other' }
+              params: {
+                group_id: groups(:be).id,
+                id: event.id,
+                event: { name: 'other' }
+              }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -137,7 +138,7 @@ describe EventsController do
       end
 
       def update(course_record_attributes = {})
-        put :update, group_id: event.groups.first.id, id: event.id, event: { course_record_attributes: course_record_attributes }
+        put :update, params: { group_id: event.groups.first.id, id: event.id, event: { course_record_attributes: course_record_attributes } }
       end
     end
   end
@@ -154,7 +155,7 @@ describe EventsController do
 
       it 'creats export job for events' do
         expect do
-          get :index, group_id: group.id, event: { type: 'Event' }, format: 'csv'
+          get :index, params: { group_id: group.id, event: { type: 'Event' } }, format: 'csv'
           expect(flash[:notice]).to be_present
           expect(response).to redirect_to(simple_group_events_path(group, returning: true))
         end.to change { Delayed::Job.count }.by(1)
@@ -174,7 +175,7 @@ describe EventsController do
       it 'creates detail export for courses' do
         expect do
           sign_in(people(:regio_leader))
-          get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
+          get :index, params: { group_id: group.id, type: 'Event::Course', year: '2012' }, format: 'xlsx'
           expect(flash[:notice]).to be_present
           expect(response).to redirect_to(course_group_events_path(group, returning: true))
         end.to change { Delayed::Job.count }.by(1)
@@ -184,7 +185,7 @@ describe EventsController do
         controlling = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:fr)).person
         expect do
           sign_in(controlling)
-          get :index, group_id: group.id, type: 'Event::Course', format: 'xlsx', year: '2012'
+          get :index, params: { group_id: group.id, type: 'Event::Course', year: '2012' }, format: 'xlsx'
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -200,7 +201,7 @@ describe EventsController do
       it 'cannot destroy course in frozen year' do
         sign_in(people(:regio_leader))
         expect do
-          delete :destroy, group_id: groups(:be).id, id: event.id
+          delete :destroy, params: { group_id: groups(:be).id, id: event.id }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
