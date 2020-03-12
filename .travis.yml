@@ -1,16 +1,12 @@
+notifications:
+  email: false
 language: ruby
 cache: bundler
-dist: xenial
-addons:
-  firefox: 45.0
 services:
   - mysql
-python:
-  - "2.7"
 branches:
   only:
     - master
-    - stable
 env:
   global:
     - HEADLESS=true
@@ -18,17 +14,11 @@ env:
     - RAILS_DB_NAME=hitobito_test
     - RAILS_ENV=development
 rvm:
-  - 2.2.3
   - 2.5.5
-before_install:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
 install:
   - unset BUNDLE_GEMFILE # we bundle in different directories
   - cd .. && git clone https://github.com/hitobito/hitobito.git hitobito
-  - cd hitobito && git checkout -f $([[ $TRAVIS_BRANCH = 'stable' ]] && echo 'stable' || echo 'master')
+  - cd hitobito && git checkout -f rails-5
   - export HITOBITO_CORE_DIR=$PWD
   - cp -v Wagonfile.ci Wagonfile
   - rvm use $TRAVIS_RUBY_VERSION --fuzzy
@@ -36,8 +26,4 @@ install:
   - bundle install --path vendor/bundle
   - for d in ../hitobito_*; do cd $d && cp -v $HITOBITO_CORE_DIR/Gemfile.lock ./ && rvm use $TRAVIS_RUBY_VERSION --fuzzy && bundle install --path vendor/bundle; done
   - cd $HITOBITO_CORE_DIR && rvm use $TRAVIS_RUBY_VERSION --fuzzy
-script:
-  - bundle exec rake db:create ci:wagon --trace
-matrix:
-  allow_failures:
-    - rvm: 2.5.5
+  - mysql -e 'CREATE DATABASE hitobito_test'
