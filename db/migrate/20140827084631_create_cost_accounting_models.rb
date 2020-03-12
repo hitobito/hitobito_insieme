@@ -64,7 +64,6 @@ class CreateCostAccountingModels < ActiveRecord::Migration[4.2]
       t.integer :vernehmlassungen
       t.integer :gremien
 
-      t.integer :auskunftserteilung
       t.integer :vermittlung_kontakte
       t.integer :unterstuetzung_selbsthilfeorganisationen
       t.integer :koordination_selbsthilfe
