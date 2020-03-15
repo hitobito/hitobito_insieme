@@ -71,7 +71,7 @@ module CourseReporting
       Event::CourseRecord.
         joins(:event).
         group(:kursart, :inputkriterien).
-        merge(group_id ? Event.with_group_id(group_id) : nil).
+        merge(group_id ? Event.with_group_id(group_id) : {}).
         where(events: { leistungskategorie: leistungskategorie },
               event_course_records: {
                 year: year,
