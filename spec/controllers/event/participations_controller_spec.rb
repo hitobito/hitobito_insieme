@@ -201,10 +201,12 @@ describe Event::ParticipationsController do
           get :index, params: {
                         group_id: group.id,
                         event_id: course.id,
-                        filter: :participants,
+                        filter: 'teamers',
                         details: true
                       },
                       format: :csv
+
+          expect(response).to redirect_to group_event_participations_path(group, course, returning: true)
           expect(csv['Rollstuhl']).to eq %w(ja)
           expect(csv['Behinderung']).to eq %w(Hörbehindert)
           expect(csv['Mehrfachbehinderung']).to eq [nil]
