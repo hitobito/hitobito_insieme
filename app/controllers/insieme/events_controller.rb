@@ -34,6 +34,12 @@ module Insieme
       end
     end
 
+    def model_params
+      super.tap do |p|
+        p[:course_record_attributes] ||= {} if action_name == 'create'
+      end
+    end
+
     def custom_filename
       ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
     end
