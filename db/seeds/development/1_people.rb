@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -18,15 +16,18 @@ class InsiemePersonSeeder < PersonSeeder
 
 end
 
-puzzlers = ['Pascal Zumkehr',
-            'Pierre Fritsch',
-            'Andreas Maierhofer',
-            'Andre Kunz',
-            'Roland Studer',
-            'Janiss Binder',
-            'Mathis Hofer',
-            'Pascal Simon',
-            'Bruno Santschi']
+puzzlers = [
+  'Andre Kunz',
+  'Andreas Maierhofer',
+  'Bruno Santschi',
+  'Janiss Binder',
+  'Mathis Hofer',
+  'Matthias Viehweger',
+  'Pascal Simon',
+  'Pascal Zumkehr',
+  'Pierre Fritsch',
+  'Roland Studer',
+]
 
 devs = {}
 puzzlers.each do |puz|
