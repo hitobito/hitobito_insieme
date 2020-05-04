@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -45,48 +45,48 @@ module HitobitoInsieme
       PersonAbility.send      :include, Insieme::PersonAbility
       MailingListAbility.send :include, Insieme::MailingListAbility
       VariousAbility.send     :include, Insieme::VariousAbility
-      PersonReadables.send :include, Insieme::PersonReadables
+      PersonReadables.send    :prepend, Insieme::PersonReadables
       Ability.store.register Event::CourseRecordAbility
 
       # controllers
-      PeopleController.send :include, Insieme::PeopleController
-      PeopleController.send :include, Insieme::RenderPeopleExports
-      EventsController.send :include, Insieme::EventsController
-      Event::ParticipationsController.send :include, Insieme::Event::ParticipationsController
-      Event::ParticipationsController.send :include, Insieme::RenderPeopleExports
-      Event::RegisterController.send       :include, Insieme::Event::RegisterController
+      PeopleController.send :prepend, Insieme::PeopleController
+      PeopleController.send :prepend, Insieme::RenderPeopleExports
+      EventsController.send :prepend, Insieme::EventsController
+      Event::ParticipationsController.send :prepend, Insieme::Event::ParticipationsController
+      Event::ParticipationsController.send :prepend, Insieme::RenderPeopleExports
+      Event::RegisterController.send       :prepend, Insieme::Event::RegisterController
       Person::QueryController.search_columns << :number
 
       # helpers
-      Sheet::Base.send  :include, Insieme::Sheet::Base
+      Sheet::Base.send  :prepend, Insieme::Sheet::Base
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event
-      Dropdown::LabelItems.send :include, Insieme::Dropdown::LabelItems
+      Dropdown::LabelItems.send :prepend, Insieme::Dropdown::LabelItems
 
       # decorators
-      PersonDecorator.send :include, Insieme::PersonDecorator
-      EventDecorator.send :include, Insieme::EventDecorator
+      PersonDecorator.send :prepend, Insieme::PersonDecorator
+      EventDecorator.send  :prepend, Insieme::EventDecorator
 
       # domain
       Export::Tabular::People::PeopleAddress.send(
-        :include, Insieme::Export::Tabular::People::PeopleAddress
+        :prepend, Insieme::Export::Tabular::People::PeopleAddress
       )
       Export::Tabular::People::PeopleFull.send(
-        :include, Insieme::Export::Tabular::People::PeopleFull
+        :prepend, Insieme::Export::Tabular::People::PeopleFull
       )
       Export::Tabular::People::PersonRow.send(
         :include, Insieme::Export::Tabular::People::PersonRow
       )
       Export::Tabular::People::ParticipationsFull.send(
-        :include, Insieme::Export::Tabular::People::ParticipationsFull
+        :prepend, Insieme::Export::Tabular::People::ParticipationsFull
       )
       Export::Tabular::People::ParticipationRow.send(
         :include, Insieme::Export::Tabular::People::ParticipationRow
       )
-      Export::Tabular::Events::List.send :include, Insieme::Export::Tabular::Events::List
-      Export::Tabular::Events::Row.send :include, Insieme::Export::Tabular::Events::Row
-      Export::Pdf::Labels.send :include, Insieme::Export::Pdf::Labels
-      Import::PersonDoubletteFinder.send :include, Insieme::Import::PersonDoubletteFinder
+      Export::Tabular::Events::List.send :prepend, Insieme::Export::Tabular::Events::List
+      Export::Tabular::Events::Row.send  :include, Insieme::Export::Tabular::Events::Row
+      Export::Pdf::Labels.send           :prepend, Insieme::Export::Pdf::Labels
+      Import::PersonDoubletteFinder.send :prepend, Insieme::Import::PersonDoubletteFinder
 
       Export::Xlsx::Style.register(Export::Xlsx::CostAccounting::Style,
                                    Export::Tabular::CostAccounting::List)
@@ -100,8 +100,8 @@ module HitobitoInsieme
                                    Export::Tabular::Events::AggregateCourse::ShortList)
 
       # jobs
-      Export::SubscriptionsJob.send :include, Insieme::Export::SubscriptionsJob
-      Export::EventsExportJob.send :include, Insieme::Export::EventsExportJob
+      Export::SubscriptionsJob.send :prepend, Insieme::Export::SubscriptionsJob
+      Export::EventsExportJob.send  :prepend, Insieme::Export::EventsExportJob
 
 
       admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }

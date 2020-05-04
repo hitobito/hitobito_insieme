@@ -1,24 +1,16 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020, insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::PersonReadables
-  extend ActiveSupport::Concern
-
-  included do
-    alias_method_chain :contact_data_visible?, :same_layer
-    alias_method_chain :contact_data_condition, :same_layer
+  def contact_data_visible?
+    super && (group.nil? || contact_data_layer_ids.include?(group.layer_group_id))
   end
 
-  def contact_data_visible_with_same_layer?
-    contact_data_visible_without_same_layer? &&
-    (group.nil? || contact_data_layer_ids.include?(group.layer_group_id))
-  end
-
-  def contact_data_condition_with_same_layer
+  def contact_data_condition
     ['people.contact_data_visible = ? AND groups.layer_group_id IN (?)',
      true,
      contact_data_layer_ids]

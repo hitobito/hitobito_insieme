@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -33,8 +33,8 @@ class TarantulaTest < ActionDispatch::IntegrationTest
 
   private
 
-  def configure_urls_with_insieme(t, person)
-    configure_urls_without_insieme(t, person)
+  def configure_urls(t, person)
+    super(t, person)
 
     t.skip_uri_patterns << /groups\/\d+\/cost_accounting\/#{outside_three_years_window}/
     t.skip_uri_patterns << /groups\/\d+\/time_record\/#{outside_three_years_window}/
@@ -43,6 +43,5 @@ class TarantulaTest < ActionDispatch::IntegrationTest
     # already deleted in another language
     t.allow_404_for << /reporting_parameters\/\d+$/
   end
-  alias_method_chain :configure_urls, :insieme
 
 end
