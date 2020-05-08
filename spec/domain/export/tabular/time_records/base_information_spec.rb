@@ -11,7 +11,7 @@ describe Export::Tabular::TimeRecords::BaseInformation do
 
   let(:year)  { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { TimeRecord::Table.new(group, year) }
+  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
 
   before do
     TimeRecord::EmployeeTime.create!(

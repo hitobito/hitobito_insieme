@@ -7,6 +7,7 @@
 
 module Statistics
   class GroupFigures
+    include Vertragsperioden::Domain
 
     attr_reader :year
 
@@ -55,10 +56,10 @@ module Statistics
     def capital_substrate(group)
       cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
       substrate = capital_substrates[group.id] || CapitalSubstrate.new
-      time_table = TimeRecord::Table.new(group, year, cost_table).tap do |t|
-        t.records = { TimeRecord::Report::CapitalSubstrate.key => substrate }
+      time_table = vp_module('TimeRecord::Table').new(group, year, cost_table).tap do |t|
+        t.records = { vp_module('TimeRecord::Report::CapitalSubstrate').key => substrate }
       end
-      TimeRecord::Report::CapitalSubstrate.new(time_table)
+      vp_module('TimeRecord::Report::CapitalSubstrate').new(time_table)
     end
 
     private

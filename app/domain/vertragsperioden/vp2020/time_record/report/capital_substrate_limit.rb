@@ -5,18 +5,14 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-class TimeRecord::Report::VolunteerWithoutVerificationTime < TimeRecord::Report::Base
+module Vertragsperioden::Vp2020
+  class TimeRecord::Report::CapitalSubstrateLimit < TimeRecord::Report::Base
 
-  def paragraph_74
-    record.total_paragraph_74_pensum
+    self.kind = :capital_substrate
+
+    def paragraph_74
+      2.to_d * table.cost_accounting_value_of('vollkosten', 'total')
+    end
+
   end
-
-  def not_paragraph_74
-    record.total_not_paragraph_74_pensum
-  end
-
-  def total
-    record.total_pensum
-  end
-
 end

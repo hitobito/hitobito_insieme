@@ -33,29 +33,30 @@ describe CapitalSubstrateController do
   end
 
   context '#edit' do
+    let(:year) { 2014 }
     before { sign_in(people(:top_leader)) }
 
     it 'builds new capital_substrate based on group and year' do
-      get :edit, params: { id: group.id, year: 2014 }
+      get :edit, params: { id: group.id, year: year }
       expect(response.status).to eq(200)
 
       expect(assigns(:record)).not_to be_persisted
       expect(assigns(:record).group).to eq group
-      expect(assigns(:record).year).to eq 2014
+      expect(assigns(:record).year).to eq year
     end
 
     it 'reuses existing capital_substrate based on group and year' do
-      record = CapitalSubstrate.create!(group: group, year: 2014)
-      get :edit, params: { id: group.id, year: 2014 }
+      record = CapitalSubstrate.create!(group: group, year: year)
+      get :edit, params: { id: group.id, year: year }
       expect(assigns(:record)).to eq record
       expect(assigns(:record)).to be_persisted
     end
 
     it 'provides the report' do
-      get :edit, params: { id: group.id, year: 2014 }
+      get :edit, params: { id: group.id, year: year }
       expect(response.status).to eq(200)
 
-      expect(@controller.report).to be_a(TimeRecord::Report::CapitalSubstrate)
+      expect(@controller.report).to be_a(vp_module('TimeRecord::Report::CapitalSubstrate'))
       expect(@controller.report.table).to be
     end
   end

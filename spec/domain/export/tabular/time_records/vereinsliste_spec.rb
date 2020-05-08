@@ -15,7 +15,7 @@ describe Export::Tabular::TimeRecords::Vereinsliste do
   context 'without records' do
     context 'for employee time' do
       it 'contains correct headers' do
-        labels = described_class.new(TimeRecord::Vereinsliste.new(year, type)).labels
+        labels = described_class.new(vp_module('TimeRecord::Vereinsliste').new(year, type)).labels
         expect(labels).to eq ['Gruppe',
                               'Kontakte zu Medien, zu Medienschaffenden',
                               'Erteilen von Interviews',
@@ -69,7 +69,7 @@ describe Export::Tabular::TimeRecords::Vereinsliste do
       let(:type) { TimeRecord::VolunteerWithoutVerificationTime.sti_name }
 
       it 'contains correct headers' do
-        labels = described_class.new(TimeRecord::Vereinsliste.new(year, type)).labels
+        labels = described_class.new(vp_module('TimeRecord::Vereinsliste').new(year, type)).labels
         expect(labels).to eq ['Gruppe',
                               'Allgemeine Medien- und Öffentlichkeitsarbeit',
                               'Eigene öffentlich zugängliche Medien und Publikationen',
@@ -144,7 +144,7 @@ describe Export::Tabular::TimeRecords::Vereinsliste do
         data = export
 
         expect(data.last.first).to eq('externa')
-      end 
+      end
     end
 
     context 'for volunteer wthout verification time' do
@@ -166,7 +166,7 @@ describe Export::Tabular::TimeRecords::Vereinsliste do
   end
 
   def export
-    exporter = described_class.new(TimeRecord::Vereinsliste.new(year, type))
+    exporter = described_class.new(vp_module('TimeRecord::Vereinsliste').new(year, type))
     exporter.data_rows.to_a
   end
 
