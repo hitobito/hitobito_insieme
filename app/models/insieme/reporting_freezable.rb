@@ -29,7 +29,7 @@ module Insieme::ReportingFreezable
 
   def protect_if_year_frozen
     assert_year_not_frozen
-    errors.blank?
+    throw :abort unless errors.blank?
   end
 
 end

@@ -14,7 +14,7 @@ describe AboAddressesController, type: :controller  do
   before { sign_in(people(:top_leader)) }
 
   it 'exports csv' do
-    get :index, id: groups(:dachverein).id, language: 'de', country: 'ch', format: :csv
+    get :index, params: { id: groups(:dachverein).id, language: 'de', country: 'ch' }, format: :csv
     csv = response.body
     expect(csv).to match(/\AKd.Nr.;Vorname und Name;Firma;Adresse 1;Adresse 2;Adresse 3;PLZ und Ort;Land$/)
     expect(csv).to match(/^;Active Person;;;;;"";$/)
@@ -22,7 +22,7 @@ describe AboAddressesController, type: :controller  do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :index, id: groups(:aktiv).id
+      get :index, params: { id: groups(:aktiv).id }
     end.to raise_error(ActiveRecord::RecordNotFound)
   end
 
@@ -31,7 +31,7 @@ describe AboAddressesController, type: :controller  do
                            group: groups(:dachverein)).person
     sign_in(controller)
     expect do
-      get :index, id: groups(:dachverein).id
+      get :index, params: { id: groups(:dachverein).id }
     end.to raise_error(CanCan::AccessDenied)
   end
 end

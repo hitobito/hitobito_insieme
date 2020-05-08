@@ -71,7 +71,7 @@ module CourseReporting
       Event::CourseRecord.
         joins(:event).
         group(:kursart, :inputkriterien).
-        merge(group_id ? Event.with_group_id(group_id) : nil).
+        merge(group_id ? Event.with_group_id(group_id) : {}).
         where(events: { leistungskategorie: leistungskategorie },
               event_course_records: {
                 year: year,
@@ -137,7 +137,8 @@ module CourseReporting
     def select_clause
       columns = ['event_course_records.year',
                  'event_course_records.kursart',
-                 'event_course_records.inputkriterien']
+                 'event_course_records.inputkriterien',
+                 'event_course_records.event_id']
       columns.concat(sql_summed_attrs)
       columns << sql_sum_unterkunft
       columns.join(', ')
@@ -149,7 +150,8 @@ module CourseReporting
 
     def sql_sum_unterkunft
       column = Event::CourseRecord.columns_hash['spezielle_unterkunft']
-      quoted_true_value = Event::CourseRecord.connection.quote(true, column)
+      # quoted_true_value = Event::CourseRecord.connection.quote(true, column)
+      quoted_true_value = ActiveRecord::Type::Boolean.new.serialize(true)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
       'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \
       'AS anzahl_spezielle_unterkunft'

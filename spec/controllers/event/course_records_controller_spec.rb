@@ -60,14 +60,14 @@ describe Event::CourseRecordsController do
         simple_event = Fabricate(:event, groups: [group])
 
         expect do
-          get :edit, group_id: group.id, event_id: simple_event.id
+          get :edit, params: { group_id: group.id, event_id: simple_event.id }
         end.to raise_error(ActionController::RoutingError)
       end
     end
 
     context 'layer_and_below_full' do
       it 'is allowed to update course record of regionalverein' do
-        get :edit, group_id: group.id, event_id: event.id
+        get :edit, params: { group_id: group.id, event_id: event.id }
         expect(response).to be_ok
       end
     end
@@ -81,7 +81,7 @@ describe Event::CourseRecordsController do
       end
 
       it 'is allowed to update course record of regionalverein' do
-        get :edit, group_id: group.id, event_id: event.id
+        get :edit, params: { group_id: group.id, event_id: event.id }
         expect(response).to be_ok
       end
     end
@@ -96,7 +96,7 @@ describe Event::CourseRecordsController do
       end
 
       it 'is allowed to update course record of regionalverein' do
-        get :edit, group_id: group.id, event_id: event.id
+        get :edit, params: { group_id: group.id, event_id: event.id }
         expect(response).to be_ok
       end
     end
@@ -112,7 +112,7 @@ describe Event::CourseRecordsController do
 
       it 'is not allowed to update course record of regionalverein' do
         expect do
-          get :edit, group_id: group.id, event_id: event.id
+          get :edit, params: { group_id: group.id, event_id: event.id }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -121,7 +121,7 @@ describe Event::CourseRecordsController do
   context '#edit' do
     it 'builds new course_record based on group and event' do
       event.course_record.destroy!
-      get :edit, group_id: group.id, event_id: event.id
+      get :edit, params: { group_id: group.id, event_id: event.id }
       expect(response.status).to eq(200)
 
       expect(assigns(:course_record)).not_to be_persisted
@@ -132,7 +132,7 @@ describe Event::CourseRecordsController do
       record = event.course_record
       record.update!(inputkriterien: 'a', kursart: 'weiterbildung')
 
-      get :edit, group_id: group.id, event_id: event.id
+      get :edit, params: { group_id: group.id, event_id: event.id }
       expect(response.status).to eq(200)
 
       expect(assigns(:course_record)).to eq record
@@ -153,7 +153,7 @@ describe Event::CourseRecordsController do
         before { event.create_course_record!(kursdauer: 1) }
 
         it 'renders 1.0 as 1' do
-          get :edit, group_id: group.id, event_id: event.id
+          get :edit, params: { group_id: group.id, event_id: event.id }
           expect(field.value).to eq '1'
         end
       end
@@ -166,7 +166,7 @@ describe Event::CourseRecordsController do
         before { event.create_course_record!(kursdauer: 1) }
 
         it 'renders 1.0 as 1' do
-          get :edit, group_id: group.id, event_id: event.id
+          get :edit, params: { group_id: group.id, event_id: event.id }
           expect(field.value).to eq '1'
         end
       end
@@ -199,7 +199,7 @@ describe Event::CourseRecordsController do
     end
 
     it 'assigns all permitted params' do
-      put :update, group_id: group.id, event_id: event.id, event_course_record: attrs
+      put :update, params: { group_id: group.id, event_id: event.id, event_course_record: attrs }
 
       attrs.each do |key, value|
         unless key.to_s =~ /_attributes$/

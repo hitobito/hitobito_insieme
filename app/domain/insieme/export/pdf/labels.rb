@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -10,29 +10,21 @@ module Insieme
   module Export
     module Pdf
       module Labels
-        extend ActiveSupport::Concern
-
-        included do
-          alias_method_chain :initialize, :address_type
-          alias_method_chain :address, :type
-          alias_method_chain :print_company?, :name
-        end
-
-        def initialize_with_address_type(format, address_type = nil)
-          initialize_without_address_type(format)
+        def initialize(format, address_type = nil)
+          super(format)
           @address_type = address_type if Person::ADDRESS_TYPES.include?(address_type.to_s)
         end
 
-        def address_with_type(contactable, name)
+        def address(contactable, name)
           if contactable.is_a?(Person) && @address_type
             proxy = AddressProxy.new(contactable, @address_type)
-            address_without_type(proxy, proxy.full_name)
+            super(proxy, proxy.full_name)
           else
-            address_without_type(contactable, name)
+            super(contactable, name)
           end
         end
 
-        def print_company_with_name?(contactable)
+        def print_company?(contactable)
           contactable.company_name?
         end
 

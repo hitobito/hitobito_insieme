@@ -21,9 +21,11 @@ describe Event::RolesController do
       role = event_roles(:top_leader)
 
       get :edit,
-          group_id: group.id,
-          event_id: course.id,
-          id: role.id
+          params: {
+            group_id: group.id,
+            event_id: course.id,
+            id: role.id
+          }
 
       expect(assigns(:possible_types)).to eq [
         ::Event::Course::Role::LeaderAdmin,
@@ -41,9 +43,11 @@ describe Event::RolesController do
                        participation: Fabricate(:event_participation, event: course))
 
       get :edit,
-          group_id: group.id,
-          event_id: course.id,
-          id: role.id
+          params: {
+            group_id: group.id,
+            event_id: course.id,
+            id: role.id
+          }
 
       expect(assigns(:possible_types)).to eq [
         ::Event::Course::Role::Challenged,

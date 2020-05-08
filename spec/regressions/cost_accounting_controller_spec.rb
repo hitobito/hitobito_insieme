@@ -21,14 +21,14 @@ describe CostAccountingController, type: :controller  do
 
     context 'GET index' do
       it 'renders' do
-        get :index, id: group.id, year: year
+        get :index, params: { id: group.id, year: year }
         is_expected.to render_template('index')
       end
     end
 
     context 'GET edit' do
       it 'renders' do
-        get :edit, id: group.id, year: year, report: report
+        get :edit, params: { id: group.id, year: year, report: report }
         is_expected.to render_template('edit')
         expect(assigns(:record)).to be_new_record
       end
@@ -38,12 +38,14 @@ describe CostAccountingController, type: :controller  do
       context 'in regionalverein' do
         it 'updates values' do
           expect do
-            put :update, id: group.id,
-                         year: year,
-                         report: report,
-                         cost_accounting_record: {
-                           aufwand_ertrag_fibu: 2000,
-                           abgrenzung_fibu: nil }
+            put :update, params: {
+                           id: group.id,
+                           year: year,
+                           report: report,
+                           cost_accounting_record: {
+                             aufwand_ertrag_fibu: 2000,
+                             abgrenzung_fibu: nil }
+                         }
           end.to change { CostAccountingRecord.count }.by(1)
 
           is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
@@ -55,14 +57,16 @@ describe CostAccountingController, type: :controller  do
 
         it 'may only update editable fields' do
           expect do
-            put :update, id: group.id,
-                         year: year,
-                         report: report,
-                         cost_accounting_record: {
-                           aufwand_ertrag_fibu: 2000,
-                           abgrenzung_dachorganisation: 100,
-                           tageskurse: 20,
-                           verwaltung: 30 }
+            put :update, params: {
+                           id: group.id,
+                           year: year,
+                           report: report,
+                           cost_accounting_record: {
+                             aufwand_ertrag_fibu: 2000,
+                             abgrenzung_dachorganisation: 100,
+                             tageskurse: 20,
+                             verwaltung: 30 }
+                         }
           end.to change { CostAccountingRecord.count }.by(1)
 
           is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
@@ -80,12 +84,14 @@ describe CostAccountingController, type: :controller  do
 
           it 'may not update values' do
             expect do
-              put :update, id: group.id,
-                  year: 2015,
-                  report: report,
-                  cost_accounting_record: {
-                    aufwand_ertrag_fibu: 2000,
-                    abgrenzung_fibu: nil }
+              put :update, params: {
+                    id: group.id,
+                    year: 2015,
+                    report: report,
+                    cost_accounting_record: {
+                      aufwand_ertrag_fibu: 2000,
+                      abgrenzung_fibu: nil }
+                  }
             end.not_to change { CostAccountingRecord.count }
           end
         end
@@ -96,15 +102,17 @@ describe CostAccountingController, type: :controller  do
 
         it 'may only update editable fields' do
           expect do
-            put :update, id: group.id,
-                         year: year,
-                         report: report,
-                         cost_accounting_record: {
-                           aufwand_ertrag_fibu: 2000,
-                           abgrenzung_fibu: 50,
-                           abgrenzung_dachorganisation: 100,
-                           tageskurse: 20,
-                           verwaltung: 30 }
+            put :update, params: {
+                           id: group.id,
+                           year: year,
+                           report: report,
+                           cost_accounting_record: {
+                             aufwand_ertrag_fibu: 2000,
+                             abgrenzung_fibu: 50,
+                             abgrenzung_dachorganisation: 100,
+                             tageskurse: 20,
+                             verwaltung: 30 }
+                         }
           end.to change { CostAccountingRecord.count }.by(1)
 
           is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
@@ -133,14 +141,14 @@ describe CostAccountingController, type: :controller  do
 
     context 'GET index' do
       it 'renders' do
-        get :index, id: group.id, year: year
+        get :index, params: { id: group.id, year: year }
         is_expected.to render_template('index')
       end
     end
 
     context 'GET edit' do
       it 'renders' do
-        get :edit, id: group.id, year: year, report: report
+        get :edit, params: { id: group.id, year: year, report: report }
         is_expected.to render_template('edit')
         expect(assigns(:record)).to be_persisted
       end
@@ -149,12 +157,14 @@ describe CostAccountingController, type: :controller  do
     context 'PUT update' do
       it 'updates values' do
         expect do
-          put :update, id: group.id,
-                       year: year,
-                       report: report,
-                       cost_accounting_record: {
-                         aufwand_ertrag_fibu: 2000,
-                         abgrenzung_fibu: nil }
+          put :update, params: {
+                         id: group.id,
+                         year: year,
+                         report: report,
+                         cost_accounting_record: {
+                           aufwand_ertrag_fibu: 2000,
+                           abgrenzung_fibu: nil }
+                       }
         end.not_to change { CostAccountingRecord.count }
 
         is_expected.to redirect_to(cost_accounting_group_path(group, year: year))

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014 insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020, insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -8,25 +8,18 @@
 module Insieme
   module Import
     module PersonDoubletteFinder
-      extend ActiveSupport::Concern
-
-      included do
-        alias_method_chain :duplicates, :number
-      end
-
       private
 
-      def duplicates_with_number(attrs)
+      def duplicates(attrs)
         if attrs[:number].present?
           ::Person.where(number: attrs[:number]).to_a.presence ||
-          check_duplicate_with_different_number(attrs)
+          check_duplicate_with_different_number(attrs, super)
         else
-          duplicates_without_number(attrs)
+          super(attrs)
         end
       end
 
-      def check_duplicate_with_different_number(attrs)
-        duplicates = duplicates_without_number(attrs)
+      def check_duplicate_with_different_number(attrs, duplicates)
         if duplicates.present?
           person = duplicates.first
           add_duplicate_with_different_number_error(person) if person.number?

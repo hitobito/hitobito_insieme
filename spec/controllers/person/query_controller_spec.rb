@@ -18,7 +18,7 @@ describe Person::QueryController do
       people(:top_leader).update!(number: 107)
       people(:regio_aktiv).update!(number: 10107)
       people(:regio_leader).update!(number: 10007)
-      get :index, q: '107', format: :json
+      get :index, params: { q: '107' }, format: :json
 
       expect(@response.body).to match(/107 Top Leader/)
       expect(@response.body).to match(/10107 Active Person/)

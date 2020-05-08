@@ -13,21 +13,21 @@ describe CapitalSubstrateController do
   it 'raises 404 for unsupported group type' do
     sign_in(people(:top_leader))
     expect do
-      get :edit, id: groups(:kommission74).id, year: 2014
+      get :edit, params: { id: groups(:kommission74).id, year: 2014 }
     end.to raise_error(CanCan::AccessDenied)
   end
 
   context 'authorization' do
     it 'top leader is allowed to update dachverein' do
       sign_in(people(:top_leader))
-      get :edit, id: group.id, year: 2014
+      get :edit, params: { id: group.id, year: 2014 }
       expect(response).to be_ok
     end
 
     it 'regio leader is not allowed to update dachverein' do
       expect do
         sign_in(people(:regio_leader))
-        get :edit, id: group.id, year: 2014
+        get :edit, params: { id: group.id, year: 2014 }
       end.to raise_error(CanCan::AccessDenied)
     end
   end
@@ -36,7 +36,7 @@ describe CapitalSubstrateController do
     before { sign_in(people(:top_leader)) }
 
     it 'builds new capital_substrate based on group and year' do
-      get :edit, id: group.id, year: 2014
+      get :edit, params: { id: group.id, year: 2014 }
       expect(response.status).to eq(200)
 
       expect(assigns(:record)).not_to be_persisted
@@ -46,13 +46,13 @@ describe CapitalSubstrateController do
 
     it 'reuses existing capital_substrate based on group and year' do
       record = CapitalSubstrate.create!(group: group, year: 2014)
-      get :edit, id: group.id, year: 2014
+      get :edit, params: { id: group.id, year: 2014 }
       expect(assigns(:record)).to eq record
       expect(assigns(:record)).to be_persisted
     end
 
     it 'provides the report' do
-      get :edit, id: group.id, year: 2014
+      get :edit, params: { id: group.id, year: 2014 }
       expect(response.status).to eq(200)
 
       expect(@controller.report).to be_a(TimeRecord::Report::CapitalSubstrate)
@@ -72,7 +72,7 @@ describe CapitalSubstrateController do
 
     it 'assigns all permitted params' do
       expect do
-        put :update, id: group.id, year: 2014, capital_substrate: attrs
+        put :update, params: { id: group.id, year: 2014, capital_substrate: attrs }
       end.to change { CapitalSubstrate.count }.by(1)
 
       expect(assigns(:record).organization_capital).to eq(10)

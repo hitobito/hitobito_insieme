@@ -20,7 +20,7 @@ describe Insieme::Export::EventsExportJob do
 
     before do
       c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
-      group.update_attributes!(vid: 42, bsv_number: '99')
+      group.update!(vid: 42, bsv_number: '99')
       Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
     end
 
@@ -59,7 +59,7 @@ describe Insieme::Export::EventsExportJob do
       let(:person)  { people(:regio_leader) }
 
       it 'creates detail export for aggregate courses' do
-        group.update_attributes!(vid: 42, bsv_number: '99')
+        group.update!(vid: 42, bsv_number: '99')
         expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::DetailList
         expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end
@@ -69,7 +69,7 @@ describe Insieme::Export::EventsExportJob do
       let(:person) { Fabricate(:role, group: groups(:be), type: 'Group::Regionalverein::Vorstandsmitglied').person }
 
       it 'creates short export for aggregate courses' do
-        group.update_attributes!(vid: 42, bsv_number: '99')
+        group.update!(vid: 42, bsv_number: '99')
         expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::ShortList
         expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end

@@ -15,17 +15,17 @@ describe ControllingController, type: :controller  do
 
   it 'raises 404 for unsupported group type' do
     expect do
-      get :index, id: groups(:aktiv).id
+      get :index, params: { id: groups(:aktiv).id }
     end.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'shows index' do
-    get :index, id: groups(:dachverein).id
+    get :index, params: { id: groups(:dachverein).id }
     is_expected.to render_template('index')
   end
 
   context 'GET client_statistics.csv' do
-    before { get :client_statistics, id: groups(:dachverein), year: 2014, format: :xlsx }
+    before { get :client_statistics, params: { id: groups(:dachverein), year: 2014 }, format: :xlsx }
 
     it 'exports table' do
       expect(@response.body).to match(/Behinderung \/ Kanton;Blockkurse Anzahl Behinderte \(Personen\);Blockkurse /)
@@ -35,9 +35,11 @@ describe ControllingController, type: :controller  do
   context 'GET time_records.csv' do
     before do
       get :time_records,
-          id: groups(:dachverein),
-          year: 2014,
-          type: TimeRecord::EmployeeTime.sti_name,
+          params: {
+            id: groups(:dachverein),
+            year: 2014,
+            type: TimeRecord::EmployeeTime.sti_name
+          },
           format: :csv
     end
 

@@ -17,8 +17,7 @@ describe Event::ParticipationsController do
 
   it 'POST create updates person attributes' do
     expect do
-      post :create, group_id: event.groups.first.id, event_id: event.id,
-        event_participation: {
+      post :create, params: { group_id: event.groups.first.id, event_id: event.id, event_participation: {
           person_attributes: { id: person.id,
                                canton: 'Be',
                                birthday: '2014-09-22',
@@ -46,7 +45,7 @@ describe Event::ParticipationsController do
                                billing_course_address: 'dummy',
                                billing_course_zip_code: '1234',
                                billing_course_town: 'dummy',
-                               billing_course_country: 'DE' } }
+                               billing_course_country: 'DE' } } }
 
     end.to change { Event::Participation.count }.by(1)
 
@@ -90,18 +89,22 @@ describe Event::ParticipationsController do
   it 'POST create does not allow to update different person' do
     expect do
       post :create,
-           group_id: event.groups.first.id,
-           event_id: event.id,
-           event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+           params: {
+             group_id: event.groups.first.id,
+             event_id: event.id,
+             event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+           }
     end.to raise_error ActiveRecord::RecordNotFound
   end
 
   it 'POST create does not allow creation of person' do
     expect do
       post :create,
-           group_id: event.groups.first.id,
-           event_id: event.id,
-           event_participation: { person_attributes: { canton: 'Bern' }  }
+           params: {
+             group_id: event.groups.first.id,
+             event_id: event.id,
+             event_participation: { person_attributes: { canton: 'Bern' }  }
+           }
     end.not_to change { Person.count }
   end
 
@@ -109,23 +112,27 @@ describe Event::ParticipationsController do
     participation = Fabricate(:event_participation, event: event)
     expect do
       put :update,
-          group_id: event.groups.first.id,
-          event_id: event.id,
-          id: participation.id,
-          event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+          params: {
+            group_id: event.groups.first.id,
+            event_id: event.id,
+            id: participation.id,
+            event_participation: { person_attributes: { id: people(:top_leader).id, canton: 'Bern' }  }
+          }
     end.to raise_error ActiveRecord::RecordNotFound
   end
 
   it 'PUT update changes participation fields' do
     participation = Fabricate(:event_participation, event: event)
     put :update,
-        group_id: event.groups.first.id,
-        event_id: event.id,
-        id: participation.id,
-        event_participation: {
-          wheel_chair: false,
-          multiple_disability: true,
-          disability: 'seh' }
+        params: {
+          group_id: event.groups.first.id,
+          event_id: event.id,
+          id: participation.id,
+          event_participation: {
+            wheel_chair: false,
+            multiple_disability: true,
+            disability: 'seh' }
+        }
 
     participation.reload
     expect(participation.wheel_chair).to be false
@@ -147,7 +154,7 @@ describe Event::ParticipationsController do
 
     def activate_participation
       participation.roles << Fabricate(:event_role, type: Event::Course::Role::LeaderBasic.name)
-      participation.update_attributes(active: true,
+      participation.update(active: true,
                                       disability: 'hoer',
                                       multiple_disability: nil,
                                       wheel_chair: true,
@@ -177,26 +184,29 @@ describe Event::ParticipationsController do
 
         if attrs[:permission] != ':participations_full'
           it 'updates attributes on create' do
-            post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
+            post :create, params: { group_id: group.id, event_id: course.id, event_participation: internal_fields }
             expect(assigns(:participation).invoice_text).to eq 'test'
             expect(assigns(:participation).invoice_amount).to eq 1.2
           end
         end
 
         it 'updates attributes on update' do
-          patch :update, group_id: group.id, event_id: course.id, id: participation.id,
-                         event_participation: internal_fields
+          patch :update, params: { group_id: group.id, event_id: course.id, id: participation.id, event_participation: internal_fields }
           expect(participation.reload.invoice_text).to eq 'test'
           expect(participation.reload.invoice_amount).to eq 1.2
         end
 
         it 'includes attributes in csv' do
           activate_participation
-          get :index, group_id: group.id,
-                      event_id: course.id,
-                      filter: :participants,
-                      details: true,
+          get :index, params: {
+                        group_id: group.id,
+                        event_id: course.id,
+                        filter: 'teamers',
+                        details: true
+                      },
                       format: :csv
+
+          expect(response).to redirect_to group_event_participations_path(group, course, returning: true)
           expect(csv['Rollstuhl']).to eq %w(ja)
           expect(csv['Behinderung']).to eq %w(Hörbehindert)
           expect(csv['Mehrfachbehinderung']).to eq [nil]
@@ -209,11 +219,11 @@ describe Event::ParticipationsController do
           before { activate_participation }
 
           it 'includes attributes on show' do
-            get :show, group_id: group.id, event_id: course.id, id: participation.id
+            get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
           end
 
           it 'includes attributes on edit' do
-            get :edit, group_id: group.id, event_id: course.id, id: participation.id
+            get :edit, params: { group_id: group.id, event_id: course.id, id: participation.id }
           end
 
           after do
@@ -234,21 +244,20 @@ describe Event::ParticipationsController do
       let(:participation) { Fabricate(:event_participation, event: course, person: person) }
 
       it 'ignores attributes on create' do
-        post :create, group_id: group.id, event_id: course.id, event_participation: internal_fields
+        post :create, params: { group_id: group.id, event_id: course.id, event_participation: internal_fields }
         expect(assigns(:participation).invoice_text).to be_blank
         expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it 'ignores attributes on update' do
-        patch :update, group_id: group.id, event_id: course.id, id: participation.id,
-            event_participation: internal_fields
+        patch :update, params: { group_id: group.id, event_id: course.id, id: participation.id, event_participation: internal_fields }
         expect(assigns(:participation).invoice_text).to be_blank
         expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it 'does not include attributes in csv' do
         activate_participation
-        get :index, group_id: group.id, event_id: course.id, filter: :participants, format: :csv
+        get :index, params: { group_id: group.id, event_id: course.id, filter: :participants }, format: :csv
 
         expect(csv.headers).not_to include 'Behinderung'
         expect(csv.headers).not_to include 'Mehrfachbehindert'
@@ -262,11 +271,11 @@ describe Event::ParticipationsController do
         before { activate_participation }
 
         it 'does not include attributes on show' do
-          get :show, group_id: group.id, event_id: course.id, id: participation.id
+          get :show, params: { group_id: group.id, event_id: course.id, id: participation.id }
         end
 
         it 'does not render edit page' do
-          get :edit, group_id: group.id, event_id: course.id, id: participation.id
+          get :edit, params: { group_id: group.id, event_id: course.id, id: participation.id }
         end
 
         after do

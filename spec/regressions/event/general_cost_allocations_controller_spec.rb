@@ -18,12 +18,12 @@ describe Event::GeneralCostAllocationsController, type: :controller do
   context '#show' do
 
     it 'redirects to edit if format is html' do
-      get :show, group_id: group.id, year: 2014
+      get :show, params: { group_id: group.id, year: 2014 }
       is_expected.to redirect_to(edit_general_cost_allocation_group_events_path(group, 2014))
     end
 
     it 'renders csv' do
-      get :show, group_id: group.id, year: 2014, format: :csv
+      get :show, params: { group_id: group.id, year: 2014 }, format: :csv
       csv = response.body
       expect(csv).to match(/\A;/)
       expect(csv).to match(/^;Total direkte Kosten;Total Gemeinkosten;Gemeinkostenzuschlag$/)
@@ -34,7 +34,7 @@ describe Event::GeneralCostAllocationsController, type: :controller do
   context '#edit' do
 
     it 'builds new time_record based on group and year' do
-      get :edit, group_id: group.id, year: 2014
+      get :edit, params: { group_id: group.id, year: 2014 }
       expect(response.status).to eq(200)
 
       expect(assigns(:entry)).not_to be_persisted
@@ -44,7 +44,7 @@ describe Event::GeneralCostAllocationsController, type: :controller do
 
     it 'reuses existing time_record based on group and year' do
       record = Event::GeneralCostAllocation.create!(group: group, year: 2014)
-      get :edit, group_id: group.id, year: 2014
+      get :edit, params: { group_id: group.id, year: 2014 }
       expect(assigns(:entry)).to eq record
       expect(assigns(:entry)).to be_persisted
     end
@@ -63,7 +63,7 @@ describe Event::GeneralCostAllocationsController, type: :controller do
     it 'assigns all permitted params' do
       expect do
         expect do
-          put :update, group_id: group.id, year: 2014, event_general_cost_allocation: attrs
+          put :update, params: { group_id: group.id, year: 2014, event_general_cost_allocation: attrs }
         end.to change { Event::GeneralCostAllocation.count }.by(1)
       end.to change { Delayed::Job.count }.by(1)
 

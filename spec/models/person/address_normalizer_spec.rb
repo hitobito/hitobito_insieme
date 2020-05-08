@@ -88,7 +88,7 @@ describe Person::AddressNormalizer do
     end
 
     it 'does persist changed value if same_as_main is set to false' do
-      person.update_attributes(billing_general_first_name: 'Insieme',
+      person.update(billing_general_first_name: 'Insieme',
                                billing_general_same_as_main: false)
       expect(person.reload.billing_general_first_name).to eq 'Insieme'
     end
