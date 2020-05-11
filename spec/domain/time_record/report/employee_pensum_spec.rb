@@ -7,11 +7,11 @@
 
 require 'spec_helper'
 
-describe TimeRecord::Report::EmployeePensum do
+describe 'TimeRecord::Report::EmployeePensum' do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { TimeRecord::Table.new(group, year) }
+  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
   let(:report) { table.reports.fetch('employee_pensum') }
 
   before do

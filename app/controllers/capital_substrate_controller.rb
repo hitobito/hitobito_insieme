@@ -7,13 +7,20 @@
 
 class CapitalSubstrateController < ReportingBaseController
 
+  include Vertragsperioden::Views
+  include Vertragsperioden::Domain
+
   helper_method :report
 
   def edit
   end
 
   def report
-    @report ||= TimeRecord::Report::CapitalSubstrate.new(TimeRecord::Table.new(group, year))
+    @report ||= begin
+                  vp_module('TimeRecord::Report::CapitalSubstrate').new(
+                    vp_module('TimeRecord::Table').new(group, year)
+                  )
+                end
   end
 
   private

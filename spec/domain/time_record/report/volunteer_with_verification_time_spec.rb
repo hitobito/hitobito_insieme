@@ -7,11 +7,11 @@
 
 require 'spec_helper'
 
-describe TimeRecord::Report::VolunteerWithVerificationTime do
+describe 'TimeRecord::Report::VolunteerWithVerificationTime' do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { TimeRecord::Table.new(group, year) }
+  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
   let(:report) { table.reports.fetch('volunteer_with_verification_time') }
 
   before do

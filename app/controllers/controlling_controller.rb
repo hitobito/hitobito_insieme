@@ -8,6 +8,8 @@
 class ControllingController < ApplicationController
 
   include YearBasedPaging
+  include Vertragsperioden::Views
+  include Vertragsperioden::Domain
 
   respond_to :html
 
@@ -40,7 +42,7 @@ class ControllingController < ApplicationController
   end
 
   def time_records
-    @list = TimeRecord::Vereinsliste.new(year, params[:type])
+    @list = vp_module('TimeRecord::Vereinsliste').new(year, params[:type])
     csv = Export::Tabular::TimeRecords::Vereinsliste.csv(@list)
     filename = "#{params[:type].to_s.underscore.tr('/', '_')}_#{year}.csv"
     send_data csv, type: :csv, filename: filename

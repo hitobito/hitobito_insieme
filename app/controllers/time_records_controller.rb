@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: time_records
@@ -45,10 +46,8 @@
 #  total_lufeb_specific                     :integer
 #  total_lufeb_promoting                    :integer
 #  nicht_art_74_leistungen                  :integer
-#
 
-
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -60,6 +59,7 @@ class TimeRecordsController < ReportingBaseController
            TimeRecord::VolunteerWithoutVerificationTime]
 
   include Rememberable
+  include Vertragsperioden::Views
 
   self.remember_params = [:year]
 
@@ -67,7 +67,7 @@ class TimeRecordsController < ReportingBaseController
 
   def index
     respond_to do |format|
-      format.html { redirect_to time_record_base_information_group_path(group, year) }
+      format.html { redirect_to show_path }
       format.csv do
         send_data Export::Tabular::TimeRecords::List.csv(list_entries), type: :csv
       end

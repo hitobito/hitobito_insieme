@@ -25,7 +25,6 @@ class ReportingBaseController < ApplicationController
 
   after_save :set_success_notice
 
-
   def edit
   end
 
