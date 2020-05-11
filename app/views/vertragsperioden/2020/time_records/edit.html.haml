@@ -17,8 +17,6 @@
 
   %p= t('.comment')
 
-  %h2 This. Is. 2020.
-
   - if entry.class.key == 'employee_time'
     %h3= t('.employees')
     = f.fields_for(:employee_pensum) do |nf|
