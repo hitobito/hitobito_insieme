@@ -53,4 +53,8 @@ describe Vertragsperioden::Dispatcher do
   it 'can load modules from namespace' do
     expect(subject.domain_class('TimeRecord::Table')).to be Vp2020::TimeRecord::Table
   end
+
+  it 'can return an I18n-scope' do
+    expect(subject.i18n_scope('time_records')).to eq 'vertragsperioden.vp2020.time_records'
+  end
 end
