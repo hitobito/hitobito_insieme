@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Vertragsperioden
-  class Dispatch
+  class Dispatcher
     FAR_FUTURE_YEAR = 9999
 
     def initialize(year)

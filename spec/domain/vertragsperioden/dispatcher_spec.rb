@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Vertragsperioden::Dispatch do
+describe Vertragsperioden::Dispatcher do
   subject { described_class.new(year) }
   let(:year) { 2020 }
 

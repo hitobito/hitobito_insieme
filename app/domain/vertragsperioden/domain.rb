@@ -10,7 +10,7 @@ module Vertragsperioden
     def vertragsperiode
       @vertragsperiode ||= begin
                              raise Vertragsperioden::NoYearError unless year.present?
-                             Vertragsperioden::Dispatch.new(year)
+                             Vertragsperioden::Dispatcher.new(year)
                            end
     end
 
