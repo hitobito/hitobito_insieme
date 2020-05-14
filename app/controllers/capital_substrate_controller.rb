@@ -17,8 +17,8 @@ class CapitalSubstrateController < ReportingBaseController
 
   def report
     @report ||= begin
-                  vp_module('TimeRecord::Report::CapitalSubstrate').new(
-                    vp_module('TimeRecord::Table').new(group, year)
+                  vp_class('TimeRecord::Report::CapitalSubstrate').new(
+                    vp_class('TimeRecord::Table').new(group, year)
                   )
                 end
   end

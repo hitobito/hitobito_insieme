@@ -56,7 +56,7 @@ describe CapitalSubstrateController do
       get :edit, params: { id: group.id, year: year }
       expect(response.status).to eq(200)
 
-      expect(@controller.report).to be_a(vp_module('TimeRecord::Report::CapitalSubstrate'))
+      expect(@controller.report).to be_a(vp_class('TimeRecord::Report::CapitalSubstrate'))
       expect(@controller.report.table).to be
     end
   end
