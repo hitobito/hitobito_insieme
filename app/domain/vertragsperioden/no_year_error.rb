@@ -8,7 +8,7 @@
 module Vertragsperioden
   class NoYearError < StandardError
     def initialize
-      super("A year needs to be known to get Vertragsperioden-Support")
+      super("A year needs to be known in order to determine the relevant Vertragsperiode")
     end
   end
 end

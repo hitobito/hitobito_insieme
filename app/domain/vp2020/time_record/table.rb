@@ -5,17 +5,17 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2020
+module Vp2020
   class TimeRecord::Table
 
-    REPORTS = [Vertragsperioden::Vp2020::TimeRecord::Report::EmployeePensum,
-               Vertragsperioden::Vp2020::TimeRecord::Report::EmployeeTime,
-               Vertragsperioden::Vp2020::TimeRecord::Report::VolunteerWithoutVerificationTime,
-               Vertragsperioden::Vp2020::TimeRecord::Report::VolunteerWithVerificationTime,
-               Vertragsperioden::Vp2020::TimeRecord::Report::EmployeeEfforts,
-               Vertragsperioden::Vp2020::TimeRecord::Report::EmployeeEffortsPensum,
-               Vertragsperioden::Vp2020::TimeRecord::Report::CapitalSubstrate,
-               Vertragsperioden::Vp2020::TimeRecord::Report::CapitalSubstrateLimit]
+    REPORTS = [Vp2020::TimeRecord::Report::EmployeePensum,
+               Vp2020::TimeRecord::Report::EmployeeTime,
+               Vp2020::TimeRecord::Report::VolunteerWithoutVerificationTime,
+               Vp2020::TimeRecord::Report::VolunteerWithVerificationTime,
+               Vp2020::TimeRecord::Report::EmployeeEfforts,
+               Vp2020::TimeRecord::Report::EmployeeEffortsPensum,
+               Vp2020::TimeRecord::Report::CapitalSubstrate,
+               Vp2020::TimeRecord::Report::CapitalSubstrateLimit]
 
     attr_reader :group, :year
 

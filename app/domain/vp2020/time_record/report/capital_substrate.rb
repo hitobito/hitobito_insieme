@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2015
+module Vp2020
   class TimeRecord::Report::CapitalSubstrate < TimeRecord::Report::Base
 
     self.kind = :capital_substrate

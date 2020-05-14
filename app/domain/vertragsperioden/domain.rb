@@ -15,7 +15,7 @@ module Vertragsperioden
     end
 
     def vp_class(class_name)
-      vertragsperiode.domain_module(class_name)
+      vertragsperiode.domain_class(class_name)
     end
   end
 end

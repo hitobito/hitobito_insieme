@@ -5,8 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2015
-  class TimeRecord::Report::EmployeeTime < TimeRecord::Report::Base
+module Vp2015
+  class TimeRecord::Report::VolunteerWithVerificationTime < TimeRecord::Report::Base
 
     def paragraph_74
       record.total_paragraph_74_pensum

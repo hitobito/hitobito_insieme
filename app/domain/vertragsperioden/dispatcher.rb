@@ -14,11 +14,11 @@ module Vertragsperioden
     end
 
     def view_path
-      Wagons.find('insieme').root / 'app' / 'views' / 'vertragsperioden' / determine.to_s
+      Wagons.find('insieme').root / 'app' / 'views' / "vp#{determine}"
     end
 
-    def domain_module(class_name)
-      "Vertragsperioden::Vp#{determine}::#{class_name}".constantize
+    def domain_class(class_name)
+      "Vp#{determine}::#{class_name}".constantize
     end
 
     def supported?
