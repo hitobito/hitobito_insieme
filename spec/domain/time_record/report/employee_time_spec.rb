@@ -11,7 +11,7 @@ describe 'TimeRecord::Report::EmployeeTime' do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
+  let(:table) { vp_class('TimeRecord::Table').new(group, year) }
   let(:report) { table.reports.fetch('employee_time') }
 
   before do

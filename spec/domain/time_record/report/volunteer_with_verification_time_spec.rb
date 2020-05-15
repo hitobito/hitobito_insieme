@@ -11,7 +11,7 @@ describe 'TimeRecord::Report::VolunteerWithVerificationTime' do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
+  let(:table) { vp_class('TimeRecord::Table').new(group, year) }
   let(:report) { table.reports.fetch('volunteer_with_verification_time') }
 
   before do

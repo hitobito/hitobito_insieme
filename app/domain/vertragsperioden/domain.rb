@@ -10,12 +10,12 @@ module Vertragsperioden
     def vertragsperiode
       @vertragsperiode ||= begin
                              raise Vertragsperioden::NoYearError unless year.present?
-                             Vertragsperioden::Dispatch.new(year)
+                             Vertragsperioden::Dispatcher.new(year)
                            end
     end
 
-    def vp_module(class_name)
-      vertragsperiode.domain_module(class_name)
+    def vp_class(class_name)
+      vertragsperiode.domain_class(class_name)
     end
   end
 end

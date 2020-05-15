@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2020
+module Vp2020
   class TimeRecord::Report::VolunteerWithVerificationTime < TimeRecord::Report::Base
 
     def paragraph_74

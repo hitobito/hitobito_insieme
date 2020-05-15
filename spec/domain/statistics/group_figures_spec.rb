@@ -242,7 +242,7 @@ describe Statistics::GroupFigures do
 
     it 'returns the same substrate like the time record table' do
       substrate = figures.capital_substrate(groups(:be)).paragraph_74
-      table = vp_module('TimeRecord::Table').new(groups(:be), year)
+      table = vp_class('TimeRecord::Table').new(groups(:be), year)
       expect(substrate).to eq(table.value_of('capital_substrate', 'paragraph_74'))
     end
   end

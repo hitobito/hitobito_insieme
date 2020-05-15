@@ -5,14 +5,18 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2020
-  class TimeRecord::Report::EmployeeEfforts < TimeRecord::Report::Base
+module Vp2015
+  class TimeRecord::Report::EmployeeEffortsPensum < TimeRecord::Report::Base
 
     self.kind = :controlling
 
     def paragraph_74
-      table.cost_accounting_value_of('total_personalaufwand', 'aufwand_ertrag_ko_re') -
-        table.cost_accounting_value_of('honorare', 'aufwand_ertrag_ko_re')
+      if table.value_of('employee_time', 'paragraph_74').nonzero?
+        table.value_of('employee_efforts', 'paragraph_74').to_d /
+          table.value_of('employee_time', 'paragraph_74').to_d
+      else
+        0
+      end
     end
 
   end

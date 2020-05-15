@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vertragsperioden::Vp2015
+module Vp2020
   class TimeRecord::Report::EmployeePensum < TimeRecord::Report::Base
 
     delegate :paragraph_74, to: :record

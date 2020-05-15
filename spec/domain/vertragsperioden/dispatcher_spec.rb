@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Vertragsperioden::Dispatch do
+describe Vertragsperioden::Dispatcher do
   subject { described_class.new(year) }
   let(:year) { 2020 }
 
@@ -47,10 +47,10 @@ describe Vertragsperioden::Dispatch do
 
   it 'knows a views-path that can be prepended' do
     expect(subject.view_path.to_s).to match(%r!hitobito_insieme!) # in the wagon
-    expect(subject.view_path.to_s).to match(%r!app/views/vertragsperioden/2020!) # a certain directory
+    expect(subject.view_path.to_s).to match(%r!app/views/vp2020!) # a certain directory
   end
 
   it 'can load modules from namespace' do
-    expect(subject.domain_module('TimeRecord::Table')).to be Vertragsperioden::Vp2020::TimeRecord::Table
+    expect(subject.domain_class('TimeRecord::Table')).to be Vp2020::TimeRecord::Table
   end
 end

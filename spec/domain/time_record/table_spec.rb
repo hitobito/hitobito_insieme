@@ -11,14 +11,14 @@ describe 'TimeRecord::Table' do
 
   let(:year)  { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { vp_module('TimeRecord::Table').new(group, year) }
+  let(:table) { vp_class('TimeRecord::Table').new(group, year) }
 
   context '#value_of' do
     it 'is initialized without records' do
       errors = []
       excludes = %w(capital_substrate-paragraph_74)
-      vp_module('TimeRecord::Table')::REPORTS.each do |report|
-        vp_module('TimeRecord::Report::Base')::FIELDS.each do |field|
+      vp_class('TimeRecord::Table')::REPORTS.each do |report|
+        vp_class('TimeRecord::Report::Base')::FIELDS.each do |field|
           next if excludes.include? "#{report.key}-#{field}"
           value = table.value_of(report.key, field).to_d
           if value != 0.0
