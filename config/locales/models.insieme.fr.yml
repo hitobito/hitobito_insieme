@@ -585,6 +585,11 @@ fr:
         capital_substrate_allocated: Substrat de capital codé art. 74
     errors:
       models:
+        event/aggregate_course:
+          attributes:
+            fachkonzept:
+              invalid_for_course_leistungskategorie: doit être un contenu de cours si la catégorie de performance est un cours.
+              invalid_for_treffpunkt_leistungskategorie: doit être le lieu d'accueil si la catégorie de performance est lieux d'accueils.
         event/course:
           attributes:
             fachkonzept:
