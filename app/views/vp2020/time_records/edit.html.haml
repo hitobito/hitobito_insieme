@@ -35,17 +35,17 @@
 
   %h3= t('vp2020.time_records.lufeb_media')
   = field_set_tag do
-    = vp_labeled_input_fields_with_hours f, 'time_records',
+    = vp_labeled_input_fields_with_hours f,
       :medien_grundlagen, :website, :newsletter, :videos, :social_media, :beratungsmodule, :apps
     = f.labeled_readonly_value :total_lufeb_media, label: t('.subtotal'), value: format_hours(entry.total_lufeb_media)
 
   %h3= t('.courses')
   = field_set_tag do
-    = f.labeled_input_field :kurse_grundlagen, addon: t('global.hours_short'), label: t(:kurse_grundlagen, scope: vp_i18n_scope('time_records'))
+    = f.labeled_input_field :kurse_grundlagen, addon: t('global.hours_short'), label: t(:kurse_grundlagen, scope: vp_i18n_scope)
     = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
     = f.labeled_input_field :tageskurse, addon: t('global.hours_short')
     = f.labeled_input_field :jahreskurse, addon: t('global.hours_short')
-    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short'), label: t(:treffpunkte, scope: vp_i18n_scope('time_records'))
+    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short'), label: t(:treffpunkte, scope: vp_i18n_scope)
     = f.labeled_readonly_value :total_courses, label: t('.total'), value: format_hours(entry.total_courses)
 
   %h3= t('.additional_person_specific')
