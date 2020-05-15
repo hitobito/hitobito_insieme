@@ -16,8 +16,8 @@ module VertragsperiodenHelper
     end.join.html_safe
   end
 
-  def vp_i18n_scope(scope)
+  def vp_i18n_scope(scope = nil)
     @vp ||= Vertragsperioden::Dispatch.new(year)
-    @vp.i18n_scope(scope)
+    @vp.i18n_scope(controller_name)
   end
 end
