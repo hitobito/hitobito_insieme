@@ -3,9 +3,9 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-.span3= entry.reference_person_number
+%div= entry.reference_person_number
 
-.span9
+%div
   - if entry.reference_person.present?
     %strong
       = link_to_if(can?(:show, entry.reference_person),
