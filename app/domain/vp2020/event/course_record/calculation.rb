@@ -129,6 +129,14 @@ module Vp2020
       end
     end
 
+    def vollkosten_pro_betreuungsstunde
+      if total_stunden_betreuung > 0
+        total_vollkosten / total_stunden_betreuung
+      else
+        0
+      end
+    end
+
     def duration_in_days?
       !duration_in_hours?
     end

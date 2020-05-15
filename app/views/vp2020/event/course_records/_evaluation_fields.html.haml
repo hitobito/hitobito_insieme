@@ -15,6 +15,9 @@
     = f.labeled_readonly_value :betreuungsstunden,
                                value: fnumber(entry.total_stunden_betreuung),
                                label: t('event.course_records.form.betreuungsstunden')
+    = f.labeled_readonly_value :vollkosten_pro_betreuungsstunde,
+                               value: format_money(entry.vollkosten_pro_betreuungsstunde),
+                               label: t('vollkosten_pro_betreuungsstunde', scope: vp_i18n_scope)
   - else
     = f.labeled_readonly_value :anzahl_le,
                                value: fnumber(entry.total_tage_teilnehmende)

@@ -114,7 +114,7 @@ class Event::CourseRecord < ActiveRecord::Base
   delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,
            :total_stunden_betreuung, :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
            :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
-           :set_cached_values,
+           :set_cached_values, :vollkosten_pro_betreuungsstunde,
            to: :vp_calculations
 
   def anzahl_spezielle_unterkunft
