@@ -104,75 +104,18 @@ class Event::CourseRecord < ActiveRecord::Base
     super || event.years.first
   end
 
-  def total_absenzen
-    absenzen_behinderte.to_d +
-    absenzen_angehoerige.to_d +
-    absenzen_weitere.to_d
+  def vp_calculations
+    @vp_calculations ||= Vertragsperioden::Dispatcher
+        .new(year)
+        .domain_class('Event::CourseRecord::Calculation')
+        .new(self)
   end
 
-  def teilnehmende
-    teilnehmende_behinderte.to_i +
-    teilnehmende_angehoerige.to_i +
-    teilnehmende_weitere.to_i
-  end
-
-  def betreuende
-    if tp?
-      betreuerinnen.to_i
-    else
-      leiterinnen.to_i +
-      fachpersonen.to_i +
-      hilfspersonal_mit_honorar.to_i +
-      hilfspersonal_ohne_honorar.to_i
-    end
-  end
-
-  def total_tage_teilnehmende
-    tage_behinderte.to_d +
-    tage_angehoerige.to_d +
-    tage_weitere.to_d
-  end
-
-  def total_stunden_betreuung
-    betreuende * kursdauer.to_d
-  end
-
-  def praesenz_prozent
-    if total_tage_teilnehmende > 0
-      ((total_tage_teilnehmende / (total_tage_teilnehmende + total_absenzen)) * 100).round
-    else
-      100
-    end
-  end
-
-  def betreuungsschluessel
-    if betreuende.to_d > 0
-      teilnehmende_behinderte.to_d / betreuende.to_d
-    else
-      0
-    end
-  end
-
-  def total_vollkosten
-    direkter_aufwand.to_d +
-    gemeinkostenanteil.to_d
-  end
-
-  def direkte_kosten_pro_le
-    if total_tage_teilnehmende > 0
-      direkter_aufwand.to_d / total_tage_teilnehmende
-    else
-      0
-    end
-  end
-
-  def vollkosten_pro_le
-    if total_tage_teilnehmende > 0
-      total_vollkosten / total_tage_teilnehmende
-    else
-      0
-    end
-  end
+  delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,
+           :total_stunden_betreuung, :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
+           :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
+           :set_cached_values,
+           to: :vp_calculations
 
   def anzahl_spezielle_unterkunft
     @anzahl_spezielle_unterkunft ||
@@ -195,14 +138,6 @@ class Event::CourseRecord < ActiveRecord::Base
     true # ensure callback chain continues
   end
 
-  def duration_in_days?
-    !duration_in_hours?
-  end
-
-  def duration_in_hours?
-    sk? || tp?
-  end
-
   private
 
   def compute_category
@@ -212,35 +147,6 @@ class Event::CourseRecord < ActiveRecord::Base
     rescue NotImplementedError
       self.zugeteilte_kategorie = nil
     end
-  end
-
-  def set_cached_values
-    self.teilnehmende_behinderte = challenged_canton_count && challenged_canton_count.total
-    self.teilnehmende_angehoerige = affiliated_canton_count && affiliated_canton_count.total
-    self.direkter_aufwand = calculate_direkter_aufwand
-    unless event.is_a?(Event::AggregateCourse)
-      self.tage_behinderte = calculate_tage_behinderte
-      self.tage_angehoerige = calculate_tage_angehoerige
-      self.tage_weitere = calculate_tage_weitere
-    end
-  end
-
-  def calculate_tage_behinderte
-    (kursdauer.to_d * teilnehmende_behinderte.to_i) - absenzen_behinderte.to_d
-  end
-
-  def calculate_tage_angehoerige
-    (kursdauer.to_d * teilnehmende_angehoerige.to_i) - absenzen_angehoerige.to_d
-  end
-
-  def calculate_tage_weitere
-    (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
-  end
-
-  def calculate_direkter_aufwand
-    honorare_inkl_sozialversicherung.to_d +
-    unterkunft.to_d +
-    uebriges.to_d
   end
 
   def assert_event_is_course
