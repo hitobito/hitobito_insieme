@@ -355,39 +355,38 @@ de:
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
 
-  vertragsperioden:
-    vp2020:
-      time_records:
-        lufeb: Grundlagenarbeit zu LUFEB
+  vp2020:
+    time_records:
+      lufeb: Grundlagenarbeit zu LUFEB
 
-        lufeb_promoting: Förderung der Selbsthilfe
-        beratung: Information / Beratung von Organisationen und Einzelpersonen
-        unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
-        freiwilligen_akquisition: Akquisition von Freiwilligen
+      lufeb_promoting: Förderung der Selbsthilfe
+      beratung: Information / Beratung von Organisationen und Einzelpersonen
+      unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
+      freiwilligen_akquisition: Akquisition von Freiwilligen
 
-        lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
-        auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
-        referate: Vorträge / Referate
-        medien_zusammenarbeit: Zusammenarbeit mit Medien
-        sensibilisierungskampagnen: Sensibilisierungs- und Entstigmatisierungsarbeiten resp. –veranstaltugnen
+      lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
+      auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
+      referate: Vorträge / Referate
+      medien_zusammenarbeit: Zusammenarbeit mit Medien
+      sensibilisierungskampagnen: Sensibilisierungs- und Entstigmatisierungsarbeiten resp. –veranstaltugnen
 
-        lufeb_specific: Themenspezifische Grundlagenarbeit
-        erarbeitung_grundlagen: Grundlagenarbeit (Arbeitsinstrumente, Konzepte, Studien, Grundlagenpapiere)
-        gremien: Mitgliedschaft / Mitarbeit in Gremien
-        vernehmlassungen: Mitarbeit bei Vernehmlassungen
-        projekte: Projekte Art. 74 (Vorbereitung und Durchführung)
+      lufeb_specific: Themenspezifische Grundlagenarbeit
+      erarbeitung_grundlagen: Grundlagenarbeit (Arbeitsinstrumente, Konzepte, Studien, Grundlagenpapiere)
+      gremien: Mitgliedschaft / Mitarbeit in Gremien
+      vernehmlassungen: Mitarbeit bei Vernehmlassungen
+      projekte: Projekte Art. 74 (Vorbereitung und Durchführung)
 
-        lufeb_media: Medien & Publikationen
-        medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
-        website: Website
-        newsletter: Rundbriefe, Broschüren, Merkblätter
-        videos: Videos
-        social_media: Soziale Medien
-        beratungsmodule: Standardisierte Beratungsmodule
-        apps: Applikationen
+      lufeb_media: Medien & Publikationen
+      medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
+      website: Website
+      newsletter: Rundbriefe, Broschüren, Merkblätter
+      videos: Videos
+      social_media: Soziale Medien
+      beratungsmodule: Standardisierte Beratungsmodule
+      apps: Applikationen
 
-        treffpunkte: Treffpunkte
-        kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+      treffpunkte: Treffpunkte
+      kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
 
   export/tabular/events:
     title: Kurse

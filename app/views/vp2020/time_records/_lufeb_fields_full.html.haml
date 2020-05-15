@@ -1,16 +1,16 @@
-= field_set_tag(t('vertragsperioden.vp2020.time_records.lufeb_promoting')) do
+= field_set_tag(t('vp2020.time_records.lufeb_promoting')) do
   = vp_labeled_input_fields_with_hours f, 'time_records',
     :beratung, :unterstuetzung_leitorgane, :freiwilligen_akquisition
 
   = f.labeled_readonly_value :total_lufeb_promoting, label: t('.subtotal'), value: format_hours(entry.total_lufeb_promoting)
 
-= field_set_tag(t('vertragsperioden.vp2020.time_records.lufeb_general')) do
+= field_set_tag(t('vp2020.time_records.lufeb_general')) do
   = vp_labeled_input_fields_with_hours f, 'time_records',
     :auskuenfte, :referate, :medien_zusammenarbeit, :sensibilisierungskampagnen
 
   = f.labeled_readonly_value :total_lufeb_general, label: t('.subtotal'), value: format_hours(entry.total_lufeb_general)
 
-= field_set_tag(t('vertragsperioden.vp2020.time_records.lufeb_specific')) do
+= field_set_tag(t('vp2020.time_records.lufeb_specific')) do
   = vp_labeled_input_fields_with_hours f, 'time_records',
     :erarbeitung_grundlagen, :gremien, :vernehmlassungen, :projekte
 

@@ -55,6 +55,6 @@ describe Vertragsperioden::Dispatcher do
   end
 
   it 'can return an I18n-scope' do
-    expect(subject.i18n_scope('time_records')).to eq 'vertragsperioden.vp2020.time_records'
+    expect(subject.i18n_scope('time_records')).to eq 'vp2020.time_records'
   end
 end

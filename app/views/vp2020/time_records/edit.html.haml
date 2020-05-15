@@ -24,7 +24,7 @@
       = nf.labeled_input_field :not_paragraph_74
       = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: fnumber(entry.employee_pensum.total)
 
-  %h3= t('vertragsperioden.vp2020.time_records.lufeb')
+  %h3= t('vp2020.time_records.lufeb')
   - if entry.class.key == 'volunteer_without_verification_time'
     = render 'lufeb_fields_sumarized', f: f
   - else
@@ -33,7 +33,7 @@
   = field_set_tag do
     = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
 
-  %h3= t('vertragsperioden.vp2020.time_records.lufeb_media')
+  %h3= t('vp2020.time_records.lufeb_media')
   = field_set_tag do
     = vp_labeled_input_fields_with_hours f, 'time_records',
       :medien_grundlagen, :website, :newsletter, :videos, :social_media, :beratungsmodule, :apps

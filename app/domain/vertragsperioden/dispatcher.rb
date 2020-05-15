@@ -22,7 +22,7 @@ module Vertragsperioden
     end
 
     def i18n_scope(scope)
-      "vertragsperioden.vp#{determine}.#{scope}"
+      "vp#{determine}.#{scope}"
     end
 
     def supported?
