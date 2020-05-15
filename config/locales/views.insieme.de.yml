@@ -356,6 +356,8 @@ de:
         name: Limite Kapitalsubstrat
 
   vp2020:
+    events:
+      anzahl_durchfuehrungen: Anzahl Durchführungen
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 

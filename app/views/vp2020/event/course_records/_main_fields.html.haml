@@ -12,7 +12,7 @@
                                     :first, :second, {prompt: true}, class: 'span6')
 
 - if entry.event.is_a?(Event::AggregateCourse)
-  = f.labeled_input_field :anzahl_kurse
+  = f.labeled_input_field :anzahl_kurse, label: tp ? t(:anzahl_durchfuehrungen, scope: vp_i18n_scope) : nil
 
 = f.labeled_input_field :subventioniert
 
