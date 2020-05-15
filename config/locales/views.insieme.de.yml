@@ -1,6 +1,6 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License
+#  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
 de:
@@ -61,7 +61,6 @@ de:
         employee_time: Angestellte
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
         volunteer_without_verification_time: Ehrenamtliche ohne Leistungsausweis
-
 
   cost_accounting:
     index:
@@ -355,6 +354,40 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+
+  vp2020:
+    time_records:
+      lufeb: Grundlagenarbeit zu LUFEB
+
+      lufeb_promoting: Förderung der Selbsthilfe
+      beratung: Information / Beratung von Organisationen und Einzelpersonen
+      unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
+      freiwilligen_akquisition: Akquisition von Freiwilligen
+
+      lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
+      auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
+      referate: Vorträge / Referate
+      medien_zusammenarbeit: Zusammenarbeit mit Medien
+      sensibilisierungskampagnen: Sensibilisierungs- und Entstigmatisierungsarbeiten resp. –veranstaltugnen
+
+      lufeb_specific: Themenspezifische Grundlagenarbeit
+      erarbeitung_grundlagen: Grundlagenarbeit (Arbeitsinstrumente, Konzepte, Studien, Grundlagenpapiere)
+      gremien: Mitgliedschaft / Mitarbeit in Gremien
+      vernehmlassungen: Mitarbeit bei Vernehmlassungen
+      projekte: Projekte Art. 74 (Vorbereitung und Durchführung)
+
+      lufeb_media: Medien & Publikationen
+      medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
+      website: Website
+      newsletter: Rundbriefe, Broschüren, Merkblätter
+      videos: Videos
+      social_media: Soziale Medien
+      beratungsmodule: Standardisierte Beratungsmodule
+      apps: Applikationen
+
+      treffpunkte: Treffpunkte
+      kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+
   export/tabular/events:
     title: Kurse
 
@@ -401,4 +434,3 @@ de:
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
-

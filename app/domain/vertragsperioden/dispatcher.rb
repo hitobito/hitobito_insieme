@@ -21,6 +21,10 @@ module Vertragsperioden
       "Vp#{determine}::#{class_name}".constantize
     end
 
+    def i18n_scope(scope)
+      "vp#{determine}.#{scope}"
+    end
+
     def supported?
       (2015..FAR_FUTURE_YEAR).include?(@year) # well, could be (2015...) in ruby 2.6+
     end

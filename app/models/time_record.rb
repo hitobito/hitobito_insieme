@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -76,57 +76,18 @@ class TimeRecord < ActiveRecord::Base
     total_lufeb
   end
 
-  def total_lufeb
-    total_lufeb_general.to_i +
-    total_lufeb_private.to_i +
-    total_lufeb_specific.to_i +
-    total_lufeb_promoting.to_i
+  def vp_calculations
+    @vp_calculations ||= Vertragsperioden::Dispatcher
+                           .new(year)
+                           .domain_class('TimeRecord::Calculation')
+                           .new(self)
   end
 
-  def total_courses
-    blockkurse.to_i +
-    tageskurse.to_i +
-    jahreskurse.to_i
-  end
-
-  def total_additional_person_specific
-    treffpunkte.to_i +
-    beratung.to_i
-  end
-
-  def total_remaining
-    mittelbeschaffung.to_i +
-    verwaltung.to_i
-  end
-
-  def total_paragraph_74
-    @total_paragraph_74 ||=
-      total_lufeb.to_i +
-      total_courses.to_i +
-      total_additional_person_specific.to_i +
-      total_remaining.to_i
-  end
-
-  def total_not_paragraph_74
-    nicht_art_74_leistungen.to_i
-  end
-
-  def total
-    total_paragraph_74.to_i +
-    total_not_paragraph_74.to_i
-  end
-
-  def total_paragraph_74_pensum
-    total_paragraph_74.to_d / bsv_hours_per_year
-  end
-
-  def total_not_paragraph_74_pensum
-    total_not_paragraph_74.to_d / bsv_hours_per_year
-  end
-
-  def total_pensum
-    total.to_d / bsv_hours_per_year
-  end
+  delegate :total_lufeb, :total_courses, :total_additional_person_specific, :total_remaining,
+           :total_paragraph_74, :total_not_paragraph_74, :total,
+           :total_paragraph_74_pensum, :total_not_paragraph_74_pensum, :total_pensum,
+           :update_totals,
+           to: :vp_calculations
 
   def to_s
     self.class.model_name.human
@@ -140,66 +101,5 @@ class TimeRecord < ActiveRecord::Base
     end
   end
 
-  def bsv_hours_per_year
-    globals ? globals.bsv_hours_per_year : DEFAULT_BSV_HOURS_PER_YEAR
-  end
-
-  def globals
-    @globals ||= ReportingParameter.for(year)
-  end
-
-  def update_totals
-    @total_paragraph_74 = nil
-    calculate_total_lufeb_general
-    calculate_total_lufeb_private
-    calculate_total_lufeb_specific
-    calculate_total_lufeb_promoting
-  end
-
-  # rubocop:disable MethodLength, Metrics/AbcSize
-  def calculate_total_lufeb_general
-    self.total_lufeb_general =
-      kontakte_medien.to_i +
-      interviews.to_i +
-      publikationen.to_i +
-      referate.to_i +
-      medienkonferenzen.to_i +
-      informationsveranstaltungen.to_i +
-      sensibilisierungskampagnen.to_i +
-      allgemeine_auskunftserteilung.to_i +
-      kontakte_meinungsbildner.to_i +
-      beratung_medien.to_i
-  end
-  # rubocop:enable MethodLength, Metrics/AbcSize
-
-  def calculate_total_lufeb_private
-    self.total_lufeb_private =
-      eigene_zeitschriften.to_i +
-      newsletter.to_i +
-      informationsbroschueren.to_i +
-      eigene_webseite.to_i
-  end
-
-  def calculate_total_lufeb_specific
-    self.total_lufeb_specific =
-      erarbeitung_instrumente.to_i +
-      erarbeitung_grundlagen.to_i +
-      projekte.to_i +
-      vernehmlassungen.to_i +
-      gremien.to_i
-  end
-
-  # rubocop:disable Metrics/AbcSize
-  def calculate_total_lufeb_promoting
-    self.total_lufeb_promoting =
-      auskunftserteilung.to_i +
-      vermittlung_kontakte.to_i +
-      unterstuetzung_selbsthilfeorganisationen.to_i +
-      koordination_selbsthilfe.to_i +
-      treffen_meinungsaustausch.to_i +
-      beratung_fachhilfeorganisationen.to_i +
-      unterstuetzung_behindertenhilfe.to_i
-  end
-  # rubocop:enable Metrics/AbcSize
 
 end
