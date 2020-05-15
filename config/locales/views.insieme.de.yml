@@ -387,6 +387,7 @@ de:
         apps: Applikationen
 
         treffpunkte: Treffpunkte
+        kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
 
   export/tabular/events:
     title: Kurse
