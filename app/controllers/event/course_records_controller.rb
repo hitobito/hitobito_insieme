@@ -48,6 +48,8 @@
 
 class Event::CourseRecordsController < CrudController
 
+  include Vertragsperioden::Views
+
   decorates :event, :course_record
 
   authorize_resource except: :index, singleton: true

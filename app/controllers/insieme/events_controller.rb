@@ -8,6 +8,8 @@
 module Insieme
   module EventsController
     def self.prepended(base)
+      base.send :include, Vertragsperioden::Views
+
       base.before_render_new :build_course_record
 
       base.permitted_attrs += [
