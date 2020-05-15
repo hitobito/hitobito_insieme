@@ -4,6 +4,6 @@ class CreateGlobalValues < ActiveRecord::Migration[4.2]
       t.integer :default_reporting_year, null: false
     end
 
-    GlobalValue.create!(default_reporting_year: Time.zone.now.year)
+    execute "insert into global_values (default_reporting_year) values (#{Time.zone.now.year})"
   end
 end
