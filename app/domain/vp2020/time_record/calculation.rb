@@ -70,14 +70,20 @@ module Vp2020
              :apps,
              :total_lufeb_media,
              :kurse_grundlagen,
+             :lufeb_grundlagen,
 
              to: :record
 
     def total_lufeb
-      total_lufeb_promoting.to_i +
+      total_lufeb_grundlagen.to_i +
+        total_lufeb_promoting.to_i +
         total_lufeb_general.to_i +
         total_lufeb_specific.to_i +
         total_lufeb_media.to_i
+    end
+
+    def total_lufeb_grundlagen
+      lufeb_grundlagen.to_i
     end
 
     def total_courses
