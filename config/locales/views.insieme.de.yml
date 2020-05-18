@@ -387,6 +387,7 @@ de:
 
       treffpunkte: Treffpunkte
       kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+      beratung: Sozialberatung
 
   export/tabular/events:
     title: Kurse
