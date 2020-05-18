@@ -62,6 +62,7 @@ module HitobitoInsieme
       Sheet::Group.send :include, Insieme::Sheet::Group
       Sheet::Event.send :include, Insieme::Sheet::Event
       Dropdown::LabelItems.send :prepend, Insieme::Dropdown::LabelItems
+      StandardFormBuilder.send :include, Insieme::StandardFormBuilder
 
       # decorators
       PersonDecorator.send :prepend, Insieme::PersonDecorator

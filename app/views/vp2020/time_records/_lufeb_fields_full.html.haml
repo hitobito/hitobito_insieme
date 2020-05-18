@@ -1,18 +1,23 @@
 = field_set_tag(t('vp2020.time_records.lufeb_promoting')) do
-  = vp_labeled_input_fields_with_hours f,
-    :beratung_fachhilfeorganisationen, :unterstuetzung_leitorgane, :freiwilligen_akquisition
+  = f.labeled_vp_input_field :beratung_fachhilfeorganisationen, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :unterstuetzung_leitorgane, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :freiwilligen_akquisition, addon: t('global.hours_short')
 
   = f.labeled_readonly_value :total_lufeb_promoting, label: t('.subtotal'), value: format_hours(entry.total_lufeb_promoting)
 
 = field_set_tag(t('vp2020.time_records.lufeb_general')) do
-  = vp_labeled_input_fields_with_hours f,
-    :auskuenfte, :referate, :medien_zusammenarbeit, :sensibilisierungskampagnen
+  = f.labeled_vp_input_field :auskuenfte, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :referate, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :medien_zusammenarbeit, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :sensibilisierungskampagnen, addon: t('global.hours_short')
 
   = f.labeled_readonly_value :total_lufeb_general, label: t('.subtotal'), value: format_hours(entry.total_lufeb_general)
 
 = field_set_tag(t('vp2020.time_records.lufeb_specific')) do
-  = vp_labeled_input_fields_with_hours f,
-    :erarbeitung_grundlagen, :gremien, :vernehmlassungen, :projekte
+  = f.labeled_vp_input_field :erarbeitung_grundlagen, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :gremien, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :vernehmlassungen, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :projekte, addon: t('global.hours_short')
 
   = f.labeled_readonly_value :total_lufeb_specific, label: t('.subtotal'), value: format_hours(entry.total_lufeb_specific)
 
