@@ -1,6 +1,6 @@
 = field_set_tag(t('vp2020.time_records.lufeb_promoting')) do
   = vp_labeled_input_fields_with_hours f,
-    :beratung, :unterstuetzung_leitorgane, :freiwilligen_akquisition
+    :beratung_fachhilfeorganisationen, :unterstuetzung_leitorgane, :freiwilligen_akquisition
 
   = f.labeled_readonly_value :total_lufeb_promoting, label: t('.subtotal'), value: format_hours(entry.total_lufeb_promoting)
 

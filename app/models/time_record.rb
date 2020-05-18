@@ -54,8 +54,6 @@
 
 class TimeRecord < ActiveRecord::Base
 
-  DEFAULT_BSV_HOURS_PER_YEAR = 1900
-
   include Insieme::ReportingFreezable
 
   belongs_to :group
