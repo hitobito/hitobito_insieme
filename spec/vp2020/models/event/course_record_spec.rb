@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -19,7 +19,13 @@ describe Event::CourseRecord do
   end
 
   context 'treffpunkt courses' do
-    let(:event) { Fabricate(:course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt', year: 2020) }
+    let(:event) do
+      event = Fabricate(:course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt')
+      event.dates = [
+        Fabricate(:event_date, start_at: Date.new(2020, 3, 16))
+      ]
+      event
+    end
     let(:record) do
       new_record(event)
     end
@@ -32,6 +38,7 @@ describe Event::CourseRecord do
     end
 
     it 'calculates vollkosten pro betreuungsstunde' do
+      expect(record.year).to eq 2020
       expect(record.vollkosten_pro_betreuungsstunde).to eq(20.to_d)
     end
 
@@ -44,7 +51,11 @@ describe Event::CourseRecord do
 
   context 'treffpunkt aggregate courses' do
     let(:event) do
-      Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt', year: 2020)
+      event = Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt')
+      event.dates = [
+        Fabricate(:event_date, start_at: Date.new(2020, 3, 16))
+      ]
+      event
     end
     let(:record) do
       new_record(event)
@@ -58,6 +69,7 @@ describe Event::CourseRecord do
     end
 
     it 'calculates vollkosten pro betreuungsstunde' do
+      expect(record.year).to eq 2020
       expect(record.vollkosten_pro_betreuungsstunde).to eq(20.to_d)
     end
 

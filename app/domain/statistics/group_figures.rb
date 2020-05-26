@@ -1,7 +1,7 @@
 # encoding: utf-8
 # frozen_string_literal: true
 
-#  Copyright (c) 2015, insieme Schweiz. This file is part of
+#  Copyright (c) 2015-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -87,6 +87,7 @@ module Statistics
     def course_record_columns
       'events_groups.group_id, events.leistungskategorie, ' \
       'event_course_records.zugeteilte_kategorie, ' \
+      'MAX(event_course_records.year) AS year, ' \
       'SUM(anzahl_kurse) AS anzahl_kurse, ' \
       'SUM(tage_behinderte) AS tage_behinderte, ' \
       'SUM(tage_angehoerige) AS tage_angehoerige, ' \
