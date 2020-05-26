@@ -55,7 +55,7 @@ module Vp2020
              :anzahl_spezielle_unterkunft,
        to: :record
 
-    ::Event::Course::LEISTUNGSKATEGORIEN.each do |kategorie|
+    ::Event::Reportable::LEISTUNGSKATEGORIEN.each do |kategorie|
       delegate :"#{kategorie}?", to: :record
     end
 

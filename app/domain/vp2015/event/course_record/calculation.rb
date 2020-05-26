@@ -48,6 +48,7 @@ module Vp2015
              :tage_weitere,
              :betreuerinnen,
 
+             :event,
              :challenged_canton_count,
              :affiliated_canton_count,
 
