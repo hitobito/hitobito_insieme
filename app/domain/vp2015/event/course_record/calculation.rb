@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vp2020
+module Vp2015
   class Event::CourseRecord::Calculation
 
     attr_reader :record
