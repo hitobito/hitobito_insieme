@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -106,9 +106,9 @@ class Event::CourseRecord < ActiveRecord::Base
 
   def vp_calculations
     @vp_calculations ||= Vertragsperioden::Dispatcher
-        .new(year)
-        .domain_class('Event::CourseRecord::Calculation')
-        .new(self)
+                         .new(year)
+                         .domain_class('Event::CourseRecord::Calculation')
+                         .new(self)
   end
 
   delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,

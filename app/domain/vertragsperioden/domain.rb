@@ -9,7 +9,8 @@ module Vertragsperioden
   module Domain
     def vertragsperiode
       @vertragsperiode ||= begin
-                             raise Vertragsperioden::NoYearError unless year.present?
+                             raise Vertragsperioden::NoYearError if year.blank?
+
                              Vertragsperioden::Dispatcher.new(year)
                            end
     end

@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2015, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -75,11 +76,11 @@ module Statistics
     end
 
     def load_course_records
-      Event::CourseRecord.select(course_record_columns).
-                          joins(:event).
-                          joins('INNER JOIN events_groups ON events.id = events_groups.event_id').
-                          where(year: year, subventioniert: true).
-                          group('events_groups.group_id, events.leistungskategorie, ' \
+      Event::CourseRecord.select(course_record_columns)
+                         .joins(:event)
+                         .joins('INNER JOIN events_groups ON events.id = events_groups.event_id')
+                         .where(year: year, subventioniert: true)
+                         .group('events_groups.group_id, events.leistungskategorie, ' \
                                 'event_course_records.zugeteilte_kategorie')
     end
 
@@ -105,14 +106,13 @@ module Statistics
     end
 
     def employee_pensums
-      @employee_pensums ||=
-        TimeRecord::EmployeePensum.
-          select('*, time_records.group_id AS group_id').
-          joins(:time_record).
-          where(time_records: { year: year }).
-          each_with_object({}) do |p, hash|
-          hash[p.group_id] = p
-        end
+      @employee_pensums ||= TimeRecord::EmployeePensum
+                            .select('*, time_records.group_id AS group_id')
+                            .joins(:time_record)
+                            .where(time_records: { year: year })
+                            .each_with_object({}) do |p, hash|
+                              hash[p.group_id] = p
+                            end
     end
 
     def cost_accounting

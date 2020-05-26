@@ -14,6 +14,7 @@ module Vp2015
       @record = record
     end
 
+    # rubocop:disable Layout/EmptyLinesAroundArguments
     delegate :inputkriterien,
              :subventioniert,
              :kursart,
@@ -53,7 +54,10 @@ module Vp2015
              :affiliated_canton_count,
 
              :anzahl_spezielle_unterkunft,
-       to: :record
+
+             :event,
+             to: :record
+    # rubocop:enable Layout/EmptyLinesAroundArguments
 
     ::Event::Reportable::LEISTUNGSKATEGORIEN.each do |kategorie|
       delegate :"#{kategorie}?", to: :record
@@ -93,7 +97,7 @@ module Vp2015
     end
 
     def praesenz_prozent
-      if total_tage_teilnehmende > 0
+      if total_tage_teilnehmende.positive?
         ((total_tage_teilnehmende / (total_tage_teilnehmende + total_absenzen)) * 100).round
       else
         100
@@ -101,7 +105,7 @@ module Vp2015
     end
 
     def betreuungsschluessel
-      if betreuende.to_d > 0
+      if betreuende.to_d.positive?
         teilnehmende_behinderte.to_d / betreuende.to_d
       else
         0
@@ -114,7 +118,7 @@ module Vp2015
     end
 
     def direkte_kosten_pro_le
-      if total_tage_teilnehmende > 0
+      if total_tage_teilnehmende.positive?
         direkter_aufwand.to_d / total_tage_teilnehmende
       else
         0
@@ -122,7 +126,7 @@ module Vp2015
     end
 
     def vollkosten_pro_le
-      if total_tage_teilnehmende > 0
+      if total_tage_teilnehmende.positive?
         total_vollkosten / total_tage_teilnehmende
       else
         0
@@ -170,4 +174,3 @@ module Vp2015
 
   end
 end
-

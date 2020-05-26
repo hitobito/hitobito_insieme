@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2015, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -60,6 +61,7 @@ module CourseReporting
 
     def kursarten
       return [] if leistungskategorie == 'tp'
+
       Event::CourseRecord::KURSARTEN
     end
 
@@ -149,7 +151,7 @@ module CourseReporting
     end
 
     def sql_sum_unterkunft
-      column = Event::CourseRecord.columns_hash['spezielle_unterkunft']
+      # column = Event::CourseRecord.columns_hash['spezielle_unterkunft']
       # quoted_true_value = Event::CourseRecord.connection.quote(true, column)
       quoted_true_value = ActiveRecord::Type::Boolean.new.serialize(true)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
