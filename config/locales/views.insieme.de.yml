@@ -357,10 +357,10 @@ de:
 
   vp2020:
     time_records:
-      lufeb: Grundlagenarbeit zu LUFEB
+      lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 
       lufeb_promoting: Förderung der Selbsthilfe
-      beratung: Information / Beratung von Organisationen und Einzelpersonen
+      beratung_fachhilfeorganisationen: Information / Beratung von Organisationen und Einzelpersonen
       unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
       freiwilligen_akquisition: Akquisition von Freiwilligen
 
@@ -384,9 +384,11 @@ de:
       social_media: Soziale Medien
       beratungsmodule: Standardisierte Beratungsmodule
       apps: Applikationen
+      total_lufeb_media: Medien & Publikationen
 
       treffpunkte: Treffpunkte
       kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+      beratung: Sozialberatung
 
   export/tabular/events:
     title: Kurse

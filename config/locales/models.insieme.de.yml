@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -668,12 +668,28 @@ de:
         beratung_fachhilfeorganisationen: Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe
         unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
 
+        lufeb_grundlagen: Grundlagenarbeit zu LUFEB
+        unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
+        freiwilligen_akquisition: Akquisition von Freiwilligen
+        auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
+        medien_zusammenarbeit: Zusammenarbeit mit Medien
+
+        lufeb_media: Medien & Publikationen
+        medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
+        website: Website
+        videos: Videos
+        social_media: Soziale Medien
+        beratungsmodule: Standardisierte Beratungsmodule
+        apps: Applikationen
+
         total_lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
         total_lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
         total_lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
         total_lufeb_promoting: "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen"
+        total_lufeb_media: Medien & Publikationen
         total_lufeb: Total LUFEB-Leistungen
 
+        kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
         blockkurse: Blockkurse
         tageskurse: Tageskurse
         jahreskurse: Semester-/Jahreskurse

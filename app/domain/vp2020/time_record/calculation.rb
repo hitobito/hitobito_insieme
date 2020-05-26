@@ -8,6 +8,8 @@
 module Vp2020
   class TimeRecord::Calculation
 
+    DEFAULT_BSV_HOURS_PER_YEAR = 1900
+
     attr_reader :record
 
     def initialize(record)
@@ -56,24 +58,44 @@ module Vp2020
              :type,
              :year,
 
+             :unterstuetzung_leitorgane,
+             :freiwilligen_akquisition,
+             :auskuenfte,
+             :medien_zusammenarbeit,
+             :medien_grundlagen,
+             :website,
+             :videos,
+             :social_media,
+             :beratungsmodule,
+             :apps,
+             :total_lufeb_media,
+             :kurse_grundlagen,
+             :lufeb_grundlagen,
+
              to: :record
 
     def total_lufeb
-      total_lufeb_general.to_i +
-        total_lufeb_private.to_i +
+      total_lufeb_grundlagen.to_i +
+        total_lufeb_promoting.to_i +
+        total_lufeb_general.to_i +
         total_lufeb_specific.to_i +
-        total_lufeb_promoting.to_i
+        total_lufeb_media.to_i
+    end
+
+    def total_lufeb_grundlagen
+      lufeb_grundlagen.to_i
     end
 
     def total_courses
-      blockkurse.to_i +
+      kurse_grundlagen.to_i +
+        blockkurse.to_i +
         tageskurse.to_i +
+        treffpunkte.to_i +
         jahreskurse.to_i
     end
 
     def total_additional_person_specific
-      treffpunkte.to_i +
-        beratung.to_i
+      beratung.to_i
     end
 
     def total_remaining
@@ -112,10 +134,10 @@ module Vp2020
 
     def update_totals
       @total_paragraph_74 = nil
-      calculate_total_lufeb_general
-      calculate_total_lufeb_private
-      calculate_total_lufeb_specific
       calculate_total_lufeb_promoting
+      calculate_total_lufeb_general
+      calculate_total_lufeb_specific
+      calculate_total_lufeb_media
     end
 
     private
@@ -128,51 +150,39 @@ module Vp2020
       @globals ||= ReportingParameter.for(year)
     end
 
-    # rubocop:disable MethodLength, Metrics/AbcSize
+    def calculate_total_lufeb_promoting
+      @record.total_lufeb_promoting =
+        beratung_fachhilfeorganisationen.to_i +
+        unterstuetzung_leitorgane.to_i +
+        freiwilligen_akquisition.to_i
+    end
+
     def calculate_total_lufeb_general
       @record.total_lufeb_general =
-        kontakte_medien.to_i +
-        interviews.to_i +
-        publikationen.to_i +
+        auskuenfte.to_i +
         referate.to_i +
-        medienkonferenzen.to_i +
-        informationsveranstaltungen.to_i +
-        sensibilisierungskampagnen.to_i +
-        allgemeine_auskunftserteilung.to_i +
-        kontakte_meinungsbildner.to_i +
-        beratung_medien.to_i
-    end
-    # rubocop:enable MethodLength, Metrics/AbcSize
-
-    def calculate_total_lufeb_private
-      @record.total_lufeb_private =
-        eigene_zeitschriften.to_i +
-        newsletter.to_i +
-        informationsbroschueren.to_i +
-        eigene_webseite.to_i
+        medien_zusammenarbeit.to_i +
+        sensibilisierungskampagnen.to_i
     end
 
     def calculate_total_lufeb_specific
       @record.total_lufeb_specific =
-        erarbeitung_instrumente.to_i +
         erarbeitung_grundlagen.to_i +
-        projekte.to_i +
+        gremien.to_i +
         vernehmlassungen.to_i +
-        gremien.to_i
+        projekte.to_i
     end
 
-    # rubocop:disable Metrics/AbcSize
-    def calculate_total_lufeb_promoting
-      @record.total_lufeb_promoting =
-        auskunftserteilung.to_i +
-        vermittlung_kontakte.to_i +
-        unterstuetzung_selbsthilfeorganisationen.to_i +
-        koordination_selbsthilfe.to_i +
-        treffen_meinungsaustausch.to_i +
-        beratung_fachhilfeorganisationen.to_i +
-        unterstuetzung_behindertenhilfe.to_i
+    def calculate_total_lufeb_media
+      @record.total_lufeb_media =
+        medien_grundlagen.to_i +
+        website.to_i +
+        newsletter.to_i +
+        videos.to_i +
+        social_media.to_i +
+        beratungsmodule.to_i +
+        apps.to_i
     end
-    # rubocop:enable Metrics/AbcSize
 
   end
 end

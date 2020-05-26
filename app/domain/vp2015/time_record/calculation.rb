@@ -8,6 +8,8 @@
 module Vp2015
   class TimeRecord::Calculation
 
+    DEFAULT_BSV_HOURS_PER_YEAR = 1900
+
     attr_reader :record
 
     def initialize(record)

@@ -24,7 +24,7 @@
       = nf.labeled_input_field :not_paragraph_74
       = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: fnumber(entry.employee_pensum.total)
 
-  %h3= t('vp2020.time_records.lufeb')
+  %h3= t('.lufeb')
   - if entry.class.key == 'volunteer_without_verification_time'
     = render 'lufeb_fields_sumarized', f: f
   - else
@@ -33,22 +33,16 @@
   = field_set_tag do
     = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
 
-  %h3= t('vp2020.time_records.lufeb_media')
-  = field_set_tag do
-    = vp_labeled_input_fields_with_hours f,
-      :medien_grundlagen, :website, :newsletter, :videos, :social_media, :beratungsmodule, :apps
-    = f.labeled_readonly_value :total_lufeb_media, label: t('.subtotal'), value: format_hours(entry.total_lufeb_media)
-
   %h3= t('.courses')
   = field_set_tag do
-    = f.labeled_input_field :kurse_grundlagen, addon: t('global.hours_short'), label: t(:kurse_grundlagen, scope: vp_i18n_scope)
+    = f.labeled_vp_input_field :kurse_grundlagen, addon: t('global.hours_short')
     = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
     = f.labeled_input_field :tageskurse, addon: t('global.hours_short')
     = f.labeled_input_field :jahreskurse, addon: t('global.hours_short')
-    = f.labeled_input_field :treffpunkte, addon: t('global.hours_short'), label: t(:treffpunkte, scope: vp_i18n_scope)
+    = f.labeled_vp_input_field :treffpunkte, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_courses, label: t('.total'), value: format_hours(entry.total_courses)
 
-  %h3= t('.additional_person_specific')
+  %h3= t('beratung', scope: vp_i18n_scope)
   = field_set_tag do
     = f.labeled_input_field :beratung, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_additional_person_specific, label: t('.total'), value: format_hours(entry.total_additional_person_specific)
