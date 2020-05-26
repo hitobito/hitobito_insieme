@@ -25,7 +25,9 @@ module HitobitoInsieme
       # extend application classes here
 
       # models
-      Cantons::SHORT_NAMES << :another
+      unless Cantons::SHORT_NAMES.include?(:another)
+        Cantons::SHORT_NAMES << :another
+      end
 
       Group.include Insieme::Group
       Person.include Insieme::Person
