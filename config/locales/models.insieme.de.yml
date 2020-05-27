@@ -730,6 +730,11 @@ de:
 
     errors:
       models:
+        event/aggregate_course:
+          attributes:
+            fachkonzept:
+              invalid_for_course_leistungskategorie: muss ein Kursinhalt sein, wenn die Leistungskategorie ein Kurs ist.
+              invalid_for_treffpunkt_leistungskategorie: muss Treffpunkt sein, wenn die Leistungskategorie Treffpunkt ist.
         event/course:
           attributes:
             fachkonzept:

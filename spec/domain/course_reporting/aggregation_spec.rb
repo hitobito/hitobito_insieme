@@ -221,6 +221,7 @@ describe CourseReporting::Aggregation do
 
   context 'over all groups' do
     let(:aggregation) { new_aggregation(group_id: nil) }
+
     it 'sums the individual group aggregations' do
       2.times { create!(create_course, 'freizeit_und_sport', values) }
       2.times { create!(create_course, 'weiterbildung', values) }

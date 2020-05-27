@@ -356,6 +356,10 @@ de:
         name: Limite Kapitalsubstrat
 
   vp2020:
+    course_records:
+      vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
+    events:
+      anzahl_durchfuehrungen: Anzahl Durchführungen
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 
