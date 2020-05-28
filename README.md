@@ -64,3 +64,7 @@ Status](https://travis-ci.org/hitobito/hitobito_insieme.svg)](https://travis-ci.
         * Kollektivmitglied mit Abo: []
 
     (Output of rake app:hitobito:roles)
+
+## Vertragsperioden
+
+In order to distinguish code that is valid only for certain years, we made the concept of contract periods (Vertragsperioden) explicit in the code. See [Vertragsperioden](doc/VERTRAGSPERIODEN.md) for a detailed description (in german, as is all domain-logic in this repo).

@@ -16,7 +16,7 @@ module Vertragsperioden
     private
 
     def vertragsperioden_viewpath
-      raise Vertragsperioden::NoYearError unless year.present?
+      raise Vertragsperioden::NoYearError if year.blank?
 
       prepend_view_path(Vertragsperioden::Dispatcher.new(year).view_path)
     end
