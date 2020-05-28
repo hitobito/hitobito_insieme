@@ -4,17 +4,17 @@
 
 insieme Schweiz als Dachorganisation organisiert mehrere Vereine. In diesem Zusammenhang werden
 Daten der Vereine erhoben und ausgewertet. Diese Auswertung ist an vertragliche Grundlagen gebunden,
-welche sich regelmässig ändern. Eine solche Vertragsperiode dauert üblicherweise vier Jahre, bei die
+welche sich regelmässig ändern. Eine solche Vertragsperiode dauert üblicherweise vier Jahre, wobei die
 von 2015 fünf Jahre umfasste und bei der Vertragsperiode 2020 schon für das nächste Jahr Anpassungen
 erwartet werden. Anpassungen an der Datenerhebung und Auswertung gelten dabei immer für ein
 Kalenderjahr.
 
 ## Implementierung
 
-Es gibt einen Vertragsperiodendispatch, der aufgrund des Kalenderjahres entsprechende Domainklassen
+Es gibt einen Vertragsperioden-Dispatcher, der aufgrund des Kalenderjahres entsprechende Domainklassen
 und Viewtemplates auswählt.
 
-In allen Beispielen hier wird gehe ich von der Vertragsperiode 2020 aus. Die Ziffer ist immer das
+In allen Beispielen hier gehe ich von der Vertragsperiode 2020 aus. Die Ziffer ist immer das
 beginnende Jahr der Vertragsperiode. Die gängige Abkürzung für Vertragsperiode ist "VP", jeweils
 nach der Konvention der jeweiligen Verwendung.
 
@@ -26,12 +26,12 @@ Verzeichnis gelten dann wieder die normalen Regeln, um den richtigen View zu fin
 überschreiben die Templates in dem jeweiligen Verzeichnis die Templates in `app/views` des Wagons
 und im hitobito-Core.
 
-Um diese für eine Controller zu aktiveren, muss nur das Modul `Vertragsperioden::Views` inkludiert
+Um diese für einen Controller zu aktiveren, muss nur das Modul `Vertragsperioden::Views` inkludiert
 werden.
 
 ### Domainklassen
 
-Die Hauptarbeit der Auswertungen werden von Domainklassen erledigt. Domainklasse, die Unterschiede
+Die Hauptarbeit der Auswertungen wird von Domainklassen erledigt. Domainklassen, die Unterschiede
 haben, werden in einen Namespace gekapselt, der der jeweiligen Vertragsperiode entspricht. Wenn eine
 Domainklasse Unterschiede aufgrund der Vertragsperiode hat, muss man die existierende Klasse in die
 bisherigen Vertragsperioden verschieben.
@@ -49,7 +49,7 @@ vorhergesehen werden kann.
 
 ### i18n-Scope
 
-Es gibt eine Viewhelper `vp_i18n_scope`, der Übersetzungen aus dem Scope `vp2020.#{controller_name}`
+Es gibt einen Viewhelper `vp_i18n_scope`, der Übersetzungen aus dem Scope `vp2020.#{controller_name}`
 holt. Da diese Übersetzungen primär aus geänderten Views kommen, sind diese in `views.de.yml` (und
 potentiell anderen Sprachen) eingefügt.
 
@@ -60,11 +60,11 @@ existierenden View-Code nicht unnötig anpassen zu müssen, wurde bisher nur ein
 
 - `labeled_vp_input_field`
 
-Es wird nur das label überschrieben, andere Optionen werden weitergereicht.
+Es wird nur das Label mittels dem oben beschriebenen `vp_i18n_scope` überschrieben, andere Optionen werden weitergereicht.
 
 ### RSpec
 
-Die Helpermethod `vp_class` ist in allen specs verfügbar. Es wird erwartet, dass ein `let(:year)`
+Die Helpermethode `vp_class` ist in allen specs verfügbar. Es wird erwartet, dass ein `let(:year)`
 das jeweilige Jahr zurückgibt. Damit sollte mit relativ wenig Anpassungen existierender Code
 weiterhin getestet werden können. Der Helper sollte nur in domain-specs notwendig sein.
 
@@ -100,11 +100,11 @@ den neuen Dateien an. Dann erweitert man den Dispatcher selbst
 
 Aktuell ist `Vertragsperioden::Views` noch nicht im ApplicationController inkludiert, weil es auf
 dem Vorhandensein einer `year`-Methode basiert, welche jedoch nicht überall vorhanden ist. Aktuell
-ist es immerhin eine gute Dokumentation, dass der viewpath angepasst wird.
+nehmen wir dieses explizite `include` als Dokumentation hin, dass der viewpath angepasst wird.
 
 ### Formhelper
 
-Es ist wahrscheinlich, dass noch weitere Methoden hinzukommen. Aktuell war nur eine Method
+Es ist wahrscheinlich, dass noch weitere Methoden hinzukommen. Aktuell war nur eine Methode
 notwendig. Es ist jedoch die Basis für weitere Methoden gelegt, die idealerweise auch nur das Label
 anpassen müssen.
 
@@ -115,7 +115,7 @@ vielleicht, wenn diese nur den domain-specs inkludiert wird.
 
 ### neue Vertragsperioden
 
-Man könnte ein kleines Script erstellen, dass die erleichtert (im Kern eine Mischung `cp` und `find |
+Man könnte ein kleines Script erstellen, das dabei hilft, eine neue Vertragsperiode anzulegen (im Kern eine Mischung aus `cp` und `find |
 sed -i`)
 
 ### neue Domainklassen
@@ -123,4 +123,4 @@ sed -i`)
 Aktuell müssen neue Domainklassen auch für alle vergangenen Vertragsperioden implementiert werden.
 Die könnte man entweder durch eine intelligenteren Lookup machen (`determine` müsste ein Liste von
 vorherigen oder nachfolgenden VPs haben) oder die notwendigen Dateien via script vereinfacht
-kopieren/erstellen/anpassen.
+kopieren/erstellen/anpassen können.
