@@ -76,6 +76,7 @@ de:
       ertrag_ko_re: Ertrag KoRe
       kontengruppen: "Kontengruppe(n) %{kontengruppen}"
       remarks_placeholder: Hier können Sie Ihre Notizen oder Erklärungen anbringen (z.B. wie sich Aufwand auf Kontengruppen verteilt)
+      copy_previous_notes: Notizen aus Vorjahr kopieren
 
   course_reporting:
     client_statistics:

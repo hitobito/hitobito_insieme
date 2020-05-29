@@ -31,8 +31,13 @@
                             help_inline: t('.kontengruppen', kontengruppen: report.kontengruppe))
 
   - if report.editable_fields.include?('aufteilung_kontengruppen')
-    = f.labeled_input_field(:aufteilung_kontengruppen,
-                            placeholder: t('.remarks_placeholder'))
+    = f.labeled_input_field(:aufteilung_kontengruppen, placeholder: t('.remarks_placeholder'))
+    - if previous_entry.aufteilung_kontengruppen.present?
+      #cost_accounting_note_copy.hidden
+        = f.labeled(:copy_previous_notes, '&nbsp;'.html_safe) do
+          = action_button(t('.copy_previous_notes'), '#', :copy)
+      #vorheriger-kommentar.hidden
+        = previous_entry.aufteilung_kontengruppen
 
   = cost_accounting_input_fields(f, :abgrenzung_fibu)
 
@@ -54,3 +59,4 @@
 
 - content_for(:javascripts) do
   new App.CostAccountingCalculator().updateValues();
+  new App.CostAccountingNoteCopier().bind();
