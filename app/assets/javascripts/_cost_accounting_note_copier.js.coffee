@@ -2,19 +2,20 @@ app = window.App ||= {}
 
 class app.CostAccountingNoteCopier
   constructor: ->
-    @target = $('#cost_accounting_record_aufteilung_kontengruppen')[0]
-    @source = $('#vorheriger-kommentar')[0]
-    @container = '#cost_accounting_note_copy'
 
   copy: ->
-    @target.value = @source.innerHTML.trim()
+    target = $('#cost_accounting_record_aufteilung_kontengruppen')[0]
+    source = $('#vorheriger-kommentar')[0]
+
+    target.value = source.innerHTML.trim()
 
   bind: ->
     self = this
+    container = '#cost_accounting_note_copy'
 
-    $(document).on 'click', "#{@container} a", (e) ->
+    $(document).on 'click', "#{container} a", (e) ->
       e.preventDefault()
       self.copy()
 
-    $(@container).removeClass('hidden')
+    $(container).removeClass('hidden')
 
