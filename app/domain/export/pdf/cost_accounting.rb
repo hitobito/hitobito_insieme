@@ -46,6 +46,7 @@ module Export::Pdf
         row_content = []
         values(entry).each_with_index do |value, cell|
           next if skip_cell?(row, cell)
+
           row_content << cell_value(row, cell, value)
         end
         row_content
@@ -59,11 +60,13 @@ module Export::Pdf
     def skip_cell?(row, cell)
       return false unless COLSPANS.has_key?(row)
       return false if colspan_cell?(row, cell)
+
       COLSPANS[row].include?(cell)
     end
 
     def colspan_cell?(row, cell)
       return false unless COLSPANS.has_key?(row)
+
       COLSPANS[row].first == cell
     end
 

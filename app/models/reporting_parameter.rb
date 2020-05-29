@@ -27,6 +27,7 @@ class ReportingParameter < ActiveRecord::Base
 
   def self.for(year)
     return unless year
+
     where('year <= ?', year).order('year DESC').first
   end
 
