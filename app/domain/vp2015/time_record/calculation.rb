@@ -176,4 +176,3 @@ module Vp2015
 
   end
 end
-
