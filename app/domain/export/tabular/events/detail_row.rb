@@ -8,8 +8,16 @@
 
 module Export::Tabular::Events
   class DetailRow < Export::Tabular::Events::Row
+    include Vertragsperioden::Domain
 
-    delegate(*DetailList::COURSE_RECORD_ATTRS, to: :course_record, allow_nil: true)
+    delegate :year, to: :entry
+
+    def initialize(*args)
+      super(*args)
+      self.class.send :delegate, *vp_class("Export::Tabular::Events::DetailList")::
+              COURSE_RECORD_ATTRS,
+                      to: :course_record, allow_nil: true
+    end
 
   end
 end

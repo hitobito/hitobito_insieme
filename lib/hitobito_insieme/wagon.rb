@@ -90,12 +90,16 @@ module HitobitoInsieme
                                    Export::Tabular::CostAccounting::List)
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
-                                   Export::Tabular::Events::DetailList,
-                                   Export::Tabular::Events::ShortList)
+                                   Vp2015::Export::Tabular::Events::DetailList,
+                                   Vp2015::Export::Tabular::Events::ShortList,
+                                   Vp2020::Export::Tabular::Events::DetailList,
+                                   Vp2020::Export::Tabular::Events::ShortList)
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::AggregateCourse::Style,
-                                   Export::Tabular::Events::AggregateCourse::DetailList,
-                                   Export::Tabular::Events::AggregateCourse::ShortList)
+                                   Vp2015::Export::Tabular::Events::AggregateCourse::DetailList,
+                                   Vp2015::Export::Tabular::Events::AggregateCourse::ShortList,
+                                   Vp2020::Export::Tabular::Events::AggregateCourse::DetailList,
+                                   Vp2020::Export::Tabular::Events::AggregateCourse::ShortList)
 
       # jobs
       Export::SubscriptionsJob.prepend Insieme::Export::SubscriptionsJob

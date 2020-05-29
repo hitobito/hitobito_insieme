@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Export::Tabular::Events
+module Vp2020::Export::Tabular::Events
   class DetailList < ::Export::Tabular::Events::List
 
     def initialize(list, group_name, year)

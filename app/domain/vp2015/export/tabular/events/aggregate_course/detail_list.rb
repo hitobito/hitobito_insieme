@@ -5,16 +5,16 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Export::Tabular::Events::AggregateCourse
-  class ShortList < Export::Tabular::Events::ShortList
+module Vp2015::Export::Tabular::Events
+  class AggregateCourse::DetailList < DetailList
 
     def title_header_values
       row = Array.new(18)
       row[0] = @group_name
       row[2] = reporting_year
       row[10] = document_title
-      row[29] = "#{I18n.t('global.printed')}: "
-      row[31] = printed_at
+      row[56] = "#{I18n.t('global.printed')}: "
+      row[57] = printed_at
       row
     end
 
