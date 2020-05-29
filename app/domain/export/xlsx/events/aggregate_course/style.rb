@@ -8,7 +8,7 @@
 module Export::Xlsx::Events::AggregateCourse
   class Style < Export::Xlsx::Style
 
-    BLACK = '000000'.freeze
+    BLACK = '000000'
     CURRENCY = 2
     DATE = 14
 
