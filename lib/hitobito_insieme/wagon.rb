@@ -90,10 +90,10 @@ module HitobitoInsieme
                                    Export::Tabular::CostAccounting::List)
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
-                                   Vp2015::Export::Tabular::Events::DetailList,
-                                   Vp2015::Export::Tabular::Events::ShortList,
-                                   Vp2020::Export::Tabular::Events::DetailList,
-                                   Vp2020::Export::Tabular::Events::ShortList)
+                                   *Vertragsperioden::Dispatcher.domain_classes(
+                                       "Export::Tabular::Events::DetailList"),
+                                   *Vertragsperioden::Dispatcher.domain_classes(
+                                       "Export::Tabular::Events::ShortList"))
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::AggregateCourse::Style,
                                    Vp2015::Export::Tabular::Events::AggregateCourse::DetailList,

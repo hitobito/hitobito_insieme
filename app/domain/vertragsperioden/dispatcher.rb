@@ -8,6 +8,11 @@
 module Vertragsperioden
   class Dispatcher
     FAR_FUTURE_YEAR = 9999
+    KNOWN_VP_BASE_YEARS = [2015, 2020].freeze
+
+    def self.domain_classes(class_name)
+      KNOWN_VP_BASE_YEARS.map { |vp| Dispatcher.new(vp).domain_class(class_name) }
+    end
 
     def initialize(year)
       @year = year.to_i
