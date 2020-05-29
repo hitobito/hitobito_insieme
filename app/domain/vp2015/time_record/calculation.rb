@@ -21,7 +21,6 @@ module Vp2015
              :total_lufeb_specific,
              :total_lufeb_promoting,
              :nicht_art_74_leistungen,
-
              :verwaltung,
              :beratung,
              :treffpunkte,
@@ -57,7 +56,6 @@ module Vp2015
              :allgemeine_auskunftserteilung,
              :type,
              :year,
-
              to: :record
 
     def total_lufeb
