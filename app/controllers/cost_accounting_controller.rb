@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -25,8 +25,8 @@ class CostAccountingController < ReportingBaseController
   private
 
   def entry
-    @record ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report]).
-                                     first_or_initialize
+    @entry ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report])
+                                   .first_or_initialize
   end
 
   def previous_entry
@@ -36,7 +36,7 @@ class CostAccountingController < ReportingBaseController
   end
 
   def report
-    @report ||= entry.report_class || fail(ActiveRecord::RecordNotFound)
+    @report ||= entry.report_class || raise(ActiveRecord::RecordNotFound)
   end
 
   def table
