@@ -128,7 +128,7 @@ module Vp2015
       @globals ||= ReportingParameter.for(year)
     end
 
-    # rubocop:disable MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def calculate_total_lufeb_general
       @record.total_lufeb_general =
         kontakte_medien.to_i +
@@ -142,7 +142,7 @@ module Vp2015
         kontakte_meinungsbildner.to_i +
         beratung_medien.to_i
     end
-    # rubocop:enable MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def calculate_total_lufeb_private
       @record.total_lufeb_private =

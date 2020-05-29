@@ -53,7 +53,7 @@ module Statistics
       END
     end
 
-    # rubocop:disable MethodLength
+    # rubocop:disable Metrics/MethodLength
     def person_roles_per_layer_query
       <<-END
         SELECT groups.layer_group_id AS layer_group_id,
@@ -69,7 +69,7 @@ module Statistics
                  roles.person_id
       END
     end
-    # rubocop:enable MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     def role_types_param
       COUNTED_ROLES.collect { |r| "'#{r.sti_name}'" }.join(', ')
