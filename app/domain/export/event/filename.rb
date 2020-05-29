@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Export::Event
   class Filename
     attr_reader :group, :type, :year
