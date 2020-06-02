@@ -36,8 +36,8 @@ module Vp2020::Export::Tabular::Events
       :beitraege_teilnehmende,
       # auswertungen
       :gemeinkostenanteil, :total_vollkosten,
-      :total_tage_teilnehmende, :vollkosten_pro_le,
-      :zugeteilte_kategorie
+      :betreuungsstunden,
+      :total_tage_teilnehmende, :vollkosten_pro_le
     ].freeze
 
     self.row_class = Export::Tabular::Events::DetailRow
@@ -47,6 +47,8 @@ module Vp2020::Export::Tabular::Events
     def build_attribute_labels
       super.tap do |labels|
         add_additional_course_record_labels(labels)
+        remove_course_record_label(labels, :inputkriterien)
+        remove_course_record_label(labels, :kursart)
       end
     end
 
