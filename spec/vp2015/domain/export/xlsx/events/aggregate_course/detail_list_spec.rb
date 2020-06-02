@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::Events::DetailList do
+describe Vp2015::Export::Tabular::Events::AggregateCourse::DetailList do
 
   let(:courses) { [course1] }
   let(:course1) do
@@ -33,15 +33,15 @@ describe Export::Tabular::Events::DetailList do
       .with(130)
       .and_call_original
 
-    Export::Tabular::Events::DetailList.xlsx(courses, 'test group name', '2014')
+    Export::Tabular::Events::AggregateCourse::DetailList.xlsx(courses, 'test group name', '2014')
   end
 
   private
 
   def column_widths
-    [20,20,3.3,20,2.57,7.43,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,3,3,3,3,3,3,3,3,3,3,3,3,
-     20,5.7,9.14,9.14,2.57,3.7,3,7,2.57,2.57,17.14,4.29,3.71,2.57,11.57,3.71,2.57,4.29,4.29,4.29,
-     4.29,4.29,4.29,4.29,4.29,6.29,6.29,6.29,2.57,2.57,2.57,2.57,2.57,8.14,8.14,8.14,8.14,8.14,
-     2.57,8.14,9.14,8.14,2.54]
+    [18,12.86,20,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,
+     2.57,2.57,2.57,2.57,2.57,2.57,2.57,2.57,17.14,4.29,3.71,2.57,14,4.29,4.29,7.5,7.5,7.5,7.5,
+     7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,8.5,7.5,3.13]
   end
+
 end
