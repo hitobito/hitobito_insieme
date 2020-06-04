@@ -13,7 +13,7 @@ module Vp2020
     let(:courses) { [course1] }
     let(:course1) do
       Fabricate(:course, groups: [groups(:be)], motto: 'All for one', cost: 1000,
-                application_opening_at: '01.01.2000', application_closing_at: '01.02.2000',
+                application_opening_at: '01.01.2020', application_closing_at: '01.02.2020',
                 maximum_participants: 10, external_applications: false, priorization: false,
                 leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
     end
@@ -34,7 +34,7 @@ module Vp2020
         .with(130)
         .and_call_original
 
-      Export::Tabular::Events::AggregateCourse::DetailList.xlsx(courses, 'test group name', '2014')
+      Export::Tabular::Events::AggregateCourse::DetailList.xlsx(courses, 'test group name', '2020')
     end
 
     private
