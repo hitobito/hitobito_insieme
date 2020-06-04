@@ -27,8 +27,8 @@ describe Insieme::Export::EventsExportJob do
     context 'top_leader' do
       let(:person) { people(:top_leader) }
 
-      it 'creates detail export for cources' do
-        expect(subject.exporter_class).to eq(Export::Tabular::Events::DetailList)
+      it 'creates detail export for courses' do
+        expect(subject.exporter_class).to eq(Vp2015::Export::Tabular::Events::DetailList)
         expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
         expect(subject.data).to be_present
       end
@@ -37,8 +37,8 @@ describe Insieme::Export::EventsExportJob do
     context 'vorstand' do
       let(:person) { Fabricate(:role, group: group, type: 'Group::Dachverein::Vorstandsmitglied').person }
 
-      it 'creates detail export for cources' do
-        expect(subject.exporter_class).to eq(Export::Tabular::Events::ShortList)
+      it 'creates detail export for courses' do
+        expect(subject.exporter_class).to eq(Vp2015::Export::Tabular::Events::ShortList)
         expect(subject.filename).to start_with('course_vid42_bsv99_insieme-schweiz_2012')
         expect(subject.data).to be_present
       end
@@ -60,7 +60,7 @@ describe Insieme::Export::EventsExportJob do
 
       it 'creates detail export for aggregate courses' do
         group.update!(vid: 42, bsv_number: '99')
-        expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::DetailList
+        expect(subject.exporter_class).to eq Vp2015::Export::Tabular::Events::AggregateCourse::DetailList
         expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end
     end
@@ -70,7 +70,7 @@ describe Insieme::Export::EventsExportJob do
 
       it 'creates short export for aggregate courses' do
         group.update!(vid: 42, bsv_number: '99')
-        expect(subject.exporter_class).to eq Export::Tabular::Events::AggregateCourse::ShortList
+        expect(subject.exporter_class).to eq Vp2015::Export::Tabular::Events::AggregateCourse::ShortList
         expect(subject.filename).to start_with('aggregate_course_vid42_bsv99_kanton-bern_2012')
       end
     end
