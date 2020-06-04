@@ -15,7 +15,8 @@ module Vp2020
       Fabricate(:course, groups: [groups(:be)], motto: 'All for one', cost: 1000,
                 application_opening_at: '01.01.2020', application_closing_at: '01.02.2020',
                 maximum_participants: 10, external_applications: false, priorization: false,
-                leistungskategorie: 'bk', fachkonzept: 'sport_jugend')
+                leistungskategorie: 'bk', fachkonzept: 'sport_jugend',
+                dates: [Fabricate(:vp2020_date)])
     end
 
     it 'exports detail events list as xlsx' do
