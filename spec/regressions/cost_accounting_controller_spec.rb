@@ -30,7 +30,7 @@ describe CostAccountingController, type: :controller  do
       it 'renders' do
         get :edit, params: { id: group.id, year: year, report: report }
         is_expected.to render_template('edit')
-        expect(assigns(:record)).to be_new_record
+        expect(assigns(:entry)).to be_new_record
       end
     end
 
@@ -150,7 +150,7 @@ describe CostAccountingController, type: :controller  do
       it 'renders' do
         get :edit, params: { id: group.id, year: year, report: report }
         is_expected.to render_template('edit')
-        expect(assigns(:record)).to be_persisted
+        expect(assigns(:entry)).to be_persisted
       end
     end
 

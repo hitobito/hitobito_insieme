@@ -4,6 +4,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 #= require ./_cost_accounting_calculator.js.coffee
+#= require ./_cost_accounting_note_copier.js.coffee
 
 $(document).on('click', '.cancel[href="#"]', (event) ->
   $(this).closest('form').get(0).reset())

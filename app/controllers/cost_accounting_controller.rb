@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -11,7 +11,7 @@ class CostAccountingController < ReportingBaseController
 
   self.remember_params = [:year]
 
-  helper_method :report, :table
+  helper_method :report, :table, :previous_entry
 
   def index
     table
@@ -25,12 +25,18 @@ class CostAccountingController < ReportingBaseController
   private
 
   def entry
-    @record ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report]).
-                                     first_or_initialize
+    @entry ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report])
+                                   .first_or_initialize
+  end
+
+  def previous_entry
+    @previous_entry ||= entry.class.where(
+      group_id: group.id, year: (year - 1), report: params[:report]
+    ).first_or_initialize
   end
 
   def report
-    @report ||= entry.report_class || fail(ActiveRecord::RecordNotFound)
+    @report ||= entry.report_class || raise(ActiveRecord::RecordNotFound)
   end
 
   def table
