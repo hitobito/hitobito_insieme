@@ -13,10 +13,9 @@ module Export::Tabular::Events
     delegate :year, to: :entry
 
     def initialize(*args)
-      super(*args)
-      self.class.send :delegate, *vp_class("Export::Tabular::Events::DetailList")::
-              COURSE_RECORD_ATTRS,
-                      to: :course_record, allow_nil: true
+      super
+      self.class.delegate(*vp_class('Export::Tabular::Events::DetailList')::COURSE_RECORD_ATTRS,
+                          to: :course_record, allow_nil: true)
     end
 
   end
