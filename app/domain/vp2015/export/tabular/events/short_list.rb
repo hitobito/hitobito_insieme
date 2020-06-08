@@ -28,7 +28,7 @@ module Vp2015::Export::Tabular::Events
     end
 
     def title_header_values
-      row = Array.new(18)
+      row = Array.new(30)
       row[0] = @group_name
       row[3] = reporting_year
       row[12] = document_title
