@@ -1,11 +1,11 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Export::Tabular::Events
+module Vp2020::Export::Tabular::Events
   class DetailList < ::Export::Tabular::Events::List
 
     def initialize(list, group_name, year)
@@ -36,8 +36,8 @@ module Export::Tabular::Events
       :beitraege_teilnehmende,
       # auswertungen
       :gemeinkostenanteil, :total_vollkosten,
-      :total_tage_teilnehmende, :vollkosten_pro_le,
-      :zugeteilte_kategorie
+      :betreuungsstunden,
+      :total_tage_teilnehmende, :vollkosten_pro_le
     ].freeze
 
     self.row_class = Export::Tabular::Events::DetailRow
@@ -47,6 +47,8 @@ module Export::Tabular::Events
     def build_attribute_labels
       super.tap do |labels|
         add_additional_course_record_labels(labels)
+        remove_course_record_label(labels, :inputkriterien)
+        remove_course_record_label(labels, :kursart)
       end
     end
 
@@ -63,7 +65,7 @@ module Export::Tabular::Events
     end
 
     def title_header_values
-      row = Array.new(18)
+      row = Array.new(67)
       row[0] = @group_name
       row[3] = reporting_year
       row[12] = document_title
@@ -73,12 +75,7 @@ module Export::Tabular::Events
     end
 
     def document_title
-      # translate
-      str = ''
-      str << I18n.t('event.lists.courses.xlsx_export_title')
-      str << ': '
-      str << title
-      str
+      "#{I18n.t('event.lists.courses.xlsx_export_title')}: #{title}"
     end
 
     def title
@@ -86,18 +83,11 @@ module Export::Tabular::Events
     end
 
     def reporting_year
-      str = ''
-      str << I18n.t('cost_accounting.index.reporting_year')
-      str << ': '
-      str << @year.to_s
-      str
+      "#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}"
     end
 
     def printed_at
-      str = ''
-      str << I18n.l(Time.zone.today)
-      str << Time.zone.now.strftime(' %H:%M')
-      str
+      I18n.l(Time.zone.today) + Time.zone.now.strftime(' %H:%M')
     end
 
   end

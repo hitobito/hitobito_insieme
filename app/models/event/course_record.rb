@@ -123,6 +123,10 @@ class Event::CourseRecord < ActiveRecord::Base
       (spezielle_unterkunft ? 1 : 0)
   end
 
+  def betreuungsstunden
+    tp? ? total_stunden_betreuung : nil
+  end
+
   def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'

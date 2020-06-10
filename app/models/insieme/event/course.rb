@@ -29,6 +29,10 @@ module Insieme
         self.used_attributes -= [:kind_id, :group_ids]
       end
 
+      def year
+        years.first
+      end
+
     end
   end
 end

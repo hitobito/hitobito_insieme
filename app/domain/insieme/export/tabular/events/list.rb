@@ -37,5 +37,9 @@ module Insieme::Export::Tabular::Events
       labels[attr] = label
     end
 
+    def remove_course_record_label(labels, attr)
+      labels.except! attr
+    end
+
   end
 end

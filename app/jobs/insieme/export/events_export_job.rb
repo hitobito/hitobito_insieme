@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2017-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,8 +7,11 @@
 
 module Insieme
   module Export::EventsExportJob
+    include Vertragsperioden::Domain
+
+    delegate :year, to: :filter
+
     def data
-      year = filter.year
       group_name = filter.group.name.parameterize
 
       exporter_class.export(@format, entries, group_name, year)
@@ -22,7 +25,7 @@ module Insieme
       end
 
       list_type = "AggregateCourse::#{list_type}" if aggregate_course?
-      "::Export::Tabular::Events::#{list_type}".constantize
+      vp_class("Export::Tabular::Events::#{list_type}")
     end
 
     def aggregate_course?
