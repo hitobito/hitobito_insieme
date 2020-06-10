@@ -9,7 +9,7 @@ module Vp2020::Export::Tabular::Events
   class AggregateCourse::DetailList < DetailList
 
     def title_header_values
-      row = Array.new(18)
+      row = Array.new(57)
       row[0] = @group_name
       row[2] = reporting_year
       row[10] = document_title
