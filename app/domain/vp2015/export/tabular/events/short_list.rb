@@ -7,7 +7,6 @@
 
 module Vp2015::Export::Tabular::Events
   class ShortList < ::Export::Tabular::Events::List
-
     def initialize(list, group_name, year)
       @group_name = group_name
       @year = year
