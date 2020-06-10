@@ -37,12 +37,7 @@ module Vp2015::Export::Tabular::Events
     end
 
     def document_title
-      # translate
-      str = ''
-      str << I18n.t('event.lists.courses.xlsx_export_title')
-      str << ': '
-      str << title
-      str
+      "#{I18n.t('event.lists.courses.xlsx_export_title')}: #{title}"
     end
 
     def title
@@ -50,19 +45,11 @@ module Vp2015::Export::Tabular::Events
     end
 
     def reporting_year
-      str = ''
-      str << I18n.t('cost_accounting.index.reporting_year')
-      str << ': '
-      str << @year.to_s
-      str
+      "#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}"
     end
 
     def printed_at
-      str = ''
-      str << I18n.l(Time.zone.today)
-      str << Time.zone.now.strftime(' %H:%M')
-      str
+      I18n.l(Time.zone.today) + Time.zone.now.strftime(' %H:%M')
     end
-
   end
 end

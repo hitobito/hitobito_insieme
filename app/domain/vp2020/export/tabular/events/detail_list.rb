@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -75,12 +75,7 @@ module Vp2020::Export::Tabular::Events
     end
 
     def document_title
-      # translate
-      str = ''
-      str << I18n.t('event.lists.courses.xlsx_export_title')
-      str << ': '
-      str << title
-      str
+      "#{I18n.t('event.lists.courses.xlsx_export_title')}: #{title}"
     end
 
     def title
@@ -88,18 +83,11 @@ module Vp2020::Export::Tabular::Events
     end
 
     def reporting_year
-      str = ''
-      str << I18n.t('cost_accounting.index.reporting_year')
-      str << ': '
-      str << @year.to_s
-      str
+      "#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}"
     end
 
     def printed_at
-      str = ''
-      str << I18n.l(Time.zone.today)
-      str << Time.zone.now.strftime(' %H:%M')
-      str
+      I18n.l(Time.zone.today) + Time.zone.now.strftime(' %H:%M')
     end
 
   end
