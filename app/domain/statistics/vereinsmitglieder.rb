@@ -14,7 +14,7 @@ module Statistics
                      Group::Kollektivmitglieder::Kollektivmitglied,
                      Group::Kollektivmitglieder::KollektivmitgliedMitAbo,
                      Group::Passivmitglieder::Passivmitglied,
-                     Group::Passivmitglieder::PassivmitgliedMitAbo]
+                     Group::Passivmitglieder::PassivmitgliedMitAbo].freeze
 
     def vereine
       @vereine ||= Group::Regionalverein.without_deleted.includes(:contact).order(:name)
@@ -46,16 +46,15 @@ module Statistics
     end
 
     def type_counts_per_layer_query
-      <<-END
+      <<-SQL
         SELECT layer_group_id, type_index, COUNT(person_id) AS count
         FROM (#{person_roles_per_layer_query}) AS t
         GROUP BY layer_group_id, type_index
-      END
+      SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def person_roles_per_layer_query
-      <<-END
+      <<-SQL
         SELECT groups.layer_group_id AS layer_group_id,
                MIN(#{type_index_switch}) AS type_index,
                roles.person_id AS person_id
@@ -67,9 +66,8 @@ module Statistics
               roles.type IN (#{role_types_param})
         GROUP BY groups.layer_group_id,
                  roles.person_id
-      END
+      SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def role_types_param
       COUNTED_ROLES.collect { |r| "'#{r.sti_name}'" }.join(', ')
