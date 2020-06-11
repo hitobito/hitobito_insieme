@@ -78,9 +78,9 @@ module Statistics
     def type_index_switch
       statement = 'CASE roles.type '
       COUNTED_ROLES.each_with_index do |t, i|
-        statement << "WHEN '#{t.sti_name}' THEN #{i} "
+        statement += "WHEN '#{t.sti_name}' THEN #{i} "
       end
-      statement << 'END'
+      statement += 'END'
     end
 
     def people_per_verein
