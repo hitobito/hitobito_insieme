@@ -18,5 +18,9 @@ module Vertragsperioden
     def vp_class(class_name)
       vertragsperiode.domain_class(class_name)
     end
+
+    def vp_i18n_scope(controller_name)
+      vertragsperiode.i18n_scope(controller_name)
+    end
   end
 end
