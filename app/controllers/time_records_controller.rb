@@ -60,6 +60,7 @@ class TimeRecordsController < ReportingBaseController
 
   include Rememberable
   include Vertragsperioden::Views
+  include Vertragsperioden::Domain
 
   self.remember_params = [:year]
 
@@ -69,7 +70,8 @@ class TimeRecordsController < ReportingBaseController
     respond_to do |format|
       format.html { redirect_to show_path }
       format.csv do
-        send_data Export::Tabular::TimeRecords::List.csv(list_entries), type: :csv
+        send_data vp_class('Export::Tabular::TimeRecords::List')
+          .csv(list_entries), type: :csv
       end
     end
   end

@@ -25,8 +25,8 @@ describe TimeRecordsController, type: :controller  do
       is_expected.to redirect_to(time_record_base_information_group_path(groups(:dachverein), 2014))
     end
 
-    it 'exports csv' do
-      get :index, params: { id: groups(:dachverein).id }, format: :csv
+    it 'exports csv for 2014' do
+      get :index, params: { id: groups(:dachverein).id, year: 2014 }, format: :csv
       csv = response.body
       expect(csv).to match(/\A;Zeiterfassung Angestellte;Zeiterfassung Ehrenamtliche mit Leistungsnachweis;Zeiterfassung Ehrenamtliche ohne Leistungsnachweis/)
       expect(csv).to match(/^Art\. 74 betreffend in 100% Stellen;;;$/)
