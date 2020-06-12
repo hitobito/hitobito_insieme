@@ -11,6 +11,8 @@ module Vp2020::Export
     module CourseReporting
       class Aggregation
 
+        include Vertragsperioden::Domain
+
         NON_TP_ATTRIBUTES = %i(
           anzahl_kurse kursdauer
 
@@ -48,6 +50,7 @@ module Vp2020::Export
         end
 
         attr_reader :aggregation
+        delegate :year, to: :aggregation
 
         def initialize(aggregation)
           @aggregation = aggregation
@@ -74,6 +77,17 @@ module Vp2020::Export
 
         private
 
+        def vp_translation(attr)
+          scope = vp_i18n_scope('course_reporting.aggregations')
+          if treffpunkt?
+            I18n.t("#{attr}_tp", scope: scope, default: [attr.to_sym, t(attr)])
+          elsif abrechnung_in_stunden?
+            I18n.t("#{attr}_stunden", scope: scope, default: [attr.to_sym, t(attr)])
+          else
+            I18n.t(attr, scope: scope, default: t(attr))
+          end
+        end
+
         def t(attr)
           if abrechnung_in_stunden?
             I18n.t("course_reporting.aggregations.#{attr}_stunden",
@@ -97,7 +111,7 @@ module Vp2020::Export
         end
 
         def attributes(attr)
-          values(t(attr)) do |kriterium, kursart|
+          values(vp_translation(attr)) do |kriterium, kursart|
             aggregation.course_counts(kriterium, kursart, attr)
           end
         end
