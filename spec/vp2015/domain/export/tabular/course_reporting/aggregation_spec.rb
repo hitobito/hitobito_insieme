@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::CourseReporting::Aggregation do
+describe Vp2015::Export::Tabular::CourseReporting::Aggregation do
 
   let(:values) do
     {
@@ -31,6 +31,8 @@ describe Export::Tabular::CourseReporting::Aggregation do
       gemeinkostenanteil: 10
     }
   end
+
+  let(:year) { 2014 }
 
   def export(leistungskategorie)
     exporter(leistungskategorie).data_rows.to_a
@@ -160,10 +162,10 @@ describe Export::Tabular::CourseReporting::Aggregation do
 
   def new_aggregration(attrs = {})
     defaults = { group_id: groups(:be).id,
-                 year: 2014,
+                 year: year,
                  leistungskategorie: 'bk',
                  zugeteilte_kategorie: [1,2,3],
                  subventioniert: [true, false] }
-    CourseReporting::Aggregation.new(*defaults.merge(attrs).values)
+    vp_class('CourseReporting::Aggregation').new(*defaults.merge(attrs).values)
   end
 end

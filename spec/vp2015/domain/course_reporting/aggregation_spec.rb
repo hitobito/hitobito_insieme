@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CourseReporting::Aggregation do
+describe Vp2015::CourseReporting::Aggregation do
 
   let(:values) do
     {
@@ -298,7 +298,7 @@ describe CourseReporting::Aggregation do
 
   def assert_summed_totals
     records = Event::CourseRecord.all.to_a
-    attrs = CourseReporting::Aggregation::RUBY_SUMMED_ATTRS
+    attrs = Vp2015::CourseReporting::Aggregation::RUBY_SUMMED_ATTRS
     attrs.each do |attr|
       expected = records.sum { |r| r.send(attr).to_d }
       actual = course_totals(attr)
