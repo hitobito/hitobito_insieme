@@ -8,6 +8,7 @@
 class CourseReporting::AggregationsController < ApplicationController
 
   include Vertragsperioden::Views
+  include Vertragsperioden::Domain
   include YearBasedPaging
 
   layout 'reporting'
@@ -25,7 +26,7 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def export
-    csv = Export::Tabular::CourseReporting::Aggregation.csv(aggregation)
+    csv = vp_class('Export::Tabular::CourseReporting::Aggregation').csv(aggregation)
     send_data csv, type: :csv, filename: filename
   end
 
@@ -36,11 +37,11 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def aggregation
-    @aggregation ||= CourseReporting::Aggregation.new(aggregation_group_id,
-                                                      year,
-                                                      leistungskategorie,
-                                                      categories,
-                                                      subsidized)
+    @aggregation ||= vp_class('CourseReporting::Aggregation').new(aggregation_group_id,
+                                                                  year,
+                                                                  leistungskategorie,
+                                                                  categories,
+                                                                  subsidized)
   end
 
   def aggregation_group_id

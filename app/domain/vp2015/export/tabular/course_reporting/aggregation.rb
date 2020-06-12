@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export
+module Vp2015::Export
   module Tabular
     module CourseReporting
       class Aggregation
