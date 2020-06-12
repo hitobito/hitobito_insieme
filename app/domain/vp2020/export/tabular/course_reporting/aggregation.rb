@@ -36,8 +36,7 @@ module Vp2020::Export
 
           total_stunden_betreuung
 
-          betreuende leiterinnen fachpersonen hilfspersonal_ohne_honorar hilfspersonal_mit_honorar
-          direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
+          betreuende direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
 
           direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
           betreuungsschluessel anzahl_spezielle_unterkunft
