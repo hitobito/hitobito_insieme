@@ -10,12 +10,12 @@ module Event::Reportable
   extend ActiveSupport::Concern
 
   LEISTUNGSKATEGORIEN = %w(bk tk sk tp).freeze
-  FACHKONZEPTE = %w(
+  KURSFACHKONZEPTE = %w(
     freizeit_jugend freizeit_erwachsen
     sport_jugend sport_erwachsen
     autonomie_foerderung
-    treffpunkt
   ).freeze
+  FACHKONZEPTE = (KURSFACHKONZEPTE + ['treffpunkt']).freeze
 
   included do
     self.used_attributes += [:leistungskategorie, :fachkonzept]
@@ -73,7 +73,7 @@ module Event::Reportable
   end
 
   def kurs_fachkonzept?
-    (FACHKONZEPTE - ['treffpunkt']).include? fachkonzept
+    KURSFACHKONZEPTE.include? fachkonzept
   end
 
   def treffpunkt_leistungskategorie?
@@ -96,7 +96,7 @@ module Event::Reportable
     end
 
     def available_kursfachkonzepte
-      translate_fachkonzepte(FACHKONZEPTE - ['treffpunkt'])
+      translate_fachkonzepte(KURSFACHKONZEPTE)
     end
 
     private
