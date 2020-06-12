@@ -54,8 +54,8 @@ module Vp2020::CourseReporting
       @subventioniert = subventioniert
     end
 
-    def course_counts(inputkriterium, kursart, attr)
-      data.fetch(inputkriterium).fetch(kursart).send(attr)
+    def course_counts(fachkonzept, kursart, attr)
+      data.fetch(fachkonzept).fetch(kursart).send(attr)
     end
 
     def kursarten
@@ -64,14 +64,14 @@ module Vp2020::CourseReporting
       Event::CourseRecord::KURSARTEN
     end
 
-    def inputkriterien
-      Event::CourseRecord::INPUTKRITERIEN
+    def kursfachkonzepte
+      Event::Reportable::KURSFACHKONZEPTE
     end
 
     def scope
       Event::CourseRecord.
         joins(:event).
-        group(:kursart, :inputkriterien).
+        group(:kursart, :fachkonzept).
         merge(group_id ? Event.with_group_id(group_id) : {}).
         where(events: { leistungskategorie: leistungskategorie },
               event_course_records: {
@@ -93,8 +93,8 @@ module Vp2020::CourseReporting
     end
 
     def build_categories(hash)
-      inputkriterien.each do |kriterium|
-        hash[kriterium]['total'] = total(records_for(:inputkriterien, kriterium))
+      kursfachkonzepte.each do |kriterium|
+        hash[kriterium]['total'] = total(records_for(:fachkonzept, kriterium))
         kursarten.each do |kursart|
           hash[kriterium][kursart] = find_record(kriterium, kursart)
         end
@@ -112,8 +112,8 @@ module Vp2020::CourseReporting
       records.select { |record| record.send(attr) == value }
     end
 
-    def find_record(inputkriterium, kursart)
-      records.find { |r| r.inputkriterien == inputkriterium && r.kursart == kursart } ||
+    def find_record(fachkonzept, kursart)
+      records.find { |r| r.fachkonzept == fachkonzept && r.kursart == kursart } ||
         empty_course_record
     end
 
@@ -138,7 +138,7 @@ module Vp2020::CourseReporting
     def select_clause
       columns = ['event_course_records.year',
                  'event_course_records.kursart',
-                 'event_course_records.inputkriterien',
+                 'events.fachkonzept',
                  'event_course_records.event_id']
       columns.concat(sql_summed_attrs)
       columns << sql_sum_unterkunft

@@ -35,7 +35,8 @@ module Vp2020::Export
             if kriterium == 'all'
               kursart_label(kursart)
             else
-              "#{t(kriterium)} #{kursart_label(kursart)}"
+              key = "activerecord.attributes.event/course.fachkonzepte.#{kriterium}"
+              "#{I18n.t(key)}: #{kursart_label(kursart)}"
             end
           end
         end
@@ -136,7 +137,7 @@ module Vp2020::Export
 
         def kriterien
           if blockkurs? || tageskurs?
-            aggregation.inputkriterien
+            aggregation.kursfachkonzepte
           else
             %w(all)
           end
