@@ -10,6 +10,37 @@ module Vp2015::Export
   module Tabular
     module CourseReporting
       class Aggregation
+
+        NON_TP_ATTRIBUTES = %i(
+          anzahl_kurse kursdauer
+
+          teilnehmende teilnehmende_behinderte teilnehmende_angehoerige teilnehmende_weitere
+
+          total_absenzen absenzen_behinderte absenzen_angehoerige absenzen_weitere
+
+          total_tage_teilnehmende tage_behinderte tage_angehoerige tage_weitere
+
+          betreuende leiterinnen fachpersonen hilfspersonal_ohne_honorar hilfspersonal_mit_honorar
+          kuechenpersonal direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
+
+          direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
+          betreuungsschluessel anzahl_spezielle_unterkunft
+        ).freeze
+
+        TP_ATTRIBUTES = %i(
+          anzahl_kurse kursdauer
+
+          teilnehmende teilnehmende_behinderte teilnehmende_angehoerige teilnehmende_weitere
+
+          total_stunden_betreuung
+
+          betreuende leiterinnen fachpersonen hilfspersonal_ohne_honorar hilfspersonal_mit_honorar
+          direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
+
+          direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
+          betreuungsschluessel anzahl_spezielle_unterkunft
+        ).freeze
+
         class << self
           def csv(aggregation)
             Export::Csv::Generator.new(new(aggregation)).call
@@ -59,58 +90,9 @@ module Vp2015::Export
           end
         end
 
-        def attributes_of_leistungskategorie # rubocop:disable Metrics/MethodLength This is more data than function
-          attrs = [
-            :anzahl_kurse,
-            :kursdauer,
-
-            :teilnehmende,
-            :teilnehmende_behinderte,
-            :teilnehmende_angehoerige,
-            :teilnehmende_weitere
-          ]
-
-          attrs += if treffpunkt?
-                     [:total_stunden_betreuung]
-                   else
-                     [
-                       :total_absenzen,
-                       :absenzen_behinderte,
-                       :absenzen_angehoerige,
-                       :absenzen_weitere,
-
-                       :total_tage_teilnehmende,
-                       :tage_behinderte,
-                       :tage_angehoerige,
-                       :tage_weitere
-                     ]
-                   end
-
-          attrs += [
-            :betreuende,
-            :leiterinnen,
-            :fachpersonen,
-            :hilfspersonal_ohne_honorar,
-            :hilfspersonal_mit_honorar
-          ]
-
-          attrs += [:kuechenpersonal] unless treffpunkt?
-
-          attrs += [
-            :direkter_aufwand,
-            :honorare_inkl_sozialversicherung,
-            :unterkunft,
-            :uebriges,
-
-            :direkte_kosten_pro_le,
-            :total_vollkosten,
-            :vollkosten_pro_le,
-            :beitraege_teilnehmende,
-            :betreuungsschluessel,
-            :anzahl_spezielle_unterkunft
-          ]
-
-          attrs
+        def attributes_of_leistungskategorie
+          TP_ATTRIBUTES if treffpunkt?
+          NON_TP_ATTRIBUTES
         end
 
         def attributes(attr)
