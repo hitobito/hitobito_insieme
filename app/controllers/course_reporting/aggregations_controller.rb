@@ -7,6 +7,7 @@
 
 class CourseReporting::AggregationsController < ApplicationController
 
+  include Vertragsperioden::Views
   include YearBasedPaging
 
   layout 'reporting'
