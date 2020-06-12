@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -27,6 +27,7 @@ class ReportingParameter < ActiveRecord::Base
 
   def self.for(year)
     return unless year
+
     where('year <= ?', year).order('year DESC').first
   end
 

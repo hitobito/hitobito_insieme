@@ -21,7 +21,6 @@ module Vp2020
              :total_lufeb_specific,
              :total_lufeb_promoting,
              :nicht_art_74_leistungen,
-
              :verwaltung,
              :beratung,
              :treffpunkte,
@@ -57,7 +56,6 @@ module Vp2020
              :allgemeine_auskunftserteilung,
              :type,
              :year,
-
              :unterstuetzung_leitorgane,
              :freiwilligen_akquisition,
              :auskuenfte,
@@ -71,7 +69,6 @@ module Vp2020
              :total_lufeb_media,
              :kurse_grundlagen,
              :lufeb_grundlagen,
-
              to: :record
 
     def total_lufeb
@@ -186,4 +183,3 @@ module Vp2020
 
   end
 end
-

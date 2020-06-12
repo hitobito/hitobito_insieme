@@ -21,7 +21,6 @@ module Vp2015
              :total_lufeb_specific,
              :total_lufeb_promoting,
              :nicht_art_74_leistungen,
-
              :verwaltung,
              :beratung,
              :treffpunkte,
@@ -57,7 +56,6 @@ module Vp2015
              :allgemeine_auskunftserteilung,
              :type,
              :year,
-
              to: :record
 
     def total_lufeb
@@ -130,7 +128,7 @@ module Vp2015
       @globals ||= ReportingParameter.for(year)
     end
 
-    # rubocop:disable MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def calculate_total_lufeb_general
       @record.total_lufeb_general =
         kontakte_medien.to_i +
@@ -144,7 +142,7 @@ module Vp2015
         kontakte_meinungsbildner.to_i +
         beratung_medien.to_i
     end
-    # rubocop:enable MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def calculate_total_lufeb_private
       @record.total_lufeb_private =
@@ -178,4 +176,3 @@ module Vp2015
 
   end
 end
-

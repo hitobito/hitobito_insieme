@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2014, Insieme Schweiz. This file is part of
 #  hitobito_cevi and licensed under the Affero General Public License version 3
@@ -15,7 +15,7 @@ source 'https://rubygems.org'
 gemspec
 
 # Load application Gemfile for all application dependencies.
-# rubocop:disable Eval
+# rubocop:disable Security/Eval
 eval File.read(File.expand_path('Gemfile', ENV['APP_ROOT']))
 
 group :development, :test do

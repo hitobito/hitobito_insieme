@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2014 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
@@ -8,7 +8,7 @@
 module Export::Xlsx::Events
   class Style < Export::Xlsx::Style
 
-    BLACK = '000000'.freeze
+    BLACK = '000000'
     CURRENCY = 2
     DATE = 14
 
@@ -20,7 +20,7 @@ module Export::Xlsx::Events
                                      :centered_border_small, :centered_border_wrap,
                                      :vertical_centered_wrap]
 
-    # rubocop:disable MethodLength
+    # rubocop:disable Metrics/MethodLength
     def column_widths
       [20, 20, 3.3, 20, 2.57, 7.43] + # #1-6
       Array.new(9, 2.57) + # #7-15
@@ -50,7 +50,7 @@ module Export::Xlsx::Events
       Array.new(3, :currency) +
       [:centered_border]
     end
-    # rubocop:enable MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     def header_styles
       [nil, style_title_header_row, nil]
