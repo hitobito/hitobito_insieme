@@ -359,6 +359,10 @@ de:
   vp2020:
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
+    course_reporting:
+      aggregations:
+        anzahl_kurse_tp: Anzahl Durchführungen
+        betreuende_tp: Betreuungspersonen
     events:
       anzahl_durchfuehrungen: Anzahl Durchführungen
     time_records:
