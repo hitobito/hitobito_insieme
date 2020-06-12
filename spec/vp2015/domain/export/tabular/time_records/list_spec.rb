@@ -7,14 +7,16 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::TimeRecords::List do
+describe 'Export::Tabular::TimeRecords::List' do
 
   let(:year)  { 2014 }
   let(:group) { groups(:be) }
 
   context 'without records' do
     it 'contains correct headers' do
-      labels = described_class.new(TimeRecord.where(group_id: group.id, year: year)).labels
+      labels = vp_class('Export::Tabular::TimeRecords::List')
+                 .new(TimeRecord.where(group_id: group.id, year: year))
+                 .labels
       expect(labels).to eq [nil,
                             'Zeiterfassung Angestellte',
                             'Zeiterfassung Ehrenamtliche mit Leistungsnachweis',
@@ -62,8 +64,10 @@ describe Export::Tabular::TimeRecords::List do
   end
 
   def export
-    exporter = described_class.new(TimeRecord.where(group_id: group.id, year: year))
-    exporter.data_rows.to_a
+    vp_class('Export::Tabular::TimeRecords::List')
+      .new(TimeRecord.where(group_id: group.id, year: year))
+      .data_rows
+      .to_a
   end
 
 end
