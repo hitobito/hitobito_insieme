@@ -91,7 +91,7 @@ module Vp2015::Export
         end
 
         def attributes_of_leistungskategorie
-          TP_ATTRIBUTES if treffpunkt?
+          return TP_ATTRIBUTES if treffpunkt?
           NON_TP_ATTRIBUTES
         end
 
