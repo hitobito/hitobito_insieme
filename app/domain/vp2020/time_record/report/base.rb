@@ -8,7 +8,7 @@
 module Vp2020
   class TimeRecord::Report::Base
 
-    FIELDS = %w(paragraph_74 not_paragraph_74 total)
+    FIELDS = %w(paragraph_74 not_paragraph_74 total).freeze
 
     class << self
       def key
