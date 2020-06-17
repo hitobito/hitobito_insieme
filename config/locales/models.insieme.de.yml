@@ -633,6 +633,7 @@ de:
         vollkosten_le_schwelle2_tageskurs: Tageskurs Schwellenwert 2 Vollkosten/LE
         bsv_hours_per_year: BSV Stunden pro Jahr
         capital_substrate_exemption: BSV Kapitalsubstrat Freibetrag
+        capital_substrate_limit: BSV Kapitalsubstrat Limit
 
       time_record:
         year: Jahr
