@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -63,6 +63,7 @@ describe ReportingParameter do
       is_expected.to have(1).errors_on(:vollkosten_le_schwelle2_blockkurs)
       is_expected.to have(1).errors_on(:bsv_hours_per_year)
       is_expected.to have(1).errors_on(:capital_substrate_exemption)
+      is_expected.to have(1).errors_on(:capital_substrate_limit)
     end
 
     it 'validates uniqneness of year' do
@@ -76,6 +77,7 @@ describe ReportingParameter do
                                vollkosten_le_schwelle1_blockkurs: 1,
                                vollkosten_le_schwelle2_blockkurs: 2,
                                bsv_hours_per_year: 1900,
-                               capital_substrate_exemption: 200_000)
+                               capital_substrate_exemption: 200_000,
+                               capital_substrate_limit: 2.0)
   end
 end
