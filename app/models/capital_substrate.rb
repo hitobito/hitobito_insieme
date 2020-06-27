@@ -14,6 +14,7 @@
 #  year                 :integer          not null
 #  organization_capital :decimal(12, 2)
 #  fund_building        :decimal(12, 2)
+#  earmarked_funds      :decimal(12, 2)
 #  created_at           :datetime
 #  updated_at           :datetime
 #

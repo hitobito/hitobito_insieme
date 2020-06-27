@@ -32,6 +32,8 @@ de:
 
   capital_substrate:
     edit:
+      deckungsbeitrag4_sum_notice: "Hinweis: Bei Vereinen mit einem IV-Beitrag von <strong>weniger</strong> als CHF 300'000 werden die aufgelaufenen DB4 seit 2015 in der Kapitalsubstratsberechnung mit berücksichtigt."
+      deckungsbeitrag4_sum: Summe der DB4 von 2015 bis %{year}
       help_per_date: per %{date}
 
   contactable:
