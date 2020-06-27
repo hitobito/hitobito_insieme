@@ -37,8 +37,8 @@ class ControllingController < ApplicationController
   end
 
   def group_figures
-    @stats = Statistics::GroupFigures.new(year)
-    csv = Export::Tabular::Statistics::GroupFigures.csv(@stats)
+    @stats = vp_class('Statistics::GroupFigures').new(year)
+    csv = vp_class('Export::Tabular::Statistics::GroupFigures').csv(@stats)
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 

@@ -401,6 +401,14 @@ de:
         betreuende_tp: Betreuungspersonen
     events:
       anzahl_durchfuehrungen: Anzahl Durchführungen
+    statistics:
+      group_figures:
+        anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
+        total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept})"
+        tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{fachkonzept}"
+        tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
+        tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
+        tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 

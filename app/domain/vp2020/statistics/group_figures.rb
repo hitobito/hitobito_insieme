@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Statistics
+module Vp2020::Statistics
   class GroupFigures
     include Vertragsperioden::Domain
 
@@ -25,12 +25,12 @@ module Statistics
       Event::Reportable::LEISTUNGSKATEGORIEN
     end
 
-    def kategorien
-      %w(1 2 3)
+    def fachkonzepte
+      Event::Reportable::KURSFACHKONZEPTE
     end
 
-    def course_record(group, leistungskategorie, kategorie)
-      course_records[group.id][leistungskategorie][kategorie]
+    def course_record(group, leistungskategorie, fachkonzept)
+      course_records[group.id][leistungskategorie][fachkonzept]
     end
 
     def employee_time(group)
@@ -68,7 +68,7 @@ module Statistics
       @course_records ||= begin
         hash = Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }
         load_course_records.each do |record|
-          hash[record.group_id][record.leistungskategorie][record.zugeteilte_kategorie] = record
+          hash[record.group_id][record.leistungskategorie][record.fachkonzept] = record
         end
         hash
       end
@@ -80,12 +80,12 @@ module Statistics
                          .joins('INNER JOIN events_groups ON events.id = events_groups.event_id')
                          .where(year: year, subventioniert: true)
                          .group('events_groups.group_id, events.leistungskategorie, ' \
-                                'event_course_records.zugeteilte_kategorie')
+                                'events.fachkonzept')
     end
 
     def course_record_columns
       'events_groups.group_id, events.leistungskategorie, ' \
-      'event_course_records.zugeteilte_kategorie, ' \
+      'events.fachkonzept, ' \
       'MAX(event_course_records.year) AS year, ' \
       'SUM(anzahl_kurse) AS anzahl_kurse, ' \
       'SUM(tage_behinderte) AS tage_behinderte, ' \
@@ -116,11 +116,11 @@ module Statistics
     end
 
     def cost_accounting
-      @cost_accounting ||= vp_class('CostAccounting::Aggregation').new(year)
+      @cost_accounting ||= CostAccounting::Aggregation.new(year)
     end
 
     def nil_cost_accounting_table(group)
-      vp_class('CostAccounting::Table').new(group, year).tap do |table|
+      CostAccounting::Table.new(group, year).tap do |table|
         table.set_records(nil, nil, nil)
       end
     end
