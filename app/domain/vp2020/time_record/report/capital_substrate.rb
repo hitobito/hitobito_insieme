@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -13,7 +13,7 @@ module Vp2020
 
     self.kind = :capital_substrate
 
-    DECKUNGSBEITRAG4_THRESHOLD = 300000.0
+    DECKUNGSBEITRAG4_THRESHOLD = 300_000.0
 
     def initialize(*args)
       super
@@ -60,10 +60,10 @@ module Vp2020
 
     def capital_substrate_allocated
       organization_capital_allocated.to_d +
-          record.earmarked_funds.to_d +
-          deckungsbeitrag4.to_d +
-          record.fund_building.to_d +
-          exemption.to_d
+        record.earmarked_funds.to_d +
+        deckungsbeitrag4.to_d +
+        record.fund_building.to_d +
+        exemption.to_d
     end
 
     def paragraph_74
@@ -72,8 +72,8 @@ module Vp2020
 
     private
 
-    def time_record_table(y)
-      @time_record_tables[y] ||= vp_class('TimeRecord::Table').new(table.group, y)
+    def time_record_table(year)
+      @time_record_tables[year] ||= vp_class('TimeRecord::Table').new(table.group, year)
     end
 
     def globals
