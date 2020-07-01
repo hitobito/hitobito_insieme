@@ -50,7 +50,9 @@ module Vp2020
     end
 
     def deckungsbeitrag4
-      0 if table.cost_accounting_value_of('beitraege_iv', 'total').to_d > DECKUNGSBEITRAG4_THRESHOLD
+      deckungsbeitrag4_total = table.cost_accounting_value_of('beitraege_iv', 'total').to_d
+      return 0 if deckungsbeitrag4_total > DECKUNGSBEITRAG4_THRESHOLD
+
       deckungsbeitrag4_sum
     end
 
