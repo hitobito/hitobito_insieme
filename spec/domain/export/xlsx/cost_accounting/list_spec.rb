@@ -9,8 +9,9 @@ require 'spec_helper'
 
 describe Export::Tabular::CostAccounting::List do
 
+  let(:year) { 2014 }
   let(:group) { groups(:aktiv) }
-  let(:values) { CostAccounting::Table.new(group, '2010').reports.values }
+  let(:values) { vp_class('CostAccounting::Table').new(group, year).reports.values }
 
   it 'exports cost accounting list as xlsx' do
     expect_any_instance_of(Axlsx::Worksheet)
@@ -23,7 +24,7 @@ describe Export::Tabular::CostAccounting::List do
       .exactly(30).times
       .and_call_original
 
-    Export::Tabular::CostAccounting::List.xlsx(values, 'test group name', '2014')
+    Export::Tabular::CostAccounting::List.xlsx(values, 'test group name', year)
   end
 
   private

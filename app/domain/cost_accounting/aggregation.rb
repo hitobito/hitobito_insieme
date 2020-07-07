@@ -92,7 +92,7 @@ module CostAccounting
         @aggregation = aggregation
       end
 
-      Table.fields.each do |field|
+      vp_class('CostAccounting::Table').fields.each do |field|
         define_method(field) do
           @aggregation.value_of(key, field)
         end

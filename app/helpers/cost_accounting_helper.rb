@@ -7,6 +7,8 @@
 
 module CostAccountingHelper
 
+  include Vertragsperioden::Domain
+
   def cost_accounting_input_fields(f, *fields)
     course_fields = CostAccounting::Report::CourseRelated::COURSE_FIELDS.keys.map(&:to_s)
     safe_join(fields) do |field|
@@ -27,7 +29,7 @@ module CostAccountingHelper
   end
 
   def cost_accounting_reports
-    CostAccounting::Table::REPORTS
+    vp_class('CostAccounting::Table')::REPORTS
   end
 
   def base_time_record_group_path(group, _params = {})

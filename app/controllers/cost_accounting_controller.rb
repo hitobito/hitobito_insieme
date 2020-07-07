@@ -9,6 +9,8 @@ class CostAccountingController < ReportingBaseController
 
   include Rememberable
 
+  include Vertragsperioden::Domain
+
   self.remember_params = [:year]
 
   helper_method :report, :table, :previous_entry
@@ -40,7 +42,7 @@ class CostAccountingController < ReportingBaseController
   end
 
   def table
-    @table ||= CostAccounting::Table.new(group, year)
+    @table ||= vp_class('CostAccounting::Table').new(group, year)
   end
 
   def permitted_params

@@ -120,7 +120,7 @@ module Statistics
     end
 
     def nil_cost_accounting_table(group)
-      CostAccounting::Table.new(group, year).tap do |table|
+      vp_class('CostAccounting::Table').new(group, year).tap do |table|
         table.set_records(nil, nil, nil)
       end
     end

@@ -11,7 +11,7 @@ describe CostAccounting::Report::Base do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { CostAccounting::Table.new(group, year) }
+  let(:table) { vp_class('CostAccounting::Table').new(group, year) }
   let(:report) { CostAccounting::Report::Lohnaufwand.new(table) }
 
   before do
@@ -46,7 +46,7 @@ describe CostAccounting::Report::Base do
     end
   end
 
-  CostAccounting::Table::REPORTS.each do |report|
+  vp_class('CostAccounting::Table')::REPORTS.each do |report|
     context report.key do
       it 'has valid used fields' do
         expect(report.used_fields - CostAccounting::Report::Base::FIELDS).to eq []

@@ -7,13 +7,18 @@
 
 class Event::GeneralCostFromAccounting
 
+  include Vertragsperioden::Domain
+
+  attr_accessor :year
+
   LEISTUNGSKATEGORIE_MAPPING = { 'bk' => 'blockkurse',
                                  'tk' => 'tageskurse',
                                  'sk' => 'jahreskurse',
                                  'tp' => 'treffpunkte' }
 
   def initialize(group, year)
-    @table = CostAccounting::Table.new(group, year)
+    @year = year
+    @table = vp_class('CostAccounting::Table').new(group, year)
   end
 
   def general_cost(leistungskategorie)

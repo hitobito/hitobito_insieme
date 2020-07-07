@@ -10,7 +10,7 @@ require 'spec_helper'
 describe CostAccounting::Report::CourseRelated do
 
   let(:group) { groups(:be) }
-  let(:table) { CostAccounting::Table.new(group, year) }
+  let(:table) { vp_class('CostAccounting::Table').new(group, year) }
   let(:report) { table.reports.fetch('raumaufwand') }
 
   context 'based on courses' do

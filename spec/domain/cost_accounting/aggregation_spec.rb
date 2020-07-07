@@ -12,9 +12,9 @@ describe CostAccounting::Aggregation do
   let(:year) { 2016 }
   let(:aggregation) { CostAccounting::Aggregation.new(year) }
 
-  let(:table_be) { CostAccounting::Table.new(groups(:be), year) }
-  let(:table_fr) { CostAccounting::Table.new(groups(:fr), year) }
-  let(:table_se) { CostAccounting::Table.new(groups(:seeland), year) }
+  let(:table_be) { vp_class('CostAccounting::Table').new(groups(:be), year) }
+  let(:table_fr) { vp_class('CostAccounting::Table').new(groups(:fr), year) }
+  let(:table_se) { vp_class('CostAccounting::Table').new(groups(:seeland), year) }
 
   before do
     # be
@@ -134,7 +134,7 @@ describe CostAccounting::Aggregation do
   context '#value_of' do
     it 'corresponds to sum of all tables' do
       errors = []
-      CostAccounting::Table::REPORTS.each do |report|
+      vp_class('CostAccounting::Table')::REPORTS.each do |report|
         CostAccounting::Report::Base::FIELDS.each do |field|
           value = aggregation.value_of(report.key, field).to_d
           sum = table_be.value_of(report.key, field).to_d +
