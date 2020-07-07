@@ -15,13 +15,12 @@ module Vp2020::CostAccounting
                CostAccounting::Report::TotalPersonalaufwand,
                CostAccounting::Report::Raumaufwand,
                CostAccounting::Report::UebrigerSachaufwand,
-               CostAccounting::Report::Abschreibungen,
-               CostAccounting::Report::TotalAufwand,
+               Vp2020::CostAccounting::Report::TotalAufwand,
                CostAccounting::Report::UmlagePersonal,
                CostAccounting::Report::UmlageRaeumlichkeiten,
                CostAccounting::Report::UmlageVerwaltung,
                CostAccounting::Report::TotalUmlagen,
-               CostAccounting::Report::Vollkosten,
+               Vp2020::CostAccounting::Report::Vollkosten,
                CostAccounting::Report::Leistungsertrag,
                CostAccounting::Report::BeitraegeIv,
                CostAccounting::Report::SonstigeBeitraege,
@@ -40,7 +39,7 @@ module Vp2020::CostAccounting
 
     class << self
       def fields
-        CostAccounting::Report::Base::FIELDS
+        CostAccounting::Report::Base::FIELDS - %w(abschreibungen)
       end
     end
 
