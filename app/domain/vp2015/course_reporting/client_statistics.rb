@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module CourseReporting
+module Vp2015::CourseReporting
   class ClientStatistics
 
     ROLE_ASSOCIATIONS = {
