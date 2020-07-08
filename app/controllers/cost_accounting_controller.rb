@@ -15,6 +15,12 @@ class CostAccountingController < ReportingBaseController
 
   helper_method :report, :table, :previous_entry
 
+  before_action :report, only: [:edit]
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to request.parameters.except(:report).merge({ action: index })
+  end
+
   def index
     table
     respond_to do |format|
