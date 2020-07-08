@@ -76,9 +76,9 @@ class TimeRecord < ActiveRecord::Base
 
   def vp_calculations
     @vp_calculations ||= Vertragsperioden::Dispatcher
-                           .new(year)
-                           .domain_class('TimeRecord::Calculation')
-                           .new(self)
+                         .new(year)
+                         .domain_class('TimeRecord::Calculation')
+                         .new(self)
   end
 
   delegate :total_lufeb, :total_courses, :total_additional_person_specific, :total_remaining,
