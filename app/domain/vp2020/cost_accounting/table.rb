@@ -28,10 +28,7 @@ module Vp2020::CostAccounting
                CostAccounting::Report::IndirekteSpenden,
                CostAccounting::Report::DirekteSpendenAusserhalb,
                CostAccounting::Report::TotalErtraege,
-               CostAccounting::Report::Deckungsbeitrag1,
-               CostAccounting::Report::Deckungsbeitrag2,
-               CostAccounting::Report::Deckungsbeitrag3,
-               CostAccounting::Report::Deckungsbeitrag4,
+               Vp2020::CostAccounting::Report::Deckungsbeitrag4,
                CostAccounting::Report::Unternehmenserfolg]
 
 
