@@ -11,9 +11,19 @@ class CostAccountingController < ReportingBaseController
 
   include Vertragsperioden::Domain
 
+  SECTION_FIELDS = %w(raeumlichkeiten
+                      verwaltung
+                      beratung
+                      treffpunkte
+                      blockkurse
+                      tageskurse
+                      jahreskurse
+                      lufeb
+                      mittelbeschaffung).freeze
+
   self.remember_params = [:year]
 
-  helper_method :report, :table, :previous_entry
+  helper_method :report, :table, :previous_entry, :section_fields
 
   before_action :report, only: [:edit]
 
@@ -31,6 +41,10 @@ class CostAccountingController < ReportingBaseController
   end
 
   private
+
+  def section_fields
+    SECTION_FIELDS
+  end
 
   def entry
     @entry ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report])

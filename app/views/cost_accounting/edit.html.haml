@@ -5,16 +5,6 @@
 
 - @subtitle = I18n.t('crud.edit.title', model: entry)
 
-- section_fields = %w(raeumlichkeiten
--                     verwaltung
--                     beratung
--                     treffpunkte
--                     blockkurse
--                     tageskurse
--                     jahreskurse
--                     lufeb
--                     mittelbeschaffung)
-
 = reporting_frozen_message
 
 = crud_form(entry, url: cost_accounting_report_group_path(group, year, entry.report),
