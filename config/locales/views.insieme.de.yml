@@ -363,6 +363,33 @@ de:
       report:
         deckungsbeitrag4:
           name: Deckungsbeitrag 4
+        direkte_spenden:
+          name: Zweckgebundene Spenden/sonstige Erträge Art. 74
+          short_name: Zweckgebundene Spenden (Art. 74)
+        indirekte_spenden:
+          name: Nicht zweckgebundene Spenden/sonstige Erträge Art. 74
+          short_name: Nicht zweckgebundene Spenden (Art. 74)
+        leistungsertrag:
+          name: Leistungen
+          short_name: Leistungen
+        sonstige_beitraege:
+          name: Sonstige Beiträge Bund/Kantone/Gemeinden
+          short_name: Beiträge Bund/Kantone/Gemeinden
+        total_aufwand:
+          name: Total Aufwand
+          short_name: Total Aufwand
+        total_ertraege:
+          name: Total Ertrag
+          short_name: Total Ertrag
+        total_umlagen:
+          name: Gemeinkosten
+          short_name: Gemeinkosten
+        total_personalaufwand:
+          name: Total Personalaufwand
+          short_name: Total Personalaufwand
+        unternehmenserfolg:
+          name: Ertrag minus Aufwand
+          short_name: Ertrag minus Aufwand
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
     course_reporting:
