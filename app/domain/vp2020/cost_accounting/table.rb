@@ -58,7 +58,7 @@ module Vp2020::CostAccounting
 
     class << self
       def fields
-        CostAccounting::Report::Base::FIELDS - %w(abschreibungen)
+        CostAccounting::Report::Base::FIELDS
       end
     end
 
