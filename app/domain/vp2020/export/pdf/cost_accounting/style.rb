@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 #
 
-module Export::Pdf::CostAccounting::Style
+module Vp2020::Export::Pdf::CostAccounting::Style
   COLORED_ROWS = [0, 5, 9, 14, 21].freeze
   CUSTOM_WIDTH_COLUMNS = [5].freeze
 

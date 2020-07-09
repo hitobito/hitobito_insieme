@@ -8,6 +8,9 @@
 
 module Export::Tabular::CostAccounting
   class List < Export::Tabular::Base
+    include Vertragsperioden::Domain
+
+    attr_accessor :year
 
     self.model_class = ::CostAccounting::Report::Base
     self.row_class = Export::Tabular::CostAccounting::Row
@@ -24,7 +27,7 @@ module Export::Tabular::CostAccounting
       {}.tap do |labels|
         labels[:report] = human(:report)
 
-        ::CostAccounting::Report::Base::FIELDS.each do |field|
+        vp_class('CostAccounting::Table').fields.each do |field|
           labels[field.to_sym] = human(field)
         end
       end

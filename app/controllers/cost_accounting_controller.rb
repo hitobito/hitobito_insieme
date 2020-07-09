@@ -77,7 +77,7 @@ class CostAccountingController < ReportingBaseController
   end
 
   def render_pdf
-    pdf = Export::Pdf::CostAccounting.new(@table.visible_reports.values, group.name, year)
+    pdf = vp_class('Export::Pdf::CostAccounting').new(@table.visible_reports.values, group.name, year)
     send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
   end
 

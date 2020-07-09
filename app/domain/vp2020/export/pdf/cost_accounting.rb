@@ -6,15 +6,18 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export::Pdf
+module Vp2020::Export::Pdf
   class CostAccounting < ::Export::Tabular::Base
     include CostAccounting::Style
+    include Vertragsperioden::Domain
+
+    attr_accessor :year
 
     COLSPANS = { 22 => [0, 1, 2, 3, 4, 5, 6, 7],
                  23 => [0, 1, 2]
     }.freeze
 
-    self.row_class = Row
+    self.row_class = Export::Pdf::CostAccounting::Row
 
     def initialize(list, group_name, year)
       @list = list
@@ -97,7 +100,7 @@ module Export::Pdf
       {}.tap do |labels|
         labels[:report] = human(:report)
 
-        ::CostAccounting::Report::Base::FIELDS.each do |field|
+        vp_class('CostAccounting::Table').fields.each do |field|
           labels[field.to_sym] = human(field)
         end
       end
