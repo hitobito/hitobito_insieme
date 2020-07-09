@@ -58,12 +58,12 @@ class CostAccountingController < ReportingBaseController
   end
 
   def render_xlsx
-    xlsx = Export::Tabular::CostAccounting::List.xlsx(@table.reports.values, group.name, year)
+    xlsx = Export::Tabular::CostAccounting::List.xlsx(@table.visible_reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 
   def render_pdf
-    pdf = Export::Pdf::CostAccounting.new(@table.reports.values, group.name, year)
+    pdf = Export::Pdf::CostAccounting.new(@table.visible_reports.values, group.name, year)
     send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
   end
 

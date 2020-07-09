@@ -21,7 +21,7 @@
 
     %tbody
       - previous_kind = nil
-      - @table.reports.values.each do |report|
+      - @table.visible_reports.values.each do |report|
         - if report.kind == :deckungsbeitrag && previous_kind != report.kind
           %tr{class: 'deckungsbeitrag-separator'}
             %td{colspan: 2 + @table.class.fields.length} &nbsp;

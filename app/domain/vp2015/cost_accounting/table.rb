@@ -35,6 +35,7 @@ module Vp2015::CostAccounting
                CostAccounting::Report::Deckungsbeitrag4,
                CostAccounting::Report::Unternehmenserfolg]
 
+    VISIBLE_REPORTS = REPORTS
 
     attr_reader :group, :year
 
@@ -58,6 +59,10 @@ module Vp2015::CostAccounting
       @reports ||= REPORTS.each_with_object({}) do |report, hash|
         hash[report.key] = report.new(self)
       end
+    end
+
+    def visible_reports
+      @visible_reports ||= VISIBLE_REPORTS.map { |report| [report.key, reports[report.key]] }.to_h
     end
 
     def course_costs(report_key, leistungskategorie)

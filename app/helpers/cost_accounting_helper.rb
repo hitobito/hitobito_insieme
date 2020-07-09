@@ -29,7 +29,7 @@ module CostAccountingHelper
   end
 
   def cost_accounting_reports
-    vp_class('CostAccounting::Table')::REPORTS
+    vp_class('CostAccounting::Table')::VISIBLE_REPORTS
   end
 
   def base_time_record_group_path(group, _params = {})

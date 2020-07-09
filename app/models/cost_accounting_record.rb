@@ -45,7 +45,7 @@ class CostAccountingRecord < ActiveRecord::Base
   scope :calculation_fields, -> { select(column_names - %w(aufteilung_kontengruppen)) }
 
   def report_class
-    vp_class('CostAccounting::Table')::REPORTS.find { |r| r.key == report }
+    vp_class('CostAccounting::Table')::VISIBLE_REPORTS.find { |r| r.key == report }
   end
 
   def to_s

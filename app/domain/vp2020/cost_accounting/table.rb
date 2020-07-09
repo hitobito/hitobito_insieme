@@ -15,21 +15,44 @@ module Vp2020::CostAccounting
                CostAccounting::Report::TotalPersonalaufwand,
                CostAccounting::Report::Raumaufwand,
                CostAccounting::Report::UebrigerSachaufwand,
-               Vp2020::CostAccounting::Report::TotalAufwand,
+               CostAccounting::Report::Abschreibungen,
+               CostAccounting::Report::TotalAufwand,
                CostAccounting::Report::UmlagePersonal,
                CostAccounting::Report::UmlageRaeumlichkeiten,
                CostAccounting::Report::UmlageVerwaltung,
                CostAccounting::Report::TotalUmlagen,
-               Vp2020::CostAccounting::Report::Vollkosten,
+               CostAccounting::Report::Vollkosten,
                CostAccounting::Report::Leistungsertrag,
                CostAccounting::Report::BeitraegeIv,
                CostAccounting::Report::SonstigeBeitraege,
                CostAccounting::Report::DirekteSpenden,
                CostAccounting::Report::IndirekteSpenden,
-               Vp2020::CostAccounting::Report::TotalErtraege,
-               Vp2020::CostAccounting::Report::Deckungsbeitrag4,
+               CostAccounting::Report::DirekteSpendenAusserhalb,
+               CostAccounting::Report::TotalErtraege,
+               CostAccounting::Report::Deckungsbeitrag1,
+               CostAccounting::Report::Deckungsbeitrag2,
+               CostAccounting::Report::Deckungsbeitrag3,
+               CostAccounting::Report::Deckungsbeitrag4,
                CostAccounting::Report::Unternehmenserfolg]
 
+    VISIBLE_REPORTS = [CostAccounting::Report::Lohnaufwand,
+                       CostAccounting::Report::Sozialversicherungsaufwand,
+                       CostAccounting::Report::UebrigerPersonalaufwand,
+                       CostAccounting::Report::Honorare,
+                       CostAccounting::Report::TotalPersonalaufwand,
+                       CostAccounting::Report::Raumaufwand,
+                       CostAccounting::Report::UebrigerSachaufwand,
+                       CostAccounting::Report::TotalAufwand,
+                       CostAccounting::Report::TotalUmlagen,
+                       CostAccounting::Report::Vollkosten,
+                       CostAccounting::Report::Leistungsertrag,
+                       CostAccounting::Report::BeitraegeIv,
+                       CostAccounting::Report::SonstigeBeitraege,
+                       CostAccounting::Report::DirekteSpenden,
+                       CostAccounting::Report::IndirekteSpenden,
+                       CostAccounting::Report::TotalErtraege,
+                       CostAccounting::Report::Deckungsbeitrag4,
+                       CostAccounting::Report::Unternehmenserfolg]
 
     attr_reader :group, :year
 
@@ -53,6 +76,10 @@ module Vp2020::CostAccounting
       @reports ||= REPORTS.each_with_object({}) do |report, hash|
         hash[report.key] = report.new(self)
       end
+    end
+
+    def visible_reports
+      @visible_reports ||= VISIBLE_REPORTS.map { |report| [report.key, reports[report.key]] }.to_h
     end
 
     def course_costs(report_key, leistungskategorie)
