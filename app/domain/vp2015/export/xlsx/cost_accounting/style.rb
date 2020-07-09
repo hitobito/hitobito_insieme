@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export::Xlsx::CostAccounting
+module Vp2015::Export::Xlsx::CostAccounting
   class Style < Export::Xlsx::Style
 
     BLACK = '000000'

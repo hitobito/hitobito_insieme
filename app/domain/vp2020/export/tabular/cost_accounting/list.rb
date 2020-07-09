@@ -6,13 +6,13 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export::Tabular::CostAccounting
+module Vp2020::Export::Tabular::CostAccounting
   class List < Export::Tabular::Base
     include Vertragsperioden::Domain
 
     attr_accessor :year
 
-    self.model_class = ::CostAccounting::Report::Base
+    self.model_class = CostAccounting::Report::Base
     self.row_class = Export::Tabular::CostAccounting::Row
     self.auto_filter = false
 

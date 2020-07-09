@@ -58,7 +58,7 @@ module Vp2020::CostAccounting
 
     class << self
       def fields
-        CostAccounting::Report::Base::FIELDS
+        CostAccounting::Report::Base::FIELDS - %w(abgrenzung_dachorganisation personal)
       end
     end
 
