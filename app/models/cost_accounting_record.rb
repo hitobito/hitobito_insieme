@@ -49,7 +49,7 @@ class CostAccountingRecord < ActiveRecord::Base
   end
 
   def to_s
-    report_class.human_name
+    report_class.human_name(year)
   end
 
   private

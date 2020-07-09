@@ -33,9 +33,9 @@
 
   - cost_accounting_reports.each do |report|
     - if report.editable?
-      = reporting_nav h(report.short_name),
+      = reporting_nav h(report.short_name(year)),
                       edit_cost_accounting_report_group_path(group, year, report.key),
-                      title: h(report.human_name)
+                      title: h(report.human_name(year))
 
   %li.nav-header= t('.capital_substrate')
   = reporting_nav t('.capital_substrate'),

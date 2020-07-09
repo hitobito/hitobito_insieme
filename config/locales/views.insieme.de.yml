@@ -359,6 +359,10 @@ de:
         name: Limite Kapitalsubstrat
 
   vp2020:
+    cost_accounting:
+      report:
+        deckungsbeitrag4:
+          name: Deckungsbeitrag 4
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
     course_reporting:

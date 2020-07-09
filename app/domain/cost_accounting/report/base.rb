@@ -8,6 +8,7 @@
 module CostAccounting
   module Report
     class Base
+      include Vertragsperioden::Domain
 
       FIELDS = %w(aufwand_ertrag_fibu
                   abgrenzung_fibu
@@ -64,12 +65,16 @@ module CostAccounting
           name.demodulize.underscore
         end
 
-        def short_name
-          I18n.t("cost_accounting.report.#{key}.short_name")
+        def short_name(year)
+          scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          I18n.t("report.#{key}.short_name", scope: scope,
+                 default: I18n.t("cost_accounting.report.#{key}.short_name"))
         end
 
-        def human_name
-          I18n.t("cost_accounting.report.#{key}.name")
+        def human_name(year)
+          scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          I18n.t("report.#{key}.name", scope: scope,
+                 default: I18n.t("cost_accounting.report.#{key}.name"))
         end
 
         def delegate_editable_fields(fields)
@@ -84,7 +89,8 @@ module CostAccounting
 
       attr_reader :table
 
-      delegate :key, :human_name, :short_name, :editable?, to: :class
+      delegate :key, :editable?, to: :class
+      delegate :year, to: :table
 
       def initialize(table)
         @table = table
@@ -93,6 +99,14 @@ module CostAccounting
       # define accessor methods for all fields, returning nil
       FIELDS.each do |f|
         define_method(f) {}
+      end
+
+      def short_name
+        self.class.short_name(year)
+      end
+
+      def human_name
+        self.class.human_name(year)
       end
 
       def aufwand_ertrag_ko_re
