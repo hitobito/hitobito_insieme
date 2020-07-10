@@ -14,14 +14,14 @@ module Vp2020::CostAccounting
 
                   raeumlichkeiten
                   verwaltung
+                  mittelbeschaffung
                   beratung
                   medien_und_publikationen
-                  treffpunkte
+                  jahreskurse
                   blockkurse
                   tageskurse
-                  jahreskurse
+                  treffpunkte
                   lufeb
-                  mittelbeschaffung
                   total
                   kontrolle)
 
