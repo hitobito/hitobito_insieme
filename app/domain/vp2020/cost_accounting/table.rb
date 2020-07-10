@@ -54,6 +54,16 @@ module Vp2020::CostAccounting
                        CostAccounting::Report::Deckungsbeitrag4,
                        CostAccounting::Report::Unternehmenserfolg]
 
+    SECTION_FIELDS = %w(raeumlichkeiten
+                      verwaltung
+                      beratung
+                      treffpunkte
+                      blockkurse
+                      tageskurse
+                      jahreskurse
+                      lufeb
+                      mittelbeschaffung).freeze
+
     attr_reader :group, :year
 
     class << self
@@ -65,6 +75,10 @@ module Vp2020::CostAccounting
     def initialize(group, year)
       @group = group
       @year = year
+    end
+
+    def section_fields
+      SECTION_FIELDS
     end
 
     def time_record

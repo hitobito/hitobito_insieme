@@ -11,20 +11,12 @@ class CostAccountingController < ReportingBaseController
 
   include Vertragsperioden::Domain
 
-  SECTION_FIELDS = %w(raeumlichkeiten
-                      verwaltung
-                      beratung
-                      treffpunkte
-                      blockkurse
-                      tageskurse
-                      jahreskurse
-                      lufeb
-                      mittelbeschaffung).freeze
-
   self.remember_params = [:year]
 
   helper_method :report, :table, :previous_entry, :section_fields
+  delegate :section_fields, to: :table
 
+  before_action :table
   before_action :report, only: [:edit]
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -32,7 +24,6 @@ class CostAccountingController < ReportingBaseController
   end
 
   def index
-    table
     respond_to do |format|
       format.html
       format.xlsx { render_xlsx }
@@ -41,10 +32,6 @@ class CostAccountingController < ReportingBaseController
   end
 
   private
-
-  def section_fields
-    SECTION_FIELDS
-  end
 
   def entry
     @entry ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report])
