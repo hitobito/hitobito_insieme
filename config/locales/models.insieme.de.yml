@@ -396,8 +396,8 @@ de:
         mittelbeschaffung: Mittelbeschaffung
         total: Total
         kontrolle: Kontrolle
-        gemeinkosten: Gemeinkosten
-        kostentraeger: Kostenträger
+        gemeinkosten: Total Gemeinkosten
+        kostentraeger: Total Kostenträger
         aufteilung_kontengruppen: Notizen
 
       global_value:

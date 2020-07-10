@@ -39,16 +39,16 @@
       .inline#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor }}
 
   - if (report.editable_fields & gemeinkosten_fields).present?
-    %hr/
+    %h3= t('.gemeinkosten')
+    = cost_accounting_input_fields(f, *gemeinkosten_fields)
     = f.labeled(:gemeinkosten) do
       .inline#gemeinkosten
-    = cost_accounting_input_fields(f, *gemeinkosten_fields)
 
   - if (report.editable_fields & section_fields).present?
-    %hr/
+    %h3= t('.kostentraeger')
+    = cost_accounting_input_fields(f, *section_fields)
     = f.labeled(:kostentraeger) do
       .inline#kostentraeger
-    = cost_accounting_input_fields(f, *section_fields)
 
   - if (report.editable_fields & (section_fields + gemeinkosten_fields)).present?
     %hr/

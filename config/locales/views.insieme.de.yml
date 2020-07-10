@@ -79,6 +79,8 @@ de:
       kontengruppen: "Kontengruppe(n) %{kontengruppen}"
       remarks_placeholder: Hier können Sie Ihre Notizen oder Erklärungen anbringen (z.B. wie sich Aufwand auf Kontengruppen verteilt)
       copy_previous_notes: Notizen aus Vorjahr kopieren
+      gemeinkosten: Gemeinkosten
+      kostentraeger: Kostenträger
 
   course_reporting:
     client_statistics:
