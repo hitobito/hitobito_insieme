@@ -51,7 +51,7 @@ module Vp2015::CostAccounting
 
     class << self
       def fields
-        CostAccounting::Report::Base::FIELDS
+        CostAccounting::Report::Base::FIELDS - %w(medien_und_publikationen)
       end
     end
 

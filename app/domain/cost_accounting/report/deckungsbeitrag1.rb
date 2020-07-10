@@ -13,6 +13,11 @@ module CostAccounting
         table.value_of('total_aufwand', 'beratung').to_d
       end
 
+      def medien_und_publikationen
+        table.value_of('leistungsertrag', 'medien_und_publikationen').to_d - \
+        table.value_of('total_aufwand', 'medien_und_publikationen').to_d
+      end
+
       def treffpunkte
         table.value_of('leistungsertrag', 'treffpunkte').to_d - \
         table.value_of('total_aufwand', 'treffpunkte').to_d

@@ -19,6 +19,7 @@ module CostAccounting
                                   abgrenzung_dachorganisation
 
                                   beratung
+                                  medien_und_publikationen
                                   treffpunkte
                                   blockkurse
                                   tageskurse

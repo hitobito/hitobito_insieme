@@ -19,6 +19,7 @@ module CostAccounting
                   raeumlichkeiten
                   verwaltung
                   beratung
+                  medien_und_publikationen
                   treffpunkte
                   blockkurse
                   tageskurse
@@ -37,6 +38,7 @@ module CostAccounting
                             aufwand_ertrag_ko_re
 
                             beratung
+                            medien_und_publikationen
                             treffpunkte
                             blockkurse
                             tageskurse
@@ -123,6 +125,7 @@ module CostAccounting
           raeumlichkeiten.to_d +
           verwaltung.to_d +
           beratung.to_d +
+          medien_und_publikationen.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
           tageskurse.to_d +

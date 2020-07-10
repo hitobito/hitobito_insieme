@@ -20,6 +20,7 @@ module CostAccounting
 
                                   verwaltung
                                   beratung
+                                  medien_und_publikationen
                                   treffpunkte
                                   lufeb
                                   mittelbeschaffung)

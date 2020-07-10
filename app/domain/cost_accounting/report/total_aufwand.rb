@@ -26,6 +26,7 @@ module CostAccounting
                               raeumlichkeiten
                               verwaltung
                               beratung
+                              medien_und_publikationen
                               treffpunkte
                               blockkurse
                               tageskurse

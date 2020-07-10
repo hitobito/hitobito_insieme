@@ -58,6 +58,7 @@ module Vp2020::CostAccounting
 
     SECTION_FIELDS = %w(verwaltung
                       beratung
+                      medien_und_publikationen
                       jahreskurse
                       blockkurse
                       tageskurse

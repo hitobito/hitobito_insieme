@@ -19,6 +19,7 @@
 #  raeumlichkeiten             :decimal(12, 2)
 #  verwaltung                  :decimal(12, 2)
 #  beratung                    :decimal(12, 2)
+#  medien_und_publikationen    :decimal(12, 2)
 #  treffpunkte                 :decimal(12, 2)
 #  blockkurse                  :decimal(12, 2)
 #  tageskurse                  :decimal(12, 2)

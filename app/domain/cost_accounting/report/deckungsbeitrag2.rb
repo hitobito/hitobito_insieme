@@ -15,6 +15,13 @@ module CostAccounting
         table.value_of('indirekte_spenden', 'beratung').to_d
       end
 
+      def medien_und_publikationen
+        table.value_of('deckungsbeitrag1', 'medien_und_publikationen').to_d - \
+        table.value_of('total_umlagen', 'medien_und_publikationen').to_d + \
+        table.value_of('direkte_spenden', 'medien_und_publikationen').to_d + \
+        table.value_of('indirekte_spenden', 'medien_und_publikationen').to_d
+      end
+
       def treffpunkte
         table.value_of('deckungsbeitrag1', 'treffpunkte').to_d - \
         table.value_of('total_umlagen', 'treffpunkte').to_d + \

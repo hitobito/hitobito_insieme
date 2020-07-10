@@ -19,6 +19,7 @@ class app.CostAccountingCalculator
        #cost_accounting_record_raeumlichkeiten,
        #cost_accounting_record_verwaltung,
        #cost_accounting_record_beratung,
+       #cost_accounting_record_medien_und_publikationen,
        #cost_accounting_record_treffpunkte,
        #cost_accounting_record_blockkurse,
        #cost_accounting_record_tageskurse,
@@ -42,6 +43,7 @@ class app.CostAccountingCalculator
   kostentraeger: ->
     @floatVal('#cost_accounting_record_verwaltung') +
       @floatVal('#cost_accounting_record_beratung') +
+      @floatVal('#cost_accounting_record_medien_und_publikationen') +
       @floatVal('#cost_accounting_record_treffpunkte') +
       @floatVal('#cost_accounting_record_blockkurse') +
       @floatVal('#cost_accounting_record_tageskurse') +

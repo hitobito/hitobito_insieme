@@ -13,6 +13,11 @@ module CostAccounting
         table.value_of('sonstige_beitraege', 'beratung').to_d
       end
 
+      def medien_und_publikationen
+        table.value_of('deckungsbeitrag2', 'medien_und_publikationen').to_d + \
+        table.value_of('sonstige_beitraege', 'medien_und_publikationen').to_d
+      end
+
       def treffpunkte
         table.value_of('deckungsbeitrag2', 'treffpunkte').to_d + \
         table.value_of('sonstige_beitraege', 'treffpunkte').to_d
