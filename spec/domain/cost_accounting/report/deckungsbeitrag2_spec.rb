@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::Deckungsbeitrag2 do
+describe 'CostAccounting::Report::Deckungsbeitrag2' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }

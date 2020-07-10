@@ -7,13 +7,13 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::UmlageVerwaltung do
+describe 'CostAccounting::Report::UmlageVerwaltung' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }
   let(:table) { vp_class('CostAccounting::Table').new(group, year) }
   let(:report) { table.reports.fetch('umlage_verwaltung') }
-  let(:fields) { CostAccounting::Report::UmlageVerwaltung::FIELDS }
+  let(:fields) { vp_class('CostAccounting::Report::UmlageVerwaltung')::FIELDS }
 
   context 'verwaltung is zero' do
 

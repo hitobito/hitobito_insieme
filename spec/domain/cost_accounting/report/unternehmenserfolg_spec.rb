@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::Unternehmenserfolg do
+describe 'CostAccounting::Report::Unternehmenserfolg' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }

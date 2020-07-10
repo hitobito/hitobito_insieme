@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::CourseRelated do
+describe 'CostAccounting::Report::CourseRelated' do
 
   let(:group) { groups(:be) }
   let(:table) { vp_class('CostAccounting::Table').new(group, year) }

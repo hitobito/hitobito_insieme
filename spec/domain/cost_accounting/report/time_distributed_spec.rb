@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::TimeDistributed do
+describe 'CostAccounting::Report::TimeDistributed' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }

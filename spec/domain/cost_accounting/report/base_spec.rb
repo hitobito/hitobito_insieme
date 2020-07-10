@@ -7,12 +7,12 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::Base do
+describe 'CostAccounting::Report::Base' do
 
   let(:year) { 2014 }
   let(:group) { groups(:be) }
   let(:table) { vp_class('CostAccounting::Table').new(group, year) }
-  let(:report) { CostAccounting::Report::Lohnaufwand.new(table) }
+  let(:report) { vp_class('CostAccounting::Report::Lohnaufwand').new(table) }
 
   before do
     CostAccountingRecord.create!(group_id: group.id,
@@ -49,7 +49,7 @@ describe CostAccounting::Report::Base do
   vp_class('CostAccounting::Table')::REPORTS.each do |report|
     context report.key do
       it 'has valid used fields' do
-        expect(report.used_fields - CostAccounting::Report::Base::FIELDS).to eq []
+        expect(report.used_fields - vp_class('CostAccounting::Report::Base')::FIELDS).to eq []
       end
 
       it 'has valid editable fields' do

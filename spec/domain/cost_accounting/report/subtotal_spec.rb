@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::Subtotal do
+describe 'CostAccounting::Report::Subtotal' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }

@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::CostAccounting::List do
+describe 'Export::Tabular::CostAccounting::List' do
 
   let(:year) { 2014 }
   let(:group) { groups(:aktiv) }
@@ -24,7 +24,7 @@ describe Export::Tabular::CostAccounting::List do
       .exactly(30).times
       .and_call_original
 
-    Export::Tabular::CostAccounting::List.xlsx(values, 'test group name', year)
+    vp_class('Export::Tabular::CostAccounting::List').xlsx(values, 'test group name', year)
   end
 
   private

@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Report::IndirekteSpenden do
+describe 'CostAccounting::Report::IndirekteSpenden' do
 
   let(:year) { 2016 }
   let(:group) { groups(:be) }
