@@ -17,11 +17,10 @@
   - if report.editable_fields.include?('aufwand_ertrag_fibu')
     = f.labeled_input_field(:aufwand_ertrag_fibu,
                             label: report.aufwand ? t('.aufwand_fibu') : t('.ertrag_fibu'),
-                            addon: t('global.currency'),
-                            help_inline: t('.kontengruppen', kontengruppen: report.kontengruppe))
+                            addon: t('global.currency'))
 
   - if report.editable_fields.include?('aufteilung_kontengruppen')
-    = f.labeled_input_field(:aufteilung_kontengruppen, placeholder: t('.remarks_placeholder'))
+    = f.labeled_input_field(:aufteilung_kontengruppen)
     - if previous_entry.aufteilung_kontengruppen.present?
       #cost_accounting_note_copy.hidden
         = f.labeled(:copy_previous_notes, '&nbsp;'.html_safe) do
