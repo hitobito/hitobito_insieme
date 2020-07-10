@@ -28,9 +28,11 @@ module Vp2020::Export::Xlsx::CostAccounting
     def row_styles
       [].tap do |row|
         row[4] = style_total_rows
+        row[7] = style_total_rows
         row[8] = style_total_rows
-        row[13] = style_total_rows
-        row[20] = style_total_rows
+        row[9] = style_total_rows
+        row[15] = style_total_rows
+        row[17] = style_total_rows
       end
     end
 

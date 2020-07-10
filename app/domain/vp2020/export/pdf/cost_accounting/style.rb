@@ -7,7 +7,7 @@
 #
 
 module Vp2020::Export::Pdf::CostAccounting::Style
-  COLORED_ROWS = [0, 5, 9, 14, 21].freeze
+  COLORED_ROWS = [0, 5, 8, 9, 10, 16, 18].freeze
   CUSTOM_WIDTH_COLUMNS = [].freeze
 
   def style_pdf(pdf)
