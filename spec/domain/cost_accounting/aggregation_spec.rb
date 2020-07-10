@@ -135,7 +135,7 @@ describe 'CostAccounting::Aggregation' do
     it 'corresponds to sum of all tables' do
       errors = []
       vp_class('CostAccounting::Table')::REPORTS.each do |report|
-        CostAccounting::Report::Base::FIELDS.each do |field|
+        vp_class('CostAccounting::Report::Base')::FIELDS.each do |field|
           value = aggregation.value_of(report.key, field).to_d
           sum = table_be.value_of(report.key, field).to_d +
             table_fr.value_of(report.key, field).to_d +
@@ -153,7 +153,7 @@ describe 'CostAccounting::Aggregation' do
     it 'gives access to all values' do
       lohnaufwand = aggregation.reports['lohnaufwand']
       expect(lohnaufwand.key).to eq('lohnaufwand')
-      expect(lohnaufwand.kontengruppe).to eq(CostAccounting::Report::Lohnaufwand.kontengruppe)
+      expect(lohnaufwand.kontengruppe).to eq(vp_class('CostAccounting::Report::Lohnaufwand').kontengruppe)
       expect(lohnaufwand.aufwand_ertrag_fibu).to eq(3600)
       expect(lohnaufwand.total).to be_within(0.0001).of(3000)
       expect(lohnaufwand.kontrolle).to be_within(0.0001).of(-500)

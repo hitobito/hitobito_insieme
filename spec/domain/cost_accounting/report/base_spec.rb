@@ -57,7 +57,7 @@ describe 'CostAccounting::Report::Base' do
       end
 
       it 'has human name' do
-        expect(report.human_name).to match(/^[A-ZÖÄÜ]/)
+        expect(report.human_name(year)).to match(/^[A-ZÖÄÜ]/)
       end
     end
   end
