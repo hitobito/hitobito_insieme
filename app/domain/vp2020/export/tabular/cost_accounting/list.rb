@@ -12,7 +12,6 @@ module Vp2020::Export::Tabular::CostAccounting
 
     attr_accessor :year
 
-    self.model_class = CostAccounting::Report::Base
     self.row_class = Export::Tabular::CostAccounting::Row
     self.auto_filter = false
 
@@ -20,6 +19,7 @@ module Vp2020::Export::Tabular::CostAccounting
       @group_name = group_name
       @year = year
       @list = list
+      self.model_class = vp_class('CostAccounting::Report::Base')
       add_header_rows
     end
 

@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vp2020::CostAccounting
+module Vp2015::CostAccounting
   module Report
     class DirekteSpenden < Base
 
@@ -19,12 +19,12 @@ module Vp2020::CostAccounting
                                   abgrenzung_dachorganisation
 
                                   beratung
-                                  medien_und_publikationen
                                   treffpunkte
                                   blockkurse
                                   tageskurse
                                   jahreskurse
-                                  lufeb)
+                                  lufeb
+                                  mittelbeschaffung)
 
     end
   end

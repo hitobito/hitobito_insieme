@@ -7,7 +7,7 @@
 
 module Vp2020::CostAccounting
   module Report
-    class Leistungsertrag < CostAccounting::Report::Base
+    class Leistungsertrag < Base
 
       self.kontengruppe = '30'
 

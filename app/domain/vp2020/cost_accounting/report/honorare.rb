@@ -7,24 +7,23 @@
 
 module Vp2020::CostAccounting
   module Report
-    class DirekteSpenden < Base
+    class Honorare < CourseRelated
 
-      self.kontengruppe = '3321/3323/32/900'
+      self.kontengruppe = '509/4300'
 
-      self.aufwand = false
+      self.used_fields += %w(verwaltung)
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
                                   abgrenzung_fibu
                                   abgrenzung_dachorganisation
 
+                                  verwaltung
                                   beratung
                                   medien_und_publikationen
                                   treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb)
+                                  lufeb
+                                  mittelbeschaffung)
 
     end
   end

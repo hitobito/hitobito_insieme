@@ -33,8 +33,8 @@
   - if group.is_a?(Group::Dachverein)
     = cost_accounting_input_fields(f, :abgrenzung_dachorganisation)
 
-  - unless report == CostAccounting::Report::DirekteSpendenAusserhalb
-    - factor = report == CostAccounting::Report::IndirekteSpenden ? table.value_of(report.key, 'abgrenzung_factor') : nil
+  - unless report == vp_class('CostAccounting::Report::DirekteSpendenAusserhalb')
+    - factor = report == vp_class('CostAccounting::Report::IndirekteSpenden') ? table.value_of(report.key, 'abgrenzung_factor') : nil
     = f.labeled(:aufwand_ertrag_ko_re, report.aufwand ? t('.aufwand_ko_re') : t('.ertrag_ko_re')) do
       .inline#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor }}
 

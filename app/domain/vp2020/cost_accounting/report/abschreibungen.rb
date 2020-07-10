@@ -7,25 +7,18 @@
 
 module Vp2020::CostAccounting
   module Report
-    class DirekteSpenden < Base
+    class Abschreibungen < Base
 
-      self.kontengruppe = '3321/3323/32/900'
-
-      self.aufwand = false
+      self.kontengruppe = '692'
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
                                   abgrenzung_fibu
-                                  abgrenzung_dachorganisation
+                                  abgrenzung_dachorganisation)
 
-                                  beratung
-                                  medien_und_publikationen
-                                  treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb)
 
+      alias_method :verwaltung, :aufwand_ertrag_ko_re
+      alias_method :total, :aufwand_ertrag_ko_re
     end
   end
 end

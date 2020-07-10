@@ -7,7 +7,7 @@
 
 module Vp2020::CostAccounting
   module Report
-    class IndirekteSpenden < CostAccounting::Report::Base
+    class IndirekteSpenden < Base
 
       self.kontengruppe = '3320/680-685/74/333/335/910'
 

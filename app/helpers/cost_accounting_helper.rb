@@ -10,11 +10,13 @@ module CostAccountingHelper
   include Vertragsperioden::Domain
 
   def cost_accounting_input_fields(f, *fields)
-    course_fields = CostAccounting::Report::CourseRelated::COURSE_FIELDS.keys.map(&:to_s)
+    course_fields = vp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
+                        .keys.map(&:to_s)
     safe_join(fields) do |field|
       if report.editable_fields.include?(field.to_s)
         f.labeled_input_field(field, addon: t('global.currency'))
-      elsif report < CostAccounting::Report::CourseRelated && course_fields.include?(field.to_s)
+      elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
+              course_fields.include?(field.to_s)
         # use tag to create field without a name.
         tag(:input,
             type: 'hidden',

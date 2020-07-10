@@ -5,26 +5,35 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vp2020::CostAccounting
+module Vp2015::CostAccounting
   module Report
-    class DirekteSpenden < Base
+    class IndirekteSpenden < Base
 
-      self.kontengruppe = '3321/3323/32/900'
+      self.kontengruppe = '3320/680-685/74/333/335/910'
 
       self.aufwand = false
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
-                                  abgrenzung_fibu
                                   abgrenzung_dachorganisation
 
                                   beratung
-                                  medien_und_publikationen
                                   treffpunkte
                                   blockkurse
                                   tageskurse
                                   jahreskurse
-                                  lufeb)
+                                  lufeb
+                                  mittelbeschaffung)
+
+      def abgrenzung_fibu
+        abgrenzung_factor && (abgrenzung_factor * aufwand_ertrag_fibu.to_d)
+      end
+
+      def abgrenzung_factor
+        @abgrenzung_factor ||= table.value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero? && \
+                               (1 - table.value_of('vollkosten', 'total').to_d / \
+                                table.value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d)
+      end
 
     end
   end

@@ -7,10 +7,10 @@
 
 require 'spec_helper'
 
-describe CostAccounting::Aggregation do
+describe 'CostAccounting::Aggregation' do
 
   let(:year) { 2016 }
-  let(:aggregation) { CostAccounting::Aggregation.new(year) }
+  let(:aggregation) { vp_class('CostAccounting::Aggregation').new(year) }
 
   let(:table_be) { vp_class('CostAccounting::Table').new(groups(:be), year) }
   let(:table_fr) { vp_class('CostAccounting::Table').new(groups(:fr), year) }

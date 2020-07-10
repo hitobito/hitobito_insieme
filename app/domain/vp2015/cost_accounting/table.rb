@@ -8,32 +8,32 @@
 module Vp2015::CostAccounting
   class Table
 
-    REPORTS = [CostAccounting::Report::Lohnaufwand,
-               CostAccounting::Report::Sozialversicherungsaufwand,
-               CostAccounting::Report::UebrigerPersonalaufwand,
-               CostAccounting::Report::Honorare,
-               CostAccounting::Report::TotalPersonalaufwand,
-               CostAccounting::Report::Raumaufwand,
-               CostAccounting::Report::UebrigerSachaufwand,
-               CostAccounting::Report::Abschreibungen,
-               CostAccounting::Report::TotalAufwand,
-               CostAccounting::Report::UmlagePersonal,
-               CostAccounting::Report::UmlageRaeumlichkeiten,
-               CostAccounting::Report::UmlageVerwaltung,
-               CostAccounting::Report::TotalUmlagen,
-               CostAccounting::Report::Vollkosten,
-               CostAccounting::Report::Leistungsertrag,
-               CostAccounting::Report::BeitraegeIv,
-               CostAccounting::Report::SonstigeBeitraege,
-               CostAccounting::Report::DirekteSpenden,
-               CostAccounting::Report::IndirekteSpenden,
-               CostAccounting::Report::DirekteSpendenAusserhalb,
-               CostAccounting::Report::TotalErtraege,
-               CostAccounting::Report::Deckungsbeitrag1,
-               CostAccounting::Report::Deckungsbeitrag2,
-               CostAccounting::Report::Deckungsbeitrag3,
-               CostAccounting::Report::Deckungsbeitrag4,
-               CostAccounting::Report::Unternehmenserfolg]
+    REPORTS = [Report::Lohnaufwand,
+               Report::Sozialversicherungsaufwand,
+               Report::UebrigerPersonalaufwand,
+               Report::Honorare,
+               Report::TotalPersonalaufwand,
+               Report::Raumaufwand,
+               Report::UebrigerSachaufwand,
+               Report::Abschreibungen,
+               Report::TotalAufwand,
+               Report::UmlagePersonal,
+               Report::UmlageRaeumlichkeiten,
+               Report::UmlageVerwaltung,
+               Report::TotalUmlagen,
+               Report::Vollkosten,
+               Report::Leistungsertrag,
+               Report::BeitraegeIv,
+               Report::SonstigeBeitraege,
+               Report::DirekteSpenden,
+               Report::IndirekteSpenden,
+               Report::DirekteSpendenAusserhalb,
+               Report::TotalErtraege,
+               Report::Deckungsbeitrag1,
+               Report::Deckungsbeitrag2,
+               Report::Deckungsbeitrag3,
+               Report::Deckungsbeitrag4,
+               Report::Unternehmenserfolg]
 
     SECTION_FIELDS = %w(raeumlichkeiten
                       verwaltung
@@ -51,7 +51,7 @@ module Vp2015::CostAccounting
 
     class << self
       def fields
-        CostAccounting::Report::Base::FIELDS - %w(medien_und_publikationen)
+        Report::Base::FIELDS
       end
     end
 

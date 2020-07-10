@@ -24,8 +24,9 @@ class ControllingController < ApplicationController
   end
 
   def cost_accounting
-    @table = CostAccounting::Aggregation.new(year)
-    xlsx = Export::Tabular::CostAccounting::List.xlsx(@table.reports.values, group.name, year)
+    @table = vp_class('CostAccounting::Aggregation').new(year)
+    xlsx = vp_class('Export::Tabular::CostAccounting::List')
+               .xlsx(@table.reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: "cost_accounting_#{year}.xlsx"
   end
 

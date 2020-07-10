@@ -7,9 +7,9 @@
 
 module Vp2020::CostAccounting
   module Report
-    class DirekteSpenden < Base
+    class BeitraegeIv < Base
 
-      self.kontengruppe = '3321/3323/32/900'
+      self.kontengruppe = '330'
 
       self.aufwand = false
 

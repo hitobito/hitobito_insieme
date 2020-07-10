@@ -7,25 +7,25 @@
 
 module Vp2020::CostAccounting
   module Report
-    class SonstigeBeitraege < Base
+    class DirekteSpendenAusserhalb < Base
 
-      self.kontengruppe = '331'
+      self.kontengruppe = '3322/920'
 
       self.aufwand = false
 
       delegate_editable_fields %w(aufwand_ertrag_fibu
                                   aufteilung_kontengruppen
-                                  abgrenzung_fibu
-                                  abgrenzung_dachorganisation
+                                  abgrenzung_dachorganisation)
 
-                                  beratung
-                                  medien_und_publikationen
-                                  treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb)
+      alias_method :abgrenzung_fibu, :aufwand_ertrag_fibu
 
+      def kontrolle
+        nil
+      end
+
+      def total
+        nil
+      end
     end
   end
 end

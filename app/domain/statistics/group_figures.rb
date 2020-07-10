@@ -116,7 +116,7 @@ module Statistics
     end
 
     def cost_accounting
-      @cost_accounting ||= CostAccounting::Aggregation.new(year)
+      @cost_accounting ||= vp_class('CostAccounting::Aggregation').new(year)
     end
 
     def nil_cost_accounting_table(group)
