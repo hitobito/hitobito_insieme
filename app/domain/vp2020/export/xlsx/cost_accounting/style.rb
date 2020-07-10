@@ -15,14 +15,15 @@ module Vp2020::Export::Xlsx::CostAccounting
     self.style_definition_labels += [:total_label, :total_currency,
                                      :currency, :vereinsname,
                                      :reporting_jahr, :default_border,
-                                     :centered_border]
+                                     :centered_border,
+                                     :box, :box_top_left, :box_top, :box_top_right]
 
     def column_widths
       [57.62]
     end
 
     def header_styles
-      [nil, style_title_header_row, nil]
+      [nil, style_title_header_row, nil, style_combined_labels_row]
     end
 
     def row_styles
@@ -44,6 +45,10 @@ module Vp2020::Export::Xlsx::CostAccounting
     def style_title_header_row
       [:vereinsname, :reporting_jahr] +
         Array.new(16, :centered)
+    end
+
+    def style_combined_labels_row
+      Array.new(4, :centered) + [:box_top_left, :box_top, :box_top_right] + Array.new(13, :centered)
     end
 
     private
@@ -91,6 +96,22 @@ module Vp2020::Export::Xlsx::CostAccounting
 
     def reporting_jahr_style
       centered_style.merge(style: { sz: 20 ,font_name: Settings.xlsx.font_name })
+    end
+
+    def box_top_left_style
+      box_style.deep_merge(style: { border: { edges: [:top, :left] } })
+    end
+
+    def box_top_style
+      box_style.deep_merge(style: { border: { edges: [:top] } })
+    end
+
+    def box_top_right_style
+      box_style.deep_merge(style: { border: { edges: [:top, :right] } })
+    end
+
+    def box_style
+      centered_border_style.deep_merge(style: { bg_color: LABEL_BACKGROUND })
     end
 
     def default_border_style

@@ -43,6 +43,7 @@ module Vp2020::Export::Tabular::CostAccounting
       header_rows << []
       header_rows << title_header_values
       header_rows << []
+      header_rows << combined_labels_row
     end
 
     def title_header_values
@@ -51,6 +52,12 @@ module Vp2020::Export::Tabular::CostAccounting
       row[1] = reporting_year
       row[14] = "#{I18n.t('global.printed')}: "
       row[15] = printed_at
+      row
+    end
+
+    def combined_labels_row
+      row = Array.new(18)
+      row[5] = I18n.t('cost_accounting.index.gemeinkosten')
       row
     end
 

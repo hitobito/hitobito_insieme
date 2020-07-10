@@ -71,6 +71,7 @@ de:
       xlsx_export: Excel Export
       pdf_export: PDF Export
       reporting_year: Reporting Jahr
+      gemeinkosten: Gemeinkosten
     edit:
       aufwand_fibu: Aufwand FIBU
       ertrag_fibu: Ertrag FIBU
