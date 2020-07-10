@@ -85,10 +85,9 @@ module HitobitoInsieme
       Export::Pdf::Labels.prepend Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.prepend Insieme::Import::PersonDoubletteFinder
 
-      Export::Xlsx::Style.register(Vp2015::Export::Xlsx::CostAccounting::Style,
-                                   Vp2015::Export::Tabular::CostAccounting::List)
-      Export::Xlsx::Style.register(Vp2020::Export::Xlsx::CostAccounting::Style,
-                                   Vp2020::Export::Tabular::CostAccounting::List)
+      Vertragsperioden::Dispatcher.domain_classes('Export::Xlsx::CostAccounting::Style')
+          .zip(Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
+          .each { |style, list| Export::Xlsx::Style.register(style, list) }
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
                                    *Vertragsperioden::Dispatcher.domain_classes(
