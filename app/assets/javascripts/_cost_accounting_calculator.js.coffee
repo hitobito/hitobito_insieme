@@ -5,6 +5,8 @@ class app.CostAccountingCalculator
 
   updateValues: ->
     $('#aufwand_ertrag_ko_re').html(@formatMoney(@aufwandErtragKoRe()))
+    $('#gemeinkosten').html(@formatMoney(@gemeinkosten()))
+    $('#kostentraeger').html(@formatMoney(@kostentraeger()))
     $('#control_value').html(@formatMoney(@kontrolle()))
 
   bind: ->
@@ -31,15 +33,20 @@ class app.CostAccountingCalculator
       @abgrenzungFibu()
 
   total: ->
+    @gemeinkosten() + @kostentraeger()
+
+  gemeinkosten: ->
     @floatVal('#cost_accounting_record_raeumlichkeiten') +
-      @floatVal('#cost_accounting_record_verwaltung') +
+      @floatVal('#cost_accounting_record_mittelbeschaffung')
+
+  kostentraeger: ->
+    @floatVal('#cost_accounting_record_verwaltung') +
       @floatVal('#cost_accounting_record_beratung') +
       @floatVal('#cost_accounting_record_treffpunkte') +
       @floatVal('#cost_accounting_record_blockkurse') +
       @floatVal('#cost_accounting_record_tageskurse') +
       @floatVal('#cost_accounting_record_jahreskurse') +
-      @floatVal('#cost_accounting_record_lufeb') +
-      @floatVal('#cost_accounting_record_mittelbeschaffung')
+      @floatVal('#cost_accounting_record_lufeb')
 
   kontrolle: ->
     @total() - @aufwandErtragKoRe()

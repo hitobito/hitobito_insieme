@@ -10,11 +10,12 @@ class CostAccountingController < ReportingBaseController
   include Rememberable
 
   include Vertragsperioden::Domain
+  include Vertragsperioden::Views
 
   self.remember_params = [:year]
 
-  helper_method :report, :table, :previous_entry, :section_fields
-  delegate :section_fields, to: :table
+  helper_method :report, :table, :previous_entry, :section_fields, :gemeinkosten_fields
+  delegate :section_fields, :gemeinkosten_fields, to: :table
 
   before_action :table
   before_action :report, only: [:edit]

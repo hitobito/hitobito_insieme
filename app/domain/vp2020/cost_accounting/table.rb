@@ -54,15 +54,15 @@ module Vp2020::CostAccounting
                        CostAccounting::Report::Deckungsbeitrag4,
                        CostAccounting::Report::Unternehmenserfolg]
 
-    SECTION_FIELDS = %w(raeumlichkeiten
-                      verwaltung
+    GEMEINKOSTEN_FIELDS = %w(raeumlichkeiten mittelbeschaffung)
+
+    SECTION_FIELDS = %w(verwaltung
                       beratung
-                      treffpunkte
+                      jahreskurse
                       blockkurse
                       tageskurse
-                      jahreskurse
-                      lufeb
-                      mittelbeschaffung).freeze
+                      treffpunkte
+                      lufeb).freeze
 
     attr_reader :group, :year
 
@@ -79,6 +79,10 @@ module Vp2020::CostAccounting
 
     def section_fields
       SECTION_FIELDS
+    end
+
+    def gemeinkosten_fields
+      GEMEINKOSTEN_FIELDS
     end
 
     def time_record
