@@ -5,19 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+# siehe auch Vp2015::CourseReporting::ClientStatistics
 module Vp2020::CourseReporting
   class ClientStatistics
-
-    ROLE_ASSOCIATIONS = {
-      challenged: :course_record_as_challenged_canton_count,
-      affiliated: :course_record_as_affiliated_canton_count
-    }.freeze
-
-    ROLE_PARTICIPANTS = {
-      challenged: :teilnehmende_behinderte,
-      affiliated: :teilnehmende_angehoerige,
-      multiple: :teilnehmende_mehrfachbehinderte
-    }.freeze
 
     attr_reader :year
 
@@ -25,76 +15,76 @@ module Vp2020::CourseReporting
       @year = year
     end
 
-    def roles
-      ROLE_ASSOCIATIONS.keys
+    def groups
+      load_groups
+    end
+
+    def group_canton_count(group_id, canton, leistungskategorie)
+      group_canton_participants[group_id][leistungskategorie].try(canton.to_sym).to_i
+    end
+
+    def group_total(group_id, leistungskategorie)
+      (group_canton_participants[group_id][leistungskategorie] || GroupCantonParticipant.new).total
     end
 
     def cantons
       Event::ParticipationCantonCount.column_names - %w(id)
     end
 
-    def leistungskategorien
-      Event::Reportable::LEISTUNGSKATEGORIEN
-    end
-
-    def participant_count(leistungskategorie, role)
-      participant_counts[leistungskategorie].send(ROLE_PARTICIPANTS.fetch(role)).to_i
-    end
-
-    def canton_count(canton, leistungskategorie, role)
-      canton_counts[role][leistungskategorie].send(canton).to_i
-    end
-
-    def canton_total(leistungskategorie, role)
-      canton_counts[role][leistungskategorie].total
-    end
-
     private
 
-    def participant_counts
-      @participant_counts ||= begin
-        hash = Hash.new { |h, k| h[k] = Event::CourseRecord.new }
-        load_participant_counts.each do |record|
-          hash[record.leistungskategorie] = record
-        end
-        hash
+    def load_groups
+      @load_groups ||= Event::CourseRecord
+                       .where(year: @year, subventioniert: true)
+                       .joins(event: [:groups])
+                       .flat_map { |ecr| ecr.event.groups }
+                       .uniq
+    end
+
+    GroupCantonParticipant = Struct.new(
+      :group_id, :leistungskategorie,
+      :ag, :ai, :ar, :be, :bl, :bs, :fr, :ge, :gl, :gr, :ju, :lu, :ne, :nw,
+      :ow, :sg, :sh, :so, :sz, :tg, :ti, :ur, :vd, :vs, :zg, :zh, :another
+    ) do
+      def total
+        [
+          :ag, :ai, :ar, :be, :bl, :bs, :fr, :ge, :gl, :gr, :ju, :lu, :ne, :nw,
+          :ow, :sg, :sh, :so, :sz, :tg, :ti, :ur, :vd, :vs, :zg, :zh, :another
+        ].map { |canton| send(canton).to_i }.sum
       end
     end
 
-    def load_participant_counts
-      summed_columns = 'events.leistungskategorie, ' +
-                       select_sum(ROLE_PARTICIPANTS.values)
-
-      Event::CourseRecord.select(summed_columns).
-        joins(:event).
-        where(year: year, subventioniert: true).
-        group('events.leistungskategorie')
+    def load_group_canton_participants
+      @load_group_canton_participants ||= raw_group_canton_participants
+                                          .map { |row| GroupCantonParticipant.new(*row) }
+                                          .each_with_object({}) do |gcp, memo|
+                                            memo[gcp.group_id] ||= {}
+                                            memo[gcp.group_id][gcp.leistungskategorie] = gcp
+                                          end
     end
 
-    def canton_counts
-      @canton_counts ||= begin
-        roles.each_with_object({}) do |role, hash|
-          hash[role] = Hash.new { |h, k| h[k] = Event::ParticipationCantonCount.new }
-          load_canton_counts(role).each do |counts|
-            hash[role][counts.leistungskategorie] = counts
-          end
-        end
+    def group_canton_participants_relation # rubocop:disable Metrics/MethodLength
+      columns = [
+        'groups.id AS group_id',
+        'events.leistungskategorie AS event_leistungskategorie'
+      ]
+      cantons.each do |canton|
+        columns << "SUM(COALESCE(event_participation_canton_counts.#{canton}, 0)) "\
+                   ' + '\
+                   "SUM(COALESCE(affiliated_canton_counts_event_course_records.#{canton}, 0)) "\
+                   "#{canton}"
       end
+
+      Event::CourseRecord
+        .select(columns.join(', '))
+        .where(year: @year, subventioniert: true)
+        .left_joins(event: [:groups])
+        .left_joins(:challenged_canton_count, :affiliated_canton_count)
+        .group('group_id, event_leistungskategorie')
     end
 
-    def load_canton_counts(role)
-      summed_columns = 'events.leistungskategorie, ' + select_sum(cantons)
-
-      Event::ParticipationCantonCount.
-        select(summed_columns).
-        joins(ROLE_ASSOCIATIONS[role] => :event).
-        where(event_course_records: { year: year, subventioniert: true }).
-        group('events.leistungskategorie')
+    def raw_group_canton_participants
+      ActiveRecord::Base.connection.select_rows(group_canton_participants_relation.to_sql)
     end
-
-    def select_sum(columns)
-      columns.collect { |c| "SUM(#{c}) AS #{c}" }.join(', ')
-    end
-
   end
 end
