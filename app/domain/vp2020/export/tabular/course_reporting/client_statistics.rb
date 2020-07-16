@@ -6,10 +6,12 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
+# see also Vp2015::Export::Tabular::CourseReporting::ClientStatistics
 module Vp2020::Export
   module Tabular
     module CourseReporting
       class ClientStatistics
+        include Vertragsperioden::Domain
 
         class << self
           def csv(stats)
@@ -17,82 +19,57 @@ module Vp2020::Export
           end
         end
 
+        delegate :year, to: :stats
+
         attr_reader :stats
 
         def initialize(stats)
           @stats = stats
         end
 
-        def data_rows(_format = nil)
+        def data_rows(_format = :csv)
           return enum_for(:data_rows) unless block_given?
 
-          yield participant_values
-          yield multiple_challenged_values
-          stats.cantons.each do |canton|
-            yield canton_values(canton)
+          @stats.groups.each do |group|
+            yield group_label(group)
+            yield group_stats(group.id, 'bk')
+            yield group_stats(group.id, 'tk')
+            yield group_stats(group.id, 'sk')
+            yield group_stats(group.id, 'tp')
+            yield empty_row
           end
-          yield canton_totals
         end
 
         def labels
-          label = I18n.t('course_reporting.client_statistics.disability_or_canton')
-          values(label) do |lk, role|
-            I18n.t("activerecord.attributes.event/course.leistungskategorien.#{lk}", count: 3) +
-            ' ' +
-            I18n.t("course_reporting.client_statistics.#{role}")
+          [vp_t('group_or_course_type')] + @stats.cantons.map do |canton|
+            attr_t("event/participation_canton_count.#{canton}")
           end
         end
 
         private
 
-        def participant_values
-          label = I18n.t('course_reporting.client_statistics.participants')
-          values(label) do |lk, role|
-            stats.participant_count(lk, role)
+        def empty_row
+          Array.new(stats.cantons.size + 1, nil)
+        end
+
+        def group_label(group)
+          [group.name] + stats.cantons.map { |_| nil }
+        end
+
+        def group_stats(group_id, lk)
+          [
+            attr_t("event/course.leistungskategorien.#{lk}", count: 3)
+          ] + stats.cantons.map do |canton|
+            stats.group_canton_count(group_id, canton, lk)
           end
         end
 
-        def multiple_challenged_values
-          label = I18n.t('course_reporting.client_statistics.multiple_challenged')
-          values(label) do |lk, role|
-            if role == :challenged
-              stats.participant_count(lk, :multiple)
-            end
-          end
+        def vp_t(field, options = {})
+          I18n.t(field, options.merge(scope: vp_i18n_scope('course_reporting.client_statistics')))
         end
 
-        def canton_values(canton)
-          label = Cantons.full_name(canton)
-          values(label) do |lk, role|
-            stats.canton_count(canton, lk, role).to_i
-          end
-        end
-
-        def canton_totals
-          label = I18n.t('course_reporting.client_statistics.total')
-          values(label) do |lk, role|
-            stats.canton_total(lk, role)
-          end
-        end
-
-        def values(label)
-          [label].tap do |result|
-            each_column do |lk, role|
-              result << yield(lk, role)
-            end
-          end
-        end
-
-        def each_column
-          stats.leistungskategorien.each do |lk|
-            stats.roles.each do |role|
-              yield lk, role
-            end
-          end
-        end
-
-        def human(field)
-          I18n.t("activerecord.attributes.course_reporting.#{field}")
+        def attr_t(attr, options = {})
+          I18n.t(attr, options.merge(scope: 'activerecord.attributes'))
         end
       end
     end

@@ -401,6 +401,8 @@ de:
       aggregations:
         anzahl_kurse_tp: Anzahl Durchführungen
         betreuende_tp: Betreuungspersonen
+      client_statistics:
+        group_or_course_type: Verein / Kurstyp
     events:
       anzahl_durchfuehrungen: Anzahl Durchführungen
     statistics:
