@@ -125,14 +125,12 @@ describe Vp2020::CourseReporting::ClientStatistics do
                         leistungskategorie: leistungskategorie,
                         fachkonzept: 'sport_jugend',
                         year: year)
-      event.group_ids = [groups(group).id]
-      event.save!
+      event.update!(group_ids: [groups(group).id])
     else
       event = Fabricate(event_type,
                         leistungskategorie: leistungskategorie,
                         fachkonzept: 'sport_jugend')
-      event.group_ids = [groups(group).id]
-      event.save!
+      event.update!(group_ids: [groups(group).id])
       event.dates.create!(start_at: Time.zone.local(year, 05, 11))
     end
     r = Event::CourseRecord.create!(
