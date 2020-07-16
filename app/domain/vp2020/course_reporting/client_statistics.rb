@@ -37,6 +37,7 @@ module Vp2020::CourseReporting
       @load_groups ||= Event::CourseRecord
                        .where(year: @year, subventioniert: true)
                        .joins(event: [:groups])
+                       .includes(event: [:events_groups, :groups])
                        .flat_map { |ecr| ecr.event.groups }
                        .uniq
     end
