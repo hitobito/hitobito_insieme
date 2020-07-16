@@ -42,8 +42,12 @@
 class Event::ParticipationCantonCount < ActiveRecord::Base
 
   has_one :course_record_as_challenged_canton_count, foreign_key: :challenged_canton_count_id,
+                                                     inverse_of: :challenged_canton_count,
+                                                     dependent: :nullify,
                                                      class_name: 'Event::CourseRecord'
   has_one :course_record_as_affiliated_canton_count, foreign_key: :affiliated_canton_count_id,
+                                                     inverse_of: :affiliated_canton_count,
+                                                     dependent: :nullify,
                                                      class_name: 'Event::CourseRecord'
 
   validates_by_schema
