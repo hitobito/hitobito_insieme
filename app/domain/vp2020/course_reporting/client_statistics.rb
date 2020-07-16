@@ -54,13 +54,13 @@ module Vp2020::CourseReporting
       end
     end
 
-    def load_group_canton_participants
-      @load_group_canton_participants ||= raw_group_canton_participants
-                                          .map { |row| GroupCantonParticipant.new(*row) }
-                                          .each_with_object({}) do |gcp, memo|
-                                            memo[gcp.group_id] ||= {}
-                                            memo[gcp.group_id][gcp.leistungskategorie] = gcp
-                                          end
+    def group_canton_participants
+      @group_canton_participants ||= raw_group_canton_participants
+                                     .map { |row| GroupCantonParticipant.new(*row) }
+                                     .each_with_object({}) do |gcp, memo|
+                                       memo[gcp.group_id] ||= {}
+                                       memo[gcp.group_id][gcp.leistungskategorie] = gcp
+                                     end
     end
 
     def group_canton_participants_relation # rubocop:disable Metrics/MethodLength
