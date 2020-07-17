@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2015, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe CourseReporting::ClientStatistics do
+describe Vp2015::CourseReporting::ClientStatistics do
 
   before do
     create_course(2015, :be, 'bk',
