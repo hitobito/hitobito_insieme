@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2015, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,29 +7,30 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::CourseReporting::ClientStatistics do
+describe Vp2015::Export::Tabular::CourseReporting::ClientStatistics do
 
-  let(:stats) { CourseReporting::ClientStatistics.new(2015) }
+  let(:year) { 2015 }
+  let(:stats) { vp_class('CourseReporting::ClientStatistics').new(year) }
 
   let(:exporter) { described_class.new(stats) }
 
   before do
-    create_course(2015, :be, 'bk',
+    create_course(year, :be, 'bk',
                   { be: 1, ag: 2, zh: 3, another: 4 },
                   { be: 0, ag: 1, zh: 1, another: 2 })
 
-    create_course(2015, :be, 'bk',
+    create_course(year, :be, 'bk',
                   { be: 2, ag: 4, zh: 6, another: 8 },
                   { be: 1, ag: 2, zh: 3, another: 4 },
                   :aggregate_course)
 
-    create_course(2015, :fr, 'tk',
+    create_course(year, :fr, 'tk',
                   { be: 1, ag: 1, another: 1 })
 
-    create_course(2015, :fr, 'sk',
+    create_course(year, :fr, 'sk',
                   { be: 1, ag: 1, another: 1 })
 
-    create_course(2015, :fr, 'tp',
+    create_course(year, :fr, 'tp',
                   { be: 1, ag: 1, another: 1 })
   end
 

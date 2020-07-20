@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Statistics::GroupFigures do
+describe 'Statistics::GroupFigures' do
 
   before do
     TimeRecord::EmployeeTime.create!(group: groups(:be),
@@ -76,7 +76,8 @@ describe Statistics::GroupFigures do
     @course_records = Event::CourseRecord.joins(:event).where(year: 2016)
   end
 
-  let(:figures) { described_class.new(2016) }
+  let(:year) { 2016 }
+  let(:figures) { vp_class('Statistics::GroupFigures').new(2016) }
 
   context '#groups' do
     it 'returns group sorted by type' do

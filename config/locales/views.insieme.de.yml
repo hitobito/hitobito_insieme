@@ -328,6 +328,8 @@ de:
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
       lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
       lufeb_promoting: "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen"
+      lufeb_media: Medien und Publikationen
+      lufeb_grundlagen: Grundlagenarbeite Kurse & Treffpunkte
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
       help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
@@ -399,8 +401,18 @@ de:
       aggregations:
         anzahl_kurse_tp: Anzahl Durchführungen
         betreuende_tp: Betreuungspersonen
+      client_statistics:
+        group_or_course_type: Verein / Kurstyp
     events:
       anzahl_durchfuehrungen: Anzahl Durchführungen
+    statistics:
+      group_figures:
+        anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
+        total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept})"
+        tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{fachkonzept}"
+        tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
+        tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
+        tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 

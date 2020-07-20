@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2015, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -31,14 +31,14 @@ class ControllingController < ApplicationController
   end
 
   def client_statistics
-    @stats = CourseReporting::ClientStatistics.new(year)
-    csv = Export::Tabular::CourseReporting::ClientStatistics.csv(@stats)
+    @stats = vp_class('CourseReporting::ClientStatistics').new(year)
+    csv = vp_class('Export::Tabular::CourseReporting::ClientStatistics').csv(@stats)
     send_data csv, type: :csv, filename: "client_statistics_#{year}.csv"
   end
 
   def group_figures
-    @stats = Statistics::GroupFigures.new(year)
-    csv = Export::Tabular::Statistics::GroupFigures.csv(@stats)
+    @stats = vp_class('Statistics::GroupFigures').new(year)
+    csv = vp_class('Export::Tabular::Statistics::GroupFigures').csv(@stats)
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 

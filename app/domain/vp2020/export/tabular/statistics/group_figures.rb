@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export
+module Vp2020::Export
   module Tabular
     module Statistics
       class GroupFigures
+        include Vertragsperioden::Domain
+        delegate :year, to: :figures
 
         class << self
           def csv(figures)
@@ -43,22 +45,22 @@ module Export
         private
 
         def append_course_labels(labels)
-          iterate_courses do |lk, cat|
+          iterate_courses do |lk, fk|
             lk_label = t("leistungskategorie_#{lk}")
-            cat_label = t('kategorie', number: cat)
-            labels << t('anzahl_kurse', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('total_vollkosten', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_behinderte', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_angehoerige', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_weitere', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_total', leistungskategorie: lk_label, kategorie: cat_label)
+            fk_label = I18n.t("activerecord.attributes.event/course.fachkonzepte.#{fk}")
+            labels << vp_t('anzahl_kurse', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('total_vollkosten', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_behinderte', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_angehoerige', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_weitere', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_total', leistungskategorie: lk_label, fachkonzept: fk_label)
           end
         end
 
         def append_time_labels(labels)
           %w(employees volunteers).each do |type|
             prefix = t("lufeb_hours_#{type}")
-            %w(general private specific promoting).each do |section|
+            %w(promoting general specific media grundlagen).each do |section|
               labels << prefix + ': ' + I18n.t("time_records.lufeb_fields_full.lufeb_#{section}")
             end
           end
@@ -88,8 +90,8 @@ module Export
                     group.vid,
                     group.bsv_number]
 
-          iterate_courses do |lk, cat|
-            append_course_values(values, figures.course_record(group, lk, cat))
+          iterate_courses do |lk, fk|
+            append_course_values(values, figures.course_record(group, lk, fk))
           end
 
           append_time_values(values, figures.employee_time(group))
@@ -120,14 +122,15 @@ module Export
           end
         end
 
-        def append_time_values(values, record)
+        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize
           if record
-            values << record.total_lufeb_general.to_i
-            values << record.total_lufeb_private.to_i
-            values << record.total_lufeb_specific.to_i
             values << record.total_lufeb_promoting.to_i
+            values << record.total_lufeb_general.to_i
+            values << record.total_lufeb_specific.to_i
+            values << record.total_lufeb_media.to_i
+            values << record.kurse_grundlagen.to_i
           else
-            values << 0 << 0 << 0 << 0
+            values << 0 << 0 << 0 << 0 << 0
           end
         end
 
@@ -162,28 +165,12 @@ module Export
           end
         end
 
-        def iterate_courses
-          figures.leistungskategorien.each do |leistungskategorie|
-            figures.kategorien.each do |category|
-              next if leistungskategorie_hides_category?(leistungskategorie, category)
-
-              yield leistungskategorie, category
-            end
-          end
+        def iterate_courses(&block)
+          figures.leistungskategorien.product(figures.fachkonzepte, &block)
         end
 
-        def leistungskategorie_hides_category?(leistungskategorie, category)
-          # The category 1 is the default value if a leistungskategorie
-          # has no customer-visible categories. Therefore we do not hide it.
-          # Also, `category` is a String, not a number...
-          return false if category == '1'
-
-          # Semesterkurse and Treffpunkte hide categories
-          return true if leistungskategorie == 'sk'
-          return true if leistungskategorie == 'tp'
-
-          # by default we do not hide categories, except in the cases above :rolling_eyes:
-          false
+        def vp_t(field, options)
+          I18n.t(field, options.merge(scope: vp_i18n_scope('statistics.group_figures')))
         end
 
         def t(field, options = {})

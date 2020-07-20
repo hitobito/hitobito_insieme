@@ -101,7 +101,7 @@ module Vp2020
     end
 
     def total_paragraph_74
-      @total_paragraph_74 ||=
+      @total_paragraph_74 ||= # rubocop:disable Naming/VariableNumber
         total_lufeb.to_i +
         total_courses.to_i +
         total_additional_person_specific.to_i +
@@ -130,7 +130,7 @@ module Vp2020
     end
 
     def update_totals
-      @total_paragraph_74 = nil
+      @total_paragraph_74 = nil # rubocop:disable Naming/VariableNumber
       calculate_total_lufeb_promoting
       calculate_total_lufeb_general
       calculate_total_lufeb_specific

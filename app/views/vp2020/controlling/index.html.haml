@@ -1,0 +1,53 @@
+-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+.row-fluid
+  .span12= render 'shared/page_per_year'
+
+.row-fluid
+
+
+%h3= t('.controlling')
+
+= action_button(t('.cost_accounting'),
+                cost_accounting_controlling_group_path(year: year, format: :xlsx),
+                :download)
+
+= action_button(t('.client_statistics'),
+                client_statistics_controlling_group_path(year: year, format: :csv),
+                :download)
+
+= action_button(t('.group_figures'),
+                group_figures_controlling_group_path(year: year, format: :csv),
+                :download)
+
+
+%h3= t('.export_time_records')
+
+- [TimeRecord::EmployeeTime,
+   TimeRecord::VolunteerWithVerificationTime,
+   TimeRecord::VolunteerWithoutVerificationTime].each do |klass|
+  = action_button(t(".time_records.#{klass.name.demodulize.underscore}"),
+                  time_records_controlling_group_path(year: year, type: klass.sti_name, format: :csv),
+                  :download)
+
+
+- params[:year] ||= @year
+
+%h3= t('.export_bk')
+= course_aggregation_csv_button(lk: :bk, consolidate: true, year: @year)
+= course_aggregation_csv_button(lk: :bk, subsidized: false, consolidate: true, year: @year)
+
+%h3= t('.export_tk')
+= course_aggregation_csv_button(lk: :tk, consolidate: true, year: @year)
+= course_aggregation_csv_button(lk: :tk, subsidized: false, consolidate: true, year: @year)
+
+%h3= t('.export_sk')
+= course_aggregation_csv_button(lk: :sk, consolidate: true, year: @year)
+= course_aggregation_csv_button(lk: :sk, subsidized: false, consolidate: true, year: @year)
+
+%h3= t('.export_tp')
+= course_aggregation_csv_button(lk: :tp, consolidate: true, year: @year)
+= course_aggregation_csv_button(lk: :tp, subsidized: false, consolidate: true, year: @year)

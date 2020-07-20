@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -17,7 +17,7 @@ describe 'CostAccounting::Table' do
     it 'is initialized without records' do
       errors = []
       vp_class('CostAccounting::Table')::REPORTS.each do |report|
-        CostAccounting::Report::Base::FIELDS.each do |field|
+        vp_class('CostAccounting::Report::Base::FIELDS').each do |field|
           value = table.value_of(report.key, field).to_d
           if value != 0.0
             errors << "#{report.key}-#{field} is expected to be 0, got #{value}"
