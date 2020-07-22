@@ -826,6 +826,9 @@ de:
       total_ertraege:
         name: Total Erträge
         short_name: Total Erträge
+      separator:
+        name: ''
+        short_name: ''
       deckungsbeitrag1:
         name: Deckungsbeitrag 1 (Leistungsertrag-direkte Kosten)
         short_name: Deckungsbeitrag 1

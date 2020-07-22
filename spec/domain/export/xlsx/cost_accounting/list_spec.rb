@@ -21,7 +21,7 @@ describe 'Export::Tabular::CostAccounting::List' do
 
     expect_any_instance_of(Axlsx::Worksheet)
       .to receive(:add_row)
-      .exactly(30).times
+      .exactly(31).times
       .and_call_original
 
     vp_class('Export::Tabular::CostAccounting::List').xlsx(values, 'test group name', year)

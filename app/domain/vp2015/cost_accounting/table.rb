@@ -29,6 +29,7 @@ module Vp2015::CostAccounting
                Report::IndirekteSpenden,
                Report::DirekteSpendenAusserhalb,
                Report::TotalErtraege,
+               Report::Separator,
                Report::Deckungsbeitrag1,
                Report::Deckungsbeitrag2,
                Report::Deckungsbeitrag3,

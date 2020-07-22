@@ -46,7 +46,9 @@ describe 'CostAccounting::Report::Base' do
     end
   end
 
-  Vp2015::CostAccounting::Table::REPORTS.each do |report|
+  Vp2015::CostAccounting::Table::REPORTS.reject do |report|
+    report == Vp2015::CostAccounting::Report::Separator
+  end.each do |report|
     context report.key do
       it 'has valid used fields' do
         expect(report.used_fields - vp_class('CostAccounting::Report::Base')::FIELDS).to eq []

@@ -29,6 +29,7 @@ module Vp2020::CostAccounting
                Report::IndirekteSpenden,
                Report::DirekteSpendenAusserhalb,
                Report::TotalErtraege,
+               Report::Separator,
                Report::Deckungsbeitrag1,
                Report::Deckungsbeitrag2,
                Report::Deckungsbeitrag3,
@@ -51,8 +52,9 @@ module Vp2020::CostAccounting
                        Report::DirekteSpenden,
                        Report::IndirekteSpenden,
                        Report::TotalErtraege,
-                       Report::Deckungsbeitrag4,
-                       Report::Unternehmenserfolg].freeze
+                       Report::Separator,
+                       Report::Unternehmenserfolg,
+                       Report::Deckungsbeitrag4].freeze
 
     GEMEINKOSTEN_FIELDS = %w(raeumlichkeiten mittelbeschaffung).freeze
 

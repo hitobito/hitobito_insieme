@@ -20,20 +20,17 @@
             = CostAccountingRecord.human_attribute_name(f)
 
     %tbody
-      - previous_kind = nil
       - @table.visible_reports.values.each do |report|
-        - if report.kind == :deckungsbeitrag && previous_kind != report.kind
+        - if report.kind == :separator
           %tr{class: 'deckungsbeitrag-separator'}
             %td{colspan: 2 + @table.class.fields.length} &nbsp;
+        - else
+          %tr{class: report.kind}
+            %th{title: h(report.human_name)}
+              = link_to_if report.editable?,
+                           h(report.short_name),
+                           edit_cost_accounting_report_group_path(group, year, report.key)
 
-        %tr{class: report.kind}
-          %th{title: h(report.human_name)}
-            = link_to_if report.editable?,
-                         h(report.short_name),
-                         edit_cost_accounting_report_group_path(group, year, report.key)
-
-          - @table.class.fields.each do |f|
-            %td.right{class: cost_account_field_class(f)}
-              = f(report.send(f))
-
-        - previous_kind = report.kind
+            - @table.class.fields.each do |f|
+              %td.right{class: cost_account_field_class(f)}
+                = f(report.send(f))
