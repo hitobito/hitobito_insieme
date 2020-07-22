@@ -17,7 +17,7 @@
         %th
         - @table.class.fields.each do |f|
           %th{class: cost_account_field_class(f)}
-            = CostAccountingRecord.human_attribute_name(f)
+            = cost_accounting_report_header(f)
 
     %tbody
       - @table.visible_reports.values.each do |report|
