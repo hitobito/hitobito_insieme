@@ -374,6 +374,7 @@ de:
           short_name: Ertrag minus Aufwand
       headers:
         beratung: Sozialberatung
+      beratung: Sozialberatung
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
     course_reporting:

@@ -13,7 +13,7 @@ module CostAccountingHelper
                     .keys.map(&:to_s)
     safe_join(fields) do |field|
       if report.editable_fields.include?(field.to_s)
-        f.labeled_input_field(field, addon: t('global.currency'))
+        f.labeled_vp_input_field(field, addon: t('global.currency'))
       elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
               course_fields.include?(field.to_s)
         # use tag to create field without a name.
