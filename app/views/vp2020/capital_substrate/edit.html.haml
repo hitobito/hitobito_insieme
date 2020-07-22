@@ -22,7 +22,7 @@
 
   = field_set_tag do
     = f.labeled_readonly_value :deckungsbeitrag4_vp2015, value: format_money(report.deckungsbeitrag4_vp2015)
-    = f.labeled_readonly_value :deckungsbeitrag4_vp2020, value: format_money(report.deckungsbeitrag4_vp2015)
+    = f.labeled_readonly_value :deckungsbeitrag4_vp2020, value: format_money(report.deckungsbeitrag4_vp2020)
     = f.labeled_readonly_value :deckungsbeitrag4_sum, label: t('.deckungsbeitrag4_sum', year: report.year), value: format_money(report.deckungsbeitrag4_sum)
     %p= t('.deckungsbeitrag4_sum_notice').html_safe
 
