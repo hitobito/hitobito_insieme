@@ -33,7 +33,7 @@ module Vp2015::CostAccounting
                Report::Deckungsbeitrag2,
                Report::Deckungsbeitrag3,
                Report::Deckungsbeitrag4,
-               Report::Unternehmenserfolg]
+               Report::Unternehmenserfolg].freeze
 
     SECTION_FIELDS = %w(raeumlichkeiten
                       verwaltung

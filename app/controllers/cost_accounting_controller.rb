@@ -18,7 +18,7 @@ class CostAccountingController < ReportingBaseController
   delegate :section_fields, :gemeinkosten_fields, to: :table
 
   before_action :table
-  before_action :report, only: [:edit]
+  before_action :report, only: [:edit] # rubocop:disable Rails/LexicallyScopedActionFilter
 
   rescue_from ActiveRecord::RecordNotFound do
     redirect_to request.parameters.except(:report).merge({ action: index })
@@ -61,13 +61,13 @@ class CostAccountingController < ReportingBaseController
 
   def render_xlsx
     xlsx = vp_class('Export::Tabular::CostAccounting::List')
-               .xlsx(@table.visible_reports.values, group.name, year)
+           .xlsx(@table.visible_reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 
   def render_pdf
     pdf = vp_class('Export::Pdf::CostAccounting')
-              .new(@table.visible_reports.values, group.name, year)
+          .new(@table.visible_reports.values, group.name, year)
     send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
   end
 
