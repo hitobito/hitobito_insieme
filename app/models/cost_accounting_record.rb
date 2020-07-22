@@ -38,8 +38,8 @@ class CostAccountingRecord < ActiveRecord::Base
 
   validates_by_schema
   validates :report, uniqueness: { scope: [:group_id, :year], case_sensitive: false },
-                     inclusion: { in: -> (record) do
-                       record.vp_class('CostAccounting::Table')::REPORTS.collect(&:key)
+                     inclusion: { in: lambda do |record|
+                       record.vp_class('CostAccounting::Table')::REPORTS.map(&:key)
                      end }
   validate :assert_group_has_reporting
 
