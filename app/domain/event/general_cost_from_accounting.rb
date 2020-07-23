@@ -14,7 +14,7 @@ class Event::GeneralCostFromAccounting
   LEISTUNGSKATEGORIE_MAPPING = { 'bk' => 'blockkurse',
                                  'tk' => 'tageskurse',
                                  'sk' => 'jahreskurse',
-                                 'tp' => 'treffpunkte' }
+                                 'tp' => 'treffpunkte' }.freeze
 
   def initialize(group, year)
     @year = year

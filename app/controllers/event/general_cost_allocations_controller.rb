@@ -37,8 +37,8 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
   private
 
   def entry
-    @entry ||= Event::GeneralCostAllocation.where(group_id: group.id, year: year).
-                                            first_or_initialize
+    @entry ||= Event::GeneralCostAllocation.where(group_id: group.id, year: year)
+                                           .first_or_initialize
   end
 
   def group
@@ -50,8 +50,8 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
   end
 
   def permitted_params
-    params.require(:event_general_cost_allocation).
-           permit(:general_costs_blockkurse,
+    params.require(:event_general_cost_allocation)
+          .permit(:general_costs_blockkurse,
                   :general_costs_tageskurse,
                   :general_costs_semesterkurse,
                   :general_costs_treffpunkte)
