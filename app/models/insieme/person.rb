@@ -45,6 +45,15 @@ module Insieme::Person
               timeliness: { type: :date, allow_blank: true, before: Date.new(9999, 12, 31) }
 
     validate :assert_address_types_zip_is_valid_swiss_post_code
+    validate :assert_full_name_or_company_name
+
+    validates :address, presence: true
+    validates :zip_code, presence: true
+    validates :town, presence: true
+    validates :country, presence: true
+
+    validates :correspondence_language, presence: true
+    validates :language, presence: true
   end
 
   def canton
@@ -95,6 +104,15 @@ module Insieme::Person
       if Countries.swiss?(country) && zip_code.present? && !zip_code.match(/^\d{4}$/)
         errors.add("#{address_type}_zip_code")
       end
+    end
+  end
+
+  def assert_full_name_or_company_name
+    if company?
+      errors.add(:company_name, :blank) if company_name.blank?
+    else
+      errors.add(:first_name, :blank) if first_name.blank?
+      errors.add(:last_name, :blank) if last_name.blank?
     end
   end
 
