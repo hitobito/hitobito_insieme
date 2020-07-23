@@ -18,9 +18,10 @@ describe Export::Tabular::People::ParticipationsFull do
   let(:labels) { people_list.attribute_labels }
 
   before do
+    role_person = Fabricate(:person, { number: '123' })
     Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
               group: groups(:aktiv),
-              person: Fabricate(:person, number: '123', first_name: 'John', last_name: 'Doe'))
+              person: role_person)
     person.reference_person_number = '123'
     person.save!
   end

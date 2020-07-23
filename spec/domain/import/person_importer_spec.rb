@@ -40,7 +40,7 @@ describe Import::PersonImporter do
     end
 
     it 'keeps number of matching person' do
-      existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true)
+      existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true })
 
       expect(person).to eq existing
       expect(person.number).to eq 2
@@ -75,7 +75,7 @@ describe Import::PersonImporter do
         let(:number) { Person::AUTOMATIC_NUMBER_RANGE.first }
 
         it 'uses person with same automatic number from db' do
-          existing = Person.create!(first_name: 'Hans', last_name: 'Lehmann')
+          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann' })
           expect(existing.number).to eq number
 
           expect(person).to eq existing
@@ -99,7 +99,7 @@ describe Import::PersonImporter do
       context 'manual' do
 
         it 'uses person with same manual number from db' do
-          existing = Person.create!(first_name: 'Hans', last_name: 'Lehmann', number: number, manual_number: true)
+          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann', number: number, manual_number: true })
 
           expect(person).to eq existing
           expect(person.number).to eq number
@@ -112,7 +112,7 @@ describe Import::PersonImporter do
         end
 
         it 'fails if person with other number matches' do
-          existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 456, manual_number: true)
+          existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', number: 456, manual_number: true })
 
           expect(person).to eq existing
           expect(import_person.person.errors).not_to be_empty
@@ -137,7 +137,7 @@ describe Import::PersonImporter do
       let(:number) { '' }
 
       it 'keeps number of matching person' do
-        existing = Person.create!(first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true)
+        existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', number: 2, manual_number: true })
 
         expect(person).to eq existing
         expect(person.number).to eq 2
