@@ -8,16 +8,16 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(de fr it en another)
-  CORRESPONDENCE_LANGUAGES = %w(de fr)
+  LANGUAGES = %w(de fr it en another).freeze
+  CORRESPONDENCE_LANGUAGES = %w(de fr).freeze
 
   ADDRESS_TYPES = %w(correspondence_general
                      billing_general
                      correspondence_course
-                     billing_course)
+                     billing_course).freeze
 
   ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
-                      address zip_code town country)
+                      address zip_code town country).freeze
 
   included do
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
@@ -58,9 +58,9 @@ module Insieme::Person
 
   def grouped_active_membership_roles
     if @grouped_active_membership_roles.nil?
-      active_memberships = roles.includes(:group).
-                                 joins(:group).
-                                 where(groups: { type: ::Group::Aktivmitglieder })
+      active_memberships = roles.includes(:group)
+                                .joins(:group)
+                                .where(groups: { type: ::Group::Aktivmitglieder })
       @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
       active_memberships.each do |role|
         @grouped_active_membership_roles[role.group] << role
