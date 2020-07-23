@@ -9,6 +9,12 @@ top_leader:
   email: top.leader@insieme.example.com
   contact_data_visible: true
   primary_group: dachverein
+  address: Teststrasse 23
+  zip_code: 3007
+  town: Bern
+  country: CH
+  correspondence_language: de
+  language: de
 
 regio_leader:
   first_name: Regio
@@ -16,12 +22,24 @@ regio_leader:
   email: regio.leader@insieme.example.com
   contact_data_visible: true
   primary_group: be
+  address: Teststrasse 23
+  zip_code: 3007
+  town: Bern
+  country: CH
+  correspondence_language: de
+  language: de
 
 regio_aktiv:
   first_name: Active
   last_name: Person
   email: child1@insieme.example.com
   primary_group: aktiv
+  address: Teststrasse 23
+  zip_code: 3007
+  town: Bern
+  country: CH
+  correspondence_language: de
+  language: de
 
 root:
   company_name: 'Puzzle ITC'
