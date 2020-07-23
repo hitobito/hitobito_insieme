@@ -33,7 +33,8 @@ module CostAccountingHelper
         f.labeled_vp_input_field(field, addon: t('global.currency'))
       elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
               course_fields.include?(field.to_s)
-        f.labeled_readonly_value(field, value: format_money(table.value_of(report.key, field) || 0.0))
+        f.labeled_readonly_value(field, 
+                                 value: format_money(table.value_of(report.key, field) || 0.0))
       end
     end
   end
