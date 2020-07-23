@@ -9,6 +9,7 @@
 
   = f.labeled_input_field field,
                           addon: t('global.currency'),
+                          value: general_cost_from_accounting.general_cost(lk),
                           help_inline: t('.cost_from_accounting',
                                          value: fnumber(general_cost_from_accounting.general_cost(lk))).html_safe
 
