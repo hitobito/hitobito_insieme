@@ -25,6 +25,20 @@ module CostAccountingHelper
     end
   end
 
+  def cost_accounting_input_and_course_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName
+    course_fields = vp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
+                    .keys.map(&:to_s)
+    safe_join(fields) do |field|
+      if report.editable_fields.include?(field.to_s)
+        f.labeled_vp_input_field(field, addon: t('global.currency'))
+      elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
+              course_fields.include?(field.to_s)
+        f.labeled_readonly_value(field, 
+                                 value: format_money(table.value_of(report.key, field) || 0.0))
+      end
+    end
+  end
+
   def cost_account_field_class(field)
     'subtotal' if %w(aufwand_ertrag_ko_re total).include?(field)
   end

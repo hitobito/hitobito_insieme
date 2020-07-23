@@ -21,7 +21,6 @@ module Vp2020::CostAccounting
                                   verwaltung
                                   beratung
                                   medien_und_publikationen
-                                  treffpunkte
                                   lufeb
                                   mittelbeschaffung)
 
