@@ -46,7 +46,8 @@
 
   - if (report.editable_fields & section_fields).present?
     %h3= t('.kostentraeger')
-    = cost_accounting_input_fields(f, *section_fields)
+    = cost_accounting_input_and_course_fields(f, *section_fields)
+
     = f.labeled(:kostentraeger) do
       .inline#kostentraeger
 
