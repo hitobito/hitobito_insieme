@@ -19,7 +19,9 @@ module Insieme::Person
   ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
                       address zip_code town country).freeze
 
-  included do
+  included do # rubocop:disable Metrics/BlockLength
+    attr_accessor :externally_registered
+
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
     ADDRESS_TYPES.each do |prefix|
@@ -47,13 +49,13 @@ module Insieme::Person
     validate :assert_address_types_zip_is_valid_swiss_post_code
     validate :assert_full_name_or_company_name
 
-    validates :address, presence: true
-    validates :zip_code, presence: true
-    validates :town, presence: true
-    validates :country, presence: true
+    validates :address, presence: true, unless: :externally_registered
+    validates :zip_code, presence: true, unless: :externally_registered
+    validates :town, presence: true, unless: :externally_registered
+    validates :country, presence: true, unless: :externally_registered
 
-    validates :correspondence_language, presence: true
-    validates :language, presence: true
+    validates :correspondence_language, presence: true, unless: :externally_registered
+    validates :language, presence: true, unless: :externally_registered
   end
 
   def canton

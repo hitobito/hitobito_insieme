@@ -23,6 +23,7 @@
 .form-horizontal.participation-person
   = f.fields_for(:person, entry.person) do |pf|
     = field_set_tag Person.model_name.human do
+      = pf.hidden_field(:externally_registered, value: 'true')
       = pf.hidden_field :id
       = render 'contactable/address_fields', f: pf
 
@@ -36,5 +37,4 @@
                                 help_inline: t('people.fields.format_birthday'),
                                 class: 'span2')
       = pf.labeled_i18n_enum_field(:canton, Cantons.labels, class: 'span3')
-
 
