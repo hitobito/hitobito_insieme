@@ -24,6 +24,7 @@ describe Export::Pdf::Labels do
     person.update!(
       address: 'My Street',
       town: 'Bern',
+      zip_code: '3007',
       correspondence_course_same_as_main: false,
       correspondence_course_first_name: 'Course',
       correspondence_course_last_name: 'Leader',
@@ -41,7 +42,7 @@ describe Export::Pdf::Labels do
       let(:address_type) { 'main' }
 
       it 'renders correct address' do
-        is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+        is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
       end
     end
 
@@ -72,7 +73,7 @@ describe Export::Pdf::Labels do
           let(:company) { true }
 
           it 'renders company_name' do
-            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
           end
         end
 
@@ -80,7 +81,7 @@ describe Export::Pdf::Labels do
           let(:company) { false }
 
           it 'does also render company_name' do
-            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n Bern\n"
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
           end
         end
       end
@@ -93,7 +94,7 @@ describe Export::Pdf::Labels do
           let(:company) { true }
 
           it 'does not render company_name' do
-            is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+            is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
           end
         end
 
@@ -101,7 +102,7 @@ describe Export::Pdf::Labels do
           let(:company) { false }
 
           it 'does also not render company_name' do
-            is_expected.to eq "Top Leader\nMy Street\n Bern\n"
+            is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
           end
         end
       end
