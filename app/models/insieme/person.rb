@@ -8,18 +8,20 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(de fr it en another)
-  CORRESPONDENCE_LANGUAGES = %w(de fr)
+  LANGUAGES = %w(de fr it en another).freeze
+  CORRESPONDENCE_LANGUAGES = %w(de fr).freeze
 
   ADDRESS_TYPES = %w(correspondence_general
                      billing_general
                      correspondence_course
-                     billing_course)
+                     billing_course).freeze
 
   ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
-                      address zip_code town country)
+                      address zip_code town country).freeze
 
-  included do
+  included do # rubocop:disable Metrics/BlockLength
+    attr_accessor :externally_registered
+
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
     ADDRESS_TYPES.each do |prefix|
@@ -45,6 +47,15 @@ module Insieme::Person
               timeliness: { type: :date, allow_blank: true, before: Date.new(9999, 12, 31) }
 
     validate :assert_address_types_zip_is_valid_swiss_post_code
+    validate :assert_full_name_or_company_name
+
+    validates :address, presence: true, unless: :externally_registered
+    validates :zip_code, presence: true, unless: :externally_registered
+    validates :town, presence: true, unless: :externally_registered
+    validates :country, presence: true, unless: :externally_registered
+
+    validates :correspondence_language, presence: true, unless: :externally_registered
+    validates :language, presence: true, unless: :externally_registered
   end
 
   def canton
@@ -58,9 +69,9 @@ module Insieme::Person
 
   def grouped_active_membership_roles
     if @grouped_active_membership_roles.nil?
-      active_memberships = roles.includes(:group).
-                                 joins(:group).
-                                 where(groups: { type: ::Group::Aktivmitglieder })
+      active_memberships = roles.includes(:group)
+                                .joins(:group)
+                                .where(groups: { type: ::Group::Aktivmitglieder })
       @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
       active_memberships.each do |role|
         @grouped_active_membership_roles[role.group] << role
@@ -95,6 +106,15 @@ module Insieme::Person
       if Countries.swiss?(country) && zip_code.present? && !zip_code.match(/^\d{4}$/)
         errors.add("#{address_type}_zip_code")
       end
+    end
+  end
+
+  def assert_full_name_or_company_name
+    if company?
+      errors.add(:company_name, :blank) if company_name.blank?
+    else
+      errors.add(:first_name, :blank) if first_name.blank?
+      errors.add(:last_name, :blank) if last_name.blank?
     end
   end
 

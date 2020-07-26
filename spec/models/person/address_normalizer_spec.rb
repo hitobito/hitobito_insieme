@@ -13,7 +13,9 @@ describe Person::AddressNormalizer do
                   address: 'Eigerplatz 4',
                   zip_code: '3007',
                   town: 'Bern',
-                  country: 'CH' } }
+                  country: 'CH',
+                  language: 'de',
+                  correspondence_language: 'de' } }
 
   let(:person) { Person.new(attrs) }
   before { Person::AddressNormalizer.new(person).run }

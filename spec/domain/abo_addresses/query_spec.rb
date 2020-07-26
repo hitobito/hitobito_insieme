@@ -58,9 +58,9 @@ describe AboAddresses::Query do
         abo1 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         abo2 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         abo3 = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
-        abo1.update!(correspondence_language: nil)
+        abo1.update_attribute(:correspondence_language, nil)
         abo2.update!(correspondence_language: 'fr')
-        abo3.update!(correspondence_language: '')
+        abo3.update_attribute(:correspondence_language, '')
         people(:regio_aktiv).update!(correspondence_language: 'de')
 
         is_expected.to include(abo1)
@@ -70,12 +70,12 @@ describe AboAddresses::Query do
       end
 
       it 'contains person if country is null' do
-        people(:regio_aktiv).update!(country: nil)
+        people(:regio_aktiv).update_attribute(:country, nil)
         is_expected.to include(people(:regio_aktiv))
       end
 
       it 'contains person if country is empty' do
-        people(:regio_aktiv).update!(country: '  ')
+        people(:regio_aktiv).update_attribute(:country, '  ')
         is_expected.to include(people(:regio_aktiv))
       end
 
@@ -99,7 +99,7 @@ describe AboAddresses::Query do
       end
 
       it 'does not contain person if language is null' do
-        people(:regio_aktiv).update!(correspondence_language: nil)
+        people(:regio_aktiv).update_attribute(:correspondence_language, nil)
         is_expected.not_to include(people(:regio_aktiv))
       end
 
@@ -124,12 +124,12 @@ describe AboAddresses::Query do
     end
 
     it 'does not contain person if country is empty' do
-      people(:regio_aktiv).update!(country: '')
+      people(:regio_aktiv).update_attribute(:country, '')
       is_expected.not_to include(people(:regio_aktiv))
     end
 
     it 'does not contain person if country is null' do
-      people(:regio_aktiv).update!(country: nil)
+      people(:regio_aktiv).update_attribute(:country, nil)
       is_expected.not_to include(people(:regio_aktiv))
     end
   end
