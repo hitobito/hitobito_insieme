@@ -1,6 +1,6 @@
-#_ encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -278,15 +278,7 @@ describe Person do
       it { expect(company).to be_company }
 
       it 'has a company_name' do
-        previous_value = company.company_name
-        company.company_name = nil
-
-        expect(company.company_name).to be_blank
-        expect(company).to_not be_valid
-
-        company.company_name = previous_value
-
-        expect(company).to be_valid
+        expect { company.company_name = nil }.to change { company.valid? }.from(true).to(false)
       end
     end
 
@@ -294,9 +286,10 @@ describe Person do
       subject(:nicknamed_person) { Fabricate(:person, {company: false, nickname: 'Nick'}) }
       subject(:named_person) { Fabricate(:person) }
 
-      it { is_expected.to_not be_company }
+      it { expect(nicknamed_person).to_not be_company }
+      it { expect(named_person).to_not be_company }
 
-      it 'has a first_name and a last_name' do
+      it 'has a first_name and a last_name' do # long version once, shorter specs to follow
         nicknamed_person.first_name = nil
         nicknamed_person.last_name = nil
 
@@ -311,103 +304,35 @@ describe Person do
       end
 
       it 'has not only a last_name' do
-        nicknamed_person.first_name = nil
-        nicknamed_person.last_name = nil
-
-        expect(nicknamed_person.first_name).to be_blank
-        expect(nicknamed_person.last_name).to be_blank
-        expect(nicknamed_person).to_not be_valid
-
-        nicknamed_person.first_name = nil
-        nicknamed_person.last_name = 'Tester'
-
-        expect(nicknamed_person).to_not be_valid
+        expect { nicknamed_person.first_name = nil }.to change { nicknamed_person.valid? }.from(true).to(false)
       end
 
       it 'has not only a first_name' do
-        nicknamed_person.first_name = nil
-        nicknamed_person.last_name = nil
-
-        expect(nicknamed_person.first_name).to be_blank
-        expect(nicknamed_person.last_name).to be_blank
-        expect(nicknamed_person).to_not be_valid
-
-        nicknamed_person.first_name = 'Tom'
-        nicknamed_person.last_name = nil
-
-        expect(nicknamed_person).to_not be_valid
+        expect { nicknamed_person.last_name = nil }.to change { nicknamed_person.valid? }.from(true).to(false)
       end
 
       it 'has an address' do
-        previous_value = named_person.address
-        named_person.address = nil
-
-        expect(named_person.address).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.address = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.address = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a zip_code' do
-        previous_value = named_person.zip_code
-        named_person.zip_code = nil
-
-        expect(named_person.zip_code).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.zip_code = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.zip_code = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a town' do
-        previous_value = named_person.town
-        named_person.town = nil
-
-        expect(named_person.town).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.town = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.town = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a country' do
-        previous_value = named_person.country
-        named_person.country = nil
-
-        expect(named_person.country).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.country = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.country = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a correspondence_language' do
-        previous_value = named_person.correspondence_language
-        named_person.correspondence_language = nil
-
-        expect(named_person.correspondence_language).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.correspondence_language = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.correspondence_language = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a language' do
-        previous_value = named_person.language
-        named_person.language = nil
-
-        expect(named_person.language).to be_blank
-        expect(named_person).to_not be_valid
-
-        named_person.language = previous_value
-
-        expect(named_person).to be_valid
+        expect { named_person.language = nil }.to change { named_person.valid? }.from(true).to(false)
       end
     end
   end
