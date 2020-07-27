@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 # == Schema Information
 #
 # Table name: event_course_records
@@ -40,12 +45,6 @@
 #  tage_weitere                     :decimal(12, 2)
 #
 
-
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
-
 module Event::CourseRecordsHelper
 
   def kursart_label(art)
@@ -56,7 +55,7 @@ module Event::CourseRecordsHelper
     string = format_money(record.gemeinkostenanteil)
     if record.gemeinkosten_updated_at
       string = safe_join([string,
-                          ' &nbsp; &nbsp; '.html_safe, # rubocop:disable Rails/OutputSafety
+                          ' &nbsp; &nbsp; '.html_safe,
                           t('event.course_records.form.updated_at',
                             date: format_attr(record, :gemeinkosten_updated_at))])
     end
@@ -68,7 +67,7 @@ module Event::CourseRecordsHelper
       record.zugeteilte_kategorie
     else
       safe_join([record.zugeteilte_kategorie.to_s,
-                 ' &nbsp; &nbsp; '.html_safe, # rubocop:disable Rails/OutputSafety
+                 ' &nbsp; &nbsp; '.html_safe,
                  t('event.course_records.form.info_not_subsidized')])
     end
   end
