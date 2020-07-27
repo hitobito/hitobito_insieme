@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 # == Schema Information
 #
 # Table name: event_course_records
@@ -39,12 +44,6 @@
 #  tage_angehoerige                 :decimal(12, 2)
 #  tage_weitere                     :decimal(12, 2)
 #
-
-
-#  Copyright (c) 2012-2019, insieme Schweiz. This file is part of
-#  hitobito_insieme and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_insieme.
 
 class Event::CourseRecordsController < CrudController
 
@@ -99,6 +98,19 @@ class Event::CourseRecordsController < CrudController
 
   def entry
     model_ivar_get || model_ivar_set(find_entry)
+  end
+
+  def assign_attributes
+    event_attrs = params.require(model_identifier).permit(event: :fachkonzept)[:event]&.to_hash
+    entry.event.attributes = event_attrs if event_attrs
+
+    super
+  end
+
+  def save_entry
+    entry.event.save if entry.event.changed?
+
+    super
   end
 
   def find_entry
