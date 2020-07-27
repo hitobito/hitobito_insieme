@@ -10,6 +10,7 @@ module Vp2020
     module Tabular
       module TimeRecords
         class List
+          include Vertragsperioden::Domain
 
           ATTRIBUTES = [
             :lufeb_grundlagen,
@@ -31,6 +32,8 @@ module Vp2020
             :projekte,
             :total_lufeb_specific,
 
+            :total_lufeb,
+
             :medien_grundlagen,
             :website,
             :newsletter,
@@ -39,8 +42,6 @@ module Vp2020
             :beratungsmodule,
             :apps,
             :total_lufeb_media,
-
-            :total_lufeb,
 
             :kurse_grundlagen,
             :blockkurse,
@@ -78,10 +79,11 @@ module Vp2020
             end
           end
 
-          attr_reader :records
+          attr_reader :records, :year
 
           def initialize(records)
             @records = records.index_by { |r| r.class.key }
+            @year = 2020 # hardcoded to vp2020
           end
 
           def data_rows(_format = nil)
@@ -112,10 +114,18 @@ module Vp2020
           end
 
           def attributes(attr)
-            [::TimeRecord.human_attribute_name(attr),
+            [label(::TimeRecord, attr),
              value(::TimeRecord::EmployeeTime, attr),
              value(::TimeRecord::VolunteerWithVerificationTime, attr),
              value(::TimeRecord::VolunteerWithoutVerificationTime, attr)]
+          end
+
+          def label(klass, attr)
+            I18n.t(attr,
+                   scope: vp_i18n_scope(klass.name.tableize),
+                   default: [
+                     klass.human_attribute_name(attr)
+                   ])
           end
 
           def value(klass, attr)

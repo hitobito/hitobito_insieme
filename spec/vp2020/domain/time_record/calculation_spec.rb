@@ -60,7 +60,11 @@ describe Vp2020::TimeRecord::Calculation do
   subject { described_class.new(record) }
 
   it 'total_lufeb' do
-    expect(subject.total_lufeb).to eq 41
+    expect(subject.total_lufeb).to eq 39
+  end
+
+  it 'total_lufeb_media' do
+    expect(subject.total_lufeb_media).to eq 2
   end
 
   it 'total_lufeb_grundlagen' do
@@ -80,10 +84,10 @@ describe Vp2020::TimeRecord::Calculation do
   end
 
   it 'total_paragraph_74' do
-    expect(subject.total_paragraph_74).to eq 97
+    expect(subject.total_paragraph_74).to eq 95
   end
   it 'total_paragraph_74_pensum' do
-    expect(subject.total_paragraph_74_pensum).to eq 97.to_d / 1900
+    expect(subject.total_paragraph_74_pensum).to eq 95.to_d / 1900
   end
 
   it 'total_not_paragraph_74' do
@@ -94,20 +98,20 @@ describe Vp2020::TimeRecord::Calculation do
   end
 
   it 'total_pensum' do
-    expect(subject.total_pensum).to eq (12 + 97).to_d / 1900
+    expect(subject.total_pensum).to eq (12 + 95).to_d / 1900
   end
 
   it 'update_totals' do
     expect(subject.total_lufeb_general).to eq 1
-    expect(subject.total_lufeb_media).to eq 2
     expect(subject.total_lufeb_specific).to eq 3
     expect(subject.total_lufeb_promoting).to eq 4
+    expect(subject.total_lufeb_media).to eq 2
 
     subject.update_totals
 
     expect(subject.total_lufeb_general).to eq 58
-    expect(subject.total_lufeb_media).to eq 140
     expect(subject.total_lufeb_specific).to eq 102
     expect(subject.total_lufeb_promoting).to eq 87
+    expect(subject.total_lufeb_media).to eq 140
   end
 end

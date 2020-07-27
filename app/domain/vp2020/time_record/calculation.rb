@@ -66,6 +66,7 @@ module Vp2020
              :social_media,
              :beratungsmodule,
              :apps,
+
              :total_lufeb_media,
              :kurse_grundlagen,
              :lufeb_grundlagen,
@@ -75,8 +76,7 @@ module Vp2020
       total_lufeb_grundlagen.to_i +
         total_lufeb_promoting.to_i +
         total_lufeb_general.to_i +
-        total_lufeb_specific.to_i +
-        total_lufeb_media.to_i
+        total_lufeb_specific.to_i
     end
 
     def total_lufeb_grundlagen
@@ -171,14 +171,15 @@ module Vp2020
     end
 
     def calculate_total_lufeb_media
-      @record.total_lufeb_media =
-        medien_grundlagen.to_i +
-        website.to_i +
-        newsletter.to_i +
-        videos.to_i +
-        social_media.to_i +
-        beratungsmodule.to_i +
-        apps.to_i
+      @record.total_lufeb_media = [
+        :medien_grundlagen,
+        :website,
+        :newsletter,
+        :videos,
+        :social_media,
+        :beratungsmodule,
+        :apps,
+      ].map { |attr| send(attr).to_i }.sum
     end
 
   end

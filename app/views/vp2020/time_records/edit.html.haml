@@ -30,9 +30,6 @@
   - else
     = render 'lufeb_fields_full', f: f
 
-  = field_set_tag do
-    = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
-
   %h3= t('.courses')
   = field_set_tag do
     = f.labeled_vp_input_field :kurse_grundlagen, addon: t('global.hours_short')
