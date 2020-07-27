@@ -66,7 +66,6 @@ module Vp2020
              :social_media,
              :beratungsmodule,
              :apps,
-
              :total_lufeb_media,
              :kurse_grundlagen,
              :lufeb_grundlagen,
@@ -178,7 +177,7 @@ module Vp2020
         :videos,
         :social_media,
         :beratungsmodule,
-        :apps,
+        :apps
       ].map { |attr| send(attr).to_i }.sum
     end
 
