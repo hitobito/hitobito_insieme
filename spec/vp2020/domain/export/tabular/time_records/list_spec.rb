@@ -50,20 +50,21 @@ describe 'Export::Tabular::TimeRecords::List' do
       expect(data[2]).to eq(['Art. 74 nicht betreffend in 100% Stellen', 0.5, nil, nil])
       expect(data[3]).to eq(['Total', 2.0, nil, nil])
       expect(data[4]).to eq(['Grundlagenarbeit zu LUFEB', nil, 100.0, nil])
-      expect(data[5]).to eq(['Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe', nil, nil, nil])
+      expect(data[5]).to eq(['Information / Beratung von Organisationen und Einzelpersonen', nil, nil, nil])
 
       expect(data[13]).to eq(['Allgemeine Medien- und Öffentlichkeitsarbeit', 0, 0, 300])
 
-      expect(data[20]).to eq(['Website', 330.0, nil, nil])
-      expect(data[25]).to eq(['Applikationen', 200.0, nil, nil])
-      expect(data[26]).to eq(['Medien & Publikationen', 530.0, 0.0, nil])
+      expect(data[20]).to eq(['Grundlagenarbeit zu Medien & Publikationen', nil, nil, nil])
+      expect(data[21]).to eq(['Website', 330.0, nil, nil])
+      expect(data[26]).to eq(['Applikationen', 200.0, nil, nil])
+      expect(data[27]).to eq(['Medien & Publikationen', 530.0, 0.0, nil])
 
       expect(data[29]).to eq(['Blockkurse', 300.0, 400.0, nil])
       expect(data[30]).to eq(['Tageskurse', nil, nil, 55.0])
-      expect(data[32]).to eq(['Betreuung in Treffpunkten', nil, nil, 37.0])
+      expect(data[32]).to eq(['Treffpunkte', nil, nil, 37.0])
 
-      expect(data[43]).to eq(['Total', 880.0, 638.0, 442.0])
-      expect(data[44]).to eq(['Ausgedrückt in-100% Stellen', 0.46, 0.34, 0.23])
+      expect(data[43]).to eq(['Total', 350.0, 638.0, 442.0])
+      expect(data[44]).to eq(['Ausgedrückt in-100% Stellen', 0.18, 0.34, 0.23])
     end
 
   end
