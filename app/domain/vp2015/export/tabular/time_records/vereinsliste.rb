@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 
-module Export
+module Vp2015::Export
   module Tabular
     module TimeRecords
       class Vereinsliste < Export::Tabular::Base
@@ -45,14 +45,14 @@ module Export
           :beratung_fachhilfeorganisationen,
           :unterstuetzung_behindertenhilfe,
           :total_lufeb_promoting
-        ]
+        ].freeze
 
         ATTRS_LUFEB_SUM = [
           :total_lufeb_general,
           :total_lufeb_private,
           :total_lufeb_specific,
           :total_lufeb_promoting
-        ]
+        ].freeze
 
         ATTRS_GENERAL = [
           :total_lufeb,
@@ -74,7 +74,7 @@ module Export
           :total_not_paragraph_74,
 
           :total
-        ]
+        ].freeze
 
         self.model_class = TimeRecord
 

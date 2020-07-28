@@ -26,7 +26,7 @@ class ControllingController < ApplicationController
   def cost_accounting
     @table = vp_class('CostAccounting::Aggregation').new(year)
     xlsx = vp_class('Export::Tabular::CostAccounting::List')
-               .xlsx(@table.reports.values, group.name, year)
+           .xlsx(@table.reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: "cost_accounting_#{year}.xlsx"
   end
 
@@ -44,7 +44,7 @@ class ControllingController < ApplicationController
 
   def time_records
     @list = vp_class('TimeRecord::Vereinsliste').new(year, params[:type])
-    csv = Export::Tabular::TimeRecords::Vereinsliste.csv(@list)
+    csv = vp_class('Export::Tabular::TimeRecords::Vereinsliste').csv(@list)
     filename = "#{params[:type].to_s.underscore.tr('/', '_')}_#{year}.csv"
     send_data csv, type: :csv, filename: filename
   end

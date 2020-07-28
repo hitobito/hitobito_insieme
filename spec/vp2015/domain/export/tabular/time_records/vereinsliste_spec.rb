@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2016, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Export::Tabular::TimeRecords::Vereinsliste do
+describe Vp2015::Export::Tabular::TimeRecords::Vereinsliste do
 
   let(:year) { 2014 }
   let(:type) { TimeRecord::EmployeeTime.sti_name }
