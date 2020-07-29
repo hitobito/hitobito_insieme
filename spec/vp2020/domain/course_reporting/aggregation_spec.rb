@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2015, insieme Schweiz. This file is part of
+#  Copyright (c) 2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -86,11 +86,6 @@ describe Vp2020::CourseReporting::Aggregation do
           expect(course_totals(:anzahl_kurse, 'sport_jugend')).to eq(0)
           expect(course_totals(:anzahl_kurse, 'sport_erwachsen')).to eq(0)
           expect(course_totals(:anzahl_kurse, 'autonomie_foerderung')).to eq(1)
-
-          kursfachkonzepte.each do |k|
-            expect(course_counts(:anzahl_kurse, :freizeit_und_sport, k)).to eq(1)
-            expect(course_counts(:anzahl_kurse, :weiterbildung, k)).to eq(nil)
-          end
         end
       end
     end
@@ -103,7 +98,6 @@ describe Vp2020::CourseReporting::Aggregation do
           create!(create_course('sk', [groups(:be)], 2020, k), 'freizeit_und_sport')
         end
 
-        expect(course_counts(:anzahl_kurse, 'freizeit_und_sport', 'all')).to eq(2)
         expect(course_totals(:anzahl_kurse)).to eq(2)
       end
     end
@@ -111,7 +105,7 @@ describe Vp2020::CourseReporting::Aggregation do
   end
 
   context 'summed and aggregated values' do
-    it "builds total and value for three 'freizeit_und_sport' records" do
+    it "builds total for three 'freizeit_und_sport' records" do
       3.times { create!(create_course, 'freizeit_und_sport', values) }
 
       assert_summed_totals
@@ -119,31 +113,31 @@ describe Vp2020::CourseReporting::Aggregation do
       expect_values(:anzahl_kurse, 3)
       expect_values(:kursdauer, 1.5)
 
-      expect_values(:teilnehmende, 27, 27, 0)
+      expect_values(:teilnehmende, 27)
       expect_values(:teilnehmende_behinderte, 9)
       expect_values(:teilnehmende_angehoerige, 6)
       expect_values(:teilnehmende_weitere, 12)
 
-      expect_values(:total_tage_teilnehmende, 12, 12, 0)
-      expect_values(:tage_behinderte, 3, 3, nil)
-      expect_values(:tage_angehoerige, 3, 3, nil)
-      expect_values(:tage_weitere, 6, 6, nil)
+      expect_values(:total_tage_teilnehmende, 12)
+      expect_values(:tage_behinderte, 3)
+      expect_values(:tage_angehoerige, 3)
+      expect_values(:tage_weitere, 6)
 
-      expect_values(:total_absenzen, 1.5, 1.5, 0)
+      expect_values(:total_absenzen, 1.5)
       expect_values(:absenzen_behinderte, 1.5)
-      expect_values(:absenzen_angehoerige, 0, 0, nil)
-      expect_values(:absenzen_weitere, 0, nil, nil)
+      expect_values(:absenzen_angehoerige, 0)
+      expect_values(:absenzen_weitere, 0)
 
-      expect_values(:betreuende, 30, 30, 0)
+      expect_values(:betreuende, 30)
       expect_values(:leiterinnen, 3)
       expect_values(:fachpersonen, 6)
-      expect_values(:betreuerinnen, 0, nil)
+      expect_values(:betreuerinnen, 0)
       expect_values(:hilfspersonal_ohne_honorar, 9)
       expect_values(:hilfspersonal_mit_honorar, 12)
 
       expect_values(:kuechenpersonal, 15)
 
-      expect_values(:direkter_aufwand, 180, 180, nil)
+      expect_values(:direkter_aufwand, 180)
       expect_values(:honorare_inkl_sozialversicherung, 30)
       expect_values(:unterkunft, 60)
       expect_values(:uebriges, 90)
@@ -151,73 +145,73 @@ describe Vp2020::CourseReporting::Aggregation do
       dk_pro_le = 180.to_d / 12.to_d # direkter_aufwand / total_tage_teilnehmende
       vk_pro_le = 210.to_d / 12.to_d # total_vollkosten / total_tage_teilnehmende
 
-      expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, 0)
-      expect_values(:total_vollkosten, 210, 210, 0)
-      expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, 0)
+      expect_values(:direkte_kosten_pro_le, dk_pro_le)
+      expect_values(:total_vollkosten, 210)
+      expect_values(:vollkosten_pro_le, vk_pro_le)
       expect_values(:direkter_aufwand, 180)
 
       expect_values(:beitraege_teilnehmende, 30)
       expect_values(:gemeinkostenanteil, 30)
-      expect_values(:betreuungsschluessel, 9/30.0, 9/30.0, 0)
+      expect_values(:betreuungsschluessel, 9/30.0)
 
-      expect_values(:anzahl_spezielle_unterkunft, 3, 3, 0)
+      expect_values(:anzahl_spezielle_unterkunft, 3)
     end
 
-    it "builds total and value for two 'freizeit_und_sport' and two 'weiterbildung' records" do
+    it "builds total for two 'freizeit_und_sport' and two 'weiterbildung' records" do
       2.times { create!(create_course, 'freizeit_und_sport', values) }
       2.times { create!(create_course, 'weiterbildung', values) }
 
       assert_summed_totals
 
-      expect_values(:anzahl_kurse, 4, 2, 2)
-      expect_values(:kursdauer, 2, 1, 1)
+      expect_values(:anzahl_kurse, 4)
+      expect_values(:kursdauer, 2)
 
-      expect_values(:teilnehmende, 36, 18, 18)
-      expect_values(:teilnehmende_behinderte, 12, 6, 6)
-      expect_values(:teilnehmende_angehoerige, 8, 4, 4)
-      expect_values(:teilnehmende_weitere, 16, 8, 8)
+      expect_values(:teilnehmende, 36)
+      expect_values(:teilnehmende_behinderte, 12)
+      expect_values(:teilnehmende_angehoerige, 8)
+      expect_values(:teilnehmende_weitere, 16)
 
-      expect_values(:total_tage_teilnehmende, 16, 8, 8)
-      expect_values(:tage_behinderte, 4, 2, 2)
-      expect_values(:tage_angehoerige, 4, 2, 2)
-      expect_values(:tage_weitere, 8, 4, 4)
+      expect_values(:total_tage_teilnehmende, 16)
+      expect_values(:tage_behinderte, 4)
+      expect_values(:tage_angehoerige, 4)
+      expect_values(:tage_weitere, 8)
 
-      expect_values(:total_absenzen, 2, 1, 1)
-      expect_values(:absenzen_behinderte, 2, 1, 1)
-      expect_values(:absenzen_angehoerige, 0, 0, 0)
-      expect_values(:absenzen_weitere, 0, nil, nil)
+      expect_values(:total_absenzen, 2)
+      expect_values(:absenzen_behinderte, 2)
+      expect_values(:absenzen_angehoerige, 0)
+      expect_values(:absenzen_weitere, 0)
 
-      expect_values(:betreuende, 40, 20, 20)
-      expect_values(:leiterinnen, 4, 2, 2)
-      expect_values(:fachpersonen, 8, 4, 4)
-      expect_values(:betreuerinnen, 0, nil, nil)
-      expect_values(:hilfspersonal_ohne_honorar, 12, 6, 6)
-      expect_values(:hilfspersonal_mit_honorar, 16, 8, 8)
-      expect_values(:kuechenpersonal, 20, 10, 10)
+      expect_values(:betreuende, 40)
+      expect_values(:leiterinnen, 4)
+      expect_values(:fachpersonen, 8)
+      expect_values(:betreuerinnen, 0)
+      expect_values(:hilfspersonal_ohne_honorar, 12)
+      expect_values(:hilfspersonal_mit_honorar, 16)
+      expect_values(:kuechenpersonal, 20)
 
-      expect_values(:direkter_aufwand, 240, 120, 120)
-      expect_values(:honorare_inkl_sozialversicherung, 40, 20, 20)
-      expect_values(:unterkunft, 80, 40, 40)
-      expect_values(:uebriges, 120, 60, 60)
+      expect_values(:direkter_aufwand, 240)
+      expect_values(:honorare_inkl_sozialversicherung, 40)
+      expect_values(:unterkunft, 80)
+      expect_values(:uebriges, 120)
 
       dk_pro_le = 240.to_d / 16 # direkter_aufwand / total_tage_teilnehmende
       vk_pro_le = 280.to_d / 16 # total_vollkosten / total_tage_teilnehmende
 
-      expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
-      expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
-      expect_values(:direkter_aufwand, 240, 120, 120)
+      expect_values(:direkte_kosten_pro_le, dk_pro_le)
+      expect_values(:vollkosten_pro_le, vk_pro_le)
+      expect_values(:direkter_aufwand, 240)
 
-      expect_values(:beitraege_teilnehmende, 40, 20, 20)
-      expect_values(:gemeinkostenanteil, 40, 20, 20)
-      expect_values(:betreuungsschluessel, 12/40.0, 12/40.0, 12/40.0)
+      expect_values(:beitraege_teilnehmende, 40)
+      expect_values(:gemeinkostenanteil, 40)
+      expect_values(:betreuungsschluessel, 12/40.0)
 
-      expect_values(:anzahl_spezielle_unterkunft, 4, 2, 2)
+      expect_values(:anzahl_spezielle_unterkunft, 4)
     end
 
     it "sums 'spezielle_unterkunft' correctly" do
       create!(create_course, 'freizeit_und_sport', values.merge(spezielle_unterkunft: false))
       create!(create_course, 'weiterbildung', values.merge(spezielle_unterkunft: true))
-      expect_values(:anzahl_spezielle_unterkunft, 1, 0, 1)
+      expect_values(:anzahl_spezielle_unterkunft, 1)
     end
   end
 
@@ -279,21 +273,19 @@ describe Vp2020::CourseReporting::Aggregation do
       :gemeinkostenanteil,
       :anzahl_spezielle_unterkunft].each do |attr|
         assert_summed(attr, :total, :all, aggregation, aggregation_be_1, aggregation_fr_1)
-        assert_summed(attr, :freizeit_und_sport, :sport_jugend, aggregation, aggregation_be_1, aggregation_fr_1)
-        assert_summed(attr, :weiterbildung, :sport_jugend, aggregation, aggregation_be_1, aggregation_fr_1)
+        assert_summed(attr, :total, :sport_jugend, aggregation, aggregation_be_1, aggregation_fr_1)
 
         assert_summed(attr, :total, :all, aggregation_123, aggregation_be_123, aggregation_fr_123)
-        assert_summed(attr, :freizeit_und_sport, :sport_jugend, aggregation_123, aggregation_be_123, aggregation_fr_123)
-        assert_summed(attr, :weiterbildung, :sport_jugend, aggregation_123, aggregation_be_123, aggregation_fr_123)
+        assert_summed(attr, :total, :sport_jugend, aggregation_123, aggregation_be_123, aggregation_fr_123)
       end
 
 
       dk_pro_le = 360.to_d / 24 # direkter_aufwand / total_tage_teilnehmende
       vk_pro_le = 420.to_d / 24 # total_vollkosten / total_tage_teilnehmende
 
-      expect_values(:direkte_kosten_pro_le, dk_pro_le, dk_pro_le, dk_pro_le)
-      expect_values(:vollkosten_pro_le, vk_pro_le, vk_pro_le, vk_pro_le)
-      expect_values(:betreuungsschluessel, 18/60.0, 18/60.0, 18/60.0)
+      expect_values(:direkte_kosten_pro_le, dk_pro_le)
+      expect_values(:vollkosten_pro_le, vk_pro_le)
+      expect_values(:betreuungsschluessel, 18/60.0)
     end
 
     def assert_summed(attr, kursart, kursfachkonzept, overall, *aggregations)
@@ -321,10 +313,8 @@ describe Vp2020::CourseReporting::Aggregation do
     course_counts(attr, :total, kursfachkonzept)
   end
 
-  def expect_values(attr, total, freizeit_und_sport = total, weiterbildung = nil)
+  def expect_values(attr, total)
     expect(course_totals(attr)).to eq(total), "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
-    expect(course_counts(attr, :freizeit_und_sport)).to eq(freizeit_und_sport)
-    expect(course_counts(attr, :weiterbildung)).to eq(weiterbildung)
   end
 
   def new_aggregation(attrs = {})

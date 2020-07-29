@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -13,7 +13,8 @@ module Vp2020::Export
 
         include Vertragsperioden::Domain
 
-        NON_TP_ATTRIBUTES = %i(
+        # rubocop:disable Style/SymbolArray
+        NON_TP_ATTRIBUTES = %i[
           anzahl_kurse kursdauer
 
           teilnehmende teilnehmende_behinderte teilnehmende_angehoerige teilnehmende_weitere
@@ -27,9 +28,9 @@ module Vp2020::Export
 
           direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
           betreuungsschluessel anzahl_spezielle_unterkunft
-        ).freeze
+        ].freeze
 
-        TP_ATTRIBUTES = %i(
+        TP_ATTRIBUTES = %i[
           anzahl_kurse kursdauer
 
           teilnehmende teilnehmende_behinderte teilnehmende_angehoerige teilnehmende_weitere
@@ -40,7 +41,8 @@ module Vp2020::Export
 
           direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
           betreuungsschluessel anzahl_spezielle_unterkunft
-        ).freeze
+        ].freeze
+        # rubocop:enable Style/SymbolArray
 
         class << self
           def csv(aggregation)
@@ -68,8 +70,7 @@ module Vp2020::Export
             if kriterium == 'all'
               kursart_label(kursart)
             else
-              key = "activerecord.attributes.event/course.fachkonzepte.#{kriterium}"
-              "#{I18n.t(key)}: #{kursart_label(kursart)}"
+              I18n.t("activerecord.attributes.event/course.fachkonzepte.#{kriterium}")
             end
           end
         end
@@ -106,6 +107,7 @@ module Vp2020::Export
 
         def attributes_of_leistungskategorie
           return TP_ATTRIBUTES if treffpunkt?
+
           NON_TP_ATTRIBUTES
         end
 
@@ -131,19 +133,15 @@ module Vp2020::Export
         end
 
         def kriterien
-          if blockkurs? || tageskurs?
-            aggregation.kursfachkonzepte
-          else
-            %w(all)
-          end
+          return [] if treffpunkt?
+
+          aggregation.kursfachkonzepte
         end
 
         def kursarten
-          if blockkurs? || tageskurs?
-            aggregation.kursarten + %w(total)
-          else
-            aggregation.kursarten
-          end
+          return aggregation.kursarten if treffpunkt?
+
+          aggregation.kursarten + %w(total)
         end
 
         def blockkurs?

@@ -59,9 +59,7 @@ module Vp2020::CourseReporting
     end
 
     def kursarten
-      return [] if leistungskategorie == 'tp'
-
-      Event::CourseRecord::KURSARTEN
+      [] # wurde durch Aufteilung nach Kursinhalt/kriterien ersetzt
     end
 
     def kursfachkonzepte
