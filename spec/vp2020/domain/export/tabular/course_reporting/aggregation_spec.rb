@@ -161,6 +161,43 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
     end
   end
 
+  context 'tp' do
+    before do
+      2.times do
+        values[:absenzen_behinderte] = 2 # sk allows only integers
+        create!(create_course('tp', fachkonzept: 'treffpunkt'), 'freizeit_und_sport', values)
+        create!(create_course('tp', fachkonzept: 'treffpunkt'), 'weiterbildung', values)
+      end
+    end
+
+    it 'contains correct headers' do
+      expect(exporter('tp').labels).to eq ['', 'Total']
+    end
+
+    it 'contains correct row headers, values and sums' do
+      rows = [nil] + export('tp')
+      expect(rows[1]).to eq ['Anzahl Durchführungen',                                       4]
+      expect(rows[2]).to eq ['Anzahl Kursstunden',                                          8.0.to_d]
+      expect(rows[3]).to eq ['Anzahl effektive TeilnehmerInnen',                            12]
+      expect(rows[4]).to eq ['davon Behinderte',                                            4]
+      expect(rows[5]).to eq ['davon Angehörige',                                            8]
+      expect(rows[6]).to eq ['davon nicht Bezugsberechtigte',                               0]
+      expect(rows[7]).to eq ['Anzahl Betreuungsstunden',                                    320.00]
+      expect(rows[8]).to eq ['Betreuungspersonen',                                          40]
+      expect(rows[9]).to eq ['Gesamtaufwand direkte Kosten',                                240.00]
+      expect(rows[10]).to eq ['davon Honorare',                                             40.00]
+      expect(rows[11]).to eq ['davon Unterkunft/Raumaufwand',                               80.00]
+      expect(rows[12]).to eq ['davon übriger Aufwand inkl. Verpflegung',                    120.00]
+      expect(rows[13]).to eq ['Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde', 20]
+      expect(rows[14]).to eq ['Vollkosten',                                                 280.00]
+      expect(rows[15][0]).to eq 'Durchschnittliche Vollkosten pro TeilnehmerInnenstunde'
+      expect(rows[15][1..-1].collect(&:to_i)).to eq [nil,                                   23][1..-1]
+      expect(rows[16]).to eq ['Beiträge Teilnehmende',                                      40.00]
+      expect(rows[17]).to eq ['Betreuungschlüssel (Teilnehmende / Betreuende)',             0.10]
+      expect(rows[18]).to eq ['Anzahl Kurse mit spezieller Unterkunft',                     4]
+    end
+  end
+
   def create_course(leistungskategorie = 'bk', group_list: [groups(:be)], year: 2020, fachkonzept: 'sport_jugend')
     Event::Course.create!(groups: group_list,
                           name: 'test',
