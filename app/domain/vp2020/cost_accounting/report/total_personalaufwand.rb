@@ -27,7 +27,8 @@ module Vp2020::CostAccounting
                               tageskurse
                               jahreskurse
                               lufeb
-                              mittelbeschaffung)
+                              mittelbeschaffung
+                              medien_und_publikationen)
 
       define_summed_field_methods
 
