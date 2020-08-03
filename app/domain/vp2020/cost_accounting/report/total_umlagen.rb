@@ -14,6 +14,7 @@ module Vp2020::CostAccounting
                                umlage_verwaltung)
 
       self.summed_fields = %w(beratung
+                              medien_und_publikationen
                               treffpunkte
                               blockkurse
                               tageskurse

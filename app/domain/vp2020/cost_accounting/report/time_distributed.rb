@@ -16,7 +16,8 @@ module Vp2020::CostAccounting
                        tageskurse
                        jahreskurse
                        lufeb
-                       mittelbeschaffung)
+                       mittelbeschaffung
+                       medien_und_publikationen)
 
       self.used_fields += %w(verwaltung)
 

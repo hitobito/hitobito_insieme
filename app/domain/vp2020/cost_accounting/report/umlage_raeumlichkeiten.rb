@@ -18,7 +18,8 @@ module Vp2020::CostAccounting
                   tageskurse
                   jahreskurse
                   lufeb
-                  mittelbeschaffung)
+                  mittelbeschaffung
+                  medien_und_publikationen)
 
       FIELDS.each do |field|
         define_method(field) do
@@ -48,7 +49,8 @@ module Vp2020::CostAccounting
           tageskurse.to_d +
           jahreskurse.to_d +
           lufeb.to_d +
-          mittelbeschaffung.to_d
+          mittelbeschaffung.to_d +
+          medien_und_publikationen.to_d
         end
       end
       # rubocop:enable Metrics/AbcSize

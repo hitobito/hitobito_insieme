@@ -74,6 +74,10 @@ class TimeRecord < ActiveRecord::Base
     total_lufeb
   end
 
+  def medien_und_publikationen
+    total_lufeb_media
+  end
+
   def vp_calculations
     @vp_calculations ||= Vertragsperioden::Dispatcher
                          .new(year)
