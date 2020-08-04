@@ -64,7 +64,6 @@ module Vp2020
       organization_capital_allocated.to_d +
         record.earmarked_funds.to_d +
         deckungsbeitrag4.to_d +
-        record.fund_building.to_d +
         exemption.to_d
     end
 

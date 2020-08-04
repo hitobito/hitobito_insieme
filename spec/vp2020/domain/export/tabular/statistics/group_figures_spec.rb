@@ -46,9 +46,9 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
                                  lufeb: 20)
 
     CapitalSubstrate.create!(
-      group: groups(:be), year: year, organization_capital: 500_000, fund_building: 25_000)
+      group: groups(:be), year: year, organization_capital: 500_000)
     CapitalSubstrate.create!(
-      group: groups(:fr), year: year, organization_capital: 250_000, fund_building: 15_000)
+      group: groups(:fr), year: year, organization_capital: 250_000)
 
     create_course(year, :be, 'bk', '1', kursdauer: 10, unterkunft: 500,
                   challenged_canton_count_attributes: { zh: 100 })
@@ -315,7 +315,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         0, 21, 0, 0, 0,
         0,
         2.0, 1.6, (21.0/1900).round(5), (21.0/1900).round(5), (21.0/1900).round(5),
-        -186100.0, 0.0, 1100.0, 0.0, -1100.0
+        -201_100.0, 0.0, 1100.0, 0.0, -1100.0
       ]
     end
 
@@ -346,7 +346,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         0, 0, 0, 0, 0,
         30,
         0.25, 0.25, (30.0/1900).round(5), (30.0/1900).round(5), 0.0,
-        10_073_000.0, 100.0, 2050.0, 20.0, -2000.0
+        10_048_000.0, 100.0, 2050.0, 20.0, -2000.0
       ]
     end
 
@@ -391,6 +391,5 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
     r = Event::CourseRecord.create!(attrs.merge(event_id: event.id, year: year))
     r.update_column(:zugeteilte_kategorie, kategorie)
   end
-
 
 end

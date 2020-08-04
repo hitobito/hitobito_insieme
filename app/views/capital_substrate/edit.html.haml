@@ -21,7 +21,5 @@
     = f.labeled_readonly_value :organization_capital_allocated, value: format_money(report.organization_capital_allocated)
     = f.labeled_readonly_value :half_profit_margin, value: format_money(report.half_profit_margin)
 
-    = f.labeled_input_field :fund_building, addon: t('global.currency'), help_inline: t('.help_per_date', date: f(Date.new(year).end_of_year))
-
     = f.labeled_readonly_value :exemption, value: format_money(report.exemption)
     = f.labeled_readonly_value :capital_substrate_allocated, value: format_money(report.capital_substrate_allocated)
