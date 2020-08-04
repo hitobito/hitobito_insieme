@@ -38,11 +38,11 @@ class app.CostAccountingCalculator
 
   gemeinkosten: ->
     @floatVal('#cost_accounting_record_raeumlichkeiten') +
+      @floatVal('#cost_accounting_record_verwaltung') +
       @floatVal('#cost_accounting_record_mittelbeschaffung')
 
   kostentraeger: ->
-    @floatVal('#cost_accounting_record_verwaltung') +
-      @floatVal('#cost_accounting_record_beratung') +
+   @floatVal('#cost_accounting_record_beratung') +
       @floatVal('#cost_accounting_record_medien_und_publikationen') +
       @floatVal('#cost_accounting_record_treffpunkte') +
       @floatVal('#cost_accounting_record_blockkurse') +

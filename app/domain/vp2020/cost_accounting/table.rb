@@ -63,10 +63,10 @@ module Vp2020::CostAccounting
     GEMEINKOSTEN_FIELDS = %w(
       raeumlichkeiten
       mittelbeschaffung
+      verwaltung
     ).freeze
 
     SECTION_FIELDS = %w(
-      verwaltung
       beratung
       medien_und_publikationen
       jahreskurse
