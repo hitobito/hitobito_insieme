@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2014, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2020, Insieme Schweiz. This file is part of
 #  hitobito_jubla and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -17,7 +17,7 @@ describe Event::RegisterController do
 
       it 'creates external role in same group' do
         expect do
-          put :register, params: { group_id: group.id, id: event.id, person: { last_name: 'foo', first_name: 'bar', email: 'foo@example.com', externally_registered: 'true' } }
+          put :register, params: { group_id: group.id, id: event.id, person: { last_name: 'foo', first_name: 'bar', email: 'foo@example.com', newly_registered: 'true' } }
         end.to change { Group::Regionalverein::External.where(group_id: group.id).count }.by(1)
       end
     end
@@ -27,7 +27,7 @@ describe Event::RegisterController do
 
       it 'creates external role in layer group' do
         expect do
-          put :register, params: { group_id: group.id, id: event.id, person: { last_name: 'foo', first_name: 'bar', email: 'foo@example.com', externally_registered: 'true' } }
+          put :register, params: { group_id: group.id, id: event.id, person: { last_name: 'foo', first_name: 'bar', email: 'foo@example.com', newly_registered: 'true' } }
         end.to change { Group::Regionalverein::External.where(group_id: groups(:seeland).id).count }.by(1)
       end
     end

@@ -27,7 +27,7 @@ module Insieme
     def self.additional_person_attributes
       person_attributes = [:id, :canton, :birthday, :ahv_number,
                            :address, :zip_code, :town, :country,
-                           :externally_registered]
+                           :newly_registered]
 
       Person::ADDRESS_TYPES.grep(/course/).each do |prefix|
         person_attributes << :"#{prefix}_same_as_main"

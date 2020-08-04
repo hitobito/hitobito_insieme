@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -20,7 +20,7 @@ module Insieme::Person
                       address zip_code town country).freeze
 
   included do # rubocop:disable Metrics/BlockLength
-    attr_accessor :externally_registered
+    attr_accessor :newly_registered
 
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
@@ -49,13 +49,13 @@ module Insieme::Person
     validate :assert_address_types_zip_is_valid_swiss_post_code
     validate :assert_full_name_or_company_name
 
-    validates :address, presence: true, unless: :externally_registered
-    validates :zip_code, presence: true, unless: :externally_registered
-    validates :town, presence: true, unless: :externally_registered
-    validates :country, presence: true, unless: :externally_registered
+    validates :address, presence: true, unless: :newly_registered
+    validates :zip_code, presence: true, unless: :newly_registered
+    validates :town, presence: true, unless: :newly_registered
+    validates :country, presence: true, unless: :newly_registered
 
-    validates :correspondence_language, presence: true, unless: :externally_registered
-    validates :language, presence: true, unless: :externally_registered
+    validates :correspondence_language, presence: true, unless: :newly_registered
+    validates :language, presence: true, unless: :newly_registered
   end
 
   def canton
