@@ -23,7 +23,7 @@ module Vp2020::CostAccounting
                   treffpunkte
                   lufeb
                   total
-                  kontrolle)
+                  kontrolle).freeze
 
       # The fields displayed in the detail view of the report.
       class_attribute :used_fields
@@ -64,14 +64,15 @@ module Vp2020::CostAccounting
 
         def short_name(year)
           scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
-          I18n.t("report.#{key}.short_name", scope: scope,
+          I18n.t("report.#{key}.short_name",
+                 scope: scope,
                  default: I18n.t("cost_accounting.report.#{key}.short_name"))
         end
 
         def human_name(year)
           scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
           I18n.t("report.#{key}.name", scope: scope,
-                 default: I18n.t("cost_accounting.report.#{key}.name"))
+                                       default: I18n.t("cost_accounting.report.#{key}.name"))
         end
 
         def delegate_editable_fields(fields)
