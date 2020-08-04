@@ -15,7 +15,7 @@ module Insieme
          :disabled_person_last_name, :disabled_person_address,
          :disabled_person_zip_town, :disabled_person_zip_code,
          :disabled_person_town, :disabled_person_birthday,
-         :externally_registered]
+         :newly_registered]
 
       # Permit person address fields
       Person::ADDRESS_TYPES.each do |prefix|
