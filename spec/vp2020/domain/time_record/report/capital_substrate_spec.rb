@@ -20,8 +20,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
     create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 100, verwaltung: 10,
                                               beratung: 30)
     create_report(TimeRecord::EmployeeTime, verwaltung: 50, beratung: 30, tageskurse: 20)
-    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 300_000,
-                             fund_building: 1000)
+    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 300_000)
   end
 
   context '#allocation_base' do
@@ -72,8 +71,22 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
 
   context '#paragraph_74 and #capital_substrate_allocated' do
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to eq(250_850)
+      expect(report.paragraph_74).to eq(249_850)
       expect(report.capital_substrate_allocated).to eq(report.paragraph_74)
+    end
+  end
+
+  context '#capital_substrate_allocated' do
+    it 'does not include fund_building' do
+      calculated = 249_850
+
+      expect(report.capital_substrate_allocated).to eq(calculated)
+
+      capital_substrate = CapitalSubstrate.find_by(year: year)
+      capital_substrate.update(fund_building: 1000)
+      expect(capital_substrate.fund_building.to_i).to_not be_zero
+
+      expect(report.capital_substrate_allocated).to eq(calculated)
     end
   end
 
