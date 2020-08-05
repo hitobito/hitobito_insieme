@@ -9,3 +9,20 @@ AllCops:
     - spec/**/*
     - test/**/*
     - vendor/**/*
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - lk
+    # defaults were (lets see what we really need):
+    # - at
+    # - by
+    # - db
+    # - id
+    # - in
+    # - io
+    # - ip
+    # - of
+    # - on
+    # - os
+    # - pp
+    # - to
