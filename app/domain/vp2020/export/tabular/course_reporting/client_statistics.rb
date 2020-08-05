@@ -32,9 +32,9 @@ module Vp2020::Export
 
           @stats.groups.each do |group|
             yield group_label(group)
+            yield group_stats(group.id, 'sk')
             yield group_stats(group.id, 'bk')
             yield group_stats(group.id, 'tk')
-            yield group_stats(group.id, 'sk')
             yield group_stats(group.id, 'tp')
             yield empty_row
           end
