@@ -60,7 +60,8 @@ module Vp2020::Export
           [
             attr_t("event/course.leistungskategorien.#{lk}", count: 3)
           ] + stats.cantons.map do |canton|
-            stats.group_canton_count(group_id, canton, lk)
+            gcc = stats.group_canton_count(group_id, canton, lk)
+            gcc.zero? ? nil : gcc
           end
         end
 
