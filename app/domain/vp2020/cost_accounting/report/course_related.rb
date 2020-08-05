@@ -9,10 +9,6 @@ module Vp2020::CostAccounting
   module Report
     class CourseRelated < Base
 
-      # Only calculate course values from this year on.
-      # For years before, use the values stored in the database.
-      AUTOMATE_FROM_YEAR = 2016
-
       COURSE_FIELDS = { blockkurse: 'bk',
                         tageskurse: 'tk',
                         jahreskurse: 'sk',
@@ -20,11 +16,7 @@ module Vp2020::CostAccounting
 
       COURSE_FIELDS.each do |field, lk|
         define_method(field) do
-          if record.year >= AUTOMATE_FROM_YEAR
-            table.course_costs(key, lk).try(:to_d)
-          else
-            record.send(field)
-          end
+          table.course_costs(key, lk).try(:to_d)
         end
       end
 
