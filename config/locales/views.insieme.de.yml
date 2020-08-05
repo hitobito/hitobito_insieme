@@ -383,6 +383,7 @@ de:
         betreuende_tp: Betreuungspersonen
       client_statistics:
         group_or_course_type: Verein / Kurstyp
+        course_total: Total
     events:
       anzahl_durchfuehrungen: Anzahl Durchführungen
     statistics:

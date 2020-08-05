@@ -41,7 +41,10 @@ module Vp2020::Export
         end
 
         def labels
-          [vp_t('group_or_course_type')] + @stats.cantons.map do |canton|
+          [
+            vp_t('group_or_course_type'),
+            vp_t('course_total')
+          ] + @stats.cantons.map do |canton|
             attr_t("event/participation_canton_count.#{canton}")
           end
         end
@@ -49,20 +52,24 @@ module Vp2020::Export
         private
 
         def empty_row
-          Array.new(stats.cantons.size + 1, nil)
+          Array.new(stats.cantons.size + 2, nil)
         end
 
         def group_label(group)
-          [group.name] + stats.cantons.map { |_| nil }
+          [group.name, nil] + stats.cantons.map { |_| nil }
         end
 
         def group_stats(group_id, lk)
           [
-            attr_t("event/course.leistungskategorien.#{lk}", count: 3)
+            attr_t("event/course.leistungskategorien.#{lk}", count: 3),
+            maybe_zero(stats.group_canton_count(group_id, 'total', lk))
           ] + stats.cantons.map do |canton|
-            gcc = stats.group_canton_count(group_id, canton, lk)
-            gcc.zero? ? nil : gcc
+            maybe_zero(stats.group_canton_count(group_id, canton, lk))
           end
+        end
+
+        def maybe_zero(number)
+          number.zero? ? nil : number
         end
 
         def vp_t(field, options = {})
