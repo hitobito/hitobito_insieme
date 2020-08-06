@@ -48,12 +48,12 @@ module Vp2020::Export
           iterate_courses do |lk, fk|
             lk_label = t("leistungskategorie_#{lk}")
             fk_label = I18n.t("activerecord.attributes.event/course.fachkonzepte.#{fk}")
-            labels << vp_t('anzahl_kurse', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('anzahl_kurse',     leistungskategorie: lk_label, fachkonzept: fk_label)
             labels << vp_t('total_vollkosten', leistungskategorie: lk_label, fachkonzept: fk_label)
-            labels << vp_t('tage_behinderte', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_behinderte',  leistungskategorie: lk_label, fachkonzept: fk_label)
             labels << vp_t('tage_angehoerige', leistungskategorie: lk_label, fachkonzept: fk_label)
-            labels << vp_t('tage_weitere', leistungskategorie: lk_label, fachkonzept: fk_label)
-            labels << vp_t('tage_total', leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_weitere',     leistungskategorie: lk_label, fachkonzept: fk_label)
+            labels << vp_t('tage_total',       leistungskategorie: lk_label, fachkonzept: fk_label)
           end
         end
 
@@ -156,9 +156,9 @@ module Vp2020::Export
 
         def append_cost_accounting_values(values, table)
           if table
-            values << table.value_of('total_aufwand', 'aufwand_ertrag_fibu')
-            values << table.value_of('vollkosten', 'total')
-            values << table.value_of('beitraege_iv', 'total')
+            values << table.value_of('total_aufwand',    'aufwand_ertrag_fibu')
+            values << table.value_of('vollkosten',       'total')
+            values << table.value_of('beitraege_iv',     'total')
             values << table.value_of('deckungsbeitrag4', 'total')
           else
             values << 0.0 << 0.0 << 0.0 << 0.0
