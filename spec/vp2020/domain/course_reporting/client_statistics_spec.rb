@@ -80,39 +80,28 @@ describe Vp2020::CourseReporting::ClientStatistics do
   end
 
   it 'contains summed values per group' do
-    expect(stats.group_canton_count(groups(:be).id, :be, 'bk')).to eq(4)
-    expect(stats.group_canton_count(groups(:be).id, :ag, 'bk')).to eq(9)
-    expect(stats.group_canton_count(groups(:be).id, :zh, 'bk')).to eq(13)
-    expect(stats.group_canton_count(groups(:be).id, :tg, 'bk')).to eq(0)
-    expect(stats.group_canton_count(groups(:be).id, :another, 'bk')).to eq(18)
+    expect(stats.group_canton_count(groups(:be).id, :be, 'bk', 'sport')).to eq(4)
+    expect(stats.group_canton_count(groups(:be).id, :ag, 'bk', 'sport')).to eq(9)
+    expect(stats.group_canton_count(groups(:be).id, :zh, 'bk', 'sport')).to eq(13)
+    expect(stats.group_canton_count(groups(:be).id, :tg, 'bk', 'sport')).to eq(0)
+    expect(stats.group_canton_count(groups(:be).id, :another, 'bk', 'sport')).to eq(18)
 
-    expect(stats.group_canton_count(groups(:fr).id, :be, 'bk')).to eq(3)
-    expect(stats.group_canton_count(groups(:fr).id, :ag, 'bk')).to eq(3)
-    expect(stats.group_canton_count(groups(:fr).id, :zh, 'bk')).to eq(3)
-    expect(stats.group_canton_count(groups(:fr).id, :tg, 'bk')).to eq(3)
-    expect(stats.group_canton_count(groups(:fr).id, :another, 'bk')).to eq(3)
+    expect(stats.group_canton_count(groups(:fr).id, :be, 'bk', 'sport')).to eq(3)
+    expect(stats.group_canton_count(groups(:fr).id, :ag, 'bk', 'sport')).to eq(3)
+    expect(stats.group_canton_count(groups(:fr).id, :zh, 'bk', 'sport')).to eq(3)
+    expect(stats.group_canton_count(groups(:fr).id, :tg, 'bk', 'sport')).to eq(3)
+    expect(stats.group_canton_count(groups(:fr).id, :another, 'bk', 'sport')).to eq(3)
 
-    expect(stats.group_canton_count(groups(:fr).id, :be, 'tk')).to eq(2)
-    expect(stats.group_canton_count(groups(:fr).id, :ag, 'tk')).to eq(1)
-    expect(stats.group_canton_count(groups(:fr).id, :zh, 'tk')).to eq(1)
-    expect(stats.group_canton_count(groups(:fr).id, :tg, 'tk')).to eq(0)
-    expect(stats.group_canton_count(groups(:fr).id, :another, 'tk')).to eq(2)
+    expect(stats.group_canton_count(groups(:fr).id, :be, 'tk', 'sport')).to eq(2)
+    expect(stats.group_canton_count(groups(:fr).id, :ag, 'tk', 'sport')).to eq(1)
+    expect(stats.group_canton_count(groups(:fr).id, :zh, 'tk', 'sport')).to eq(1)
+    expect(stats.group_canton_count(groups(:fr).id, :tg, 'tk', 'sport')).to eq(0)
+    expect(stats.group_canton_count(groups(:fr).id, :another, 'tk', 'sport')).to eq(2)
 
-    expect(stats.group_canton_count(groups(:be).id, :be, 'sk')).to eq(0)
-    expect(stats.group_canton_count(groups(:be).id, :another, 'sk')).to eq(0)
-    expect(stats.group_canton_count(groups(:fr).id, :be, 'sk')).to eq(0)
-    expect(stats.group_canton_count(groups(:fr).id, :another, 'sk')).to eq(0)
-  end
-
-  it 'has correct totals' do
-    expect(stats.group_total(groups(:be).id, 'bk')).to eq(44)
-    expect(stats.group_total(groups(:fr).id, 'bk')).to eq(15)
-
-    expect(stats.group_total(groups(:be).id, 'tk')).to eq(0)
-    expect(stats.group_total(groups(:fr).id, 'tk')).to eq(6)
-
-    expect(stats.group_total(groups(:be).id, 'sk')).to eq(0)
-    expect(stats.group_total(groups(:fr).id, 'sk')).to eq(0)
+    expect(stats.group_canton_count(groups(:be).id, :be, 'sk', 'sport')).to eq(0)
+    expect(stats.group_canton_count(groups(:be).id, :another, 'sk', 'sport')).to eq(0)
+    expect(stats.group_canton_count(groups(:fr).id, :be, 'sk', 'sport')).to eq(0)
+    expect(stats.group_canton_count(groups(:fr).id, :another, 'sk', 'sport')).to eq(0)
   end
 
   private
