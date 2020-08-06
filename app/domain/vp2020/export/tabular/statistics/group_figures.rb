@@ -59,9 +59,11 @@ module Vp2020::Export
 
         def append_time_labels(labels)
           %w(employees volunteers).each do |type|
-            prefix = t("lufeb_hours_#{type}")
-            %w(promoting general specific media grundlagen).each do |section|
-              labels << prefix + ': ' + I18n.t("time_records.lufeb_fields_full.lufeb_#{section}")
+            %w(grundlagen promoting general specific).each do |section|
+              labels << vp_label("lufeb_#{section}", 'lufeb_fields_full', t("lufeb_hours_#{type}"))
+            end
+            %w(media kurse_grundlagen).each do |section|
+              labels << vp_label(section, 'fields_full', vp_t("hours_#{type}"))
             end
           end
           labels << t('lufeb_hours_volunteers_without')
@@ -124,11 +126,12 @@ module Vp2020::Export
 
         def append_time_values(values, record) # rubocop:disable Metrics/AbcSize
           if record
+            values << record.lufeb_grundlagen.to_i
             values << record.total_lufeb_promoting.to_i
             values << record.total_lufeb_general.to_i
             values << record.total_lufeb_specific.to_i
-            values << record.total_lufeb_media.to_i
             values << record.kurse_grundlagen.to_i
+            values << record.total_media.to_i
           else
             values << 0 << 0 << 0 << 0 << 0
           end
@@ -166,11 +169,24 @@ module Vp2020::Export
         end
 
         def iterate_courses(&block)
-          figures.leistungskategorien.product(figures.fachkonzepte, &block)
+          figures
+            .leistungskategorien
+            .product(figures.fachkonzepte)
+            .keep_if { |(lk, fk)| valid_lk_fk_combination(lk, fk) }
+            .each(&block)
         end
 
-        def vp_t(field, options)
-          I18n.t(field, options.merge(scope: vp_i18n_scope('statistics.group_figures')))
+        def valid_lk_fk_combination(lk, fk) # rubocop:disable Naming/MethodParameterName
+          (lk.to_s == 'tp' && fk.to_s == 'treffpunkt') ||
+            (lk.to_s != 'tp' && fk.to_s != 'treffpunkt')
+        end
+
+        def vp_label(section, scope, prefix)
+          vp_t(section, scope: vp_i18n_scope(scope)).prepend(prefix + ': ')
+        end
+
+        def vp_t(field, options = {})
+          I18n.t(field, { scope: vp_i18n_scope('statistics.group_figures') }.merge(options))
         end
 
         def t(field, options = {})

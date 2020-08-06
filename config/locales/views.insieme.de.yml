@@ -328,8 +328,8 @@ de:
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
       lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
       lufeb_promoting: "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen"
-      lufeb_media: Medien und Publikationen
       lufeb_grundlagen: Grundlagenarbeite Kurse & Treffpunkte
+      media: Medien und Publikationen
       help_publikationen: nicht in der eigenen Zeitschrift oder Website
       help_medienkonferenzen: Planung bzw. Durchführung
       help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
@@ -394,11 +394,13 @@ de:
     statistics:
       group_figures:
         anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
-        total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept})"
+        total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept}"
         tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{fachkonzept}"
         tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
         tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
         tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
+        hours_employees: Stunden Angestellte
+        hours_volunteers: Stunden Ehrenamtliche mit Leistungsausweis
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 
@@ -419,7 +421,7 @@ de:
       vernehmlassungen: Mitarbeit bei Vernehmlassungen
       projekte: Projekte Art. 74 (Vorbereitung und Durchführung)
 
-      lufeb_media: Medien & Publikationen
+      media: Medien & Publikationen
       medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
       website: Website
       newsletter: Rundbriefe, Broschüren, Merkblätter
@@ -427,11 +429,35 @@ de:
       social_media: Soziale Medien
       beratungsmodule: Standardisierte Beratungsmodule
       apps: Applikationen
-      total_lufeb_media: Medien & Publikationen
+      total_media: Medien & Publikationen
 
       treffpunkte: Treffpunkte
       kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
       beratung: Sozialberatung
+
+    lufeb_fields_full:
+      lufeb_grundlagen: Grundlagenarbeit zu LUFEB
+      lufeb_promoting: Förderung der Selbsthilfe
+      lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
+      lufeb_specific: Themenspezifische Grundlagenarbeit
+    fields_full:
+      kurse_grundlagen: Grundlagearbeit Kurse & Treffpunkte
+      media: Medien & Publikationen
+
+      # help_publikationen: nicht in der eigenen Zeitschrift oder Website
+      # help_medienkonferenzen: Planung bzw. Durchführung
+      # help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
+      # help_erarbeitung_instrumente: z.B. Dienstleistungs- und Beratungskonzepte, Konzepte für Informationskampagnen, usw.
+      # help_erarbeitung_grundlagen: z.B. Abklärungen, Studien, Grundlagenpapiere zu einzelnen Themen
+      # help_gremien: bzw. Fachkommissionen, ExpertInnenkommissionen, Projektgruppen, usw.
+
+      # help_auskunftserteilung: von (nicht spezifisch für die Beratung qualifizierte) Betroffenen gegenüber Einzelpersonen, Organisationen und Institutionen der Behinderten-Selbsthilfe (online, schriftlich, telefonisch, persönlich) erbracht wird
+      # help_vermittlung_kontakte: Adressen, usw.
+      # help_unterstuetzung_selbsthilfeorganisationen: Unterstützung von Selbsthilfeorganisationen und –gruppen
+      # help_koordination_selbsthilfe: Organisationen, Gruppen, Arbeitsgruppen, Drehscheibenfunktion
+      # help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
+
+      # help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
 
   export/tabular/events:
     title: Kurse

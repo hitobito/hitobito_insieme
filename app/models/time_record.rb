@@ -75,7 +75,7 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def medien_und_publikationen
-    total_lufeb_media
+    total_media
   end
 
   def vp_calculations
@@ -102,6 +102,5 @@ class TimeRecord < ActiveRecord::Base
       errors.add(:group_id, :is_not_allowed)
     end
   end
-
 
 end

@@ -66,7 +66,7 @@ module Vp2020
              :social_media,
              :beratungsmodule,
              :apps,
-             :total_lufeb_media,
+             :total_media,
              :kurse_grundlagen,
              :lufeb_grundlagen,
              to: :record
@@ -133,7 +133,7 @@ module Vp2020
       calculate_total_lufeb_promoting
       calculate_total_lufeb_general
       calculate_total_lufeb_specific
-      calculate_total_lufeb_media
+      calculate_total_media
     end
 
     private
@@ -169,8 +169,8 @@ module Vp2020
         projekte.to_i
     end
 
-    def calculate_total_lufeb_media
-      @record.total_lufeb_media = [
+    def calculate_total_media
+      @record.total_media = [
         :medien_grundlagen,
         :website,
         :newsletter,
