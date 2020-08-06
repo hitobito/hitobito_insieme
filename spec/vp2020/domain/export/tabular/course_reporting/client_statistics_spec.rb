@@ -40,12 +40,17 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
     let(:nonempty_rows) { data.reject { |row| row.compact.empty? } }
 
     it 'exports columns for all cantons' do
-      expect(exporter.labels.size).to eq(2 + Cantons.short_names.size)
+      prefix = [
+        'Verein / Kurstyp',
+        'Kursinhalt',
+        'Total'
+      ]
+      expect(exporter.labels.size).to eq(prefix.size + Cantons.short_names.size)
     end
 
     it 'contains translated headers' do
       expect(exporter.labels).to match_array([
-        'Verein / Kurstyp', 'Total',
+        'Verein / Kurstyp', 'Kursinhalt', 'Total',
         'AG', 'AI', 'AR', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU', 'LU', 'NE',
         'NW', 'OW', 'SG', 'SH', 'SO', 'SZ', 'TG', 'TI', 'UR', 'VD', 'VS', 'ZG', 'ZH',
         'Andere Herkunft',
@@ -56,24 +61,29 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       groups = Event::CourseRecord.where(year: year, subventioniert: true).left_joins(event: [:groups])
                                   .flat_map { |ecr| ecr.event.group_ids }.uniq
 
-      expect(nonempty_rows.size).to eq(5 * groups.size)
+      expect(nonempty_rows.size).to eq((1 + (2*3) + 1) * groups.size)
     end
 
     it 'contains correct sums' do
-      #                                                 'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
-      expect(data[ 0]).to eq(['Kanton Bern',              nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 1]).to eq(['Semester-/Jahreskurse',    nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 2]).to eq(['Blockkurse',                44,   9, nil, nil,   4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,  13,  18])
-      expect(data[ 3]).to eq(['Tageskurse',               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 4]).to eq(['Treffpunkte',              nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 5]).to eq([nil,                        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 6]).to eq(['Freiburg',                 nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 7]).to eq(['Semester-/Jahreskurse',      3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
-      expect(data[ 8]).to eq(['Blockkurse',               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[ 9]).to eq(['Tageskurse',                 3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
-      expect(data[10]).to eq(['Treffpunkte',                3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
+      #                                                'kursinhalt'     'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
+      expect(data[ 0]).to match_array(['Kanton Bern',           nil,               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 1]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 2]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 3]).to match_array(['Blockkurse',            'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 4]).to match_array(['Blockkurse',            'Sport/Freizeit',   44,   9, nil, nil,   4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,  13,  18])
+      expect(data[ 5]).to match_array(['Tageskurse',            'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 6]).to match_array(['Tageskurse',            'Sport/Freizeit',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 7]).to match_array(['Treffpunkte',           'Treffpunkt',      nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 8]).to match_array([nil,                     nil,               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[ 9]).to match_array(['Freiburg',              nil,               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[10]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[11]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit',    3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
+      expect(data[12]).to match_array(['Blockkurse',            'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[13]).to match_array(['Blockkurse',            'Sport/Freizeit',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[14]).to match_array(['Tageskurse',            'Weiterbildung',   nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[15]).to match_array(['Tageskurse',            'Sport/Freizeit',    3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
+      expect(data[16]).to match_array(['Treffpunkte',           'Treffpunkt',        3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
     end
-
   end
 
   private

@@ -27,15 +27,18 @@ module Vp2020::Export
           @stats = stats
         end
 
-        def data_rows(_format = :csv)
+        def data_rows(_format = :csv) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
           return enum_for(:data_rows) unless block_given?
 
           @stats.groups.each do |group|
             yield group_label(group)
-            yield group_stats(group.id, 'sk')
-            yield group_stats(group.id, 'bk')
-            yield group_stats(group.id, 'tk')
-            yield group_stats(group.id, 'tp')
+            yield group_stats(group.id, 'sk', 'weiterbildung')
+            yield group_stats(group.id, 'sk', 'sport')
+            yield group_stats(group.id, 'bk', 'weiterbildung')
+            yield group_stats(group.id, 'bk', 'sport')
+            yield group_stats(group.id, 'tk', 'weiterbildung')
+            yield group_stats(group.id, 'tk', 'sport')
+            yield group_stats(group.id, 'tp', 'treffpunkt')
             yield empty_row
           end
         end
@@ -43,6 +46,7 @@ module Vp2020::Export
         def labels
           [
             vp_t('group_or_course_type'),
+            vp_t('course_fachkonzept'),
             vp_t('course_total')
           ] + @stats.cantons.map do |canton|
             attr_t("event/participation_canton_count.#{canton}")
@@ -52,19 +56,20 @@ module Vp2020::Export
         private
 
         def empty_row
-          Array.new(stats.cantons.size + 2, nil)
+          Array.new(stats.cantons.size + 3, nil)
         end
 
         def group_label(group)
-          [group.name, nil] + stats.cantons.map { |_| nil }
+          [group.name, nil, nil] + stats.cantons.map { |_| nil }
         end
 
-        def group_stats(group_id, lk)
+        def group_stats(group_id, lk, fachkonzept)
           [
             attr_t("event/course.leistungskategorien.#{lk}", count: 3),
-            maybe_zero(stats.group_canton_count(group_id, 'total', lk))
+            vp_t("fachkonzept.#{fachkonzept}"),
+            maybe_zero(stats.group_canton_count(group_id, 'total', lk, fachkonzept))
           ] + stats.cantons.map do |canton|
-            maybe_zero(stats.group_canton_count(group_id, canton, lk))
+            maybe_zero(stats.group_canton_count(group_id, canton, lk, fachkonzept))
           end
         end
 
