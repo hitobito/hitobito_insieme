@@ -36,7 +36,8 @@ module CostAccountingHelper
         field_value = table.value_of(report.key, field) || 0.0
         [
           f.labeled_readonly_value(field, value: format_money(field_value)),
-          f.hidden_field(field, value: field_value)
+          # use tag to create field without a name.
+          hidden_field_tag(nil, field_value, id: "cost_accounting_record_#{field}")
         ]
       end
     end
