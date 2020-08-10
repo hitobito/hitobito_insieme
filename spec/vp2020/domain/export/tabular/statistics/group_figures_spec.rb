@@ -72,13 +72,10 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
 
   let(:figures) { vp_class('Statistics::GroupFigures').new(year) }
 
-  def export(figures)
-    exporter = described_class.new(figures)
-    exporter.data_rows.to_a
-  end
+  let(:subject) { described_class.new(figures) }
 
-  it 'contains correct headers' do
-    labels = described_class.new(figures).labels
+  it 'contains correct headers in order' do
+    labels = subject.labels
     expect(labels).to match_array [
       "Vollständiger Name",
       "Kanton",
@@ -231,71 +228,270 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
 
   context 'contains correct summed values' do
     let(:data) do
-      data = export(figures)
-      data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
-      data
+      subject.data_rows.to_a
+             .each { |row| row.map! { |value| value.is_a?(BigDecimal) ? value.to_f.round(5) : value } }
+             .map { |row| subject.labels.zip(row).to_h }
+    end
+
+    let(:empty_row) do
+      {
+        "BSV Nummer" => nil,
+        "Blockkurse Anzahl Kurse Freizeit Erwachsene & altersdurchmischt" => 0,
+        "Blockkurse Anzahl Kurse Freizeit Kinder & Jugendliche" => 0,
+        "Blockkurse Anzahl Kurse Förderung der Autonomie/Bildung" => 0,
+        "Blockkurse Anzahl Kurse Sport Erwachsene & altersdurchmischt" => 0,
+        "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 0,
+        "Blockkurse TN Tage Angehörige Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Angehörige Freizeit Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
+        "Blockkurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Behinderte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Behinderte Freizeit Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Behinderte Förderung der Autonomie/Bildung" => 0.0,
+        "Blockkurse TN Tage Behinderte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Behinderte Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Total Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Total Freizeit Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Total Förderung der Autonomie/Bildung" => 0.0,
+        "Blockkurse TN Tage Total Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage Total Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Freizeit Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Förderung der Autonomie/Bildung" => 0.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse Total Vollkosten Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse Total Vollkosten Freizeit Kinder & Jugendliche" => 0.0,
+        "Blockkurse Total Vollkosten Förderung der Autonomie/Bildung" => 0.0,
+        "Blockkurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Blockkurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
+        "Deckungsbeitrag 4" => 0.0,
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 0.0,
+        "IV-Beitrag" => 0.0,
+        "Kanton" => nil,
+        "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        "LUFEB Stunden Angestellte: Förderung der Selbsthilfe" => 0,
+        "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB" => 0,
+        "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit" => 0,
+        "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 0,
+        "Semester-/Jahreskurse Anzahl Kurse Freizeit Erwachsene & altersdurchmischt" => 0,
+        "Semester-/Jahreskurse Anzahl Kurse Freizeit Kinder & Jugendliche" => 0,
+        "Semester-/Jahreskurse Anzahl Kurse Förderung der Autonomie/Bildung" => 0,
+        "Semester-/Jahreskurse Anzahl Kurse Sport Erwachsene & altersdurchmischt" => 0,
+        "Semester-/Jahreskurse Anzahl Kurse Sport Kinder & Jugendliche" => 0,
+        "Semester-/Jahreskurse TN Tage Angehörige Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Angehörige Freizeit Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
+        "Semester-/Jahreskurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Freizeit Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Förderung der Autonomie/Bildung" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Total Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Total Freizeit Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Total Förderung der Autonomie/Bildung" => 0.0,
+        "Semester-/Jahreskurse TN Tage Total Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage Total Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Freizeit Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Förderung der Autonomie/Bildung" => 0.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Freizeit Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Förderung der Autonomie/Bildung" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
+        "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
+        "Stunden Angestellte: Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
+        "Tageskurse Anzahl Kurse Freizeit Erwachsene & altersdurchmischt" => 0,
+        "Tageskurse Anzahl Kurse Freizeit Kinder & Jugendliche" => 0,
+        "Tageskurse Anzahl Kurse Förderung der Autonomie/Bildung" => 0,
+        "Tageskurse Anzahl Kurse Sport Erwachsene & altersdurchmischt" => 0,
+        "Tageskurse Anzahl Kurse Sport Kinder & Jugendliche" => 0,
+        "Tageskurse TN Tage Angehörige Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Angehörige Freizeit Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
+        "Tageskurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Behinderte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Behinderte Freizeit Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Behinderte Förderung der Autonomie/Bildung" => 0.0,
+        "Tageskurse TN Tage Behinderte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Behinderte Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Total Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Total Freizeit Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Total Förderung der Autonomie/Bildung" => 0.0,
+        "Tageskurse TN Tage Total Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage Total Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Freizeit Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Förderung der Autonomie/Bildung" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse Total Vollkosten Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse Total Vollkosten Freizeit Kinder & Jugendliche" => 0.0,
+        "Tageskurse Total Vollkosten Förderung der Autonomie/Bildung" => 0.0,
+        "Tageskurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
+        "Tageskurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
+        "Totaler Aufwand gemäss FIBU" => 0.0,
+        "Treffpunkte Anzahl Kurse Treffpunkt" => 0,
+        "Treffpunkte TN Tage Angehörige Treffpunkt" => 0.0,
+        "Treffpunkte TN Tage Behinderte Treffpunkt" => 0.0,
+        "Treffpunkte TN Tage Total Treffpunkt" => 0.0,
+        "Treffpunkte TN Tage nicht Bezugsberechtigte Treffpunkt" => 0.0,
+        "Treffpunkte Total Vollkosten Treffpunkt" => 0.0,
+        "VID" => nil,
+        "VZÄ angestellte Mitarbeiter (Art. 74)" => 0.0,
+        "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 0.0,
+        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => 0.0,
+        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.0,
+        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 0.0,
+      }
     end
 
     it 'for insieme Schweiz' do
-      expect(data.first).to match_array [
-        "insieme Schweiz", nil, nil, nil,
-        0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, -200_000.0, 0.0, 0.0,
-        0.0, 0.0
-      ]
+      expect(data.first).to include(empty_row.merge({
+        "Vollständiger Name"=>"insieme Schweiz",
+        "Kanton"=>nil,
+        "VID"=>nil,
+        "BSV Nummer"=>nil,
+
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
+        "Totaler Aufwand gemäss FIBU"                 => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
+        "IV-Beitrag"                                  => 0.0,
+        "Deckungsbeitrag 4"                           => 0.0,
+      }))
     end
 
     it 'for Freiburg' do
-      expect(data.second).to match_array [
-        "Freiburg", "Freiburg", nil, nil, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 1, 0.0, 1545.0, 0.0, 0.0, 1545.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 2, 1100.0, 8500.0, 0.0, 1664.0, 10164.0, 0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0, 0,
-        0, 0, 12, 0, 0,
-        0, 21, 0, 0, 0,
-        0,
-        2.0, 1.6, (21.0/1900).round(5), (21.0/1900).round(5), (21.0/1900).round(5),
-        -201_100.0, 0.0, 1100.0, 0.0, -1100.0
-      ]
+      expect(data.second).to include(empty_row.merge({
+        "Vollständiger Name"=>"Freiburg",
+        "Kanton"=>"Freiburg",
+        "VID"=>nil,
+        "BSV Nummer"=>nil,
+
+        "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 1,
+        "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse TN Tage Behinderte Sport Kinder & Jugendliche" => 1545.0,
+        "Blockkurse TN Tage Total Sport Kinder & Jugendliche" => 1545.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Blockkurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
+
+        "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 12,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 21,
+        "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 0,
+
+        "Tageskurse Anzahl Kurse Sport Kinder & Jugendliche" => 2,
+        "Tageskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Behinderte Sport Kinder & Jugendliche" => 8500.0,
+        "Tageskurse TN Tage Total Sport Kinder & Jugendliche" => 10164.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 1664.0,
+        "Tageskurse Total Vollkosten Sport Kinder & Jugendliche" => 1100.0,
+
+        "VZÄ angestellte Mitarbeiter (Art. 74)" => 1.6,
+        "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 2.0,
+        # 21 Stunden für LUFEB / 1900 BSV-Stunden = 0.01105
+        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => (21.0/1900).round(5),
+        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => (21.0/1900).round(5),
+        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => (21.0/1900).round(5),
+
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -201100.0,
+        "Totaler Aufwand gemäss FIBU"                 => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 1100.0,
+        "IV-Beitrag"                                  => 0.0,
+        "Deckungsbeitrag 4"                           => -1100.0,
+      }))
     end
 
     it 'for Kanton Bern' do
-      expect(data.third).to match_array [
-        "Kanton Bern", "Bern", nil, nil, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 4, 2100.0, 6400.0, 1111.0, 8450.0, 15961.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0,
-        0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 1,
-        410.0, 1428.0, 0.0, 0.0, 1428.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0,
-        0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        30,
-        0.25, 0.25, (30.0/1900).round(5), (30.0/1900).round(5), 0.0,
-        10_048_000.0, 100.0, 2050.0, 20.0, -2000.0
-      ]
+      # 30 Stunden für LUFEB / 1900 BSV-Stunden
+      expect(data.third).to include(empty_row.merge({
+        "Vollständiger Name" => "Kanton Bern",
+        "Kanton" => "Bern",
+        "BSV Nummer" => nil,
+        "VID" => nil,
+
+        "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 4,
+        "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 1111.0,
+        "Blockkurse TN Tage Behinderte Sport Kinder & Jugendliche" => 6400.0,
+        "Blockkurse TN Tage Total Sport Kinder & Jugendliche" => 15961.0,
+        "Blockkurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 8450.0,
+        "Blockkurse Total Vollkosten Sport Kinder & Jugendliche" => 2100.0,
+
+        "Semester-/Jahreskurse Anzahl Kurse Sport Kinder & Jugendliche" => 1,
+        "Semester-/Jahreskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse TN Tage Behinderte Sport Kinder & Jugendliche" => 1428.0,
+        "Semester-/Jahreskurse TN Tage Total Sport Kinder & Jugendliche" => 1428.0,
+        "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Semester-/Jahreskurse Total Vollkosten Sport Kinder & Jugendliche" => 410.0,
+
+        "Tageskurse Anzahl Kurse Sport Kinder & Jugendliche" => 0,
+        "Tageskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Behinderte Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage Total Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
+        "Tageskurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
+
+        "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        "LUFEB Stunden Angestellte: Förderung der Selbsthilfe" => 0,
+        "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB" => 0,
+        "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 0,
+
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB" => 0,
+        "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit" => 0,
+
+        "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 30,
+
+        "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
+        "Stunden Angestellte: Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
+
+        "Treffpunkte Anzahl Kurse Treffpunkt" => 0,
+
+        "VZÄ angestellte Mitarbeiter (Art. 74)" => 0.25,
+        "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 0.25,
+        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => 0.01579,
+        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.01579,
+        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
+
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 10048000.0,
+        "Totaler Aufwand gemäss FIBU"                 => 100.0,
+        "IV-Beitrag"                                  => 20.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
+        "Deckungsbeitrag 4"                           => -2000.0,
+      }))
     end
 
     it 'for Biel-Seeland' do
-      expect(data.fourth).to match_array [
-        "Biel-Seeland", "Bern", nil, nil, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0,
-        0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, -200_000.0, 0.0, 0.0,
-        0.0, 0.0
-      ]
+      expect(data.fourth).to include(empty_row.merge({
+        "Vollständiger Name" => "Biel-Seeland",
+        'Kanton'             => 'Bern',
+
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
+        "Totaler Aufwand gemäss FIBU"                 => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
+        "IV-Beitrag"                                  => 0.0,
+        "Deckungsbeitrag 4"                           => 0.0,
+      }))
     end
   end
 
