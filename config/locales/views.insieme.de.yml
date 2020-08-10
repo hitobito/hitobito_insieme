@@ -441,8 +441,9 @@ de:
       lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
       lufeb_specific: Themenspezifische Grundlagenarbeit
     fields_full:
-      kurse_grundlagen: Grundlagearbeit Kurse & Treffpunkte
-      media: Medien & Publikationen
+      kurse_grundlagen: Grundlagenarbeit Kurse & Treffpunkte
+      media_grundlagen: Grundlagenarbeit Medien & Publikationen
+      total_media: Medien & Publikationen
 
       # help_publikationen: nicht in der eigenen Zeitschrift oder Website
       # help_medienkonferenzen: Planung bzw. Durchführung

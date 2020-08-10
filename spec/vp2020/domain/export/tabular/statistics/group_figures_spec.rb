@@ -201,14 +201,16 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "LUFEB Stunden Angestellte: Förderung der Selbsthilfe",
       "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit",
       "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit",
-      "Stunden Angestellte: Grundlagearbeit Kurse & Treffpunkte",
+      "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte",
+      "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen",
       "Stunden Angestellte: Medien & Publikationen",
 
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit",
-      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagearbeit Kurse & Treffpunkte",
+      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte",
+      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen",
       "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen",
 
       "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)",
