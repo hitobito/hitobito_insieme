@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -48,7 +48,7 @@ describe CostAccountingController, type: :controller  do
                          }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_report_group_path(group, year, report))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           expect(r.aufwand_ertrag_fibu).to eq(2000)
@@ -69,7 +69,7 @@ describe CostAccountingController, type: :controller  do
                          }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_report_group_path(group, year, report))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           expect(r.aufwand_ertrag_fibu).to eq(2000)
@@ -115,7 +115,7 @@ describe CostAccountingController, type: :controller  do
                          }
           end.to change { CostAccountingRecord.count }.by(1)
 
-          is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
+          is_expected.to redirect_to(cost_accounting_report_group_path(group, year, report))
 
           r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
           expect(r.aufwand_ertrag_fibu).to eq(2000)
@@ -167,7 +167,7 @@ describe CostAccountingController, type: :controller  do
                        }
         end.not_to change { CostAccountingRecord.count }
 
-        is_expected.to redirect_to(cost_accounting_group_path(group, year: year))
+        is_expected.to redirect_to(cost_accounting_report_group_path(group, year, report))
 
         r = CostAccountingRecord.where(group_id: group.id, year: year, report: report).first
         expect(r.aufwand_ertrag_fibu).to eq(2000)

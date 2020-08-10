@@ -25,7 +25,7 @@ module CostAccountingHelper
     end
   end
 
-  def cost_accounting_input_and_course_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName
+  def cost_accounting_input_and_course_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName,Metrics/AbcSize
     course_fields = vp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
                     .keys.map(&:to_s)
     safe_join(fields) do |field|
@@ -33,8 +33,12 @@ module CostAccountingHelper
         f.labeled_vp_input_field(field, addon: t('global.currency'))
       elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
               course_fields.include?(field.to_s)
-        f.labeled_readonly_value(field, 
-                                 value: format_money(table.value_of(report.key, field) || 0.0))
+        field_value = table.value_of(report.key, field) || 0.0
+        [
+          f.labeled_readonly_value(field, value: format_money(field_value)),
+          # use tag to create field without a name.
+          hidden_field_tag(nil, field_value, id: "cost_accounting_record_#{field}")
+        ]
       end
     end
   end

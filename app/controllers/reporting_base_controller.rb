@@ -40,7 +40,11 @@ class ReportingBaseController < ApplicationController
   end
 
   def show_path
-    cost_accounting_group_path(group, year: year)
+    if params['report'].present?
+      cost_accounting_report_group_path(group, year, params['report'])
+    else
+      cost_accounting_group_path(group, year: year)
+    end
   end
 
   def group

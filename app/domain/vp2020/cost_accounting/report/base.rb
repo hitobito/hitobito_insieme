@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -23,14 +23,13 @@ module Vp2020::CostAccounting
                   treffpunkte
                   lufeb
                   total
-                  kontrolle)
+                  kontrolle).freeze
 
       # The fields displayed in the detail view of the report.
       class_attribute :used_fields
       # Most commonly used fields, override in subclasses
       self.used_fields = %w(aufwand_ertrag_fibu
                             abgrenzung_fibu
-                            abgrenzung_dachorganisation
                             aufwand_ertrag_ko_re
 
                             beratung
@@ -65,14 +64,15 @@ module Vp2020::CostAccounting
 
         def short_name(year)
           scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
-          I18n.t("report.#{key}.short_name", scope: scope,
+          I18n.t("report.#{key}.short_name",
+                 scope: scope,
                  default: I18n.t("cost_accounting.report.#{key}.short_name"))
         end
 
         def human_name(year)
           scope = Vertragsperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
           I18n.t("report.#{key}.name", scope: scope,
-                 default: I18n.t("cost_accounting.report.#{key}.name"))
+                                       default: I18n.t("cost_accounting.report.#{key}.name"))
         end
 
         def delegate_editable_fields(fields)
@@ -110,8 +110,7 @@ module Vp2020::CostAccounting
       def aufwand_ertrag_ko_re
         @aufwand_ertrag_ko_re ||= begin
           aufwand_ertrag_fibu.to_d -
-          abgrenzung_fibu.to_d -
-          abgrenzung_dachorganisation.to_d
+          abgrenzung_fibu.to_d
         end
       end
 

@@ -8,64 +8,73 @@
 module Vp2020::CostAccounting
   class Table
 
-    REPORTS = [Report::Lohnaufwand,
-               Report::Sozialversicherungsaufwand,
-               Report::UebrigerPersonalaufwand,
-               Report::Honorare,
-               Report::TotalPersonalaufwand,
-               Report::Raumaufwand,
-               Report::UebrigerSachaufwand,
-               Report::Abschreibungen,
-               Report::TotalAufwand,
-               Report::UmlagePersonal,
-               Report::UmlageRaeumlichkeiten,
-               Report::UmlageVerwaltung,
-               Report::TotalUmlagen,
-               Report::Vollkosten,
-               Report::Leistungsertrag,
-               Report::BeitraegeIv,
-               Report::SonstigeBeitraege,
-               Report::DirekteSpenden,
-               Report::IndirekteSpenden,
-               Report::DirekteSpendenAusserhalb,
-               Report::TotalErtraege,
-               Report::Separator,
-               Report::Deckungsbeitrag1,
-               Report::Deckungsbeitrag2,
-               Report::Deckungsbeitrag3,
-               Report::Deckungsbeitrag4,
-               Report::Unternehmenserfolg].freeze
+    REPORTS = [
+      Report::Lohnaufwand,
+      Report::Sozialversicherungsaufwand,
+      Report::UebrigerPersonalaufwand,
+      Report::Honorare,
+      Report::TotalPersonalaufwand,
+      Report::Raumaufwand,
+      Report::UebrigerSachaufwand,
+      Report::Abschreibungen,
+      Report::TotalAufwand,
+      Report::UmlagePersonal,
+      Report::UmlageRaeumlichkeiten,
+      Report::UmlageVerwaltung,
+      Report::TotalUmlagen,
+      Report::Vollkosten,
+      Report::Leistungsertrag,
+      Report::BeitraegeIv,
+      Report::SonstigeBeitraege,
+      Report::DirekteSpenden,
+      Report::IndirekteSpenden,
+      Report::DirekteSpendenAusserhalb,
+      Report::TotalErtraege,
+      Report::Separator,
+      Report::Deckungsbeitrag1,
+      Report::Deckungsbeitrag2,
+      Report::Deckungsbeitrag3,
+      Report::Deckungsbeitrag4,
+      Report::Unternehmenserfolg
+    ].freeze
 
-    VISIBLE_REPORTS = [Report::Lohnaufwand,
-                       Report::Sozialversicherungsaufwand,
-                       Report::UebrigerPersonalaufwand,
-                       Report::Honorare,
-                       Report::TotalPersonalaufwand,
-                       Report::Raumaufwand,
-                       Report::UebrigerSachaufwand,
-                       Report::TotalAufwand,
-                       Report::TotalUmlagen,
-                       Report::Vollkosten,
-                       Report::Leistungsertrag,
-                       Report::BeitraegeIv,
-                       Report::SonstigeBeitraege,
-                       Report::DirekteSpenden,
-                       Report::IndirekteSpenden,
-                       Report::TotalErtraege,
-                       Report::Separator,
-                       Report::Unternehmenserfolg,
-                       Report::Deckungsbeitrag4].freeze
+    VISIBLE_REPORTS = [
+      Report::Lohnaufwand,
+      Report::Sozialversicherungsaufwand,
+      Report::UebrigerPersonalaufwand,
+      Report::Honorare,
+      Report::TotalPersonalaufwand,
+      Report::Raumaufwand,
+      Report::UebrigerSachaufwand,
+      Report::TotalAufwand,
+      Report::TotalUmlagen,
+      Report::Vollkosten,
+      Report::Leistungsertrag,
+      Report::BeitraegeIv,
+      Report::SonstigeBeitraege,
+      Report::DirekteSpenden,
+      Report::IndirekteSpenden,
+      Report::TotalErtraege,
+      Report::Separator,
+      Report::Unternehmenserfolg,
+      Report::Deckungsbeitrag4
+    ].freeze
 
-    GEMEINKOSTEN_FIELDS = %w(raeumlichkeiten mittelbeschaffung).freeze
+    GEMEINKOSTEN_FIELDS = %w(
+      raeumlichkeiten
+      mittelbeschaffung
+      verwaltung
+    ).freeze
 
-    SECTION_FIELDS = %w(verwaltung
-                        beratung
-                        medien_und_publikationen
-                        jahreskurse
-                        blockkurse
-                        tageskurse
-                        treffpunkte
-                        lufeb).freeze
+    SECTION_FIELDS = %w(
+      beratung
+      medien_und_publikationen
+      jahreskurse
+      blockkurse
+      tageskurse
+      treffpunkte
+      lufeb
+    ).freeze
 
     attr_reader :group, :year
 
