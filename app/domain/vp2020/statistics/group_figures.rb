@@ -26,7 +26,7 @@ module Vp2020::Statistics
     end
 
     def fachkonzepte
-      Event::Reportable::KURSFACHKONZEPTE
+      Event::Reportable::FACHKONZEPTE
     end
 
     def course_record(group, leistungskategorie, fachkonzept)

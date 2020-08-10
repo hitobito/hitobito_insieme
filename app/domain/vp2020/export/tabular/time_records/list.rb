@@ -41,7 +41,7 @@ module Vp2020
             :social_media,
             :beratungsmodule,
             :apps,
-            :total_lufeb_media,
+            :total_media,
 
             :kurse_grundlagen,
             :blockkurse,

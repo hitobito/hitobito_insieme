@@ -13,7 +13,7 @@ describe TimeRecord do
   let(:record) do
     TimeRecord.new(group: groups(:be), year: year,
                    total_lufeb_general: 1,
-                   total_lufeb_media: 2,
+                   total_media: 2,
                    total_lufeb_specific: 3,
                    total_lufeb_promoting: 4,
                    blockkurse: 5,
@@ -31,7 +31,7 @@ describe TimeRecord do
                    medien_zusammenarbeit: 15,
                    sensibilisierungskampagnen: 16,
 
-                   # lufeb_media
+                   # media
                    medien_grundlagen: 17,
                    website: 18,
                    newsletter: 19,
@@ -129,7 +129,7 @@ describe TimeRecord do
      [:total_lufeb_private, nil],
      [:total_lufeb_specific, 102],
      [:total_lufeb_promoting, 87],
-     [:total_lufeb_media, 140],
+     [:total_media, 140],
      [:total, 315]].each do |method, value|
       context "##{method}" do
         if method == :total

@@ -14,7 +14,7 @@ describe Vp2020::TimeRecord::Calculation do
     TimeRecord.new(
       group: groups(:be), year: year,
       total_lufeb_general: 1,
-      total_lufeb_media: 2,
+      total_media: 2,
       total_lufeb_specific: 3,
       total_lufeb_promoting: 4,
       blockkurse: 5,
@@ -32,7 +32,7 @@ describe Vp2020::TimeRecord::Calculation do
       medien_zusammenarbeit: 15,
       sensibilisierungskampagnen: 16,
 
-      # lufeb_media
+      # media
       medien_grundlagen: 17,
       website: 18,
       newsletter: 19,
@@ -63,8 +63,8 @@ describe Vp2020::TimeRecord::Calculation do
     expect(subject.total_lufeb).to eq 39
   end
 
-  it 'total_lufeb_media' do
-    expect(subject.total_lufeb_media).to eq 2
+  it 'total_media' do
+    expect(subject.total_media).to eq 2
   end
 
   it 'total_lufeb_grundlagen' do
@@ -105,13 +105,13 @@ describe Vp2020::TimeRecord::Calculation do
     expect(subject.total_lufeb_general).to eq 1
     expect(subject.total_lufeb_specific).to eq 3
     expect(subject.total_lufeb_promoting).to eq 4
-    expect(subject.total_lufeb_media).to eq 2
+    expect(subject.total_media).to eq 2
 
     subject.update_totals
 
     expect(subject.total_lufeb_general).to eq 58
     expect(subject.total_lufeb_specific).to eq 102
     expect(subject.total_lufeb_promoting).to eq 87
-    expect(subject.total_lufeb_media).to eq 140
+    expect(subject.total_media).to eq 140
   end
 end

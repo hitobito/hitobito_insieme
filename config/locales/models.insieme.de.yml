@@ -676,7 +676,7 @@ de:
         auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
         medien_zusammenarbeit: Zusammenarbeit mit Medien
 
-        lufeb_media: Medien & Publikationen
+        media: Medien & Publikationen
         medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
         website: Website
         videos: Videos
@@ -688,8 +688,8 @@ de:
         total_lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
         total_lufeb_specific: Themenspezifische Grundlagenarbeit / Projekte
         total_lufeb_promoting: "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen"
-        total_lufeb_media: Medien & Publikationen
         total_lufeb: Total LUFEB-Leistungen
+        total_media: Medien & Publikationen
 
         kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
         blockkurse: Blockkurse
