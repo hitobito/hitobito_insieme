@@ -72,7 +72,7 @@ module Vp2020::Export
           :total
         ].freeze
 
-        self.model_class = TimeRecord
+        self.model_class = ::TimeRecord
 
         attr_reader :liste, :year
 
