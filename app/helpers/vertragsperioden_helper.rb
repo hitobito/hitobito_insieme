@@ -7,8 +7,7 @@
 
 module VertragsperiodenHelper
   def vp_i18n_scope
-    @vp ||= Vertragsperioden::Dispatcher.new(year)
-    @vp.i18n_scope(controller_name)
+    Vertragsperioden::Dispatcher.new(year).i18n_scope(controller_name)
   end
 
   def vp_t(key, options = {})
