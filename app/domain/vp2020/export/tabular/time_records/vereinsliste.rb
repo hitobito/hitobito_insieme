@@ -85,9 +85,7 @@ module Vp2020::Export
         def attribute_label(attr)
           I18n.t(attr,
                  scope: vp_i18n_scope(model_class.name.tableize),
-                 default: [
-                   human_attribute(attr)
-                 ])
+                 default: [human_attribute(attr)])
         end
 
         private
