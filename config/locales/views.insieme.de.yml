@@ -362,6 +362,8 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+      capital_substrate_factor:
+        name: Faktor Kapitalsubstrat
 
   vp2020:
     cost_accounting:

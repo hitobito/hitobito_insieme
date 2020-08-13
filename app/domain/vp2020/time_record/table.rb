@@ -15,7 +15,8 @@ module Vp2020
                Vp2020::TimeRecord::Report::EmployeeEfforts,
                Vp2020::TimeRecord::Report::EmployeeEffortsPensum,
                Vp2020::TimeRecord::Report::CapitalSubstrate,
-               Vp2020::TimeRecord::Report::CapitalSubstrateLimit].freeze
+               Vp2020::TimeRecord::Report::CapitalSubstrateLimit,
+               Vp2020::TimeRecord::Report::CapitalSubstrateFactor].freeze
 
     attr_reader :group, :year
 
