@@ -30,7 +30,7 @@
   - else
     = render 'lufeb_fields_full', f: f
 
-  %h3= t('.courses')
+  %h2= vp_t('.courses')
   = field_set_tag do
     = f.labeled_vp_input_field :kurse_grundlagen, addon: t('global.hours_short')
     = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
