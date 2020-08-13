@@ -7,7 +7,16 @@
 
 module VertragsperiodenHelper
   def vp_i18n_scope
-    @vp ||= Vertragsperioden::Dispatcher.new(year)
-    @vp.i18n_scope(controller_name)
+    Vertragsperioden::Dispatcher.new(year).i18n_scope(controller_name)
+  end
+
+  def vp_t(key, options = {})
+    scope = [vp_i18n_scope]
+    scope << action_name if key.to_s.start_with?('.')
+
+    translate(
+      key.delete_prefix('.'),
+      { scope: scope.join('.') }.merge(options)
+    )
   end
 end

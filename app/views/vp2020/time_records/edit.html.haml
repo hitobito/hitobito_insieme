@@ -3,7 +3,7 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-- @subtitle = I18n.t('crud.edit.title', model: entry)
+- title(I18n.t('crud.edit.title', model: entry))
 
 = reporting_frozen_message
 
@@ -18,19 +18,30 @@
   %p= t('.comment')
 
   - if entry.class.key == 'employee_time'
-    %h3= t('.employees')
+    %h2= t('.employees')
     = f.fields_for(:employee_pensum) do |nf|
       = nf.labeled_input_field :paragraph_74, help_inline: t('.help_employee_pensum')
       = nf.labeled_input_field :not_paragraph_74
       = f.labeled_readonly_value :total_employee_pensum, label: t('.total'), value: fnumber(entry.employee_pensum.total)
 
-  %h3= t('.lufeb')
+  %h2= t('.lufeb')
   - if entry.class.key == 'volunteer_without_verification_time'
     = render 'lufeb_fields_sumarized', f: f
   - else
     = render 'lufeb_fields_full', f: f
 
-  %h3= t('.courses')
+  %h2= vp_t('media')
+  = field_set_tag do
+    = f.labeled_vp_input_field :medien_grundlagen, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :website, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :newsletter, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :videos, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :social_media, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :beratungsmodule, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :apps, addon: t('global.hours_short')
+    = f.labeled_readonly_value :total_media, label: t('.subtotal'), value: format_hours(entry.total_media)
+
+  %h2= vp_t('.courses')
   = field_set_tag do
     = f.labeled_vp_input_field :kurse_grundlagen, addon: t('global.hours_short')
     = f.labeled_input_field :blockkurse, addon: t('global.hours_short')
@@ -39,12 +50,12 @@
     = f.labeled_vp_input_field :treffpunkte, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_courses, label: t('.total'), value: format_hours(entry.total_courses)
 
-  %h3= t('beratung', scope: vp_i18n_scope)
+  %h2= vp_t('beratung')
   = field_set_tag do
     = f.labeled_input_field :beratung, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_additional_person_specific, label: t('.total'), value: format_hours(entry.total_additional_person_specific)
 
-  %h3= t('.remaining')
+  %h2= t('.remaining')
   = field_set_tag do
     = f.labeled_input_field :mittelbeschaffung, addon: t('global.hours_short')
     = f.labeled_input_field :verwaltung, addon: t('global.hours_short')
@@ -54,7 +65,7 @@
     = f.labeled_readonly_value :total_paragraph_74, value: format_hours(entry.total_paragraph_74)
     = f.labeled_readonly_value :total_paragraph_74_pensum, value: fnumber(entry.total_paragraph_74_pensum)
 
-  %h3= t('.not_paragraph_74')
+  %h2= t('.not_paragraph_74')
   = field_set_tag do
     = f.labeled_input_field :nicht_art_74_leistungen, addon: t('global.hours_short')
 
@@ -62,7 +73,7 @@
     = f.labeled_readonly_value :total_not_paragraph_74, value: format_hours(entry.total_not_paragraph_74)
     = f.labeled_readonly_value :total_not_paragraph_74_pensum, value: fnumber(entry.total_not_paragraph_74_pensum)
 
-  %h3= t('.whole_organization')
+  %h2= t('.whole_organization')
   = field_set_tag do
     = f.labeled_readonly_value :total, value: format_hours(entry.total)
     = f.labeled_readonly_value :total_pensum, value: fnumber(entry.total_pensum)

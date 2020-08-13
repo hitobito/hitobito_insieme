@@ -362,6 +362,8 @@ de:
         name: Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG
       capital_substrate_limit:
         name: Limite Kapitalsubstrat
+      capital_substrate_factor:
+        name: Faktor Kapitalsubstrat
 
   vp2020:
     cost_accounting:
@@ -408,6 +410,7 @@ de:
       beratung_fachhilfeorganisationen: Information / Beratung von Organisationen und Einzelpersonen
       unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
       freiwilligen_akquisition: Akquisition von Freiwilligen
+      total_lufeb_promoting: Förderung der Selbsthilfe
 
       lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
       auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
@@ -434,6 +437,9 @@ de:
       treffpunkte: Treffpunkte
       kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
       beratung: Sozialberatung
+      total_courses: Total Kurse & Treffpunkte
+      edit:
+        courses: Kurse & Treffpunkte
 
     lufeb_fields_full:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
@@ -444,21 +450,6 @@ de:
       kurse_grundlagen: Grundlagenarbeit Kurse & Treffpunkte
       media_grundlagen: Grundlagenarbeit Medien & Publikationen
       total_media: Medien & Publikationen
-
-      # help_publikationen: nicht in der eigenen Zeitschrift oder Website
-      # help_medienkonferenzen: Planung bzw. Durchführung
-      # help_kontakte_meinungsbildner: z.B. EntscheidungsträgerInnen aus Institutionen, Verwaltung, Politik und Wirtschaft
-      # help_erarbeitung_instrumente: z.B. Dienstleistungs- und Beratungskonzepte, Konzepte für Informationskampagnen, usw.
-      # help_erarbeitung_grundlagen: z.B. Abklärungen, Studien, Grundlagenpapiere zu einzelnen Themen
-      # help_gremien: bzw. Fachkommissionen, ExpertInnenkommissionen, Projektgruppen, usw.
-
-      # help_auskunftserteilung: von (nicht spezifisch für die Beratung qualifizierte) Betroffenen gegenüber Einzelpersonen, Organisationen und Institutionen der Behinderten-Selbsthilfe (online, schriftlich, telefonisch, persönlich) erbracht wird
-      # help_vermittlung_kontakte: Adressen, usw.
-      # help_unterstuetzung_selbsthilfeorganisationen: Unterstützung von Selbsthilfeorganisationen und –gruppen
-      # help_koordination_selbsthilfe: Organisationen, Gruppen, Arbeitsgruppen, Drehscheibenfunktion
-      # help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
-
-      # help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
 
   export/tabular/events:
     title: Kurse
