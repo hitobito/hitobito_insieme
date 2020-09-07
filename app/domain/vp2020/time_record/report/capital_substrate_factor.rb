@@ -11,9 +11,9 @@ module Vp2020
     self.kind = :capital_substrate
 
     def paragraph_74
-      return 0 if capital_substrate_limit.zero?
+      return 0 if vollkosten_total.zero?
 
-      capital_substrate / capital_substrate_limit
+      capital_substrate / vollkosten_total
     end
 
     private
@@ -22,8 +22,8 @@ module Vp2020
       table.value_of('capital_substrate', 'paragraph_74')
     end
 
-    def capital_substrate_limit
-      table.value_of('capital_substrate_limit', 'paragraph_74')
+    def vollkosten_total
+      table.cost_accounting_value_of('vollkosten', 'total')
     end
 
   end

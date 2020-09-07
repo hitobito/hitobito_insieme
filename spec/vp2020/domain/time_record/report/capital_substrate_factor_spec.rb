@@ -15,29 +15,28 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateFactor do
   let(:report) { table.reports.fetch('capital_substrate_factor') }
 
   before do
-    create_course_record('tk', 10)
-    create_cost_accounting_report('raumaufwand', raeumlichkeiten: 100)
-    create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 100, verwaltung: 10,
-                                              beratung: 30)
-    create_report(TimeRecord::EmployeeTime, verwaltung: 50, beratung: 30, tageskurse: 20)
-    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 300_000)
+    create_course_record('tk', 8_000)
+    create_cost_accounting_report('raumaufwand', raeumlichkeiten: 1_000)
+    create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 1_000, verwaltung: 100,
+                                              beratung: 300)
+    create_report(TimeRecord::EmployeeTime, verwaltung: 500, beratung: 300, tageskurse: 200)
+
+    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 25_000)
   end
 
   context '#paragraph_74' do
     it 'has prequisites' do
-      expect(report.send(:capital_substrate)).to eq(219_920.0)
-      expect(report.send(:capital_substrate_limit)).to eq(210.0)
+      expect(report.send(:capital_substrate)).to eq(15_900.0)
+      expect(report.send(:vollkosten_total)).to eq(9_300)
     end
 
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to be_within(0.1).of(219_920.0 / 210.0)
-      expect(report.paragraph_74).to be_within(0.1).of(1047.2)
+      expect(report.paragraph_74).to be_within(0.1).of(15_900.0 / 9_300.0)
+      expect(report.paragraph_74).to be_within(0.1).of(1.7)
     end
 
     it 'handles div/0' do
-      parameter = ReportingParameter.for(year)
-      parameter.update(capital_substrate_limit: 0)
-      expect(parameter.capital_substrate_limit).to be_zero
+      expect(report).to receive(:vollkosten_total).and_return(0)
 
       expect(report.paragraph_74).to be_zero
     end
