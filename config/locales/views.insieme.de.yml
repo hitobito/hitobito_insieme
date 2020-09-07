@@ -374,6 +374,9 @@ de:
         unternehmenserfolg:
           name: Ertrag minus Aufwand
           short_name: Ertrag minus Aufwand
+        deckungsbeitrag4:
+          name: Deckungsbeitrag 4
+          short_name: Deckungsbeitrag 4
       headers:
         beratung: Sozialberatung
       beratung: Sozialberatung
