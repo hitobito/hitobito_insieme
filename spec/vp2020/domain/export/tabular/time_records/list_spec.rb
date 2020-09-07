@@ -63,8 +63,8 @@ describe 'Export::Tabular::TimeRecords::List' do
       expect(data[30]).to eq(['Tageskurse', nil, nil, 55.0])
       expect(data[32]).to eq(['Treffpunkte', nil, nil, 37.0])
 
-      expect(data[43]).to eq(['Total', 350.0, 638.0, 442.0])
-      expect(data[44]).to eq(['Ausgedrückt in-100% Stellen', 0.18, 0.34, 0.23])
+      expect(data[43]).to eq(['Total', 880.0, 638.0, 442.0])
+      expect(data[44]).to eq(['Ausgedrückt in-100% Stellen', 0.46, 0.34, 0.23])
     end
 
   end

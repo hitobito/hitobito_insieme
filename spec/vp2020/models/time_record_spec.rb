@@ -100,7 +100,7 @@ describe TimeRecord do
       end
 
       it 'is the sum the values set' do
-        expect(record.total_paragraph_74).to eq 64
+        expect(record.total_paragraph_74).to eq 66
       end
     end
 
@@ -130,7 +130,7 @@ describe TimeRecord do
      [:total_lufeb_specific, 102],
      [:total_lufeb_promoting, 87],
      [:total_media, 140],
-     [:total, 315]].each do |method, value|
+     [:total, 455]].each do |method, value|
       context "##{method}" do
         if method == :total
           it 'is 0 for new record before save' do
@@ -169,8 +169,8 @@ describe TimeRecord do
       end
 
       it 'is the equivalent to 100%-jobs' do
-        expect(record.total_paragraph_74).to eq 64
-        expect(record.total_paragraph_74_pensum).to eq 64.to_d / 1900
+        expect(record.total_paragraph_74).to eq 66
+        expect(record.total_paragraph_74_pensum).to eq 66.to_d / 1900
       end
     end
 
@@ -199,8 +199,8 @@ describe TimeRecord do
       it 'is the equivalent to 100%-jobs' do
         record.type = 'TimeRecord::EmployeeTime'
         record.save!
-        expect(record.total).to eq 315
-        expect(record.total_pensum).to eq 315.to_d / 1900
+        expect(record.total).to eq 455
+        expect(record.total_pensum).to eq 455.to_d / 1900
       end
     end
 

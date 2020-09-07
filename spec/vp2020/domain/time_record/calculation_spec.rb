@@ -84,10 +84,10 @@ describe Vp2020::TimeRecord::Calculation do
   end
 
   it 'total_paragraph_74' do
-    expect(subject.total_paragraph_74).to eq 95
+    expect(subject.total_paragraph_74).to eq 97
   end
   it 'total_paragraph_74_pensum' do
-    expect(subject.total_paragraph_74_pensum).to eq 95.to_d / 1900
+    expect(subject.total_paragraph_74_pensum).to eq 97.to_d / 1900
   end
 
   it 'total_not_paragraph_74' do
@@ -98,7 +98,7 @@ describe Vp2020::TimeRecord::Calculation do
   end
 
   it 'total_pensum' do
-    expect(subject.total_pensum).to eq (12 + 95).to_d / 1900
+    expect(subject.total_pensum).to eq (12 + 97).to_d / 1900
   end
 
   it 'update_totals' do
