@@ -47,9 +47,17 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
       expect(report.deckungsbeitrag4).to eq(-80)
     end
 
-    it 'is 0 it beiträge exceed threshold' do
+    it 'is 0 if beiträge exceed threshold' do
       create_cost_accounting_report('beitraege_iv', beratung: 400_000)
       expect(report.table.cost_accounting_value_of('beitraege_iv', 'total')).to eq(400_000)
+      expect(report.class::DECKUNGSBEITRAG4_THRESHOLD).to eq(300_000.0)
+
+      expect(report.deckungsbeitrag4).to eq(0)
+    end
+
+    it 'is 0 if beiträge match threshold exactly' do
+      create_cost_accounting_report('beitraege_iv', beratung: 300_000)
+      expect(report.table.cost_accounting_value_of('beitraege_iv', 'total')).to eq(300_000)
       expect(report.class::DECKUNGSBEITRAG4_THRESHOLD).to eq(300_000.0)
 
       expect(report.deckungsbeitrag4).to eq(0)
