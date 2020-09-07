@@ -34,19 +34,15 @@ module Vp2020
     end
 
     def deckungsbeitrag4_vp2015
-      (2015..2019).sum do |y|
-        time_record_table(y).cost_accounting_value_of('deckungsbeitrag4', 'total').to_d
-      end
+      deckungsbeitrag4_period(2015, 2019)
     end
 
     def deckungsbeitrag4_vp2020
-      (2020..year).sum do |y|
-        time_record_table(y).cost_accounting_value_of('deckungsbeitrag4', 'total').to_d
-      end
+      deckungsbeitrag4_period(2020, 2023)
     end
 
     def deckungsbeitrag4_sum
-      deckungsbeitrag4_vp2015 + deckungsbeitrag4_vp2020
+      deckungsbeitrag4_period(2015, year)
     end
 
     def deckungsbeitrag4
@@ -72,6 +68,12 @@ module Vp2020
     end
 
     private
+
+    def deckungsbeitrag4_period(start, finish)
+      (start..finish).sum do |y|
+        time_record_table(y).cost_accounting_value_of('deckungsbeitrag4', 'total').to_d
+      end
+    end
 
     def time_record_table(year)
       @time_record_tables[year] ||= vp_class('TimeRecord::Table').new(table.group, year)
