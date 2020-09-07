@@ -26,3 +26,14 @@
 
 = field_set_tag do
   = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
+
+%h2= vp_t('media')
+= field_set_tag do
+  = f.labeled_vp_input_field :medien_grundlagen, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :website, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :newsletter, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :videos, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :social_media, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :beratungsmodule, addon: t('global.hours_short')
+  = f.labeled_vp_input_field :apps, addon: t('global.hours_short')
+  = f.labeled_readonly_value :total_media, label: t('.subtotal'), value: format_hours(entry.total_media)
