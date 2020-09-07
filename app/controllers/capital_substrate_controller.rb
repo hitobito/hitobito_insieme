@@ -12,8 +12,9 @@ class CapitalSubstrateController < ReportingBaseController
 
   helper_method :report
 
-  def edit
-  end
+  def edit; end
+
+  private
 
   def report
     @report ||= begin
@@ -23,10 +24,8 @@ class CapitalSubstrateController < ReportingBaseController
                 end
   end
 
-  private
-
   def entry
-    @record ||= CapitalSubstrate.where(group_id: group.id, year: year).first_or_initialize
+    @entry ||= CapitalSubstrate.where(group_id: group.id, year: year).first_or_initialize
   end
 
   def permitted_params

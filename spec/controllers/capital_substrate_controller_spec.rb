@@ -40,24 +40,24 @@ describe CapitalSubstrateController do
       get :edit, params: { id: group.id, year: year }
       expect(response.status).to eq(200)
 
-      expect(assigns(:record)).not_to be_persisted
-      expect(assigns(:record).group).to eq group
-      expect(assigns(:record).year).to eq year
+      expect(assigns(:entry)).not_to be_persisted
+      expect(assigns(:entry).group).to eq group
+      expect(assigns(:entry).year).to eq year
     end
 
     it 'reuses existing capital_substrate based on group and year' do
       record = CapitalSubstrate.create!(group: group, year: year)
       get :edit, params: { id: group.id, year: year }
-      expect(assigns(:record)).to eq record
-      expect(assigns(:record)).to be_persisted
+      expect(assigns(:entry)).to eq record
+      expect(assigns(:entry)).to be_persisted
     end
 
     it 'provides the report' do
       get :edit, params: { id: group.id, year: year }
       expect(response.status).to eq(200)
 
-      expect(@controller.report).to be_a(vp_class('TimeRecord::Report::CapitalSubstrate'))
-      expect(@controller.report.table).to be
+      expect(@controller.send(:report)).to be_a(vp_class('TimeRecord::Report::CapitalSubstrate'))
+      expect(@controller.send(:report).table).to be
     end
   end
 
@@ -76,8 +76,8 @@ describe CapitalSubstrateController do
         put :update, params: { id: group.id, year: 2014, capital_substrate: attrs }
       end.to change { CapitalSubstrate.count }.by(1)
 
-      expect(assigns(:record).organization_capital).to eq(10)
-      expect(assigns(:record).fund_building).to eq(10)
+      expect(assigns(:entry).organization_capital).to eq(10)
+      expect(assigns(:entry).fund_building).to eq(10)
     end
   end
 end
