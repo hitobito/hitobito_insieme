@@ -7,31 +7,36 @@
 
 module Vp2020::CostAccounting
   module Report
+    # Total Aufwand/Kosten
     class TotalAufwand < Subtotal
 
-      self.used_fields += %w(verwaltung)
+      self.used_fields += %w(
+        verwaltung
+      )
 
-      self.summed_reports = %w(lohnaufwand
-                               sozialversicherungsaufwand
-                               uebriger_personalaufwand
-                               honorare
-                               raumaufwand
-                               uebriger_sachaufwand
-                               abschreibungen)
+      self.summed_reports = %w(
+        total_personalaufwand
+        raumaufwand
+        uebriger_sachaufwand
+        abschreibungen
+      )
 
-      self.summed_fields = %w(aufwand_ertrag_fibu
-                              abgrenzung_fibu
+      self.summed_fields = %w(
+        aufwand_ertrag_fibu
+        abgrenzung_fibu
 
-                              raeumlichkeiten
-                              verwaltung
-                              beratung
-                              medien_und_publikationen
-                              treffpunkte
-                              blockkurse
-                              tageskurse
-                              jahreskurse
-                              lufeb
-                              mittelbeschaffung)
+        raeumlichkeiten
+        verwaltung
+        mittelbeschaffung
+
+        beratung
+        medien_und_publikationen
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+      )
 
       define_summed_field_methods
 

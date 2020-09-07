@@ -12,13 +12,13 @@ module Vp2020::CostAccounting
       delegate :time_record, to: :table
 
       FIELDS = %w(verwaltung
+                  mittelbeschaffung
                   beratung
                   treffpunkte
                   blockkurse
                   tageskurse
                   jahreskurse
                   lufeb
-                  mittelbeschaffung
                   medien_und_publikationen)
 
       FIELDS.each do |field|
@@ -39,28 +39,30 @@ module Vp2020::CostAccounting
         nil
       end
 
+      def raeumlichkeiten
+        @raeumlichkeiten ||=
+          table.value_of('total_aufwand', 'raeumlichkeiten').to_d +
+            table.value_of('umlage_personal', 'raeumlichkeiten').to_d
+      end
+
       # rubocop:disable Metrics/AbcSize
       def total
         @total ||= begin
           verwaltung.to_d +
+          mittelbeschaffung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
           tageskurse.to_d +
           jahreskurse.to_d +
           lufeb.to_d +
-          mittelbeschaffung.to_d +
           medien_und_publikationen.to_d
         end
       end
       # rubocop:enable Metrics/AbcSize
 
       def kontrolle
-        total - raeumlichkeiten.to_d
-      end
-
-      def raeumlichkeiten
-        table.value_of('raumaufwand', 'raeumlichkeiten').to_d
+        total - raeumlichkeiten
       end
 
       private
@@ -82,9 +84,10 @@ module Vp2020::CostAccounting
       end
 
       def relevanter_aufwand
-        FIELDS.inject(0) do |sum, field|
-          aufwand(field).to_d + sum
-        end
+        @relevanter_aufwand ||=
+          FIELDS.inject(0) do |sum, field|
+            aufwand(field).to_d + sum
+          end
       end
 
       def aufwand(field)

@@ -7,12 +7,11 @@
 
 module Vp2020::CostAccounting
   module Report
-    class UmlageVerwaltung < Base
+    class UmlageMittelbeschaffung < Base
 
       delegate :time_record, to: :table
 
-      FIELDS = %w(mittelbeschaffung
-                  beratung
+      FIELDS = %w(beratung
                   treffpunkte
                   blockkurse
                   tageskurse
@@ -24,7 +23,7 @@ module Vp2020::CostAccounting
         define_method(field) do
           @allocated_fields ||= {}
 
-          if verwaltung > 0
+          if mittelbeschaffung > 0
             if time_record.total > 0
               @allocated_fields[field] ||= allocated_with_time_record(field)
             else
@@ -38,17 +37,17 @@ module Vp2020::CostAccounting
         nil
       end
 
-      def verwaltung
-        @verwaltung ||=
-          table.value_of('total_aufwand', 'verwaltung').to_d +
-            table.value_of('umlage_personal', 'verwaltung').to_d +
-            table.value_of('umlage_raeumlichkeiten', 'verwaltung').to_d
+      def mittelbeschaffung
+        @mittelbeschaffung ||=
+          table.value_of('total_aufwand', 'mittelbeschaffung').to_d +
+            table.value_of('umlage_personal', 'mittelbeschaffung').to_d +
+            table.value_of('umlage_raeumlichkeiten', 'mittelbeschaffung').to_d +
+            table.value_of('umlage_verwaltung', 'mittelbeschaffung').to_d
       end
 
       # rubocop:disable Metrics/AbcSize
       def total
         @total ||= begin
-          mittelbeschaffung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
@@ -61,20 +60,20 @@ module Vp2020::CostAccounting
       # rubocop:enable Metrics/AbcSize
 
       def kontrolle
-        total - verwaltung
+        total - mittelbeschaffung
       end
 
       private
 
       def allocated_with_time_record(field)
         if relevante_zeit > 0
-          verwaltung * time_record.send(field).to_d / relevante_zeit
+          mittelbeschaffung * time_record.send(field).to_d / relevante_zeit
         end
       end
 
       def allocated_without_time_record(field)
         if relevanter_aufwand > 0
-          verwaltung * aufwand(field).to_d / relevanter_aufwand
+          mittelbeschaffung * aufwand(field).to_d / relevanter_aufwand
         end
       end
 

@@ -409,11 +409,11 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => (21.0/1900).round(5),
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => (21.0/1900).round(5),
 
-        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -201100.0,
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -202200.0,
         "Totaler Aufwand gemäss FIBU"                 => 0.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 1100.0,
         "IV-Beitrag"                                  => 0.0,
-        "Deckungsbeitrag 4"                           => -1100.0,
+        "Deckungsbeitrag 4"                           => -2200.0,
       }))
     end
 
@@ -473,11 +473,11 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.01579,
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
 
-        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 10048000.0,
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 9996170.0,
         "Totaler Aufwand gemäss FIBU"                 => 100.0,
         "IV-Beitrag"                                  => 20.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
-        "Deckungsbeitrag 4"                           => -2000.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 2040.0,
+        "Deckungsbeitrag 4"                           => -3830.0,
       }))
     end
 

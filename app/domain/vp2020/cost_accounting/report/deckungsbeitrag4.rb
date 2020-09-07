@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2014, 2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -41,10 +41,6 @@ module Vp2020::CostAccounting
       def lufeb
         table.value_of('deckungsbeitrag3', 'lufeb').to_d + \
         table.value_of('beitraege_iv', 'lufeb').to_d
-      end
-
-      def mittelbeschaffung
-        table.value_of('deckungsbeitrag3', 'mittelbeschaffung').to_d
       end
     end
   end

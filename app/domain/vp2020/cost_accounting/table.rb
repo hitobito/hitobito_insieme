@@ -21,6 +21,7 @@ module Vp2020::CostAccounting
       Report::UmlagePersonal,
       Report::UmlageRaeumlichkeiten,
       Report::UmlageVerwaltung,
+      Report::UmlageMittelbeschaffung,
       Report::TotalUmlagen,
       Report::Vollkosten,
       Report::Leistungsertrag,

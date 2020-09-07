@@ -32,19 +32,19 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
     end
 
     it 'calculates the correct value if total_aufwand is nonzero' do
-      expect(report.allocation_base).to eq(1.5)
+      expect(report.allocation_base).to eq(1.4)
     end
   end
 
   context '#organization_capital_allocated' do
     it 'calculates the correct value' do
-      expect(report.organization_capital_allocated).to eq(450_000)
+      expect(report.organization_capital_allocated).to eq(420_000)
     end
   end
 
   context '#deckungsbeitrag4' do
     it 'calculates the correct value' do
-      expect(report.deckungsbeitrag4).to eq(-150)
+      expect(report.deckungsbeitrag4).to eq(-80)
     end
 
     it 'is 0 it beiträge exceed threshold' do
@@ -71,14 +71,14 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
 
   context '#paragraph_74 and #capital_substrate_allocated' do
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to eq(249_850)
+      expect(report.paragraph_74).to eq(219_920)
       expect(report.capital_substrate_allocated).to eq(report.paragraph_74)
     end
   end
 
   context '#capital_substrate_allocated' do
     it 'does not include fund_building' do
-      calculated = 249_850
+      calculated = 219_920
 
       expect(report.capital_substrate_allocated).to eq(calculated)
 
