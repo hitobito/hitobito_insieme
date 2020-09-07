@@ -382,6 +382,7 @@ de:
       beratung: Sozialberatung
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
+      anzahl_durchfuehrungen: Anzahl Durchführungen
     course_reporting:
       aggregations:
         anzahl_kurse_tp: Anzahl Durchführungen
