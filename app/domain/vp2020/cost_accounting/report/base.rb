@@ -114,8 +114,7 @@ module Vp2020::CostAccounting
         end
       end
 
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-      def total
+      def total # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @total ||= begin
           raeumlichkeiten.to_d +
           verwaltung.to_d +
@@ -129,7 +128,6 @@ module Vp2020::CostAccounting
           mittelbeschaffung.to_d
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       def kontrolle
         total - aufwand_ertrag_ko_re
