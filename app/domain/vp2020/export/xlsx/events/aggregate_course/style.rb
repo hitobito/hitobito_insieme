@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+module Vp2020
 module Export::Xlsx::Events::AggregateCourse
-  class Style < Export::Xlsx::Style
+  class Style < ::Export::Xlsx::Style
 
     BLACK = '000000'
     CURRENCY = 2
@@ -20,13 +21,8 @@ module Export::Xlsx::Events::AggregateCourse
                                      :centered_border_small, :centered_border_wrap]
 
     def column_widths
-      [18, 12.86, 20] + # #1-3
-      Array.new(24, 2.57) + # #4-27
-      [17.14, 4.29, 3.71, 2.57, 14, 4.29, 4.29] + # #28-34
-      Array.new(11, 7.5) + # #35-45
-      Array.new(5, 7.5) + # #46-50
-      Array.new(8, 8.5) + # #51-58
-      [7.5, 3.13] # #59-60
+      [18, 12.86, 20] +
+      Array.new(32, 2.57)
     end
 
     def header_styles
@@ -41,14 +37,10 @@ module Export::Xlsx::Events::AggregateCourse
     def default_style_data_rows
       Array.new(2, :centered_border_wrap) +
         [:centered_border_small] +
-        Array.new(21, :vertical_centered) +
-        Array.new(2, :centered_border) +
-        [:centered_border_wrap] +
-        Array.new(4, :centered_border) +
-        [:centered_border_wrap] +
-        Array.new(18, :centered_border) +
-        Array.new(9, :currency) +
-        [:centered_border]
+        Array.new(22, :vertical_centered) +
+        Array.new(7, :currency) +
+        Array.new(2, :vertical_centered) +
+        Array.new(1, :currency)
     end
 
     def style_title_header_row
@@ -110,7 +102,7 @@ module Export::Xlsx::Events::AggregateCourse
     end
 
     def currency_style
-      centered_border_style.deep_merge(
+      vertical_centered_style.deep_merge(
         style: { num_fmt: CURRENCY }
       )
     end
@@ -129,4 +121,5 @@ module Export::Xlsx::Events::AggregateCourse
       default_style.deep_merge(style: { sz: 16 })
     end
   end
+end
 end

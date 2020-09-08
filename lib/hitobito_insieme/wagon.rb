@@ -85,21 +85,27 @@ module HitobitoInsieme
       Export::Pdf::Labels.prepend Insieme::Export::Pdf::Labels
       Import::PersonDoubletteFinder.prepend Insieme::Import::PersonDoubletteFinder
 
-      Vertragsperioden::Dispatcher.domain_classes('Export::Xlsx::CostAccounting::Style')
-          .zip(Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
-          .each { |style, list| Export::Xlsx::Style.register(style, list) }
+      Vertragsperioden::Dispatcher
+        .domain_classes('Export::Xlsx::CostAccounting::Style')
+        .zip(Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
+        .each { |style, list| Export::Xlsx::Style.register(style, list) }
+
+      Vertragsperioden::Dispatcher
+        .domain_classes('Export::Xlsx::Events::AggregateCourse::Style')
+        .zip(
+          Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::Events::AggregateCourse::DetailList').zip(
+            Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::Events::AggregateCourse::ShortList')
+          )
+        )
+        .each { |style, list| Export::Xlsx::Style.register(style, *list) }
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
                                    *Vertragsperioden::Dispatcher.domain_classes(
-                                       "Export::Tabular::Events::DetailList"),
+                                     'Export::Tabular::Events::DetailList'
+                                   ),
                                    *Vertragsperioden::Dispatcher.domain_classes(
-                                       "Export::Tabular::Events::ShortList"))
-
-      Export::Xlsx::Style.register(Export::Xlsx::Events::AggregateCourse::Style,
-                                   Vp2015::Export::Tabular::Events::AggregateCourse::DetailList,
-                                   Vp2015::Export::Tabular::Events::AggregateCourse::ShortList,
-                                   Vp2020::Export::Tabular::Events::AggregateCourse::DetailList,
-                                   Vp2020::Export::Tabular::Events::AggregateCourse::ShortList)
+                                     'Export::Tabular::Events::ShortList'
+                                   ))
 
       # jobs
       Export::SubscriptionsJob.prepend Insieme::Export::SubscriptionsJob
