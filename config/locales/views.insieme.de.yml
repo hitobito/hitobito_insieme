@@ -387,6 +387,8 @@ de:
       aggregations:
         anzahl_kurse_tp: Anzahl Durchführungen
         betreuende_tp: Betreuungspersonen
+        direkte_kosten_pro_betreuungsstunde: Durchschnittliche direkte Kosten pro Betreuungsstunde
+        vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
       client_statistics:
         group_or_course_type: Verein / Kurstyp
         course_total: Total

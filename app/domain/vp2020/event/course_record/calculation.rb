@@ -123,6 +123,14 @@ module Vp2020
       end
     end
 
+    def direkte_kosten_pro_betreuungsstunde
+      if total_stunden_betreuung.positive?
+        direkter_aufwand.to_d / total_stunden_betreuung
+      else
+        0
+      end
+    end
+
     def vollkosten_pro_le
       if total_tage_teilnehmende.positive?
         total_vollkosten / total_tage_teilnehmende

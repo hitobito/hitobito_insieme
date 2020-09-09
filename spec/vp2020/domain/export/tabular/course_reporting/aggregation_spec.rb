@@ -19,6 +19,7 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
       absenzen_angehoerige: 1,
       absenzen_weitere: nil,
       leiterinnen: 1,
+      betreuerinnen: 10,
       fachpersonen: 2,
       hilfspersonal_ohne_honorar: 3,
       hilfspersonal_mit_honorar: 4,
@@ -188,13 +189,11 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
       expect(rows[10]).to eq ['davon Honorare',                                             40.00]
       expect(rows[11]).to eq ['davon Unterkunft/Raumaufwand',                               80.00]
       expect(rows[12]).to eq ['davon übriger Aufwand inkl. Verpflegung',                    120.00]
-      expect(rows[13]).to eq ['Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde', 20]
+      expect(rows[13]).to eq ['Durchschnittliche direkte Kosten pro Betreuungsstunde',      0.75]
       expect(rows[14]).to eq ['Vollkosten',                                                 280.00]
-      expect(rows[15][0]).to eq 'Durchschnittliche Vollkosten pro TeilnehmerInnenstunde'
-      expect(rows[15][1..-1].collect(&:to_i)).to eq [nil,                                   23][1..-1]
+      expect(rows[15]).to eq ['Durchschnittliche Vollkosten pro Betreuungsstunde',          0.875]
       expect(rows[16]).to eq ['Beiträge Teilnehmende',                                      40.00]
       expect(rows[17]).to eq ['Betreuungschlüssel (Teilnehmende / Betreuende)',             0.10]
-      expect(rows[18]).to eq ['Anzahl Kurse mit spezieller Unterkunft',                     4]
     end
   end
 

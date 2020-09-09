@@ -39,8 +39,8 @@ module Vp2020::Export
 
           betreuende direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
 
-          direkte_kosten_pro_le total_vollkosten vollkosten_pro_le beitraege_teilnehmende
-          betreuungsschluessel anzahl_spezielle_unterkunft
+          direkte_kosten_pro_betreuungsstunde total_vollkosten vollkosten_pro_betreuungsstunde
+          beitraege_teilnehmende betreuungsschluessel
         ].freeze
         # rubocop:enable Style/SymbolArray
 
