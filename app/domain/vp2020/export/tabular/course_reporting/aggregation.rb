@@ -45,6 +45,7 @@ module Vp2020::Export
         # rubocop:enable Style/SymbolArray
 
         class << self
+          # aggregation is Vp2020::CourseReporting::Aggregation
           def csv(aggregation)
             Export::Csv::Generator.new(new(aggregation)).call
           end
