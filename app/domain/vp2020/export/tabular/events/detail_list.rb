@@ -24,9 +24,12 @@ module Vp2020::Export::Tabular::Events
       :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
       ## total teilnehmerinnentage
       :tage_behinderte, :tage_angehoerige, :tage_weitere,
+      ## total betreuungsstunden
+      :betreuungsstunden,
       ## betreuerinnen
       :leiterinnen, :fachpersonen,
       :hilfspersonal_mit_honorar, :hilfspersonal_ohne_honorar,
+      :betreuerinnen,
       ## personal ohne betreuungsfunktion
       :kuechenpersonal,
       ## direkter aufwand
@@ -36,8 +39,8 @@ module Vp2020::Export::Tabular::Events
       :beitraege_teilnehmende,
       # auswertungen
       :gemeinkostenanteil, :total_vollkosten,
-      :betreuungsstunden,
-      :total_tage_teilnehmende, :vollkosten_pro_le
+      :total_tage_teilnehmende, :vollkosten_pro_le,
+      :total_stunden_betreuung, :vollkosten_pro_betreuungsstunde
     ].freeze
 
     self.row_class = Export::Tabular::Events::DetailRow
@@ -65,11 +68,11 @@ module Vp2020::Export::Tabular::Events
     end
 
     def title_header_values
-      row = Array.new(67)
+      row = Array.new(71)
       row[0] = @group_name
       row[3] = reporting_year
       row[12] = document_title
-      row[66] = "#{I18n.t('global.printed')}: "
+      row[65] = "#{I18n.t('global.printed')}: "
       row[67] = printed_at
       row
     end

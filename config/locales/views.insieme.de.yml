@@ -526,6 +526,10 @@ de:
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
+    betreuerinnen: Betreuungspersonen
+    kursdauer: Kursdauer (ggf. in Stunden)
+    total_stunden_betreuung: Total Betreuungsstunden
+    vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
   vp2020/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisatoren'
@@ -548,3 +552,7 @@ de:
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
+    betreuerinnen: Betreuungspersonen
+    kursdauer: Kursdauer (ggf. in Stunden)
+    total_stunden_betreuung: Total Betreuungsstunden
+    vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde

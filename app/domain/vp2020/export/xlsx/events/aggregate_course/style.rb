@@ -5,8 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-module Vp2020
-module Export::Xlsx::Events::AggregateCourse
+module Vp2020::Export::Xlsx::Events::AggregateCourse
   class Style < ::Export::Xlsx::Style
 
     BLACK = '000000'
@@ -21,8 +20,11 @@ module Export::Xlsx::Events::AggregateCourse
                                      :centered_border_small, :centered_border_wrap]
 
     def column_widths
-      [18, 12.86, 20] +
-      Array.new(32, 2.57)
+      column_style_information.map(&:width)
+    end
+
+    def default_style_data_rows
+      column_style_information.map(&:style)
     end
 
     def header_styles
@@ -34,13 +36,49 @@ module Export::Xlsx::Events::AggregateCourse
       end
     end
 
-    def default_style_data_rows
-      Array.new(2, :centered_border_wrap) +
-        [:centered_border_small] +
-        Array.new(22, :vertical_centered) +
-        Array.new(7, :currency) +
-        Array.new(2, :vertical_centered) +
-        Array.new(1, :currency)
+    ColumnStyleInformation = Struct.new(:width, :style)
+
+    def column_style_information # rubocop:disable Metrics/MethodLength
+      @column_style_information ||= [
+        [18,    :centered_border_wrap],
+        [12.86, :centered_border_wrap],
+        [20,    :centered_border_small],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :vertical_centered],
+        [2.57,  :vertical_centered],
+        [2.57,  :currency],
+        [2.57,  :currency],
+        [2.57,  :vertical_centered],
+        [2.57,  :currency]
+      ].map { |width, style| ColumnStyleInformation.new(width, style) }
     end
 
     def style_title_header_row
@@ -121,5 +159,4 @@ module Export::Xlsx::Events::AggregateCourse
       default_style.deep_merge(style: { sz: 16 })
     end
   end
-end
 end

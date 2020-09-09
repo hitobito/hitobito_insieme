@@ -9,12 +9,12 @@ module Vp2020::Export::Tabular::Events
   class AggregateCourse::DetailList < DetailList
 
     def title_header_values
-      row = Array.new(35)
+      row = Array.new(39)
       row[0] = @group_name
       row[2] = reporting_year
       row[10] = document_title
-      row[27] = "#{I18n.t('global.printed')}: "
-      row[30] = printed_at
+      row[30] = "#{I18n.t('global.printed')}: "
+      row[33] = printed_at
       row
     end
 
