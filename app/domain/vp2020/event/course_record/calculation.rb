@@ -112,7 +112,7 @@ module Vp2020
 
     def total_vollkosten
       direkter_aufwand.to_d +
-          gemeinkostenanteil.to_d
+        gemeinkostenanteil.to_d
     end
 
     def direkte_kosten_pro_le
