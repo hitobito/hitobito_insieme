@@ -74,7 +74,6 @@ module Vp2020::CourseReporting
         where(events: { leistungskategorie: leistungskategorie },
               event_course_records: {
                 year: year,
-                zugeteilte_kategorie: zugeteilte_kategorien,
                 subventioniert: subventioniert
               })
     end

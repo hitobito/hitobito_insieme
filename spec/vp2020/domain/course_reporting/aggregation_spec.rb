@@ -58,9 +58,9 @@ describe Vp2020::CourseReporting::Aggregation do
       expect(aggregation.scope.count).to be_empty
     end
 
-    it 'filters based on zugeteilte_kategorie' do
+    it 'does not filter based on zugeteilte_kategorie anymore' do # see Vp2015, if you need this
       aggregation = new_aggregation(zugeteilte_kategorie: [2])
-      expect(aggregation.scope.count).to be_empty
+      expect(aggregation.scope.count).to_not be_empty
     end
 
     it 'filters based on subventioniert' do
