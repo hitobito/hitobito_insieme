@@ -56,7 +56,11 @@ class TimeRecordsController < ReportingBaseController
   end
 
   def show_path
-    time_record_base_information_group_path(group, year: year)
+    if params['report'].present?
+      time_record_report_group_path(group, year: year, report: params['report'])
+    else
+      time_record_base_information_group_path(group, year: year)
+    end
   end
 
 end
