@@ -7,5 +7,6 @@
 = field_set_tag do
   = f.labeled_readonly_value :total_lufeb, value: format_hours(entry.total_lufeb)
 
+%h2= vp_t('media')
 = field_set_tag do
   = f.labeled_vp_input_field :total_media, addon: t('global.hours_short')
