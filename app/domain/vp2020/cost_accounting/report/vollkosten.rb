@@ -24,6 +24,8 @@ module Vp2020::CostAccounting
         medien_und_publikationen
       )
 
+      self.total_includes_gemeinkostentraeger = false
+
       define_summed_field_methods
 
       def aufwand_ertrag_ko_re

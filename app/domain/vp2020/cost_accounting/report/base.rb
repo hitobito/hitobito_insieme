@@ -57,6 +57,11 @@ module Vp2020::CostAccounting
       class_attribute :aufwand
       self.aufwand = true
 
+      # Whether to include the Gemeinkosten fields (Räumlichkeiten, Geschäftsführung,
+      # Mittelbeschaffung) in the calculated total
+      class_attribute :total_includes_gemeinkostentraeger
+      self.total_includes_gemeinkostentraeger = true
+
       class << self
         def key
           name.demodulize.underscore
@@ -114,10 +119,12 @@ module Vp2020::CostAccounting
         end
       end
 
+      def gemeinkostentraeger
+        @gemeinkostentraeger ||= raeumlichkeiten.to_d + verwaltung.to_d + mittelbeschaffung.to_d
+      end
+
       def total # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @total ||= begin
-          raeumlichkeiten.to_d +
-          verwaltung.to_d +
           beratung.to_d +
           medien_und_publikationen.to_d +
           treffpunkte.to_d +
@@ -125,7 +132,7 @@ module Vp2020::CostAccounting
           tageskurse.to_d +
           jahreskurse.to_d +
           lufeb.to_d +
-          mittelbeschaffung.to_d
+          (total_includes_gemeinkostentraeger ? gemeinkostentraeger : 0)
         end
       end
 

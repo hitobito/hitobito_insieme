@@ -10,6 +10,8 @@ module Vp2020::CostAccounting
     # Gemeinkosten
     class TotalUmlagen < Subtotal
 
+      self.total_includes_gemeinkostentraeger = false
+
       self.summed_reports = %w(umlage_personal
                                umlage_raeumlichkeiten
                                umlage_verwaltung

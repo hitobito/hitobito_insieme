@@ -38,7 +38,13 @@ module Vp2020::CostAccounting
         lufeb
       )
 
+      self.total_includes_gemeinkostentraeger = false
+
       define_summed_field_methods
+
+      def total
+        super + table.value_of('total_umlagen', 'gemeinkostentraeger').to_d
+      end
 
     end
   end
