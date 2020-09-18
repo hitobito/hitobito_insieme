@@ -10,17 +10,8 @@ module Vp2020::CostAccounting
     class Vollkosten < Subtotal
 
       self.summed_reports = %w(
-        lohnaufwand
-        sozialversicherungsaufwand
-        uebriger_personalaufwand
-        honorare
-        raumaufwand
-        uebriger_sachaufwand
-        abschreibungen
-
-        umlage_personal
-        umlage_raeumlichkeiten
-        umlage_verwaltung
+        total_aufwand
+        total_umlagen
       )
 
       self.summed_fields = %w(
