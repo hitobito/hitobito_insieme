@@ -93,8 +93,10 @@ module HitobitoInsieme
       Vertragsperioden::Dispatcher
         .domain_classes('Export::Xlsx::Events::AggregateCourse::Style')
         .zip(
-          Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::Events::AggregateCourse::DetailList').zip(
-            Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::Events::AggregateCourse::ShortList')
+          Vertragsperioden::Dispatcher
+            .domain_classes('Export::Tabular::Events::AggregateCourse::DetailList').zip(
+              Vertragsperioden::Dispatcher
+                .domain_classes('Export::Tabular::Events::AggregateCourse::ShortList')
           )
         )
         .each { |style, list| Export::Xlsx::Style.register(style, *list) }
