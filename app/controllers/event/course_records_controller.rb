@@ -5,46 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-# == Schema Information
-#
-# Table name: event_course_records
-#
-#  id                               :integer          not null, primary key
-#  event_id                         :integer          not null
-#  inputkriterien                   :string(1)
-#  subventioniert                   :boolean          default(TRUE), not null
-#  kursart                          :string(255)
-#  kursdauer                        :decimal(12, 2)
-#  teilnehmende_behinderte          :integer
-#  teilnehmende_angehoerige         :integer
-#  teilnehmende_weitere             :integer
-#  absenzen_behinderte              :decimal(12, 2)
-#  absenzen_angehoerige             :decimal(12, 2)
-#  absenzen_weitere                 :decimal(12, 2)
-#  leiterinnen                      :integer
-#  fachpersonen                     :integer
-#  hilfspersonal_ohne_honorar       :integer
-#  hilfspersonal_mit_honorar        :integer
-#  kuechenpersonal                  :integer
-#  honorare_inkl_sozialversicherung :decimal(12, 2)
-#  unterkunft                       :decimal(12, 2)
-#  uebriges                         :decimal(12, 2)
-#  beitraege_teilnehmende           :decimal(12, 2)
-#  spezielle_unterkunft             :boolean          default(FALSE), not null
-#  year                             :integer
-#  teilnehmende_mehrfachbehinderte  :integer
-#  direkter_aufwand                 :decimal(12, 2)
-#  gemeinkostenanteil               :decimal(12, 2)
-#  gemeinkosten_updated_at          :datetime
-#  zugeteilte_kategorie             :string(2)
-#  challenged_canton_count_id       :integer
-#  affiliated_canton_count_id       :integer
-#  anzahl_kurse                     :integer          default(1)
-#  tage_behinderte                  :decimal(12, 2)
-#  tage_angehoerige                 :decimal(12, 2)
-#  tage_weitere                     :decimal(12, 2)
-#
-
 class Event::CourseRecordsController < CrudController
 
   include Vertragsperioden::Views
