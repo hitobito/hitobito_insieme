@@ -80,6 +80,7 @@ module Vp2020::Export
 
         def append_cost_accounting_labels(labels)
           labels << t('geschluesseltes_kapitalsubstrat')
+          labels << t('faktor_kapitalsubstrat')
           labels << t('total_aufwand')
           labels << t('vollkosten_nach_umlagen_betrieb')
           labels << t('iv_beitrag')
@@ -106,6 +107,7 @@ module Vp2020::Export
           append_volunteer_fte_values(values, group)
 
           append_capital_substrate_values(values, figures.capital_substrate(group))
+          append_capital_substrate_factor_values(values, figures.capital_substrate_factor(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
 
           values
@@ -156,6 +158,10 @@ module Vp2020::Export
         end
 
         def append_capital_substrate_values(values, report)
+          values << report.paragraph_74
+        end
+
+        def append_capital_substrate_factor_values(values, report)
           values << report.paragraph_74
         end
 

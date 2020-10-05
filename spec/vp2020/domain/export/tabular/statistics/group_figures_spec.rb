@@ -219,6 +219,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)",
 
       "Geschlüsseltes Kapitalsubstrat nach Art. 74",
+      "Faktor Kapitalsubstrat",
       "Totaler Aufwand gemäss FIBU",
       "Vollkosten nach Umlagen Betrieb Art. 74",
       "IV-Beitrag",
@@ -267,6 +268,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Blockkurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
         "Blockkurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
         "Deckungsbeitrag 4" => 0.0,
+        "Faktor Kapitalsubstrat" => 0.0,
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 0.0,
         "IV-Beitrag" => 0.0,
         "Kanton" => nil,
@@ -370,6 +372,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "BSV Nummer"=>nil,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
+        "Faktor Kapitalsubstrat"                      => 0.0,
         "Totaler Aufwand gemäss FIBU"                 => 0.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
         "IV-Beitrag"                                  => 0.0,
@@ -410,6 +413,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => (21.0/1900).round(5),
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -201100.0,
+        "Faktor Kapitalsubstrat"                      => -182.81818,
         "Totaler Aufwand gemäss FIBU"                 => 0.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 1100.0,
         "IV-Beitrag"                                  => 0.0,
@@ -474,6 +478,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 10048000.0,
+        "Faktor Kapitalsubstrat"                      => 4901.46341,
         "Totaler Aufwand gemäss FIBU"                 => 100.0,
         "IV-Beitrag"                                  => 20.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
@@ -487,6 +492,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         'Kanton'             => 'Bern',
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
+        "Faktor Kapitalsubstrat"                      => 0.0,
         "Totaler Aufwand gemäss FIBU"                 => 0.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
         "IV-Beitrag"                                  => 0.0,

@@ -62,6 +62,15 @@ module Vp2020::Statistics
       vp_class('TimeRecord::Report::CapitalSubstrate').new(time_table)
     end
 
+    def capital_substrate_factor(group)
+      cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
+      substrate = capital_substrates[group.id] || CapitalSubstrate.new
+      time_table = vp_class('TimeRecord::Table').new(group, year, cost_table).tap do |t|
+        t.records = { vp_class('TimeRecord::Report::CapitalSubstrate').key => substrate }
+      end
+      vp_class('TimeRecord::Report::CapitalSubstrateFactor').new(time_table)
+    end
+
     private
 
     def course_records
