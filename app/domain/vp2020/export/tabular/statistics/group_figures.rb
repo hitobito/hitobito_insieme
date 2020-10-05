@@ -60,10 +60,11 @@ module Vp2020::Export
 
         def append_time_labels(labels)
           %w(employees volunteers).each do |type|
+            labels << vp_label('kurse_grundlagen', 'fields_full', vp_t("hours_#{type}"))
             %w(grundlagen promoting general specific).each do |section|
               labels << vp_label("lufeb_#{section}", 'lufeb_fields_full', t("lufeb_hours_#{type}"))
             end
-            %w(kurse_grundlagen media_grundlagen total_media).each do |section|
+            %w(media_grundlagen total_media).each do |section|
               labels << vp_label(section, 'fields_full', vp_t("hours_#{type}"))
             end
           end
@@ -129,11 +130,11 @@ module Vp2020::Export
 
         def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
           if record
+            values << record.kurse_grundlagen.to_i
             values << record.lufeb_grundlagen.to_i
             values << record.total_lufeb_promoting.to_i
             values << record.total_lufeb_general.to_i
             values << record.total_lufeb_specific.to_i
-            values << record.kurse_grundlagen.to_i
             values << record.medien_grundlagen.to_i
             values << record.total_media.to_i
           else
