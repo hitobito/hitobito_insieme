@@ -39,8 +39,7 @@ module Vp2020::Export::Tabular::Events
       :beitraege_teilnehmende,
       # auswertungen
       :gemeinkostenanteil, :total_vollkosten,
-      :total_tage_teilnehmende, :vollkosten_pro_le,
-      :total_stunden_betreuung, :vollkosten_pro_betreuungsstunde
+      :total_tage_teilnehmende, :vollkosten_pro_le
     ].freeze
 
     self.row_class = Export::Tabular::Events::DetailRow
