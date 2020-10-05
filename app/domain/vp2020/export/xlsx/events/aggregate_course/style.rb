@@ -12,7 +12,7 @@ module Vp2020::Export::Xlsx::Events::AggregateCourse
     CURRENCY = 2
     DATE = 14
 
-    self.data_row_height = 130
+    self.data_row_height = 50
 
     self.style_definition_labels += [:title, :default_border,
                                      :centered_border, :vertical_centered,
@@ -43,8 +43,8 @@ module Vp2020::Export::Xlsx::Events::AggregateCourse
         [18,    :centered_border_wrap],
         [12.86, :centered_border_wrap],
         [20,    :centered_border_small],
-        [2.57,  :vertical_centered],
-        [2.57,  :vertical_centered],
+        [18,    :centered_border_wrap],
+        [18,    :centered_border_wrap],
         [2.57,  :vertical_centered],
         [2.57,  :vertical_centered],
         [2.57,  :vertical_centered],
@@ -75,8 +75,6 @@ module Vp2020::Export::Xlsx::Events::AggregateCourse
         [2.57,  :vertical_centered],
         [2.57,  :vertical_centered],
         [2.57,  :currency],
-        [2.57,  :currency],
-        [2.57,  :vertical_centered],
         [2.57,  :currency]
       ].map { |width, style| ColumnStyleInformation.new(width, style) }
     end
@@ -86,9 +84,7 @@ module Vp2020::Export::Xlsx::Events::AggregateCourse
         Array.new(3, :title) +
         Array.new(12, :title) +
         Array.new(31, :default) +
-        Array.new(33, :default) +
-        Array.new(66, :default) +
-        Array.new(67, :default)
+        Array.new(33, :default)
     end
 
     private

@@ -12,9 +12,9 @@ module Vp2020::Export::Tabular::Events
       row = Array.new(39)
       row[0] = @group_name
       row[2] = reporting_year
-      row[10] = document_title
-      row[30] = "#{I18n.t('global.printed')}: "
-      row[33] = printed_at
+      row[7] = document_title
+      row[28] = "#{I18n.t('global.printed')}: "
+      row[31] = printed_at
       row
     end
 

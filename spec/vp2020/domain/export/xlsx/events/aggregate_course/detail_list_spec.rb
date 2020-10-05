@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2017, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -32,7 +32,7 @@ module Vp2020
 
       expect_any_instance_of(::Export::Xlsx::Generator)
         .to receive(:data_row_height)
-        .with(130)
+        .with(50)
         .and_call_original
 
       Export::Tabular::Events::AggregateCourse::DetailList.xlsx(courses, 'test group name', '2020')
@@ -42,10 +42,10 @@ module Vp2020
 
     def column_widths
       [
-        18, 12.86, 20, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57,
+        18, 12.86, 20, 18, 18, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57,
         2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57,
         2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57,
-        2.57, 2.57, 2.57, 2.57, 2.57
+        2.57, 2.57, 2.57
       ]
     end
 
