@@ -13,7 +13,7 @@
                              value: format_money(entry.total_vollkosten)
   - if entry.tp?
     = f.labeled_readonly_value :betreuungsstunden,
-                               value: fnumber(entry.total_stunden_betreuung),
+                               value: fnumber(entry.betreuungsstunden),
                                label: t('event.course_records.form.betreuungsstunden')
     = f.labeled_readonly_value :vollkosten_pro_betreuungsstunde,
                                value: format_money(entry.vollkosten_pro_betreuungsstunde),

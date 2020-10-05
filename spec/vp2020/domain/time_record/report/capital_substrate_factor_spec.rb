@@ -26,13 +26,13 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateFactor do
 
   context '#paragraph_74' do
     it 'has prequisites' do
-      expect(report.send(:capital_substrate)).to eq(219_920.0)
-      expect(report.send(:capital_substrate_limit)).to eq(210.0)
+      expect(report.send(:capital_substrate)).to eq(25_600.0)
+      expect(report.send(:vollkosten_total)).to eq(9_400.0)
     end
 
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to be_within(0.1).of(219_920.0 / 210.0)
-      expect(report.paragraph_74).to be_within(0.1).of(1047.2)
+      expect(report.paragraph_74).to be_within(0.1).of(25_600.0 / 9_400.0)
+      expect(report.paragraph_74).to be_within(0.1).of(2.7)
     end
 
     it 'handles div/0' do

@@ -34,6 +34,7 @@ class Event::CourseRecordsController < CrudController
                           :hilfspersonal_mit_honorar,
                           :kuechenpersonal,
                           :betreuerinnen,
+                          :betreuungsstunden,
                           :honorare_inkl_sozialversicherung,
                           :unterkunft,
                           :uebriges,

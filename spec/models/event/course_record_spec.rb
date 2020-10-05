@@ -49,11 +49,14 @@ require 'spec_helper'
 describe Event::CourseRecord do
 
   let(:group) { groups(:be) }
+  let(:year) { 2016 }
+
+  let(:event_date) { Fabricate(:event_date, start_at: Date.new(year, 5, 23)) }
 
   let(:event_bk) { events(:top_course) }
-  let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk', fachkonzept: 'sport_jugend') }
-  let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk', fachkonzept: 'sport_jugend') }
-  let(:event_tp) { Fabricate(:course, groups: [group], leistungskategorie: 'tp', fachkonzept: 'treffpunkt') }
+  let(:event_tk) { Fabricate(:course, groups: [group], leistungskategorie: 'tk', dates: [event_date], fachkonzept: 'sport_jugend') }
+  let(:event_sk) { Fabricate(:course, groups: [group], leistungskategorie: 'sk', dates: [event_date], fachkonzept: 'sport_jugend') }
+  let(:event_tp) { Fabricate(:course, groups: [group], leistungskategorie: 'tp', dates: [event_date], fachkonzept: 'treffpunkt') }
   let(:aggregate_bk) do
     Fabricate(:aggregate_course, groups: [group], leistungskategorie: 'bk', fachkonzept: 'sport_jugend', year: 2000)
   end

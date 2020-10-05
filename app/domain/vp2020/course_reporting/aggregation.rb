@@ -27,6 +27,8 @@ module Vp2020::CourseReporting
       :betreuerinnen,
       :kuechenpersonal,
 
+      :betreuungsstunden,
+
       :honorare_inkl_sozialversicherung,
       :unterkunft,
       :uebriges,

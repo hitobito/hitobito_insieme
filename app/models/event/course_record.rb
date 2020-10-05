@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -111,7 +111,7 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,
-           :total_stunden_betreuung, :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
+           :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
            :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
            :set_cached_values, :direkte_kosten_pro_betreuungsstunde,
            :vollkosten_pro_betreuungsstunde,
@@ -124,7 +124,17 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def betreuungsstunden
-    tp? ? total_stunden_betreuung : nil
+    if vp_calculations.respond_to?(:total_stunden_betreuung)
+      tp? ? vp_calculations.total_stunden_betreuung : nil
+    else
+      self[:betreuungsstunden]
+    end
+  end
+
+  def total_stunden_betreuung
+    if vp_calculations.respond_to?(:total_stunden_betreuung)
+      vp_calculations.total_stunden_betreuung
+    end
   end
 
   def set_defaults

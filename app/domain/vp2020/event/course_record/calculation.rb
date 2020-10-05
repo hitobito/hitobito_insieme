@@ -48,6 +48,7 @@ module Vp2020
              :tage_angehoerige,
              :tage_weitere,
              :betreuerinnen,
+             :betreuungsstunden,
 
              :event,
              :challenged_canton_count,
@@ -90,9 +91,9 @@ module Vp2020
           tage_weitere.to_d
     end
 
-    def total_stunden_betreuung
-      betreuende * kursdauer.to_d
-    end
+    # VP2015 has this, VP2020 has a field in the DB to store this.
+    # See Event::CourseRecord#betreuungsstunden for details
+    # def total_stunden_betreuung() betreuende * kursdauer.to_d end
 
     def praesenz_prozent
       if total_tage_teilnehmende.positive?
@@ -124,8 +125,8 @@ module Vp2020
     end
 
     def direkte_kosten_pro_betreuungsstunde
-      if total_stunden_betreuung.positive?
-        direkter_aufwand.to_d / total_stunden_betreuung
+      if betreuungsstunden.to_d.positive?
+        direkter_aufwand.to_d / betreuungsstunden.to_d
       else
         0
       end
@@ -140,8 +141,8 @@ module Vp2020
     end
 
     def vollkosten_pro_betreuungsstunde
-      if total_stunden_betreuung.positive?
-        total_vollkosten / total_stunden_betreuung
+      if betreuungsstunden.to_d.positive?
+        total_vollkosten / betreuungsstunden.to_d
       else
         0
       end

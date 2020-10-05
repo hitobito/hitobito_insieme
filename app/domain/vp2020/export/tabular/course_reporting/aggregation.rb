@@ -35,7 +35,7 @@ module Vp2020::Export
 
           teilnehmende teilnehmende_behinderte teilnehmende_angehoerige teilnehmende_weitere
 
-          total_stunden_betreuung
+          betreuungsstunden
 
           betreuende direkter_aufwand honorare_inkl_sozialversicherung unterkunft uebriges
 

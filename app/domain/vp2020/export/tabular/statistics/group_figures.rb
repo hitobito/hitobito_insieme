@@ -21,6 +21,7 @@ module Vp2020::Export
 
         attr_reader :figures
 
+        # See Vp2020::Statistics::GroupFigures
         def initialize(figures)
           @figures = figures
         end

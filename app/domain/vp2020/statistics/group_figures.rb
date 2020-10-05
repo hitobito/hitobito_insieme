@@ -113,6 +113,7 @@ module Vp2020::Statistics
                             .index_by(&:group_id)
     end
 
+    # Vp2020::CostAccounting::Aggregation
     def cost_accounting
       @cost_accounting ||= vp_class('CostAccounting::Aggregation').new(year)
     end

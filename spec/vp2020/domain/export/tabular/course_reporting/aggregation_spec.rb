@@ -166,6 +166,7 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
     before do
       2.times do
         values[:absenzen_behinderte] = 2 # sk allows only integers
+        values[:betreuungsstunden] = 80.0
         create!(create_course('tp', fachkonzept: 'treffpunkt'), 'freizeit_und_sport', values)
         create!(create_course('tp', fachkonzept: 'treffpunkt'), 'weiterbildung', values)
       end
@@ -183,7 +184,7 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
       expect(rows[4]).to eq ['davon Behinderte',                                       4]
       expect(rows[5]).to eq ['davon Angehörige',                                       8]
       expect(rows[6]).to eq ['davon nicht Bezugsberechtigte',                          0]
-      expect(rows[7]).to eq ['Anzahl Betreuungsstunden',                               320.00]
+      expect(rows[7]).to eq ['Anzahl Betreuungsstunden',                               320.00.to_d]
       expect(rows[8]).to eq ['Betreuungspersonen',                                     40]
       expect(rows[9]).to eq ['Gesamtaufwand direkte Kosten',                           240.00]
       expect(rows[10]).to eq ['davon Honorare',                                        40.00]
