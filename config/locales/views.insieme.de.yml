@@ -528,7 +528,7 @@ de:
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
     betreuerinnen: Betreuungspersonen
-    kursdauer: Kursdauer (ggf. in Stunden)
+    anzahl_kurse: Anzahl Kurse / Durchführungen
     total_stunden_betreuung: Total Betreuungsstunden
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
@@ -554,6 +554,6 @@ de:
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
     betreuerinnen: Betreuungspersonen
-    kursdauer: Kursdauer (ggf. in Stunden)
+    anzahl_kurse: Anzahl Kurse / Durchführungen
     total_stunden_betreuung: Total Betreuungsstunden
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
