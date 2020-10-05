@@ -68,8 +68,8 @@ module Vp2020::CostAccounting
       @course_costs ||=
         Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }.tap do |hash|
           load_course_costs.each do |group_id, lk, honorare, unterkunft, uebriges|
-            hash[group_id][lk] = { 'honorare'             => honorare,
-                                   'raumaufwand'          => unterkunft,
+            hash[group_id][lk] = { 'honorare' => honorare,
+                                   'raumaufwand' => unterkunft,
                                    'uebriger_sachaufwand' => uebriges }
           end
         end
@@ -103,12 +103,14 @@ module Vp2020::CostAccounting
       end
 
       def short_name
-        I18n.t("report.#{key}.short_name", scope: vp_i18n_scope('cost_accounting'),
+        I18n.t("report.#{key}.short_name",
+               scope: vp_i18n_scope('cost_accounting'),
                default: I18n.t("cost_accounting.report.#{key}.short_name"))
       end
 
       def human_name
-        I18n.t("report.#{key}.name", scope: vp_i18n_scope('cost_accounting'),
+        I18n.t("report.#{key}.name",
+               scope: vp_i18n_scope('cost_accounting'),
                default: I18n.t("cost_accounting.report.#{key}.name"))
       end
     end

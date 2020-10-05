@@ -1,6 +1,6 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -476,18 +476,19 @@ describe Event::CourseRecord do
         end
       end
 
-      context 'tk'
-      let(:record) do
-        new_record(event_tk,
-                   kursdauer: 5,
-                   leiterinnen: 3,
-                   fachpersonen: 1,
-                   hilfspersonal_mit_honorar: 2,
-                   betreuerinnen: 4)
-      end
+      context 'tk' do
+        let(:record) do
+          new_record(event_tk,
+                     kursdauer: 5,
+                     leiterinnen: 3,
+                     fachpersonen: 1,
+                     hilfspersonal_mit_honorar: 2,
+                     betreuerinnen: 4)
+        end
 
-      it 'ignores betreuerinnen in calculation' do
-        expect(subject.total_stunden_betreuung).to eq(5*(3+1+2))
+        it 'ignores betreuerinnen in calculation' do
+          expect(subject.total_stunden_betreuung).to eq(5*(3+1+2))
+        end
       end
     end
   end

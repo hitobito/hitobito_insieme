@@ -47,7 +47,6 @@ describe Event::CourseRecord do
       expect(record.year).to eq 2020
       expect(record.vollkosten_pro_betreuungsstunde).to eq(0.to_d)
     end
-
   end
 
   context 'treffpunkt aggregate courses' do

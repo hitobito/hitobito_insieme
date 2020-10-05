@@ -83,7 +83,6 @@ class Event::CourseRecord < ActiveRecord::Base
   validate :assert_mehrfachbehinderte_less_than_behinderte
   validate :assert_duration_values_precision
 
-
   before_validation :set_defaults
   before_validation :set_cached_values
   before_validation :compute_category
