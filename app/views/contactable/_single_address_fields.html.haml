@@ -23,7 +23,7 @@
       = f.integer_field("#{prefix}_zip_code", class: 'span2', maxlenght: 10)
       = f.string_field("#{prefix}_town", class: 'span4')
     = f.labeled(:country) do
-      .span6{style: 'margin-left: 0px'}
+      .span6.shown{style: 'margin-left: 0px'}
         = country_select(f.object.class.model_name.param_key,
                          "#{prefix}_country",
                          { priority_countries: Settings.countries.prioritized,
