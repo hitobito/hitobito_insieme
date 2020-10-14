@@ -32,6 +32,7 @@ module Insieme::Person
       i18n_boolean_setter "#{prefix}_company"
 
       validates "#{prefix}_country", inclusion: Countries.codes, allow_blank: true
+      validates "#{prefix}_address", length: { allow_nil: true, maximum: 1024 }
     end
 
     i18n_enum :language, LANGUAGES
