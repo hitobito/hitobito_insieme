@@ -10,7 +10,7 @@ class AddPersonAddresses < ActiveRecord::Migration[4.2]
     add_column :people, "#{prefix}_name", :string
     add_column :people, "#{prefix}_company_name", :string
     add_column :people, "#{prefix}_company", :boolean, null: false, default: false
-    add_column :people, "#{prefix}_address", :string, limit: 1024
+    add_column :people, "#{prefix}_address", :text # was: :string, limit: 1024
     add_column :people, "#{prefix}_zip_code", :integer
     add_column :people, "#{prefix}_town", :string
     add_column :people, "#{prefix}_country", :string
