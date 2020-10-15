@@ -39,9 +39,9 @@
     = f.labeled_vp_input_field :treffpunkte, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_courses, label: t('.total'), value: format_hours(entry.total_courses)
 
-  %h2= vp_t('beratung')
+  %h2= vp_t('.beratung')
   = field_set_tag do
-    = f.labeled_input_field :beratung, addon: t('global.hours_short')
+    = f.labeled_vp_input_field :beratung, addon: t('global.hours_short')
     = f.labeled_readonly_value :total_additional_person_specific, label: t('.total'), value: format_hours(entry.total_additional_person_specific)
 
   %h2= t('.remaining')

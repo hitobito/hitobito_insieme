@@ -444,10 +444,11 @@ de:
 
       treffpunkte: Treffpunkte
       kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
-      beratung: Sozialberatung
+      beratung: Sozialberatung (inkl. Grundlagenarbeit)
       total_courses: Total Kurse & Treffpunkte
       edit:
         courses: Kurse & Treffpunkte
+        beratung: Sozialberatung
 
     lufeb_fields_full:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
