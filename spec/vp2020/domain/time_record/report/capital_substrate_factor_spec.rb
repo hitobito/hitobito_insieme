@@ -21,18 +21,18 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateFactor do
                                               beratung: 300)
     create_report(TimeRecord::EmployeeTime, verwaltung: 500, beratung: 300, tageskurse: 200)
 
-    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 25_000)
+    CapitalSubstrate.create!(group_id: group.id, year: year, organization_capital: 14_000)
   end
 
   context '#paragraph_74' do
     it 'has prequisites' do
-      expect(report.send(:capital_substrate)).to eq(25_600.0)
-      expect(report.send(:vollkosten_total)).to eq(9_400.0)
+      expect(report.send(:capital_substrate)).to eq(15_800.0)
+      expect(report.send(:vollkosten_total)).to eq(16_600.0)
     end
 
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to be_within(0.1).of(25_600.0 / 9_400.0)
-      expect(report.paragraph_74).to be_within(0.1).of(2.7)
+      expect(report.paragraph_74).to be_within(0.1).of(15_800.0 / 16_600.0)
+      expect(report.paragraph_74).to be_within(0.1).of(1)
     end
 
     it 'handles div/0' do

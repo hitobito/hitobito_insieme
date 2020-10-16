@@ -14,8 +14,8 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateLimit do
   let(:report) { table.reports.fetch('capital_substrate_limit') }
 
   before do
-    create_cost_accounting_report('raumaufwand', raeumlichkeiten: 100)
-    create_report(TimeRecord::EmployeeTime, verwaltung: 50, beratung: 30, tageskurse: 20)
+    create_course_record('tk', 100) # -> 300
+    create_cost_accounting_report('honorare', beratung: 300) # -> 900
   end
 
   context '#paragraph_74' do
@@ -23,7 +23,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateLimit do
       parameter = ReportingParameter.for(year)
       expect(parameter.capital_substrate_limit).to eq(1.5)
 
-      expect(report.paragraph_74).to eq(150)
+      expect(report.paragraph_74).to eq(1_200)
     end
   end
 
@@ -39,6 +39,8 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateLimit do
     end
   end
 
+  private
+
   def create_cost_accounting_report(name, values)
     CostAccountingRecord.create!(values.merge(group_id: group.id,
                                               year: year,
@@ -47,5 +49,12 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateLimit do
 
   def create_report(model_name, values)
     model_name.create!(values.merge(group_id: group.id, year: year))
+  end
+
+  def create_course_record(lk, honorare)
+    Event::CourseRecord.create!(
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: 'sport_jugend', year: year),
+      honorare_inkl_sozialversicherung: honorare
+    )
   end
 end

@@ -10,6 +10,8 @@ module Vp2020::CostAccounting
     # Total Aufwand/Kosten
     class TotalAufwand < Subtotal
 
+      self.total_includes_gemeinkostentraeger = false
+
       self.used_fields += %w(
         verwaltung
       )
@@ -25,9 +27,6 @@ module Vp2020::CostAccounting
         aufwand_ertrag_fibu
         abgrenzung_fibu
 
-        raeumlichkeiten
-        verwaltung
-        mittelbeschaffung
 
         beratung
         medien_und_publikationen

@@ -10,12 +10,19 @@ module Vp2020::CostAccounting
     # Gemeinkosten
     class TotalUmlagen < Subtotal
 
-      self.total_includes_gemeinkostentraeger = false
+      self.total_includes_gemeinkostentraeger = true
 
-      self.summed_reports = %w(umlage_personal
-                               umlage_raeumlichkeiten
-                               umlage_verwaltung
-                               umlage_mittelbeschaffung)
+      self.summed_reports = %w(
+        umlage_personal
+        umlage_raeumlichkeiten
+        umlage_verwaltung
+        umlage_mittelbeschaffung
+
+        total_personalaufwand
+        raumaufwand
+        uebriger_sachaufwand
+        abschreibungen
+      )
 
       self.summed_fields = %w(
         beratung
