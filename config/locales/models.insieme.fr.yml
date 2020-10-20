@@ -296,6 +296,7 @@ fr:
         raeumlichkeiten: Locaux
         verwaltung: Direction
         beratung: Conseil
+        medien_und_publikationen: Médias et publications
         treffpunkte: Lieux d'accueil
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
@@ -304,11 +305,14 @@ fr:
         mittelbeschaffung: Collecte de fonds
         total: Total
         kontrolle: Contrôle
+        gemeinkosten: Total des frais généraux
+        kostentraeger: Total Unité d’imputation de coûts
         aufteilung_kontengruppen: Notices
       global_value:
         default_reporting_year: Année Default Reporting
         reporting_frozen_until_year: Reporting bloqué jusqu'au
       event:
+        leistungskategorie: Catégorie de prestations
         teamer_count: Nombre de personnel d'encadrement
       event/aggregate_course:
         leistungskategorie: Catégorie de prestations
@@ -519,6 +523,7 @@ fr:
         vollkosten_le_schwelle2_tageskurs: Cours en bloc valeurs seuils 2 coûts complets/UP
         bsv_hours_per_year: Heures OFAS par année
         capital_substrate_exemption: Substrat de capital OFAS montant libre
+        capital_substrate_limit: OFAS Substrat du capital maximal
       time_record:
         year: Année
         group: Groupe
@@ -549,11 +554,25 @@ fr:
         treffen_meinungsaustausch: Planification, organisation et tenue de réunions informelles
         beratung_fachhilfeorganisationen: Information et conseil aux organisations d'aide spécialisée concernant l'encouragement de l'entraide
         unterstuetzung_behindertenhilfe: Soutien aux personnes handicapées dans les organes directeurs des organisations de l'aide privée aux personnes handicapées
+        lufeb_grundlagen: Travail de fond PROSPREH
+        unterstuetzung_leitorgane: Soutien de personnes handicapée dans des organes directeurs
+        freiwilligen_akquisition: Recrutement de bénévoles
+        auskuenfte: 'Renseignements au public : personnes handicapées, proches, spécialistes, médias'
+        medien_zusammenarbeit: Collaboration avec des médias
+        media: Médias et publications
+        medien_grundlagen: Travail de fond Médias et publications
+        website: Page Internet
+        videos: Vidéos
+        social_media: Résaux sociaux
+        beratungsmodule: Module de conseil standardisé
+        apps: Applications
         total_lufeb_general: Tâches générales d'information et de relations publiques
         total_lufeb_private: Médias et publications de l'organisation accessibles au public
         total_lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
         total_lufeb_promoting: "Prestations de base pour l'encouragment de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers"
         total_lufeb: Total des prestations de la PROSPREH
+        total_media: Médias et publications
+        kurse_grundlagen: Travail de fond Cours et lieux d'accueil
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
         jahreskurse: Cours annuels/semestriels
@@ -577,19 +596,23 @@ fr:
       capital_substrate:
         year: Année
         allocation_base: Barème
+        earmarked_funds: Fonds affectés à l’exploitation au sens de l’art. 74 LAI (incluant le fonds de fluctuation)
         organization_capital: Capitaux de l'organisation incl. réserves et fonds libres
         organization_capital_allocated: Capitaux de l'organisation codés
         half_profit_margin: 50% du solde du calcul de la marge sur coût variable
         fund_building: Formation des fonds liés provenant des liquidités libres
         exemption: Montant libre déduit
         capital_substrate_allocated: Substrat de capital codé art. 74
+        deckungsbeitrag4_vp2015: Somme des CC 4 2015-2019
+        deckungsbeitrag4_vp2020: Somme des CC 4 de la période contractuelle 2020-2023
+        deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
     errors:
       models:
         event/aggregate_course:
           attributes:
             fachkonzept:
-              invalid_for_course_leistungskategorie: doit être un contenu de cours si la catégorie de performance est un cours.
-              invalid_for_treffpunkt_leistungskategorie: doit être le lieu d'accueil si la catégorie de performance est lieux d'accueils.
+              invalid_for_course_leistungskategorie: doit être un contenu du cours si la catégorie de performance est cours.
+              invalid_for_treffpunkt_leistungskategorie: doit être le lieu d'accueil si la catégorie de performance est lieux d'accueil.
         event/course:
           attributes:
             fachkonzept:

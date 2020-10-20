@@ -404,6 +404,7 @@ de:
         reporting_frozen_until_year: Reporting gesperrt bis
 
       event:
+        leistungskategorie: Leistungskategorie
         teamer_count: Anzahl BetreuerInnen
 
       event/aggregate_course:
