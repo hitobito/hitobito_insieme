@@ -123,7 +123,7 @@ module Vp2020::CostAccounting
         @gemeinkostentraeger ||= raeumlichkeiten.to_d + verwaltung.to_d + mittelbeschaffung.to_d
       end
 
-      def total # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      def total # rubocop:disable Metrics/AbcSize
         @total ||= begin
           beratung.to_d +
           medien_und_publikationen.to_d +

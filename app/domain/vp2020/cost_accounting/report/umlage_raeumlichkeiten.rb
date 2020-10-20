@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -19,18 +19,18 @@ module Vp2020::CostAccounting
                   tageskurse
                   jahreskurse
                   lufeb
-                  medien_und_publikationen)
+                  medien_und_publikationen).freeze
 
       FIELDS.each do |field|
         define_method(field) do
           @allocated_fields ||= {}
 
-          if raeumlichkeiten > 0
-            if time_record.total > 0
-              @allocated_fields[field] ||= allocated_with_time_record(field)
-            else
-              @allocated_fields[field] ||= allocated_without_time_record(field)
-            end
+          if raeumlichkeiten.positive?
+            @allocated_fields[field] ||= if time_record.total.positive?
+                                           allocated_with_time_record(field)
+                                         else
+                                           allocated_without_time_record(field)
+                                         end
           end
         end
       end
@@ -45,8 +45,7 @@ module Vp2020::CostAccounting
             table.value_of('umlage_personal', 'raeumlichkeiten').to_d
       end
 
-      # rubocop:disable Metrics/AbcSize
-      def total
+      def total # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
         @total ||= begin
           verwaltung.to_d +
           mittelbeschaffung.to_d +
@@ -59,7 +58,6 @@ module Vp2020::CostAccounting
           medien_und_publikationen.to_d
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def kontrolle
         total - raeumlichkeiten
@@ -68,13 +66,13 @@ module Vp2020::CostAccounting
       private
 
       def allocated_with_time_record(field)
-        if relevante_zeit > 0
+        if relevante_zeit.positive?
           raeumlichkeiten * time_record.send(field).to_d / relevante_zeit
         end
       end
 
       def allocated_without_time_record(field)
-        if relevanter_aufwand > 0
+        if relevanter_aufwand.positive?
           raeumlichkeiten * aufwand(field).to_d / relevanter_aufwand
         end
       end

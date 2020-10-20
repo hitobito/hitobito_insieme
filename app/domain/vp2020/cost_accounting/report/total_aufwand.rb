@@ -27,7 +27,6 @@ module Vp2020::CostAccounting
         aufwand_ertrag_fibu
         abgrenzung_fibu
 
-
         beratung
         medien_und_publikationen
         treffpunkte
