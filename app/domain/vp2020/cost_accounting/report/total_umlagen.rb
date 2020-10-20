@@ -10,12 +10,9 @@ module Vp2020::CostAccounting
     # Gemeinkosten
     class TotalUmlagen < Subtotal
 
-      self.total_includes_gemeinkostentraeger = true
+      self.total_includes_gemeinkostentraeger = false
 
       self.summed_reports = %w(
-        umlage_personal
-        umlage_raeumlichkeiten
-        umlage_verwaltung
         umlage_mittelbeschaffung
 
         total_personalaufwand
@@ -25,6 +22,19 @@ module Vp2020::CostAccounting
       )
 
       self.summed_fields = %w(
+        mittelbeschaffung
+        verwaltung
+        raeumlichkeiten
+      )
+
+      # this deviates from a "normal" subtotal as specific field are calculated
+      # with specific quotas derived from other specific field.
+      #
+      # The quota is determined in relation to the personalaufwand.
+      #
+      # This meta-programming to define both the single field and the sum of
+      # all fields seems like the most maintainable/readable version.
+      %w(
         beratung
         medien_und_publikationen
         treffpunkte
@@ -32,15 +42,31 @@ module Vp2020::CostAccounting
         tageskurse
         jahreskurse
         lufeb
-        mittelbeschaffung
-        verwaltung
-        raeumlichkeiten
-      )
+      ).each do |field|
+        define_method(field) do # one field
+          gemeinkostentraeger * gemeinkosten_quota(field).to_d
+        end
+      end.tap do |fields| # rubocop:disable Style/MultilineBlockChain
+        define_method :total_personalaufwand_for_all_topics do # sum of all fields
+          @total_personalaufwand_for_all_topics ||= fields.sum do |field|
+            table.value_of('total_personalaufwand', field)
+          end
+        end
+      end
 
       define_summed_field_methods
 
       def aufwand_ertrag_ko_re
         nil
+      end
+
+      private
+
+      def gemeinkosten_quota(field)
+        personalaufwand_for_topic = table.value_of('total_personalaufwand', field)
+        return 0 if personalaufwand_for_topic.zero? || total_personalaufwand_for_all_topics.zero?
+
+        personalaufwand_for_topic / total_personalaufwand_for_all_topics
       end
 
     end

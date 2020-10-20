@@ -23,7 +23,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrateLimit do
       parameter = ReportingParameter.for(year)
       expect(parameter.capital_substrate_limit).to eq(1.5)
 
-      expect(report.paragraph_74).to eq(1_200)
+      expect(report.paragraph_74).to eq(600)
     end
   end
 
