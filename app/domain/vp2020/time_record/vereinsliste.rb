@@ -10,6 +10,10 @@ module Vp2020
 
     attr_reader :year, :type
 
+    # type is one of
+    # - TimeRecord::EmployeeTime
+    # - TimeRecord::VolunteerWithVerificationTime
+    # - TimeRecord::VolunteerWithoutVerificationTime
     def initialize(year, type)
       @year = year
       @type = type
