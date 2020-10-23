@@ -30,17 +30,8 @@ module Vp2020::Export
           :gremien,
           :vernehmlassungen,
           :projekte,
-          :total_lufeb_specific
-        ].freeze
+          :total_lufeb_specific,
 
-        ATTRS_LUFEB_SUM = [
-          :lufeb_grundlagen,
-          :total_lufeb_promoting,
-          :total_lufeb_general,
-          :total_lufeb_specific
-        ].freeze
-
-        ATTRS_GENERAL = [
           :total_lufeb,
 
           :medien_grundlagen,
@@ -50,8 +41,19 @@ module Vp2020::Export
           :social_media,
           :beratungsmodule,
           :apps,
-          :total_media,
+          :total_media
+        ].freeze
 
+        ATTRS_LUFEB_SUM = [
+          :lufeb_grundlagen,
+          :total_lufeb_promoting,
+          :total_lufeb_general,
+          :total_lufeb_specific,
+          :total_lufeb,
+          :total_media
+        ].freeze
+
+        ATTRS_GENERAL = [
           :kurse_grundlagen,
           :blockkurse,
           :tageskurse,
@@ -60,7 +62,6 @@ module Vp2020::Export
           :total_courses,
 
           :beratung,
-          :total_additional_person_specific,
 
           :mittelbeschaffung,
           :verwaltung,

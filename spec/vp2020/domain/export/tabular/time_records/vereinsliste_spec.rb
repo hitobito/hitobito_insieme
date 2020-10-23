@@ -16,7 +16,7 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
     context 'for employee time' do
       it 'contains correct headers' do
         labels = described_class.new(vp_class('TimeRecord::Vereinsliste').new(year, type)).labels
-        expect(labels).to match_array [
+        expected_labels = [
           'Gruppe',
           'Grundlagenarbeit zu LUFEB',
           'Information / Beratung von Organisationen und Einzelpersonen',
@@ -49,7 +49,6 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
           'Treffpunkte',
           'Total Kurse & Treffpunkte',
           'Sozialberatung (inkl. Grundlagenarbeit)',
-          'Total Weitere personenspezifische Leistungen',
           'Mittelbeschaffung',
           'Vereinsführung und Verwaltung',
           'Total übrige Leistungen',
@@ -57,6 +56,8 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
           'Total Art. 74 nicht betreffend',
           'Total'
         ]
+        expect(labels).to match_array expected_labels
+        expect(labels).to eq expected_labels
       end
     end
 
@@ -66,20 +67,13 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
 
       it 'contains correct headers' do
         labels = described_class.new(vp_class('TimeRecord::Vereinsliste').new(year, type)).labels
-        expect(labels).to match_array [
+        expected_labels = [
           'Gruppe',
           'Grundlagenarbeit zu LUFEB',
           'Förderung der Selbsthilfe',
           'Allgemeine Medien- und Öffentlichkeitsarbeit',
           'Themenspezifische Grundlagenarbeit / Projekte',
           'Total LUFEB-Leistungen',
-          'Grundlagenarbeit zu Medien & Publikationen',
-          'Website',
-          'Rundbriefe, Broschüren, Merkblätter',
-          'Videos',
-          'Soziale Medien',
-          'Standardisierte Beratungsmodule',
-          'Applikationen',
           'Medien & Publikationen',
           'Grundlagenarbeit zu Kursen & Treffpunkten',
           'Blockkurse',
@@ -88,7 +82,6 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
           'Treffpunkte',
           'Total Kurse & Treffpunkte',
           'Sozialberatung (inkl. Grundlagenarbeit)',
-          'Total Weitere personenspezifische Leistungen',
           'Mittelbeschaffung',
           'Vereinsführung und Verwaltung',
           'Total übrige Leistungen',
@@ -96,6 +89,8 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
           'Total Art. 74 nicht betreffend',
           'Total'
         ]
+        expect(labels).to match_array expected_labels
+        expect(labels).to eq expected_labels
       end
 
     end
@@ -106,7 +101,7 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
         nil, nil, nil, nil, nil,
         nil, nil, nil, nil, nil, nil, nil,
-        nil, nil, nil, nil, nil, nil, nil, nil,
+        nil, nil, nil, nil, nil, nil, nil,
         nil, nil, nil,
         nil, nil, nil
       ]
@@ -138,8 +133,12 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
                                nil, nil, nil, nil, 0,
                                nil, nil, nil, nil, 0, 0,
                                nil, nil, nil, nil, nil, nil, nil, 0,
-                               nil, 300, nil, nil, nil, 300, nil, 0, nil, nil, 0,
-                               300, 50, 350])
+                               nil, 300,
+                               nil, nil, nil, 300,
+                               nil,
+                               nil, nil, 0,
+                               300, 50,
+                               350])
       end
 
       it 'includes externe organisation' do
@@ -159,15 +158,26 @@ describe Vp2020::Export::Tabular::TimeRecords::Vereinsliste do
 
       let(:type) { TimeRecord::VolunteerWithoutVerificationTime.sti_name }
 
+      let(:labels) { described_class.new(vp_class('TimeRecord::Vereinsliste').new(year, type)).labels }
+      let(:empty_row) { labels.zip(Array(labels.size)).to_h }
+
       it 'contains all data' do
         data = export
-        expect(data[2]).to match_array(['Kanton Bern',
-                               nil,
-                               nil,
-                               300,
-                               nil,
-                               300, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 55, nil, nil, 55, nil, 0, nil, nil, 0,
-                               355, 50, 405])
+        expect(labels.zip(data[2]).to_h).to eq empty_row.merge({
+          "Gruppe" => 'Kanton Bern',
+
+          "Allgemeine Medien- und Öffentlichkeitsarbeit" => 300,
+          "Total LUFEB-Leistungen" => 300,
+
+          "Tageskurse" => 55,
+          "Total Kurse & Treffpunkte" => 55,
+
+          "Total übrige Leistungen" => 0,
+          "Total Art. 74 betreffend" => 355,
+          "Total Art. 74 nicht betreffend" => 50,
+
+          "Total"  => 405
+        })
       end
     end
 
