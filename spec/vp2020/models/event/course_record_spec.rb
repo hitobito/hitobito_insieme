@@ -33,7 +33,6 @@ describe Event::CourseRecord do
     before do
       record.betreuerinnen = 2
       record.kursdauer = 2
-      record.betreuungsstunden = 4
       record.direkter_aufwand = 60
       record.gemeinkostenanteil = 20
     end
@@ -44,7 +43,7 @@ describe Event::CourseRecord do
     end
 
     it 'handles division by zero' do
-      record.betreuungsstunden = 0
+      record.betreuerinnen = 0
       expect(record.year).to eq 2020
       expect(record.vollkosten_pro_betreuungsstunde).to eq(0.to_d)
     end

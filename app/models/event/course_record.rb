@@ -137,7 +137,7 @@ class Event::CourseRecord < ActiveRecord::Base
     end
   end
 
-  def set_defaults
+  def set_defaults # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
     self.subventioniert ||= true if subventioniert.nil?

@@ -91,9 +91,15 @@ module Vp2020
           tage_weitere.to_d
     end
 
-    # VP2015 has this, VP2020 has a field in the DB to store this.
+    # VP2015 has this, VP2020 has for sammelkurse a field in the DB to store this.
     # See Event::CourseRecord#betreuungsstunden for details
-    # def total_stunden_betreuung() betreuende * kursdauer.to_d end
+    def total_stunden_betreuung
+      if event.is_a?(::Event::AggregateCourse)
+        record.read_attribute(:betreuungsstunden)
+      else
+        betreuende * kursdauer.to_d
+      end
+    end
 
     def praesenz_prozent
       if total_tage_teilnehmende.positive?
