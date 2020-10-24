@@ -27,14 +27,8 @@ module Vp2020::CostAccounting
         raeumlichkeiten
       )
 
-      # this deviates from a "normal" subtotal as specific field are calculated
-      # with specific quotas derived from other specific field.
-      #
-      # The quota is determined in relation to the personalaufwand.
-      #
-      # This meta-programming to define both the single field and the sum of
-      # all fields seems like the most maintainable/readable version.
-      %w(
+      class_attribute :topic_fields
+      self.topic_fields = %w(
         beratung
         medien_und_publikationen
         treffpunkte
@@ -42,15 +36,14 @@ module Vp2020::CostAccounting
         tageskurse
         jahreskurse
         lufeb
-      ).each do |field|
-        define_method(field) do # one field
+      )
+
+      # this deviates from a "normal" subtotal as specific fields are calculated
+      # with specific quotas derived from other specific field. The specifics are
+      # mostly contained in the gemeinkosten_quota-method.
+      topic_fields.each do |field|
+        define_method(field) do
           gemeinkostentraeger * gemeinkosten_quota(field).to_d
-        end
-      end.tap do |fields| # rubocop:disable Style/MultilineBlockChain
-        define_method :total_personalaufwand_for_all_topics do # sum of all fields
-          @total_personalaufwand_for_all_topics ||= fields.sum do |field|
-            table.value_of('total_personalaufwand', field)
-          end
         end
       end
 
@@ -63,12 +56,39 @@ module Vp2020::CostAccounting
       private
 
       def gemeinkosten_quota(field)
-        personalaufwand_for_topic = table.value_of('total_personalaufwand', field)
-        return 0 if personalaufwand_for_topic.zero? || total_personalaufwand_for_all_topics.zero?
+        has_employees = table.value_of('lohnaufwand', 'total').positive?
 
-        personalaufwand_for_topic / total_personalaufwand_for_all_topics
+        quota_base = (has_employees ? :personalaufwand : :direktkosten)
+
+        one_topic = send(:"#{quota_base}_for_topic", field)
+        all_topics = send(:"total_#{quota_base}_for_all_topics")
+
+        return 0 if one_topic.zero? || all_topics.zero?
+
+        one_topic / all_topics
       end
 
+      def personalaufwand_for_topic(field)
+        table.value_of('total_personalaufwand', field).to_d - table.value_of('honorare', field).to_d
+      end
+
+      def direktkosten_for_topic(field)
+        [
+          table.value_of('raumaufwand', field).to_d,
+          table.value_of('uebriger_sachaufwand', field).to_d,
+          table.value_of('honorare', field).to_d
+        ].sum
+      end
+
+      def total_personalaufwand_for_all_topics
+        @total_personalaufwand_for_all_topics ||=
+          self.class.topic_fields.sum { |field| personalaufwand_for_topic(field) }
+      end
+
+      def total_direktkosten_for_all_topics
+        @total_direktkosten_for_all_topics ||=
+          self.class.topic_fields.sum { |field| direktkosten_for_topic(field) }
+      end
     end
   end
 end
