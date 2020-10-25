@@ -40,7 +40,7 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
     when 'tk' then general_costs_tageskurse
     when 'sk' then general_costs_semesterkurse
     when 'tp' then general_costs_treffpunkte
-    else fail ArgumentError
+    else raise ArgumentError
     end
   end
 
@@ -56,8 +56,8 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
   end
 
   def considered_course_records(subventioniert = true)
-    Event::CourseRecord.joins(event: :events_groups).
-                        where(subventioniert: subventioniert,
+    Event::CourseRecord.joins(event: :events_groups)
+                       .where(subventioniert: subventioniert,
                               year: year,
                               events_groups: { group_id: group.id })
   end
@@ -65,13 +65,13 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
   private
 
   def total_costs_by_lk
-    @total_costs ||= considered_course_records.group('events.leistungskategorie').
-                                               sum(:direkter_aufwand)
+    @total_costs_by_lk ||= considered_course_records.group('events.leistungskategorie')
+                                                    .sum(:direkter_aufwand)
   end
 
   def calculate_general_costs_allowance(leistungskategorie)
     costs = total_costs(leistungskategorie)
-    if costs && costs > 0
+    if costs&.positive?
       general_costs(leistungskategorie).to_d / costs
     end
   end
