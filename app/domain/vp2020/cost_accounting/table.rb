@@ -116,12 +116,16 @@ module Vp2020::CostAccounting
       @course_costs[leistungskategorie][report_key]
     end
 
+    # "Total Gemeinkosten" in "Gemeinkostenumlage"
     def general_costs(field)
-      value_of('lohnaufwand', field).to_d +
-      value_of('sozialversicherungsaufwand', field).to_d +
-      value_of('uebriger_personalaufwand', field).to_d +
-      value_of('umlage_raeumlichkeiten', field).to_d +
-      value_of('umlage_verwaltung', field).to_d
+      vollkosten = value_of('vollkosten', field).to_d
+      direkte_kosten = %w(
+        raumaufwand
+        uebriger_sachaufwand
+        honorare
+      ).sum { |report| value_of(report, field).to_d }
+
+      vollkosten - direkte_kosten
     end
 
     def value_of(report, field)
