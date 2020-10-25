@@ -116,6 +116,14 @@ module Vp2020::CostAccounting
       @course_costs[leistungskategorie][report_key]
     end
 
+    def general_costs(field)
+      value_of('lohnaufwand', field).to_d +
+      value_of('sozialversicherungsaufwand', field).to_d +
+      value_of('uebriger_personalaufwand', field).to_d +
+      value_of('umlage_raeumlichkeiten', field).to_d +
+      value_of('umlage_verwaltung', field).to_d
+    end
+
     def value_of(report, field)
       reports.fetch(report).send(field)
     end
