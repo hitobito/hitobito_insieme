@@ -816,6 +816,9 @@ de:
       umlage_verwaltung:
         name: Umlage Verwaltung
         short_name: Umlage Verwaltung
+      umlage_mittelbeschaffung:
+        name: Umlage Mittelbeschaffung
+        short_name: Umlage Mittelbeschaffung
       total_umlagen:
         name: Total Umlagen
         short_name: Total Umlagen
