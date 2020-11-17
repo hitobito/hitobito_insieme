@@ -7,11 +7,14 @@ db/*.sqlite3
 zeus.json
 .sass-cache
 .project
+.envrc
+.tool-versions
 *.iml
 .generators
 .idea
 .rakeTasks
 C\:*
+.pry_history
 
 # ignore Gemfile.lock for wagons
 Gemfile.lock
@@ -21,7 +24,3 @@ spec/coverage
 spec/reports
 brakeman-output.tabs
 rubocop-results.xml
-
-.pry_history
-.envrc
-.tool-versions
