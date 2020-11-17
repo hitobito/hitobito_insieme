@@ -325,6 +325,9 @@ de:
 
       help_employee_pensum: 70% Stellenprozent = 0.7 eingeben
 
+    lufeb_fields_sumarized:
+      total: Total
+
     lufeb_fields_full:
       lufeb_general: Allgemeine Medien- und Öffentlichkeitsarbeit
       lufeb_private: Eigene öffentlich zugängliche Medien und Publikationen
@@ -449,6 +452,9 @@ de:
       edit:
         courses: Kurse & Treffpunkte
         beratung: Sozialberatung
+
+      lufeb_fields_sumarized:
+        total_media: Medien & Publikationen (inkl. Grundlagenarbeit)
 
     lufeb_fields_full:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB

@@ -9,4 +9,6 @@
 
 %h2= vp_t('media')
 = field_set_tag do
-  = f.labeled_vp_input_field :total_media, addon: t('global.hours_short')
+  = f.labeled_input_field :total_media, label: vp_t('lufeb_fields_sumarized.total_media'),
+                                        addon: t('global.hours_short')
+  = f.labeled_readonly_value :total_media, label: t('.total'), value: format_hours(entry.total_media)
