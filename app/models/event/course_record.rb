@@ -152,6 +152,12 @@ class Event::CourseRecord < ActiveRecord::Base
     true # ensure callback chain continues
   end
 
+  # this is redefined in VP2020::CourseReporting::Aggregation to mark an
+  # empty/aggregation record.
+  def aggregation_record?
+    false
+  end
+
   private
 
   def compute_category

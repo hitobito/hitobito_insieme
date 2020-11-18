@@ -94,7 +94,7 @@ module Vp2020
     # VP2015 has this, VP2020 has for sammelkurse a field in the DB to store this.
     # See Event::CourseRecord#betreuungsstunden for details
     def total_stunden_betreuung
-      if event.is_a?(::Event::AggregateCourse)
+      if record.event.is_a?(::Event::AggregateCourse) || record.aggregation_record?
         record.read_attribute(:betreuungsstunden)
       else
         betreuende * kursdauer.to_d

@@ -122,6 +122,7 @@ module Vp2020::CourseReporting
 
     def empty_course_record
       Event::CourseRecord.new(anzahl_kurse: nil, year: year).tap do |cr|
+        cr.define_singleton_method('aggregation_record?') { true }
         cr.define_singleton_method("#{leistungskategorie}?") { true }
       end
     end
