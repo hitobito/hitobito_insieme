@@ -183,6 +183,7 @@ de:
         aufwand: Direkter Aufwand
         ertrag: Ertrag
         betreuungsstunden: Betreuungsstunden
+        total_betreuungsstunden: Total Betreuungsstunden
         according_to_course_dates: "gemäss Kursdaten: %{duration}"
         according_to_list: "gemäss TN-Liste: %{count}"
         challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
