@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2020 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -18,7 +18,7 @@ module Vp2020::Export::Tabular::CostAccounting
     def initialize(list, group_name, year)
       @group_name = group_name
       @year = year
-      @list = list
+      @list = only_visible_reports(list)
       self.model_class = vp_class('CostAccounting::Report::Base')
       add_header_rows
     end
@@ -34,6 +34,14 @@ module Vp2020::Export::Tabular::CostAccounting
     end
 
     private
+
+    def only_visible_reports(reports)
+      visible_report_keys = Vp2020::CostAccounting::Table::VISIBLE_REPORTS.map(&:key)
+
+      reports.select do |report|
+        visible_report_keys.include?(report.key)
+      end
+    end
 
     def human(field)
       I18n.t("activerecord.attributes.cost_accounting_record.#{field}")

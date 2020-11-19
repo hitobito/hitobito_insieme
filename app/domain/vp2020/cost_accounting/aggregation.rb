@@ -94,11 +94,11 @@ module Vp2020::CostAccounting
         @key = key
         @kontengruppe = kontengruppe
         @aggregation = aggregation
+      end
 
-        Table.fields.each do |field|
-          self.class.define_method(field) do
-            @aggregation.value_of(key, field)
-          end
+      Table.fields.each do |field|
+        define_method(field) do
+          @aggregation.value_of(key, field)
         end
       end
 
