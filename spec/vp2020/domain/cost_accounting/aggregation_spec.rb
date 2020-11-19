@@ -54,7 +54,6 @@ describe Vp2020::CostAccounting::Aggregation do
         unternehmenserfolg
       ]
 
-
       actual_report_keys = subject.reports.keys
 
       expect(actual_report_keys).to match_array expected_report_keys
