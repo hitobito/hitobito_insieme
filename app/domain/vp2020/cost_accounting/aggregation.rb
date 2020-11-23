@@ -8,11 +8,6 @@
 module Vp2020::CostAccounting
   class Aggregation
 
-    # TIME_RECORD_COLUMNS = TimeRecord.column_names - %w(id group_id year)
-
-    # COST_ACCOUNTING_RECORD_COLUMNS = CostAccountingRecord.column_names -
-    #                                  %w(id group_id year report aufteilung_kontengruppen)
-
     attr_reader :year
 
     def initialize(year)
