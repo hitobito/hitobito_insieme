@@ -16,9 +16,11 @@ module Vp2015::Statistics
     end
 
     def groups
-      @groups ||= Group.where(type: [Group::Dachverein,
-                                     Group::Regionalverein,
-                                     Group::ExterneOrganisation].collect(&:sti_name)).order_by_type
+      @groups ||= Group.where(type: [
+        Group::Dachverein,
+        Group::Regionalverein,
+        Group::ExterneOrganisation
+      ].collect(&:sti_name)).order_by_type
     end
 
     def leistungskategorien
@@ -110,9 +112,7 @@ module Vp2015::Statistics
                             .select('*, time_records.group_id AS group_id')
                             .joins(:time_record)
                             .where(time_records: { year: year })
-                            .each_with_object({}) do |p, hash|
-                              hash[p.group_id] = p
-                            end
+                            .index_by(&:group_id)
     end
 
     def cost_accounting
@@ -127,9 +127,8 @@ module Vp2015::Statistics
 
     def capital_substrates
       @capital_substrates ||= begin
-        CapitalSubstrate.where(year: year).each_with_object({}) do |record, hash|
-          hash[record.group_id] = record
-        end
+        CapitalSubstrate.where(year: year)
+                        .index_by(&:group_id)
       end
     end
 

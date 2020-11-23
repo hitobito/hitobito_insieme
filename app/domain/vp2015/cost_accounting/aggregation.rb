@@ -36,8 +36,8 @@ module Vp2015::CostAccounting
 
     def build_tables
       groups = (time_records.keys + cost_records.keys).uniq
-      @tables = groups.each_with_object({}) do |group, hash|
-        hash[group] = Table.new(group, year).tap do |t|
+      @tables = groups.index_with do |group|
+        Table.new(group, year).tap do |t|
           t.set_records(time_records[group], cost_records[group], course_costs[group.id])
         end
       end
@@ -46,7 +46,7 @@ module Vp2015::CostAccounting
     def time_records
       @time_records ||= begin
         records = TimeRecord::EmployeeTime.where(year: year).includes(:group)
-        records.each_with_object({}) { |r, hash| hash[r.group] = r }
+        records.index_by { |r| r.group }
       end
     end
 
@@ -62,8 +62,8 @@ module Vp2015::CostAccounting
       @course_costs ||=
         Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }.tap do |hash|
           load_course_costs.each do |group_id, lk, honorare, unterkunft, uebriges|
-            hash[group_id][lk] = { 'honorare'             => honorare,
-                                   'raumaufwand'          => unterkunft,
+            hash[group_id][lk] = { 'honorare' => honorare,
+                                   'raumaufwand' => unterkunft,
                                    'uebriger_sachaufwand' => uebriges }
           end
         end
