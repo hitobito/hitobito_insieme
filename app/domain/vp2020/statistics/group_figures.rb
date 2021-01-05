@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2015-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2015-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -54,21 +54,13 @@ module Vp2020::Statistics
     end
 
     def capital_substrate(group)
-      cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
-      substrate = capital_substrates[group.id] || CapitalSubstrate.new
-      time_table = vp_class('TimeRecord::Table').new(group, year, cost_table).tap do |t|
-        t.records = { vp_class('TimeRecord::Report::CapitalSubstrate').key => substrate }
-      end
-      vp_class('TimeRecord::Report::CapitalSubstrate').new(time_table)
+      vp_class('TimeRecord::Report::CapitalSubstrate').new(capital_substrate_time_table(group))
     end
 
     def capital_substrate_factor(group)
-      cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
-      substrate = capital_substrates[group.id] || CapitalSubstrate.new
-      time_table = vp_class('TimeRecord::Table').new(group, year, cost_table).tap do |t|
-        t.records = { vp_class('TimeRecord::Report::CapitalSubstrate').key => substrate }
-      end
-      vp_class('TimeRecord::Report::CapitalSubstrateFactor').new(time_table)
+      vp_class('TimeRecord::Report::CapitalSubstrateFactor').new(
+        capital_substrate_time_table(group)
+      )
     end
 
     private
@@ -127,6 +119,15 @@ module Vp2020::Statistics
       @cost_accounting ||= vp_class('CostAccounting::Aggregation').new(year)
     end
 
+    def capital_substrate_time_table(group)
+      cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
+      substrate = capital_substrates[group.id]
+      time_table = vp_class('TimeRecord::Table').new(group, year, cost_table).tap do |t|
+        t.records = { vp_class('TimeRecord::Report::CapitalSubstrate').key => substrate }
+      end
+      time_table
+    end
+
     def nil_cost_accounting_table(group)
       vp_class('CostAccounting::Table').new(group, year).tap do |table|
         table.set_records(nil, nil, nil)
@@ -134,7 +135,13 @@ module Vp2020::Statistics
     end
 
     def capital_substrates
-      @capital_substrates ||= CapitalSubstrate.where(year: year).index_by(&:group_id)
+      @capital_substrates ||= begin
+        cs_hash = CapitalSubstrate.where(year: year).index_by(&:group_id)
+        cs_hash.default_proc = proc do |_hash, key|
+          CapitalSubstrate.new(group_id: key, year: year)
+        end
+        cs_hash
+      end
     end
 
   end
