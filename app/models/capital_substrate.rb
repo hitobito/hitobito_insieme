@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -30,6 +30,17 @@ class CapitalSubstrate < ActiveRecord::Base
 
   def to_s
     self.class.model_name.human
+  end
+
+  def newest_previous_sum
+    self.class
+        .where(group_id: group_id)
+        .where.not(previous_substrate_sum: nil)
+        .where("year <= #{year}")
+        .order(year: :desc)
+        .select(:previous_substrate_sum)
+        .first
+       &.previous_substrate_sum
   end
 
   private

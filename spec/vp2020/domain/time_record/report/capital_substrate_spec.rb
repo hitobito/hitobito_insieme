@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -61,6 +61,15 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
       expect(report.class::DECKUNGSBEITRAG4_THRESHOLD).to eq(300_000.0)
 
       expect(report.deckungsbeitrag4).to eq(0)
+    end
+
+    it 'includes persisted sum of previous years' do
+      cs = CapitalSubstrate.find_by(group_id: group.id, year: year)
+      cs.update(previous_substrate_sum: 1650.0)
+
+      expect(report.deckungsbeitrag4_vp2015).to eq(1650.0)
+      expect(report.deckungsbeitrag4_vp2020).to eq(-150.0)
+      expect(report.deckungsbeitrag4_sum).to    eq(1500.0)
     end
   end
 

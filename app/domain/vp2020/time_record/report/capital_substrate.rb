@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -34,7 +34,7 @@ module Vp2020
     end
 
     def deckungsbeitrag4_vp2015
-      deckungsbeitrag4_period(2015, 2019)
+      record.newest_previous_sum.to_d
     end
 
     def deckungsbeitrag4_vp2020
@@ -42,7 +42,7 @@ module Vp2020
     end
 
     def deckungsbeitrag4_sum
-      deckungsbeitrag4_period(2015, year)
+      deckungsbeitrag4_vp2015 + deckungsbeitrag4_vp2020
     end
 
     def deckungsbeitrag4
