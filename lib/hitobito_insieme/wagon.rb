@@ -83,7 +83,7 @@ module HitobitoInsieme
       Export::Tabular::Events::List.prepend Insieme::Export::Tabular::Events::List
       Export::Tabular::Events::Row.include Insieme::Export::Tabular::Events::Row
       Export::Pdf::Labels.prepend Insieme::Export::Pdf::Labels
-      Import::PersonDoubletteFinder.prepend Insieme::Import::PersonDoubletteFinder
+      Import::PersonDuplicateFinder.prepend Insieme::Import::PersonDuplicateFinder
 
       Vertragsperioden::Dispatcher
         .domain_classes('Export::Xlsx::CostAccounting::Style')

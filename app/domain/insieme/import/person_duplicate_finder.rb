@@ -7,7 +7,7 @@
 
 module Insieme
   module Import
-    module PersonDoubletteFinder
+    module PersonDuplicateFinder
       private
 
       def duplicates(attrs)

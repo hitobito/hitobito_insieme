@@ -847,5 +847,5 @@ de:
         name: Unternehmenserfolg
         short_name: Unternehmenserfolg
 
-  import/person_doublette_finder:
+  import/person_duplicate_finder:
     duplicate_with_different_number: Eine gleiche Person mit einer anderen Personennummer (%{number}) wurde gefunden.
