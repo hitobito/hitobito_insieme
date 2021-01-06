@@ -11,28 +11,27 @@ module Insieme::Export::Tabular::People
     extend ActiveSupport::Concern
 
     def reference_person_first_name
-      entry.reference_person && entry.reference_person.first_name
+      entry.reference_person&.first_name
     end
 
     def reference_person_last_name
-      entry.reference_person && entry.reference_person.last_name
+      entry.reference_person&.last_name
     end
 
     def reference_person_address
-      entry.reference_person && entry.reference_person.address
+      entry.reference_person&.address
     end
 
     def reference_person_zip_code
-      entry.reference_person && entry.reference_person.zip_code
+      entry.reference_person&.zip_code
     end
 
     def reference_person_town
-      entry.reference_person && entry.reference_person.town
+      entry.reference_person&.town
     end
 
     def reference_person_active_membership_roles
-      grouped_roles = entry.reference_person &&
-        entry.reference_person.grouped_active_membership_roles
+      grouped_roles = entry.reference_person&.grouped_active_membership_roles
       if grouped_roles.present?
         grouped_roles.map do |group, roles|
           group.with_layer.join(' / ') + ': ' + roles.join(', ')
@@ -41,7 +40,7 @@ module Insieme::Export::Tabular::People
     end
 
     def reference_person_additional_information
-      entry.reference_person && entry.reference_person.additional_information
+      entry.reference_person&.additional_information
     end
 
     Person::ADDRESS_TYPES.each do |type|

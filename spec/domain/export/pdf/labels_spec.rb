@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2014, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
@@ -9,12 +9,11 @@ require 'spec_helper'
 
 describe Export::Pdf::Labels do
 
-
   let(:person) { people(:top_leader) }
 
   let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), address_type) }
 
-  subject { labels.send(:address, person, to_name(person)) }
+  subject { labels.address(person, to_name(person)) }
 
   def to_name(contactable)
     Export::Tabular::People::HouseholdRow.new(contactable).name
@@ -36,7 +35,7 @@ describe Export::Pdf::Labels do
     )
   end
 
-  context 'form person' do
+  context 'for person' do
 
     context 'for main address' do
       let(:address_type) { 'main' }
