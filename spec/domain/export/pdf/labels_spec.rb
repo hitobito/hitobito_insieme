@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2021, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -63,6 +63,14 @@ describe Export::Pdf::Labels do
 
     context 'for main address' do
       let(:address_type) { 'main' }
+
+      it 'has assumptions' do
+        expect(person.first_name).to eq 'Top'
+        expect(person.last_name).to eq 'Leader'
+        expect(person.full_name).to eq 'Top Leader'
+        expect(person.company_name).to eq 'Chiefs Incorporated'
+        expect(person.company).to be_truthy
+      end
 
       context 'with a company-name set' do
         let(:company_name) { 'Chiefs Incorporated' }

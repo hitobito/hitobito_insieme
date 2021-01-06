@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -74,6 +74,7 @@ module HitobitoInsieme
       Export::Tabular::People::PeopleAddress.prepend Insieme::Export::Tabular::People::PeopleAddress
       Export::Tabular::People::PeopleFull.prepend Insieme::Export::Tabular::People::PeopleFull
       Export::Tabular::People::PersonRow.include Insieme::Export::Tabular::People::PersonRow
+      Export::Tabular::People::HouseholdRow.prepend Insieme::Export::Tabular::People::HouseholdRow
       Export::Tabular::People::ParticipationsFull.prepend(
         Insieme::Export::Tabular::People::ParticipationsFull
       )
