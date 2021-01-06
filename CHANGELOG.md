@@ -1,13 +1,12 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 1.22
 
 *   Unterstützung für die Vertragperiode ab 2020
 
 ## Version 1.14
 
 *   Zusätzliche Rechte für die Rolle Controlling im Dachverein
-
 
 ## Version 1.13
 
