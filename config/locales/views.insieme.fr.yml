@@ -155,6 +155,7 @@ fr:
         aufwand: Charges directes
         ertrag: Produit
         betreuungsstunden: heures d’accompagnement
+        total_betreuungsstunden: Total heures d’accompagnement
         according_to_course_dates: "Selon les données des cours: %{duration}"
         according_to_list: "Selon la liste des participants: %{count}"
         challenged_per_team: "%{ratio} Personnes handicapées par personnel d'encadrement"
@@ -280,6 +281,8 @@ fr:
       not_paragraph_74: Prestations pas relatives à l'art. 74
       whole_organization: Organisation entière
       help_employee_pensum: Place de travail à 70% = introduire 0.7
+    lufeb_fields_sumarized:
+      total: Total
     lufeb_fields_full:
       lufeb_general: 'Tâches générales d''information et de relations publiques '
       lufeb_private: Médias et publications de l'organisation accessibles au public
@@ -395,6 +398,8 @@ fr:
       edit:
         courses: Cours et lieux d’accueil
         beratung: Conseil social
+      lufeb_fields_sumarized:
+        total_media: Médias et publications (Travail de fond incl.)
     lufeb_fields_full:
       lufeb_grundlagen: Travail de fond PROSPREH
       lufeb_promoting: 'Encouragement de l’entraide '
