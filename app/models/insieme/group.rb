@@ -41,7 +41,7 @@ module Insieme::Group
 
     root_types Group::Dachverein
 
-    has_many :time_records
+    has_many :time_records, dependent: :destroy
 
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
 
@@ -59,5 +59,4 @@ module Insieme::Group
   def canton_label
     Cantons.full_name(canton)
   end
-
 end

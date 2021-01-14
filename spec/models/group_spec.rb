@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 #  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
@@ -7,7 +7,6 @@
 require 'spec_helper'
 
 describe Group do
-
   include_examples 'group types'
 
   describe '#all_types' do
@@ -15,25 +14,25 @@ describe Group do
 
     it 'is in hierarchical order' do
       expect(subject.collect(&:name)).to eq(
-        [Group::Dachverein,
-         Group::DachvereinListe,
-         Group::DachvereinGremium,
-         Group::DachvereinAbonnemente,
-         Group::Regionalverein,
-         Group::RegionalvereinListe,
-         Group::RegionalvereinGremium,
-         Group::ExterneOrganisation,
-         Group::Aktivmitglieder,
-         Group::Passivmitglieder,
-         Group::Kollektivmitglieder,
-         Group::ExterneOrganisationListe,
-         Group::ExterneOrganisationGremium
-         ].collect(&:name))
+        [
+          Group::Dachverein,
+          Group::DachvereinListe,
+          Group::DachvereinGremium,
+          Group::DachvereinAbonnemente,
+          Group::Regionalverein,
+          Group::RegionalvereinListe,
+          Group::RegionalvereinGremium,
+          Group::ExterneOrganisation,
+          Group::Aktivmitglieder,
+          Group::Passivmitglieder,
+          Group::Kollektivmitglieder,
+          Group::ExterneOrganisationListe,
+          Group::ExterneOrganisationGremium
+        ].collect(&:name))
     end
   end
 
   context 'canton_label' do
-
     it 'is blank for nil value' do
       expect(Group.new.canton_label).to be_blank
     end
