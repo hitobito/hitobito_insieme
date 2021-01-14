@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -44,6 +44,12 @@ module Insieme::Group
     has_many :time_records
 
     validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
+
+    def self.by_bsv_number
+      where
+        .not(bsv_number: nil)
+        .order(Arel.sql("CASE WHEN id = #{Group.root.id} THEN 0 ELSE bsv_number END"))
+    end
   end
 
   def canton

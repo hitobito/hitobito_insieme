@@ -8,6 +8,7 @@ dachverein:
   name: insieme Schweiz
   type: Group::Dachverein
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:dachverein) %>
+  bsv_number: 2343
 
 kommission74:
   parent: dachverein
@@ -26,6 +27,7 @@ be:
   country: CH
   canton: be
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:be) %>
+  bsv_number: 2024
 
 fr:
   parent: dachverein
@@ -36,6 +38,7 @@ fr:
   country: CH
   canton: fr
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:fr) %>
+  bsv_number: 12607
 
 seeland:
   parent: be
@@ -46,6 +49,7 @@ seeland:
   country: CH
   canton: be
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:seeland) %>
+  bsv_number: 3115
 
 aktiv:
   parent: seeland
