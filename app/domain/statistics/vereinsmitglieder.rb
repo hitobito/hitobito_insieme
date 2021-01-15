@@ -55,16 +55,16 @@ module Statistics
 
     def person_roles_per_layer_query
       <<-SQL
-        SELECT groups.layer_group_id AS layer_group_id,
+        SELECT `groups`.layer_group_id AS layer_group_id,
                MIN(#{type_index_switch}) AS type_index,
                roles.person_id AS person_id
         FROM roles
-        INNER JOIN groups groups ON groups.id = roles.group_id
-        INNER JOIN groups layers ON layers.id = groups.layer_group_id
+        INNER JOIN `groups` `groups` ON `groups`.id = roles.group_id
+        INNER JOIN `groups` layers ON layers.id = `groups`.layer_group_id
         WHERE layers.type = '#{Group::Regionalverein.sti_name}' AND
               roles.deleted_at IS NULL AND
               roles.type IN (#{role_types_param})
-        GROUP BY groups.layer_group_id,
+        GROUP BY `groups`.layer_group_id,
                  roles.person_id
       SQL
     end
