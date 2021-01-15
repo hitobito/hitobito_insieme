@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -46,8 +46,13 @@ describe Vp2020::CourseReporting::ClientStatistics do
 
   it 'has a list of groups' do
     expect(stats.groups).to be_an Array
-    expect(stats.groups.map(&:class).map(&:name).uniq).to eql ['Group::Regionalverein']
-    expect(stats.groups.map(&:name).sort).to eql ['Freiburg', 'Kanton Bern']
+    expect(stats.groups.map(&:class).map(&:name).uniq).to eql ['Group::Dachverein', 'Group::Regionalverein']
+    expect(stats.groups.map(&:name)).to eql [
+      'insieme Schweiz',
+      'Kanton Bern',
+      'Biel-Seeland',
+      'Freiburg'
+    ]
   end
 
   it 'knowns the cantons' do

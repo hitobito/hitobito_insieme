@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -26,7 +26,8 @@ module Vp2020::CourseReporting
     end
 
     def group_participants(group_id, leistungskategorie, fachkonzept)
-      group_canton_participants[group_id]
+      group_canton_participants
+        .fetch(group_id, {})
         .fetch(leistungskategorie, {})
         .fetch(fachkonzept, GroupCantonParticipant.new)
     end
@@ -38,13 +39,7 @@ module Vp2020::CourseReporting
     private
 
     def load_groups
-      @load_groups ||= Event::CourseRecord
-                       .where(year: @year, subventioniert: true)
-                       .joins(event: [:groups])
-                       .includes(event: [:events_groups, :groups])
-                       .flat_map { |ecr| ecr.event.group_ids }
-                       .uniq
-                       .yield_self { |group_ids| Group.by_bsv_number.where(id: group_ids) }
+      @load_groups ||= Group.by_bsv_number.all
     end
 
     GroupCantonParticipant = Struct.new(
