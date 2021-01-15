@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -53,7 +53,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     it 'contains translated headers' do
       expect(exporter.labels).to match_array([
-        'Verein / Kurstyp', 'Kursinhalt', 'Anzahl Kurse', 'Stunden', 'Nicht Beitragsberechtigte', 'Total',
+        'Verein / Kurstyp', 'Kursinhalt', 'Anzahl Kurse', 'Leistungseinheiten', 'Nicht Beitragsberechtigte', 'Total',
         'AG', 'AI', 'AR', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU', 'LU', 'NE',
         'NW', 'OW', 'SG', 'SH', 'SO', 'SZ', 'TG', 'TI', 'UR', 'VD', 'VS', 'ZG', 'ZH',
         'Andere Herkunft',
