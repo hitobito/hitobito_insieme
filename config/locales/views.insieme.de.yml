@@ -397,6 +397,9 @@ de:
         vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
       client_statistics:
         group_or_course_type: Verein / Kurstyp
+        course_count: Anzahl Kurse
+        course_hours: Stunden
+        other_attendees: Nicht Beitragsberechtigte
         course_total: Total
         course_fachkonzept: Kursinhalt
         fachkonzept:
