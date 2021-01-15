@@ -64,7 +64,7 @@ module Vp2020::Export
         end
 
         def group_label(group)
-          [group.name, nil, nil, nil, nil, nil] + stats.cantons.map { |_| nil }
+          [group.name, group.bsv_number, nil, nil, nil, nil] + stats.cantons.map { |_| nil }
         end
 
         def group_stats(group_id, lk, fachkonzept)
