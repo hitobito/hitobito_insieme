@@ -169,7 +169,7 @@ describe Vp2015::Export::Tabular::Statistics::GroupFigures do
     data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
 
     expect(data.first).to eq [
-       'insieme Schweiz', nil, nil, nil,
+       'insieme Schweiz', nil, nil, 2343,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -185,7 +185,7 @@ describe Vp2015::Export::Tabular::Statistics::GroupFigures do
        -200000.0, 0.0, 0.0, 0.0, 0.0]
 
     expect(data.second).to eq [
-       'Freiburg', 'Freiburg', nil, nil,
+       'Freiburg', 'Freiburg', nil, 12607,
        1, 0.0, 1545.0, 0.0, 0.0, 1545.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -201,7 +201,7 @@ describe Vp2015::Export::Tabular::Statistics::GroupFigures do
        -185550.0, 0.0, 1100.0, 0.0, -1100.0]
 
     expect(data.third).to eq [
-       'Kanton Bern', 'Bern', nil, nil,
+       'Kanton Bern', 'Bern', nil, 2024,
        2, 1100.0, 1000.0, 1111.0, 0.0, 2111.0,
        1, 800.0, 5400.0, 0.0, 0.0, 5400.0,
        1, 200.0, 0.0, 0.0, 8450.0, 8450.0,
@@ -217,7 +217,7 @@ describe Vp2015::Export::Tabular::Statistics::GroupFigures do
        10_074_000.0, 100.0, 2050.0, 20.0, -2000.0]
 
     expect(data.fourth).to eq [
-       'Biel-Seeland', 'Bern', nil, nil,
+       'Biel-Seeland', 'Bern', nil, 3115,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,
        0, 0.0, 0.0, 0.0, 0.0, 0.0,

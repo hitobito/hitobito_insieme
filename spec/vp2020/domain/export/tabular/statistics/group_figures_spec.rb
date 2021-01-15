@@ -369,7 +369,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Vollständiger Name"=>"insieme Schweiz",
         "Kanton"=>nil,
         "VID"=>nil,
-        "BSV Nummer"=>nil,
+        "BSV Nummer"=>2343,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
         "Faktor Kapitalsubstrat"                      => 0.0,
@@ -385,7 +385,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Vollständiger Name"=>"Freiburg",
         "Kanton"=>"Freiburg",
         "VID"=>nil,
-        "BSV Nummer"=>nil,
+        "BSV Nummer"=>12607,
 
         "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 1,
         "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
@@ -426,7 +426,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       expect(data.third).to include(empty_row.merge({
         "Vollständiger Name" => "Kanton Bern",
         "Kanton" => "Bern",
-        "BSV Nummer" => nil,
+        "BSV Nummer" => 2024,
         "VID" => nil,
 
         "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 4,
@@ -490,6 +490,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       expect(data.fourth).to include(empty_row.merge({
         "Vollständiger Name" => "Biel-Seeland",
         'Kanton'             => 'Bern',
+        'BSV Nummer'         => 3115,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
         "Faktor Kapitalsubstrat"                      => 0.0,

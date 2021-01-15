@@ -24,7 +24,7 @@ describe CourseReporting::AggregationsController do
     get :export, params: { id: group.id, year: 2014, lk: 'bk', subsidized: 'true', categories: [1,2,3] }
     expect(response).to be_ok
 
-    filename = 'course_statistics_insieme-schweiz_2014_blockkurse_subsidized_1_2_3.csv'
+    filename = 'course_statistics_bsv2343_insieme-schweiz_2014_blockkurse_subsidized_1_2_3.csv'
 
     header = response.headers["Content-Disposition"]
     expect(header).to match(/^attachment;/)
@@ -36,7 +36,7 @@ describe CourseReporting::AggregationsController do
     get :export, params: { id: group.id, year: 2014, lk: 'bk', subsidized: 'true', categories: [1,2,3], consolidate: true }
     expect(response).to be_ok
 
-    filename = "course_statistics_insieme-schweiz_2014_blockkurse_subsidized_1_2_3_consolidated.csv"
+    filename = "course_statistics_bsv2343_insieme-schweiz_2014_blockkurse_subsidized_1_2_3_consolidated.csv"
 
     header = response.headers["Content-Disposition"]
     expect(header).to match(/^attachment;/)
@@ -50,7 +50,7 @@ describe CourseReporting::AggregationsController do
     get :export, params: { id: groups(:be).id, year: 2014, lk: 'bk', subsidized: 'true', categories: [1,2,3], consolidate: true }
     expect(response).to be_ok
 
-    filename = "course_statistics_kanton-bern_2014_blockkurse_subsidized_1_2_3.csv"
+    filename = "course_statistics_bsv2024_kanton-bern_2014_blockkurse_subsidized_1_2_3.csv"
 
     header = response.headers["Content-Disposition"]
     expect(header).to match(/^attachment;/)
