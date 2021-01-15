@@ -3,8 +3,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-#= require ./_cost_accounting_calculator.js.coffee
-#= require ./_cost_accounting_note_copier.js.coffee
+import './_cost_accounting_calculator.js.coffee'
+import './_cost_accounting_note_copier.js.coffee'
 
 $(document).on('click', '.cancel[href="#"]', (event) ->
   $(this).closest('form').get(0).reset())
