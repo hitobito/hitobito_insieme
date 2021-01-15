@@ -89,7 +89,8 @@ module Vp2020::Export
           #
           # keep in mind: logic != business logic !== government logic ;-)
 
-          grundlagen = TimeRecord.where(group_id: gcp.group_id, year: @year).sum(:kurse_grundlagen).to_f
+          grundlagen = ::TimeRecord.where(group_id: gcp.group_id, year: @year)
+                                   .sum(:kurse_grundlagen).to_f
 
           kostenrechnung = vp_class('CostAccounting::Table').new(Group.find(gcp.group_id), @year)
 
@@ -106,7 +107,7 @@ module Vp2020::Export
 
           anteil =
             if vollkosten_alle.positive?
-              (grundlagen * ( vollkosten_tp / vollkosten_alle))
+              (grundlagen * (vollkosten_tp / vollkosten_alle))
             else
               0
             end

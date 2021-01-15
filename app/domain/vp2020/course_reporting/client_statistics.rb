@@ -87,9 +87,9 @@ module Vp2020::CourseReporting
       columns << "CASE events.fachkonzept #{fachkonzepte.join(' ')} "\
                  'ELSE events.fachkonzept END AS event_fachkonzept'
 
-      columns << "COUNT(event_course_records.event_id) AS course_count"
-      columns << "SUM(event_course_records.kursdauer) AS course_hours"
-      columns << "SUM(event_course_records.teilnehmende_weitere) AS other_attendees"
+      columns << 'COUNT(event_course_records.event_id) AS course_count'
+      columns << 'SUM(event_course_records.kursdauer) AS course_hours'
+      columns << 'SUM(event_course_records.teilnehmende_weitere) AS other_attendees'
 
       cantons.each do |canton|
         columns << "SUM(COALESCE(event_participation_canton_counts.#{canton}, 0)) "\

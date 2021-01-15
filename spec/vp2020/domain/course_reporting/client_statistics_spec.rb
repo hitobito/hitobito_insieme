@@ -85,12 +85,15 @@ describe Vp2020::CourseReporting::ClientStatistics do
   end
 
   it 'contains summed values per group' do
-    expect(stats.group_canton_count(groups(:be).id, :be, 'bk', 'sport')).to eq(4)
-    expect(stats.group_canton_count(groups(:be).id, :ag, 'bk', 'sport')).to eq(9)
-    expect(stats.group_canton_count(groups(:be).id, :zh, 'bk', 'sport')).to eq(13)
-    expect(stats.group_canton_count(groups(:be).id, :tg, 'bk', 'sport')).to eq(0)
-    expect(stats.group_canton_count(groups(:be).id, :another, 'bk', 'sport')).to eq(18)
+    # new style
+    bern_bk = stats.group_participants(groups(:be).id, 'bk', 'sport')
+    expect(bern_bk.be).to eq(4)
+    expect(bern_bk.ag).to eq(9)
+    expect(bern_bk.zh).to eq(13)
+    expect(bern_bk.tg).to eq(0)
+    expect(bern_bk.another).to eq(18)
 
+    # old style, still supported
     expect(stats.group_canton_count(groups(:fr).id, :be, 'bk', 'sport')).to eq(3)
     expect(stats.group_canton_count(groups(:fr).id, :ag, 'bk', 'sport')).to eq(3)
     expect(stats.group_canton_count(groups(:fr).id, :zh, 'bk', 'sport')).to eq(3)
