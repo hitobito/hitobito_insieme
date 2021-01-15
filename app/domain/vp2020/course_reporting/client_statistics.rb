@@ -16,15 +16,19 @@ module Vp2020::CourseReporting
     end
 
     def groups
-      load_groups
+      load_groups.to_a
     end
 
     def group_canton_count(group_id, canton, leistungskategorie, fachkonzept)
+      group_participants(group_id, leistungskategorie, fachkonzept)
+        .send(canton.to_sym)
+        .to_i
+    end
+
+    def group_participants(group_id, leistungskategorie, fachkonzept)
       group_canton_participants[group_id]
         .fetch(leistungskategorie, {})
         .fetch(fachkonzept, GroupCantonParticipant.new)
-        .send(canton.to_sym)
-        .to_i
     end
 
     def cantons
@@ -38,12 +42,14 @@ module Vp2020::CourseReporting
                        .where(year: @year, subventioniert: true)
                        .joins(event: [:groups])
                        .includes(event: [:events_groups, :groups])
-                       .flat_map { |ecr| ecr.event.groups }
+                       .flat_map { |ecr| ecr.event.group_ids }
                        .uniq
+                       .yield_self { |group_ids| Group.by_bsv_number.where(id: group_ids) }
     end
 
     GroupCantonParticipant = Struct.new(
       :group_id, :leistungskategorie, :fachkonzept,
+      :course_count, :course_hours, :other_attendees,
       :ag, :ai, :ar, :be, :bl, :bs, :fr, :ge, :gl, :gr, :ju, :lu, :ne, :nw,
       :ow, :sg, :sh, :so, :sz, :tg, :ti, :ur, :vd, :vs, :zg, :zh, :another
     ) do
@@ -85,6 +91,10 @@ module Vp2020::CourseReporting
 
       columns << "CASE events.fachkonzept #{fachkonzepte.join(' ')} "\
                  'ELSE events.fachkonzept END AS event_fachkonzept'
+
+      columns << "COUNT(event_course_records.event_id) AS course_count"
+      columns << "SUM(event_course_records.kursdauer) AS course_hours"
+      columns << "SUM(event_course_records.teilnehmende_weitere) AS other_attendees"
 
       cantons.each do |canton|
         columns << "SUM(COALESCE(event_participation_canton_counts.#{canton}, 0)) "\

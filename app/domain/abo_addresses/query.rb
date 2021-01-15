@@ -29,15 +29,16 @@ module AboAddresses
     end
 
     def people
-      Person.joins(roles: :group).
-             joins('INNER JOIN groups layers ON groups.layer_group_id = layers.id').
-             where(roles: { type: INCLUDED_ROLES.collect(&:sti_name) }).
-             where(layers: { type: INCLUDED_LAYERS.collect(&:sti_name) }).
-             where(language_condition).
-             where(country_condition).
-             select(*REQUIRED_ATTRS).
-             order(:number).
-             distinct
+      Person.joins(roles: :group)
+            .joins("INNER JOIN #{Group.quoted_table_name} layers " \
+                   "ON #{Group.quoted_table_name}.layer_group_id = layers.id")
+            .where(roles: { type: INCLUDED_ROLES.collect(&:sti_name) })
+            .where(layers: { type: INCLUDED_LAYERS.collect(&:sti_name) })
+            .where(language_condition)
+            .where(country_condition)
+            .select(*REQUIRED_ATTRS)
+            .order(:number)
+            .distinct
     end
 
     private

@@ -350,6 +350,7 @@ de:
       help_treffen_meinungsaustausch: von Betroffenen und Angehörigen zwecks Meinungs- und Erfahrungsaustausches
 
       help_unterstuetzung_behindertenhilfe: im Mittel max. 100 Stunden pro Jahr und Organisation.
+      subtotal: Subtotal
 
     report:
       employee_pensum:
@@ -397,6 +398,9 @@ de:
         vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
       client_statistics:
         group_or_course_type: Verein / Kurstyp
+        course_count: Anzahl Kurse
+        course_hours: Stunden
+        other_attendees: Nicht Beitragsberechtigte
         course_total: Total
         course_fachkonzept: Kursinhalt
         fachkonzept:

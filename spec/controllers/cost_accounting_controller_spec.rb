@@ -27,7 +27,11 @@ describe CostAccountingController do
 
   context 'GET index.xlsx' do
     context 'cost accounting xlsx export' do
-      let(:group) { groups(:be) }
+      let(:group) do
+        groups(:be).tap do |group|
+          group.update(bsv_number: nil, vid: nil)
+        end
+      end
       let(:year) { 2014 }
 
       before { get :index, params: { id: group, year: year }, format: :xlsx }
@@ -56,7 +60,11 @@ describe CostAccountingController do
 
   context 'GET index.pdf' do
     context 'cost accounting pdf export' do
-      let(:group) { groups(:be) }
+      let(:group) do
+        groups(:be).tap do |group|
+          group.update(vid: nil, bsv_number: nil)
+        end
+      end
       let(:year) { 2014 }
 
       before { get :index, params: { id: group, year: year }, format: :pdf }

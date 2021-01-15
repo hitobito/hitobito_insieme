@@ -74,7 +74,7 @@ describe Vp2020::CourseReporting::ClientStatistics do
     end
 
     expect(results).to be_a Hash
-    expect(results.keys).to eq([groups(:fr).id, groups(:be).id].sort)
+    expect(results.keys).to eq([groups(:be).id, groups(:fr).id])
 
     expect(stats.send(:group_canton_participants).keys.sort).to eq([groups(:be).id, groups(:fr).id].sort)
   end

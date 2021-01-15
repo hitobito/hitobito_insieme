@@ -66,9 +66,9 @@ class RenameGroups < ActiveRecord::Migration[4.2]
 
   def rename_group(old_type, new_type, up)
     if up
-      execute "UPDATE groups SET type = '#{new_type}' WHERE type = '#{old_type}'"
+      execute "UPDATE #{Group.quoted_table_name} SET type = '#{new_type}' WHERE type = '#{old_type}'"
     else
-      execute "UPDATE groups SET type = '#{old_type}' WHERE type = '#{new_type}'"
+      execute "UPDATE #{Group.quoted_table_name} SET type = '#{old_type}' WHERE type = '#{new_type}'"
     end
   end
 
