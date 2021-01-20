@@ -3,11 +3,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 top_event:
-  name: Top Event
   groups: dachverein
 
 top_course:
-  name: Top Course
   groups: be
   type: Event::Course
   priorization: true
