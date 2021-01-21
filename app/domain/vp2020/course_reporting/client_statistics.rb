@@ -87,9 +87,37 @@ module Vp2020::CourseReporting
       columns << "CASE events.fachkonzept #{fachkonzepte.join(' ')} "\
                  'ELSE events.fachkonzept END AS event_fachkonzept'
 
-      columns << 'COUNT(event_course_records.event_id) AS course_count'
-      columns << 'SUM(event_course_records.kursdauer) AS course_hours'
-      columns << 'SUM(event_course_records.teilnehmende_weitere) AS other_attendees'
+      columns << <<~SQL
+        CASE events.type
+        WHEN 'Event::AggregateCourse' THEN SUM(event_course_records.anzahl_kurse)
+        ELSE COUNT(event_course_records.event_id)
+        END AS course_count
+      SQL
+
+      columns << <<~SQL.split("\n").join(' ') # total_tage_teilnehmende
+        CASE events.leistungskategorie
+        WHEN 'tp' THEN SUM(COALESCE(event_course_records.betreuungsstunden, 0))
+        ELSE
+          (
+            SUM(COALESCE(event_course_records.tage_behinderte, 0)) +
+            SUM(COALESCE(event_course_records.tage_angehoerige, 0)) +
+            SUM(COALESCE(event_course_records.tage_weitere, 0))
+          )
+        END AS course_hours
+      SQL
+
+      columns << <<~SQL.split("\n").join(' ')
+        CASE events.type
+        WHEN 'Event::AggregateCourse' THEN
+
+          SUM(COALESCE(event_course_records.teilnehmende_weitere, 0))
+        ELSE
+          SUM(
+            COALESCE(event_course_records.teilnehmende_weitere, 0) *
+            event_course_records.kursdauer
+          )
+        END AS other_attendees
+      SQL
 
       cantons.each do |canton|
         columns << "SUM(COALESCE(event_participation_canton_counts.#{canton}, 0)) "\
