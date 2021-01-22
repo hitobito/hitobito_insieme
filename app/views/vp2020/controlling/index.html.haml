@@ -33,6 +33,9 @@
                   time_records_controlling_group_path(year: year, type: klass.sti_name, format: :csv),
                   :download)
 
+= action_button(t(".lufeb_times"),
+                lufeb_times_controlling_group_path(year: year, format: :csv),
+                :download)
 
 - params[:year] ||= @year
 

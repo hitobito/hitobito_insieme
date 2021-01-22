@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -45,6 +45,8 @@ Rails.application.routes.draw do
             as: :group_figures_controlling
         get '/controlling/time_records' => 'controlling#time_records',
             as: :time_records_controlling
+        get '/controlling/lufeb_times' => 'controlling#lufeb_times',
+            as: :lufeb_times_controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
         scope module: 'course_reporting' do

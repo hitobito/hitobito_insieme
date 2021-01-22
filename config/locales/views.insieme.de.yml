@@ -63,6 +63,7 @@ de:
         employee_time: Angestellte
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
         volunteer_without_verification_time: Ehrenamtliche ohne Leistungsausweis
+      lufeb_times: LUFEB pro Verein
 
   cost_accounting:
     index:
