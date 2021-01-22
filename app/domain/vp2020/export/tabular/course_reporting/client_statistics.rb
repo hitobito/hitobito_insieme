@@ -67,7 +67,7 @@ module Vp2020::Export
           [group.name, group.bsv_number, nil, nil, nil, nil] + stats.cantons.map { |_| nil }
         end
 
-        def group_stats(group_id, lk, fachkonzept)
+        def group_stats(group_id, lk, fachkonzept) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
           gcp = stats.group_participants(group_id, lk, fachkonzept)
           [
             attr_t("event/course.leistungskategorien.#{lk}", count: 3),
@@ -81,7 +81,7 @@ module Vp2020::Export
           end
         end
 
-        def kursdauer_und_treffpunkt_grundlagenanteil(gcp)
+        def kursdauer_und_treffpunkt_grundlagenanteil(gcp) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
           return gcp.course_hours unless gcp.fachkonzept == 'treffpunkt'
 
           # additionally to the reported hours, we shall add the hours reported for basic work,

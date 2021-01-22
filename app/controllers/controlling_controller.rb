@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -47,6 +47,12 @@ class ControllingController < ApplicationController
     csv = vp_class('Export::Tabular::TimeRecords::Vereinsliste').csv(@list)
     filename = "#{params[:type].to_s.underscore.tr('/', '_')}_#{year}.csv"
     send_data csv, type: :csv, filename: filename
+  end
+
+  def lufeb_times
+    @list = vp_class('TimeRecord::LufebProVerein').new(year)
+    csv = vp_class('Export::Tabular::TimeRecords::LufebProVerein').csv(@list)
+    send_data csv, type: :csv, filename: "lufeb_pro_verein_#{year}.csv"
   end
 
   private

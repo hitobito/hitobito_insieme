@@ -63,6 +63,7 @@ de:
         employee_time: Angestellte
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
         volunteer_without_verification_time: Ehrenamtliche ohne Leistungsausweis
+      lufeb_times: LUFEB pro Verein
 
   cost_accounting:
     index:
@@ -460,6 +461,12 @@ de:
 
       lufeb_fields_sumarized:
         total_media: Medien & Publikationen (inkl. Grundlagenarbeit)
+
+      lufeb_times:
+        group_or_stat: Gruppe/Feldname
+        general: Allgemeine Medien & Öffentlichkeitsarbeit
+        specific_with_grundlagen: Themenspezifische Grundlagenarbeit
+        promoting: Förderung der Selbsthilfe
 
     lufeb_fields_full:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
