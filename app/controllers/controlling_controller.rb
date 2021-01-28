@@ -55,6 +55,12 @@ class ControllingController < ApplicationController
     send_data csv, type: :csv, filename: "lufeb_pro_verein_#{year}.csv"
   end
 
+  def group_data
+    @list = vp_class('TimeRecord::OrganisationsDaten').new(year)
+    csv = vp_class('Export::Tabular::TimeRecords::OrganisationsDaten').csv(@list)
+    send_data csv, type: :csv, filename: "organisationsdaten_pro_verein_#{year}.csv"
+  end
+
   private
 
   def group
