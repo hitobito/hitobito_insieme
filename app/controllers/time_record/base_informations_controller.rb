@@ -15,6 +15,8 @@ class TimeRecord::BaseInformationsController < ReportingBaseController
   before_action :entry, except: :index
 
   def index
+    # Vp2015::TimeRecord::Table
+    # Vp2020::TimeRecord::Table
     @table = vp_class('TimeRecord::Table').new(group, year)
 
     respond_to do |format|

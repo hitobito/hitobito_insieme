@@ -79,6 +79,7 @@ class TimeRecord < ActiveRecord::Base
   end
 
   def vp_calculations
+    # Vp2020::TimeRecord::Calculation
     @vp_calculations ||= Vertragsperioden::Dispatcher
                          .new(year)
                          .domain_class('TimeRecord::Calculation')

@@ -64,6 +64,7 @@ de:
         volunteer_with_verification_time: Ehrenamtliche mit Leistungsausweis
         volunteer_without_verification_time: Ehrenamtliche ohne Leistungsausweis
       lufeb_times: LUFEB pro Verein
+      group_data: Organisationsdaten pro Verein
 
   cost_accounting:
     index:
@@ -467,6 +468,13 @@ de:
         general: Allgemeine Medien & Öffentlichkeitsarbeit
         specific_with_grundlagen: Themenspezifische Grundlagenarbeit
         promoting: Förderung der Selbsthilfe
+
+      group_data:
+        group_or_stat: Gruppe/Feldname
+        angestellte_insgesamt: FTE Angestellte MA insgesamt
+        angestellte_art_74: FTE Angestellte MA Betrieb Art. 74 IVG
+        freiwillige_insgesamt: FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt
+        freiwillige_art_74: FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG
 
     lufeb_fields_full:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB

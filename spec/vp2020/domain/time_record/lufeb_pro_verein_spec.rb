@@ -29,11 +29,11 @@ describe Vp2020::TimeRecord::LufebProVerein do
   it 'has a structured data-object for all groups' do
     list = subject.vereine.map { |verein| subject.lufeb_data_for(verein.id) }
 
-    expect(list).to be_all Vp2020::TimeRecord::LufebProVerein::Data
+    expect(list).to be_all described_class::Data
   end
 
   it 'has correct data' do
-    tr_mit = create_report(
+    create_time_record(
       TimeRecord::EmployeeTime,
       auskuenfte: 1,
       gremien: 2,
@@ -42,7 +42,7 @@ describe Vp2020::TimeRecord::LufebProVerein do
       kurse_grundlagen: 5,
     )
 
-    tr_vol = create_report(
+    create_time_record(
       TimeRecord::VolunteerWithVerificationTime,
       auskuenfte: 5,
       gremien: 4,
@@ -50,13 +50,6 @@ describe Vp2020::TimeRecord::LufebProVerein do
       lufeb_grundlagen: 2,
       kurse_grundlagen: 1,
     )
-
-    expect(tr_mit).to be_valid
-    expect(tr_vol).to be_valid
-
-    expect(
-      tr_mit.total_lufeb_general
-    ).to eq 1
 
     data = subject.lufeb_data_for(group.id)
 
@@ -69,7 +62,7 @@ describe Vp2020::TimeRecord::LufebProVerein do
 
   private
 
-  def create_report(model_name, values)
+  def create_time_record(model_name, values)
     model_name.create!(values.merge(group_id: group.id, year: year))
   end
 end

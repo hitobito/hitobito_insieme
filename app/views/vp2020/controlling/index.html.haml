@@ -23,6 +23,9 @@
                 group_figures_controlling_group_path(year: year, format: :csv),
                 :download)
 
+= action_button(t('.group_data'),
+                group_data_controlling_group_path(year: year, format: :csv),
+                :download)
 
 %h3= t('.export_time_records')
 

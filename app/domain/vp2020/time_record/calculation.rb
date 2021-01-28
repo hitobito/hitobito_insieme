@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of
+#  Copyright (c) 2021, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,6 +9,7 @@ module Vp2020
   class TimeRecord::Calculation
 
     DEFAULT_BSV_HOURS_PER_YEAR = 1900
+    ASSUMED_HOURLY_RATE = 130
 
     attr_reader :record
 

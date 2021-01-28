@@ -47,6 +47,8 @@ Rails.application.routes.draw do
             as: :time_records_controlling
         get '/controlling/lufeb_times' => 'controlling#lufeb_times',
             as: :lufeb_times_controlling
+        get '/controlling/group_data' => 'controlling#group_data',
+            as: :group_data_controlling
         get '/abo_addresses' => 'abo_addresses#index', as: :abo_addresses
 
         scope module: 'course_reporting' do
