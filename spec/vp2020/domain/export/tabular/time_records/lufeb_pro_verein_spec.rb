@@ -44,4 +44,6 @@ describe Vp2020::Export::Tabular::TimeRecords::LufebProVerein do
     expect(rows[8]).to eq ['Themenspezifische Grundlagenarbeit',         21]
     expect(rows[9]).to eq ['Förderung der Selbsthilfe',                   6]
   end
+
+  it 'has a calculation with a lot of dependencies'
 end
