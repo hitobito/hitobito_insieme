@@ -44,8 +44,8 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
         'Verein / Kurstyp',
         'Kursinhalt',
         'Anzahl Kurse',
-        'Stunden',
-        'Nicht Beitragsberechtigte',
+        'LE Beitragsberechtigte',
+        'LE Nicht Beitragsberechtigte',
         'Total'
       ]
       expect(exporter.labels.size).to eq(prefix.size + Cantons.short_names.size)
@@ -53,7 +53,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     it 'contains translated headers' do
       expect(exporter.labels).to match_array([
-        'Verein / Kurstyp', 'Kursinhalt', 'Anzahl Kurse', 'Leistungseinheiten', 'Nicht Beitragsberechtigte', 'Total',
+        'Verein / Kurstyp', 'Kursinhalt', 'Anzahl Kurse', 'LE Beitragsberechtigte', 'LE Nicht Beitragsberechtigte', 'Total',
         'AG', 'AI', 'AR', 'BE', 'BL', 'BS', 'FR', 'GE', 'GL', 'GR', 'JU', 'LU', 'NE',
         'NW', 'OW', 'SG', 'SH', 'SO', 'SZ', 'TG', 'TI', 'UR', 'VD', 'VS', 'ZG', 'ZH',
         'Andere Herkunft',
