@@ -15,10 +15,10 @@ describe Vp2020::Export::Tabular::TimeRecords::OrganisationsDaten do
     verein_ids = od.vereine.map(&:id)
 
     od.instance_variable_set('@data_for', {
-      verein_ids[0] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 4, 123_500, 61_750, teiler),
-      verein_ids[1] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(*Array.new(6) {0}, teiler),
-      verein_ids[2] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 4, 0, 0, teiler),
-      verein_ids[3] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(*Array.new(6) {0}, teiler)
+      verein_ids[0] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 8, 4, 123_500, 61_750, teiler),
+      verein_ids[1] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(*Array.new(7) {0}, teiler),
+      verein_ids[2] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 7, 4, 0, 0, teiler),
+      verein_ids[3] => Vp2020::TimeRecord::OrganisationsDaten::Data.new(*Array.new(7) {0}, teiler)
     })
 
     od
@@ -39,7 +39,7 @@ describe Vp2020::Export::Tabular::TimeRecords::OrganisationsDaten do
     expect(rows[ 1]).to eq ['insieme Schweiz',                                                       nil]
     expect(rows[ 2]).to eq ['FTE Angestellte MA insgesamt',                                         10.5]
     expect(rows[ 3]).to eq ['FTE Angestellte MA Betrieb Art. 74 IVG',                               5.25]
-    expect(rows[ 4]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt',                20]
+    expect(rows[ 4]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt',                28]
     expect(rows[ 5]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG', 4]
     expect(rows[ 6]).to be_all nil
     # no values
@@ -53,7 +53,7 @@ describe Vp2020::Export::Tabular::TimeRecords::OrganisationsDaten do
     expect(rows[13]).to eq ['Biel-Seeland',                                                          nil]
     expect(rows[14]).to eq ['FTE Angestellte MA insgesamt',                                           10]
     expect(rows[15]).to eq ['FTE Angestellte MA Betrieb Art. 74 IVG',                                  5]
-    expect(rows[16]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt',                20]
+    expect(rows[16]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt',                27]
     expect(rows[17]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG', 4]
   end
 end

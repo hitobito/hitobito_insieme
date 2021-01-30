@@ -33,19 +33,24 @@ describe Vp2020::TimeRecord::OrganisationsDaten do
 
   it 'has correct data' do
     create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 123_500) # 0.5 FTE
-    create_time_report(TimeRecord::EmployeeTime, beratung: 950) # 0.5 FTE Art74
+    create_time_report(TimeRecord::EmployeeTime, {})
+      .create_employee_pensum(paragraph_74: 0.5) # 0.5 FTE Art74
+    create_time_report(
+      TimeRecord::VolunteerWithoutVerificationTime,
+      nicht_art_74_leistungen: 475 # 0.25 FTE
+    )
     create_time_report(
       TimeRecord::VolunteerWithVerificationTime,
       nicht_art_74_leistungen: 475, # 0.25 FTE
-      beratung: 3325 # 1.75 FTE Art74
-    ) # 2 FTE
+      beratung: 2850 # 1.5 FTE Art74
+    )
 
     data = subject.data_for(group)
 
     expect(data.angestellte_insgesamt).to be_within(0.01).of(1.0)
     expect(data.angestellte_art_74).to    be_within(0.01).of(0.5)
     expect(data.freiwillige_insgesamt).to be_within(0.01).of(2.0)
-    expect(data.freiwillige_art_74).to    be_within(0.01).of(1.75)
+    expect(data.freiwillige_art_74).to    be_within(0.01).of(1.5)
   end
 
   it 'knows the BSV-hours in a year' do
@@ -62,8 +67,8 @@ describe Vp2020::TimeRecord::OrganisationsDaten do
 
   private
 
-  def create_time_report(model_name, values)
-    model_name.create!(values.merge(group_id: group.id, year: year))
+  def create_time_report(model, values)
+    model.create!(values.merge(group_id: group.id, year: year))
   end
 
   def create_cost_accounting_report(name, values)

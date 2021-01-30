@@ -32,7 +32,8 @@ module Vp2020
     Data = Struct.new(
       :employee_time_total,
       :employee_time_art_74,
-      :volunteer_time_total,
+      :volunteer_verified_time_total,
+      :volunteer_unverified_time_total,
       :volunteer_time_art_74,
       :honorare_total,
       :honorare_art_74,
@@ -47,7 +48,7 @@ module Vp2020
       end
 
       def freiwillige_insgesamt
-        volunteer_time_total
+        volunteer_verified_time_total + volunteer_unverified_time_total
       end
 
       def freiwillige_art_74
@@ -61,9 +62,10 @@ module Vp2020
       table = vp_class('TimeRecord::Table').new(verein, year)
 
       [
-        table.record('employee_time').total_pensum.to_d,
-        table.record('employee_time').total_paragraph_74_pensum.to_d,
+        table.value_of('employee_pensum', :total).to_d,
+        table.value_of('employee_pensum', :paragraph_74).to_d,
         table.record('volunteer_with_verification_time').total_pensum.to_d,
+        table.record('volunteer_without_verification_time').total_pensum.to_d,
         table.record('volunteer_with_verification_time').total_paragraph_74_pensum.to_d,
         table.cost_accounting_value_of('honorare', 'aufwand_ertrag_fibu').to_d,
         table.cost_accounting_value_of('honorare', 'total').to_d
