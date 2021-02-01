@@ -67,15 +67,15 @@ module Vp2020::Export::Tabular::TimeRecords
     def specific_with_grundlagen(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       data = @stats.lufeb_data_for(group.id) # could be time_record_data, if I had the linelength
 
-      kostenrechnung = vp_class('CostAccounting::Table').new(group, @year)
+      kostenrechnung = vp_class('CostAccounting::Table').new(group, year)
 
-      vollkosten_tp = kostenrechnung.value_of('vollkosten', 'treffpunkte').to_f
+      vollkosten_tp = kostenrechnung.value_of('total_personalaufwand', 'treffpunkte').to_f
       vollkosten_alle =
         if vollkosten_tp.positive?
           vollkosten_tp +
-            kostenrechnung.value_of('vollkosten', 'blockkurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'tageskurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'jahreskurse').to_f
+            kostenrechnung.value_of('total_personalaufwand', 'blockkurse').to_f +
+            kostenrechnung.value_of('total_personalaufwand', 'tageskurse').to_f +
+            kostenrechnung.value_of('total_personalaufwand', 'jahreskurse').to_f
         else
           0
         end
