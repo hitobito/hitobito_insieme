@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020 Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -89,18 +89,22 @@ module Vp2020::Export
           #
           # keep in mind: logic != business logic !== government logic ;-)
 
-          grundlagen = ::TimeRecord.where(group_id: gcp.group_id, year: @year)
+          grundlagen = ::TimeRecord.where(group_id: gcp.group_id, year: year,
+                                          type: %w(
+                                            TimeRecord::EmployeeTime
+                                            TimeRecord::VolunteerWithVerificationTime
+                                          ))
                                    .sum(:kurse_grundlagen).to_f
 
-          kostenrechnung = vp_class('CostAccounting::Table').new(Group.find(gcp.group_id), @year)
+          kostenrechnung = vp_class('CostAccounting::Table').new(Group.find(gcp.group_id), year)
 
-          vollkosten_tp = kostenrechnung.value_of('vollkosten', 'treffpunkte').to_f
+          vollkosten_tp = kostenrechnung.value_of('total_personalaufwand', 'treffpunkte').to_f
           vollkosten_alle =
             if vollkosten_tp.positive?
               vollkosten_tp +
-                kostenrechnung.value_of('vollkosten', 'blockkurse').to_f +
-                kostenrechnung.value_of('vollkosten', 'tageskurse').to_f +
-                kostenrechnung.value_of('vollkosten', 'jahreskurse').to_f
+                kostenrechnung.value_of('total_personalaufwand', 'blockkurse').to_f +
+                kostenrechnung.value_of('total_personalaufwand', 'tageskurse').to_f +
+                kostenrechnung.value_of('total_personalaufwand', 'jahreskurse').to_f
             else
               0
             end
