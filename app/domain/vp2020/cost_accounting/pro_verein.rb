@@ -16,28 +16,14 @@ module Vp2020::CostAccounting
       @data_for = {}
     end
 
-    # def vereine
-    # end
+    def vereine
+      @vereine ||= Group.by_bsv_number.all
+    end
 
-    # def data_for(verein)
-    #   @data_for[verein.id] ||= fetch_data_for(verein)
-    # end
+    def data_for(verein)
+      @data_for[verein.id] ||= fetch_data_for(verein)
+    end
 
-    # Aufwand/Ertrag FiBu || FiBu - KLR
-    # Abgrenzungen FiBu || Abgrenzung
-    # --> leer <-- KLR
-    # Gemeinkosten (Personal/Räuml. keiten/Verwaltung/ Mittelbeschaffung) --> sum
-    # --> ? <-- Sozialberatung
-    # --> leer <-- Bauberatung
-    # --> leer <-- Rechtsberatung
-    # --> leer <-- Vermittlung Betreuung
-    # --> leer <-- Begleitetes Wohnen
-    # Medien und Publikationen
-    # Semester-/Jahreskuse
-    # Blockkurse
-    # Tageskurse
-    # Treffpunkte
-    # LUFEB
     CostAccountingRow = Struct.new(
       :aufwand_ertrag_fibu, :abgrenzung, :gemeinkosten, :media,
       :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb
@@ -46,10 +32,18 @@ module Vp2020::CostAccounting
         new(*Array.new(9, nil))
       end
 
+      def members
+        [:aufwand_ertrag_fibu, :abgrenzung, :klr, :gemeinkosten,
+         :sozialberatung, :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung,
+         :media, :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb]
+      end
+
       def +(other)
-        to_a.zip(other.to_a).map do |self_value, other_value|
+        values = to_a.zip(other.to_a).map do |self_value, other_value|
           self_value + other_value
         end
+
+        self.class.new(*values)
       end
 
       [:klr].each do |empty_col|
@@ -57,13 +51,9 @@ module Vp2020::CostAccounting
       end
 
       [
-        :sozialberatung,
-        :bauberatung,
-        :rechtsberatung,
-        :vermittlung,
-        :wohnbegleitung
+        :sozialberatung, :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung
       ].each do |unused_col|
-        define_method(unused_col) { 0 }
+        define_method(unused_col) { lufeb.nil? ? nil : 0 }
       end
     end
 
@@ -75,7 +65,7 @@ module Vp2020::CostAccounting
         table.value_of(report.to_s, 'abgrenzung_fibu').to_d,
         [
           table.value_of(report.to_s, 'verwaltung').to_d,
-          table.value_of(report.to_s, 'raumlichkeiten').to_d,
+          table.value_of(report.to_s, 'raeumlichkeiten').to_d,
           table.value_of(report.to_s, 'mittelbeschaffung').to_d
         ].sum,
         table.value_of(report.to_s, 'medien_und_publikationen').to_d,
@@ -89,48 +79,47 @@ module Vp2020::CostAccounting
 
     def fetch_data_for(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       table = vp_class('CostAccounting::Table').new(group, year) # Vp2020::CostAccounting::Table
+
       # _row = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
       # _empty = CostAccountingRow.new(*Array.new(9, nil))
+      # personalaufwand: [
+      #   row[:lohnaufwand],
+      #   row[:sozialversicherungsaufwand],
+      #   row[:uebriger_personalaufwand]
+      # ].sum,
+      # aufwand: empty,
 
       {
-        # personalaufwand: [
-        #   row[:lohnaufwand],
-        #   row[:sozialversicherungsaufwand],
-        #   row[:uebriger_personalaufwand]
-        # ].sum,
-        # Personalaufwand = Lohnaufwand + Sozialversicherungsaufwand + übriger Personalaufwand
         personalaufwand: [
           CostAccountingRow.new(*report_data(:lohnaufwand, table)),
           CostAccountingRow.new(*report_data(:sozialversicherungsaufwand, table)),
           CostAccountingRow.new(*report_data(:uebriger_personalaufwand, table))
         ].sum,
-        # Honorare = Honorare
         honorare: CostAccountingRow.new(*report_data(:honorare, table)),
-        # Sachaufwand = Raumaufwand + Übriger Sachaufwand
         sachaufwand: [
           CostAccountingRow.new(*report_data(:raumaufwand, table)),
           CostAccountingRow.new(*report_data(:uebriger_sachaufwand, table))
         ].sum,
-        # Aufwand = leere Zeile
-        # aufwand: empty,
         aufwand: CostAccountingRow.empty_row,
-        # Gemeinkosten = Gemeinkosten
-        gemeinkosten: CostAccountingRow.new(*report_data(:total_umlagen, table)),
-        # Umlagen = leere Zeile
+        gemeinkosten: CostAccountingRow.new(*gemeinkosten(table)),
         umlagen: CostAccountingRow.empty_row,
-        # Total Aufwand & Umlagen = leere Zeile
         total_aufwand: CostAccountingRow.empty_row,
-        # Leistungen = Leistungsertrag
         leistungen: CostAccountingRow.new(*report_data(:leistungsertrag, table)),
-        # Beiträge IV/AHV = Beiträge IV
         beitraege_iv: CostAccountingRow.new(*report_data(:beitraege_iv, table)),
-        # Sonstige Beiträge Bund/Kant./Geme. = Beiträge Kantone, Gemeinden
-        sonstige_beitraege: CostAccoutingRow.new(*report_data(:sonstige_beitraege, table)),
-        # Zweckgeb. Spenden/sonstige Erträge = Direkte Spenden (Art. 74)
-        spenden_zweckgebunden: CostAccoutingRow.new(*report_data(:direkte_spenden, table)),
-        # Nicht zweckgeb. Spenden/sonstige Erträge = Indirekte Spenden geschlüsselt
-        spenden_nicht_zweckgebunden: CostAccountingRow.new(*report_data(:indirekte_spenden, table))
+        sonstige_beitraege: CostAccountingRow.new(*report_data(:sonstige_beitraege, table)),
+        spenden_zweckgebunden: CostAccountingRow.new(*report_data(:direkte_spenden, table)),
+        spenden_nicht_zweckgebunden: CostAccountingRow.new(*indirekte_spenden(table))
       }
+    end
+
+    def gemeinkosten(table)
+      Array.new(4, nil) + report_data(:total_umlagen, table)[4..-1]
+    end
+
+    def indirekte_spenden(table)
+      data = report_data(:indirekte_spenden, table)
+
+      [data[0], nil, *data[2..-1]]
     end
   end
 end

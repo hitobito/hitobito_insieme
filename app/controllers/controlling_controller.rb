@@ -30,6 +30,12 @@ class ControllingController < ApplicationController
     send_data xlsx, type: :xlsx, filename: "cost_accounting_#{year}.xlsx"
   end
 
+  def pro_verein
+    @list = vp_class('CostAccounting::ProVerein').new(year)
+    csv = vp_class('Export::Tabular::CostAccounting::ProVerein').csv(@list)
+    send_data csv, type: :csv, filename: "cost_accounting_pro_verein_#{year}.csv"
+  end
+
   def client_statistics
     @stats = vp_class('CourseReporting::ClientStatistics').new(year)
     csv = vp_class('Export::Tabular::CourseReporting::ClientStatistics').csv(@stats)

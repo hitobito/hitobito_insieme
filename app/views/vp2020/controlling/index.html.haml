@@ -15,6 +15,10 @@
                 cost_accounting_controlling_group_path(year: year, format: :xlsx),
                 :download)
 
+= action_button(t('.pro_verein'),
+                pro_verein_controlling_group_path(year: year, format: :csv),
+                :download)
+
 = action_button(t('.client_statistics'),
                 client_statistics_controlling_group_path(year: year, format: :csv),
                 :download)

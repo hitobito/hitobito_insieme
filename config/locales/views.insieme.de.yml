@@ -52,6 +52,7 @@ de:
     index:
       controlling: Allgemein
       cost_accounting: Konsolidierte Kostenrechnung
+      pro_verein: Kostenrechnung pro Verein
       client_statistics: KlientInnen Statistik
       group_figures: Kennzahlen pro Verein
       export_time_records: Zusammenzug Zeiterfassungen
@@ -390,6 +391,38 @@ de:
       headers:
         beratung: Sozialberatung
       beratung: Sozialberatung
+      pro_verein:
+        # row-labels
+        type: Kostenarten
+        personalaufwand: Personalaufwand
+        honorare: Honorare
+        sachaufwand: Sachaufwand
+        aufwand: Aufwand
+        gemeinkosten: Gemeinkosten # also a column-label
+        umlagen: Umlagen
+        total_aufwand: Total Aufwand & Umlagen
+        leistungen: Leistungen
+        beitraege_iv: Beiträge IV/AHV
+        sonstige_beitraege: Sonstige Beiträge Bund/Kant./Geme.
+        spenden_zweckgebunden: zweckgeb. Spenden/sonstige Erträge
+        spenden_nicht_zweckgebunden: nicht zweckgeb. Spenden/sonstige Erträge
+
+        # column-labels
+        aufwand_ertrag_fibu: FiBu - KLR
+        abgrenzung: Abgrenzung
+        klr: KLR
+        sozialberatung: Sozialberatung
+        bauberatung: Bauberatung
+        rechtsberatung: Rechtsberatung
+        vermittlung: Vermittlung Betreuung
+        wohnbegleitung: Begleitetes Wohnen
+        media: Medien und Publikationen
+        jahreskurse: Semester-/Jahreskurse
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        treffpunkte: Treffpunkte
+        lufeb: LUFEB
+
     course_records:
       vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
       anzahl_durchfuehrungen: Anzahl Durchführungen
