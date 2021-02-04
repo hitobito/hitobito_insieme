@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -50,8 +50,8 @@ describe Vp2020::CostAccounting::Aggregation do
         deckungsbeitrag1
         deckungsbeitrag2
         deckungsbeitrag3
-        deckungsbeitrag4
         unternehmenserfolg
+        deckungsbeitrag4
       ]
 
       actual_report_keys = subject.reports.keys
