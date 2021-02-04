@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -63,7 +63,7 @@ describe Event::CourseRecord do
 
   def new_record(event, attrs = {})
     event.course_record.try(:destroy!)
-    r = Event::CourseRecord.new(attrs.merge(event: event))
+    r = Event::CourseRecord.new(attrs.merge(event: event, year: year))
     r.valid?
     r
   end
@@ -464,8 +464,10 @@ describe Event::CourseRecord do
     end
 
     context '#total_stunden_betreuung' do
+      let(:year) { 2020 }
+
       context 'tp' do
-        let(:record) do
+        subject do
           new_record(event_tp,
                      kursdauer: 5,
                      leiterinnen: 3,
@@ -475,12 +477,13 @@ describe Event::CourseRecord do
         end
 
         it 'uses only betreuerinnen and time' do
+          expect(subject.betreuende).to eq(4)
           expect(subject.total_stunden_betreuung).to eq(5*4)
         end
       end
 
       context 'tk' do
-        let(:record) do
+        subject do
           new_record(event_tk,
                      kursdauer: 5,
                      leiterinnen: 3,
@@ -490,6 +493,8 @@ describe Event::CourseRecord do
         end
 
         it 'ignores betreuerinnen in calculation' do
+          is_expected.to be_valid
+          expect(subject.betreuende).to eq(3+1+2)
           expect(subject.total_stunden_betreuung).to eq(5*(3+1+2))
         end
       end

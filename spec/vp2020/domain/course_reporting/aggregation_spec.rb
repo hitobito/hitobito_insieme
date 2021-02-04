@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -8,7 +8,9 @@
 require 'spec_helper'
 
 describe Vp2020::CourseReporting::Aggregation do
+  include Vertragsperioden::Domain
 
+  let(:year) { 2020}
   let(:values) do
     {
       kursdauer: 0.5,
@@ -295,9 +297,84 @@ describe Vp2020::CourseReporting::Aggregation do
     end
   end
 
+  context 'treffpunkt-aggregation' do
+    let(:cr_defaults) do
+      {
+        :subventioniert => true,
+        :year => year
+      }
+    end
+
+    let!(:treffpunkt_a_course_record) do
+      create!(create_course('tp', [groups(:fr)], 2020, 'treffpunkt'), 'weiterbildung', cr_defaults.merge({
+        :challenged_canton_count_attributes => { be: 10 },
+        :affiliated_canton_count_attributes => { be: 2 },
+
+        :kursdauer        => 0.1e2,
+        :anzahl_kurse     => 1,
+        :tage_behinderte  => 0.1e3,
+        :tage_angehoerige => 0.0,
+        :tage_weitere     => 0.0,
+        :betreuerinnen    => 2
+      }))
+    end
+
+    let!(:treffpunkt_b_course_record) do
+      cr_b = create!(create_course('tp', [groups(:fr)], 2020, 'treffpunkt'), 'weiterbildung', cr_defaults.merge({
+        :challenged_canton_count_attributes => { be: 5 },
+        :affiliated_canton_count_attributes => { be: 1 },
+
+        :kursdauer        => 0.2e1,
+        :anzahl_kurse     => 1,
+        :tage_behinderte  => 0.1e2,
+        :tage_angehoerige => 0.0,
+        :tage_weitere     => 0.0,
+        :betreuerinnen    => 1
+      }))
+    end
+
+    subject(:tp_agg) do
+      described_class
+        .new(groups(:fr).id, cr_defaults[:year], 'tp', :unused, cr_defaults[:subventioniert])
+        .course_counts('all', 'total', :itself)
+    end
+
+    it 'has assumptions' do
+      expect(tp_agg).to be_a Event::CourseRecord
+      expect(tp_agg).to be_aggregation_record
+
+      expect(treffpunkt_a_course_record.teilnehmende_behinderte).to eq 10
+      expect(treffpunkt_b_course_record.teilnehmende_behinderte).to eq 5
+      expect(treffpunkt_a_course_record.teilnehmende_angehoerige).to eq 2
+
+      expect(treffpunkt_a_course_record.betreuerinnen).to eq 2
+      expect(treffpunkt_a_course_record.kursdauer).to eq 10
+      expect(treffpunkt_a_course_record.betreuungsstunden).to eq (2 * 10) # 20
+
+      expect(treffpunkt_b_course_record.betreuerinnen).to eq 1
+      expect(treffpunkt_b_course_record.kursdauer).to eq 2
+      expect(treffpunkt_b_course_record.betreuungsstunden).to eq (1 * 2) # 2
+    end
+
+    it 'sums products and caluclated values correctly' do
+      expect(tp_agg.anzahl_kurse).to eq 2
+      expect(tp_agg.kursdauer).to eq 12
+      expect(tp_agg.betreuungsstunden).to eq 22 # 20 + 2 -> see assumptions
+      expect(tp_agg.total_stunden_betreuung).to eq 22 # same as betreuungsstunden (now)
+      expect(tp_agg.betreuende).to eq 3
+    end
+
+    it 'calculate the teilnehmer correctly' do
+      expect(tp_agg.teilnehmende_behinderte).to eq 15 # 10 + 5 -> see assumptions
+      expect(tp_agg.teilnehmende_angehoerige).to eq 3
+      expect(tp_agg.teilnehmende_weitere).to eq 0
+      expect(tp_agg.teilnehmende).to eq 18
+    end
+  end
+
   def assert_summed_totals
     records = Event::CourseRecord.all.to_a
-    attrs = Vp2015::CourseReporting::Aggregation::RUBY_SUMMED_ATTRS
+    attrs = vp_class('CourseReporting::Aggregation')::RUBY_SUMMED_ATTRS
     attrs.each do |attr|
       expected = records.sum { |r| r.send(attr).to_d }
       actual = course_totals(attr)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -123,18 +123,8 @@ class Event::CourseRecord < ActiveRecord::Base
       (spezielle_unterkunft ? 1 : 0)
   end
 
-  def betreuungsstunden
-    if vp_calculations.respond_to?(:total_stunden_betreuung)
-      tp? ? vp_calculations.total_stunden_betreuung : nil
-    else
-      self[:betreuungsstunden]
-    end
-  end
-
   def total_stunden_betreuung
-    if vp_calculations.respond_to?(:total_stunden_betreuung)
-      vp_calculations.total_stunden_betreuung
-    end
+    betreuungsstunden
   end
 
   def set_defaults # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
