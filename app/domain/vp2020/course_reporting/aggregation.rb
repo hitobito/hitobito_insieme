@@ -151,8 +151,6 @@ module Vp2020::CourseReporting
     end
 
     def sql_sum_unterkunft
-      # column = Event::CourseRecord.columns_hash['spezielle_unterkunft']
-      # quoted_true_value = Event::CourseRecord.connection.quote(true, column)
       quoted_true_value = ActiveRecord::Type::Boolean.new.serialize(true)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
       'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \

@@ -46,6 +46,7 @@ module Vp2020::Export
 
         class << self
           # aggregation is Vp2020::CourseReporting::Aggregation
+          # values also come from Event::CourseRecord
           def csv(aggregation)
             Export::Csv::Generator.new(new(aggregation)).call
           end

@@ -103,6 +103,7 @@ class Event::CourseRecord < ActiveRecord::Base
     super || event.years.first
   end
 
+  # returns a Vp2020::Event::CourseRecord::Calculation since 2020
   def vp_calculations
     @vp_calculations ||= Vertragsperioden::Dispatcher
                          .new(year)
