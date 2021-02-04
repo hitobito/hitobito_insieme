@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2021, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -63,16 +63,20 @@ module Vp2020::Export::Xlsx::CostAccounting
       default_border_style.deep_merge(
         style: {
           bg_color: LABEL_BACKGROUND,
-          alignment: { text_rotation: 90, vertical: :center, horizontal: :center } },
+          alignment: { text_rotation: 90, vertical: :center, horizontal: :center }
+        },
         height: 230
       )
     end
 
     # override default style
     def default_style
-      { style: {
-        sz: 16,
-        font_name: Settings.xlsx.font_name, alignment: { horizontal: :left } }
+      {
+        style: {
+          sz: 16,
+          font_name: Settings.xlsx.font_name,
+          alignment: { horizontal: :left }
+        }
       }
     end
 
@@ -85,9 +89,12 @@ module Vp2020::Export::Xlsx::CostAccounting
     end
 
     def currency_style
-      centered_border_style.deep_merge(style: {
-                                         num_fmt: CURRENCY,
-                                         alignment: { horizontal: :center } })
+      centered_border_style.deep_merge(
+        style: {
+          num_fmt: CURRENCY,
+          alignment: { horizontal: :center }
+        }
+      )
     end
 
     def vereinsname_style
@@ -95,7 +102,7 @@ module Vp2020::Export::Xlsx::CostAccounting
     end
 
     def reporting_jahr_style
-      centered_style.merge(style: { sz: 20 ,font_name: Settings.xlsx.font_name })
+      centered_style.merge(style: { sz: 20, font_name: Settings.xlsx.font_name })
     end
 
     def box_top_left_style
