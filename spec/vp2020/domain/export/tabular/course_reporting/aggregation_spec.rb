@@ -212,7 +212,7 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
     defaults = { group_id: groups(:be).id,
                  year: year,
                  leistungskategorie: 'bk',
-                 zugeteilte_kategorie: [1,2,3],
+                 zugeteilte_kategorie: :unused,
                  subventioniert: [true, false] }
     vp_class('CourseReporting::Aggregation').new(*defaults.merge(attrs).values)
   end

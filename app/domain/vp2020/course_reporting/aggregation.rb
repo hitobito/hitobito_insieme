@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2015-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2015-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -46,13 +46,12 @@ module Vp2020::CourseReporting
       :anzahl_spezielle_unterkunft
     ].freeze
 
-    attr_accessor :group_id, :year, :leistungskategorie, :zugeteilte_kategorien, :subventioniert
+    attr_accessor :group_id, :year, :leistungskategorie, :subventioniert
 
-    def initialize(group_id, year, leistungskategorie, zugeteilte_kategorien, subventioniert)
+    def initialize(group_id, year, leistungskategorie, _zugeteilte_kategorien, subventioniert)
       @group_id = group_id
       @year = year
       @leistungskategorie = leistungskategorie
-      @zugeteilte_kategorien = zugeteilte_kategorien
       @subventioniert = subventioniert
     end
 
