@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -165,8 +165,7 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
   context 'tp' do
     before do
       2.times do
-        values[:absenzen_behinderte] = 2 # sk allows only integers
-        values[:betreuungsstunden] = 80.0
+        values[:absenzen_behinderte] = 2
         create!(create_course('tp', fachkonzept: 'treffpunkt'), 'freizeit_und_sport', values)
         create!(create_course('tp', fachkonzept: 'treffpunkt'), 'weiterbildung', values)
       end
@@ -184,15 +183,15 @@ describe Vp2020::Export::Tabular::CourseReporting::Aggregation do
       expect(rows[4]).to eq ['davon Behinderte',                                       4]
       expect(rows[5]).to eq ['davon Angehörige',                                       8]
       expect(rows[6]).to eq ['davon nicht Bezugsberechtigte',                          0]
-      expect(rows[7]).to eq ['Anzahl Betreuungsstunden',                               160.00.to_d]
+      expect(rows[7]).to eq ['Anzahl Betreuungsstunden',                               80.00.to_d]
       expect(rows[8]).to eq ['Betreuungspersonen',                                     40]
       expect(rows[9]).to eq ['Gesamtaufwand direkte Kosten',                           240.00]
       expect(rows[10]).to eq ['davon Honorare',                                        40.00]
       expect(rows[11]).to eq ['davon Unterkunft/Raumaufwand',                          80.00]
       expect(rows[12]).to eq ['davon übriger Aufwand inkl. Verpflegung',               120.00]
-      expect(rows[13]).to eq ['Durchschnittliche direkte Kosten pro Betreuungsstunde', 1.5]
+      expect(rows[13]).to eq ['Durchschnittliche direkte Kosten pro Betreuungsstunde', 3.0]
       expect(rows[14]).to eq ['Vollkosten',                                            280.00]
-      expect(rows[15]).to eq ['Durchschnittliche Vollkosten pro Betreuungsstunde',     1.75]
+      expect(rows[15]).to eq ['Durchschnittliche Vollkosten pro Betreuungsstunde',     3.5]
       expect(rows[16]).to eq ['Beiträge Teilnehmende',                                 40.00]
       expect(rows[17]).to eq ['Betreuungschlüssel (Teilnehmende / Betreuende)',        0.10]
     end

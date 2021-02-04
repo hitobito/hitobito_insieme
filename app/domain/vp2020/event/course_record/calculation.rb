@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -91,16 +91,6 @@ module Vp2020
           tage_weitere.to_d
     end
 
-    # VP2015 has this, VP2020 has for sammelkurse a field in the DB to store this.
-    # See Event::CourseRecord#betreuungsstunden for details
-    def total_stunden_betreuung
-      if record.event.is_a?(::Event::AggregateCourse) || record.aggregation_record?
-        record.read_attribute(:betreuungsstunden)
-      else
-        betreuende * kursdauer.to_d
-      end
-    end
-
     def praesenz_prozent
       if total_tage_teilnehmende.positive?
         ((total_tage_teilnehmende / (total_tage_teilnehmende + total_absenzen)) * 100).round
@@ -166,7 +156,9 @@ module Vp2020
       @record.teilnehmende_behinderte = challenged_canton_count&.total
       @record.teilnehmende_angehoerige = affiliated_canton_count&.total
       @record.direkter_aufwand = calculate_direkter_aufwand
+
       unless event.is_a?(::Event::AggregateCourse)
+        @record.betreuungsstunden = calculate_betreuungsstunden
         @record.tage_behinderte = calculate_tage_behinderte
         @record.tage_angehoerige = calculate_tage_angehoerige
         @record.tage_weitere = calculate_tage_weitere
@@ -191,6 +183,10 @@ module Vp2020
 
     def calculate_tage_weitere
       (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
+    end
+
+    def calculate_betreuungsstunden
+      (kursdauer.to_d * betreuende)
     end
 
   end
