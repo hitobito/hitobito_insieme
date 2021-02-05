@@ -190,16 +190,16 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       it 'fetches various parts from the kostenrechnung and sums them' do
         kostenrechnung = vp_class('CostAccounting::Table').new(Group.find(gcp.group_id), year)
 
-        expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'jahreskurse').and_return(1495.24.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'blockkurse').and_return(4990.48.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'tageskurse').and_return(1497.62.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'treffpunkte').and_return(3244.05.to_d)
+        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'jahreskurse').and_return(1495.24.to_d)
+        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'blockkurse').and_return(4990.48.to_d)
+        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'tageskurse').and_return(1497.62.to_d)
+        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'treffpunkte').and_return(3244.05.to_d)
 
         total = [
-          kostenrechnung.value_of('total_personalaufwand', 'jahreskurse'),
-          kostenrechnung.value_of('total_personalaufwand', 'blockkurse'),
-          kostenrechnung.value_of('total_personalaufwand', 'tageskurse'),
-          kostenrechnung.value_of('total_personalaufwand', 'treffpunkte'),
+          kostenrechnung.value_of('vollkosten', 'jahreskurse'),
+          kostenrechnung.value_of('vollkosten', 'blockkurse'),
+          kostenrechnung.value_of('vollkosten', 'tageskurse'),
+          kostenrechnung.value_of('vollkosten', 'treffpunkte'),
         ].map(&:to_f).sum
 
         expect(total).to be_within(0.01).of(11227.39)
@@ -228,10 +228,10 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
       # return-values from collbarators
       allow(stats).to receive(:year).and_return(year) # from let above
-      expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'jahreskurse').and_return(1495.24.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'blockkurse').and_return(4990.48.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'tageskurse').and_return(1497.62.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('total_personalaufwand', 'treffpunkte').and_return(3244.05.to_d)
+      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'jahreskurse').and_return(1495.24.to_d)
+      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'blockkurse').and_return(4990.48.to_d)
+      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'tageskurse').and_return(1497.62.to_d)
+      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'treffpunkte').and_return(3244.05.to_d)
 
       # wire collaborators together
       expect(vp_class('CostAccounting::Table')).to receive(:new).with(Group.find(gcp.group_id), year).and_return(kostenrechnung)
