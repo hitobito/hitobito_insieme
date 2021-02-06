@@ -57,58 +57,53 @@ module Vp2020::CostAccounting
 
     private
 
-    def report_data(report, table) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+    def report_data(report, table) # rubocop:disable Metrics/MethodLength
+      data = ->(value) { table.value_of(report.to_s, value).to_d }
+
       [
-        table.value_of(report.to_s, 'aufwand_ertrag_fibu').to_d,
-        table.value_of(report.to_s, 'abgrenzung_fibu').to_d,
-        [
-          table.value_of(report.to_s, 'verwaltung').to_d,
-          table.value_of(report.to_s, 'raeumlichkeiten').to_d,
-          table.value_of(report.to_s, 'mittelbeschaffung').to_d
-        ].sum,
-        table.value_of(report.to_s, 'beratung').to_d,
-        table.value_of(report.to_s, 'medien_und_publikationen').to_d,
-        table.value_of(report.to_s, 'jahreskurse').to_d,
-        table.value_of(report.to_s, 'blockkurse').to_d,
-        table.value_of(report.to_s, 'tageskurse').to_d,
-        table.value_of(report.to_s, 'treffpunkte').to_d,
-        table.value_of(report.to_s, 'lufeb').to_d
+        data['aufwand_ertrag_fibu'],
+        data['abgrenzung_fibu'],
+        [data['verwaltung'], data['raeumlichkeiten'], data['mittelbeschaffung']].sum,
+        data['beratung'],
+        data['medien_und_publikationen'],
+
+        data['jahreskurse'],
+        data['blockkurse'],
+        data['tageskurse'],
+        data['treffpunkte'],
+        data['lufeb']
       ]
     end
 
     def fetch_data_for(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       table = vp_class('CostAccounting::Table').new(group, year) # Vp2020::CostAccounting::Table
 
-      # _row = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
-      # _empty = CostAccountingRow.new(*Array.new(9, nil))
-      # personalaufwand: [
-      #   row[:lohnaufwand],
-      #   row[:sozialversicherungsaufwand],
-      #   row[:uebriger_personalaufwand]
-      # ].sum,
-      # aufwand: empty,
+      row                      = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
+      empty                    = CostAccountingRow.empty_row
+      row_with_method          = ->(method) { CostAccountingRow.new(*send(method, table)) }
 
       {
-        personalaufwand: [
-          CostAccountingRow.new(*report_data(:lohnaufwand, table)),
-          CostAccountingRow.new(*report_data(:sozialversicherungsaufwand, table)),
-          CostAccountingRow.new(*report_data(:uebriger_personalaufwand, table))
-        ].sum,
-        honorare: CostAccountingRow.new(*report_data(:honorare, table)),
-        sachaufwand: [
-          CostAccountingRow.new(*report_data(:raumaufwand, table)),
-          CostAccountingRow.new(*report_data(:uebriger_sachaufwand, table))
-        ].sum,
-        aufwand: CostAccountingRow.empty_row,
-        gemeinkosten: CostAccountingRow.new(*gemeinkosten(table)),
-        umlagen: CostAccountingRow.empty_row,
-        total_aufwand: CostAccountingRow.empty_row,
-        leistungen: CostAccountingRow.new(*report_data(:leistungsertrag, table)),
-        beitraege_iv: CostAccountingRow.new(*report_data(:beitraege_iv, table)),
-        sonstige_beitraege: CostAccountingRow.new(*report_data(:sonstige_beitraege, table)),
-        spenden_zweckgebunden: CostAccountingRow.new(*report_data(:direkte_spenden, table)),
-        spenden_nicht_zweckgebunden: CostAccountingRow.new(*indirekte_spenden(table))
+        personalaufwand: row_with_method[:personalaufwand],
+        honorare: row[:honorare],
+        sachaufwand: [row[:raumaufwand], row[:uebriger_sachaufwand]].sum,
+        aufwand: empty,
+        gemeinkosten: row_with_method[:gemeinkosten],
+        umlagen: empty,
+        total_aufwand: empty,
+        leistungen: row[:leistungsertrag],
+        beitraege_iv: row[:beitraege_iv],
+        sonstige_beitraege: row[:sonstige_beitraege],
+        spenden_zweckgebunden: row[:direkte_spenden],
+        spenden_nicht_zweckgebunden: row_with_method[:indirekte_spenden]
       }
+    end
+
+    def personalaufwand(table)
+      [
+        CostAccountingRow.new(*report_data(:lohnaufwand, table)),
+        CostAccountingRow.new(*report_data(:sozialversicherungsaufwand, table)),
+        CostAccountingRow.new(*report_data(:uebriger_personalaufwand, table))
+      ].sum
     end
 
     def gemeinkosten(table)
