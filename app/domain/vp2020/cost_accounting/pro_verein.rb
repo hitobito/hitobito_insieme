@@ -25,17 +25,17 @@ module Vp2020::CostAccounting
     end
 
     CostAccountingRow = Struct.new(
-      :aufwand_ertrag_fibu, :abgrenzung, :gemeinkosten, :media,
+      :aufwand_ertrag_fibu, :abgrenzung, :gemeinkosten, :sozialberatung, :media,
       :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb
     ) do
       def self.empty_row
-        new(*Array.new(9, nil))
+        new(*Array.new(10, nil))
       end
 
       def members
-        [:aufwand_ertrag_fibu, :abgrenzung, :klr, :gemeinkosten,
-         :sozialberatung, :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung,
-         :media, :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb]
+        [:aufwand_ertrag_fibu, :abgrenzung, :klr, :gemeinkosten, :sozialberatung,
+         :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung, :media,
+         :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb]
       end
 
       def +(other)
@@ -50,9 +50,7 @@ module Vp2020::CostAccounting
         define_method(empty_col) { nil }
       end
 
-      [
-        :sozialberatung, :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung
-      ].each do |unused_col|
+      [:bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung].each do |unused_col|
         define_method(unused_col) { lufeb.nil? ? nil : 0 }
       end
     end
@@ -68,6 +66,7 @@ module Vp2020::CostAccounting
           table.value_of(report.to_s, 'raeumlichkeiten').to_d,
           table.value_of(report.to_s, 'mittelbeschaffung').to_d
         ].sum,
+        table.value_of(report.to_s, 'beratung').to_d,
         table.value_of(report.to_s, 'medien_und_publikationen').to_d,
         table.value_of(report.to_s, 'jahreskurse').to_d,
         table.value_of(report.to_s, 'blockkurse').to_d,
@@ -113,13 +112,13 @@ module Vp2020::CostAccounting
     end
 
     def gemeinkosten(table)
-      Array.new(4, nil) + report_data(:total_umlagen, table)[4..-1]
+      Array.new(3, nil) + report_data(:total_umlagen, table)[3..-1]
     end
 
     def indirekte_spenden(table)
       data = report_data(:indirekte_spenden, table)
 
-      [data[0], nil, *data[2..-1]]
+      [data[0], nil, nil, *data[3..-1]]
     end
   end
 end

@@ -45,7 +45,7 @@ module Vp2020::Export::Tabular::CostAccounting
     private
 
     def label_keys
-      @label_keys ||= [:type] + @stats.class::CostAccountingRow.new(Array.new(9, nil)).members
+      @label_keys ||= [:type] + @stats.class::CostAccountingRow.empty_row.members
     end
 
     def empty_row
