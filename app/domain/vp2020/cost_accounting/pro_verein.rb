@@ -46,6 +46,11 @@ module Vp2020::CostAccounting
         self.class.new(*values)
       end
 
+      def nullify(key)
+        send(:"#{key}=", nil)
+        self
+      end
+
       [:klr].each do |empty_col|
         define_method(empty_col) { nil }
       end
@@ -80,6 +85,7 @@ module Vp2020::CostAccounting
 
       row                      = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
       empty                    = CostAccountingRow.empty_row
+      row_without_gemeinkosten = ->(report) { row[report].nullify(:gemeinkosten) }
       row_with_method          = ->(method) { CostAccountingRow.new(*send(method, table)) }
 
       {
@@ -90,10 +96,10 @@ module Vp2020::CostAccounting
         gemeinkosten: row_with_method[:gemeinkosten],
         umlagen: empty,
         total_aufwand: empty,
-        leistungen: row[:leistungsertrag],
-        beitraege_iv: row[:beitraege_iv],
-        sonstige_beitraege: row[:sonstige_beitraege],
-        spenden_zweckgebunden: row[:direkte_spenden],
+        leistungen: row_without_gemeinkosten[:leistungsertrag],
+        beitraege_iv: row_without_gemeinkosten[:beitraege_iv],
+        sonstige_beitraege: row_without_gemeinkosten[:sonstige_beitraege],
+        spenden_zweckgebunden: row_without_gemeinkosten[:direkte_spenden],
         spenden_nicht_zweckgebunden: row_with_method[:indirekte_spenden]
       }
     end
