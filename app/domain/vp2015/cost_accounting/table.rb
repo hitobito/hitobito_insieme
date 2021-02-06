@@ -36,15 +36,17 @@ module Vp2015::CostAccounting
                Report::Deckungsbeitrag4,
                Report::Unternehmenserfolg].freeze
 
-    SECTION_FIELDS = %w(raeumlichkeiten
-                      verwaltung
-                      beratung
-                      treffpunkte
-                      blockkurse
-                      tageskurse
-                      jahreskurse
-                      lufeb
-                      mittelbeschaffung).freeze
+    SECTION_FIELDS = %w(
+      raeumlichkeiten
+      verwaltung
+      beratung
+      treffpunkte
+      blockkurse
+      tageskurse
+      jahreskurse
+      lufeb
+      mittelbeschaffung
+    ).freeze
 
     VISIBLE_REPORTS = REPORTS
 
@@ -66,8 +68,8 @@ module Vp2015::CostAccounting
     end
 
     def time_record
-      @time_record ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year).
-                                                first_or_initialize
+      @time_record ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year)
+                                               .first_or_initialize
     end
 
     def reports
@@ -113,7 +115,7 @@ module Vp2015::CostAccounting
     def cost_records
       @cost_records ||= begin
         records = CostAccountingRecord.calculation_fields.where(group_id: group.id, year: year)
-        records.each_with_object({}) { |r, hash| hash[r.report] = r }
+        records.index_by { |r| r.report }
       end
     end
 
@@ -121,8 +123,8 @@ module Vp2015::CostAccounting
       nested_hash = Hash.new { |h, k| h[k] = {} }
       load_course_costs.
         each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
-        hash[lk] = { 'honorare'             => honorare,
-                     'raumaufwand'          => unterkunft,
+        hash[lk] = { 'honorare' => honorare,
+                     'raumaufwand' => unterkunft,
                      'uebriger_sachaufwand' => uebriges }
       end
     end
