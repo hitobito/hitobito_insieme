@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -17,7 +17,7 @@ module Vp2020::CostAccounting
                        jahreskurse
                        lufeb
                        mittelbeschaffung
-                       medien_und_publikationen)
+                       medien_und_publikationen).freeze
 
       self.used_fields += %w(verwaltung)
 
@@ -31,9 +31,13 @@ module Vp2020::CostAccounting
         define_method(f) do
           @time_fields ||= {}
           @time_fields[f] ||=
-            if aufwand_ertrag_ko_re > 0 && time_record.total_paragraph_74 > 0
-              aufwand_ertrag_ko_re *
-              time_record.send(f).to_d / time_record.total_paragraph_74
+            if aufwand_ertrag_ko_re.positive? && time_record.total_paragraph_74.positive?
+              time_record_value = if f == 'verwaltung'
+                                    time_record.verwaltung.to_d + time_record.kurse_grundlagen.to_d
+                                  else
+                                    time_record.send(f).to_d
+                                  end
+              aufwand_ertrag_ko_re * time_record_value / time_record.total_paragraph_74
             end
         end
       end
