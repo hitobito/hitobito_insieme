@@ -48,7 +48,7 @@ namespace :db do
       puts 'Importing data'
       errors = []
       CSV.parse(cs_sum_csv.read, headers: true).each do |row|
-        cs = CapitalSubstrate.find_or_create(year: args.year, group_id: row['group_id'])
+        cs = CapitalSubstrate.find_or_create_by(year: args.year, group_id: row['group_id'])
         cs.previous_substrate_sum = row['sum']
         if cs.save
           print '.'
