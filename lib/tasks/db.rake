@@ -70,6 +70,65 @@ namespace :db do
         puts 'End of Errors.'
       end
     end
+
+    desc 'Convert Group-Names to Group-IDs'
+    task :convert, [:filename] => [:environment] do |_, args|
+      args.with_defaults(filename: 'previous_capital_substrates.csv')
+
+      puts 'Convert Group-Names to group-ids for capital substrates of previous years'
+      puts "Reading from:   #{args.filename}"
+
+      cs_sum_csv = Pathname.new(args.filename)
+
+      abort 'Import file not found' unless cs_sum_csv.exist?
+
+      require 'csv'
+
+      puts 'Converting data'
+      errors = []
+      new_data = []
+      CSV.parse(cs_sum_csv.read, headers: true).each do |row|
+        name, sum = row.fields
+
+        group =
+          Group.without_deleted.find_by(full_name: name) ||
+          Group.without_deleted.find_by(full_name: name.strip) ||
+          Group.without_deleted.find_by(name: name) ||
+          Group.without_deleted.find_by(name: name.strip)
+
+        if group.present?
+          new_data << [group.id, sum]
+          print '.'
+        else
+          print 'E'
+          errors << [row]
+        end
+      end
+
+      puts
+      puts 'Done.'
+
+      if errors.any?
+        puts
+        puts "There have been #{errors.size} Errors:"
+
+        errors.each do |row|
+          puts row.inspect
+        end
+        puts 'End of Errors.'
+        puts
+      end
+
+      CSV.open(
+        "#{cs_sum_csv.dirname}/converted-#{cs_sum_csv.basename}", 'w',
+        headers: %w(group_id sum),
+        write_headers: true
+      ) do |csv|
+        new_data.each do |id, sum|
+          csv << [id, sum]
+        end
+      end
+    end
   end
 end
 
