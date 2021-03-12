@@ -106,14 +106,18 @@ module Vp2020::CourseReporting
       SQL
 
       columns << <<~SQL.split("\n").join(' ')
-        CASE events.type
-        WHEN 'Event::AggregateCourse' THEN
-          SUM(COALESCE(event_course_records.tage_weitere, 0))
+        CASE events.leistungskategorie
+        WHEN 'tp' THEN 0
         ELSE
-          SUM(
-            COALESCE(event_course_records.teilnehmende_weitere, 0) *
-            event_course_records.kursdauer
-          )
+          CASE events.type
+          WHEN 'Event::AggregateCourse' THEN
+            SUM(COALESCE(event_course_records.tage_weitere, 0))
+          ELSE
+            SUM(
+              COALESCE(event_course_records.teilnehmende_weitere, 0) *
+              event_course_records.kursdauer
+            )
+          END
         END AS other_attendees
       SQL
 

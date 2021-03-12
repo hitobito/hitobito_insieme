@@ -25,6 +25,14 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
                   { be: 1, ag: 2, zh: 3, another: 4 },
                   :aggregate_course)
 
+    create_course(year, :be, 'tp',
+                  { be: 1, ag: 1, another: 1 },
+                  { be: 2, ag: 2, another: 2 },
+                  :aggregate_course)
+      .yield_self do |course, course_record|
+        course_record.update!(teilnehmende_weitere: 200)
+      end
+
     create_course(year, :fr, 'tk',
                   { be: 1, ag: 1, another: 1 })
 
@@ -33,6 +41,9 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     create_course(year, :fr, 'tp',
                   { be: 1, ag: 1, another: 1 })
+      .yield_self do |course, course_record|
+        course_record.update!(teilnehmende_weitere: 200)
+      end
   end
 
   context '#data_rows' do
@@ -84,7 +95,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       expect(data[13]).to match_array(['Blockkurse',            'Sport/Freizeit',   2,  28,   6,  44,   9, nil, nil,   4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,  13,  18])
       expect(data[14]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[15]).to match_array(['Tageskurse',            'Sport/Freizeit', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[16]).to match_array(['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[16]).to match_array(['Treffpunkte',           'Treffpunkt',       1, nil, nil,   9,   3, nil, nil,   3, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   3])
       expect(data[17]).to match_array([nil,                     nil,              nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[18]).to match_array(['Biel-Seeland',          3115,             nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[19]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
@@ -103,6 +114,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       expect(data[32]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[33]).to match_array(['Tageskurse',            'Sport/Freizeit',   1,   6, nil,   3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
       expect(data[34]).to match_array(['Treffpunkte',           'Treffpunkt',       1, nil, nil,   3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
+      #                                                         'kursinhalt'    Kurse  Std  NB  'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
     end
   end
 
@@ -143,7 +155,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       record.update!(
         anzahl_kurse: 5,
         kursdauer: 50,
-        tage_weitere: 17,
+        tage_weitere: 17, # shall not be reflected in the output
         betreuerinnen: 5,
         betreuungsstunden: 75
       )
@@ -159,7 +171,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
     expect(data[22][0..5]).to match_array(['Blockkurse',            'Sport/Freizeit',   3,  45,   3,  50])
     expect(data[23][0..5]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil])
     expect(data[24][0..5]).to match_array(['Tageskurse',            'Sport/Freizeit',   1,  20, nil,  20])
-    expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',       5,  75,  17,  20])
+    expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',       5,  75, nil,  20])
   end
 
   context 'adds a part of a grundlagenarbeit to treffpunkt LE, it' do
