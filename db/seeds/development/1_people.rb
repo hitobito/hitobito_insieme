@@ -43,6 +43,8 @@ devs.each do |name, email|
   seeder.seed_developer(name, email, root, Group::Dachverein::Geschaeftsfuehrung)
 end
 
+seeder.assign_role_to_root(root, Group::Dachverein::Geschaeftsfuehrung)
+
 insieme_users = [
   { email: 'cschoenbaechler@insieme.ch',
     role: Group::Dachverein::Geschaeftsfuehrung,
