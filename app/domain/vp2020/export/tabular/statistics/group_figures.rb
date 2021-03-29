@@ -88,8 +88,7 @@ module Vp2020::Export
           labels << t('deckungsbeitrag_4')
         end
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        def values(group)
+        def values(group) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           values = [group.full_name.presence || group.name,
                     group.canton_label,
                     group.vid,
@@ -113,7 +112,6 @@ module Vp2020::Export
 
           values
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def append_course_values(values, record)
           if record
