@@ -98,10 +98,7 @@ module Vp2020::Export
                     group.bsv_number]
 
           iterate_courses do |lk, fk|
-            record = figures.course_record(group, lk, fk)
-            append_course_values(values, record)
-
-            values << (record&.betreuungsstunden || 0.0) if lk == 'tp'
+            append_course_values(values, figures.course_record(group, lk, fk), lk)
           end
 
           append_time_values(values, figures.employee_time(group))
@@ -119,17 +116,14 @@ module Vp2020::Export
           values
         end
 
-        def append_course_values(values, record)
-          if record
-            values << record.anzahl_kurse.to_i
-            values << record.total_vollkosten
-            values << record.tage_behinderte
-            values << record.tage_angehoerige
-            values << record.tage_weitere
-            values << record.total_tage_teilnehmende
-          else
-            values << 0 << 0.0 << 0.0 << 0.0 << 0.0 << 0.0
-          end
+        def append_course_values(values, record, lk = nil) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+          values << (record&.anzahl_kurse.to_i       || 0)
+          values << (record&.total_vollkosten        || 0.0)
+          values << (record&.tage_behinderte         || 0.0)
+          values << (record&.tage_angehoerige        || 0.0)
+          values << (record&.tage_weitere            || 0.0)
+          values << (record&.total_tage_teilnehmende || 0.0)
+          values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
         def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
