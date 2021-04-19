@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2020 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2021, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -45,7 +45,7 @@ module Vp2020::Export
 
         private
 
-        def append_course_labels(labels)
+        def append_course_labels(labels) # rubocop:disable Metrics/MethodLength
           iterate_courses do |lk, fk|
             lk_label = t("leistungskategorie_#{lk}")
             fk_label = I18n.t("activerecord.attributes.event/course.fachkonzepte.#{fk}")
@@ -55,6 +55,9 @@ module Vp2020::Export
             labels << vp_t('tage_angehoerige', leistungskategorie: lk_label, fachkonzept: fk_label)
             labels << vp_t('tage_weitere',     leistungskategorie: lk_label, fachkonzept: fk_label)
             labels << vp_t('tage_total',       leistungskategorie: lk_label, fachkonzept: fk_label)
+            if lk == 'tp'
+              labels << vp_t('betreuungsstunden_total', leistungskategorie: lk_label, fachkonzept: fk_label) # rubocop:disable Metrics/LineLength
+            end
           end
         end
 
@@ -95,7 +98,10 @@ module Vp2020::Export
                     group.bsv_number]
 
           iterate_courses do |lk, fk|
-            append_course_values(values, figures.course_record(group, lk, fk))
+            record = figures.course_record(group, lk, fk)
+            append_course_values(values, record)
+
+            values << (record&.betreuungsstunden || 0.0) if lk == 'tp'
           end
 
           append_time_values(values, figures.employee_time(group))

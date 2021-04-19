@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -65,6 +65,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
     create_course(year, :fr, 'tk', '1', kursdauer: 16, teilnehmende_weitere: 104, unterkunft: 500)
     create_course(year, :fr, 'tk', '3', kursdauer: 17, uebriges: 600,
                   challenged_canton_count_attributes: { zh: 500 })
+    create_course(year, :fr, 'tp', '1', kursdauer: 18, betreuerinnen: 2)
 
     # other year
     create_course(year - 1, :fr, 'bk', '1', kursdauer: 17, teilnehmende_weitere: 105)
@@ -193,6 +194,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "Treffpunkte TN Tage Angehörige Treffpunkt",
       "Treffpunkte TN Tage nicht Bezugsberechtigte Treffpunkt",
       "Treffpunkte TN Tage Total Treffpunkt",
+      "Treffpunkte Betreuungsstunden Total Treffpunkt",
 
       "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Angestellte: Förderung der Selbsthilfe",
@@ -348,6 +350,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Tageskurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
         "Tageskurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
         "Totaler Aufwand gemäss FIBU" => 0.0,
+        "Treffpunkte Betreuungsstunden Total Treffpunkt" => 0.0,
         "Treffpunkte Anzahl Kurse Treffpunkt" => 0,
         "Treffpunkte TN Tage Angehörige Treffpunkt" => 0.0,
         "Treffpunkte TN Tage Behinderte Treffpunkt" => 0.0,
@@ -404,6 +407,9 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Tageskurse TN Tage Total Sport Kinder & Jugendliche" => 10164.0,
         "Tageskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 1664.0,
         "Tageskurse Total Vollkosten Sport Kinder & Jugendliche" => 1100.0,
+
+        "Treffpunkte Anzahl Kurse Treffpunkt" => 1,
+        "Treffpunkte Betreuungsstunden Total Treffpunkt" => 36.0, # 18 Stunden * 2 BetreuerInnen
 
         "VZÄ angestellte Mitarbeiter (Art. 74)" => 1.6,
         "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 2.0,
@@ -505,11 +511,12 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
   private
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)
-    event = Fabricate(:course,
-                      leistungskategorie: leistungskategorie,
-                      fachkonzept: 'sport_jugend')
+    fachkonzept = leistungskategorie == 'tp' ? 'treffpunkt' : 'sport_jugend'
+
+    event = Fabricate(:course, leistungskategorie: leistungskategorie, fachkonzept: fachkonzept)
     event.update(groups: [groups(group_key)])
     event.dates.create!(start_at: Time.zone.local(year, 05, 11))
+
     r = Event::CourseRecord.create!(attrs.merge(event_id: event.id, year: year))
     r.update_column(:zugeteilte_kategorie, kategorie)
   end

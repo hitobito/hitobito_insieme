@@ -453,6 +453,7 @@ de:
         tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
         tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
         tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
+        betreuungsstunden_total: "%{leistungskategorie} Betreuungsstunden Total %{fachkonzept}"
         hours_employees: Stunden Angestellte
         hours_volunteers: Stunden Ehrenamtliche mit Leistungsausweis
     time_records:
