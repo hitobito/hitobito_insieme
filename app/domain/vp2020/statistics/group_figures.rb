@@ -93,6 +93,7 @@ module Vp2020::Statistics
       'SUM(tage_angehoerige) AS tage_angehoerige, ' \
       'SUM(tage_weitere) AS tage_weitere, ' \
       'SUM(direkter_aufwand) AS direkter_aufwand, ' \
+      'SUM(betreuungsstunden) AS betreuungsstunden, ' \
       'SUM(gemeinkostenanteil) AS gemeinkostenanteil'
     end
 
