@@ -77,7 +77,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
 
   it 'contains correct headers in order' do
     labels = subject.labels
-    expect(labels).to match_array [
+    expected = [
       "Vollständiger Name",
       "Kanton",
       "VID",
@@ -196,19 +196,19 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "Treffpunkte TN Tage Total Treffpunkt",
       "Treffpunkte Betreuungsstunden Total Treffpunkt",
 
+      "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte",
       "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Angestellte: Förderung der Selbsthilfe",
       "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit",
       "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit",
-      "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte",
       "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen",
       "Stunden Angestellte: Medien & Publikationen",
 
+      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit",
-      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte",
       "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen",
       "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen",
 
@@ -227,6 +227,8 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "IV-Beitrag",
       "Deckungsbeitrag 4"
     ]
+    expect(labels).to match_array expected
+    expect(labels).to eq expected
   end
 
   context 'contains correct summed values' do
