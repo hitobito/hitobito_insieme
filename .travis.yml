@@ -1,7 +1,9 @@
 notifications:
   email: false
 language: ruby
-cache: bundler
+cache:
+  bundler: true
+  yarn: true
 services:
   - mysql
 env:
