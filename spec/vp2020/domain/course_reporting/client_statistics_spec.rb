@@ -79,9 +79,9 @@ describe Vp2020::CourseReporting::ClientStatistics do
     end
 
     expect(results).to be_a Hash
-    expect(results.keys).to eq([groups(:be).id, groups(:fr).id])
+    expect(results.keys).to match_array [groups(:be).id, groups(:fr).id]
 
-    expect(stats.send(:group_canton_participants).keys.sort).to eq([groups(:be).id, groups(:fr).id].sort)
+    expect(stats.send(:group_canton_participants).keys).to match_array [groups(:be).id, groups(:fr).id]
   end
 
   it 'contains summed values per group' do
