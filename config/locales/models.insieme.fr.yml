@@ -711,5 +711,3 @@ fr:
       unternehmenserfolg:
         name: Résultat de l'entreprise
         short_name: Résultat de l'entreprise
-  import/person_doublette_finder:
-    duplicate_with_different_number: Une même personne mais avec un autre numéro de personne (%{number}) a été trouvée.
