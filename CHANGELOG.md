@@ -1,5 +1,9 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
+*   Anpassung und Erweiterung der Exporte
+
 ## Version 1.22
 
 *   Unterstützung für die Vertragperiode ab 2020
