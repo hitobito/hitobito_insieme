@@ -1,5 +1,7 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
 ## Version 1.26
 
 *   Anpassung und Erweiterung der Exporte
