@@ -3,8 +3,7 @@
 
 This hitobito wagon defines the organization hierarchy with groups and roles of Insieme Schweiz.
 
-[![Build
-Status](https://travis-ci.org/hitobito/hitobito_insieme.svg)](https://travis-ci.org/hitobito/hitobito_insieme)
+[![Build Status](https://github.com/hitobito/hitobito_insieme/actions/workflows/tests/badge.svg)](https://github.com/hitobito/hitobito_insieme/actions/workflows/tests.yml)
 
 # Insieme Organization Hierarchy
 
