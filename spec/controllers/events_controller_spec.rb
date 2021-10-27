@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -66,7 +66,7 @@ describe EventsController do
 
       it 'validates course record attributes' do
         expect { create('bk', { kursart: 'foo' }) }.not_to change { Event::CourseRecord.count }
-        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart"] # how to do this with error_on?
+        expect(assigns(:event).errors.attribute_names).to eq [:"course_record.kursart"] # how to do this with error_on?
       end
     end
 
@@ -122,7 +122,7 @@ describe EventsController do
 
       it 'validates course record attributes' do
         update(kursart: 'foo')
-        expect(assigns(:event).errors.keys).to eq [:"course_record.kursart", :fachkonzept]
+        expect(assigns(:event).errors.attribute_names).to eq [:"course_record.kursart", :fachkonzept]
       end
 
       it 'only updates, does not change missing fields' do
