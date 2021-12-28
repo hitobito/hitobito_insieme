@@ -66,6 +66,8 @@ namespace :db do
 
         errors.each do |cs, row|
           puts cs.inspect, row.inspect
+          puts cs.errors.full_messages.to_sentence if cs.errors.any?
+          puts
         end
         puts 'End of Errors.'
       end
