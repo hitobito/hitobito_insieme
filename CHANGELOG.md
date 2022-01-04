@@ -2,6 +2,8 @@
 
 ## unreleased
 
+*  Export "Kennzahlen pro Verein" um Sozialberatung erweitert (insieme#104)
+
 ## Version 1.26
 
 *   Anpassung und Erweiterung der Exporte

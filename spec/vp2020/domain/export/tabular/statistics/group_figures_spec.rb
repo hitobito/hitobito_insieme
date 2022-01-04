@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -15,7 +15,8 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
     TimeRecord::EmployeeTime.create!(group: groups(:be),
                                      year: year,
                                      interviews: 10,
-                                     employee_pensum_attributes: { paragraph_74: 0.25 })
+                                     beratung: 9,
+                                     employee_pensum_attributes: { paragraph_74: 0.25,  })
     TimeRecord::EmployeeTime.create!(group: groups(:be), year: year - 1, newsletter: 11)
     TimeRecord::EmployeeTime.create!(group: groups(:fr),
                                      year: year,
@@ -203,6 +204,7 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit",
       "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen",
       "Stunden Angestellte: Medien & Publikationen",
+      "Stunden Angestellte: Sozialberatung",
 
       "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB",
@@ -211,8 +213,10 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit",
       "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen",
       "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen",
+      "Stunden Ehrenamtliche mit Leistungsausweis: Sozialberatung",
 
       "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)",
+      "Stunden Ehrenamtliche ohne Leistungsausweis: Sozialberatung",
 
       "VZÄ angestellte Mitarbeiter (ganze Organisation)",
       "VZÄ angestellte Mitarbeiter (Art. 74)",
@@ -318,9 +322,12 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
         "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Angestellte: Medien & Publikationen" => 0,
+        "Stunden Angestellte: Sozialberatung" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Sozialberatung" => 0,
+        "Stunden Ehrenamtliche ohne Leistungsausweis: Sozialberatung" => 0,
         "Tageskurse Anzahl Kurse Freizeit Erwachsene & altersdurchmischt" => 0,
         "Tageskurse Anzahl Kurse Freizeit Kinder & Jugendliche" => 0,
         "Tageskurse Anzahl Kurse Förderung der Autonomie/Bildung" => 0,
@@ -469,13 +476,16 @@ describe Vp2020::Export::Tabular::Statistics::GroupFigures do
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit" => 0,
 
         "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 30,
+        "Stunden Ehrenamtliche ohne Leistungsausweis: Sozialberatung" => 0,
 
         "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
         "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Angestellte: Medien & Publikationen" => 0,
+        "Stunden Angestellte: Sozialberatung" => 9,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Sozialberatung" => 0,
 
         "Treffpunkte Anzahl Kurse Treffpunkt" => 0,
 

@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -456,6 +456,7 @@ de:
         betreuungsstunden_total: "%{leistungskategorie} Betreuungsstunden Total %{fachkonzept}"
         hours_employees: Stunden Angestellte
         hours_volunteers: Stunden Ehrenamtliche mit Leistungsausweis
+        hours_volunteers_without: Stunden Ehrenamtliche ohne Leistungsausweis
     time_records:
       lufeb_grundlagen: Grundlagenarbeit zu LUFEB
 
@@ -520,6 +521,7 @@ de:
       kurse_grundlagen: Grundlagenarbeit Kurse & Treffpunkte
       media_grundlagen: Grundlagenarbeit Medien & Publikationen
       total_media: Medien & Publikationen
+      beratung: Sozialberatung
 
   export/tabular/events:
     title: Kurse
