@@ -29,6 +29,8 @@ und im hitobito-Core.
 Um diese für einen Controller zu aktiveren, muss nur das Modul `Vertragsperioden::Views` inkludiert
 werden.
 
+Es wid jeweils **nur eine einzelne** Vertragsperiode in den Viewpath des aktuellen Request aufgenommen.
+
 ### Domainklassen
 
 Die Hauptarbeit der Auswertungen wird von Domainklassen erledigt. Domainklassen, die Unterschiede
@@ -56,11 +58,13 @@ potentiell anderen Sprachen) eingefügt.
 ### Formularhelper
 
 Der `StandardFormBuilder` wurde erweitert, um Labels angepasst übersetzt zu bekommen. Um
-existierenden View-Code nicht unnötig anpassen zu müssen, wurde bisher nur eine neue Methode hinzugefügt:
+existierenden View-Code nicht unnötig anpassen zu müssen, wurde bisher nur eine neue Methode
+hinzugefügt:
 
 - `labeled_vp_input_field`
 
-Es wird nur das Label mittels dem oben beschriebenen `vp_i18n_scope` überschrieben, andere Optionen werden weitergereicht.
+Es wird nur das Label mittels dem oben beschriebenen `vp_i18n_scope` überschrieben, andere Optionen
+werden weitergereicht.
 
 ### RSpec
 
@@ -89,8 +93,8 @@ weiterhin getestet werden können. Der Helper sollte nur in domain-specs notwend
 
 ## Neue Vertragperioden
 
-Idealerweise kopiert man alle `vp*`-Verzeichnisse der vorherigen Vertragsperiode und passt das Jahr in
-den neuen Dateien an. Dann erweitert man den Dispatcher selbst
+Idealerweise kopiert man alle `vp*`-Verzeichnisse der vorherigen Vertragsperiode und passt das Jahr
+in den neuen Dateien an. Dann erweitert man den Dispatcher selbst
 (`app/domain/vertragsperioden/dispatcher.rb`), um die neue Vertragsperiode bestimmen zu können
 (Methode `determine`). Ab dort dann normale Entwicklung in der neuen Vertragsperiode.
 
@@ -115,8 +119,17 @@ vielleicht, wenn diese nur den domain-specs inkludiert wird.
 
 ### neue Vertragsperioden
 
-Man könnte ein kleines Script erstellen, das dabei hilft, eine neue Vertragsperiode anzulegen (im Kern eine Mischung aus `cp` und `find |
-sed -i`)
+Es existiert ein rake-task, der dabei hilft, eine neue Vertragsperiode
+anzulegen (im Kern eine Mischung aus `cp` und `find | sed -i`):
+
+    `rake vp:new[YEAR]`
+
+YEAR ist dabei das "neue Anfangsjahr" der Vertragsperiode und damit
+gleichzeitig das namensgebende Jahr. Es werden fast alle Dateien für die
+bisherige VP kopiert und das bisherige Jahr mit dem neuen ersetzt.
+
+Damit ist ein Startpunkt vorhanden, von dem aus die neue Vertragsperiode
+implementiert werden kann.
 
 ### neue Domainklassen
 
