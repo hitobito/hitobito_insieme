@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2022, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -67,11 +67,12 @@ module Vp2020::Export
             %w(grundlagen promoting general specific).each do |section|
               labels << vp_label("lufeb_#{section}", 'lufeb_fields_full', t("lufeb_hours_#{type}"))
             end
-            %w(media_grundlagen total_media).each do |section|
+            %w(media_grundlagen total_media beratung).each do |section|
               labels << vp_label(section, 'fields_full', vp_t("hours_#{type}"))
             end
           end
           labels << t('lufeb_hours_volunteers_without')
+          labels << vp_label('beratung', 'fields_full', vp_t('hours_volunteers_without'))
         end
 
         def append_fte_labels(labels)
@@ -105,6 +106,7 @@ module Vp2020::Export
           append_time_values(values, figures.volunteer_with_verification_time(group))
 
           values << figures.volunteer_without_verification_time(group).try(:total_lufeb).to_i
+          values << figures.volunteer_without_verification_time(group).try(:beratung).to_i
 
           append_employee_fte_values(values, group)
           append_volunteer_fte_values(values, group)
@@ -126,18 +128,15 @@ module Vp2020::Export
           values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
-        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-          if record
-            values << record.kurse_grundlagen.to_i
-            values << record.lufeb_grundlagen.to_i
-            values << record.total_lufeb_promoting.to_i
-            values << record.total_lufeb_general.to_i
-            values << record.total_lufeb_specific.to_i
-            values << record.medien_grundlagen.to_i
-            values << record.total_media.to_i
-          else
-            values << 0 << 0 << 0 << 0 << 0 << 0 << 0
-          end
+        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
+          values << (record&.kurse_grundlagen      || 0)
+          values << (record&.lufeb_grundlagen      || 0)
+          values << (record&.total_lufeb_promoting || 0)
+          values << (record&.total_lufeb_general   || 0)
+          values << (record&.total_lufeb_specific  || 0)
+          values << (record&.medien_grundlagen     || 0)
+          values << (record&.total_media           || 0)
+          values << (record&.beratung              || 0)
         end
 
         def append_employee_fte_values(values, group)
