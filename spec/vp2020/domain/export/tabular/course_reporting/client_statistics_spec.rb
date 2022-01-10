@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2022, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -24,6 +24,9 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
                   { be: 2, ag: 4, zh: 6, another: 8 },
                   { be: 1, ag: 2, zh: 3, another: 4 },
                   :aggregate_course)
+      .yield_self do |course, course_record|
+        course_record.update!(absenzen_weitere: 1) # leaving only (4 - 1 = 3) "NB" in this course
+      end
 
     create_course(year, :be, 'tp',
                   { be: 1, ag: 1, another: 1 },
@@ -92,7 +95,7 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       expect(data[10]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[11]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[12]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[13]).to match_array(['Blockkurse',            'Sport/Freizeit',   2,  28,   6,  44,   9, nil, nil,   4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,  13,  18])
+      expect(data[13]).to match_array(['Blockkurse',            'Sport/Freizeit',   2,  28,   5,  44,   9, nil, nil,   4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,  13,  18])
       expect(data[14]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[15]).to match_array(['Tageskurse',            'Sport/Freizeit', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[16]).to match_array(['Treffpunkte',           'Treffpunkt',       1, nil, nil,   9,   3, nil, nil,   3, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   3])
