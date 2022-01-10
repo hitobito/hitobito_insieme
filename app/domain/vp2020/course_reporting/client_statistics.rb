@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -114,8 +114,10 @@ module Vp2020::CourseReporting
             SUM(COALESCE(event_course_records.tage_weitere, 0))
           ELSE
             SUM(
-              COALESCE(event_course_records.teilnehmende_weitere, 0) *
-              event_course_records.kursdauer
+              (
+                COALESCE(event_course_records.teilnehmende_weitere, 0) *
+                event_course_records.kursdauer
+              ) - COALESCE(event_course_records.absenzen_weitere, 0)
             )
           END
         END AS other_attendees
