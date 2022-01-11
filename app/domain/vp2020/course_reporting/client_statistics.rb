@@ -87,12 +87,7 @@ module Vp2020::CourseReporting
       columns << "CASE events.fachkonzept #{fachkonzepte.join(' ')} "\
                  'ELSE events.fachkonzept END AS event_fachkonzept'
 
-      columns << <<~SQL
-        CASE events.type
-        WHEN 'Event::AggregateCourse' THEN SUM(event_course_records.anzahl_kurse)
-        ELSE COUNT(event_course_records.event_id)
-        END AS course_count
-      SQL
+      columns << 'SUM(event_course_records.anzahl_kurse) AS course_count'
 
       columns << <<~SQL.split("\n").map(&:strip).join(' ') # total_tage_teilnehmende
         CASE events.leistungskategorie
