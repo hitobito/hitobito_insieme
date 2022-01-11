@@ -67,9 +67,9 @@ module Vp2020::CourseReporting
         end
     end
 
-    def group_canton_participants_relation # rubocop:disable Metrics/MethodLength
+    def group_canton_participants_relation # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       columns = [
-        'groups.id AS group_id',
+        '`groups`.id AS group_id',
         'events.leistungskategorie AS event_leistungskategorie'
       ]
 
@@ -94,7 +94,7 @@ module Vp2020::CourseReporting
         END AS course_count
       SQL
 
-      columns << <<~SQL.split("\n").join(' ') # total_tage_teilnehmende
+      columns << <<~SQL.split("\n").map(&:strip).join(' ') # total_tage_teilnehmende
         CASE events.leistungskategorie
         WHEN 'tp' THEN SUM(COALESCE(event_course_records.betreuungsstunden, 0))
         ELSE
@@ -105,7 +105,7 @@ module Vp2020::CourseReporting
         END AS course_hours
       SQL
 
-      columns << <<~SQL.split("\n").join(' ')
+      columns << <<~SQL.split("\n").map(&:strip).join(' ')
         CASE events.leistungskategorie
         WHEN 'tp' THEN 0
         ELSE
