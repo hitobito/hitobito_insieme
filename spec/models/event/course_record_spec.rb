@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -184,6 +184,33 @@ describe Event::CourseRecord do
       event_bk.update(leistungskategorie: nil)
       expect(new_record(event_bk, inputkriterien: 'a', kursart: 'freizeit_und_sport')).to be_valid
       expect(new_record(event_bk, inputkriterien: 'c', kursart: 'freizeit_und_sport')).to be_valid
+    end
+
+    it 'requires and enforces anzahl_kurse to be 1 for courses' do
+      course_record = new_record(event_bk, anzahl_kurse: 1)
+
+      expect(course_record.anzahl_kurse).to eq 1
+      expect(course_record).to be_valid
+
+      course_record.anzahl_kurse = 2
+      expect do
+        expect(course_record).to be_valid
+      end.to change(course_record, :anzahl_kurse).from(2).to(1)
+    end
+
+    it 'allows anzahl_kurse to be more than 1 for aggregate_courses' do
+      course_record = new_record(aggregate_bk, anzahl_kurse: 1)
+
+      expect(course_record.anzahl_kurse).to eq 1
+      expect(course_record).to be_valid
+
+      course_record.anzahl_kurse = 2
+      expect do
+        expect(course_record).to be_valid
+      end.to_not change(course_record, :anzahl_kurse)
+
+      course_record.anzahl_kurse = -23
+      expect(course_record).to_not be_valid
     end
   end
 

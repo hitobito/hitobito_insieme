@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -66,7 +66,10 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
-  validates :anzahl_kurse, numericality: { greater_than: 0 }
+  validates :anzahl_kurse, numericality: [
+    { greater_than: 0, if: ->(cr) { cr.event.is_a? Event::AggregateCourse } },
+    { equal: 1,        if: ->(cr) { cr.event.is_a? Event::Course } }
+  ]
   validates :kursdauer,
             :teilnehmende_behinderte, :teilnehmende_angehoerige, :teilnehmende_weitere,
             :absenzen_behinderte,     :absenzen_angehoerige,     :absenzen_weitere,
