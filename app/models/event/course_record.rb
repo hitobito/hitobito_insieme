@@ -128,7 +128,7 @@ class Event::CourseRecord < ActiveRecord::Base
     betreuungsstunden
   end
 
-  def set_defaults # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize
+  def set_defaults
     self.kursart ||= 'weiterbildung'
     self.inputkriterien ||= 'a'
     self.subventioniert ||= true if subventioniert.nil?
