@@ -47,6 +47,25 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       .yield_self do |course, course_record|
         course_record.update!(teilnehmende_weitere: 200)
       end
+
+    2.times { create_course(year, :fr, 'sk', {}, {}, :course) }
+
+    3.times {
+      create_course(year, :fr, 'sk', {}, {}, :course)
+        .yield_self do |course, course_record|
+          course.update!(fachkonzept: 'autonomie_foerderung')
+        end
+    }
+
+    4.times { create_course(year, :fr, 'sk', {}, {}, :aggregate_course) }
+
+    1.times do # 1 aggregate_course, counting as 5
+      create_course(year, :fr, 'sk', {}, {}, :aggregate_course)
+        .yield_self do |course, course_record|
+          course.update!(fachkonzept: 'autonomie_foerderung')
+          course_record.update!(anzahl_kurse: 5)
+        end
+    end
   end
 
   context '#data_rows' do
@@ -110,8 +129,8 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
       expect(data[25]).to match_array(['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[26]).to match_array([nil,                     nil,              nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[27]).to match_array(['Freiburg',              12607,            nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[28]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[29]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit',   1,   6, nil,   3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
+      expect(data[28]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    8,   0, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[29]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit',   7,   6, nil,   3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
       expect(data[30]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[31]).to match_array(['Blockkurse',            'Sport/Freizeit', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[32]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
@@ -175,6 +194,46 @@ describe Vp2020::Export::Tabular::CourseReporting::ClientStatistics do
     expect(data[23][0..5]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil])
     expect(data[24][0..5]).to match_array(['Tageskurse',            'Sport/Freizeit',   1,  20, nil,  20])
     expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',       5,  75, nil,  20])
+  end
+
+  it 'calculates aggregate_courses correctly' do
+    year = 2020
+    stats = vp_class('CourseReporting::ClientStatistics').new(year)
+    exporter = described_class.new(stats)
+
+    create_course(year, :seeland, 'sk', {}, {}, :course).tap do |course, course_record|
+      course.update!(fachkonzept: 'autonomie_foerderung')
+    end
+
+    create_course(year, :seeland, 'sk', {}, {}, :course).tap do |course, course_record|
+      course.update!(fachkonzept: 'autonomie_foerderung')
+    end
+
+    create_course(year, :seeland, 'sk', {}, {}, :course).tap do |course, course_record|
+      course.update!(fachkonzept: 'autonomie_foerderung')
+    end
+
+    create_course(year, :seeland, 'sk', {}, {}, :aggregate_course).tap do |course, record|
+      course.update!(fachkonzept: 'autonomie_foerderung')
+      record.update!(
+        anzahl_kurse: 3,
+      )
+    end
+
+    gcp = stats.group_participants(groups(:seeland).id, 'sk', 'weiterbildung')
+    expect(gcp.course_count).to eq 6
+
+    data = exporter.data_rows.to_a
+
+    #                                      Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
+    expect(data[18][0..5]).to match_array(['Biel-Seeland',          3115,             nil, nil, nil, nil])
+    expect(data[19][0..5]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    6,   0, nil, nil])
+    expect(data[20][0..5]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil])
+    expect(data[21][0..5]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil])
+    expect(data[22][0..5]).to match_array(['Blockkurse',            'Sport/Freizeit', nil, nil, nil, nil])
+    expect(data[23][0..5]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil])
+    expect(data[24][0..5]).to match_array(['Tageskurse',            'Sport/Freizeit', nil, nil, nil, nil])
+    expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil])
   end
 
   context 'adds a part of a grundlagenarbeit to treffpunkt LE, it' do
