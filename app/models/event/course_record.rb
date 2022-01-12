@@ -66,10 +66,9 @@ class Event::CourseRecord < ActiveRecord::Base
   validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
   validates :kursart, inclusion: { in: KURSARTEN }
   validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
-  validates :anzahl_kurse, numericality: [
-    { greater_than: 0, if: ->(cr) { cr.event.is_a? Event::AggregateCourse } },
-    { equal: 1,        if: ->(cr) { cr.event.is_a? Event::Course } }
-  ]
+  validates :anzahl_kurse, numericality: { greater_than: 0, if: ->(cr) { cr.event.is_a? Event::AggregateCourse } }
+  validates :anzahl_kurse, numericality: { equal: 1,        if: ->(cr) { cr.event.is_a? Event::Course } }
+
   validates :kursdauer,
             :teilnehmende_behinderte, :teilnehmende_angehoerige, :teilnehmende_weitere,
             :absenzen_behinderte,     :absenzen_angehoerige,     :absenzen_weitere,
