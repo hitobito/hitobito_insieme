@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2022, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -71,6 +71,15 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
       expect(report.deckungsbeitrag4_vp2020).to eq(-150.0)
       expect(report.deckungsbeitrag4_sum).to    eq(1500.0)
     end
+
+    it 'does not include future years' do
+      existing_db4 = -150.0
+
+      create_cost_accounting_report('beitraege_iv', beratung: 5_000, year: year)
+      create_cost_accounting_report('beitraege_iv', beratung: 7_000, year: year + 1)
+
+      expect(report.deckungsbeitrag4_vp2020).to eq(5_000 + existing_db4)
+    end
   end
 
   context '#exemption' do
@@ -121,9 +130,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
   end
 
   def create_cost_accounting_report(name, values)
-    CostAccountingRecord.create!(values.merge(group_id: group.id,
-                                              year: year,
-                                              report: name))
+    CostAccountingRecord.create!(values.reverse_merge(group_id: group.id, year: year, report: name))
   end
 
   def create_report(model_name, values)
