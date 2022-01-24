@@ -31,13 +31,13 @@ module Vp2020::CostAccounting
         define_method(f) do
           @time_fields ||= {}
           @time_fields[f] ||=
-            if aufwand_ertrag_ko_re.positive? && time_record.total_paragraph_74.positive?
+            if aufwand_ertrag_ko_re.nonzero? && time_record.total_paragraph_74.nonzero?
               time_record_value = if f == 'verwaltung'
                                     time_record.verwaltung.to_d + time_record.kurse_grundlagen.to_d
                                   else
                                     time_record.send(f).to_d
                                   end
-              aufwand_ertrag_ko_re * time_record_value / time_record.total_paragraph_74
+              aufwand_ertrag_ko_re.abs * time_record_value / time_record.total_paragraph_74.abs
             end
         end
       end
