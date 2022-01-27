@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -37,7 +37,7 @@ module Vp2020::CostAccounting
                                   else
                                     time_record.send(f).to_d
                                   end
-              aufwand_ertrag_ko_re.abs * time_record_value / time_record.total_paragraph_74.abs
+              aufwand_ertrag_ko_re * time_record_value / time_record.total_paragraph_74.abs
             end
         end
       end
