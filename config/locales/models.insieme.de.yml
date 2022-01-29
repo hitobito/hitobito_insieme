@@ -734,6 +734,9 @@ de:
         deckungsbeitrag4_vp2015: Summe der DB4 von 2015-2019
         deckungsbeitrag4_vp2020: Summe der DB4 der Vertragsperiode 2020-2023
         deckungsbeitrag4_sum: Summe der DB4 von 2015 bis %{year}
+        iv_finanzierungsgrad_vp2015: IV Finanzierungsgrad 2015 - 2019
+        iv_finanzierungsgrad_vp2020: IV Finanzierungsgrad 2020 - 2023
+        iv_finanzierungsgrad_current: aktueller IV Finanzierungsgrad
 
     errors:
       models:
