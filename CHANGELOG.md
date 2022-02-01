@@ -3,6 +3,7 @@
 ## unreleased
 
 *  Export "Kennzahlen pro Verein" um Sozialberatung erweitert (insieme#104)
+*  Anzeige des "IV Finanzierungsgrad" auf der Kapitalsubstratseite (insieme#105)
 
 ## Version 1.26
 
