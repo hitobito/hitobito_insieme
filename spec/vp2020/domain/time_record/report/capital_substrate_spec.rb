@@ -12,7 +12,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
 
   let(:group) { groups(:be) }
   let(:table) { vp_class('TimeRecord::Table').new(group, year) }
-  let(:report) { table.reports.fetch('capital_substrate') }
+  subject(:report) { table.reports.fetch('capital_substrate') }
 
   before do
     create_course_record('tk', 10)
@@ -114,6 +114,54 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
       expect(capital_substrate.fund_building.to_i).to_not be_zero
 
       expect(report.capital_substrate_allocated).to eq(calculated)
+    end
+  end
+
+  context 'IV Finanzierungsgrad' do
+    it 'can be calculated for VP 2015' do
+      {
+        2015 => [2_000, 200],
+      }.each do |year, (aufwand, beitraege)|
+        create_cost_accounting_report('abschreibungen', year: year, aufwand_ertrag_fibu: aufwand)
+        create_cost_accounting_report('beitraege_iv',  year: year, aufwand_ertrag_fibu: beitraege)
+      end
+
+      expect(subject.iv_finanzierungsgrad_vp2015).to eql 0.1
+    end
+
+    it 'can be calculated for VP 2020' do
+      create_cost_accounting_report('abschreibungen', year: 2020, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report('beitraege_iv',  year: 2020, aufwand_ertrag_fibu: 1_000)
+
+      expect(subject.iv_finanzierungsgrad_vp2020).to eql 0.5
+    end
+
+    it 'can be calculated for the current year' do
+      create_cost_accounting_report('abschreibungen', aufwand_ertrag_fibu: 10_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report('beitraege_iv',  aufwand_ertrag_fibu:  1_000)
+
+      expect(subject.iv_finanzierungsgrad_current).to eql 0.1
+    end
+
+    it 'returns zero if no aufwand was recorded' do
+      create_cost_accounting_report('abschreibungen', year: 2015, aufwand_ertrag_fibu: 0)
+
+      expect(subject.iv_finanzierungsgrad_vp2015).to eql 0.0
+    end
+
+    it 'calculates average over whole VP' do
+      {
+        2015 => [2_000, 200],
+        2016 => [1_000, 200],
+        2017 => [1_000, 200],
+        2018 => [  500, 200],
+        2019 => [  200, 200],
+      }.each do |year, (aufwand, beitraege)|
+        create_cost_accounting_report('abschreibungen', year: year, aufwand_ertrag_fibu: aufwand)
+        create_cost_accounting_report('beitraege_iv',  year: year, aufwand_ertrag_fibu: beitraege)
+      end
+
+      expect(subject.iv_finanzierungsgrad_vp2015).to be_within(0.01).of(0.21)
     end
   end
 

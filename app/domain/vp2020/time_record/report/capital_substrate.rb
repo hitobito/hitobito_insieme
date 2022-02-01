@@ -52,17 +52,17 @@ module Vp2020
       deckungsbeitrag4_sum
     end
 
-    # def iv_finanzierungsgrad_vp2015
-    #   iv_finanzierungsgrad_period(2015, 2019).to_d
-    # end
+    def iv_finanzierungsgrad_vp2015
+      iv_finanzierungsgrad_period(2015, 2019).to_d
+    end
 
-    # def iv_finanzierungsgrad_vp2020
-    #   iv_finanzierungsgrad_period(2020, table.year).to_d
-    # end
+    def iv_finanzierungsgrad_vp2020
+      iv_finanzierungsgrad_period(2020, table.year).to_d
+    end
 
-    # def iv_finanzierungsgrad_current
-    #   iv_finanzierungsgrad_period(table.year, table.year).to_d
-    # end
+    def iv_finanzierungsgrad_current
+      iv_finanzierungsgrad_period(table.year, table.year).to_d
+    end
 
     def exemption
       globals ? - globals.capital_substrate_exemption.to_d : 0
@@ -87,19 +87,19 @@ module Vp2020
       end
     end
 
-    # def iv_finanzierungsgrad_period(start, finish)
-    #   gesamtkosten = (start..finish).sum do |y|
-    #     time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d
-    #   end
+    def iv_finanzierungsgrad_period(start, finish)
+      gesamtkosten = (start..finish).sum do |y|
+        time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d
+      end
 
-    #   return 0 if gesamtkosten.zero?
+      return 0 if gesamtkosten.zero?
 
-    #   total_iv_beitrag = (start..finish).sum do |y|
-    #     time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d
-    #   end
+      total_iv_beitrag = (start..finish).sum do |y|
+        time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d
+      end
 
-    #   total_iv_beitrag * 100 / gesamtkosten
-    # end
+      total_iv_beitrag / gesamtkosten
+    end
 
     def time_record_table(year)
       @time_record_tables[year] ||= vp_class('TimeRecord::Table').new(table.group, year)
