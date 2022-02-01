@@ -30,7 +30,7 @@
     = f.labeled_readonly_value :exemption, value: format_money(report.exemption)
     = f.labeled_readonly_value :capital_substrate_allocated, value: format_money(report.capital_substrate_allocated)
 
-  -# = field_set_tag do
-  -#   = f.labeled_readonly_value :iv_finanzierungsgrad_vp2015,  value: format_percent(report.iv_finanzierungsgrad_vp2015)
-  -#   = f.labeled_readonly_value :iv_finanzierungsgrad_vp2020,  value: format_percent(report.iv_finanzierungsgrad_vp2020)
-  -#   = f.labeled_readonly_value :iv_finanzierungsgrad_current, value: format_percent(report.iv_finanzierungsgrad_current)
+  = field_set_tag do
+    = f.labeled_readonly_value :iv_finanzierungsgrad_vp2015,  value: format_percent(report.iv_finanzierungsgrad_vp2015 * 100)
+    = f.labeled_readonly_value :iv_finanzierungsgrad_vp2020,  value: format_percent(report.iv_finanzierungsgrad_vp2020 * 100)
+    = f.labeled_readonly_value :iv_finanzierungsgrad_current, value: format_percent(report.iv_finanzierungsgrad_current * 100)
