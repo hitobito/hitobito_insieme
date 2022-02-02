@@ -23,6 +23,7 @@
   = field_set_tag do
     = f.labeled_readonly_value :deckungsbeitrag4_vp2015, value: format_money(report.deckungsbeitrag4_vp2015)
     = f.labeled_readonly_value :deckungsbeitrag4_vp2020, value: format_money(report.deckungsbeitrag4_vp2020)
+    = f.labeled_readonly_value :deckungsbeitrag4_vp2021, value: format_money(report.deckungsbeitrag4_vp2021)
     = f.labeled_readonly_value :deckungsbeitrag4_sum, label: t('.deckungsbeitrag4_sum', year: report.year), value: format_money(report.deckungsbeitrag4_sum)
     %p= t('.deckungsbeitrag4_sum_notice').html_safe
 
@@ -33,4 +34,5 @@
   = field_set_tag do
     = f.labeled_readonly_value :iv_finanzierungsgrad_vp2015,  value: format_percent(report.iv_finanzierungsgrad_vp2015 * 100)
     = f.labeled_readonly_value :iv_finanzierungsgrad_vp2020,  value: format_percent(report.iv_finanzierungsgrad_vp2020 * 100)
+    = f.labeled_readonly_value :iv_finanzierungsgrad_vp2021,  value: format_percent(report.iv_finanzierungsgrad_vp2021 * 100)
     = f.labeled_readonly_value :iv_finanzierungsgrad_current, value: format_percent(report.iv_finanzierungsgrad_current * 100)
