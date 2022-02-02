@@ -68,6 +68,7 @@ describe Vp2021::TimeRecord::Report::CapitalSubstrate do
       cs.update(previous_substrate_sum: 1650.0)
 
       expect(report.deckungsbeitrag4_vp2015).to eq(1650.0)
+      expect(report.deckungsbeitrag4_vp2020).to eq(   0.0)
       expect(report.deckungsbeitrag4_vp2021).to eq(-150.0)
       expect(report.deckungsbeitrag4_sum).to    eq(1500.0)
     end
@@ -129,6 +130,13 @@ describe Vp2021::TimeRecord::Report::CapitalSubstrate do
       expect(subject.iv_finanzierungsgrad_vp2015).to eql 0.1
     end
 
+    it 'can be calculated for VP 2020' do
+      create_cost_accounting_report('abschreibungen', year: 2020, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report('beitraege_iv',  year: 2020, aufwand_ertrag_fibu: 1_000)
+
+      expect(subject.iv_finanzierungsgrad_vp2020).to eql 0.5
+    end
+
     it 'can be calculated for VP 2021' do
       create_cost_accounting_report('abschreibungen', year: 2021, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
       create_cost_accounting_report('beitraege_iv',  year: 2021, aufwand_ertrag_fibu: 1_000)
@@ -174,6 +182,24 @@ describe Vp2021::TimeRecord::Report::CapitalSubstrate do
   context '#total' do
     it 'is nil' do
       nil
+    end
+  end
+
+  context 'current year within bounds' do
+    it 'has assumptions' do
+      expect(year).to eql 2021
+    end
+
+    it 'returns current year if within bounds' do
+      expect(subject.current_or(2021, 2023)).to eql 2021
+    end
+
+    it 'return lower bound if below' do
+      expect(subject.current_or(2022, 2023)).to eql 2022
+    end
+
+    it 'return uppper bound if above' do
+      expect(subject.current_or(2015, 2019)).to eql 2019
     end
   end
 
