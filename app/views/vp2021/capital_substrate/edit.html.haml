@@ -1,0 +1,36 @@
+-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+- @subtitle = I18n.t('crud.edit.title', model: entry)
+
+= reporting_frozen_message
+
+= crud_form(entry,
+            url: capital_substrate_group_path(group, year),
+            cancel_url: capital_substrate_group_path(group, year: year),
+            buttons_top: !reporting_frozen?,
+            buttons_bottom: !reporting_frozen?,
+            method: :put,
+            html: { class: 'long-labeled report', data: { readonly: reporting_frozen? } }) do |f|
+
+  = field_set_tag do
+    = f.labeled_readonly_value :allocation_base, value: fnumber(report.allocation_base)
+    = f.labeled_input_field :organization_capital, addon: t('global.currency'), help_inline: t('.help_per_date', date: f(Date.new(year).end_of_year))
+    = f.labeled_input_field :earmarked_funds, addon: t('global.currency'), help_inline: t('.help_per_date', date: f(Date.new(year).end_of_year))
+
+  = field_set_tag do
+    = f.labeled_readonly_value :deckungsbeitrag4_vp2015, value: format_money(report.deckungsbeitrag4_vp2015)
+    = f.labeled_readonly_value :deckungsbeitrag4_vp2020, value: format_money(report.deckungsbeitrag4_vp2020)
+    = f.labeled_readonly_value :deckungsbeitrag4_sum, label: t('.deckungsbeitrag4_sum', year: report.year), value: format_money(report.deckungsbeitrag4_sum)
+    %p= t('.deckungsbeitrag4_sum_notice').html_safe
+
+  = field_set_tag do
+    = f.labeled_readonly_value :exemption, value: format_money(report.exemption)
+    = f.labeled_readonly_value :capital_substrate_allocated, value: format_money(report.capital_substrate_allocated)
+
+  = field_set_tag do
+    = f.labeled_readonly_value :iv_finanzierungsgrad_vp2015,  value: format_percent(report.iv_finanzierungsgrad_vp2015 * 100)
+    = f.labeled_readonly_value :iv_finanzierungsgrad_vp2020,  value: format_percent(report.iv_finanzierungsgrad_vp2020 * 100)
+    = f.labeled_readonly_value :iv_finanzierungsgrad_current, value: format_percent(report.iv_finanzierungsgrad_current * 100)
