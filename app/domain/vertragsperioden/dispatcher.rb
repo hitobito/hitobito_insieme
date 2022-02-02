@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020, Insieme Schweiz. This file is part of hitobito_insieme
+#  Copyright (c) 2020-2022, Insieme Schweiz. This file is part of hitobito_insieme
 #  and licensed under the Affero General Public License version 3 or later. See
 #  the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -8,7 +8,7 @@
 module Vertragsperioden
   class Dispatcher
     FAR_FUTURE_YEAR = 9999
-    KNOWN_VP_BASE_YEARS = [2015, 2020].freeze
+    KNOWN_VP_BASE_YEARS = [2015, 2020, 2021].freeze
 
     def self.domain_classes(class_name)
       KNOWN_VP_BASE_YEARS.map { |vp| Dispatcher.new(vp).domain_class(class_name) }
@@ -39,7 +39,8 @@ module Vertragsperioden
 
       case @year
       when 2015..2019             then 2015
-      when 2020...FAR_FUTURE_YEAR then 2020
+      when 2020..2020             then 2020
+      when 2021...FAR_FUTURE_YEAR then 2021
       end
     end
   end
