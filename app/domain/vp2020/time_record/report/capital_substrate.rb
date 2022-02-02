@@ -38,7 +38,7 @@ module Vp2020
     end
 
     def deckungsbeitrag4_vp2020
-      deckungsbeitrag4_period(2020, table.year)
+      deckungsbeitrag4_period(2020, 2020)
     end
 
     def deckungsbeitrag4_sum
@@ -57,7 +57,7 @@ module Vp2020
     end
 
     def iv_finanzierungsgrad_vp2020
-      iv_finanzierungsgrad_period(2020, table.year).to_d
+      iv_finanzierungsgrad_period(2020, 2020).to_d
     end
 
     def iv_finanzierungsgrad_current
