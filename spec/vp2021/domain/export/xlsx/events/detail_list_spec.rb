@@ -13,7 +13,7 @@ module Vp2021
     let(:courses) { [course1] }
     let(:course1) do
       Fabricate(:course, groups: [groups(:be)], motto: 'All for one', cost: 1000,
-                application_opening_at: '01.01.2021', application_closing_at: '01.02.2020',
+                application_opening_at: '01.01.2021', application_closing_at: '01.02.2021',
                 maximum_participants: 10, external_applications: false, priorization: false,
                 leistungskategorie: 'bk', fachkonzept: 'sport_jugend',
                 dates: [Fabricate(:vp2021_date)])
