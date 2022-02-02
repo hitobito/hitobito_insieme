@@ -40,7 +40,7 @@ namespace :vp do
 
     # adapt specs
     sh "find #{new_year_specs} -type f | " \
-       "xargs -l1 sed -i 's/#{last_year}/#{year}/'"
+       "xargs -l1 sed -i 's/#{last_year}/#{year}/g'" # sometimes, there are multiple dates on a line
 
     # adapt dispatcher
     new_supported_years = known_years + [year.to_i]
@@ -51,11 +51,17 @@ namespace :vp do
     BASH
 
     puts 'TODOs:'
-    puts "- Adapt app/domain/vertragsperioden/dispatcher.rb to include #{year} in #determine."
-    puts "- Adapt spec/domain/vertragsperioden/dispatcher_spec.rb to cover #{year}."
-    puts '- Run specs an fix failing ones'
-    puts "- check views in app/views/vp#{year} for mistakes"
-    puts '- check locales for wrong or missing vertragsperioden-descriptions'
-    puts '- inform client about the need to change translations'
+    puts "- [ ] Adapt app/domain/vertragsperioden/dispatcher.rb to include #{year} in #determine."
+    puts "- [ ] Adapt spec/domain/vertragsperioden/dispatcher_spec.rb to cover #{year}."
+    puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    puts '- [ ] check locales for wrong or missing vertragsperioden-descriptions'
+    puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    puts '- [ ] Run specs an fix failing ones'
+    puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    puts "- [ ] check views in app/views/vp#{year} for mistakes"
+    puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    puts "- [ ] Add 'Vertragsperiode #{year} hinzugefügt' to the CHANGELOG.md"
+    puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    puts '- [ ] inform client about the need to change translations'
   end
 end
