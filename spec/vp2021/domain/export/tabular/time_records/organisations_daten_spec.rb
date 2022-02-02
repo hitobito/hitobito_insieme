@@ -5,6 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+require 'spec_helper'
+
 describe Vp2021::Export::Tabular::TimeRecords::OrganisationsDaten do
   let(:year) { 2021 }
   subject { described_class.new(data) }

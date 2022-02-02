@@ -14,3 +14,8 @@ Fabricator(:vp2020_date, from: :event_date) do
   start_at { Date.new(2020, 6, 1) }
   finish_at { |date| date[:start_at] + 7.days }
 end
+
+Fabricator(:vp2021_date, from: :event_date) do
+  start_at { Date.new(2021, 6, 1) }
+  finish_at { |date| date[:start_at] + 7.days }
+end
