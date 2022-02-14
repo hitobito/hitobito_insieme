@@ -77,7 +77,7 @@
 .cost-accounting-menu {
   .nav-header {
     color: $gray;
-    @include text-shadow(none);
+    text-shadow: none;
   }
 
   .nav-header,
