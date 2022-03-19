@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -50,7 +50,7 @@ namespace :db do
       CSV.parse(cs_sum_csv.read, headers: true).each do |row|
         cs = CapitalSubstrate.find_or_create_by(year: args.year, group_id: row['group_id'])
         cs.previous_substrate_sum = row['sum']
-        if cs.save
+        if cs.save(validate: false) # allow writing even if ReportingPeriod is closed
           print '.'
         else
           print 'E'
@@ -97,6 +97,9 @@ namespace :db do
           Group.without_deleted.find_by(full_name: name.strip) ||
           Group.without_deleted.find_by(name: name) ||
           Group.without_deleted.find_by(name: name.strip)
+
+        sum =
+          sum.tr("'", '_') # change 1000s-group separator to something readable and ruby-valid
 
         if group.present?
           new_data << [group.id, sum]
