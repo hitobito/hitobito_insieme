@@ -4,7 +4,6 @@
 
 *  Export "Kennzahlen pro Verein" um Sozialberatung erweitert (hitobito_insieme#104)
 *  Anzeige des "IV Finanzierungsgrad" auf der Kapitalsubstratseite (hitobito_insieme#105)
-*  Unterstützung für die Vertragperiode ab 2021 (hitobito_insieme#103)
 
 ## Version 1.26
 

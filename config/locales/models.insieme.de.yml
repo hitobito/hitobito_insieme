@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -732,12 +732,10 @@ de:
         exemption: abzüglich Freibetrag
         capital_substrate_allocated: Geschlüsseltes Kapitalsubstrat Art. 74
         deckungsbeitrag4_vp2015: Summe der DB4 von 2015-2019
-        deckungsbeitrag4_vp2020: Summe der DB4 der Vertragsperiode 2020-2020
-        deckungsbeitrag4_vp2021: Summe der DB4 der Vertragsperiode 2021-2023
+        deckungsbeitrag4_vp2020: Summe der DB4 der Vertragsperiode 2020-2023
         deckungsbeitrag4_sum: Summe der DB4 von 2015 bis %{year}
         iv_finanzierungsgrad_vp2015: IV Finanzierungsgrad 2015 - 2019
-        iv_finanzierungsgrad_vp2020: IV Finanzierungsgrad 2020 - 2020
-        iv_finanzierungsgrad_vp2021: IV Finanzierungsgrad 2021 - 2023
+        iv_finanzierungsgrad_vp2020: IV Finanzierungsgrad 2020 - 2023
         iv_finanzierungsgrad_current: aktueller IV Finanzierungsgrad
 
     errors:
