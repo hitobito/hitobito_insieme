@@ -118,6 +118,11 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
   end
 
   context 'IV Finanzierungsgrad' do
+    it 'has assumptions' do
+      expect( (2015..2019).to_a.size ).to eq 5
+      expect( (2020..2023).to_a.size ).to eq 4
+    end
+
     it 'can be calculated for VP 2015' do
       {
         2015 => [2_000, 200],
@@ -126,7 +131,7 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
         create_cost_accounting_report('beitraege_iv',  year: year, aufwand_ertrag_fibu: beitraege)
       end
 
-      expect(subject.iv_finanzierungsgrad_vp2015).to eql 0.1
+      expect(subject.iv_finanzierungsgrad_vp2015).to eql (0.1 / 5)
     end
 
     it 'can be calculated for VP 2020' do
@@ -151,17 +156,18 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
 
     it 'calculates average over whole VP' do
       {
-        2015 => [2_000, 200],
-        2016 => [1_000, 200],
-        2017 => [1_000, 200],
-        2018 => [  500, 200],
-        2019 => [  200, 200],
+        2015 => [2_000, 200], # 0.1
+        2016 => [1_000, 200], # 0.2
+        2017 => [1_000, 200], # 0.2
+        2018 => [  500, 200], # 0.4
+        2019 => [  200, 200], # 1.0
+                              # 1.9 / 5 = 0.38
       }.each do |year, (aufwand, beitraege)|
-        create_cost_accounting_report('abschreibungen', year: year, aufwand_ertrag_fibu: aufwand)
         create_cost_accounting_report('beitraege_iv',  year: year, aufwand_ertrag_fibu: beitraege)
+        create_cost_accounting_report('abschreibungen', year: year, aufwand_ertrag_fibu: aufwand)
       end
 
-      expect(subject.iv_finanzierungsgrad_vp2015).to be_within(0.01).of(0.21)
+      expect(subject.iv_finanzierungsgrad_vp2015).to be_within(0.01).of(0.38)
     end
   end
 

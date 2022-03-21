@@ -52,6 +52,10 @@ module Vp2020
       deckungsbeitrag4_sum
     end
 
+    def iv_finanzierungsgrad_since_2015
+      iv_finanzierungsgrad_period(2015, table.year).to_d
+    end
+
     def iv_finanzierungsgrad_vp2015
       iv_finanzierungsgrad_period(2015, 2019).to_d
     end
@@ -97,17 +101,18 @@ module Vp2020
     end
 
     def iv_finanzierungsgrad_period(start, finish)
-      gesamtkosten = (start..finish).sum do |y|
-        time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d
+      summe_finanzierungsgrade = (start..finish).sum do |y|
+        total_iv_beitrag = time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d # rubocop:disable Metrics/LineLength
+        gesamtkosten = time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d # rubocop:disable Metrics/LineLength
+
+        next 0.to_d if gesamtkosten.zero?
+
+        total_iv_beitrag / gesamtkosten
       end
 
-      return 0 if gesamtkosten.zero?
+      anzahl_jahre = (start..finish).to_a.size.to_d
 
-      total_iv_beitrag = (start..finish).sum do |y|
-        time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d
-      end
-
-      total_iv_beitrag / gesamtkosten
+      summe_finanzierungsgrade / anzahl_jahre
     end
 
     def time_record_table(year)
