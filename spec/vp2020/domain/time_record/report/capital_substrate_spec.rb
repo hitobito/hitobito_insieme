@@ -179,11 +179,11 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
 
   context 'current year within bounds' do
     it 'has assumptions' do
-      expect(year).to eql 2021
+      expect(year).to eql 2020
     end
 
     it 'returns current year if within bounds' do
-      expect(subject.current_or(2021, 2023)).to eql 2021
+      expect(subject.current_or(2020, 2023)).to eql 2020
     end
 
     it 'return lower bound if below' do
