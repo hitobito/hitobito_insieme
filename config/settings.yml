@@ -26,3 +26,7 @@ sphinx:
   index:
     # interval to index for full-text search in minutes
     interval: 5
+
+groups:
+  statistics:
+    enabled: false
