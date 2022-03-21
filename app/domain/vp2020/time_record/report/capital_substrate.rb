@@ -52,6 +52,10 @@ module Vp2020
       deckungsbeitrag4_sum
     end
 
+    def iv_finanzierungsgrad_since_2015
+      iv_finanzierungsgrad_period(2015, table.year).to_d
+    end
+
     def iv_finanzierungsgrad_vp2015
       iv_finanzierungsgrad_period(2015, 2019).to_d
     end
