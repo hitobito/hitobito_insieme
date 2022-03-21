@@ -177,6 +177,24 @@ describe Vp2020::TimeRecord::Report::CapitalSubstrate do
     end
   end
 
+  context 'current year within bounds' do
+    it 'has assumptions' do
+      expect(year).to eql 2020
+    end
+
+    it 'returns current year if within bounds' do
+      expect(subject.current_or(2020, 2023)).to eql 2020
+    end
+
+    it 'return lower bound if below' do
+      expect(subject.current_or(2022, 2023)).to eql 2022
+    end
+
+    it 'return uppper bound if above' do
+      expect(subject.current_or(2015, 2019)).to eql 2019
+    end
+  end
+
   def create_cost_accounting_report(name, values)
     CostAccountingRecord.create!(values.reverse_merge(group_id: group.id, year: year, report: name))
   end

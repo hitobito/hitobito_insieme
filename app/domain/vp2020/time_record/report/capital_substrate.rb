@@ -38,7 +38,7 @@ module Vp2020
     end
 
     def deckungsbeitrag4_vp2020
-      deckungsbeitrag4_period(2020, 2020)
+      deckungsbeitrag4_period(2020, table.year)
     end
 
     def deckungsbeitrag4_sum
@@ -57,7 +57,7 @@ module Vp2020
     end
 
     def iv_finanzierungsgrad_vp2020
-      iv_finanzierungsgrad_period(2020, 2020).to_d
+      iv_finanzierungsgrad_period(2020, current_or(2020, 2023)).to_d
     end
 
     def iv_finanzierungsgrad_current
@@ -77,6 +77,15 @@ module Vp2020
 
     def paragraph_74
       capital_substrate_allocated
+    end
+
+    def current_or(lower, upper)
+      current = table.year
+
+      return current if (lower..upper).cover?(current)
+
+      return lower if current < lower
+      return upper if current > upper
     end
 
     private

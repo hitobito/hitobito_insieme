@@ -40,9 +40,8 @@ describe Vertragsperioden::Dispatcher do
       expect(described_class.new(2020).determine).to be 2020
     end
 
-    it 'for 2021 and later, it is 2021' do
-      expect(described_class.new(2021).determine).to be 2021
-      expect(described_class.new(2022).determine).to be 2021
+    it 'for 2021 and later, it is 2020' do
+      expect(described_class.new(2021).determine).to be 2020
     end
   end
 
