@@ -604,7 +604,6 @@ fr:
         exemption: Montant libre déduit
         capital_substrate_allocated: Substrat de capital codé art. 74
         deckungsbeitrag4_vp2015: Somme des CC 4 2015-2019
-        deckungsbeitrag4_vp2020: Somme des CC 4 de la période contractuelle 2020-2023
         deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
     errors:
       models:
