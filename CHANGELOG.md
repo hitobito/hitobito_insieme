@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 1.27
 
 *  Export "Kennzahlen pro Verein" um Sozialberatung erweitert (hitobito_insieme#104)
 *  Anzeige des "IV Finanzierungsgrad" auf der Kapitalsubstratseite (hitobito_insieme#105)
