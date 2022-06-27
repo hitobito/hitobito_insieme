@@ -55,93 +55,123 @@ fr:
         long: Comité organisation externe
       group/dachverein/praesident:
         one: Président-e
+        many: Présidents
         other: Présidents
       group/dachverein/vorstandsmitglied:
         one: Membre du comité
+        many: Membre du comité
         other: Membre du comité
       group/dachverein/geschaeftsfuehrung:
         one: Direction
+        many: Direction
         other: Direction
       group/dachverein/sekretariat:
         one: Secrétariat
+        many: Secrétariat
         other: Secrétariat
       group/dachverein/adressverwaltung:
         one: Gestion des adresses
+        many: Gestion des adresses
         other: Gestion des adresses
       group/dachverein/controlling:
         one: Controlling
+        many: Controlling
         other: Controlling
       group/dachverein/invoicing:
         one: Facturation
+        many: Facturation
         other: Facturation
       group/dachverein/it_support:
         one: support informatique
+        many: support informatique
         other: support informatique
       group/dachverein/external:
         one: Externe
+        many: Externe
         other: Externe
       group/dachverein_liste/listenverwaltung:
         one: Gestion des listes
+        many: Gestion des listes
         other: Gestion des listes
       group/dachverein_liste/person:
         one: Personnes
+        many: Personnes
         other: Personnes
       group/dachverein_gremium/leitung:
         one: D
+        many: Direction
         other: Direction
       group/dachverein_gremium/mitglied:
         one: Membres
+        many: Membres
         other: Membres
       group/dachverein_abonnemente/einzelabo:
         one: Abos individuels
+        many: Abos individuels
         other: Abos individuels
       group/dachverein_abonnemente/geschenkabo:
         one: Abos cadeau
+        many: Abos cadeau
         other: Abos cadeau
       group/dachverein_abonnemente/gratisabo:
         one: Abos gratuits
+        many: Abos gratuits
         other: Abos gratuits
       group/regionalverein/praesident:
         one: Président-e-s
+        many: Président-e-s
         other: Président-e-s
       group/regionalverein/vorstandsmitglied:
         one: 'Membres du comité '
+        many: 'Membres du comité '
         other: 'Membres du comité '
       group/regionalverein/geschaeftsfuehrung:
         one: d
+        many: Direction
         other: Direction
       group/regionalverein/sekretariat:
         one: Secrétariat
+        many: Secrétariat
         other: Secrétariat
       group/regionalverein/adressverwaltung:
         one: Gestion des adresses
+        many: Gestion des adresses
         other: Gestion des adresses
       group/regionalverein/versandadresse:
         one: Adresse d'envoi
+        many: Adresse d'envoi
         other: Adresse d'envoi
       group/regionalverein/rechnungsadresse:
         one: Adresse de facturation
+        many: Adresse de facturation
         other: Adresse de facturation
       group/regionalverein/controlling:
         one: Reporting
+        many: Reporting
         other: Reporting
       group/regionalverein/invoicing:
         one: Facturation
+        many: Facturation
         other: Facturation
       group/regionalverein/external:
         one: E
+        many: Externe
         other: Externe
       group/regionalverein_liste/listenverwaltung:
         one: Li
+        many: Gestion des listes
         other: Gestion des listes
       group/regionalverein_liste/person:
         one: Pe
+        many: Personnes
         other: Personnes
       group/regionalverein_gremium/leitung:
         one: D
+        many: Direction
         other: Direction
       group/regionalverein_gremium/mitglied:
         one: M
+        many: Membres
         other: Membres
       group/aktivmitglieder/aktivmitglied:
         one: Membre actif
@@ -173,90 +203,119 @@ fr:
         short: Collectif avec abo
       group/externe_organisation/praesident:
         one: Président-e-s
+        many: Président-e-s
         other: Président-e-s
       group/externe_organisation/vorstandsmitglied:
         one: Membre du comité
+        many: Membre du comité
         other: Membre du comité
       group/externe_organisation/geschaeftsfuehrung:
         one: Direction
+        many: D
         other: D
       group/externe_organisation/sekretariat:
         one: Secrétariat
+        many: Secrétariat
         other: Secrétariat
       group/externe_organisation/adressverwaltung:
         one: Gestion des adresses
+        many: Gestion des adresses
         other: Gestion des adresses
       group/externe_organisation/versandadresse:
         one: Adresse d'envoi
+        many: Adresse d'envoi
         other: Adresse d'envoi
       group/externe_organisation/rechnungsadresse:
         one: Adresse de facturation
+        many: Adresse de facturation
         other: Adresse de facturation
       group/externe_organisation/controlling:
         one: Reporting
+        many: Reporting
         other: Reporting
       group/externe_organisation/invoicing:
         one: Facturation
+        many: Facturation
         other: Facturation
       group/externe_organisation/external:
         one: Externe
+        many: Externe
         other: Externe
       group/externe_organisation_liste/listenverwaltung:
         one: Gestion des listes
+        many: Gestion des listes
         other: Gestion des listes
       group/externe_organisation_liste/person:
         one: Personnes
+        many: Personnes
         other: Personnes
       group/externe_organisation_gremium/leitung:
         one: Direction
+        many: DIrection
         other: DIrection
       group/externe_organisation_gremium/mitglied:
         one: M
+        many: Membres
         other: Membres
       event/course/role/leader_admin:
         one: Direction (administration)
+        many: Direction (administration)
         other: Direction (administration)
       event/course/role/leader_reporting:
         one: Direction (reporting)
+        many: Direction (reporting)
         other: Direction (reporting)
       event/course/role/leader_basic:
         one: Direction
+        many: Direction
         other: Direction
       event/course/role/caretaker:
         one: personne soignant
+        many: personnel soignant
         other: personnel soignant
       event/course/role/expert:
         one: Spécialistes hautement qualifiés
+        many: Spécialistes hautement qualifiés
         other: Spécialistes hautement qualifiés
       event/course/role/helper_paid:
         one: Personnel auxiliaire avec honoraire
+        many: Personnel auxiliaire avec honoraire
         other: Personnel auxiliaire avec honoraire
       event/course/role/helper_unpaid:
         one: Personnel auxiliaire sans honoraire
+        many: Personnel auxiliaire sans honoraire
         other: Personnel auxiliaire sans honoraire
       event/course/role/kitchen:
         one: Cuisine
+        many: Cuisine
         other: Cuisine
       event/course/role/challenged:
         one: Personne handicapée
+        many: Personne handicapée
         other: Personne handicapée
       event/course/role/affiliated:
         one: Proches
+        many: Proches
         other: Proches
       event/course/role/not_entitled_for_benefit:
         one: Autres, ne donnant pas droit à des subsides
+        many: Autres, ne donnant pas droit à des subsides
         other: Autres, ne donnant pas droit à des subsides
       event/aggregate_course:
         one: Plusieurs cours
+        many: Plusieurs cours
         other: Plusieurs cours
       cost_accounting_record:
         one: Report comptabilité analytique
+        many: Reports comptabilité analytique
         other: Reports comptabilité analytique
       global_value:
         one: Valeurs globales
+        many: Valeurs globales
         other: Valeurs globales
       time_record:
         one: Décompte des heures de travail
+        many: Décomptes de heures de travail
         other: Décomptes de heures de travail
       time_record/employee_time:
         one: Enregistrement des heures de travail des employé-e-s
@@ -269,15 +328,19 @@ fr:
         short: Bénévole avec preuve de prestations
       event/course_record:
         one: Reports des cours
+        many: Reports des cours
         other: Reports des cours
       event/general_cost_allocation:
         one: Répartition des frais généraux
+        many: Répartition des frais généraux
         other: Répartition des frais généraux
       reporting_parameter:
         one: Paramètre du reporting
+        many: Paramètre du reporting
         other: Paramètre du reporting
       capital_substrate:
         one: Substrat de capital
+        many: Substrats du capital
         other: Substrats du capital
     attributes:
       cantons:
@@ -324,15 +387,19 @@ fr:
         leistungskategorien:
           bk:
             one: Cours en bloc
+            many: Cours en bloc
             other: Cours en bloc
           tk:
             one: Cours d'un jour
+            many: Cours d'un jour
             other: Cours d'un jour
           sk:
             one: Cours semestriels/annuels
+            many: Cours semestriels/annuels
             other: Cours semestriels/annuels
           tp:
             one: Lieu d’accueil
+            many: Lieux d’accueil
             other: Lieux d’accueil
         fachkonzept: Contenu du cours
         fachkonzepte:
