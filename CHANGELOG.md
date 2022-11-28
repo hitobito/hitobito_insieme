@@ -1,5 +1,9 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
+*  Adjust insieme specific labels for addresses and contactables
+
 ## Version 1.27
 
 *  Export "Kennzahlen pro Verein" um Sozialberatung erweitert (hitobito_insieme#104)
