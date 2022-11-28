@@ -1,0 +1,18 @@
+-#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+= f.input_field(:email,
+                class: 'span4',
+                placeholder: t('.placeholder_value'))
+= additional_email_label_select(f)
+
+- if entry.is_a?(Person)
+  = f.label(:mailings, class: 'checkbox span2') do
+    = f.check_box(:mailings)
+    %span{rel: 'tooltip', title: t('.tooltip_mailings')}
+      = t(:"activerecord.attributes.additional_emails.mailings")
+      %i.icon.icon-info-sign
+
+= render 'contactable/public_check_box', f: f

@@ -13,6 +13,8 @@
                             data: { hide: "person_#{prefix}" })
 
   = toggled_address_fields(prefix, f.object) do
+    - if f.object.respond_to?("#{prefix}_label")
+      = f.labeled("#{prefix}_label", address_label_select(f, prefix))
     = f.labeled_input_field(:"#{prefix}_salutation", label: t('activerecord.attributes.person.salutation'))
     = f.labeled_input_field(:"#{prefix}_first_name", label: t('activerecord.attributes.person.first_name'))
     = f.labeled_input_field(:"#{prefix}_last_name", label: t('activerecord.attributes.person.last_name'))
