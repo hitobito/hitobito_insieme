@@ -47,7 +47,9 @@ describe AboAddresses::Query do
 
       it 'does not contain deleted roles' do
         abos = Fabricate(Group::DachvereinAbonnemente.name.to_sym, parent: groups(:dachverein))
-        abo = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
+        abo = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym,
+                        group: abos,
+                        created_at: 2.years.ago).person
         abo.roles.first.update!(deleted_at: 1.year.ago)
 
         is_expected.not_to include(abo)

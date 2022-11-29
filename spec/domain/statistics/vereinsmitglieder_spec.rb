@@ -73,10 +73,13 @@ describe Statistics::Vereinsmitglieder do
     end
 
     it 'does not count deleted roles' do
-      o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: active)
+      o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
+                    group: active,
+                    created_at: 2.years.ago)
       a = Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
                     group: active,
-                    person: people(:regio_aktiv))
+                    person: people(:regio_aktiv),
+                    created_at: 2.years.ago)
       b = Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
                     group: passive,
                     person: people(:regio_aktiv))
