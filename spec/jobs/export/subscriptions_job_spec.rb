@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2017, insieme Schweiz. This file is part of
+#  Copyright (c) 2017-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -11,12 +11,13 @@ describe Export::SubscriptionsJob do
 
   subject { Export::SubscriptionsJob.new(format, person.id, list.id, household: true, filename: 'subscription_export') }
 
-
   let(:group) { groups(:dachverein) }
   let(:person) { people(:top_leader) }
 
   let(:list) { Fabricate(:mailing_list, group: group) }
-  let(:filepath) { AsyncDownloadFile::DIRECTORY.join('subscription_export') }
+
+  let(:filename) { AsyncDownloadFile.create_name('subscription_export', person.id) }
+  let(:file) { AsyncDownloadFile.from_filename(filename, format) }
 
   before do
     SeedFu.quiet = true
@@ -34,7 +35,7 @@ describe Export::SubscriptionsJob do
       subject.perform
 
 
-      lines = File.readlines("#{filepath}.csv")
+      lines = file.read.lines
       expect(lines.size).to eq(4) # header and three entries
       expect(lines[0]).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
     end
