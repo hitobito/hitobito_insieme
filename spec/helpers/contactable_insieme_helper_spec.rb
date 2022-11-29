@@ -8,7 +8,7 @@
 require 'spec_helper'
 
 describe ContactableInsiemeHelper, type: :helper do
-  describe '#additional_email_label_select' do
+  describe '#contact_method_label_select' do
     let(:additional_email) { people(:top_leader).additional_emails.build(email: 'other@example.com') }
     let(:form) { StandardFormBuilder.new(:additional_email, additional_email, self, {}) }
 
@@ -19,7 +19,7 @@ describe ContactableInsiemeHelper, type: :helper do
     end
 
     it 'has the expected options' do
-      result = helper.additional_email_label_select(form)
+      result = helper.contact_method_label_select(form)
       expect(result).to have_selector("select[name='additional_email[translated_label]']")
 
       expect(available_options(result)).to match_array standard_options
@@ -27,21 +27,21 @@ describe ContactableInsiemeHelper, type: :helper do
 
     it 'the current value is selected' do
       additional_email.label = standard_options.third
-      result = helper.additional_email_label_select(form)
+      result = helper.contact_method_label_select(form)
 
       expect(result).to have_selector("option[value='#{standard_options.third}'][selected='selected']")
     end
 
     it 'includes current value as option' do
       additional_email.label = 'nonstandard_value'
-      result = helper.additional_email_label_select(form)
+      result = helper.contact_method_label_select(form)
 
       expect(available_options(result)).to match_array [*standard_options, 'nonstandard_value']
     end
 
     it 'the nonstandard value is selected' do
       additional_email.label = 'nonstandard_value'
-      result = helper.additional_email_label_select(form)
+      result = helper.contact_method_label_select(form)
 
       expect(result).to have_selector("option[value='nonstandard_value'][selected='selected']")
     end

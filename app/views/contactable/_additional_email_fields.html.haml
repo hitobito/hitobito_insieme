@@ -6,7 +6,7 @@
 = f.input_field(:email,
                 class: 'span4',
                 placeholder: t('.placeholder_value'))
-= additional_email_label_select(f)
+= contact_method_label_select(f)
 
 - if entry.is_a?(Person)
   = f.label(:mailings, class: 'checkbox span2') do

@@ -13,7 +13,7 @@ describe PeopleInsiemeHelper, type: :helper do
   describe '#address_label_select' do
     let(:form) { StandardFormBuilder.new(:person, person, self, {}) }
 
-    expected_options = Settings.addresses.predefined_labels + ['']
+    expected_options = Settings.addresses.predefined_labels
 
     %w(correspondence_general correspondence_course billing_general billing_course).each do |address_type|
       context "with prefix=#{address_type}" do

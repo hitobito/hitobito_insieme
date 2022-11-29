@@ -44,6 +44,6 @@ module PeopleInsiemeHelper
       translated = I18n.t("activerecord.attributes.person.address_labels.#{value}", default: value)
       OpenStruct.new(value: value, translated: translated)
     end
-    person_form.collection_select("#{label_attribute_prefix}_label", options, :value, :translated, include_blank: true)
+    person_form.collection_select("#{label_attribute_prefix}_label", options, :value, :translated)
   end
 end

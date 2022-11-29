@@ -6,13 +6,13 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module ContactableInsiemeHelper
-  def additional_email_label_select(additional_email_form)
-    additional_email = additional_email_form.object
-    current_label = additional_email.label
-    options = (additional_email.class.predefined_labels | [current_label].compact).map do |value|
-      translated = additional_email.class.translate_label(value)
+  def contact_method_label_select(contact_method_form)
+    contact_method = contact_method_form.object
+    current_label = contact_method.label
+    options = (contact_method.class.predefined_labels | [current_label].compact).map do |value|
+      translated = contact_method.class.translate_label(value)
       OpenStruct.new(value: value, translated: translated)
     end
-    additional_email_form.collection_select(:translated_label, options, :value, :translated, {}, class: 'span2')
+    contact_method_form.collection_select(:translated_label, options, :value, :translated, {}, class: 'span2')
   end
 end
