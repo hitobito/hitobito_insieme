@@ -6,13 +6,13 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module ContactableInsiemeHelper
-  def contact_method_label_select(contact_method_form)
-    contact_method = contact_method_form.object
+  def contact_method_label_select(form)
+    contact_method = form.object
     current_label = contact_method.label
     options = (contact_method.class.predefined_labels | [current_label].compact).map do |value|
       translated = contact_method.class.translate_label(value)
       OpenStruct.new(value: value, translated: translated)
     end
-    contact_method_form.collection_select(:translated_label, options, :value, :translated, {}, class: 'span2')
+    form.collection_select(:translated_label, options, :value, :translated, {}, class: 'span2')
   end
 end
