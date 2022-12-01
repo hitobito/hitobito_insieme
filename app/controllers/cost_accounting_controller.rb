@@ -9,8 +9,8 @@ class CostAccountingController < ReportingBaseController
 
   include Rememberable
 
-  include Vertragsperioden::Domain
-  include Vertragsperioden::Views
+  include Featureperioden::Domain
+  include Featureperioden::Views
 
   self.remember_params = [:year]
 
@@ -50,7 +50,7 @@ class CostAccountingController < ReportingBaseController
   end
 
   def table
-    @table ||= vp_class('CostAccounting::Table').new(group, year)
+    @table ||= fp_class('CostAccounting::Table').new(group, year)
   end
 
   def permitted_params
@@ -60,13 +60,13 @@ class CostAccountingController < ReportingBaseController
   end
 
   def render_xlsx
-    xlsx = vp_class('Export::Tabular::CostAccounting::List')
+    xlsx = fp_class('Export::Tabular::CostAccounting::List')
            .xlsx(@table.visible_reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 
   def render_pdf
-    pdf = vp_class('Export::Pdf::CostAccounting')
+    pdf = fp_class('Export::Pdf::CostAccounting')
           .new(@table.visible_reports.values, group.name, year)
     send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
   end

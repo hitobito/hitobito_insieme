@@ -108,9 +108,9 @@ class Event::CourseRecord < ActiveRecord::Base
     super || event.years.first
   end
 
-  # returns a Vp2020::Event::CourseRecord::Calculation since 2020
-  def vp_calculations
-    @vp_calculations ||= Vertragsperioden::Dispatcher
+  # returns a Fp2020::Event::CourseRecord::Calculation since 2020
+  def fp_calculations
+    @fp_calculations ||= Featureperioden::Dispatcher
                          .new(year)
                          .domain_class('Event::CourseRecord::Calculation')
                          .new(self)
@@ -121,7 +121,7 @@ class Event::CourseRecord < ActiveRecord::Base
            :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
            :set_cached_values, :direkte_kosten_pro_betreuungsstunde,
            :vollkosten_pro_betreuungsstunde,
-           to: :vp_calculations
+           to: :fp_calculations
 
   def anzahl_spezielle_unterkunft
     @anzahl_spezielle_unterkunft ||

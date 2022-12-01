@@ -6,15 +6,15 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module CostAccountingHelper
-  include Vertragsperioden::Domain
+  include Featureperioden::Domain
 
   def cost_accounting_input_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName
-    course_fields = vp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
+    course_fields = fp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
                     .keys.map(&:to_s)
     safe_join(fields) do |field|
       if report.editable_fields.include?(field.to_s)
-        f.labeled_vp_input_field(field, addon: t('global.currency'))
-      elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
+        f.labeled_fp_input_field(field, addon: t('global.currency'))
+      elsif report < fp_class('CostAccounting::Report::CourseRelated') && \
               course_fields.include?(field.to_s)
         # use tag to create field without a name.
         tag(:input,
@@ -26,12 +26,12 @@ module CostAccountingHelper
   end
 
   def cost_accounting_input_and_course_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName,Metrics/AbcSize
-    course_fields = vp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
+    course_fields = fp_class('CostAccounting::Report::CourseRelated')::COURSE_FIELDS
                     .keys.map(&:to_s)
     safe_join(fields) do |field|
       if report.editable_fields.include?(field.to_s)
-        f.labeled_vp_input_field(field, addon: t('global.currency'))
-      elsif report < vp_class('CostAccounting::Report::CourseRelated') && \
+        f.labeled_fp_input_field(field, addon: t('global.currency'))
+      elsif report < fp_class('CostAccounting::Report::CourseRelated') && \
               course_fields.include?(field.to_s)
         field_value = table.value_of(report.key, field) || 0.0
         [
@@ -48,13 +48,13 @@ module CostAccountingHelper
   end
 
   def cost_accounting_reports
-    vp_class('CostAccounting::Table')::VISIBLE_REPORTS
+    fp_class('CostAccounting::Table')::VISIBLE_REPORTS
   end
 
   def cost_accounting_report_header(field)
     I18n.translate(
       field,
-      scope: [vp_i18n_scope, :headers],
+      scope: [fp_i18n_scope, :headers],
       default: CostAccountingRecord.human_attribute_name(field)
     )
   end

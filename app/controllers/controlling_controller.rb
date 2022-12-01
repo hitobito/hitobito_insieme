@@ -8,8 +8,8 @@
 class ControllingController < ApplicationController
 
   include YearBasedPaging
-  include Vertragsperioden::Views
-  include Vertragsperioden::Domain
+  include Featureperioden::Views
+  include Featureperioden::Domain
 
   respond_to :html
 
@@ -25,30 +25,30 @@ class ControllingController < ApplicationController
 
   # Konsolidierte Kostenrechnung
   def cost_accounting
-    @table = vp_class('CostAccounting::Aggregation').new(year)
-    xlsx = vp_class('Export::Tabular::CostAccounting::List')
+    @table = fp_class('CostAccounting::Aggregation').new(year)
+    xlsx = fp_class('Export::Tabular::CostAccounting::List')
            .xlsx(@table.reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: "cost_accounting_#{year}.xlsx"
   end
 
   # Kostenrechnung pro Verein
   def pro_verein
-    @list = vp_class('CostAccounting::ProVerein').new(year)
-    csv = vp_class('Export::Tabular::CostAccounting::ProVerein').csv(@list)
+    @list = fp_class('CostAccounting::ProVerein').new(year)
+    csv = fp_class('Export::Tabular::CostAccounting::ProVerein').csv(@list)
     send_data csv, type: :csv, filename: "cost_accounting_pro_verein_#{year}.csv"
   end
 
   # KlientInnen Statistik
   def client_statistics
-    @stats = vp_class('CourseReporting::ClientStatistics').new(year)
-    csv = vp_class('Export::Tabular::CourseReporting::ClientStatistics').csv(@stats)
+    @stats = fp_class('CourseReporting::ClientStatistics').new(year)
+    csv = fp_class('Export::Tabular::CourseReporting::ClientStatistics').csv(@stats)
     send_data csv, type: :csv, filename: "client_statistics_#{year}.csv"
   end
 
   # Kennzahlen pro Verein
   def group_figures
-    @stats = vp_class('Statistics::GroupFigures').new(year)
-    csv = vp_class('Export::Tabular::Statistics::GroupFigures').csv(@stats)
+    @stats = fp_class('Statistics::GroupFigures').new(year)
+    csv = fp_class('Export::Tabular::Statistics::GroupFigures').csv(@stats)
     send_data csv, type: :csv, filename: "group_figures_#{year}.csv"
   end
 
@@ -57,23 +57,23 @@ class ControllingController < ApplicationController
   # - Ehrenamtliche mit Leistungsnachweis
   # - Ehrenamtliche ohne Leistungsnachweis
   def time_records
-    @list = vp_class('TimeRecord::Vereinsliste').new(year, params[:type])
-    csv = vp_class('Export::Tabular::TimeRecords::Vereinsliste').csv(@list)
+    @list = fp_class('TimeRecord::Vereinsliste').new(year, params[:type])
+    csv = fp_class('Export::Tabular::TimeRecords::Vereinsliste').csv(@list)
     filename = "#{params[:type].to_s.underscore.tr('/', '_')}_#{year}.csv"
     send_data csv, type: :csv, filename: filename
   end
 
   # LUFEB pro Verein
   def lufeb_times
-    @list = vp_class('TimeRecord::LufebProVerein').new(year)
-    csv = vp_class('Export::Tabular::TimeRecords::LufebProVerein').csv(@list)
+    @list = fp_class('TimeRecord::LufebProVerein').new(year)
+    csv = fp_class('Export::Tabular::TimeRecords::LufebProVerein').csv(@list)
     send_data csv, type: :csv, filename: "lufeb_pro_verein_#{year}.csv"
   end
 
   # Organisationsdaten pro Verein
   def group_data
-    @list = vp_class('TimeRecord::OrganisationsDaten').new(year)
-    csv = vp_class('Export::Tabular::TimeRecords::OrganisationsDaten').csv(@list)
+    @list = fp_class('TimeRecord::OrganisationsDaten').new(year)
+    csv = fp_class('Export::Tabular::TimeRecords::OrganisationsDaten').csv(@list)
     send_data csv, type: :csv, filename: "organisationsdaten_pro_verein_#{year}.csv"
   end
 

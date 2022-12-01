@@ -321,7 +321,7 @@ fr:
         name: Limite substrat de capital
       capital_substrate_factor:
         name: Facteur du substrat de capital
-  vp2020:
+  fp2020:
     cost_accounting:
       report:
         total_umlagen:
@@ -411,31 +411,11 @@ fr:
       total_media: Médias et publications
   export/tabular/events:
     title: Cours
-  vp2015/export/tabular/events/short_list:
+  fp2015/export/tabular/events/short_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-  vp2015/export/tabular/events/detail_list:
-    group_names: 'Organisateurs'
-    duration: Période
-    date: "Date %{index}"
-    teilnehmende_behinderte: Nombre effectif de participants handicapés
-    teilnehmende_angehoerige: Nombre effectis de participants proches
-    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
-    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
-    absenzen_behinderte: Absences personnes handicapées
-    absenzen_angehoerige: Absences proches
-    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
-    tage_behinderte: Total des journées participants handicapés
-    tage_angehoerige: Total des journées participants proches
-    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effectives
-    direkter_aufwand: Charges directes
-  vp2015/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisateurs'
-    duration: Période
-    date: "Date %{index}"
-  vp2015/export/tabular/events/aggregate_course/detail_list:
+  fp2015/export/tabular/events/detail_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
@@ -451,11 +431,31 @@ fr:
     tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
     total_tage_teilnehmende: Nombre d'UP effectives
     direkter_aufwand: Charges directes
-  vp2020/export/tabular/events/short_list:
+  fp2015/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-  vp2020/export/tabular/events/detail_list:
+  fp2015/export/tabular/events/aggregate_course/detail_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+    teilnehmende_behinderte: Nombre effectif de participants handicapés
+    teilnehmende_angehoerige: Nombre effectis de participants proches
+    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
+    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
+    absenzen_behinderte: Absences personnes handicapées
+    absenzen_angehoerige: Absences proches
+    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
+    tage_behinderte: Total des journées participants handicapés
+    tage_angehoerige: Total des journées participants proches
+    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
+    total_tage_teilnehmende: Nombre d'UP effectives
+    direkter_aufwand: Charges directes
+  fp2020/export/tabular/events/short_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+  fp2020/export/tabular/events/detail_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
@@ -475,11 +475,11 @@ fr:
     anzahl_kurse: Nombre de cours / réalisations
     total_stunden_betreuung: Total heures d’accompagnement
     vollkosten_pro_betreuungsstunde: Frais totaux/heure d’accompagnement
-  vp2020/export/tabular/events/aggregate_course/short_list:
+  fp2020/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-  vp2020/export/tabular/events/aggregate_course/detail_list:
+  fp2020/export/tabular/events/aggregate_course/detail_list:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"

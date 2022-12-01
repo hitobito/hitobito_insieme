@@ -78,9 +78,9 @@ class TimeRecord < ActiveRecord::Base
     total_media
   end
 
-  def vp_calculations
-    # Vp2020::TimeRecord::Calculation
-    @vp_calculations ||= Vertragsperioden::Dispatcher
+  def fp_calculations
+    # Fp2020::TimeRecord::Calculation
+    @fp_calculations ||= Featureperioden::Dispatcher
                          .new(year)
                          .domain_class('TimeRecord::Calculation')
                          .new(self)
@@ -90,7 +90,7 @@ class TimeRecord < ActiveRecord::Base
            :total_paragraph_74, :total_not_paragraph_74, :total,
            :total_paragraph_74_pensum, :total_not_paragraph_74_pensum, :total_pensum,
            :update_totals,
-           to: :vp_calculations
+           to: :fp_calculations
 
   def to_s
     self.class.model_name.human

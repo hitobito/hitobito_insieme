@@ -32,21 +32,21 @@
 class CostAccountingRecord < ActiveRecord::Base
 
   include Insieme::ReportingFreezable
-  include Vertragsperioden::Domain
+  include Featureperioden::Domain
 
   belongs_to :group
 
   validates_by_schema
   validates :report, uniqueness: { scope: [:group_id, :year], case_sensitive: false },
                      inclusion: { in: lambda do |record|
-                       record.vp_class('CostAccounting::Table')::REPORTS.map(&:key)
+                       record.fp_class('CostAccounting::Table')::REPORTS.map(&:key)
                      end }
   validate :assert_group_has_reporting
 
   scope :calculation_fields, -> { select(column_names - %w(aufteilung_kontengruppen)) }
 
   def report_class
-    vp_class('CostAccounting::Table')::VISIBLE_REPORTS.find { |r| r.key == report }
+    fp_class('CostAccounting::Table')::VISIBLE_REPORTS.find { |r| r.key == report }
   end
 
   def to_s

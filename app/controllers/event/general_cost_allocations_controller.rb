@@ -21,7 +21,7 @@
 #
 class Event::GeneralCostAllocationsController < ReportingBaseController
 
-  include Vertragsperioden::Views
+  include Featureperioden::Views
 
   helper_method :general_cost_from_accounting
 

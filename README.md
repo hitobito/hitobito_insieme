@@ -64,6 +64,6 @@ This hitobito wagon defines the organization hierarchy with groups and roles of 
 
     (Output of rake app:hitobito:roles)
 
-## Vertragsperioden
+## Featureperioden
 
-In order to distinguish code that is valid only for certain years, we made the concept of contract periods (Vertragsperioden) explicit in the code. See [Vertragsperioden](doc/VERTRAGSPERIODEN.md) for a detailed description (in german, as is all domain-logic in this repo).
+In order to distinguish code that is valid only for certain years, we made the concept of contract periods explicit in the code. Each contract period can be subdivided into several periods where a certain feature/implementation is valid. Therefore, we call them Featureperiode. See [Featureperioden](doc/FEATUREPERIODEN.md) for a detailed description (in german, as is all domain-logic in this repo).

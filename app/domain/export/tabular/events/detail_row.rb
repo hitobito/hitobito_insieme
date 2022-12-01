@@ -8,14 +8,14 @@
 
 module Export::Tabular::Events
   class DetailRow < Export::Tabular::Events::Row
-    include Vertragsperioden::Domain
+    include Featureperioden::Domain
 
     delegate :year, to: :entry
 
     def initialize(*args)
       super
 
-      course_record_methods = vp_class('Export::Tabular::Events::DetailList')::COURSE_RECORD_ATTRS
+      course_record_methods = fp_class('Export::Tabular::Events::DetailList')::COURSE_RECORD_ATTRS
       methods_to_delegate = (course_record_methods - maybe_tp_method_mappings.keys)
 
       self.class.delegate(*methods_to_delegate, to: :course_record, allow_nil: true)

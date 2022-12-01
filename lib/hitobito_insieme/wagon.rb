@@ -86,27 +86,27 @@ module HitobitoInsieme
       Export::Pdf::Labels.prepend Insieme::Export::Pdf::Labels
       Import::PersonDuplicateFinder.prepend Insieme::Import::PersonDuplicateFinder
 
-      Vertragsperioden::Dispatcher
+      Featureperioden::Dispatcher
         .domain_classes('Export::Xlsx::CostAccounting::Style')
-        .zip(Vertragsperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
+        .zip(Featureperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
         .each { |style, list| Export::Xlsx::Style.register(style, list) }
 
-      Vertragsperioden::Dispatcher
+      Featureperioden::Dispatcher
         .domain_classes('Export::Xlsx::Events::AggregateCourse::Style')
         .zip(
-          Vertragsperioden::Dispatcher
+          Featureperioden::Dispatcher
             .domain_classes('Export::Tabular::Events::AggregateCourse::DetailList').zip(
-              Vertragsperioden::Dispatcher
+              Featureperioden::Dispatcher
                 .domain_classes('Export::Tabular::Events::AggregateCourse::ShortList')
             )
         )
         .each { |style, list| Export::Xlsx::Style.register(style, *list) }
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
-                                   *Vertragsperioden::Dispatcher.domain_classes(
+                                   *Featureperioden::Dispatcher.domain_classes(
                                      'Export::Tabular::Events::DetailList'
                                    ),
-                                   *Vertragsperioden::Dispatcher.domain_classes(
+                                   *Featureperioden::Dispatcher.domain_classes(
                                      'Export::Tabular::Events::ShortList'
                                    ))
 

@@ -11,7 +11,7 @@ describe 'Export::Tabular::CostAccounting::List' do
 
   let(:year) { 2014 }
   let(:group) { groups(:aktiv) }
-  let(:values) { vp_class('CostAccounting::Table').new(group, year).reports.values }
+  let(:values) { fp_class('CostAccounting::Table').new(group, year).reports.values }
 
   it 'exports cost accounting list as xlsx' do
     expect_any_instance_of(Axlsx::Worksheet)
@@ -24,7 +24,7 @@ describe 'Export::Tabular::CostAccounting::List' do
       .exactly(31).times
       .and_call_original
 
-    vp_class('Export::Tabular::CostAccounting::List').xlsx(values, 'test group name', year)
+    fp_class('Export::Tabular::CostAccounting::List').xlsx(values, 'test group name', year)
   end
 
   private

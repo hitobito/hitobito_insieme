@@ -8,7 +8,7 @@
 module Insieme
   module EventsController
     def self.prepended(base)
-      base.send :include, Vertragsperioden::Views
+      base.send :include, Featureperioden::Views
 
       base.before_render_new :build_course_record
 

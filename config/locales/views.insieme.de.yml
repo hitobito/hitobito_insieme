@@ -35,8 +35,8 @@ de:
       deckungsbeitrag4_sum_notice: "Hinweis: Bei Vereinen mit einem IV-Beitrag von <strong>weniger</strong> als CHF 300'000 werden die aufgelaufenen DB4 seit 2015 in der Kapitalsubstratsberechnung mit berücksichtigt."
       deckungsbeitrag4_sum: Summe der DB4 von 2015 bis %{year}
       iv_finanzierungsgrad_since_2015: Durchschnittlicher IV Finanzierungsgrad 2015 - %{year}
-      iv_finanzierungsgrad_vp2015: Durchschnittlicher IV Finanzierungsgrad 2015 - 2019
-      iv_finanzierungsgrad_vp2020: Durchschnittlicher IV Finanzierungsgrad 2020 - 2023
+      iv_finanzierungsgrad_fp2015: Durchschnittlicher IV Finanzierungsgrad 2015 - 2019
+      iv_finanzierungsgrad_fp2020: Durchschnittlicher IV Finanzierungsgrad 2020 - 2023
       iv_finanzierungsgrad_current: IV Finanzierungsgrad %{year}
       help_per_date: per %{date}
 
@@ -380,7 +380,7 @@ de:
       capital_substrate_factor:
         name: Faktor Kapitalsubstrat
 
-  vp2020:
+  fp2020:
     cost_accounting:
       report:
         total_umlagen:
@@ -530,34 +530,12 @@ de:
   export/tabular/events:
     title: Kurse
 
-  vp2015/export/tabular/events/short_list:
+  fp2015/export/tabular/events/short_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
 
-  vp2015/export/tabular/events/detail_list:
-    group_names: 'Organisatoren'
-    duration: Zeitraum
-    date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
-    teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
-    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
-    teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
-    absenzen_angehoerige: Absenzen Angehörige
-    absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
-    tage_angehoerige: Total TeilnehmerInnentage Angehörige
-    tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
-    total_tage_teilnehmende: Anzahl tatsächliche LE
-    direkter_aufwand: Direkter Aufwand
-
-  vp2015/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisatoren'
-    duration: Zeitraum
-    date: "Datum %{index}"
-
-  vp2015/export/tabular/events/aggregate_course/detail_list:
+  fp2015/export/tabular/events/detail_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
@@ -574,13 +552,35 @@ de:
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
 
-
-  vp2020/export/tabular/events/short_list:
+  fp2015/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
 
-  vp2020/export/tabular/events/detail_list:
+  fp2015/export/tabular/events/aggregate_course/detail_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
+    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
+    teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
+    absenzen_behinderte: Absenzen Behinderte
+    absenzen_angehoerige: Absenzen Angehörige
+    absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
+    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_angehoerige: Total TeilnehmerInnentage Angehörige
+    tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
+    total_tage_teilnehmende: Anzahl tatsächliche LE
+    direkter_aufwand: Direkter Aufwand
+
+
+  fp2020/export/tabular/events/short_list:
+    group_names: 'Organisatoren'
+    duration: Zeitraum
+    date: "Datum %{index}"
+
+  fp2020/export/tabular/events/detail_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
@@ -601,12 +601,12 @@ de:
     total_stunden_betreuung: Total Betreuungsstunden
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
-  vp2020/export/tabular/events/aggregate_course/short_list:
+  fp2020/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
 
-  vp2020/export/tabular/events/aggregate_course/detail_list:
+  fp2020/export/tabular/events/aggregate_course/detail_list:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"

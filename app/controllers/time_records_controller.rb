@@ -12,8 +12,8 @@ class TimeRecordsController < ReportingBaseController
            TimeRecord::VolunteerWithoutVerificationTime].freeze
 
   include Rememberable
-  include Vertragsperioden::Views
-  include Vertragsperioden::Domain
+  include Featureperioden::Views
+  include Featureperioden::Domain
 
   self.remember_params = [:year]
 
@@ -23,7 +23,7 @@ class TimeRecordsController < ReportingBaseController
     respond_to do |format|
       format.html { redirect_to show_path }
       format.csv do
-        send_data vp_class('Export::Tabular::TimeRecords::List')
+        send_data fp_class('Export::Tabular::TimeRecords::List')
           .csv(list_entries), type: :csv
       end
     end

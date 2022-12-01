@@ -7,8 +7,8 @@
 
 class CapitalSubstrateController < ReportingBaseController
 
-  include Vertragsperioden::Views
-  include Vertragsperioden::Domain
+  include Featureperioden::Views
+  include Featureperioden::Domain
 
   helper_method :report
 
@@ -18,8 +18,8 @@ class CapitalSubstrateController < ReportingBaseController
 
   def report
     @report ||= begin
-                  vp_class('TimeRecord::Report::CapitalSubstrate').new(
-                    vp_class('TimeRecord::Table').new(group, year)
+                  fp_class('TimeRecord::Report::CapitalSubstrate').new(
+                    fp_class('TimeRecord::Table').new(group, year)
                   )
                 end
   end
