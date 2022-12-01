@@ -7,7 +7,6 @@
 
 module Featureperioden
   class Dispatcher
-    FAR_FUTURE_YEAR = 9999
     KNOWN_BASE_YEARS = [2015, 2020, 2022].freeze
 
     def self.domain_classes(class_name)
@@ -31,7 +30,7 @@ module Featureperioden
     end
 
     def supported?
-      (2015..FAR_FUTURE_YEAR).include?(@year) # well, could be (2015...) in ruby 2.6+
+      (2015..).include?(@year)
     end
 
     def determine
@@ -40,7 +39,7 @@ module Featureperioden
       case @year
       when 2015..2019 then 2015
       when 2020..2021 then 2020
-      when 2022..FAR_FUTURE_YEAR then 2022
+      when 2022..     then 2022
       end
     end
   end
