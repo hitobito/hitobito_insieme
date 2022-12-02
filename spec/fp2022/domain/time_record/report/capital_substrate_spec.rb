@@ -68,7 +68,7 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrate do
       cs.update(previous_substrate_sum: 1650.0)
 
       expect(report.deckungsbeitrag4_fp2015).to eq(1650.0)
-      expect(report.deckungsbeitrag4_fp2022).to eq(-150.0)
+      expect(report.deckungsbeitrag4_fp2020).to eq(-150.0)
       expect(report.deckungsbeitrag4_sum).to    eq(1500.0)
     end
 
@@ -78,7 +78,7 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrate do
       create_cost_accounting_report('beitraege_iv', beratung: 5_000, year: year)
       create_cost_accounting_report('beitraege_iv', beratung: 7_000, year: year + 1)
 
-      expect(report.deckungsbeitrag4_fp2022).to eq(5_000 + existing_db4)
+      expect(report.deckungsbeitrag4_fp2020).to eq(5_000 + existing_db4)
     end
   end
 
@@ -120,7 +120,7 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrate do
   context 'IV Finanzierungsgrad' do
     it 'has assumptions' do
       expect( (2015..2019).to_a.size ).to eq 5
-      expect( (2022..2023).to_a.size ).to eq 4
+      expect( (2020..2022).to_a.size ).to eq 3
     end
 
     it 'can be calculated for VP 2015' do
@@ -134,11 +134,14 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrate do
       expect(subject.iv_finanzierungsgrad_fp2015).to eql (0.1 / 5)
     end
 
-    it 'can be calculated for VP 2022' do
-      create_cost_accounting_report('abschreibungen', year: 2022, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
-      create_cost_accounting_report('beitraege_iv',  year: 2022, aufwand_ertrag_fibu: 1_000)
+    it 'can be calculated for VP 2020' do
+      create_cost_accounting_report('abschreibungen', year: 2020, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report('beitraege_iv',  year: 2020, aufwand_ertrag_fibu: 1_000)
 
-      expect(subject.iv_finanzierungsgrad_fp2022).to eql 0.5
+      anzahl_jahre = (2020..year).to_a.size.to_d
+      expect(anzahl_jahre).to eql 3.0
+
+      expect(subject.iv_finanzierungsgrad_fp2020).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100)) / anzahl_jahre)
     end
 
     it 'can be calculated for the current year' do
