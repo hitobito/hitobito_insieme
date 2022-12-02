@@ -24,7 +24,7 @@ describe Event::CourseRecordsHelper do
       let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
 
       it 'does not show inline help text if aggregate course' do
-        field = participant_field_with_suggestion(form, :teilnehmende, '42')
+        field = participant_field_with_suggestion(form, :teilnehmende, 424242.42)
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
         kursdauer = kursdauer_field(form, :kursdauer)
         expect(field).not_to match(/<span class="muted">gemäss TN-Liste/)
@@ -41,10 +41,10 @@ describe Event::CourseRecordsHelper do
 
       it 'shows inline help text if course' do
         @numbers = CourseReporting::CourseNumbers.new(event)
-        field = participant_field_with_suggestion(form, :teilnehmende, '42')
+        field = participant_field_with_suggestion(form, :teilnehmende, 424242.42)
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
         kursdauer = kursdauer_field(form, :kursdauer)
-        expect(field).to match(/<span class="muted">gemäss TN-Liste/)
+        expect(field).to match(%r(<span class="muted">gemäss TN-Liste: 424&amp;#39;242.42</span>))
         expect(readonly_value).to match(/<span class="help-inline">gemäss TN-Liste/)
         expect(kursdauer).to match(/<span class="muted">gemäss Kursdaten/)
       end
@@ -58,7 +58,7 @@ describe Event::CourseRecordsHelper do
 
       it 'shows only some inline help text' do
         @numbers = CourseReporting::CourseNumbers.new(event)
-        field = participant_field_with_suggestion(form, :teilnehmende, '42')
+        field = participant_field_with_suggestion(form, :teilnehmende, 424242.42)
         expect(field).to_not match(/<span class="muted">gemäss TN-Liste/)
 
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
@@ -77,10 +77,10 @@ describe Event::CourseRecordsHelper do
 
       it 'shows inline help text if course' do
         @numbers = CourseReporting::CourseNumbers.new(event)
-        field = participant_field_with_suggestion(form, :teilnehmende, '42')
+        field = participant_field_with_suggestion(form, :teilnehmende, 424242.42)
         readonly_value = participant_readonly_value_with_suggestion(form, :total, '33', '22')
         kursdauer = kursdauer_field(form, :kursdauer)
-        expect(field).to match(/<span class="muted">gemäss TN-Liste/)
+        expect(field).to match(%r(<span class="muted">gemäss TN-Liste: 424&amp;#39;242.42</span>))
         expect(readonly_value).to match(/<span class="help-inline">gemäss TN-Liste/)
         expect(kursdauer).to match(/<span class="muted">inkl. 1h Vor- und Nachbereitung/)
       end
