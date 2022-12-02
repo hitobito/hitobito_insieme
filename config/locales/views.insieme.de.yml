@@ -92,12 +92,12 @@ de:
 
   course_reporting:
     client_statistics:
-      disability_or_canton: Behinderung / Kanton
+      disability_or_canton: Personen mit Behinderung / Kanton
       total: Total
-      challenged: Anzahl Behinderte (Personen)
-      affiliated: Anzahl Angehörige (Personen)
-      participants: Geistig-/Lernbehinderte
-      multiple_challenged: davon Mehrfachbehinderte
+      challenged: Anzahl Personen mit Behinderung
+      affiliated: Anzahl angehörige Personen
+      participants: mit geistiger Behinderung/Lernbehinderung
+      multiple_challenged: davon Personen mit Mehrfachbehinderung
 
     aggregations:
       index:
@@ -118,27 +118,27 @@ de:
       kursdauer_stunden: Anzahl Kursstunden
 
       teilnehmende: Anzahl effektive TeilnehmerInnen
-      teilnehmende_behinderte: davon Behinderte
+      teilnehmende_behinderte: davon Personen mit Behinderung
       teilnehmende_angehoerige: davon Angehörige
       teilnehmende_weitere: davon nicht Bezugsberechtigte
 
       total_absenzen:  Absenztage
-      absenzen_behinderte: davon Absenztage Behinderte
+      absenzen_behinderte: davon Absenztage Personen mit Behinderung
       absenzen_angehoerige: davon Absenztage Angehörige
       absenzen_weitere: davon Absenztage nicht Bezugsberechtigte
 
       total_absenzen_stunden:  Absenzstunden
-      absenzen_behinderte_stunden: davon Absenzstunden Behinderte
+      absenzen_behinderte_stunden: davon Absenzstunden Personen mit Behinderung
       absenzen_angehoerige_stunden: davon Absenzstunden Angehörige
       absenzen_weitere_stunden: davon Absenzstunden nicht Bezugsberechtigte
 
       total_tage_teilnehmende: Effektive TeilnehmerInnentage
-      tage_behinderte: davon TeilnehmerInnentage Behinderte
+      tage_behinderte: davon TeilnehmerInnentage Personen mit Behinderung
       tage_angehoerige: davon TeilnehmerInnentage Angehörige
       tage_weitere: davon TeilnehmerInnentage nicht Bezugsberechtigte
 
       total_tage_teilnehmende_stunden: Effektive TeilnehmerInnenstunden
-      tage_behinderte_stunden: davon TeilnehmerInnenstunden Behinderte
+      tage_behinderte_stunden: davon TeilnehmerInnenstunden Personen mit Behinderung
       tage_angehoerige_stunden: davon TeilnehmerInnenstunden Angehörige
       tage_weitere_stunden: davon TeilnehmerInnenstunden nicht Bezugsberechtigte
 
@@ -193,7 +193,7 @@ de:
         total_betreuungsstunden: Total Betreuungsstunden
         according_to_course_dates: "gemäss Kursdaten: %{duration}"
         according_to_list: "gemäss TN-Liste: %{count}"
-        challenged_per_team: "%{ratio} Behinderte Teilnehmende pro BetreuerIn"
+        challenged_per_team: "%{ratio} Teilnehmende mit Behinderung pro BetreuerIn"
         auswertungen: Auswertungen
         updated_at: "aktualisiert am %{date}"
         info_not_subsidized: "Nicht subventioniert: Kurs wird in der Kursstatistik nicht berücksichtigt"
@@ -282,7 +282,7 @@ de:
       leistungskategorie_tp: Treffpunkte
       anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{kategorie}"
       total_vollkosten: "%{leistungskategorie} Total Vollkosten %{kategorie}"
-      tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{kategorie}"
+      tage_behinderte: "%{leistungskategorie} TN Tage Personen mit Behinderung %{kategorie}"
       tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{kategorie}"
       tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{kategorie}"
       tage_total: "%{leistungskategorie} TN Tage Total %{kategorie}"
@@ -326,7 +326,7 @@ de:
       total: Total
 
       employees: Angestellte MitarbeiterInnen, gemäss Arbeitsvertrag
-      lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung Behinderter (LUFEB)
+      lufeb: Leistungen zur Unterstützung und Förderung der Eingliederung von Personen mit Behinderung (LUFEB)
       courses: Kurse
       additional_person_specific: Weitere personenspezifische Leistungen
       remaining: Übrige Leistungen
@@ -601,7 +601,7 @@ de:
       group_figures:
         anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
         total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept}"
-        tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{fachkonzept}"
+        tage_behinderte: "%{leistungskategorie} TN Tage Personen mit Behinderung %{fachkonzept}"
         tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
         tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
         tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
@@ -687,14 +687,14 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
-    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
+    teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Personen mit Mehrfachbehinderung
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
@@ -709,7 +709,7 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt

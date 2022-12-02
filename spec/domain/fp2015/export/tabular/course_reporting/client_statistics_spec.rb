@@ -42,8 +42,8 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
     end
 
     it 'contains correct sums' do
-      expect(data[0]).to eq(['Geistig-/Lernbehinderte',  30,  14, 3,   0, 3,   0, 3,   0])
-      expect(data[1]).to eq(['davon Mehrfachbehinderte', 15, nil, 1, nil, 1, nil, 1, nil])
+      expect(data[0]).to eq(['mit geistiger Behinderung/Lernbehinderung',  30,  14, 3,   0, 3,   0, 3,   0])
+      expect(data[1]).to eq(['davon Personen mit Mehrfachbehinderung', 15, nil, 1, nil, 1, nil, 1, nil])
       expect(data[2]).to eq(['Aargau',                    6,   3, 1,   0, 1,   0, 1,   0])
       expect(data[3]).to eq(['Appenzell Innerrhoden',     0,   0, 0,   0, 0,   0, 0,   0])
       expect(data[5]).to eq(['Bern',                      3,   1, 1,   0, 1,   0, 1,   0])
@@ -51,15 +51,15 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
     end
 
     it 'contains translated headers' do
-      expect(exporter.labels).to eq(['Behinderung / Kanton',
-                                'Blockkurse Anzahl Behinderte (Personen)',
-                                'Blockkurse Anzahl Angehörige (Personen)',
-                                'Tageskurse Anzahl Behinderte (Personen)',
-                                'Tageskurse Anzahl Angehörige (Personen)',
-                                'Semester-/Jahreskurse Anzahl Behinderte (Personen)',
-                                'Semester-/Jahreskurse Anzahl Angehörige (Personen)',
-                                'Treffpunkte Anzahl Behinderte (Personen)',
-                                'Treffpunkte Anzahl Angehörige (Personen)',
+      expect(exporter.labels).to eq(['Personen mit Behinderung / Kanton',
+                                'Blockkurse Anzahl Personen mit Behinderung',
+                                'Blockkurse Anzahl Angehörige Personen',
+                                'Tageskurse Anzahl Personen mit Behinderung',
+                                'Tageskurse Anzahl Angehörige Personen',
+                                'Semester-/Jahreskurse Anzahl Personen mit Behinderung',
+                                'Semester-/Jahreskurse Anzahl Angehörige Personen',
+                                'Treffpunkte Anzahl Personen mit Behinderung',
+                                'Treffpunkte Anzahl Angehörige Personen',
                                 ])
     end
 

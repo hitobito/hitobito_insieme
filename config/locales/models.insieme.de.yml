@@ -310,8 +310,8 @@ de:
         one: Küche
         other: Küche
       event/course/role/challenged:
-        one: Behinderte(r)
-        other: Behinderte
+        one: Person mit Behinderung
+        other: Personen mit Behinderung
       event/course/role/affiliated:
         one: Angehörige(r)
         other: Angehörige
@@ -441,14 +441,14 @@ de:
         kursart: Kursart
         spezielle_unterkunft: Spezielle Unterkunft
         kursdauer: Kursdauer
-        teilnehmende_behinderte: Behinderte
-        teilnehmende_mehrfachbehinderte: davon Mehrfachbehinderte
+        teilnehmende_behinderte: Personen mit Behinderung
+        teilnehmende_mehrfachbehinderte: davon mit Mehrfachbehinderung
         teilnehmende_angehoerige: Angehörige
         teilnehmende_weitere: Weitere, nicht Beitragsberechtigt
-        absenzen_behinderte: Behinderte
+        absenzen_behinderte: Personen mit Behinderung
         absenzen_angehoerige: Angehörige
         absenzen_weitere: Weitere, nicht Beitragsberechtigt
-        tage_behinderte: Behinderte
+        tage_behinderte: Personen mit Behinderung
         tage_angehoerige: Angehörige
         tage_weitere: Weitere, nicht Beitragsberechtigt
         leiterinnen: LeiterInnen

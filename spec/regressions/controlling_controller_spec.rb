@@ -28,7 +28,7 @@ describe ControllingController, type: :controller  do
     before { get :client_statistics, params: { id: groups(:dachverein), year: 2014 }, format: :xlsx }
 
     it 'exports table' do
-      expect(@response.body).to match(/Behinderung \/ Kanton;Blockkurse Anzahl Behinderte \(Personen\);Blockkurse /)
+      expect(@response.body).to match(/Personen mit Behinderung \/ Kanton;Blockkurse Anzahl Personen mit Behinderung;Blockkurse /)
     end
   end
 
