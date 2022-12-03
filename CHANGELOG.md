@@ -3,6 +3,8 @@
 ## unreleased
 
 *  Adjust insieme specific labels for addresses and contactables
+*  Featureperiode 2022 hinzugefügt (hitobito_insieme#125)
+*  FTE-Berechnung angepasst (hitobito_insieme#125)
 
 ## Version 1.27
 

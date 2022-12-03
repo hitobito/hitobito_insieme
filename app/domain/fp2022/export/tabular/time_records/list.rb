@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020 Insieme Schweiz. This file is part of
-#  hitobito and licensed under the Affero General Public License version 3
+#  Copyright (c) 2020-2022, Insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
@@ -83,7 +83,7 @@ module Fp2022
 
           def initialize(records)
             @records = records.index_by { |r| r.class.key }
-            @year = 2020 # hardcoded to fp2020
+            @year = 2022 # hardcoded to fp2022
           end
 
           def data_rows(_format = nil)
