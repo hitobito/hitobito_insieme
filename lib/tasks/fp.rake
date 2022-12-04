@@ -35,13 +35,14 @@ namespace :fp do
     sh "find #{new_year_domain} -type f | " \
        "xargs -l1 sed -i 's/Fp#{last_year}/Fp#{year}/'"
 
-    # copy and adapt specs (those exist for domain-classes and models which use those domain-classes)
+    # copy and adapt specs (those exist for domain-classes and models which use
+    # those domain-classes)
     %w(domain models).each do |subdir|
       new_year_specs = spec_path.join(subdir).join("fp#{year}")
       cp_r spec_path.join(subdir).join("fp#{last_year}"), new_year_specs
 
       sh "find #{new_year_specs} -type f | " \
-         "xargs -l1 sed -i 's/#{last_year}/#{year}/g'" # sometimes, there are multiple dates on a line
+         "xargs -l1 sed -i 's/#{last_year}/#{year}/g'" # there may be multiple dates on a line
     end
 
     # adapt dispatcher
