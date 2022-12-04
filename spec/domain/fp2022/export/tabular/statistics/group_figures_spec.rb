@@ -229,7 +229,8 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
       "Totaler Aufwand gemäss FIBU",
       "Vollkosten nach Umlagen Betrieb Art. 74",
       "IV-Beitrag",
-      "Deckungsbeitrag 4"
+      "Deckungsbeitrag 4",
+      "IV-Finanzierungsgrad #{year}",
     ]
     expect(labels).to match_array expected
     expect(labels).to eq expected
@@ -279,6 +280,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Faktor Kapitalsubstrat" => 0.0,
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 0.0,
         "IV-Beitrag" => 0.0,
+        "IV-Finanzierungsgrad #{year}" => 0.0,
         "Kanton" => nil,
         "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
         "LUFEB Stunden Angestellte: Förderung der Selbsthilfe" => 0,
@@ -389,6 +391,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
         "IV-Beitrag"                                  => 0.0,
         "Deckungsbeitrag 4"                           => 0.0,
+        "IV-Finanzierungsgrad #{year}"                => 0.0,
       }))
     end
 
@@ -433,6 +436,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 1100.0,
         "IV-Beitrag"                                  => 0.0,
         "Deckungsbeitrag 4"                           => -1100.0,
+        "IV-Finanzierungsgrad #{year}"                => 0.0,
       }))
     end
 
@@ -501,6 +505,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "IV-Beitrag"                                  => 20.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
         "Deckungsbeitrag 4"                           => -2000.0,
+        "IV-Finanzierungsgrad #{year}"                => 1.0,
       }))
     end
 
@@ -516,6 +521,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
         "IV-Beitrag"                                  => 0.0,
         "Deckungsbeitrag 4"                           => 0.0,
+        "IV-Finanzierungsgrad #{year}"                => 0.0,
       }))
     end
   end
