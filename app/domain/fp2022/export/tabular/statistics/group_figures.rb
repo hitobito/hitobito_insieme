@@ -115,6 +115,7 @@ module Fp2022::Export
           append_capital_substrate_values(values, figures.capital_substrate(group))
           append_capital_substrate_factor_values(values, figures.capital_substrate_factor(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
+          append_finanzierungsgrad_values(values, figures.capital_substrate(group))
 
           values
         end
@@ -173,6 +174,10 @@ module Fp2022::Export
           else
             values << 0.0 << 0.0 << 0.0 << 0.0
           end
+        end
+
+        def append_finanzierungsgrad_values(values, report)
+          values << report.iv_finanzierungsgrad_current
         end
 
         def iterate_courses(&block)
