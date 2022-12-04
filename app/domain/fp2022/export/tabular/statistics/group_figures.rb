@@ -90,6 +90,7 @@ module Fp2022::Export
           labels << t('vollkosten_nach_umlagen_betrieb')
           labels << t('iv_beitrag')
           labels << t('deckungsbeitrag_4')
+          labels << t('iv_finanzierungsgrad_current', year: year)
         end
 
         def values(group) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
