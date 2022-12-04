@@ -53,17 +53,21 @@ namespace :fp do
     BASH
 
     puts 'TODOs:'
-    puts "- [ ] Adapt app/domain/featureperioden/dispatcher.rb to include #{year} in #determine."
     puts "- [ ] Adapt spec/domain/featureperioden/dispatcher_spec.rb to cover #{year}."
     puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+
     puts '- [ ] check locales for wrong or missing featureperioden-descriptions'
     puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+
     puts '- [ ] Run specs an fix failing ones'
     puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+
     puts "- [ ] check views in app/views/fp#{year} for mistakes"
     puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+    j
     puts "- [ ] Add 'Vertragsperiode #{year} hinzugefügt' to the CHANGELOG.md"
     puts '- [ ] Add and commit the additions NOW to keep commits small and focussed.'
+
     puts '- [ ] inform client about the need to change translations'
   end
 end

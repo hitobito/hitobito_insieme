@@ -30,16 +30,15 @@ module Featureperioden
     end
 
     def supported?
-      (2015..).include?(@year)
+      (KNOWN_BASE_YEARS.first..).include?(@year)
     end
 
     def determine
-      return 2015 unless supported? # the earliest year
+      return KNOWN_BASE_YEARS.last if @year >= KNOWN_BASE_YEARS.last # the current period
+      return KNOWN_BASE_YEARS.first unless supported? # the earliest year
 
-      case @year
-      when 2015..2019 then 2015
-      when 2020..2021 then 2020
-      when 2022..     then 2022
+      KNOWN_BASE_YEARS.each_cons(2) do |period, next_period|
+        return period if (period...next_period).include? @year
       end
     end
   end
