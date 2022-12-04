@@ -61,7 +61,7 @@ module Fp2022::Export
           end
         end
 
-        def append_time_labels(labels)
+        def append_time_labels(labels) # rubocop:disable Metrics/MethodLength
           %w(employees volunteers).each do |type|
             labels << fp_label('kurse_grundlagen', 'fields_full', fp_t("hours_#{type}"))
             %w(grundlagen promoting general specific).each do |section|
@@ -130,7 +130,7 @@ module Fp2022::Export
           values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
-        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
+        def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           values << (record&.kurse_grundlagen      || 0)
           values << (record&.lufeb_grundlagen      || 0)
           values << (record&.total_lufeb_promoting || 0)
