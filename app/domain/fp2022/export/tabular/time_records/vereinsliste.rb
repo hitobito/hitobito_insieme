@@ -80,7 +80,7 @@ module Fp2022::Export
         def initialize(liste)
           super(liste.vereine)
           @liste = liste
-          @year  = 2020
+          @year  = 2022
         end
 
         def attribute_label(attr)
