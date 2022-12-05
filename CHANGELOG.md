@@ -5,6 +5,7 @@
 *  Adjust insieme specific labels for addresses and contactables
 *  Featureperiode 2022 hinzugefügt (hitobito_insieme#125)
 *  FTE-Berechnung angepasst (hitobito_insieme#125)
+*  Export "Kennzahlen pro Verein" und Finanzierungsgrad des aktuellen Jahres erweitert (hitobito_insieme#134)
 
 ## Version 1.27
 

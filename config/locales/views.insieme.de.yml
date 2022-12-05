@@ -300,6 +300,7 @@ de:
       vollkosten_nach_umlagen_betrieb: Vollkosten nach Umlagen Betrieb Art. 74
       iv_beitrag: IV-Beitrag
       deckungsbeitrag_4: Deckungsbeitrag 4
+      iv_finanzierungsgrad_current: "IV-Finanzierungsgrad %{year}"
 
   shared:
     admin_nav_kinds_insieme:

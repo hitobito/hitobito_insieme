@@ -61,7 +61,7 @@ module Fp2022::Export
           end
         end
 
-        def append_time_labels(labels)
+        def append_time_labels(labels) # rubocop:disable Metrics/MethodLength
           %w(employees volunteers).each do |type|
             labels << fp_label('kurse_grundlagen', 'fields_full', fp_t("hours_#{type}"))
             %w(grundlagen promoting general specific).each do |section|
@@ -90,6 +90,7 @@ module Fp2022::Export
           labels << t('vollkosten_nach_umlagen_betrieb')
           labels << t('iv_beitrag')
           labels << t('deckungsbeitrag_4')
+          labels << t('iv_finanzierungsgrad_current', year: year)
         end
 
         def values(group) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -114,6 +115,7 @@ module Fp2022::Export
           append_capital_substrate_values(values, figures.capital_substrate(group))
           append_capital_substrate_factor_values(values, figures.capital_substrate_factor(group))
           append_cost_accounting_values(values, figures.cost_accounting_table(group))
+          append_finanzierungsgrad_values(values, figures.capital_substrate(group))
 
           values
         end
@@ -128,7 +130,7 @@ module Fp2022::Export
           values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
-        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
+        def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           values << (record&.kurse_grundlagen      || 0)
           values << (record&.lufeb_grundlagen      || 0)
           values << (record&.total_lufeb_promoting || 0)
@@ -172,6 +174,10 @@ module Fp2022::Export
           else
             values << 0.0 << 0.0 << 0.0 << 0.0
           end
+        end
+
+        def append_finanzierungsgrad_values(values, report)
+          values << report.iv_finanzierungsgrad_current
         end
 
         def iterate_courses(&block)

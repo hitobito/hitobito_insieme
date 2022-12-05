@@ -65,4 +65,15 @@ describe Featureperioden::Dispatcher do
       expect(described_class.new(2023).determine).to be 2022
     end
   end
+
+  # if this grows too much, we might need to rethink this. Maybe optimize
+  # lookups, lazily load older code or discontinue older periods. Symptoms
+  # could be a slow app-startup, slow exports or the feeling of
+  # unmaintainability. At 4 periods, we should track some baseline numbers
+  # here, maybe add some performance-specs.
+  context 'is a sensible solution, it' do
+    it 'covers all periods' do
+      expect(described_class::KNOWN_BASE_YEARS).to have(3).items
+    end
+  end
 end
