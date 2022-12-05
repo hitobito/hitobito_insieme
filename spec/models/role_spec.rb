@@ -24,8 +24,8 @@ describe Role do
     ]
 
     (Role.subclasses - base_project_testroles).each do |role|
-      it "#{role.name} has permissions so must have two_factor_authentication_enforced=true" do
-        if role.permissions.present?
+      if role.permissions.present?
+        it "#{role.name} has permissions so must have two_factor_authentication_enforced=true" do
           expect(role).to be_two_factor_authentication_enforced
         end
       end
