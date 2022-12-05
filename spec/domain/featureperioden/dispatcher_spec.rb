@@ -57,7 +57,7 @@ describe Featureperioden::Dispatcher do
       expect(described_class.new(2021).determine).to be 2020
     end
 
-    it 'for 2022, it is 2020' do
+    it 'for 2022, it is 2022' do
       expect(described_class.new(2022).determine).to be 2022
     end
 
