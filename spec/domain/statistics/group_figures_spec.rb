@@ -77,7 +77,7 @@ describe 'Statistics::GroupFigures' do
   end
 
   let(:year) { 2016 }
-  let(:figures) { vp_class('Statistics::GroupFigures').new(2016) }
+  let(:figures) { fp_class('Statistics::GroupFigures').new(2016) }
 
   context '#groups' do
     it 'returns group sorted by type' do
@@ -243,7 +243,7 @@ describe 'Statistics::GroupFigures' do
 
     it 'returns the same substrate like the time record table' do
       substrate = figures.capital_substrate(groups(:be)).paragraph_74
-      table = vp_class('TimeRecord::Table').new(groups(:be), year)
+      table = fp_class('TimeRecord::Table').new(groups(:be), year)
       expect(substrate).to eq(table.value_of('capital_substrate', 'paragraph_74'))
     end
   end

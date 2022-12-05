@@ -8,16 +8,16 @@
 class TimeRecord::BaseInformationsController < ReportingBaseController
 
   include Rememberable
-  include Vertragsperioden::Domain
+  include Featureperioden::Domain
 
   self.remember_params = [:year]
 
   before_action :entry, except: :index
 
   def index
-    # Vp2015::TimeRecord::Table
-    # Vp2020::TimeRecord::Table
-    @table = vp_class('TimeRecord::Table').new(group, year)
+    # Fp2015::TimeRecord::Table
+    # Fp2020::TimeRecord::Table
+    @table = fp_class('TimeRecord::Table').new(group, year)
 
     respond_to do |format|
       format.html

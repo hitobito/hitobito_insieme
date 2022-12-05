@@ -7,7 +7,7 @@
 
 class Event::GeneralCostFromAccounting
 
-  include Vertragsperioden::Domain
+  include Featureperioden::Domain
 
   attr_accessor :year
 
@@ -18,7 +18,7 @@ class Event::GeneralCostFromAccounting
 
   def initialize(group, year)
     @year = year
-    @table = vp_class('CostAccounting::Table').new(group, year)
+    @table = fp_class('CostAccounting::Table').new(group, year)
   end
 
   def general_cost(leistungskategorie)

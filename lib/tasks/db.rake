@@ -25,7 +25,7 @@ namespace :db do
       This import expects a CSV-File (named previous_capital_substrates.csv by default)
       with two fields:
         - group_id (numeric id of the group)
-        - sum      (sum of previous Vertragsperioden, float-parseable)
+        - sum      (sum of previous Featureperioden, float-parseable)
     TEXT
     task :previous_capital_substrates, [:year, :filename] => [:environment] do |_, args|
       args.with_defaults(filename: 'previous_capital_substrates.csv')

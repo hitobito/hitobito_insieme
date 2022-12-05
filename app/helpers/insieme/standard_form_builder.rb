@@ -10,12 +10,12 @@ module Insieme
     extend ActiveSupport::Concern
 
     included do
-      delegate :vp_i18n_scope, to: :template
+      delegate :fp_i18n_scope, to: :template
     end
 
-    def labeled_vp_input_field(field, options)
+    def labeled_fp_input_field(field, options)
       options = options.merge(label: I18n.t(field,
-                                            scope: vp_i18n_scope,
+                                            scope: fp_i18n_scope,
                                             default: labeled(field)))
 
       labeled_input_field field, options

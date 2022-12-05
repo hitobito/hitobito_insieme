@@ -7,7 +7,7 @@
 
 class Event::CourseRecordsController < CrudController
 
-  include Vertragsperioden::Views
+  include Featureperioden::Views
 
   decorates :event, :course_record
 

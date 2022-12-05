@@ -7,7 +7,7 @@
 
 module Insieme
   module Export::EventsExportJob
-    include Vertragsperioden::Domain
+    include Featureperioden::Domain
 
     delegate :year, to: :filter
 
@@ -25,7 +25,7 @@ module Insieme
       end
 
       list_type = "AggregateCourse::#{list_type}" if aggregate_course?
-      vp_class("Export::Tabular::Events::#{list_type}")
+      fp_class("Export::Tabular::Events::#{list_type}")
     end
 
     def aggregate_course?
