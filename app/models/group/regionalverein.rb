@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -54,38 +54,47 @@ class Group::Regionalverein < Group
 
   class Praesident < ::Role
     self.permissions = [:layer_read, :contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Vorstandsmitglied < ::Role
     self.permissions = [:layer_read]
+    self.two_factor_authentication_enforced = true
   end
 
   class Geschaeftsfuehrung < ::Role
     self.permissions = [:layer_full, :contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Sekretariat < ::Role
     self.permissions = [:layer_full, :contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Adressverwaltung < ::Role
     self.permissions = [:layer_full, :contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Versandadresse < ::Role
     self.permissions = [:contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Rechnungsadresse < ::Role
     self.permissions = [:contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Controlling < ::Role
     self.permissions = [:contact_data]
+    self.two_factor_authentication_enforced = true
   end
 
   class Invoicing < ::Role
     self.permissions = [:layer_and_below_read, :finance]
+    self.two_factor_authentication_enforced = true
   end
 
 

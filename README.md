@@ -9,26 +9,37 @@ This hitobito wagon defines the organization hierarchy with groups and roles of 
 
     * Dachverein
       * Dachverein
-        * PräsidentIn: [:contact_data]
-        * Geschäftsführung: [:admin, :layer_and_below_full, :contact_data]
+        * PräsidentIn: [:layer_read, :contact_data]
+        * Vorstandsmitglied: [:layer_read]
+        * Geschäftsführung: [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance]
         * Sekretariat: [:layer_and_below_full, :contact_data]
         * Adressverwaltung: [:layer_and_below_full, :contact_data]
         * Controlling: [:admin, :layer_and_below_full, :contact_data]
+        * Rechnungen: [:layer_and_below_read, :finance]
+        * IT Support: [:admin, :layer_and_below_full, :impersonation]
+        * Extern: []
       * Liste
         * Listenverwaltung: [:group_full]
         * Person: []
       * Gremium
         * Leitung: [:group_full, :contact_data]
         * Mitglied: [:group_read]
+      * Abonnemente
+        * Einzelabo: []
+        * Geschenkabo: []
+        * Gratisabo: []
     * Regionalverein
       * Regionalverein
-        * PräsidentIn: [:contact_data]
+        * PräsidentIn: [:layer_read, :contact_data]
+        * Vorstandsmitglied: [:layer_read]
         * Geschäftsführung: [:layer_full, :contact_data]
         * Sekretariat: [:layer_full, :contact_data]
         * Adressverwaltung: [:layer_full, :contact_data]
         * Versandadresse: [:contact_data]
         * Rechnungsadresse: [:contact_data]
         * Controlling: [:contact_data]
+        * Rechnungen: [:layer_and_below_read, :finance]
+        * Extern: []
       * Liste
         * Listenverwaltung: [:group_full]
         * Person: []
@@ -37,13 +48,16 @@ This hitobito wagon defines the organization hierarchy with groups and roles of 
         * Mitglied: [:group_read]
     * Externe Organisation
       * Externe Organisation
-        * PräsidentIn: [:contact_data]
+        * PräsidentIn: [:layer_read, :contact_data]
+        * Vorstandsmitglied: [:layer_read]
         * Geschäftsführung: [:layer_full, :contact_data]
         * Sekretariat: [:layer_full, :contact_data]
         * Adressverwaltung: [:layer_full, :contact_data]
         * Versandadresse: [:contact_data]
         * Rechnungsadresse: [:contact_data]
         * Controlling: [:contact_data]
+        * Rechnungen: [:layer_and_below_read, :finance]
+        * Extern: []
       * Liste
         * Listenverwaltung: [:group_full]
         * Person: []
