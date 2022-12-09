@@ -63,7 +63,9 @@ module Fp2022::Export
 
         def append_time_labels(labels) # rubocop:disable Metrics/MethodLength
           %w(employees volunteers).each do |type|
-            labels << fp_label('kurse_grundlagen', 'fields_full', fp_t("hours_#{type}"))
+            %w(kurse treffpunkte).each do |section|
+              labels << fp_label("#{section}_grundlagen", 'fields_full', fp_t("hours_#{type}"))
+            end
             %w(grundlagen promoting general specific).each do |section|
               labels << fp_label("lufeb_#{section}", 'lufeb_fields_full', t("lufeb_hours_#{type}"))
             end
@@ -131,14 +133,15 @@ module Fp2022::Export
         end
 
         def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-          values << (record&.kurse_grundlagen      || 0)
-          values << (record&.lufeb_grundlagen      || 0)
-          values << (record&.total_lufeb_promoting || 0)
-          values << (record&.total_lufeb_general   || 0)
-          values << (record&.total_lufeb_specific  || 0)
-          values << (record&.medien_grundlagen     || 0)
-          values << (record&.total_media           || 0)
-          values << (record&.beratung              || 0)
+          values << (record&.kurse_grundlagen       || 0)
+          values << (record&.treffpunkte_grundlagen || 0)
+          values << (record&.lufeb_grundlagen       || 0)
+          values << (record&.total_lufeb_promoting  || 0)
+          values << (record&.total_lufeb_general    || 0)
+          values << (record&.total_lufeb_specific   || 0)
+          values << (record&.medien_grundlagen      || 0)
+          values << (record&.total_media            || 0)
+          values << (record&.beratung               || 0)
         end
 
         def append_employee_fte_values(values, group)
