@@ -58,6 +58,7 @@ module Fp2022::Export
           :blockkurse,
           :tageskurse,
           :jahreskurse,
+          :treffpunkte_grundlagen,
           :treffpunkte,
           :total_courses,
 
