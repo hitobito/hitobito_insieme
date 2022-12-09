@@ -73,7 +73,7 @@ module Fp2022::Export
             attr_t("event/course.leistungskategorien.#{lk}", count: 3),
             fp_t("fachkonzept.#{fachkonzept}"),
             gcp.course_count.presence,
-            kursdauer_und_treffpunkt_grundlagenanteil(gcp),
+            course_hours_including_grundlagen_hours(gcp),
             maybe_zero(gcp.other_attendees.to_i),
             maybe_zero(gcp.total.to_i)
           ] + stats.cantons.map do |canton|
@@ -81,43 +81,19 @@ module Fp2022::Export
           end
         end
 
-        def kursdauer_und_treffpunkt_grundlagenanteil(gcp) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-          return gcp.course_hours unless gcp.fachkonzept == 'treffpunkt'
+        def course_hours_including_grundlagen_hours(gcp)
+          grundlagen_field = if gcp.fachkonzept == 'treffpunkt'
+            :treffpunkte_grundlagen
+          else
+            :kurse_grundlagen
+          end
 
-          # additionally to the reported hours, we shall add the hours reported for basic work,
-          # in the same proportion of tp/all-courses
-          #
-          # keep in mind: logic != business logic !== government logic ;-)
+          grundlagen_hours = ::TimeRecord.where(
+            group_id: gcp.group_id, year: year,
+            type: %w(TimeRecord::EmployeeTime TimeRecord::VolunteerWithVerificationTime)
+          ).sum(grundlagen_field).to_f
 
-          grundlagen = ::TimeRecord.where(group_id: gcp.group_id, year: year,
-                                          type: %w(
-                                            TimeRecord::EmployeeTime
-                                            TimeRecord::VolunteerWithVerificationTime
-                                          ))
-                                   .sum(:kurse_grundlagen).to_f
-
-          kostenrechnung = fp_class('CostAccounting::Table').new(Group.find(gcp.group_id), year)
-
-          vollkosten_tp = kostenrechnung.value_of('vollkosten', 'treffpunkte').to_f
-          vollkosten_alle =
-            if vollkosten_tp.positive?
-              vollkosten_tp +
-                kostenrechnung.value_of('vollkosten', 'blockkurse').to_f +
-                kostenrechnung.value_of('vollkosten', 'tageskurse').to_f +
-                kostenrechnung.value_of('vollkosten', 'jahreskurse').to_f
-            else
-              0
-            end
-
-          anteil =
-            if vollkosten_alle.positive?
-              (grundlagen * (vollkosten_tp / vollkosten_alle))
-            else
-              0
-            end
-
-          result = gcp.course_hours.to_f + anteil
-          maybe_zero(result)
+          maybe_zero(gcp.course_hours.to_f + grundlagen_hours)
         end
 
         def maybe_zero(number)
