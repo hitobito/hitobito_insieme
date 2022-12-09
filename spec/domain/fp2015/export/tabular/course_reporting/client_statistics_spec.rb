@@ -53,13 +53,13 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
     it 'contains translated headers' do
       expect(exporter.labels).to eq(['Personen mit Behinderung / Kanton',
                                 'Blockkurse Anzahl Personen mit Behinderung',
-                                'Blockkurse Anzahl Angehörige Personen',
+                                'Blockkurse Anzahl Angehörige',
                                 'Tageskurse Anzahl Personen mit Behinderung',
-                                'Tageskurse Anzahl Angehörige Personen',
+                                'Tageskurse Anzahl Angehörige',
                                 'Semester-/Jahreskurse Anzahl Personen mit Behinderung',
-                                'Semester-/Jahreskurse Anzahl Angehörige Personen',
+                                'Semester-/Jahreskurse Anzahl Angehörige',
                                 'Treffpunkte Anzahl Personen mit Behinderung',
-                                'Treffpunkte Anzahl Angehörige Personen',
+                                'Treffpunkte Anzahl Angehörige',
                                 ])
     end
 

@@ -45,7 +45,7 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
                               'Koordination von Selbsthilfeaktivitäten',
                               'Planung, Organisation und Durchführung von informellen Treffen',
                               'Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe',
-                              'Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe',
+                              'Unterstützung von Personen mit Behinderung in den Leitorganen von Organisationen der privaten Behindertenhilfe',
                               'Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen',
                               'Total LUFEB-Leistungen',
                               'Blockkurse',

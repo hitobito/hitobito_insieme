@@ -95,7 +95,7 @@ de:
       disability_or_canton: Personen mit Behinderung / Kanton
       total: Total
       challenged: Anzahl Personen mit Behinderung
-      affiliated: Anzahl angehörige Personen
+      affiliated: Anzahl Angehörige
       participants: mit geistiger Behinderung/Lernbehinderung
       multiple_challenged: davon Personen mit Mehrfachbehinderung
 
@@ -454,7 +454,7 @@ de:
       group_figures:
         anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
         total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept}"
-        tage_behinderte: "%{leistungskategorie} TN Tage Behinderte %{fachkonzept}"
+        tage_behinderte: "%{leistungskategorie} TN Tage Personen mit Behinderung %{fachkonzept}"
         tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
         tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
         tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
@@ -713,10 +713,10 @@ de:
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
@@ -732,14 +732,14 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
@@ -758,14 +758,14 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
@@ -784,14 +784,14 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE
@@ -810,14 +810,14 @@ de:
     group_names: 'Organisatoren'
     duration: Zeitraum
     date: "Datum %{index}"
-    teilnehmende_behinderte: Effektiv Teilnehmende Behinderte
+    teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
     teilnehmende_angehoerige: Effektiv Teilnehmende Angehörige
     teilnehmende_mehrfachbehinderte: Effektiv Teilnehmende Mehrfachbehinderte
     teilnehmende_weitere: Effektiv Teilnehmende Weitere, nicht Beitragsberechtigt
-    absenzen_behinderte: Absenzen Behinderte
+    absenzen_behinderte: Absenzen Personen mit Behinderung
     absenzen_angehoerige: Absenzen Angehörige
     absenzen_weitere: Absenzen Weitere, nicht Beitragsberechtigt
-    tage_behinderte: Total TeilnehmerInnentage Behinderte
+    tage_behinderte: Total TeilnehmerInnentage Personen mit Behinderung
     tage_angehoerige: Total TeilnehmerInnentage Angehörige
     tage_weitere: Total TeilnehmerInnentage Weitere, nicht Beitragsberechtigt
     total_tage_teilnehmende: Anzahl tatsächliche LE

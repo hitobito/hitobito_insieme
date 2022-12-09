@@ -94,7 +94,7 @@ aktiv = seed_group(Group::Aktivmitglieder, {
 seed_group(Group::Aktivmitglieder,
   {name: 'Elternmitglieder',
    parent_id: aktiv.id},
-  {name: 'Behindertenmitglieder',
+  {name: 'Mitglieder mit Behinderung',
    parent_id: aktiv.id})
 
 passiv = seed_group(Group::Passivmitglieder, {

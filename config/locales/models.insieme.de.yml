@@ -679,7 +679,7 @@ de:
         koordination_selbsthilfe: Koordination von Selbsthilfeaktivitäten
         treffen_meinungsaustausch: Planung, Organisation und Durchführung von informellen Treffen
         beratung_fachhilfeorganisationen: Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe
-        unterstuetzung_behindertenhilfe: Unterstützung von Behinderten in den Leitorganen von Organisationen der privaten Behindertenhilfe
+        unterstuetzung_behindertenhilfe: Unterstützung von Personen mit Behinderung in den Leitorganen von Organisationen der privaten Behindertenhilfe
 
         lufeb_grundlagen: Grundlagenarbeit zu LUFEB
         unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
@@ -770,7 +770,7 @@ de:
         must_be_multiple_of: muss ein vielfaches von %{multiple} sein.
         manual_number_in_automatic_range: darf nicht zwischen %{lower} und %{upper} liegen, wenn sie manuell gesetzt wird.
         automatic_number_in_manual_range: muss zwischen %{lower} und %{upper} liegen, wenn sie automatisch gesetzt wird.
-        less_than_teilnehmende_behinderte: muss kleiner gleich Anzahl Behinderter sein.
+        less_than_teilnehmende_behinderte: muss kleiner gleich Anzahl Personen mit Behinderung sein.
         reporting_frozen: ist abgeschlossen und wurde gesperrt.
         event_reporting_frozen: Reporting im Jahr ist abgeschlossen und wurde gesperrt.
 
