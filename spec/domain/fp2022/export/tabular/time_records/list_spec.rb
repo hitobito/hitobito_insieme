@@ -33,11 +33,11 @@ describe 'Export::Tabular::TimeRecords::List' do
   context 'with records' do
     before do
       TimeRecord::EmployeeTime.create!(
-        group: group, year: year, apps: 200, website: 330, blockkurse: 300,
+        group: group, year: year, apps: 200, website: 330, blockkurse: 300, kurse_grundlagen: 42,
         nicht_art_74_leistungen: 50,
         employee_pensum_attributes: { paragraph_74: 1.5, not_paragraph_74: 0.5 })
       TimeRecord::VolunteerWithVerificationTime.create!(
-        group: group, year: year, lufeb_grundlagen: 100, blockkurse: 400, verwaltung: 88,
+        group: group, year: year, lufeb_grundlagen: 100, blockkurse: 400, verwaltung: 88, treffpunkte_grundlagen: 43,
         nicht_art_74_leistungen: 50)
       TimeRecord::VolunteerWithoutVerificationTime.create!(
         group: group, year: year, total_lufeb_general: 300, tageskurse: 55, treffpunkte: 37,
@@ -59,12 +59,14 @@ describe 'Export::Tabular::TimeRecords::List' do
       expect(data[26]).to eq(['Applikationen', 200.0, nil, nil])
       expect(data[27]).to eq(['Medien & Publikationen', 530.0, 0.0, nil])
 
+      expect(data[28]).to eq(['Grundlagenarbeit zu Kursen', 42, nil, nil])
       expect(data[29]).to eq(['Blockkurse', 300.0, 400.0, nil])
       expect(data[30]).to eq(['Tageskurse', nil, nil, 55.0])
-      expect(data[32]).to eq(['Treffpunkte', nil, nil, 37.0])
+      expect(data[32]).to eq(['Grundlagenarbeit zu Treffpunkten', nil, 43, nil])
+      expect(data[33]).to eq(['Treffpunkte', nil, nil, 37.0])
 
-      expect(data[43]).to eq(['Total', 880.0, 638.0, 442.0])
-      expect(data[44]).to eq(['Ausgedrückt in-100% Stellen', 0.46, 0.34, 0.23])
+      expect(data[44]).to eq(['Total', 922.0, 681.0, 442.0])
+      expect(data[45]).to eq(['Ausgedrückt in-100% Stellen', 0.49, 0.36, 0.23])
     end
 
   end
