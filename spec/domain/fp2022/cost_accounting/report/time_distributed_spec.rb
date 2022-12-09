@@ -33,7 +33,9 @@ describe 'CostAccounting::Report::TimeDistributed' do
           verwaltung: 50,
           mittelbeschaffung: 30,
           newsletter: 20,
-          nicht_art_74_leistungen: 10
+          nicht_art_74_leistungen: 10,
+          kurse_grundlagen: 40,
+          treffpunkte_grundlagen: 60
         )
       end
 

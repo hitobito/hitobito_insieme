@@ -33,7 +33,7 @@ module Fp2022::CostAccounting
           @time_fields[f] ||=
             if aufwand_ertrag_ko_re.nonzero? && time_record.total_paragraph_74.nonzero?
               time_record_value = if f == 'verwaltung'
-                                    time_record.verwaltung.to_d + time_record.kurse_grundlagen.to_d
+                                    time_record.verwaltung.to_d + time_record.kurse_grundlagen.to_d # TODO do we need to change this?
                                   else
                                     time_record.send(f).to_d
                                   end
