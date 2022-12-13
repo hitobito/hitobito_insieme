@@ -35,13 +35,33 @@ describe 'CostAccounting::Report::TimeDistributed' do
           newsletter: 20,
           nicht_art_74_leistungen: 10,
           kurse_grundlagen: 40,
-          treffpunkte_grundlagen: 60
+          treffpunkte_grundlagen: 60,
         )
       end
 
       context 'time fields' do
         it 'works for simple' do
-          expect(report.verwaltung).to eq 500
+          expect(report.verwaltung).to eq 250
+          total = (50 + 30 + 20 + 40 + 60)
+          aufwand = 1050 - 50
+          verwaltung = 50
+          expect(report.verwaltung).to eq (aufwand * verwaltung / total)
+        end
+
+        it 'works for lufeb' do
+          total = (50 + 30 + 20 + 40 + 60)
+          aufwand = (1050 - 50)
+          lufeb = (0 + 40)
+          expect(report.lufeb).to eq (aufwand * lufeb / total)
+          expect(report.lufeb).to eq 200
+        end
+
+        it 'works for treffpunkte' do
+          total = (50 + 30 + 20 + 40 + 60)
+          aufwand = 1050 - 50
+          treffpunkte = (0 + 60)
+          expect(report.treffpunkte).to eq (aufwand * treffpunkte / total)
+          expect(report.treffpunkte).to eq 300
         end
       end
 
