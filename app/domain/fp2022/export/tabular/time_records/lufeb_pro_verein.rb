@@ -64,8 +64,11 @@ module Fp2022::Export::Tabular::TimeRecords
       @stats.lufeb_data_for(group.id).promoting
     end
 
-    def specific_with_grundlagen(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-      @stats.lufeb_data_for(group.id).to_h.values_at(:specific, :lufeb_grundlagen, :kurse_grundlagen).compact.sum.to_d
+    def specific_with_grundlagen(group)
+      @stats.lufeb_data_for(group.id).to_h
+            .values_at(:specific, :lufeb_grundlagen, :kurse_grundlagen)
+            .compact
+            .sum.to_d
     end
 
     def fp_t(field, options = {})

@@ -132,7 +132,7 @@ module Fp2022::Export
           values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
-        def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+        def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
           values << (record&.kurse_grundlagen       || 0)
           values << (record&.treffpunkte_grundlagen || 0)
           values << (record&.lufeb_grundlagen       || 0)

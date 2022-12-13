@@ -83,10 +83,10 @@ module Fp2022::Export
 
         def course_hours_including_grundlagen_hours(gcp)
           grundlagen_field = if gcp.fachkonzept == 'treffpunkt'
-            :treffpunkte_grundlagen
-          else
-            :kurse_grundlagen
-          end
+                               :treffpunkte_grundlagen
+                             else
+                               :kurse_grundlagen
+                             end
 
           grundlagen_hours = ::TimeRecord.where(
             group_id: gcp.group_id, year: year,
