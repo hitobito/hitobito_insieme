@@ -11,6 +11,10 @@ de:
     persons_short: Pers.
     printed: Druck
 
+  invoices:
+    pdf:
+      leistungsbezueger: Leistungsbezüger
+
   layouts:
     reporting_menu:
       time_records: Zeiterfassung

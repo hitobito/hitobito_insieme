@@ -95,6 +95,15 @@ module Insieme::Person
       super(Countries.normalize(value))
       value
     end
+
+    define_method("#{prefix}_full_name") do |format = :default|
+      first_name = send("#{prefix}_first_name")
+      last_name = send("#{prefix}_last_name")
+      case format
+      when :list, :print_list then "#{last_name} #{first_name}".strip
+      else "#{first_name} #{last_name}".strip
+      end
+    end
   end
 
   private
