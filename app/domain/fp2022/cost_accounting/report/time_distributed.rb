@@ -27,19 +27,29 @@ module Fp2022::CostAccounting
 
       delegate :time_record, to: :table
 
-      TIME_FIELDS.each do |f|
-        define_method(f) do
+      TIME_FIELDS.each do |field|
+        define_method(field) do # rubocop:disable Metrics/MethodLength
           @time_fields ||= {}
-          @time_fields[f] ||=
+          @time_fields[field] ||=
             if aufwand_ertrag_ko_re.nonzero? && time_record.total_paragraph_74.nonzero?
-              time_record_value = if f == 'verwaltung'
-                                    time_record.verwaltung.to_d + time_record.kurse_grundlagen.to_d # TODO do we need to change this?
-                                  else
-                                    time_record.send(f).to_d
-                                  end
+              time_record_value =
+                case field
+                when 'lufeb'       then sum_fields(:lufeb, :kurse_grundlagen)
+                when 'treffpunkte' then sum_fields(:treffpunkte, :treffpunkte_grundlagen)
+                else                    sum_fields(field.to_sym)
+                end
+
               aufwand_ertrag_ko_re * time_record_value / time_record.total_paragraph_74.abs
             end
         end
+      end
+
+      private
+
+      def sum_fields(main_field, *additional_fields)
+        ([main_field] + additional_fields).map do |field|
+          time_record.send(field).to_d
+        end.sum
       end
 
     end
