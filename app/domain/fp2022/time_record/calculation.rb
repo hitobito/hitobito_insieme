@@ -69,6 +69,7 @@ module Fp2022
              :apps,
              :total_media,
              :kurse_grundlagen,
+             :treffpunkte_grundlagen,
              :lufeb_grundlagen,
              to: :record
 
@@ -87,8 +88,9 @@ module Fp2022
       kurse_grundlagen.to_i +
         blockkurse.to_i +
         tageskurse.to_i +
-        treffpunkte.to_i +
-        jahreskurse.to_i
+        jahreskurse.to_i +
+        treffpunkte_grundlagen.to_i +
+        treffpunkte.to_i
     end
 
     def total_additional_person_specific

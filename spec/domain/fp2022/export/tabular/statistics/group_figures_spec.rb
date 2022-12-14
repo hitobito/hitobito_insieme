@@ -16,6 +16,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
                                      year: year,
                                      interviews: 10,
                                      beratung: 9,
+                                     kurse_grundlagen: 8,
                                      employee_pensum_attributes: { paragraph_74: 0.25,  })
     TimeRecord::EmployeeTime.create!(group: groups(:be), year: year - 1, newsletter: 11)
     TimeRecord::EmployeeTime.create!(group: groups(:fr),
@@ -25,7 +26,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
                                        paragraph_74: 1.6, not_paragraph_74: 0.4 })
 
     TimeRecord::VolunteerWithVerificationTime.create!(
-      group: groups(:be), year: year, vermittlung_kontakte: 20)
+      group: groups(:be), year: year, vermittlung_kontakte: 20, treffpunkte_grundlagen: 21)
     TimeRecord::VolunteerWithVerificationTime.create!(
       group: groups(:fr), year: year, referate: 21)
 
@@ -197,7 +198,8 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
       "Treffpunkte TN Tage Total Treffpunkt",
       "Treffpunkte Betreuungsstunden Total Treffpunkt",
 
-      "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte",
+      "Stunden Angestellte: Grundlagenarbeit Kurse",
+      "Stunden Angestellte: Grundlagenarbeit Treffpunkte",
       "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Angestellte: Förderung der Selbsthilfe",
       "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit",
@@ -206,7 +208,8 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
       "Stunden Angestellte: Medien & Publikationen",
       "Stunden Angestellte: Sozialberatung",
 
-      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte",
+      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse",
+      "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Treffpunkte",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe",
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit",
@@ -321,11 +324,13 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Semester-/Jahreskurse Total Vollkosten Förderung der Autonomie/Bildung" => 0.0,
         "Semester-/Jahreskurse Total Vollkosten Sport Erwachsene & altersdurchmischt" => 0.0,
         "Semester-/Jahreskurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
-        "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Angestellte: Grundlagenarbeit Kurse" => 0,
+        "Stunden Angestellte: Grundlagenarbeit Treffpunkte" => 0,
         "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Angestellte: Medien & Publikationen" => 0,
         "Stunden Angestellte: Sozialberatung" => 0,
-        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Treffpunkte" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Sozialberatung" => 0,
@@ -482,11 +487,13 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 30,
         "Stunden Ehrenamtliche ohne Leistungsausweis: Sozialberatung" => 0,
 
-        "Stunden Angestellte: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Angestellte: Grundlagenarbeit Kurse" => 8,
+        "Stunden Angestellte: Grundlagenarbeit Treffpunkte" => 0,
         "Stunden Angestellte: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Angestellte: Medien & Publikationen" => 0,
         "Stunden Angestellte: Sozialberatung" => 9,
-        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse & Treffpunkte" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Kurse" => 0,
+        "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Treffpunkte" => 21,
         "Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Medien & Publikationen" => 0,
         "Stunden Ehrenamtliche mit Leistungsausweis: Sozialberatung" => 0,
@@ -495,9 +502,9 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
 
         "VZÄ angestellte Mitarbeiter (Art. 74)" => 0.25,
         "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 0.25,
-        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => 0.01579,
-        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.01579,
-        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
+        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => 0.02684,
+        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.02684,
+        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.01105,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 10048000.0,
         "Faktor Kapitalsubstrat"                      => 4901.46341,

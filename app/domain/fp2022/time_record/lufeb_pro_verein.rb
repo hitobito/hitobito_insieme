@@ -40,7 +40,7 @@ module Fp2022
           'SUM(total_lufeb_specific) AS `specific`',
           'SUM(total_lufeb_promoting) AS `promoting`',
           'SUM(lufeb_grundlagen) AS `lufeb_grundlagen`',
-          'SUM(kurse_grundlagen) AS kurse_grundlagen'
+          'SUM(kurse_grundlagen) AS kurse_grundlagen',
         ].join(', '))
         .all
         .each_with_object({}) do |tr, memo|

@@ -64,30 +64,11 @@ module Fp2022::Export::Tabular::TimeRecords
       @stats.lufeb_data_for(group.id).promoting
     end
 
-    def specific_with_grundlagen(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-      data = @stats.lufeb_data_for(group.id) # could be time_record_data, if I had the linelength
-
-      kostenrechnung = fp_class('CostAccounting::Table').new(group, year)
-
-      vollkosten_tp = kostenrechnung.value_of('vollkosten', 'treffpunkte').to_f
-      vollkosten_alle =
-        if vollkosten_tp.positive?
-          vollkosten_tp +
-            kostenrechnung.value_of('vollkosten', 'blockkurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'tageskurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'jahreskurse').to_f
-        else
-          0
-        end
-
-      kurs_anteil =
-        if vollkosten_alle.positive?
-          ((vollkosten_alle - vollkosten_tp) / vollkosten_alle)
-        else
-          1
-        end
-
-      data.specific.to_d + data.lufeb_grundlagen.to_d + (data.kurse_grundlagen.to_d * kurs_anteil)
+    def specific_with_grundlagen(group)
+      @stats.lufeb_data_for(group.id).to_h
+            .values_at(:specific, :lufeb_grundlagen, :kurse_grundlagen)
+            .compact
+            .sum.to_d
     end
 
     def fp_t(field, options = {})

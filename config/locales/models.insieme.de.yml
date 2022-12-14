@@ -702,7 +702,8 @@ de:
         total_lufeb: Total LUFEB-Leistungen
         total_media: Medien & Publikationen
 
-        kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+        kurse_grundlagen: Grundlagenarbeit zu Kursen
+        treffpunkte_grundlagen: Grundlagenarbeit zu Treffpunkten
         blockkurse: Blockkurse
         tageskurse: Tageskurse
         jahreskurse: Semester-/Jahreskurse

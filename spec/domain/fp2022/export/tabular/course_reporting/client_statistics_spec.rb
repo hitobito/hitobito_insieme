@@ -129,7 +129,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
       expect(data[25]).to match_array(['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[26]).to match_array([nil,                     nil,              nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[27]).to match_array(['Freiburg',              12607,            nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[28]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    8,   0, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      expect(data[28]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    8, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[29]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit',   7,   6, nil,   3,   1, nil, nil,   1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,   1])
       expect(data[30]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       expect(data[31]).to match_array(['Blockkurse',            'Sport/Freizeit', nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
@@ -185,15 +185,15 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
 
     data = exporter.data_rows.to_a
 
-    #                                      Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
-    expect(data[18][0..5]).to match_array(['Biel-Seeland',          3115,             nil, nil, nil, nil])
-    expect(data[19][0..5]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    1, 150,  10,  15])
-    expect(data[20][0..5]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil])
-    expect(data[21][0..5]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil])
-    expect(data[22][0..5]).to match_array(['Blockkurse',            'Sport/Freizeit',   3,  45,   3,  50])
-    expect(data[23][0..5]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil])
-    expect(data[24][0..5]).to match_array(['Tageskurse',            'Sport/Freizeit',   1,  20, nil,  20])
-    expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',       5,  75, nil,  20])
+    #                             Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
+    expect(data[18][0..5]).to eq ['Biel-Seeland',          3115,             nil, nil, nil, nil]
+    expect(data[19][0..5]).to eq ['Semester-/Jahreskurse', 'Weiterbildung',    1, 150,  10,  15]
+    expect(data[20][0..5]).to eq ['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil]
+    expect(data[21][0..5]).to eq ['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil]
+    expect(data[22][0..5]).to eq ['Blockkurse',            'Sport/Freizeit',   3,  45,   3,  50]
+    expect(data[23][0..5]).to eq ['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil]
+    expect(data[24][0..5]).to eq ['Tageskurse',            'Sport/Freizeit',   1,  20, nil,  20]
+    expect(data[25][0..5]).to eq ['Treffpunkte',           'Treffpunkt',       5,  75, nil,  20]
   end
 
   it 'calculates aggregate_courses correctly' do
@@ -225,103 +225,61 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
 
     data = exporter.data_rows.to_a
 
-    #                                      Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
-    expect(data[18][0..5]).to match_array(['Biel-Seeland',          3115,             nil, nil, nil, nil])
-    expect(data[19][0..5]).to match_array(['Semester-/Jahreskurse', 'Weiterbildung',    6,   0, nil, nil])
-    expect(data[20][0..5]).to match_array(['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil])
-    expect(data[21][0..5]).to match_array(['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil])
-    expect(data[22][0..5]).to match_array(['Blockkurse',            'Sport/Freizeit', nil, nil, nil, nil])
-    expect(data[23][0..5]).to match_array(['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil])
-    expect(data[24][0..5]).to match_array(['Tageskurse',            'Sport/Freizeit', nil, nil, nil, nil])
-    expect(data[25][0..5]).to match_array(['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil])
+    #                             Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
+    expect(data[18][0..5]).to eq ['Biel-Seeland',          3115,             nil, nil, nil, nil]
+    expect(data[19][0..5]).to eq ['Semester-/Jahreskurse', 'Weiterbildung',    6, nil, nil, nil]
+    expect(data[20][0..5]).to eq ['Semester-/Jahreskurse', 'Sport/Freizeit', nil, nil, nil, nil]
+    expect(data[21][0..5]).to eq ['Blockkurse',            'Weiterbildung',  nil, nil, nil, nil]
+    expect(data[22][0..5]).to eq ['Blockkurse',            'Sport/Freizeit', nil, nil, nil, nil]
+    expect(data[23][0..5]).to eq ['Tageskurse',            'Weiterbildung',  nil, nil, nil, nil]
+    expect(data[24][0..5]).to eq ['Tageskurse',            'Sport/Freizeit', nil, nil, nil, nil]
+    expect(data[25][0..5]).to eq ['Treffpunkte',           'Treffpunkt',     nil, nil, nil, nil]
   end
 
-  context 'adds a part of a grundlagenarbeit to treffpunkt LE, it' do
-    subject(:gcp) do
-      Fp2022::CourseReporting::ClientStatistics::GroupCantonParticipant.new(
-        groups(:be).id, 'tp', 'treffpunkt', 5, 75, 0, *Array.new(27) { 0 }
+  context 'adds grundlagen hours to course_hours' do
+    let(:group) { groups(:be) }
+
+    let!(:employee_time) do
+      TimeRecord::EmployeeTime.create!(
+        group_id: group.id, year: year, kurse_grundlagen: 20, treffpunkte_grundlagen: 30
+      )
+    end
+    let!(:volunteer_time) do
+      TimeRecord::VolunteerWithoutVerificationTime.create!(
+        group_id: group.id, year: year, kurse_grundlagen: 44, treffpunkte_grundlagen: 55
       )
     end
 
-    before :each do
-      TimeRecord::EmployeeTime.create!(group_id: gcp.group_id, year: year, kurse_grundlagen: 20)
-      TimeRecord::VolunteerWithoutVerificationTime.create!(group_id: gcp.group_id, year: year, kurse_grundlagen: 44)
+    let(:treffpunkte_gcp) do
+      Fp2022::CourseReporting::ClientStatistics::GroupCantonParticipant.new(
+        group.id, 'tp', 'treffpunkt', 5, 75, 0, *Array.new(27) { 0 }
+      )
     end
 
-    context 'has assumptions, the implementation' do
-      it 'sums the grundlagenarbeit' do
-        grundlagen = ::TimeRecord.where(
-          group_id: gcp.group_id,
-          year: year,
-          type: %w(
-            TimeRecord::EmployeeTime
-            TimeRecord::VolunteerWithVerificationTime
-          )
-        ).sum(:kurse_grundlagen).to_f
-        expect(grundlagen).to eq 20
-      end
-
-      it 'fetches various parts from the kostenrechnung and sums them' do
-        kostenrechnung = fp_class('CostAccounting::Table').new(Group.find(gcp.group_id), year)
-
-        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'jahreskurse').and_return(1495.24.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'blockkurse').and_return(4990.48.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'tageskurse').and_return(1497.62.to_d)
-        expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'treffpunkte').and_return(3244.05.to_d)
-
-        total = [
-          kostenrechnung.value_of('vollkosten', 'jahreskurse'),
-          kostenrechnung.value_of('vollkosten', 'blockkurse'),
-          kostenrechnung.value_of('vollkosten', 'tageskurse'),
-          kostenrechnung.value_of('vollkosten', 'treffpunkte'),
-        ].map(&:to_f).sum
-
-        expect(total).to be_within(0.01).of(11227.39)
-      end
-
-      it 'derives the anteil from the kostenrechnung' do
-        anteil = 20.to_f * (3244.05.to_f / 11227.39.to_f)
-
-        expect(anteil).to be_within(0.001).of(5.77881413222485)
-      end
-
-      it 'takes the leistungseinheiten from the group-client-statistic-data' do
-        expect(gcp.course_hours.to_f).to eq 75
-      end
-
-      it 'adds the anteil to the leistungseinheiten' do
-        result = 75 + 5.778
-        expect(result).to be_within(0.001).of(80.778)
-      end
+    let(:kurse_gcp) do
+      Fp2022::CourseReporting::ClientStatistics::GroupCantonParticipant.new(
+        group.id, 'sk', 'freizeit_jugend', 5, 85, 0, *Array.new(27) { 0 }
+      )
     end
 
-    it 'matches the actual implementation result' do
-      # collaborators
-      kostenrechnung = double("CostAccounting-Table")
-      stats = double('client-statistics')
+    [:treffpunkte, :kurse].each do |kind|
+      it "for #{kind}" do
+        # collaborators
+        stats = double('client-statistics', year: year)
 
-      # return-values from collbarators
-      allow(stats).to receive(:year).and_return(year) # from let above
-      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'jahreskurse').and_return(1495.24.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'blockkurse').and_return(4990.48.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'tageskurse').and_return(1497.62.to_d)
-      expect(kostenrechnung).to receive(:value_of).with('vollkosten', 'treffpunkte').and_return(3244.05.to_d)
+        # execute
+        result = described_class.new(stats)
+                                .send(:course_hours_including_grundlagen_hours, send("#{kind}_gcp"))
 
-      # wire collaborators together
-      expect(fp_class('CostAccounting::Table')).to receive(:new).with(Group.find(gcp.group_id), year).and_return(kostenrechnung)
-
-      # execute
-      result = described_class.new(stats)
-                              .send(:kursdauer_und_treffpunkt_grundlagenanteil, gcp)
-
-      expect(result).to be_within(0.001).of(80.778)
+        expected = send("#{kind}_gcp").course_hours + employee_time.send("#{kind}_grundlagen")
+        expect(result).to be_within(0.001).of(expected)
+      end
     end
   end
 
   private
 
   def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {}, event_type = :course)
-    event = nil
     fachkonzept = leistungskategorie == 'tp' ? 'treffpunkt' : 'sport_jugend'
     if event_type == :aggregate_course
       event = Fabricate(event_type,

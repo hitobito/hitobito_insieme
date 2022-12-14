@@ -645,7 +645,8 @@ de:
       total_media: Medien & Publikationen
 
       treffpunkte: Treffpunkte
-      kurse_grundlagen: Grundlagenarbeit zu Kursen & Treffpunkten
+      treffpunkte_grundlagen: Grundlagenarbeit zu Treffpunkten
+      kurse_grundlagen: Grundlagenarbeit zu Kursen
       beratung: Sozialberatung (inkl. Grundlagenarbeit)
       total_courses: Total Kurse & Treffpunkte
       edit:
@@ -674,7 +675,8 @@ de:
       lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
       lufeb_specific: Themenspezifische Grundlagenarbeit
     fields_full:
-      kurse_grundlagen: Grundlagenarbeit Kurse & Treffpunkte
+      kurse_grundlagen: Grundlagenarbeit Kurse
+      treffpunkte_grundlagen: Grundlagenarbeit Treffpunkte
       media_grundlagen: Grundlagenarbeit Medien & Publikationen
       total_media: Medien & Publikationen
       beratung: Sozialberatung

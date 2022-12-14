@@ -128,7 +128,7 @@ module Fp2020::Export
           values << (record&.betreuungsstunden       || 0.0) if lk == 'tp'
         end
 
-        def append_time_values(values, record) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
+        def append_time_values(values, record) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           values << (record&.kurse_grundlagen      || 0)
           values << (record&.lufeb_grundlagen      || 0)
           values << (record&.total_lufeb_promoting || 0)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2022, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -97,8 +97,8 @@ module Fp2022::CostAccounting
     end
 
     def time_record
-      @time_record ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year)
-                                               .first_or_initialize
+      @time_record ||= ::TimeRecord::EmployeeTime.where(group_id: group.id, year: year)
+                                                 .first_or_initialize
     end
 
     def reports

@@ -54,6 +54,9 @@ describe Fp2022::TimeRecord::Calculation do
 
       # lufeb_grundlagen
       lufeb_grundlagen: 31,
+
+      kurse_grundlagen: 32,
+      treffpunkte_grundlagen: 33
     )
   end
 
@@ -72,7 +75,7 @@ describe Fp2022::TimeRecord::Calculation do
   end
 
   it 'total_courses' do
-    expect(subject.total_courses).to eq 26
+    expect(subject.total_courses).to eq 26 + 32 + 33
   end
 
   it 'total_additional_person_specific' do
@@ -84,10 +87,10 @@ describe Fp2022::TimeRecord::Calculation do
   end
 
   it 'total_paragraph_74' do
-    expect(subject.total_paragraph_74).to eq 97
+    expect(subject.total_paragraph_74).to eq 97 + 32 + 33
   end
   it 'total_paragraph_74_pensum' do
-    expect(subject.total_paragraph_74_pensum).to eq 97.to_d / 1900
+    expect(subject.total_paragraph_74_pensum).to eq (97 + 32 + 33).to_d / 1900
   end
 
   it 'total_not_paragraph_74' do
@@ -98,7 +101,7 @@ describe Fp2022::TimeRecord::Calculation do
   end
 
   it 'total_pensum' do
-    expect(subject.total_pensum).to eq (12 + 97).to_d / 1900
+    expect(subject.total_pensum).to eq (12 + 97 + 32 + 33).to_d / 1900
   end
 
   it 'update_totals' do
