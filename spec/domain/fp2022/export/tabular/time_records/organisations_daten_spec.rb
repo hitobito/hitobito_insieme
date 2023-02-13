@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2021-2023, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
+
+require 'spec_helper'
 
 describe Fp2022::Export::Tabular::TimeRecords::OrganisationsDaten do
   let(:year) { 2022 }
   subject { described_class.new(data) }
 
-  let(:teiler) { (1900 * 130).to_d }
   let(:data) do
-    od = Fp2022::TimeRecord::OrganisationsDaten.new(year)
+    od = fp_class('TimeRecord::OrganisationsDaten').new(year)
     verein_ids = od.vereine.map(&:id)
 
     od.instance_variable_set('@data_for', {
-      verein_ids[0] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 8, 4, 123_500, 61_750, teiler),
-      verein_ids[1] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(*Array.new(7) {0}, teiler),
-      verein_ids[2] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 7, 4, 0, 0, teiler),
-      verein_ids[3] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(*Array.new(7) {0}, teiler)
+      verein_ids[0] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 8, 4),
+      verein_ids[1] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(*Array.new(5) {0}),
+      verein_ids[2] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(10, 5, 20, 7, 4),
+      verein_ids[3] => Fp2022::TimeRecord::OrganisationsDaten::Data.new(*Array.new(5) {0})
     })
 
     od
@@ -37,8 +38,8 @@ describe Fp2022::Export::Tabular::TimeRecords::OrganisationsDaten do
     expect(rows[ 0]).to be_all nil
     # all values
     expect(rows[ 1]).to eq ['insieme Schweiz',                                                       nil]
-    expect(rows[ 2]).to eq ['FTE Angestellte MA insgesamt',                                         10.5]
-    expect(rows[ 3]).to eq ['FTE Angestellte MA Betrieb Art. 74 IVG',                               5.25]
+    expect(rows[ 2]).to eq ['FTE Angestellte MA insgesamt',                                           10]
+    expect(rows[ 3]).to eq ['FTE Angestellte MA Betrieb Art. 74 IVG',                                  5]
     expect(rows[ 4]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt',                28]
     expect(rows[ 5]).to eq ['FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG', 4]
     expect(rows[ 6]).to be_all nil

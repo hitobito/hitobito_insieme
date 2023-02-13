@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2021-2023, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -32,7 +32,7 @@ describe Fp2022::TimeRecord::OrganisationsDaten do
   end
 
   it 'has correct data' do
-    create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 123_500) # 0.5 FTE
+    create_cost_accounting_report('honorare', aufwand_ertrag_fibu: 123_500) # 0.5 FTE, not taken into account
     create_time_report(TimeRecord::EmployeeTime, {})
       .create_employee_pensum(paragraph_74: 0.5) # 0.5 FTE Art74
     create_time_report(
@@ -47,22 +47,10 @@ describe Fp2022::TimeRecord::OrganisationsDaten do
 
     data = subject.data_for(group)
 
-    expect(data.angestellte_insgesamt).to be_within(0.01).of(1.0)
+    expect(data.angestellte_insgesamt).to be_within(0.01).of(0.5)
     expect(data.angestellte_art_74).to    be_within(0.01).of(0.5)
     expect(data.freiwillige_insgesamt).to be_within(0.01).of(2.0)
     expect(data.freiwillige_art_74).to    be_within(0.01).of(1.5)
-  end
-
-  it 'knows the BSV-hours in a year' do
-    expect(subject.send :bsv_hours_per_year).to eq 1900
-  end
-
-  it 'knows the assumed hourly rate' do
-    expect(subject.send :assumed_hourly_rate).to eq 130
-  end
-
-  it 'knows the conversion denominator between external fte and internal fte' do
-    expect(subject.send :honorar_zu_mitarbeiter_teiler).to eq (1900 * 130)
   end
 
   private
