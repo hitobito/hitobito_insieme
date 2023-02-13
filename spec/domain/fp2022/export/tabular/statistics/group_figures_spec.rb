@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2022-2022, insieme Schweiz. This file is part of
+#  Copyright (c) 2022-2023, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -512,7 +512,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "IV-Beitrag"                                  => 20.0,
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
         "Deckungsbeitrag 4"                           => -2000.0,
-        "IV-Finanzierungsgrad #{year}"                => 1.0,
+        "IV-Finanzierungsgrad #{year}"                => 100.0,
       }))
     end
 

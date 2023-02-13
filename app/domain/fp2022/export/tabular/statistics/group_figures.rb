@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2022, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2023, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -180,7 +180,7 @@ module Fp2022::Export
         end
 
         def append_finanzierungsgrad_values(values, report)
-          values << report.iv_finanzierungsgrad_current
+          values << (report.iv_finanzierungsgrad_current * 100)
         end
 
         def iterate_courses(&block)
@@ -197,7 +197,7 @@ module Fp2022::Export
         end
 
         def fp_label(section, scope, prefix)
-          fp_t(section, scope: fp_i18n_scope(scope)).prepend(prefix + ': ')
+          fp_t(section, scope: fp_i18n_scope(scope)).prepend("#{prefix}: ")
         end
 
         def fp_t(field, options = {})
