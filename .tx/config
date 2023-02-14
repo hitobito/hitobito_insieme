@@ -1,13 +1,13 @@
 [main]
 host = https://www.transifex.com
-type = YML
 
-[hitobito_insieme.views-insieme]
+[o:hitobito:p:hitobito_insieme:r:models-insieme]
+file_filter = config/locales/models.insieme.<lang>.yml
+source_file = config/locales/models.insieme.de.yml
+source_lang = de
+
+[o:hitobito:p:hitobito_insieme:r:views-insieme]
 file_filter = config/locales/views.insieme.<lang>.yml
 source_file = config/locales/views.insieme.de.yml
 source_lang = de
 
-[hitobito_insieme.models-insieme]
-file_filter = config/locales/models.insieme.<lang>.yml
-source_file = config/locales/models.insieme.de.yml
-source_lang = de
