@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2022, Insieme Schweiz. This file is part of
+#  Copyright (c) 2022-2023, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -24,7 +24,7 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
 
   context '#paragraph_74' do
     it 'calculates the correct value' do
-      expect(report.paragraph_74).to eq ( 3.to_d - 1.to_d ) # 2
+      expect(report.paragraph_74).to eq 3.to_d
     end
   end
 
@@ -36,7 +36,7 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
 
   context '#total' do
     it 'calculates the correct value' do
-      expect(report.total).to eq ( 3.to_d + 5.to_d - 2.to_d ) # 6
+      expect(report.total).to eq ( 3.to_d + 5.to_d ) # 8
     end
   end
 

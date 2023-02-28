@@ -26,3 +26,7 @@ Naming/MethodParameterName:
     # - os
     # - pp
     # - to
+
+Naming/VariableNumber:
+  AllowedPatterns:
+    - .*paragraph_74.*
