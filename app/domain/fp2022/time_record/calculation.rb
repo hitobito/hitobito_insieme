@@ -103,7 +103,7 @@ module Fp2022
     end
 
     def total_paragraph_74
-      @total_paragraph_74 ||= # rubocop:disable Naming/VariableNumber
+      @total_paragraph_74 ||=
         total_lufeb.to_i +
         total_media.to_i +
         total_courses.to_i +
