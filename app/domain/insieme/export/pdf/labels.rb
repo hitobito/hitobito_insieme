@@ -23,8 +23,8 @@ module Insieme
           end
         end
 
-        def print_company?(contactable)
-          contactable.company_name?
+        def print_company?(contactable, name)
+          contactable.company_name? && contactable.company_name != name
         end
 
         class AddressProxy
