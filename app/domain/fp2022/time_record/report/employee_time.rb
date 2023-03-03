@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2023, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,7 +9,7 @@ module Fp2022
   class TimeRecord::Report::EmployeeTime < TimeRecord::Report::Base
 
     def paragraph_74
-      record.total_paragraph_74_pensum - honorar_pensum('aufwand_ertrag_fibu').to_d
+      record.total_paragraph_74_pensum
     end
 
     def not_paragraph_74
@@ -17,18 +17,8 @@ module Fp2022
     end
 
     def total
-      record.total_pensum - honorar_pensum('total').to_d
+      record.total_pensum
     end
 
-    private
-
-    def honorar_pensum(key)
-      honorar_costs = table.cost_accounting_value_of('honorare', key).to_d
-
-      price = record.fp_calculations.class::ASSUMED_HOURLY_RATE
-      hours = record.fp_calculations.send(:bsv_hours_per_year)
-
-      honorar_costs / (price * hours)
-    end
   end
 end
