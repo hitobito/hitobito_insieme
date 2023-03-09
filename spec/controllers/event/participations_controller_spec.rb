@@ -13,7 +13,7 @@ describe Event::ParticipationsController do
   let(:role)  { roles(:regio_leader) }
   let(:person) { role.person }
 
-  before { sign_in(role.person) }
+  before { sign_in(person) }
 
   it 'POST create updates person attributes' do
     expect do
@@ -84,6 +84,29 @@ describe Event::ParticipationsController do
     expect(person.country).to eq 'DE'
     expect(person.correspondence_course_country).to eq 'DE'
     expect(person.billing_course_country).to eq 'DE'
+  end
+
+  it 'POST create for someone else creates active participation and removes application from waiting_list' do
+    event.update(waiting_list: true, maximum_participants: 2) # already 2 participants present
+
+    someone_else = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: groups(:aktiv)).person
+
+    expect do
+      post :create,
+           params: {
+             group_id: event.groups.first.id,
+             event_id: event.id,
+             for_someone_else: true,
+             event_participation: { person_id: someone_else.id }
+           }
+    end.to change { Event::Participation.count }.by(1)
+
+    participation = Event::Participation.find_by(event_id: event.id, person_id: someone_else.id)
+
+    expect(participation).to be_present
+    expect(participation).to be_active
+    expect(participation.application).to be_present
+    expect(participation.application.waiting_list).to eq(false)
   end
 
   it 'POST create does not allow to update different person' do

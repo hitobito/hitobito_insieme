@@ -14,6 +14,12 @@ module Insieme
 
     private
 
+    def directly_assign_place?
+      return true if params[:for_someone_else]
+
+      super
+    end
+
     def permitted_attrs
       attrs = super
       if can?(:modify_internal_fields, entry)
