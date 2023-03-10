@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 1.28
 
 *  Adjust insieme specific labels for addresses and contactables
 *  Featureperiode 2022 hinzugefügt (hitobito_insieme#125)
