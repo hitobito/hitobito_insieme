@@ -637,6 +637,17 @@ de:
         billing_course_same_as_main: Rechnungsadresse Kurs gleich Hauptadresse
         billing_course_label: Label
 
+      contact_account:
+        predefined_labels:
+          privat: Privat
+          arbeit: Arbeit
+          vater: Vater
+          mutter: Mutter
+          beistand: Beistand
+          wohngruppe: Wohngruppe
+          wohnheim: Wohnheim
+          andere: Andere
+
       reporting_parameter:
         year: Jahr
         vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE
