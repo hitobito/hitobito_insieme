@@ -13,7 +13,7 @@ describe Export::Tabular::People do
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
     %w(Vorname Nachname Übername Firmenname Firma Haupt-E-Mail Adresse PLZ Ort Land
-       Geschlecht Geburtstag Hauptebene Rollen Tags Personnr. Anrede Korrespondenzsprache) +
+       Hauptebene Rollen Tags Personnr. Anrede Korrespondenzsprache) +
        [
          'Anrede Korrespondenzadresse allgemein',
          'Vorname Korrespondenzadresse allgemein',
@@ -108,7 +108,6 @@ describe Export::Tabular::People do
         its(['Land']) { should eq person.country_label }
         its(['Vorname Korrespondenzadresse allgemein']) { should eq 'Töp' }
         its(['Land Korrespondenzadresse allgemein']) { should eq 'Frankreich' }
-        its(['Geschlecht']) { should eq person.gender_label }
         its(['Rollen']) { should eq 'Geschäftsführung insieme Schweiz' }
       end
     end
