@@ -28,14 +28,14 @@ describe TimeRecordsController, type: :controller  do
     it 'exports csv for 2014' do
       get :index, params: { id: groups(:dachverein).id, year: 2014 }, format: :csv
       csv = response.body
-      expect(csv).to match(/\A;Zeiterfassung Angestellte;Zeiterfassung Ehrenamtliche mit Leistungsnachweis;Zeiterfassung Ehrenamtliche ohne Leistungsnachweis/)
+      expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM};Zeiterfassung Angestellte;Zeiterfassung Ehrenamtliche mit Leistungsnachweis;Zeiterfassung Ehrenamtliche ohne Leistungsnachweis"))
       expect(csv).to match(/^Art\. 74 betreffend in 100% Stellen;;;$/)
     end
 
     it 'exports csv for 2020' do
       get :index, params: { id: groups(:dachverein).id, year: 2020 }, format: :csv
       csv = response.body
-      expect(csv).to match(/\A;Zeiterfassung Angestellte;Zeiterfassung Ehrenamtliche mit Leistungsnachweis;Zeiterfassung Ehrenamtliche ohne Leistungsnachweis/)
+      expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM};Zeiterfassung Angestellte;Zeiterfassung Ehrenamtliche mit Leistungsnachweis;Zeiterfassung Ehrenamtliche ohne Leistungsnachweis"))
       expect(csv).to match(/^Art\. 74 betreffend in 100% Stellen;;;$/)
       expect(csv).to match(/^Grundlagenarbeit zu LUFEB/)
     end

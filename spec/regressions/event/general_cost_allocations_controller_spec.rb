@@ -25,8 +25,8 @@ describe Event::GeneralCostAllocationsController, type: :controller do
     it 'renders csv' do
       get :show, params: { group_id: group.id, year: 2014 }, format: :csv
       csv = response.body
-      expect(csv).to match(/\A;/)
-      expect(csv).to match(/^;Total direkte Kosten;Total Gemeinkosten;Gemeinkostenzuschlag$/)
+      expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM};"))
+      expect(csv).to match(Regexp.new("^#{Export::Csv::UTF8_BOM};Total direkte Kosten;Total Gemeinkosten;Gemeinkostenzuschlag$"))
     end
 
   end

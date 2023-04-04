@@ -44,7 +44,7 @@ describe ControllingController, type: :controller  do
     end
 
     it 'exports table' do
-      expect(@response.body).to match(/^Gruppe;Kontakte zu Medien, zu Medienschaffenden;.+;Total$/)
+      expect(@response.body).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Gruppe;Kontakte zu Medien, zu Medienschaffenden;\.\+;Total$"))
       expect(@response.body).to match(/^insieme Schweiz;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
       expect(@response.body).to match(/^Kanton Bern;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
     end

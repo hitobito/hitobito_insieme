@@ -27,8 +27,8 @@ describe StatisticsController, type: :controller  do
   it 'exports csv' do
     get :index, params: { id: groups(:dachverein).id }, format: :csv
     csv = response.body
-    expect(csv).to match(/\AVID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;/)
-    expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;Bern$/)
+    expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM}VID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;"))
+    expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;Bern/)
   end
 
 end
