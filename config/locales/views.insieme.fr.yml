@@ -5,6 +5,9 @@ fr:
     days_short: Jours
     persons_short: Personnes
     printed: Impression
+  invoices:
+    pdf:
+      leistungsbezueger: Bénéficiaires
   layouts:
     reporting_menu:
       time_records: Enregistrement des heures de travail
@@ -26,6 +29,10 @@ fr:
     edit:
       deckungsbeitrag4_sum_notice: "Remarque: Pour les associations ayant une contribution AI inférieure à 300'000.00 fr., les CC4 cumulées depuis 2015 sont prises en compte dans le calcul du substrat de capital."
       deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
+      iv_finanzierungsgrad_since_2015: Taux de financement AI moyen 2015
+      iv_finanzierungsgrad_fp2015: Taux de financement AI moyen 2015 - 2019
+      iv_finanzierungsgrad_fp2020: Taux de financement AI moyen 2020 - 2023
+      iv_finanzierungsgrad_current: Taux de financement AI
       help_per_date: en %{date}
   contactable:
     address_fields_insieme:
@@ -41,6 +48,7 @@ fr:
     index:
       controlling: Général
       cost_accounting: Comptabilité analytique consolidée
+      pro_verein: Comptabilité analytique par association
       client_statistics: Statistique des client-e-s
       group_figures: Chiffres indicatifs par association
       export_time_records: Résumé du décompte des heures de travail
@@ -52,6 +60,8 @@ fr:
         employee_time: Employé-e
         volunteer_with_verification_time: Bénévoles avec preuve de prestation
         volunteer_without_verification_time: Bénévole sans preuve de prestations
+      lufeb_times: PROSPREH par association
+      group_data: Données organisationnelles par association
   cost_accounting:
     index:
       title: Vue d'ensemble comptabilité analytique
@@ -72,12 +82,12 @@ fr:
       kostentraeger: Unité d’imputation de coûts
   course_reporting:
     client_statistics:
-      disability_or_canton: Handicap / canton
+      disability_or_canton: Personnes en situation de handicap / Canton
       total: Total
-      challenged: Nombre de personnes handicapées (personnes)
-      affiliated: Nombre de proches (personnes)
-      participants: Handicap mental et difficultés d'apprentissage
-      multiple_challenged: dont personnes plusrihandicapées
+      challenged: Nombre de personnes en situation de handicap
+      affiliated: Nombre de proches
+      participants: en situation de handicap mental/difficultés d'apprentissage
+      multiple_challenged: dont personnes en situation de polyhandicap
     aggregations:
       index:
         title: Exportation de statistique de cours
@@ -94,23 +104,23 @@ fr:
       kursdauer: Nombre de jours de cours
       kursdauer_stunden: Nombre d'heures de cours
       teilnehmende: Nombre effectif de participant-e-s
-      teilnehmende_behinderte: dont personnes handicapées
+      teilnehmende_behinderte: dont personnes en situation de handicap
       teilnehmende_angehoerige: dont proches
       teilnehmende_weitere: dont bénéficiaires non reconnus
       total_absenzen: Jours d'absence
-      absenzen_behinderte: dont jours d'absence de personnes handicapées
+      absenzen_behinderte: dont jours d'absence personnes en situation de handicap
       absenzen_angehoerige: dont jours d'absence de proches
       absenzen_weitere: dont jours d'absence de bénéficiaires non reconnus
       total_absenzen_stunden: Heures d'absence
-      absenzen_behinderte_stunden: dont heures d'absence de personnes handicapées
+      absenzen_behinderte_stunden: dont heures d'absence personnes en situation de handicap
       absenzen_angehoerige_stunden: dont heures d'absence de proches
       absenzen_weitere_stunden: dont heures d'absence de bénéficiares non reconnus
       total_tage_teilnehmende: Journées participants effectives
-      tage_behinderte: dont journées participants handicapés
+      tage_behinderte: dont jours-participants personnes en situation de handicap
       tage_angehoerige: dont journées participants proches
       tage_weitere: dont journées participants bénéficiaires non reconnus
       total_tage_teilnehmende_stunden: dont heures participants effectives
-      tage_behinderte_stunden: dont heures participants handicapés
+      tage_behinderte_stunden: dont heures participants personnes en situation de handicap
       tage_angehoerige_stunden: dont heures participants proches
       tage_weitere_stunden: dont heures participants bénéficiaires non reconnus
       total_stunden_betreuung_stunden: Nombre d'heures d’accompagnement
@@ -158,7 +168,7 @@ fr:
         total_betreuungsstunden: Total heures d’accompagnement
         according_to_course_dates: "Selon les données des cours: %{duration}"
         according_to_list: "Selon la liste des participants: %{count}"
-        challenged_per_team: "%{ratio} Personnes handicapées par personnel d'encadrement"
+        challenged_per_team: "Participants en situation de handicap par personnel d'encadrement"
         auswertungen: Evaluations
         updated_at: "Actualisé le  %{date}"
         info_not_subsidized: "Pas subventionné: les cours ne sont pas pris en compte dans la statistique de cours"
@@ -174,6 +184,7 @@ fr:
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
         semesterkurse: Cours semestriels/annuels
+        treffpunkte: Lieux d’accueil
         total_direct_cost: Total des frais directs
         total_general_cost: Total des frais généraux
         general_cost_allowance: Suppléments de frais généraux
@@ -185,6 +196,13 @@ fr:
     participations:
       asides_insieme:
         active_memberships: Membres actifs
+  event/participations:
+    full_entry_label: '%{model_label}de<i>%{person}</i> au<i>%{event}</i>'
+    success: '%{full_entry_label}a été créé avec succès. Veuillez vérifier les données de contact et les adapter si nécessaire.'
+    instructions: 'Pour l''inscription définitive, tu dois imprimer la confirmation de participation via <i>Imprimer</i>, la signer et l''envoyer par la poste à l''adresse correspondante.'
+    export_enqueued: 'Export est lancé en arrière-plan et téléchargé une fois terminé.'
+    waiting_list: 'Toutes les places sont actuellement occupées, l''inscription est sur la liste  d''attente.'
+    pending: 'Une préinscription a été créée pour %{full_entry_label}. La participation n''est pas encore définitive et doit être confirmée par l''administration du cours.'
   events:
     tabs:
       participants: 'Equipe & Participants'
@@ -235,7 +253,7 @@ fr:
       leistungskategorie_tp: lieux d'accueil
       anzahl_kurse: "%{leistungskategorie} nombre de cours %{kategorie}"
       total_vollkosten: "%{leistungskategorie} total coûts complets %{kategorie}"
-      tage_behinderte: "%{leistungskategorie} journées participant personnes handicapées %{kategorie}"
+      tage_behinderte: " %{leistungskategorie} Jours-participants personne en situation de handicap %{kategorie}"
       tage_angehoerige: "%{leistungskategorie} journées participant proches %{kategorie}"
       tage_weitere: "%{leistungskategorie} journées participants pour les bénéficiaires non reconnus %{kategorie}"
       tage_total: "%{leistungskategorie} journées participant total %{kategorie}"
@@ -253,6 +271,7 @@ fr:
       vollkosten_nach_umlagen_betrieb: Coûts complet après participation à l'art. 74
       iv_beitrag: Contribution AI
       deckungsbeitrag_4: Marge de contribution 4
+      iv_finanzierungsgrad_current: "Taux de financement AI"
   shared:
     admin_nav_kinds_insieme:
       reporting_parameters: Paramètre
@@ -274,7 +293,7 @@ fr:
       subtotal: Sous-total
       total: Total
       employees: Collaborateurs/trices employé-e-s, selon contrat de travail
-      lufeb: Prestations ayant pour objet de soutenir et promouvoir la réadaptation des personnes handicapées (PROSPREH)
+      lufeb: Prestations ayant pour objet de soutenir et d’encouragerla réadaptation des personnes en situation de handicap (PROSPREH)
       courses: Cours
       additional_person_specific: Autres besoins personnels spécifiques
       remaining: Autres prestations
@@ -302,6 +321,7 @@ fr:
       help_koordination_selbsthilfe: Organisations, groupes, groupes de travail, fonction de plaque tournante
       help_treffen_meinungsaustausch: de personnes handicapées et de proches personnes à des fins d'échange d'opinion et d'expérience
       help_unterstuetzung_behindertenhilfe: En moyenne max. 100 heures par année et organisation.
+      subtotal: Sous-total
     report:
       employee_pensum:
         name: Collaborateurs-trices employé-e-s. Selon contrat de travail (place à 100%).
@@ -328,87 +348,267 @@ fr:
           name: Frais généraux
           short_name: Frais généraux
         unternehmenserfolg:
-          name: produits moins charges
-          short_name: produits moins charges
+          name: Produits moins charges
+          short_name: Produits moins charges
         deckungsbeitrag4:
-          name: Marge de contribution 4
-          short_name: Marge de contribution 4
+          name: Contributions de couverture 4
+          short_name: Contributions de couverture 4
       headers:
         beratung: Conseil social
       beratung: Conseil social
+      pro_verein:
+        type: Types de frais
+        personalaufwand: Charges de personnel
+        honorare: Honoraires
+        sachaufwand: Charges matérielles
+        aufwand: Charges
+        gemeinkosten: Frais généraux
+        umlagen: Répartitions
+        total_aufwand: Total des charges & répartitions
+        leistungen: Prestations
+        beitraege_iv: Contributions AI/AVS
+        sonstige_beitraege: Autres contributions fédérales/cantonales/communales
+        spenden_zweckgebunden: dons affectés/autres revenus
+        spenden_nicht_zweckgebunden: dons non affectés/autres revenus
+        aufwand_ertrag_fibu: CF - CA
+        abgrenzung: Délimitation
+        klr: CA
+        sozialberatung: Conseil social
+        bauberatung: 'Conseil en matière de construction '
+        rechtsberatung: Conseil juridique
+        vermittlung: Mise en relation avec des services d’aide
+        wohnbegleitung: Accompagnement à domicile
+        media: Médias et publications
+        jahreskurse: Cours semestriels / annuels
+        blockkurse: Cours en bloc
+        tageskurse: Cours journaliers
+        treffpunkte: Lieux d’accueil
+        lufeb: PROSPREH
     course_records:
-      vollkosten_pro_betreuungsstunde: Frais totaux par heure d’accompagnement
+      vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
       anzahl_durchfuehrungen: Nombre de réalisations
     course_reporting:
       aggregations:
         anzahl_kurse_tp: Nombre de réalisations
-        betreuende_tp: personnel d'accompagnement
-        direkte_kosten_pro_betreuungsstunde: Moyenne des frais directs par heure d’accompagnement
-        vollkosten_pro_betreuungsstunde: Moyenne des frais totaux par heure d’accompagnement
+        betreuende_tp: Personnel d'encadrement
+        direkte_kosten_pro_betreuungsstunde: Frais directs moyens par heure d’accompagnement
+        vollkosten_pro_betreuungsstunde: Frais complets moyens par heure d’accompagnement
       client_statistics:
-        group_or_course_type: association / type de cours
+        group_or_course_type: Association / Type de cours
+        course_count: Nombre de cours
+        course_hours: Unité de prestation ayant droit à une contribution
+        other_attendees: Unité de prestation non ayant droit à une contribution
         course_total: Total
         course_fachkonzept: Contenu du cours
         fachkonzept:
           weiterbildung: Formation continue
-          sport: sport/loisirs
+          sport: Sport/loisirs
+          treffpunkt: Lieux d’accueil
+    events:
+      anzahl_durchfuehrungen: Nombre de réalisations
+    statistics:
+      group_figures:
+        anzahl_kurse: "%{leistungskategorie} Nombre de cours %{fachkonzept}"
+        total_vollkosten: "%{leistungskategorie}Total des frais complets %{fachkonzept}"
+        tage_behinderte: " %{leistungskategorie} Jours-participants personnes en situation de handicap %{fachkonzept}"
+        tage_angehoerige: "%{leistungskategorie}Jours des participants proches %{fachkonzept}"
+        tage_weitere: "%{leistungskategorie}Jours des participants non bénéficiaires %{fachkonzept}"
+        tage_total: "%{leistungskategorie} Jours des participants total %{fachkonzept}"
+        betreuungsstunden_total: "%{leistungskategorie} heures d’accompagnement total %{fachkonzept}"
+        hours_employees: Heures employé*es
+        hours_volunteers: Heures de bénévolats avec certificat de performance
+        hours_volunteers_without: Heures de bénévolats sans certificat de performance
+    time_records:
+      lufeb_grundlagen: Travail de fond PROSPREH
+      lufeb_promoting: Encouragement de l’entraide
+      beratung_fachhilfeorganisationen: Information, conseil aux organisations et aux particuliers
+      unterstuetzung_leitorgane: Soutien aux personnes en situation de handicap dans les organes directeurs
+      freiwilligen_akquisition: Recrutement de bénévoles
+      total_lufeb_promoting: Encouragement de l’entraide
+      lufeb_general: 'Tâches générales d’information et de relations publiques '
+      auskuenfte: Renseignements pour le public, les personnes en situation de handicap, les proches, les professionnels, les médias
+      referate: Présentations
+      medien_zusammenarbeit: Collaboration avec des médias
+      sensibilisierungskampagnen: Travaux et manifestations visant à sensibiliser le grand public et à lutter contre la stigmatisation
+      lufeb_specific: Travail de fond ayant pour objet un thème spécifique
+      erarbeitung_grundlagen: Travail de fond (instruments de travail, concepts, études, documents de base)
+      gremien: Appartenance / collaboration à des organes
+      vernehmlassungen: 'Participation à des procédures de consultation '
+      projekte: 'Projets art. 74 LAI (préparation et réalisation) '
+      media: Médias et publications
+      medien_grundlagen: Travail de fond sur les médias et les publications
+      website: Site web
+      newsletter: 'Lettres circulaires, brochures d’information, mémentos '
+      videos: Vidéos
+      social_media: Médias sociaux
+      beratungsmodule: Module de conseil standardisé
+      apps: Applications
+      total_media: Médias et publications
+      treffpunkte: Lieux d'acceuil
+      kurse_grundlagen: Travail de fond sur les cours & les lieux d'acceuil
+      beratung: Conseil social (incl. travail de fond)
+      total_courses: Total cours & lieux d'acceuil
+      edit:
+        courses: Cours & lieux d'acceuil
+        beratung: Conseil social
+      lufeb_fields_sumarized:
+        total_media: Médias et publications (incl. travail de fond)
+      lufeb_times:
+        group_or_stat: Groupe/nom de champ
+        general: 'Tâches générales d’information et de relations publiques '
+        specific_with_grundlagen: Travail de fond ayant pour objet un thème spécifique
+        promoting: Encouragement de l’entraide
+      group_data:
+        group_or_stat: Groupe/nom de champ
+        angestellte_insgesamt: FTE Total des employé*es
+        angestellte_art_74: 'FTE employé*es exploitation au sens de l’art. 74 LAI '
+        freiwillige_insgesamt: FTE Total bénévoles et volontaires
+        freiwillige_art_74: 'FTE Bénévoles et des volontaires de l''exploitation au sens de l’art. 74 LAI '
+    lufeb_fields_full:
+      lufeb_grundlagen: Travail de fond PROSPREH
+      lufeb_promoting: Encouragement de l’entraide
+      lufeb_general: 'Tâches générales d’information et de relations publiques '
+      lufeb_specific: 'Travail de fond ayant pour objet un thème spécifique '
+    fields_full:
+      kurse_grundlagen: Travail de fond cours & lieux d'acceuil
+      media_grundlagen: Travail de fond médias & publications
+      total_media: Médias & publications
+      beratung: Conseil social
+  fp2022:
+    cost_accounting:
+      report:
+        total_umlagen:
+          name: Frais généraux
+          short_name: Frais généraux
+        unternehmenserfolg:
+          name: Produits moins charges
+          short_name: Produits moins charges
+        deckungsbeitrag4:
+          name: Contributions de couverture 4
+          short_name: Contributions de couverture 4
+      headers:
+        beratung: Conseil social
+      beratung: Conseil social
+      pro_verein:
+        type: Types de frais
+        personalaufwand: Charges de personnel
+        honorare: Honoraires
+        sachaufwand: Charges matérielles
+        aufwand: Charges
+        gemeinkosten: Frais généraux
+        umlagen: Répartitions
+        total_aufwand: Total des charges & répartitions
+        leistungen: Prestations
+        beitraege_iv: Contributions AI/AVS
+        sonstige_beitraege: Autres contributions fédérales/cantonales/communales
+        spenden_zweckgebunden: dons affectés/autres revenus
+        spenden_nicht_zweckgebunden: dons non affectés/autres revenus
+        aufwand_ertrag_fibu: CF - CA
+        abgrenzung: Délimitation
+        klr: CA
+        sozialberatung: Conseil social
+        bauberatung: Conseil en matière de construction
+        rechtsberatung: Conseil juridique
+        vermittlung: Mise en relation avec des services d’aide
+        wohnbegleitung: Accompagnement à domicile
+        media: Médias et publications
+        jahreskurse: Cours semestriels / annuels
+        blockkurse: Cours en bloc
+        tageskurse: Cours journaliers
+        treffpunkte: Lieux d’accueil
+        lufeb: PROSPREH
+    course_records:
+      vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
+      anzahl_durchfuehrungen: Nombre de réalisations
+    course_reporting:
+      aggregations:
+        anzahl_kurse_tp: Nombre de réalisations
+        betreuende_tp: Personnel d'encadrement
+        direkte_kosten_pro_betreuungsstunde: Frais directs moyens par heure d’accompagnement
+        vollkosten_pro_betreuungsstunde: Frais complets moyens par heure d’accompagnement
+      client_statistics:
+        group_or_course_type: Association / Type de cours
+        course_count: Nombre de cours
+        course_hours: Unité de prestation ayant droit à une contribution
+        other_attendees: Unité de prestation non ayant droit à une contribution
+        course_total: Total
+        course_fachkonzept: Contenu du cours
+        fachkonzept:
+          weiterbildung: Formation continue
+          sport: Sport/loisirs
           treffpunkt: Lieux d’accueil
     events:
       anzahl_durchfuehrungen: Nombre de réalisations
     statistics:
       group_figures:
         anzahl_kurse: "%{leistungskategorie} nombre de cours %{fachkonzept}"
-        total_vollkosten: "%{leistungskategorie} Total des frais totaux %{fachkonzept}"
-        tage_behinderte: "%{leistungskategorie} journées participant personnes handicapées %{fachkonzept}"
-        tage_angehoerige: "%{leistungskategorie} journées participant proches %{fachkonzept}"
-        tage_weitere: "%{leistungskategorie} journées participants pour les bénéficiaires non reconnus %{fachkonzept}"
-        tage_total: "%{leistungskategorie} Total des journées participants %{fachkonzept}"
-        hours_employees: Heures des employé-e-s
-        hours_volunteers: Heures bénévoles avec preuve de prestations
+        total_vollkosten: "%{leistungskategorie} Total des frais complets %{fachkonzept}"
+        tage_behinderte: " Jours-participants personnes en situation de handicap"
+        tage_angehoerige: "%{leistungskategorie} Jours des participants proches %{fachkonzept}"
+        tage_weitere: "%{leistungskategorie} Jours des participants non bénéficiaires %{fachkonzept}"
+        tage_total: "%{leistungskategorie} Jours des participants total %{fachkonzept}"
+        betreuungsstunden_total: "%{leistungskategorie} heures d’accompagnement total %{fachkonzept}"
+        hours_employees: Heures employé*es
+        hours_volunteers: Heures de bénévolats avec certificat de performance
+        hours_volunteers_without: Heures de bénévolats sans certificat de performance
     time_records:
       lufeb_grundlagen: Travail de fond PROSPREH
-      lufeb_promoting: 'Encouragement de l’entraide '
+      lufeb_promoting: Encouragement de l’entraide
       beratung_fachhilfeorganisationen: Information, conseil aux organisations et aux particuliers
-      unterstuetzung_leitorgane: Soutien de personnes handicapée dans des organes directeurs
+      unterstuetzung_leitorgane: Soutien aux personnes en situation de handicap dans les organes directeurs
       freiwilligen_akquisition: Recrutement de bénévoles
-      total_lufeb_promoting: 'Encouragement de l’entraide '
-      lufeb_general: 'Tâches générales d’information et de relations publiques '
-      auskuenfte: 'Renseignements au public : personnes handicapées, proches, spécialistes, médias'
-      referate: Exposés, conférences
+      total_lufeb_promoting: Encouragement de l’entraide
+      lufeb_general: Tâches générales d’information et de relations publiques
+      auskuenfte: Renseignements pour le public, les personnes en situation de handicap, les proches, les professionnels, les médias
+      referate: Présentations
       medien_zusammenarbeit: Collaboration avec des médias
       sensibilisierungskampagnen: Travaux et manifestations visant à sensibiliser le grand public et à lutter contre la stigmatisation
-      lufeb_specific: 'Travail de fond ayant pour objet un thème spécifique '
-      erarbeitung_grundlagen: Travail de fond (instruments de travail, concepts, études et documents de base)
-      gremien: Appartenance ou collaboration à des organes
-      vernehmlassungen: 'Participation à des procédures de consultation '
+      lufeb_specific: Travail de fond ayant pour objet un thème spécifique
+      erarbeitung_grundlagen: Travail de fond (instruments de travail, concepts, études, documents de base)
+      gremien: Appartenance / collaboration à des organes
+      vernehmlassungen: Participation à des procédures de consultation
       projekte: Projets art. 74 LAI (préparation et réalisation)
       media: Médias et publications
-      medien_grundlagen: Travail de fond Médias et publications
-      website: Page Internet
-      newsletter: ' Lettres circulaires, brochures d’information, mémentos '
+      medien_grundlagen: Travail de fond sur les médias et les publications
+      website: Site web
+      newsletter: Lettres circulaires, brochures d’information, mémentos
       videos: Vidéos
-      social_media: Résaux sociaux
+      social_media: Médias sociaux
       beratungsmodule: Module de conseil standardisé
       apps: Applications
       total_media: Médias et publications
-      treffpunkte: Lieux d’accueil
-      kurse_grundlagen: Travail de fond Cours et lieux d'accueil
-      beratung: Conseil social (Travail de fond incl.)
-      total_courses: Total cours et lieux d’accueil
+      treffpunkte: Lieux d'acceuil
+      treffpunkte_grundlagen: Travail de fond sur les lieux d'acceuil
+      kurse_grundlagen: Travail de fond sur les cours
+      beratung: Conseil social (incl. travail de fond)
+      total_courses: Total cours & lieux d'acceuil
       edit:
-        courses: Cours et lieux d’accueil
+        courses: Cours & lieux d'acceuil
         beratung: Conseil social
       lufeb_fields_sumarized:
-        total_media: Médias et publications (Travail de fond incl.)
+        total_media: Médias et publications (incl. travail de fond)
+      lufeb_times:
+        group_or_stat: Groupe/nom de champ
+        general: Tâches générales d’information et de relations publiques
+        specific_with_grundlagen: Travail de fond ayant pour objet un thème spécifique
+        promoting: Encouragement de l’entraide
+      group_data:
+        group_or_stat: Groupe/nom de champ
+        angestellte_insgesamt: FTE Total des employé*es
+        angestellte_art_74: FTE employé*es exploitation au sens de l’art. 74 LAI
+        freiwillige_insgesamt: FTE Total bénévoles et volontaires
+        freiwillige_art_74: FTE Bénévoles et des volontaires de l'exploitation au sens de l’art. 74 LAI
     lufeb_fields_full:
       lufeb_grundlagen: Travail de fond PROSPREH
-      lufeb_promoting: 'Encouragement de l’entraide '
-      lufeb_general: 'Tâches générales d’information et de relations publiques '
+      lufeb_promoting: Encouragement de l’entraide
+      lufeb_general: Tâches générales d’information et de relations publiques
       lufeb_specific: 'Travail de fond ayant pour objet un thème spécifique '
     fields_full:
-      kurse_grundlagen: Travail de fond Cours et lieux d'accueil
-      media_grundlagen: Travail de fond Médias et publications
-      total_media: Médias et publications
+      kurse_grundlagen: Travail de fond cours
+      treffpunkte_grundlagen: Travail de fond lieux d'acceuil
+      media_grundlagen: Travail de fond médias & publications
+      total_media: Médias & publications
+      beratung: Conseil social
   export/tabular/events:
     title: Cours
   fp2015/export/tabular/events/short_list:
@@ -419,17 +619,17 @@ fr:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-    teilnehmende_behinderte: Nombre effectif de participants handicapés
-    teilnehmende_angehoerige: Nombre effectis de participants proches
-    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
-    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
-    absenzen_behinderte: Absences personnes handicapées
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Participants effectifs autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
     absenzen_angehoerige: Absences proches
-    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
-    tage_behinderte: Total des journées participants handicapés
-    tage_angehoerige: Total des journées participants proches
-    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effectives
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total jours-participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
   fp2015/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisateurs'
@@ -439,17 +639,17 @@ fr:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-    teilnehmende_behinderte: Nombre effectif de participants handicapés
-    teilnehmende_angehoerige: Nombre effectis de participants proches
-    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
-    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
-    absenzen_behinderte: Absences personnes handicapées
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Participants effectifs autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
     absenzen_angehoerige: Absences proches
-    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
-    tage_behinderte: Total des journées participants handicapés
-    tage_angehoerige: Total des journées participants proches
-    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effectives
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total jours-participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
   fp2020/export/tabular/events/short_list:
     group_names: 'Organisateurs'
@@ -459,22 +659,22 @@ fr:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-    teilnehmende_behinderte: Nombre effectif de participants handicapés
-    teilnehmende_angehoerige: Nombre effectis de participants proches
-    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
-    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
-    absenzen_behinderte: Absences personnes handicapées
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Participants effectifs autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
     absenzen_angehoerige: Absences proches
-    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
-    tage_behinderte: Total des journées participants handicapés
-    tage_angehoerige: Total des journées participants proches
-    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effectives
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total jours-participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
-    betreuerinnen: personnel d'accompagnement
+    betreuerinnen: Personnel d'encadrement
     anzahl_kurse: Nombre de cours / réalisations
     total_stunden_betreuung: Total heures d’accompagnement
-    vollkosten_pro_betreuungsstunde: Frais totaux/heure d’accompagnement
+    vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
   fp2020/export/tabular/events/aggregate_course/short_list:
     group_names: 'Organisateurs'
     duration: Période
@@ -483,19 +683,67 @@ fr:
     group_names: 'Organisateurs'
     duration: Période
     date: "Date %{index}"
-    teilnehmende_behinderte: Nombre effectif de participants handicapés
-    teilnehmende_angehoerige: Nombre effectis de participants proches
-    teilnehmende_mehrfachbehinderte: Nombre effectif de participants plurihandicapés
-    teilnehmende_weitere: Nombre de participants autres personnes, bénéficiaires non reconnues
-    absenzen_behinderte: Absences personnes handicapées
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Total des jours participants autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
     absenzen_angehoerige: Absences proches
-    absenzen_weitere: Absences autres personnes, bénéficiaires non reconnus
-    tage_behinderte: Total des journées participants handicapés
-    tage_angehoerige: Total des journées participants proches
-    tage_weitere: Total des journées participants autres personnes, bénéficiaires non reconnus
-    total_tage_teilnehmende: Nombre d'UP effectives
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total jours-participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
-    betreuerinnen: personnel d'accompagnement
+    betreuerinnen: Personnel d'encadrement
     anzahl_kurse: Nombre de cours / réalisations
     total_stunden_betreuung: Total heures d’accompagnement
-    vollkosten_pro_betreuungsstunde: Frais totaux/heure d’accompagnement
+    vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
+  fp2022/export/tabular/events/short_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+  fp2022/export/tabular/events/detail_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Total des jours participants autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
+    absenzen_angehoerige: Absences proches
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total jours-participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
+    direkter_aufwand: Charges directes
+    betreuerinnen: Personnel d'encadrement
+    anzahl_kurse: Nombre de cours / réalisations
+    total_stunden_betreuung: Total heures d’accompagnement
+    vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
+  fp2022/export/tabular/events/aggregate_course/short_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+  fp2022/export/tabular/events/aggregate_course/detail_list:
+    group_names: 'Organisateurs'
+    duration: Période
+    date: "Date %{index}"
+    teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
+    teilnehmende_angehoerige: Participants effectifs proches
+    teilnehmende_mehrfachbehinderte: Participants effectifs personnes en situation de polyhandicap
+    teilnehmende_weitere: Total des jours participants autres, non ayant droit à une contribution
+    absenzen_behinderte: Absences personnes en situation de handicap
+    absenzen_angehoerige: Absences proches
+    absenzen_weitere: Absences autres, non ayant droit à une contribution
+    tage_behinderte: Total des journées participants personnes en situation de handicap
+    tage_angehoerige: Total des jours participants proches
+    tage_weitere: Total des jours participants autres, non ayant droit à une contribution
+    total_tage_teilnehmende: Nombre effectif de unité de prestation
+    direkter_aufwand: Charges directes
+    betreuerinnen: Personnel d'encadrement
+    anzahl_kurse: Nombre de cours / réalisations
+    total_stunden_betreuung: Total heures d’accompagnement
+    vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement

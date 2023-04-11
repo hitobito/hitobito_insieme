@@ -212,7 +212,7 @@ fr:
       group/externe_organisation/geschaeftsfuehrung:
         one: Direction
         many: D
-        other: D
+        other: Direction
       group/externe_organisation/sekretariat:
         one: Secrétariat
         many: Secrétariat
@@ -290,9 +290,9 @@ fr:
         many: Cuisine
         other: Cuisine
       event/course/role/challenged:
-        one: Personne handicapée
-        many: Personne handicapée
-        other: Personne handicapée
+        one: Personnes avec handicap
+        many: Personnes avec handicap
+        other: Personnes avec handicap
       event/course/role/affiliated:
         one: Proches
         many: Proches
@@ -417,14 +417,14 @@ fr:
         kursart: Genre de cours
         spezielle_unterkunft: Hébergement spécial
         kursdauer: Durée du cours
-        teilnehmende_behinderte: Personne handicapée
-        teilnehmende_mehrfachbehinderte: dont personnes plurihandicapées
+        teilnehmende_behinderte: Personnes avec handicap
+        teilnehmende_mehrfachbehinderte: dont avec polyhandicap
         teilnehmende_angehoerige: Proches
         teilnehmende_weitere: Autres, n'étant pas reconnu comme ayant droits
-        absenzen_behinderte: Personne handicapée
+        absenzen_behinderte: Personnes avec handicap
         absenzen_angehoerige: Proche
         absenzen_weitere: Autres, ne donnant pas droit à des subsides
-        tage_behinderte: Personne handicapée
+        tage_behinderte: Personnes avec handicap
         tage_angehoerige: Proches
         tage_weitere: Autres, ne donnant pas droit à des subsides
         leiterinnen: Responsables
@@ -542,6 +542,15 @@ fr:
         reference_person_additional_information: Indications supplémentaires de la personne de référence
         dossier: Lien du dossier
         ahv_number: Numéro AVS
+        address_labels:
+          Privat: Personnel
+          Arbeit: Professionnel
+          Vater: Père
+          Mutter: Mère
+          Beistand: Curatelle
+          Wohngruppe: Groupe d'habitation
+          Wohnheim: Logement
+          Andere: Autres
         correspondence_general_salutation: Titre pour l'adresse de correspondance en général
         correspondence_general_first_name: Prénom pour l'adresse de correspondance en général
         correspondence_general_last_name: Nom de famille pour l'adresse de correspondance en général
@@ -552,6 +561,7 @@ fr:
         correspondence_general_town: Lieu pour l'adresse de correspondance en général
         correspondence_general_country: Pays pour l'adresse de correspondance en général
         correspondence_general_same_as_main: Même adresse de correspondance en général que l'adresse principale
+        correspondence_general_label: Label
         billing_general_salutation: Titre pour l'adresse de facturation en général
         billing_general_first_name: Prénom pour l'adresse de facturation en général
         billing_general_last_name: Nom de famille pour l'adresse de facturation en général
@@ -562,6 +572,7 @@ fr:
         billing_general_town: Lieu pour l'adresse de facturation en général
         billing_general_country: Pays pour l'adresse de facturation en général
         billing_general_same_as_main: Même adresse de facturation en général que l'adresse principale
+        billing_general_label: Label
         correspondence_course_salutation: Titre pour l'adresse de correspondance pour les cours
         correspondence_course_first_name: Prénom pour l'adresse de correspondance pour les cours
         correspondence_course_last_name: Nom de famille pour l'adresse de correspondance pour les cours
@@ -572,6 +583,7 @@ fr:
         correspondence_course_town: Lieu adresse de correspondance pour les cours
         correspondence_course_country: Pays adresse de correspondance pour les cours
         correspondence_course_same_as_main: Même adresse de correspondance pour les cours que l'adresse principale
+        correspondence_course_label: Label
         billing_course_salutation: Titre pour l'adresse de facturation pour les cours
         billing_course_first_name: Prénom pour l'adresse de facturation pour les cours
         billing_course_last_name: Nom de famille pour l'adresse de facturation pour les cours
@@ -582,6 +594,7 @@ fr:
         billing_course_town: Lieu adresse de facturation pour les cours
         billing_course_country: Pays adresse de facturation pour les cours
         billing_course_same_as_main: Même adresse de facturation que l'adresse principale
+        billing_course_label: Label
       contact_account:
         predefined_labels:
           privat: Personnel
@@ -649,7 +662,8 @@ fr:
         total_lufeb_promoting: "Prestations de base pour l'encouragment de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers"
         total_lufeb: Total des prestations de la PROSPREH
         total_media: Médias et publications
-        kurse_grundlagen: Travail de fond Cours et lieux d'accueil
+        kurse_grundlagen: Travail de fond cours
+        treffpunkte_grundlagen: Travail de fond lieux d'accueil
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
         jahreskurse: Cours annuels/semestriels
@@ -680,8 +694,13 @@ fr:
         fund_building: Formation des fonds liés provenant des liquidités libres
         exemption: Montant libre déduit
         capital_substrate_allocated: Substrat de capital codé art. 74
-        deckungsbeitrag4_fp2015: Somme des CC 4 2015-2019
+        deckungsbeitrag4_fp2015: Somme des CC4 de 2015-2019
+        deckungsbeitrag4_fp2020: Somme des CC4 de la durée contractuelle de 2020-2023
         deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
+        iv_finanzierungsgrad_since_2015: Taux de financement AI depuis 2015
+        iv_finanzierungsgrad_fp2015: Taux de financement AI 2015 - 2019
+        iv_finanzierungsgrad_fp2020: Taux de financement AI 2020 - 2023
+        iv_finanzierungsgrad_current: Taux de financement AI actuel
     errors:
       models:
         event/aggregate_course:
@@ -701,7 +720,7 @@ fr:
         must_be_multiple_of: 'doit être un multiple de %{multiple} '
         manual_number_in_automatic_range: Ne doit pas être compris entre %{lower} et %{upper}, s'il est inscrit manuellement.
         automatic_number_in_manual_range: Doit être compris entre %{lower} et %{upper}, s'il est inscrit automatiquement.
-        less_than_teilnehmende_behinderte: Doit être inférieur ou égal au nombre de personnes handicapées.
+        less_than_teilnehmende_behinderte: doit être inférieur ou égal au nombre de personnes avec handicap.
         reporting_frozen: Est bouclé et a été bloqué
         event_reporting_frozen: Cette année de reporting est bouclée et a été bloquée
   cost_accounting:
@@ -787,3 +806,5 @@ fr:
       unternehmenserfolg:
         name: Résultat de l'entreprise
         short_name: Résultat de l'entreprise
+  import/person_duplicate_finder:
+    duplicate_with_different_number: Une même personne a été trouvée avec un autre numéro de personne (%{number}).
