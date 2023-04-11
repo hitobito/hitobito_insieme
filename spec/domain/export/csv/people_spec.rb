@@ -13,7 +13,7 @@ describe Export::Tabular::People do
   let(:person) { people(:top_leader) }
   let(:simple_headers) do
     %w(Vorname Nachname Übername Firmenname Firma Haupt-E-Mail Adresse PLZ Ort Land
-       Hauptebene Rollen Tags Personnr. Anrede Korrespondenzsprache) +
+       Hauptebene Rollen Personnr. Anrede Korrespondenzsprache) +
        [
          'Anrede Korrespondenzadresse allgemein',
          'Vorname Korrespondenzadresse allgemein',
