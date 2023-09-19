@@ -18,10 +18,11 @@ describe 'Insieme::Dropdown::PeopleExport' do
     Dropdown::PeopleExport.new(self,
                                user,
                                { controller: 'people', group_id: groups(:dachverein).id },
-                               households: false, labels: false)
+                               households: false, labels: true)
   end
+  let!(:label_format) { Fabricate(:label_format) }
 
-  subject { dropdown.to_s }
+  subject { Capybara::Node::Simple.new(dropdown.to_s) }
 
   def can?(*args)
     true
@@ -29,22 +30,17 @@ describe 'Insieme::Dropdown::PeopleExport' do
 
   it 'renders dropdown' do
     is_expected.to have_content 'Export'
-    is_expected.to have_selector 'ul.dropdown-menu'
-    is_expected.to have_selector 'a' do |tag|
-      expect(tag).to have_content 'CSV'
-      expect(tag).not_to have_selector 'ul.dropdown-submenu'
-    end
-    is_expected.to have_selector 'a' do |tag|
-      expect(tag).to have_content 'Etiketten'
-      expect(tag).to have_selector 'ul.dropdown-submenu' do |pdf|
-        expect(pdf).to have_content 'Standard'
-        expect(pdf).to have_selectur 'ul.dropdown-submenu' do |type|
-          expect(pdf).to have_content 'Hauptadresse'
-        end
-      end
-    end
-    is_expected.to have_selector 'a' do |tag|
-      expect(tag).not_to have_content 'E-Mail Adressen'
-    end
+    menu = subject.find('.btn-group > ul.dropdown-menu')
+    expect(menu).to be_present
+    top_menu_entries = menu.all('> li > a').map(&:text)
+    expect(top_menu_entries).to match_array(['CSV', 'Etiketten', 'Excel', 'PDF', 'vCard'])
+    label_format_submenu = menu.all("> li > a:contains('Etiketten') ~ ul.dropdown-menu").first
+    expect(label_format_submenu).to be_present
+    type_submenu_entries = label_format_submenu.all("> li.dropdown-submenu > a:contains('#{label_format.name}') ~ ul.dropdown-menu li").map(&:text)
+    expect(type_submenu_entries).to match_array(['Hauptadresse',
+                                                 'Korrespondenzadresse allgemein',
+                                                 'Rechnungsadresse allgemein',
+                                                 'Korrespondenzadresse Kurs',
+                                                 'Rechnungsadresse Kurs'])
   end
 end
