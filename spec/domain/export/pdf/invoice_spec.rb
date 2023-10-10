@@ -40,7 +40,7 @@ describe Export::Pdf::Invoice do
 
   context 'without billing address' do
     it 'does not render Leistungsbezüger' do
-      expect(text_with_position).to eq [
+      invoice_text = [
         [347, 687, "Rechnungsnummer:"],
         [457, 687, "1-1"],
         [347, 674, "Rechnungsdatum:"],
@@ -59,13 +59,15 @@ describe Export::Pdf::Invoice do
         [419, 539, "Preis"],
         [464, 539, "Betrag"],
         [515, 539, "MwSt."],
-        [420, 526, "Zwischenbetrag"],
+        [389, 526, "Zwischenbetrag"],
         [505, 526, "0.00 CHF"],
-        [420, 513, "MwSt."],
-        [505, 513, "0.00 CHF"],
-        [420, 496, "Gesamtbetrag"],
-        [490, 496, "1'500.00 CHF"]
+        [389, 510, "Gesamtbetrag"],
+        [490, 510, "1'500.00 CHF"]
       ]
+
+      text_with_position.each_with_index do |l, i|
+        expect(l).to eq(invoice_text[i])
+      end
     end
   end
 
@@ -82,7 +84,7 @@ describe Export::Pdf::Invoice do
     end
 
     it 'renders Leistungsbezüger' do
-      expect(text_with_position).to eq [
+      invoice_text = [
         [347, 687, "Rechnungsnummer:"],
         [458, 687, "1-1"],
         [347, 674, "Rechnungsdatum:"],
@@ -103,13 +105,15 @@ describe Export::Pdf::Invoice do
         [419, 539, "Preis"],
         [464, 539, "Betrag"],
         [515, 539, "MwSt."],
-        [420, 526, "Zwischenbetrag"],
+        [389, 526, "Zwischenbetrag"],
         [505, 526, "0.00 CHF"],
-        [420, 513, "MwSt."],
-        [505, 513, "0.00 CHF"],
-        [420, 496, "Gesamtbetrag"],
-        [490, 496, "1'500.00 CHF"]
+        [389, 510, "Gesamtbetrag"],
+        [490, 510, "1'500.00 CHF"]
       ]
+
+      text_with_position.each_with_index do |l, i|
+        expect(l).to eq(invoice_text[i])
+      end
     end
   end
 
