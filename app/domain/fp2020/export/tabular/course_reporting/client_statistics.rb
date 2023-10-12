@@ -125,11 +125,11 @@ module Fp2020::Export
         end
 
         def fp_t(field, options = {})
-          I18n.t(field, options.merge(scope: fp_i18n_scope('course_reporting.client_statistics')))
+          I18n.t(field, **options.merge(scope: fp_i18n_scope('course_reporting.client_statistics')))
         end
 
         def attr_t(attr, options = {})
-          I18n.t(attr, options.merge(scope: 'activerecord.attributes'))
+          I18n.t(attr, **options.merge(scope: 'activerecord.attributes'))
         end
       end
     end

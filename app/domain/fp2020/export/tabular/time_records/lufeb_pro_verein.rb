@@ -91,7 +91,7 @@ module Fp2020::Export::Tabular::TimeRecords
     end
 
     def fp_t(field, options = {})
-      I18n.t(field, options.merge(scope: fp_i18n_scope('time_records.lufeb_times')))
+      I18n.t(field, **options.merge(scope: fp_i18n_scope('time_records.lufeb_times')))
     end
   end
 end

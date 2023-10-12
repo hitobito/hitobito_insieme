@@ -201,11 +201,11 @@ module Fp2022::Export
         end
 
         def fp_t(field, options = {})
-          I18n.t(field, { scope: fp_i18n_scope('statistics.group_figures') }.merge(options))
+          I18n.t(field, **{ scope: fp_i18n_scope('statistics.group_figures') }.merge(options))
         end
 
         def t(field, options = {})
-          I18n.t("statistics.group_figures.#{field}", options)
+          I18n.t("statistics.group_figures.#{field}", **options)
         end
       end
     end

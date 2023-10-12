@@ -187,7 +187,7 @@ module Fp2015::Export
         end
 
         def t(field, options = {})
-          I18n.t("statistics.group_figures.#{field}", options)
+          I18n.t("statistics.group_figures.#{field}", **options)
         end
       end
     end

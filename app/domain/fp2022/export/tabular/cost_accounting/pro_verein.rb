@@ -65,7 +65,7 @@ module Fp2022::Export::Tabular::CostAccounting
     end
 
     def fp_t(field, options = {})
-      I18n.t(field, options.merge(scope: fp_i18n_scope('cost_accounting.pro_verein')))
+      I18n.t(field, **options.merge(scope: fp_i18n_scope('cost_accounting.pro_verein')))
     end
   end
 end
