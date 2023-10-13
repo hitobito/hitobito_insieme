@@ -44,7 +44,7 @@ class Event::CourseRecordsController < CrudController
                           challenged_canton_count_attributes: Cantons::SHORT_NAMES,
                           affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
 
-  before_render_form :replace_decimal_with_integer, if: -> { entry.duration_in_hours? }
+  before_render_form :replace_decimal_with_integer
   before_render_form :set_numbers
   before_render_form :alert_missing_reporting_parameters
   before_render_form :build_canton_counts
@@ -93,6 +93,8 @@ class Event::CourseRecordsController < CrudController
 
   # with mysql when saving value 1 it is rerenderd as 1.0 which is considered decimal
   def replace_decimal_with_integer
+    return unless entry.duration_in_hours?
+
     [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
      :tage_behinderte, :tage_angehoerige, :tage_weitere].each do |field|
       value = entry.send(field)
