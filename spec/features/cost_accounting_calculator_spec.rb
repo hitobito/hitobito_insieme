@@ -46,7 +46,8 @@ describe 'CostAccountingCalculator', js: true do
 
       page.all('form.report button[type=submit]').first.click
 
-      expect(page).to have_content('Übersicht Kostenrechnung')
+      expect(page.find('#flash .alert-success')).to have_content('Honorare wurde erfolgreich aktualisiert.')
+
       record = CostAccountingRecord.find_by(group_id: group.id, year: year, report: report)
       expect(record.aufwand_ertrag_fibu).to eq(10000.0)
       expect(record.abgrenzung_fibu).to eq(2000.0)
@@ -62,6 +63,7 @@ describe 'CostAccountingCalculator', js: true do
         event: Fabricate(:course,
                           groups: [group],
                           leistungskategorie: 'bk',
+                          fachkonzept: 'sport_jugend',
                           dates_attributes: [{ start_at: Date.new(year, 10, 1) }]),
         year: year,
         honorare_inkl_sozialversicherung: 5000,
