@@ -15,6 +15,9 @@ $insieme_color_f: #760054;
 // GLOBAL VALUES
 // --------------------------------------------------
 
+// Suppress the vast amount of color contrast warnings for now
+$min-contrast-ratio: 1;
+
 // Grays
 // -------------------------
 $black:                 #474E5D !default;
