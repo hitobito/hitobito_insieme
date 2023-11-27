@@ -44,10 +44,10 @@
   table {
     .subtotal,
     .deckungsbeitrag > :first-child {
-      background-color: $grayLighter;
+      background-color: $gray-lighter;
     }
     .deckungsbeitrag:hover > :first-child {
-      background-color: $tableColorHover;
+      background-color: $table-color-hover;
     }
 
     .deckungsbeitrag-separator,
@@ -109,12 +109,12 @@
 
 .reporting-header {
   float: right;
-  @include border-radius($baseBorderRadius);
+  @include border-radius($base-border-radius);
   padding: 4px 12px;
-  line-height: $baseLineHeight;
+  line-height: $base-line-height;
   color: $gray;
-  background-color: $grayLighter;
-  font-size: $fontSizeMini;
+  background-color: $gray-lighter;
+  font-size: $font-size-mini;
   border: 1px solid transparent;
 
   dt, dd {
