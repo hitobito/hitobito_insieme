@@ -44,10 +44,10 @@
   table {
     .subtotal,
     .deckungsbeitrag > :first-child {
-      background-color: $grayLighter;
+      background-color: $gray-lighter;
     }
     .deckungsbeitrag:hover > :first-child {
-      background-color: $tableColorHover;
+      background-color: $table-color-hover;
     }
 
     .deckungsbeitrag-separator,
@@ -76,14 +76,20 @@
 
 .cost-accounting-menu {
   .nav-header {
-    color: $gray;
+    color: $gray !important;
     text-shadow: none;
   }
 
   .nav-header,
   li a {
+    color: $link-color;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  li a.active {
+    color: $white !important;
+    background-color: $link-color;
   }
 }
 
@@ -98,28 +104,22 @@
   }
 }
 
-.long-labeled {
-  .control-label {
-    width: 360px;
-  }
-  .controls {
-    margin-left: 380px;
-  }
+.long-labeled .col-form-label {
+    width: 360px !important;
 }
 
 .reporting-header {
   float: right;
-  @include border-radius($baseBorderRadius);
+  @include border-radius($border-radius);
   padding: 4px 12px;
-  line-height: $baseLineHeight;
+  line-height: $line-height-base;
   color: $gray;
-  background-color: $grayLighter;
-  font-size: $fontSizeMini;
+  background-color: $gray-lighter;
+  font-size: $font-size-sm;
   border: 1px solid transparent;
 
   dt, dd {
     display: inline-block;
-    @include ie7-inline-block();
   }
   dt {
     margin-left: 1em;
@@ -151,15 +151,15 @@ form.report {
   @include clearfix;
   margin-bottom: 20px;
 
-  .fields .control-group {
+  .fields div.row.mb-2 {
     float: left;
     width: 250px;
 
     label {
       width: 100px;
     }
-    .controls {
-      margin-left: 120px;
+    div.labeled {
+      margin-left: 240px;
 
       input {
         width: 60px;

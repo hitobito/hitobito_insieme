@@ -33,25 +33,25 @@
   - unless report == fp_class('CostAccounting::Report::DirekteSpendenAusserhalb')
     - factor = report == fp_class('CostAccounting::Report::IndirekteSpenden') ? table.value_of(report.key, 'abgrenzung_factor') : nil
     = f.labeled(:aufwand_ertrag_ko_re, report.aufwand ? t('.aufwand_ko_re') : t('.ertrag_ko_re')) do
-      .inline#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor }}
+      .mt-2#aufwand_ertrag_ko_re{data: { abgrenzung_factor: factor }}
 
   - if (report.editable_fields & gemeinkosten_fields).present?
     %h3= t('.gemeinkosten')
     = cost_accounting_input_fields(f, *gemeinkosten_fields)
     = f.labeled(:gemeinkosten) do
-      .inline#gemeinkosten
+      .mt-2#gemeinkosten
 
   - if (report.editable_fields & section_fields).present?
     %h3= t('.kostentraeger')
     = cost_accounting_input_and_course_fields(f, *section_fields)
 
     = f.labeled(:kostentraeger) do
-      .inline#kostentraeger
+      .mt-2#kostentraeger
 
   - if (report.editable_fields & (section_fields + gemeinkosten_fields)).present?
     %hr/
     = f.labeled(:kontrolle) do
-      .inline#control_value
+      .mt-2#control_value
 
 - content_for(:javascripts) do
   new App.CostAccountingCalculator().updateValues();

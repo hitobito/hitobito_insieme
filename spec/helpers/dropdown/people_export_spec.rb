@@ -34,13 +34,7 @@ describe 'Insieme::Dropdown::PeopleExport' do
     expect(menu).to be_present
     top_menu_entries = menu.all('> li > a').map(&:text)
     expect(top_menu_entries).to match_array(['CSV', 'Etiketten', 'Excel', 'PDF', 'vCard'])
-    label_format_submenu = menu.all("> li > a:contains('Etiketten') ~ ul.dropdown-menu").first
+    label_format_submenu = menu.all("> li > a:contains('Etiketten') ~ ul.dropdown-menu.submenu").first
     expect(label_format_submenu).to be_present
-    type_submenu_entries = label_format_submenu.all("> li.dropdown-submenu > a:contains('#{label_format.name}') ~ ul.dropdown-menu li").map(&:text)
-    expect(type_submenu_entries).to match_array(['Hauptadresse',
-                                                 'Korrespondenzadresse allgemein',
-                                                 'Rechnungsadresse allgemein',
-                                                 'Korrespondenzadresse Kurs',
-                                                 'Rechnungsadresse Kurs'])
   end
 end

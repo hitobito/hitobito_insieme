@@ -7,9 +7,9 @@
   - if entry.new_record?
     = f.labeled_collection_select(:leistungskategorie,
                                   entry.klass.available_leistungskategorien,
-                                  :first, :second, {prompt: true}, class: 'span6')
+                                  :first, :second, {prompt: true}, class: 'form-select form-select-sm')
 
 - entry.used?(:fachkonzept) do
   = f.labeled_collection_select(:fachkonzept,
                                 entry.klass.available_fachkonzepte,
-                                :first, :second, {prompt: true}, class: 'span6')
+                                :first, :second, {prompt: true}, class: 'form-select form-select-sm')

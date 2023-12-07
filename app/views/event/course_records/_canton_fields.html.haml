@@ -1,11 +1,11 @@
 = f.content_tag(:div, class: 'control-group') do
-  = f.label(attr, class: 'control-label')
-  .controls
-    = f.readonly_value(attr)
-    .inline= link_to(t('.change'), '#', data: { hide: 'canton_counts_%s' % attr })
-    - if event_may_have_participants?
-      = f.help_inline(muted(t('event.course_records.form.according_to_list',
-                            count: fnumber(suggestion))).html_safe)
+  = f.labeled(attr) do
+    .controls.mt-2
+      = f.readonly_value(attr, class: 'd-inline')
+      .d-inline= link_to(t('.change'), '#', data: { hide: 'canton_counts_%s' % attr })
+      - if event_may_have_participants?
+        = f.help_inline(muted(t('event.course_records.form.according_to_list',
+                              count: fnumber(suggestion))).html_safe)
 
 .participation-canton-counts{id: "canton_counts_#{attr}", style: 'display: none;'}
   = f.fields_for(cantons_attr) do |nf|
@@ -14,7 +14,7 @@
       = nf.labeled_input_field(a, help_inline: muted(cantons_suggestion[a.to_s]))
 
     = nf.content_tag(:div, class: 'control-group') do
-      = f.label(t('activerecord.attributes.event/participation_canton_count.undefined'), class: 'control-label')
+      = f.labeled(t('activerecord.attributes.event/participation_canton_count.undefined'))
       .controls
         .inline &nbsp;
         = f.help_inline(muted(cantons_suggestion['undefined']))

@@ -64,7 +64,8 @@ module CostAccountingHelper
   end
 
   def reporting_nav(label, path, options = {})
-    content_tag(:li, class: current_page?(path) && 'active') do
+    options[:class] += ' active' if current_page?(path)
+    content_tag(:li, class: "nav-item") do
       link_to(label, path, options)
     end
   end
