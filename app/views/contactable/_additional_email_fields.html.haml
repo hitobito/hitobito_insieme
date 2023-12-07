@@ -3,16 +3,17 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-= f.input_field(:email,
-                class: 'span4',
-                placeholder: t('.placeholder_value'))
+%div.col-5.inline
+  = f.input_field(:email,
+                  placeholder: t('.placeholder_value'))
 = contact_method_label_select(f)
 
-- if entry.is_a?(Person)
-  = f.label(:mailings, class: 'checkbox span2') do
-    = f.check_box(:mailings)
-    %span{rel: 'tooltip', title: t('.tooltip_mailings')}
-      = t(:"activerecord.attributes.additional_emails.mailings")
-      %i.icon.icon-info-sign
+%div.col-2.d-inline.row
+  - if entry.is_a?(Person)
+    = f.label(:mailings, class: 'checkbox d-inline') do
+      = f.check_box(:mailings)
+      %span{rel: 'tooltip', title: t('.tooltip_mailings')}
+        = t(:"activerecord.attributes.additional_emails.mailings")
+        %i.icon.icon-info-sign
 
 = render 'contactable/public_check_box', f: f

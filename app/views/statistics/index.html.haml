@@ -8,7 +8,7 @@
   - t.attrs(:vid, :name)
 
   - @vereinsmitglieder.role_types do |role, index|
-    - t.col(role.label_short, class: 'right', title: role.label_plural, style: 'width: 60px;') do |e|
+    - t.col(role.label_short, class: 'right width-60', title: role.label_plural) do |e|
       - fnumber(@vereinsmitglieder.count(e, index))
 
   - t.attrs(:full_name, :address, :zip_code, :town, :canton)

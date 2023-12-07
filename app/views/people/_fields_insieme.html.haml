@@ -6,11 +6,11 @@
 = field_set_tag do
   = f.labeled_input_fields :salutation, :ahv_number
 
-  = f.labeled_i18n_enum_field :canton, Cantons.labels, prompt: true
+  = f.labeled_i18n_enum_field :canton, Cantons.labels, prompt: true, class: 'form-select form-select-sm'
 
-  = f.labeled_i18n_enum_field :language, Person.language_labels, prompt: true
+  = f.labeled_i18n_enum_field :language, Person.language_labels, prompt: true, class: 'form-select form-select-sm'
 
-  = f.labeled_i18n_enum_field :correspondence_language, Person.correspondence_language_labels, prompt: true
+  = f.labeled_i18n_enum_field :correspondence_language, Person.correspondence_language_labels, prompt: true, class: 'form-select form-select-sm'
 
 - if current_user && entry.id != current_user.id
   = field_set_tag do

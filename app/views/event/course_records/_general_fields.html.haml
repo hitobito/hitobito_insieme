@@ -10,6 +10,6 @@
   = kursdauer_field(f, :kursdauer)
 
   - if entry.event.years.size > 1
-    = f.labeled_collection_select(:year, entry.event.years, :to_s, :to_s, {}, class: 'span2')
+    = f.labeled_collection_select(:year, entry.event.years, :to_s, :to_s, {}, class: 'form-select form-select-sm')
   - else
     = f.labeled_readonly_value(:year)

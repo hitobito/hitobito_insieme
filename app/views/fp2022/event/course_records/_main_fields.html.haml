@@ -9,7 +9,7 @@
     - unless tp
       = ef.labeled_collection_select(:fachkonzept,
                                     ef.object.class.available_kursfachkonzepte,
-                                    :first, :second, {prompt: true}, class: 'span6')
+                                    :first, :second, {prompt: true}, class: 'form-select form-select-sm')
 
 - if entry.event.is_a?(Event::AggregateCourse)
   = f.labeled_input_field :anzahl_kurse, label: tp ? t(:anzahl_durchfuehrungen, scope: fp_i18n_scope) : nil

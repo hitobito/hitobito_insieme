@@ -4,7 +4,7 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 = field_set_tag do
-  = f.labeled_i18n_enum_field :disability, Event::Participation.disability_labels
+  = f.labeled_i18n_enum_field :disability, Event::Participation.disability_labels, class: 'form-select form-select-sm'
 
   = f.labeled(:multiple_disability) do
     = f.inline_radio_button(:multiple_disability, true, f(true))
@@ -35,6 +35,6 @@
       = pf.labeled_string_field(:birthday,
                                 value: pf.date_value(:birthday),
                                 help_inline: t('people.fields.format_birthday'),
-                                class: 'span2')
-      = pf.labeled_i18n_enum_field(:canton, Cantons.labels, class: 'span3')
+                                class: 'd-inline')
+      = pf.labeled_i18n_enum_field(:canton, Cantons.labels, class: 'form-select form-select-sm')
 

@@ -8,4 +8,4 @@
     = f.labeled_input_field attr
 
   - entry.modifiable_attributes(:canton).each do |attr|
-    = f.labeled_i18n_enum_field attr, Cantons.labels, prompt: true
+    = f.labeled_i18n_enum_field attr, Cantons.labels, prompt: true, class: 'form-select form-select-sm'

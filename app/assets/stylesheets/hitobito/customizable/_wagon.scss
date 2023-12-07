@@ -76,14 +76,20 @@
 
 .cost-accounting-menu {
   .nav-header {
-    color: $gray;
+    color: $gray !important;
     text-shadow: none;
   }
 
   .nav-header,
   li a {
+    color: $link-color;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  li a.active {
+    color: $white !important;
+    background-color: $link-color;
   }
 }
 
@@ -98,13 +104,8 @@
   }
 }
 
-.long-labeled {
-  .control-label {
-    width: 360px;
-  }
-  .controls {
-    margin-left: 380px;
-  }
+.long-labeled .col-form-label {
+    width: 360px !important;
 }
 
 .reporting-header {
@@ -150,15 +151,15 @@ form.report {
   @include clearfix;
   margin-bottom: 20px;
 
-  .fields .control-group {
+  .fields div.row.mb-2 {
     float: left;
     width: 250px;
 
     label {
       width: 100px;
     }
-    .controls {
-      margin-left: 120px;
+    div.labeled {
+      margin-left: 240px;
 
       input {
         width: 60px;

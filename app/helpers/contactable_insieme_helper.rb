@@ -13,6 +13,8 @@ module ContactableInsiemeHelper
       translated = contact_method.class.translate_label(value)
       OpenStruct.new(value: value, translated: translated)
     end
-    form.collection_select(:translated_label, options, :value, :translated, {}, class: 'span2')
+    content_tag(:div, class: 'col-2 d-inline') do
+      form.collection_select(:translated_label, options, :value, :translated, {}, class: 'form-select form-select-sm')
+    end
   end
 end

@@ -3,6 +3,7 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito.
 
-= f.input_field(:number, class: 'span4', placeholder: PhoneNumber.human_attribute_name(:number))
+%div.col-4.inline
+    = f.input_field(:number, placeholder: PhoneNumber.human_attribute_name(:number))
 = contact_method_label_select(f)
 = render 'contactable/public_check_box', f: f

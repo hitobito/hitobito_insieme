@@ -4,11 +4,12 @@
 -#  https://github.com/hitobito/hitobito_insieme.
 
 
-%ul.nav.nav-list.cost-accounting-menu
+%ul.navbar-nav.cost-accounting-menu
   %li.nav-header= t('.time_records')
   = reporting_nav t('.base_informations.label'),
                   time_record_base_information_group_path(group, year: year),
-                  title: t('.base_informations.title')
+                  title: t('.base_informations.title'),
+                  class: 'nav-link ps-2'
 
   - [TimeRecord::EmployeeTime,
      TimeRecord::VolunteerWithoutVerificationTime,
@@ -16,28 +17,34 @@
     - prefix = "activerecord.models.#{report.model_name.i18n_key}"
     = reporting_nav t("#{prefix}.short"),
                     edit_time_record_report_group_path(group, year, report.key),
-                    title: t("#{prefix}.one")
+                    title: t("#{prefix}.one"),
+                    class: 'nav-link ps-2'
 
   %li.nav-header= t('.course_statistics')
   = reporting_nav t('.general_cost_allocation'),
                   edit_general_cost_allocation_group_events_path(group, year),
-                  title: t('.general_cost_allocation')
+                  title: t('.general_cost_allocation'),
+                  class: 'nav-link ps-2'
   = reporting_nav t('course_reporting.aggregations.index.title'),
                   aggregations_group_path(group, year),
-                  title: t('course_reporting.aggregations.index.title')
+                  title: t('course_reporting.aggregations.index.title'),
+                  class: 'nav-link ps-2'
 
   %li.nav-header= t('.cost_accounting')
   = reporting_nav t('.overview.label'),
                   cost_accounting_group_path(group, year: year),
-                  title: t('.overview.title')
+                  title: t('.overview.title'),
+                  class: 'nav-link ps-2'
 
   - cost_accounting_reports.each do |report|
     - if report.editable?
       = reporting_nav h(report.short_name(year)),
                       edit_cost_accounting_report_group_path(group, year, report.key),
-                      title: h(report.human_name(year))
+                      title: h(report.human_name(year)),
+                      class: 'nav-link ps-2'
 
   %li.nav-header= t('.capital_substrate')
   = reporting_nav t('.capital_substrate'),
                   edit_capital_substrate_group_path(group, year),
-                  title: t('.capital_substrate')
+                  title: t('.capital_substrate'),
+                  class: 'nav-link ps-2'
