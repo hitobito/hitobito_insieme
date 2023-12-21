@@ -16,7 +16,7 @@ module FeatureperiodenHelper
 
     translate(
       key.delete_prefix('.'),
-      { scope: scope.join('.') }.merge(options)
+      **{ scope: scope.join('.') }.merge(options)
     )
   end
 end
