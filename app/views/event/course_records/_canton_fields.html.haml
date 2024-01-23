@@ -7,14 +7,14 @@
         = f.help_inline(muted(t('event.course_records.form.according_to_list',
                               count: fnumber(suggestion))).html_safe)
 
-.participation-canton-counts{id: "canton_counts_#{attr}", style: 'display: none;'}
+.participation-canton-counts.mt-4.mb-5{id: "canton_counts_#{attr}", style: 'display: none;'}
   = f.fields_for(cantons_attr) do |nf|
     = nf.hidden_field(:id)
     - Cantons::SHORT_NAMES.each do |a|
       = nf.labeled_input_field(a, help_inline: muted(cantons_suggestion[a.to_s]))
 
     = nf.content_tag(:div, class: 'control-group') do
-      = f.labeled(t('activerecord.attributes.event/participation_canton_count.undefined'))
+      = nf.labeled(t('activerecord.attributes.event/participation_canton_count.undefined'))
       .controls
         .inline &nbsp;
-        = f.help_inline(muted(cantons_suggestion['undefined']))
+        = nf.help_inline(muted(cantons_suggestion['undefined']))
