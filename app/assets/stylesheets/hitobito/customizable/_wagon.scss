@@ -147,23 +147,49 @@ form.report {
   -ms-text-overflow: ellipsis;
 }
 
-.participation-canton-counts {
-  @include clearfix;
-  margin-bottom: 20px;
+.participation-canton-counts .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 
-  .fields div.row.mb-2 {
-    float: left;
-    width: 250px;
+  div label {
+    width: 43% !important;
+  }
 
-    label {
-      width: 100px;
+  .control-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .control-group label {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 1012px) {
+  .participation-canton-counts .fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .participation-canton-counts .fields {
+    grid-template-columns: 1fr;
+
+    div label {
+      width: 20% !important;
+      text-align: end;
     }
-    div.labeled {
-      margin-left: 240px;
 
-      input {
-        width: 60px;
+    div.labeled {
+      width: 200px;
+    }
+
+    .control-group  {
+      grid-template-columns: 1fr 5fr;
+
+      div.row {
+        width: 140px;
       }
     }
-  }
+  } 
 }
