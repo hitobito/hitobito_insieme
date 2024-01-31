@@ -21,10 +21,10 @@ module Insieme::GroupAbility
                            Group::ExterneOrganisation::Geschaeftsfuehrung,
                            Group::ExterneOrganisation::Sekretariat,
                            Group::ExterneOrganisation::Adressverwaltung,
-                           Group::ExterneOrganisation::Controlling]
+                           Group::ExterneOrganisation::Controlling].freeze
 
-  included do
-    on(Group) do
+  included do # rubocop:disable Metrics/BlockLength
+    on(Group) do # rubocop:disable Metrics/BlockLength
       permission(:any).
         may(:read).
         any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
@@ -123,8 +123,8 @@ module Insieme::GroupAbility
 
   def contact_data_in_same_layer
     group &&
-    user_context.layer_ids(user.groups_with_permission(:contact_data)).
-                 include?(group.layer_group_id)
+    user_context.layer_ids(user.groups_with_permission(:contact_data))
+                .include?(group.layer_group_id)
   end
 
   def if_group_in_hierarchy

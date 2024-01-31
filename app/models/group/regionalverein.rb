@@ -97,7 +97,6 @@ class Group::Regionalverein < Group
     self.two_factor_authentication_enforced = true
   end
 
-
   class External < ::Role
     self.permissions = []
     self.visible_from_above = false
