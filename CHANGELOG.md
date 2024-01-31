@@ -1,5 +1,9 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
+*  Möglichkeit, Personen ohne Rollen zu löschen an einige Rollen vergeben (hitobito_insieme#151)
+
 ## Version 1.28
 
 *  Adjust insieme specific labels for addresses and contactables
