@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -67,6 +67,10 @@ module Insieme::GroupAbility
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
+      permission(:manual_deletion)
+        .may(:manually_delete_people)
+        .if_permission_in_layer_and_manual_deletion_enabled
+
       permission(:any).may(:controlling).if_dachverein_reporting
 
       general(:reporting).for_reporting_group
@@ -74,6 +78,10 @@ module Insieme::GroupAbility
       general(:controlling).for_dachverein
 
     end
+  end
+
+  def if_permission_in_layer_and_manual_deletion_enabled
+    FeatureGate.enabled?('people.manual_deletion') && if_permission_in_layer
   end
 
   def if_dachverein_reporting_or_regionalverein_reporting_in_same_group
