@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -39,6 +39,11 @@ module HitobitoInsieme
       # serializers
       PersonSerializer.include Insieme::PersonSerializer
       GroupSerializer.include Insieme::GroupSerializer
+
+      # permissions
+      Role::Permissions << :manual_deletion
+      AbilityDsl::UserContext::GROUP_PERMISSIONS << :manual_deletion
+      AbilityDsl::UserContext::LAYER_PERMISSIONS << :manual_deletion
 
       # abilities
       GroupAbility.include Insieme::GroupAbility

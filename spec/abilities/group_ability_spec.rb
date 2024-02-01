@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -230,6 +230,14 @@ describe GroupAbility do
       it 'may not view deleted subgroups in layer below' do
         is_expected.not_to be_able_to(:deleted_subgroups, groups(:seeland))
       end
+
+      it 'may manually delete people' do
+        is_expected.to be_able_to(:manually_delete_people, group)
+      end
+
+      it 'may not manually delete people in layer below' do
+        is_expected.not_to be_able_to(:manually_delete_people, groups(:seeland))
+      end
     end
 
     context Group::Regionalverein::Controlling do
@@ -364,9 +372,14 @@ describe GroupAbility do
       it 'may destroy subgroups in own layer' do
         is_expected.to be_able_to(:destroy, subgroup)
       end
+
+      it 'may manually delete people in own group' do
+        is_expected.to be_able_to(:manually_delete_people, group)
+      end
+
+      it 'may not manually delete people in another layer' do
+        is_expected.not_to be_able_to(:manually_delete_people, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+      end
     end
   end
-
-
-
 end

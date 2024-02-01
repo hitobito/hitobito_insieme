@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -63,17 +63,17 @@ class Group::ExterneOrganisation < Group
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:layer_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
   class Sekretariat < ::Role
-    self.permissions = [:layer_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
   class Adressverwaltung < ::Role
-    self.permissions = [:layer_full, :contact_data]
+    self.permissions = [:layer_full, :contact_data, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
@@ -96,7 +96,6 @@ class Group::ExterneOrganisation < Group
     self.permissions = [:layer_and_below_read, :finance]
     self.two_factor_authentication_enforced = true
   end
-
 
   class External < ::Role
     self.permissions = []
