@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, Jungwacht Blauring Schweiz, Pfadibewegung Schweiz.
+#  Copyright (c) 2012-2024, Jungwacht Blauring Schweiz, Pfadibewegung Schweiz.
 #  This file is part of hitobito and licensed under the Affero General Public
 #  License version 3 or later. See the COPYING file at the top-level
 #  directory or at https://github.com/hitobito/hitobito.
@@ -15,7 +15,7 @@ describe 'CostAccountingCalculator', js: true do
   context 'honorare' do
     let(:report) { 'honorare' }
 
-    it 'calculates with empty values and course amounts' do
+    it 'calculates with empty values and course amounts', js: true do
       create_course_record
 
       sign_in
@@ -75,7 +75,7 @@ describe 'CostAccountingCalculator', js: true do
   context 'indirekte_spenden' do
     let(:report) { 'indirekte_spenden' }
 
-    it 'calculates with empty values' do
+    it 'calculates with empty values', js: true do
       sign_in
       visit edit_cost_accounting_report_group_path(year: year, id: group.id, report: report)
       expect(find('#aufwand_ertrag_ko_re')).to have_content('0.00 CHF')
@@ -94,7 +94,7 @@ describe 'CostAccountingCalculator', js: true do
       expect(find('#control_value')).to have_content('100.00 CHF')
     end
 
-    it 'calculates with exiting values' do
+    it 'calculates with exiting values', js: true do
       create_report('indirekte_spenden', aufwand_ertrag_fibu: 50, treffpunkte: 10)
       create_report('raumaufwand', raeumlichkeiten: 100)
       create_report('honorare', aufwand_ertrag_fibu: 200, verwaltung: 10, beratung: 30)
