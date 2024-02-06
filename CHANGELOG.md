@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 2.0
 
 *  Möglichkeit, Personen ohne Rollen zu löschen an einige Rollen vergeben (hitobito_insieme#151)
 
