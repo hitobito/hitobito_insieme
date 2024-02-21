@@ -9,7 +9,7 @@ import './_cost_accounting_note_copier.js.coffee'
 $(document).on('click', '.cancel[href="#"]', (event) ->
   $(this).closest('form').get(0).reset())
 
-$(document).on('turbolinks:load', ->
+$(document).on('turbo:load', ->
   $('#person_manual_number').on('change', (event) ->
     $('#person_number').prop('disabled', !this.checked) )
 
