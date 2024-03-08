@@ -34,7 +34,6 @@ describe Export::SubscriptionsJob do
     it 'with salutation, number, correspondence_language, language, canton and additional_information' do
       subject.perform
 
-
       lines = file.read.lines
       expect(lines.size).to eq(4) # header and three entries
       expect(lines[0]).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
