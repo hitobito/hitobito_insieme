@@ -102,8 +102,8 @@ module Fp2020
 
     def iv_finanzierungsgrad_period(start, finish)
       summe_finanzierungsgrade = (start..finish).sum do |y|
-        total_iv_beitrag = time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d # rubocop:disable Metrics/LineLength
-        gesamtkosten = time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d # rubocop:disable Metrics/LineLength
+        total_iv_beitrag = time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d # rubocop:disable Layout/LineLength
+        gesamtkosten = time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d # rubocop:disable Layout/LineLength
 
         next 0.to_d if gesamtkosten.zero?
 

@@ -56,7 +56,7 @@ module Fp2020::Export
             labels << fp_t('tage_weitere',     leistungskategorie: lk_label, fachkonzept: fk_label)
             labels << fp_t('tage_total',       leistungskategorie: lk_label, fachkonzept: fk_label)
             if lk == 'tp'
-              labels << fp_t('betreuungsstunden_total', leistungskategorie: lk_label, fachkonzept: fk_label) # rubocop:disable Metrics/LineLength
+              labels << fp_t('betreuungsstunden_total', leistungskategorie: lk_label, fachkonzept: fk_label) # rubocop:disable Layout/LineLength
             end
           end
         end
