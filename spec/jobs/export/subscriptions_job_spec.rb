@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2017-2022, insieme Schweiz. This file is part of
+#  Copyright (c) 2017-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -34,7 +34,12 @@ describe Export::SubscriptionsJob do
     it 'with salutation, number, correspondence_language, language, canton and additional_information' do
       subject.perform
 
-      lines = file.read.lines
+      expect(file).to respond_to :read
+      content = file.read
+      expect(content).not_to be_nil
+      expect(content).to respond_to :lines
+
+      lines = content.lines
       expect(lines.size).to eq(4) # header and three entries
       expect(lines[0]).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
     end
