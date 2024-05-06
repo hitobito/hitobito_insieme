@@ -12,7 +12,7 @@ class AddAddressLabelsToPeople < ActiveRecord::Migration[6.1]
                      billing_course).freeze
   def change
     ADDRESS_TYPES.each do |concern|
-      add_column :people, "#{concern}_label", :string
+      add_column :people, "#{concern}_label", :string, limit: 20 # was 255, the varchar-default
     end
   end
 end
