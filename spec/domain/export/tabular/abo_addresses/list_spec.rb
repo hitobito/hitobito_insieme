@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -34,7 +34,9 @@ describe Export::Tabular::AboAddresses::List do
       people(:regio_aktiv).update!(first_name: 'Hans',
                                    last_name: 'Muster',
                                    company_name: 'Firma',
-                                   address: "Eigerplatz 4\nPostfach 123",
+                                   street: "Eigerplatz",
+                                   housenumber: "4",
+                                   postbox: "Postfach 123",
                                    zip_code: 3000,
                                    town: 'Bern',
                                    country: 'CH',

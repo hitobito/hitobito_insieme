@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,7 +9,8 @@ top_leader:
   email: top.leader@insieme.example.com
   contact_data_visible: true
   primary_group: dachverein
-  address: Teststrasse 23
+  street: Teststrasse
+  housenumber: 23
   zip_code: 3007
   town: Bern
   country: CH
@@ -22,7 +23,8 @@ regio_leader:
   email: regio.leader@insieme.example.com
   contact_data_visible: true
   primary_group: be
-  address: Teststrasse 23
+  street: Teststrasse
+  housenumber: 23
   zip_code: 3007
   town: Bern
   country: CH
@@ -34,7 +36,8 @@ regio_aktiv:
   last_name: Person
   email: child1@insieme.example.com
   primary_group: aktiv
-  address: Teststrasse 23
+  street: Teststrasse
+  housenumber: 23
   zip_code: 3007
   town: Bern
   country: CH

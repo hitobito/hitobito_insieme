@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2021, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2024, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -21,7 +21,8 @@ describe Export::Pdf::Labels do
 
   before do
     person.update!(
-      address: 'My Street',
+      street: 'My Street',
+      housenumber: nil,
       town: 'Bern',
       zip_code: '3007',
       correspondence_course_same_as_main: false,

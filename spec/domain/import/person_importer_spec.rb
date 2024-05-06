@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014, insime Schweiz. This file is part of
+#  Copyright (c) 2014-2024, insime Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -17,8 +17,8 @@ describe Import::PersonImporter do
   let(:data)          { parser.map_data(mapping) }
   let(:user)          { people(:regio_leader) }
   let(:foreign_group) { groups(:chaeib) }
-  let(:header)        { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Adresse,PLZ,Land,Korrespondenzsprache,Sprache" }
-  let(:row)           { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse 23,3007,CH,de,de" }
+  let(:header)        { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache" }
+  let(:row)           { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse,23,3007,CH,de,de" }
   let(:number)        { 123 }
 
   let(:importer)  do
@@ -38,7 +38,8 @@ describe Import::PersonImporter do
         Nachname: 'last_name',
         Geburtsdatum: 'birthday',
         Stadt: 'town',
-        Adresse: 'address',
+        Strasse: 'street',
+        Hausnummer: 'housenumber',
         PLZ: 'zip_code',
         Land: 'country',
         Korrespondenzsprache: 'correspondence_language',
@@ -81,7 +82,8 @@ describe Import::PersonImporter do
         Geburtsdatum: 'birthday',
         Nummer: 'number',
         Stadt: 'town',
-        Adresse: 'address',
+        Strasse: 'street',
+        Hausnummer: 'housenumber',
         PLZ: 'zip_code',
         Land: 'country',
         Korrespondenzsprache: 'correspondence_language',

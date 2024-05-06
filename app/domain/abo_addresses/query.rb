@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2024, insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -18,8 +18,24 @@ module AboAddresses
                       Group::Passivmitglieder::PassivmitgliedMitAbo]
 
     # must match with attrs exported in csv
-    REQUIRED_ATTRS = [:id, :first_name, :last_name, :company_name, :address,
-                      :zip_code, :town, :country, :number]
+    REQUIRED_ATTRS = [
+      :id,
+      :first_name,
+      :last_name,
+      :company_name,
+      :zip_code,
+      :town,
+      :country,
+      :number
+    ]
+    if FeatureGate.enabled?('structured_addresses')
+      REQUIRED_ATTRS << :address_care_of
+      REQUIRED_ATTRS << :street
+      REQUIRED_ATTRS << :housenumber
+      REQUIRED_ATTRS << :postbox
+    else
+      REQUIRED_ATTRS << :address
+    end
 
     attr_reader :swiss, :language
 

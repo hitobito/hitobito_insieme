@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -42,7 +42,8 @@ seed_group(Group::DachvereinGremium, {
 be, fr = seed_group(Group::Regionalverein,
   {name: 'Kanton Bern',
    short_name: 'BE',
-   address: 'Seilerstr. 27',
+   street: 'Seilerstr.',
+   housenumber: '27',
    zip_code: 3011,
    town: 'Bern',
    country: 'Schweiz',
@@ -51,7 +52,8 @@ be, fr = seed_group(Group::Regionalverein,
 
   {name: 'Freiburg',
    short_name: 'FR',
-   address: 'Route de Moncor 14',
+   street: 'Route de Moncor',
+   housenumber: '14',
    zip_code: 1701,
    town: 'Fribourg',
    country: 'Schweiz',
@@ -62,7 +64,8 @@ seeland, bern = seed_group(Group::Regionalverein,
 
   {name: 'Biel-Seeland',
    short_name: 'BNC',
-   address: 'Unterer Quai 42',
+   street: 'Unterer Quai',
+   housenumber: '42',
    zip_code: 2500,
    town: 'Biel/Bienne',
    country: 'Schweiz',
@@ -71,7 +74,8 @@ seeland, bern = seed_group(Group::Regionalverein,
 
   {name: 'Region Bern',
    short_name: 'RBE',
-   address: 'Effingerstrasse 123',
+   street: 'Effingerstrasse',
+   housenumber: '123',
    zip_code: 3000,
    town: 'Bern',
    country: 'Schweiz',
