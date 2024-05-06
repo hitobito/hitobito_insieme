@@ -47,7 +47,13 @@ describe Import::PersonImporter do
     end
 
     it 'keeps number of matching person' do
-      existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Liverpool', number: 2, manual_number: true })
+      existing = Fabricate( :person,
+        first_name: 'John',
+        last_name: 'Lennon',
+        town: 'Liverpool',
+        number: 2,
+        manual_number: true
+      )
 
       expect(person).to eq existing
       expect(person.number).to eq 2
@@ -87,7 +93,11 @@ describe Import::PersonImporter do
         let(:number) { Person::AUTOMATIC_NUMBER_RANGE.first }
 
         it 'uses person with same automatic number from db' do
-          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann', town: 'Liverpool' })
+          existing = Fabricate(:person,
+            first_name: 'Hans',
+            last_name: 'Lehmann',
+            town: 'Liverpool'
+          )
           expect(existing.number).to eq number
 
           expect(person).to eq existing
@@ -111,7 +121,13 @@ describe Import::PersonImporter do
       context 'manual' do
 
         it 'uses person with same manual number from db' do
-          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann', town: 'Liverpool', number: number, manual_number: true })
+          existing = Fabricate(:person,
+            first_name: 'Hans',
+            last_name: 'Lehmann',
+            town: 'Liverpool',
+            number: number,
+            manual_number: true
+          )
 
           expect(person).to eq existing
           expect(person.number).to eq number
@@ -124,7 +140,13 @@ describe Import::PersonImporter do
         end
 
         it 'fails if person with other number matches' do
-          existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Manchester', number: 456, manual_number: true })
+          existing = Fabricate(:person,
+            first_name: 'John',
+            last_name: 'Lennon',
+            town: 'Manchester',
+            number: 456,
+            manual_number: true
+          )
 
           expect(person).to eq existing
           expect(import_person.person.errors).not_to be_empty
@@ -149,7 +171,13 @@ describe Import::PersonImporter do
       let(:number) { '' }
 
       it 'keeps number of matching person' do
-        existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Liverpool', number: 2, manual_number: true })
+        existing = Fabricate(:person,
+          first_name: 'John',
+          last_name: 'Lennon',
+          town: 'Liverpool',
+          number: 2,
+          manual_number: true
+        )
 
         expect(person).to eq existing
         expect(person.number).to eq 2

@@ -9,7 +9,7 @@
 module Export::Tabular::AboAddresses
   class List < Export::Tabular::Base
 
-    self.model_class = Person
+    self.model_class = ::Person
 
     def attribute_labels
       { number: 'Kd.Nr.',
