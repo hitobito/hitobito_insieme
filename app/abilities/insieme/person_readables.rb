@@ -16,6 +16,10 @@ module Insieme::PersonReadables
      contact_data_layer_ids]
   end
 
+  def has_group_based_conditions?
+    super || contact_data_visible?
+  end
+
   private
 
   def contact_data_layer_ids
