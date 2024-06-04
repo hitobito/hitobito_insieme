@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014 Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2024, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,7 +9,7 @@
 module Export::Tabular::AboAddresses
   class List < Export::Tabular::Base
 
-    self.model_class = Person
+    self.model_class = ::Person
 
     def attribute_labels
       { number: 'Kd.Nr.',
@@ -54,8 +54,18 @@ module Export::Tabular::AboAddresses
 
       private
 
-      def address_line(line)
-        line = entry.address.to_s.split($INPUT_RECORD_SEPARATOR)[line]
+      def address_line(line_index)
+        lines = if FeatureGate.enabled?('structured_addresses')
+                  [
+                    entry.address_care_of,
+                    entry.address,
+                    entry.postbox
+                  ].compact
+                else
+                  entry.address.to_s.split($INPUT_RECORD_SEPARATOR)
+                end
+
+        line = lines[line_index]
         line ? line.strip : nil
       end
     end

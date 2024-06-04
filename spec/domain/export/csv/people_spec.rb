@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -61,8 +61,8 @@ describe Export::Tabular::People do
     before do
       Fabricate(Group::Aktivmitglieder::Aktivmitglied.sti_name.to_sym,
                 group: groups(:aktiv),
-                person: Fabricate(:person, number: '123', first_name: 'John',
-                                  last_name: 'Lennon', address: 'Bank Street 105',
+                person: Fabricate(:person, number: '123', first_name: 'John', last_name: 'Lennon',
+                                  street: 'Bank Street', housenumber: '105',
                                   zip_code: 1234, town: 'New York',
                                   additional_information: 'English musician'))
 

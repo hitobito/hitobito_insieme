@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -194,8 +194,8 @@ describe Person do
 
     def create(attrs = {})
       Fabricate(:person, attrs.merge(first_name: 'John', last_name: 'Lennon',
-                                     address: 'Pennylane', zip_code: '9933',
-                                     town: 'Liverpool', country: 'US'))
+                                     street: 'Pennylane', housenumber: nil,
+                                     zip_code: '9933', town: 'Liverpool', country: 'US'))
     end
   end
 
@@ -311,8 +311,8 @@ describe Person do
         expect { nicknamed_person.last_name = nil }.to change { nicknamed_person.valid? }.from(true).to(false)
       end
 
-      it 'has an address' do
-        expect { named_person.address = nil }.to change { named_person.valid? }.from(true).to(false)
+      it 'has a street' do
+        expect { named_person.street = nil }.to change { named_person.valid? }.from(true).to(false)
       end
 
       it 'has a zip_code' do

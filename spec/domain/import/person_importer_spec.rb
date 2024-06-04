@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2014, insime Schweiz. This file is part of
+#  Copyright (c) 2014-2024, insime Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -17,8 +17,8 @@ describe Import::PersonImporter do
   let(:data)          { parser.map_data(mapping) }
   let(:user)          { people(:regio_leader) }
   let(:foreign_group) { groups(:chaeib) }
-  let(:header)        { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Adresse,PLZ,Land,Korrespondenzsprache,Sprache" }
-  let(:row)           { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse 23,3007,CH,de,de" }
+  let(:header)        { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache" }
+  let(:row)           { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse,23,3007,CH,de,de" }
   let(:number)        { 123 }
 
   let(:importer)  do
@@ -38,7 +38,8 @@ describe Import::PersonImporter do
         Nachname: 'last_name',
         Geburtsdatum: 'birthday',
         Stadt: 'town',
-        Adresse: 'address',
+        Strasse: 'street',
+        Hausnummer: 'housenumber',
         PLZ: 'zip_code',
         Land: 'country',
         Korrespondenzsprache: 'correspondence_language',
@@ -47,7 +48,13 @@ describe Import::PersonImporter do
     end
 
     it 'keeps number of matching person' do
-      existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Liverpool', number: 2, manual_number: true })
+      existing = Fabricate( :person,
+        first_name: 'John',
+        last_name: 'Lennon',
+        town: 'Liverpool',
+        number: 2,
+        manual_number: true
+      )
 
       expect(person).to eq existing
       expect(person.number).to eq 2
@@ -75,7 +82,8 @@ describe Import::PersonImporter do
         Geburtsdatum: 'birthday',
         Nummer: 'number',
         Stadt: 'town',
-        Adresse: 'address',
+        Strasse: 'street',
+        Hausnummer: 'housenumber',
         PLZ: 'zip_code',
         Land: 'country',
         Korrespondenzsprache: 'correspondence_language',
@@ -87,7 +95,11 @@ describe Import::PersonImporter do
         let(:number) { Person::AUTOMATIC_NUMBER_RANGE.first }
 
         it 'uses person with same automatic number from db' do
-          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann', town: 'Liverpool' })
+          existing = Fabricate(:person,
+            first_name: 'Hans',
+            last_name: 'Lehmann',
+            town: 'Liverpool'
+          )
           expect(existing.number).to eq number
 
           expect(person).to eq existing
@@ -111,7 +123,13 @@ describe Import::PersonImporter do
       context 'manual' do
 
         it 'uses person with same manual number from db' do
-          existing = Fabricate(:person, { first_name: 'Hans', last_name: 'Lehmann', town: 'Liverpool', number: number, manual_number: true })
+          existing = Fabricate(:person,
+            first_name: 'Hans',
+            last_name: 'Lehmann',
+            town: 'Liverpool',
+            number: number,
+            manual_number: true
+          )
 
           expect(person).to eq existing
           expect(person.number).to eq number
@@ -124,7 +142,13 @@ describe Import::PersonImporter do
         end
 
         it 'fails if person with other number matches' do
-          existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Manchester', number: 456, manual_number: true })
+          existing = Fabricate(:person,
+            first_name: 'John',
+            last_name: 'Lennon',
+            town: 'Manchester',
+            number: 456,
+            manual_number: true
+          )
 
           expect(person).to eq existing
           expect(import_person.person.errors).not_to be_empty
@@ -149,7 +173,13 @@ describe Import::PersonImporter do
       let(:number) { '' }
 
       it 'keeps number of matching person' do
-        existing = Fabricate(:person, { first_name: 'John', last_name: 'Lennon', town: 'Liverpool', number: 2, manual_number: true })
+        existing = Fabricate(:person,
+          first_name: 'John',
+          last_name: 'Lennon',
+          town: 'Liverpool',
+          number: 2,
+          manual_number: true
+        )
 
         expect(person).to eq existing
         expect(person.number).to eq 2

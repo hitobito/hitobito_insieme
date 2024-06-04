@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -23,7 +23,7 @@ describe Event::ParticipationsController do
                                birthday: '2014-09-22',
                                zip_code: '1234',
                                town: 'dummy',
-                               address: 'dummy',
+                               street: 'dummy',
                                country: 'DE',
                                ahv_number: '123',
                                correspondence_course_same_as_main: false,
@@ -64,7 +64,7 @@ describe Event::ParticipationsController do
     end
 
     %w(town
-       address
+       street
 
        correspondence_course_salutation
        correspondence_course_first_name
