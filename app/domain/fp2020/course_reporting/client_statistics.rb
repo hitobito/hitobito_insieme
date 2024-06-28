@@ -68,7 +68,7 @@ module Fp2020::CourseReporting
 
     def group_canton_participants_relation # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       columns = [
-        "`groups`.id AS group_id",
+        "MAX(groups.id) AS group_id",
         "events.leistungskategorie AS event_leistungskategorie"
       ]
 
@@ -103,7 +103,7 @@ module Fp2020::CourseReporting
         CASE events.leistungskategorie
         WHEN 'tp' THEN 0
         ELSE
-          CASE events.type
+          CASE MAX(events.type)
           WHEN 'Event::AggregateCourse' THEN
             SUM(COALESCE(event_course_records.tage_weitere, 0))
           ELSE

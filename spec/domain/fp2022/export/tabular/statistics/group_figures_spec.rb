@@ -452,7 +452,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
 
     it "for Kanton Bern" do
       # 30 Stunden für LUFEB / 1900 BSV-Stunden
-      expect(data.third).to include(empty_row.merge({
+      expect(data.fourth).to include(empty_row.merge({
         "Vollständiger Name" => "Kanton Bern",
         "Kanton" => "Bern",
         "BSV Nummer" => 2024,
