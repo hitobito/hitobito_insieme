@@ -400,8 +400,24 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
       }))
     end
 
-    it 'for Freiburg' do
+    it 'for Biel-Seeland' do
       expect(data.second).to include(empty_row.merge({
+        "Vollständiger Name" => "Biel-Seeland",
+        'Kanton'             => 'Bern',
+        'BSV Nummer'         => 3115,
+
+        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
+        "Faktor Kapitalsubstrat"                      => 0.0,
+        "Totaler Aufwand gemäss FIBU"                 => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
+        "IV-Beitrag"                                  => 0.0,
+        "Deckungsbeitrag 4"                           => 0.0,
+        "IV-Finanzierungsgrad #{year}"                => 0.0,
+      }))
+    end
+
+    it 'for Freiburg' do
+      expect(data.third).to include(empty_row.merge({
         "Vollständiger Name"=>"Freiburg",
         "Kanton"=>"Freiburg",
         "VID"=>nil,
@@ -447,7 +463,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
 
     it 'for Kanton Bern' do
       # 30 Stunden für LUFEB / 1900 BSV-Stunden
-      expect(data.third).to include(empty_row.merge({
+      expect(data.fourth).to include(empty_row.merge({
         "Vollständiger Name" => "Kanton Bern",
         "Kanton" => "Bern",
         "BSV Nummer" => 2024,
@@ -513,22 +529,6 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
         "Deckungsbeitrag 4"                           => -2000.0,
         "IV-Finanzierungsgrad #{year}"                => 100.0,
-      }))
-    end
-
-    it 'for Biel-Seeland' do
-      expect(data.fourth).to include(empty_row.merge({
-        "Vollständiger Name" => "Biel-Seeland",
-        'Kanton'             => 'Bern',
-        'BSV Nummer'         => 3115,
-
-        "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
-        "Faktor Kapitalsubstrat"                      => 0.0,
-        "Totaler Aufwand gemäss FIBU"                 => 0.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
-        "IV-Beitrag"                                  => 0.0,
-        "Deckungsbeitrag 4"                           => 0.0,
-        "IV-Finanzierungsgrad #{year}"                => 0.0,
       }))
     end
   end
