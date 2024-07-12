@@ -8,13 +8,12 @@
 module Fp2022::CostAccounting
   module Report
     class DirekteSpendenAusserhalb < Base
-
-      self.kontengruppe = '3322/920'
+      self.kontengruppe = "3322/920"
 
       self.aufwand = false
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen]
 
       alias_method :abgrenzung_fibu, :aufwand_ertrag_fibu
 

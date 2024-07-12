@@ -7,7 +7,6 @@
 
 module Fp2022
   class TimeRecord::Vereinsliste
-
     attr_reader :year, :type
 
     # type is one of
@@ -22,13 +21,13 @@ module Fp2022
     def vereine
       @vereine ||=
         Group
-        .without_deleted
-        .where(type: [
-          Group::Dachverein,
-          Group::Regionalverein,
-          Group::ExterneOrganisation
-        ].collect(&:sti_name))
-        .order_by_type
+          .without_deleted
+          .where(type: [
+            Group::Dachverein,
+            Group::Regionalverein,
+            Group::ExterneOrganisation
+          ].collect(&:sti_name))
+          .order_by_type
     end
 
     def time_record(verein)
@@ -38,6 +37,5 @@ module Fp2022
     def time_records
       @time_records ||= ::TimeRecord.where(type: type, year: year).index_by(&:group_id)
     end
-
   end
 end

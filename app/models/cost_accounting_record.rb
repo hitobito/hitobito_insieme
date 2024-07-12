@@ -30,23 +30,22 @@
 #
 
 class CostAccountingRecord < ActiveRecord::Base
-
   include Insieme::ReportingFreezable
   include Featureperioden::Domain
 
   belongs_to :group
 
   validates_by_schema
-  validates :report, uniqueness: { scope: [:group_id, :year], case_sensitive: false },
-                     inclusion: { in: lambda do |record|
-                       record.fp_class('CostAccounting::Table')::REPORTS.map(&:key)
-                     end }
+  validates :report, uniqueness: {scope: [:group_id, :year], case_sensitive: false},
+    inclusion: {in: lambda do |record|
+      record.fp_class("CostAccounting::Table")::REPORTS.map(&:key)
+    end}
   validate :assert_group_has_reporting
 
-  scope :calculation_fields, -> { select(column_names - %w(aufteilung_kontengruppen)) }
+  scope :calculation_fields, -> { select(column_names - %w[aufteilung_kontengruppen]) }
 
   def report_class
-    fp_class('CostAccounting::Table')::VISIBLE_REPORTS.find { |r| r.key == report }
+    fp_class("CostAccounting::Table")::VISIBLE_REPORTS.find { |r| r.key == report }
   end
 
   def to_s
@@ -60,5 +59,4 @@ class CostAccountingRecord < ActiveRecord::Base
       errors.add(:group_id, :is_not_allowed)
     end
   end
-
 end

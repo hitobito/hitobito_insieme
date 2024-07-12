@@ -33,7 +33,7 @@ module Export::Pdf
     end
 
     def currency_format(number)
-      format('%.2f', number.to_f).to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1'")
+      format("%.2f", number.to_f).to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1'")
     end
 
     def report

@@ -36,9 +36,7 @@
 #
 
 class Group::Passivmitglieder < Group
-
   children Group::Passivmitglieder
-
 
   ### ROLES
 
@@ -47,7 +45,7 @@ class Group::Passivmitglieder < Group
   class PassivmitgliedMitAbo < ::Role; end
 
   roles Passivmitglied,
-        PassivmitgliedMitAbo
+    PassivmitgliedMitAbo
 
   self.default_role = PassivmitgliedMitAbo
 end

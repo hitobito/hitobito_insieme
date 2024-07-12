@@ -8,22 +8,20 @@
 module Fp2015::CostAccounting
   module Report
     class Honorare < CourseRelated
+      self.kontengruppe = "509/4300"
 
-      self.kontengruppe = '509/4300'
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
-                                  abgrenzung_dachorganisation
-
-                                  verwaltung
-                                  beratung
-                                  treffpunkte
-                                  lufeb
-                                  mittelbeschaffung)
-
+        verwaltung
+        beratung
+        treffpunkte
+        lufeb
+        mittelbeschaffung]
     end
   end
 end

@@ -36,9 +36,7 @@
 #
 
 class Group::Kollektivmitglieder < Group
-
   children Group::Kollektivmitglieder
-
 
   ### ROLES
 
@@ -47,6 +45,6 @@ class Group::Kollektivmitglieder < Group
   class KollektivmitgliedMitAbo < ::Role; end
 
   roles Kollektivmitglied,
-        KollektivmitgliedMitAbo
+    KollektivmitgliedMitAbo
   self.default_role = KollektivmitgliedMitAbo
 end

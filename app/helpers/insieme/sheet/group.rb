@@ -11,31 +11,30 @@ module Insieme::Sheet::Group
 
   included do
     tabs.insert(4,
-                Sheet::Tab.new('activerecord.models.event/aggregate_course.other',
-                               :aggregate_course_group_events_path,
-                               params: { returning: true },
-                               if: lambda do |view, group|
-                                 group.event_types.include?(::Event::AggregateCourse) &&
-                                   view.can?(:'index_event/aggregate_courses', group)
-                               end))
+      Sheet::Tab.new("activerecord.models.event/aggregate_course.other",
+        :aggregate_course_group_events_path,
+        params: {returning: true},
+        if: lambda do |view, group|
+          group.event_types.include?(::Event::AggregateCourse) &&
+            view.can?(:"index_event/aggregate_courses", group)
+        end))
 
     tabs.insert(-2,
-                Sheet::Tab.new('statistics.title',
-                               :statistics_group_path,
-                               if: :statistics))
+      Sheet::Tab.new("statistics.title",
+        :statistics_group_path,
+        if: :statistics))
 
     tabs.insert(-2,
-                Sheet::Tab.new('reporting.title',
-                               :cost_accounting_group_path,
-                               alt: [:base_time_record_group_path],
-                               params: { returning: true },
-                               if: :reporting))
+      Sheet::Tab.new("reporting.title",
+        :cost_accounting_group_path,
+        alt: [:base_time_record_group_path],
+        params: {returning: true},
+        if: :reporting))
 
     tabs.insert(-2,
-                Sheet::Tab.new('controlling.title',
-                               :controlling_group_path,
-                               params: { returning: true },
-                               if: :controlling))
+      Sheet::Tab.new("controlling.title",
+        :controlling_group_path,
+        params: {returning: true},
+        if: :controlling))
   end
-
 end

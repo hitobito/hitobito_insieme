@@ -15,8 +15,8 @@ module Fp2022::CostAccounting
       end
 
       def total
-        @total ||= table.value_of('total_ertraege', 'aufwand_ertrag_fibu').to_d - \
-                   table.value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d
+        @total ||= table.value_of("total_ertraege", "aufwand_ertrag_fibu").to_d - \
+          table.value_of("total_aufwand", "aufwand_ertrag_fibu").to_d
       end
 
       def kontrolle

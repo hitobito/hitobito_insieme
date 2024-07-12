@@ -9,21 +9,20 @@ module Fp2022::CostAccounting
   module Report
     # Total Aufwand/Kosten
     class TotalAufwand < Subtotal
-
       self.total_includes_gemeinkostentraeger = false
 
-      self.used_fields += %w(
+      self.used_fields += %w[
         verwaltung
-      )
+      ]
 
-      self.summed_reports = %w(
+      self.summed_reports = %w[
         total_personalaufwand
         raumaufwand
         uebriger_sachaufwand
         abschreibungen
-      )
+      ]
 
-      self.summed_fields = %w(
+      self.summed_fields = %w[
         aufwand_ertrag_fibu
         abgrenzung_fibu
 
@@ -34,16 +33,15 @@ module Fp2022::CostAccounting
         tageskurse
         jahreskurse
         lufeb
-      )
+      ]
 
       self.total_includes_gemeinkostentraeger = false
 
       define_summed_field_methods
 
       def total
-        super + table.value_of('total_umlagen', 'gemeinkostentraeger').to_d
+        super + table.value_of("total_umlagen", "gemeinkostentraeger").to_d
       end
-
     end
   end
 end

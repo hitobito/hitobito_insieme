@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2022::CostAccounting::ProVerein do
   let(:year) { 2022 }
@@ -13,30 +13,29 @@ describe Fp2022::CostAccounting::ProVerein do
 
   let(:group) { groups(:dachverein) }
 
-  it 'knows a list of groups to export' do
+  it "knows a list of groups to export" do
     expected = [
-      'insieme Schweiz',
-      'Kanton Bern',
-      'Biel-Seeland',
-      'Freiburg'
+      "insieme Schweiz",
+      "Kanton Bern",
+      "Biel-Seeland",
+      "Freiburg"
     ]
 
     expect(subject.vereine.map(&:name)).to match_array expected
     expect(subject.vereine.map(&:name)).to eq expected
   end
 
-
-  it 'has a structured data-object for all groups' do
+  it "has a structured data-object for all groups" do
     list = subject.vereine.map { |verein| subject.data_for(verein) }
 
     expect(list).to be_all Hash
     expect(list.first.values).to be_all described_class::CostAccountingRow
   end
 
-  context 'has correct data' do
+  context "has correct data" do
     let(:data) { subject.data_for(group) }
 
-    it 'judging by the hash-keys' do
+    it "judging by the hash-keys" do
       expected = [
         :personalaufwand,
         :honorare,
@@ -49,7 +48,7 @@ describe Fp2022::CostAccounting::ProVerein do
         :beitraege_iv,
         :sonstige_beitraege,
         :spenden_zweckgebunden,
-        :spenden_nicht_zweckgebunden,
+        :spenden_nicht_zweckgebunden
       ]
 
       expected.each do |key|
@@ -57,7 +56,7 @@ describe Fp2022::CostAccounting::ProVerein do
       end
     end
 
-    it 'for gemeinkosten' do
+    it "for gemeinkosten" do
       expected = [nil, nil, nil, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
       actual = data[:gemeinkosten].to_a
 
@@ -65,7 +64,7 @@ describe Fp2022::CostAccounting::ProVerein do
       expect(actual).to eq expected
     end
 
-    it 'for indirekte spenden' do
+    it "for indirekte spenden" do
       expected = [0.0, nil, nil, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
       actual = data[:spenden_nicht_zweckgebunden].to_a
 
@@ -76,13 +75,14 @@ describe Fp2022::CostAccounting::ProVerein do
 
   describe Fp2022::CostAccounting::ProVerein::CostAccountingRow do
     subject(:empty_row) { described_class.empty_row }
+
     subject(:row) { described_class.new(*(1..10).to_a) }
 
-    it 'can be empty' do
+    it "can be empty" do
       expect(described_class.empty_row).to be_a described_class
     end
 
-    it 'can be added together' do
+    it "can be added together" do
       expect(row).to respond_to(:+)
       expect(row.aufwand_ertrag_fibu).to eq 1
 
@@ -91,7 +91,7 @@ describe Fp2022::CostAccounting::ProVerein do
       expect(sum.aufwand_ertrag_fibu).to eq 2
     end
 
-    it 'knows its members' do
+    it "knows its members" do
       expected = [
         :aufwand_ertrag_fibu,
         :abgrenzung,
@@ -114,7 +114,7 @@ describe Fp2022::CostAccounting::ProVerein do
       expect(row.members).to eq expected
     end
 
-    it 'can remove values from a value' do
+    it "can remove values from a value" do
       expect(row.gemeinkosten).to eq 3
       expect(row.sozialberatung).to eq 4
 

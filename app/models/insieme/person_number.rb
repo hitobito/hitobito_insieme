@@ -8,9 +8,9 @@
 module Insieme::PersonNumber
   extend ActiveSupport::Concern
 
-  included do
-    AUTOMATIC_NUMBER_RANGE = 100_000...1_000_000
+  AUTOMATIC_NUMBER_RANGE = 100_000...1_000_000
 
+  included do
     before_validation :generate_automatic_number
 
     validate :allowed_number_range
@@ -19,7 +19,7 @@ module Insieme::PersonNumber
   def manual_number=(value)
     @manual_number =
       case value
-      when '0', 0, false, nil then false
+      when "0", 0, false, nil then false
       else true
       end
   end
@@ -43,14 +43,14 @@ module Insieme::PersonNumber
 
   def add_number_error(key)
     errors.add(:number,
-               key,
-               lower: AUTOMATIC_NUMBER_RANGE.first,
-               upper: AUTOMATIC_NUMBER_RANGE.last)
+      key,
+      lower: AUTOMATIC_NUMBER_RANGE.first,
+      upper: AUTOMATIC_NUMBER_RANGE.last)
   end
 
   def generate_automatic_number
     unless manual_number
-      self.restore_number!
+      restore_number!
       unless number_in_automatic_range?
         self.number = self.class.next_automatic_number
       end
@@ -63,10 +63,10 @@ module Insieme::PersonNumber
 
   module ClassMethods
     def next_automatic_number
-      p = Person.select(:number).
-                 where(number: AUTOMATIC_NUMBER_RANGE).
-                 order('number DESC').
-                 first
+      p = Person.select(:number)
+        .where(number: AUTOMATIC_NUMBER_RANGE)
+        .order("number DESC")
+        .first
       p ? p.number + 1 : AUTOMATIC_NUMBER_RANGE.first
     end
   end

@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 # == Schema Information
 #
 # Table name: event_general_cost_allocations
@@ -21,13 +20,12 @@
 #  updated_at                  :datetime
 #
 class Event::GeneralCostAllocation < ActiveRecord::Base
-
   include Insieme::ReportingFreezable
 
   belongs_to :group
 
   validates_by_schema
-  validates :year, uniqueness: { scope: [:group_id] }
+  validates :year, uniqueness: {scope: [:group_id]}
   validate :assert_group_has_reporting
 
   def to_s
@@ -36,10 +34,10 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
 
   def general_costs(leistungskategorie)
     case leistungskategorie
-    when 'bk' then general_costs_blockkurse
-    when 'tk' then general_costs_tageskurse
-    when 'sk' then general_costs_semesterkurse
-    when 'tp' then general_costs_treffpunkte
+    when "bk" then general_costs_blockkurse
+    when "tk" then general_costs_tageskurse
+    when "sk" then general_costs_semesterkurse
+    when "tp" then general_costs_treffpunkte
     else raise ArgumentError
     end
   end
@@ -57,16 +55,16 @@ class Event::GeneralCostAllocation < ActiveRecord::Base
 
   def considered_course_records(subventioniert = true)
     Event::CourseRecord.joins(event: :events_groups)
-                       .where(subventioniert: subventioniert,
-                              year: year,
-                              events_groups: { group_id: group.id })
+      .where(subventioniert: subventioniert,
+        year: year,
+        events_groups: {group_id: group.id})
   end
 
   private
 
   def total_costs_by_lk
-    @total_costs_by_lk ||= considered_course_records.group('events.leistungskategorie')
-                                                    .sum(:direkter_aufwand)
+    @total_costs_by_lk ||= considered_course_records.group("events.leistungskategorie")
+      .sum(:direkter_aufwand)
   end
 
   def calculate_general_costs_allowance(leistungskategorie)

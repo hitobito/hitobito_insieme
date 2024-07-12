@@ -5,31 +5,28 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module InsiemeFormatHelper
-
   def format_money(value)
     if value
-      fnumber(value) + ' ' + t('global.currency')
+      fnumber(value) + " " + t("global.currency")
     else
-      ''
+      ""
     end
   end
 
   def format_percent(value)
     if value
-      fnumber(value) + ' %'
+      fnumber(value) + " %"
     else
-      ''
+      ""
     end
   end
 
   def format_hours(value)
     if value
-      fnumber(value) + ' ' + t('global.hours_short')
+      fnumber(value) + " " + t("global.hours_short")
     else
-      ''
+      ""
     end
   end
-
 end

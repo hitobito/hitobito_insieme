@@ -36,9 +36,7 @@
 #
 
 class Group::RegionalvereinGremium < Group
-
   children Group::RegionalvereinGremium
-
 
   ### ROLES
 
@@ -53,6 +51,6 @@ class Group::RegionalvereinGremium < Group
   end
 
   roles Leitung,
-        Mitglied
+    Mitglied
   self.default_role = Mitglied
 end

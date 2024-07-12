@@ -5,10 +5,10 @@
 #  the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-RSpec.shared_context 'featureperioden' do
+RSpec.shared_context "featureperioden" do
   include Featureperioden::Domain
 end
 
 RSpec.configure do |rspec|
-  rspec.include_context 'featureperioden'
+  rspec.include_context "featureperioden"
 end

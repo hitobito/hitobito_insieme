@@ -7,7 +7,6 @@
 
 module Fp2015::Export::Tabular::Events
   class DetailList < ::Export::Tabular::Events::List
-
     def initialize(list, group_name, year)
       @group_name = group_name
       @year = year
@@ -67,26 +66,25 @@ module Fp2015::Export::Tabular::Events
       row[0] = @group_name
       row[3] = reporting_year
       row[12] = document_title
-      row[66] = "#{I18n.t('global.printed')}: "
+      row[66] = "#{I18n.t("global.printed")}: "
       row[67] = printed_at
       row
     end
 
     def document_title
-      "#{I18n.t('event.lists.courses.xlsx_export_title')}: #{title}"
+      "#{I18n.t("event.lists.courses.xlsx_export_title")}: #{title}"
     end
 
     def title
-      I18n.t('export/tabular/events.title')
+      I18n.t("export/tabular/events.title")
     end
 
     def reporting_year
-      "#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}"
+      "#{I18n.t("cost_accounting.index.reporting_year")}: #{@year}"
     end
 
     def printed_at
-      I18n.l(Time.zone.today) + Time.zone.now.strftime(' %H:%M')
+      I18n.l(Time.zone.today) + Time.zone.now.strftime(" %H:%M")
     end
-
   end
 end

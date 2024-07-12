@@ -6,16 +6,15 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Event::Reportable
-
   extend ActiveSupport::Concern
 
-  LEISTUNGSKATEGORIEN = %w(bk tk sk tp).freeze
-  KURSFACHKONZEPTE = %w(
+  LEISTUNGSKATEGORIEN = %w[bk tk sk tp].freeze
+  KURSFACHKONZEPTE = %w[
     freizeit_jugend freizeit_erwachsen
     sport_jugend sport_erwachsen
     autonomie_foerderung
-  ).freeze
-  FACHKONZEPTE = (KURSFACHKONZEPTE + ['treffpunkt']).freeze
+  ].freeze
+  FACHKONZEPTE = (KURSFACHKONZEPTE + ["treffpunkt"]).freeze
 
   included do
     self.used_attributes += [:leistungskategorie, :fachkonzept]
@@ -26,7 +25,7 @@ module Event::Reportable
     attr_readonly :leistungskategorie
 
     validates :leistungskategorie, inclusion: LEISTUNGSKATEGORIEN
-    validates :fachkonzept,        inclusion: FACHKONZEPTE
+    validates :fachkonzept, inclusion: FACHKONZEPTE
     validate :fachkonzept_of_leistungskategorie
     validate :assert_year_not_frozen
   end
@@ -34,13 +33,13 @@ module Event::Reportable
   ### INSTANCE METHODS
 
   def years
-    dates.
-      map { |date| [date.start_at, date.finish_at] }.
-      flatten.
-      compact.
-      map(&:year).
-      uniq.
-      sort
+    dates
+      .map { |date| [date.start_at, date.finish_at] }
+      .flatten
+      .compact
+      .map(&:year)
+      .uniq
+      .sort
   end
 
   def reportable?
@@ -69,7 +68,7 @@ module Event::Reportable
   end
 
   def kurs_leistungskategorie?
-    (LEISTUNGSKATEGORIEN - ['tp']).include? leistungskategorie
+    (LEISTUNGSKATEGORIEN - ["tp"]).include? leistungskategorie
   end
 
   def kurs_fachkonzept?
@@ -77,11 +76,11 @@ module Event::Reportable
   end
 
   def treffpunkt_leistungskategorie?
-    leistungskategorie == 'tp'
+    leistungskategorie == "tp"
   end
 
   def treffpunkt_fachkonzept?
-    fachkonzept == 'treffpunkt'
+    fachkonzept == "treffpunkt"
   end
 
   module ClassMethods

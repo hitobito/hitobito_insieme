@@ -27,12 +27,11 @@ module Insieme
 
       def export_label_item(format_id, type, label = nil)
         ::Dropdown::Item.new(label || I18n.t("contactable.address_fields_insieme.#{type}"),
-                             params.merge(format: :pdf,
-                                          label_format_id: format_id,
-                                          address_type: type),
-                             target: :new)
+          params.merge(format: :pdf,
+            label_format_id: format_id,
+            address_type: type),
+          target: :new)
       end
-
     end
   end
 end

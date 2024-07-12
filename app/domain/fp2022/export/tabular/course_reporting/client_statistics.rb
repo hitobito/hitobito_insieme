@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 # see also Fp2015::Export::Tabular::CourseReporting::ClientStatistics
 module Fp2022::Export
   module Tabular
@@ -33,25 +32,25 @@ module Fp2022::Export
 
           @stats.groups.each do |group|
             yield group_label(group)
-            yield group_stats(group.id, 'sk', 'weiterbildung')
-            yield group_stats(group.id, 'sk', 'sport')
-            yield group_stats(group.id, 'bk', 'weiterbildung')
-            yield group_stats(group.id, 'bk', 'sport')
-            yield group_stats(group.id, 'tk', 'weiterbildung')
-            yield group_stats(group.id, 'tk', 'sport')
-            yield group_stats(group.id, 'tp', 'treffpunkt')
+            yield group_stats(group.id, "sk", "weiterbildung")
+            yield group_stats(group.id, "sk", "sport")
+            yield group_stats(group.id, "bk", "weiterbildung")
+            yield group_stats(group.id, "bk", "sport")
+            yield group_stats(group.id, "tk", "weiterbildung")
+            yield group_stats(group.id, "tk", "sport")
+            yield group_stats(group.id, "tp", "treffpunkt")
             yield empty_row
           end
         end
 
         def labels
           [
-            fp_t('group_or_course_type'),
-            fp_t('course_fachkonzept'),
-            fp_t('course_count'),
-            fp_t('course_hours'),
-            fp_t('other_attendees'),
-            fp_t('course_total')
+            fp_t("group_or_course_type"),
+            fp_t("course_fachkonzept"),
+            fp_t("course_count"),
+            fp_t("course_hours"),
+            fp_t("other_attendees"),
+            fp_t("course_total")
           ] + @stats.cantons.map do |canton|
             attr_t("event/participation_canton_count.#{canton}")
           end
@@ -82,15 +81,15 @@ module Fp2022::Export
         end
 
         def course_hours_including_grundlagen_hours(gcp)
-          grundlagen_field = if gcp.fachkonzept == 'treffpunkt'
-                               :treffpunkte_grundlagen
-                             else
-                               :kurse_grundlagen
-                             end
+          grundlagen_field = if gcp.fachkonzept == "treffpunkt"
+            :treffpunkte_grundlagen
+          else
+            :kurse_grundlagen
+          end
 
           grundlagen_hours = ::TimeRecord.where(
             group_id: gcp.group_id, year: year,
-            type: %w(TimeRecord::EmployeeTime TimeRecord::VolunteerWithVerificationTime)
+            type: %w[TimeRecord::EmployeeTime TimeRecord::VolunteerWithVerificationTime]
           ).sum(grundlagen_field).to_f
 
           maybe_zero(gcp.course_hours.to_f + grundlagen_hours)
@@ -101,11 +100,11 @@ module Fp2022::Export
         end
 
         def fp_t(field, options = {})
-          I18n.t(field, **options.merge(scope: fp_i18n_scope('course_reporting.client_statistics')))
+          I18n.t(field, **options.merge(scope: fp_i18n_scope("course_reporting.client_statistics")))
         end
 
         def attr_t(attr, options = {})
-          I18n.t(attr, **options.merge(scope: 'activerecord.attributes'))
+          I18n.t(attr, **options.merge(scope: "activerecord.attributes"))
         end
       end
     end

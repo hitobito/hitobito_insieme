@@ -7,27 +7,26 @@
 
 module Insieme::Export::Tabular::Events
   module Row
-
     extend ActiveSupport::Concern
 
     included do
       delegate :year, :subventioniert, :inputkriterien, :spezielle_unterkunft, :anzahl_kurse,
-               to: :course_record, allow_nil: true
+        to: :course_record, allow_nil: true
     end
 
     def leistungskategorie
-      entry.leistungskategorie && I18n.t('activerecord.attributes.event/course.' \
+      entry.leistungskategorie && I18n.t("activerecord.attributes.event/course." \
                                          "leistungskategorien.#{entry.leistungskategorie}.one")
     end
 
     def fachkonzept
-      entry.fachkonzept? && I18n.t('activerecord.attributes.event/course.fachkonzepte.' \
+      entry.fachkonzept? && I18n.t("activerecord.attributes.event/course.fachkonzepte." \
                                    "#{entry.fachkonzept}")
     end
 
     def kursart
-      course_record && course_record.kursart &&
-        I18n.t('activerecord.attributes.event/course_record.' \
+      course_record&.kursart &&
+        I18n.t("activerecord.attributes.event/course_record." \
                "kursarten.#{entry.course_record.kursart}")
     end
 
@@ -36,6 +35,5 @@ module Insieme::Export::Tabular::Events
     def course_record
       entry.course_record
     end
-
   end
 end

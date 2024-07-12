@@ -7,7 +7,6 @@
 
 module Insieme::Export::Tabular::People
   module ParticipationsFull
-
     def build_attribute_labels
       super.tap do |labels|
         labels[:disability] = human(:disability)
@@ -15,7 +14,6 @@ module Insieme::Export::Tabular::People
         labels[:wheel_chair] = human(:wheel_chair)
         labels[:invoice_text] = human(:invoice_text)
         labels[:invoice_amount] = human(:invoice_amount)
-        labels
       end
     end
 
@@ -24,6 +22,5 @@ module Insieme::Export::Tabular::People
     def human(attr)
       ::Event::Participation.human_attribute_name(attr)
     end
-
   end
 end

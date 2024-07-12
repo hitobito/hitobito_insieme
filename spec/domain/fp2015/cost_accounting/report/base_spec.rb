@@ -1,47 +1,44 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
-describe 'CostAccounting::Report::Base' do
-
+describe "CostAccounting::Report::Base" do
   let(:year) { 2014 }
   let(:group) { groups(:be) }
-  let(:table) { fp_class('CostAccounting::Table').new(group, year) }
-  let(:report) { fp_class('CostAccounting::Report::Lohnaufwand').new(table) }
+  let(:table) { fp_class("CostAccounting::Table").new(group, year) }
+  let(:report) { fp_class("CostAccounting::Report::Lohnaufwand").new(table) }
 
   before do
     CostAccountingRecord.create!(group_id: group.id,
-                                 year: year,
-                                 report: 'lohnaufwand',
-                                 aufwand_ertrag_fibu: 1000,
-                                 abgrenzung_fibu: 50)
+      year: year,
+      report: "lohnaufwand",
+      aufwand_ertrag_fibu: 1000,
+      abgrenzung_fibu: 50)
   end
 
-  context '#aufwand_ertrag_ko_re' do
-    it 'is calculated correctly' do
+  context "#aufwand_ertrag_ko_re" do
+    it "is calculated correctly" do
       expect(report.aufwand_ertrag_ko_re).to eq(950.0)
     end
   end
 
-  context '#total' do
-    it 'is calculated correctly' do
+  context "#total" do
+    it "is calculated correctly" do
       expect(report.total).to eq(0.0)
     end
   end
 
-  context '#kontrolle' do
-    it 'is calculated correctly' do
+  context "#kontrolle" do
+    it "is calculated correctly" do
       expect(report.kontrolle).to eq(-950.0)
     end
   end
 
-  context 'basic accessors' do
-    it 'return nil' do
+  context "basic accessors" do
+    it "return nil" do
       expect(report.raeumlichkeiten).to be_nil
     end
   end
@@ -50,19 +47,17 @@ describe 'CostAccounting::Report::Base' do
     report == Fp2015::CostAccounting::Report::Separator
   end.each do |report|
     context report.key do
-      it 'has valid used fields' do
-        expect(report.used_fields - fp_class('CostAccounting::Report::Base')::FIELDS).to eq []
+      it "has valid used fields" do
+        expect(report.used_fields - fp_class("CostAccounting::Report::Base")::FIELDS).to eq []
       end
 
-      it 'has valid editable fields' do
-        expect(report.editable_fields - report.used_fields - %w(aufteilung_kontengruppen)).to eq []
+      it "has valid editable fields" do
+        expect(report.editable_fields - report.used_fields - %w[aufteilung_kontengruppen]).to eq []
       end
 
-      it 'has human name' do
+      it "has human name" do
         expect(report.human_name(year)).to match(/^[A-ZÖÄÜ]/)
       end
     end
   end
-
-
 end

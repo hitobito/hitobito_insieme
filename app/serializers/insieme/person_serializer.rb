@@ -11,10 +11,10 @@ module Insieme::PersonSerializer
   included do
     extension(:details) do |_|
       map_properties :salutation,
-                     :canton,
-                     :language,
-                     :correspondence_language,
-                     :number
+        :canton,
+        :language,
+        :correspondence_language,
+        :number
 
       ::Person::ADDRESS_TYPES.each do |prefix|
         ::Person::ADDRESS_FIELDS.each do |field|
@@ -23,5 +23,4 @@ module Insieme::PersonSerializer
       end
     end
   end
-
 end

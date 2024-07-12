@@ -25,7 +25,7 @@ class CapitalSubstrate < ActiveRecord::Base
   belongs_to :group
 
   validates_by_schema
-  validates :year, uniqueness: { scope: [:group_id] }
+  validates :year, uniqueness: {scope: [:group_id]}
   validate :assert_group_has_reporting
 
   def to_s
@@ -34,13 +34,13 @@ class CapitalSubstrate < ActiveRecord::Base
 
   def newest_previous_sum
     self.class
-        .where(group_id: group_id)
-        .where.not(previous_substrate_sum: nil)
-        .where("year <= #{year}")
-        .order(year: :desc)
-        .select(:previous_substrate_sum)
-        .first
-       &.previous_substrate_sum
+      .where(group_id: group_id)
+      .where.not(previous_substrate_sum: nil)
+      .where("year <= #{year}")
+      .order(year: :desc)
+      .select(:previous_substrate_sum)
+      .first
+      &.previous_substrate_sum
   end
 
   private

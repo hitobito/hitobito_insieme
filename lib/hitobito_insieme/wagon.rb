@@ -10,7 +10,7 @@ module HitobitoInsieme
     include Wagons::Wagon
 
     # Set the required application version.
-    app_requirement '>= 0'
+    app_requirement ">= 0"
 
     # Add a load path for this specific wagon
     config.autoload_paths += %W[
@@ -96,49 +96,47 @@ module HitobitoInsieme
       Person::Address.prepend Insieme::Person::Address
 
       Featureperioden::Dispatcher
-        .domain_classes('Export::Xlsx::CostAccounting::Style')
-        .zip(Featureperioden::Dispatcher.domain_classes('Export::Tabular::CostAccounting::List'))
+        .domain_classes("Export::Xlsx::CostAccounting::Style")
+        .zip(Featureperioden::Dispatcher.domain_classes("Export::Tabular::CostAccounting::List"))
         .each { |style, list| Export::Xlsx::Style.register(style, list) }
 
       Featureperioden::Dispatcher
-        .domain_classes('Export::Xlsx::Events::AggregateCourse::Style')
+        .domain_classes("Export::Xlsx::Events::AggregateCourse::Style")
         .zip(
           Featureperioden::Dispatcher
-            .domain_classes('Export::Tabular::Events::AggregateCourse::DetailList').zip(
+            .domain_classes("Export::Tabular::Events::AggregateCourse::DetailList").zip(
               Featureperioden::Dispatcher
-                .domain_classes('Export::Tabular::Events::AggregateCourse::ShortList')
+                .domain_classes("Export::Tabular::Events::AggregateCourse::ShortList")
             )
         )
         .each { |style, list| Export::Xlsx::Style.register(style, *list) }
 
       Export::Xlsx::Style.register(Export::Xlsx::Events::Style,
-                                   *Featureperioden::Dispatcher.domain_classes(
-                                     'Export::Tabular::Events::DetailList'
-                                   ),
-                                   *Featureperioden::Dispatcher.domain_classes(
-                                     'Export::Tabular::Events::ShortList'
-                                   ))
+        *Featureperioden::Dispatcher.domain_classes(
+          "Export::Tabular::Events::DetailList"
+        ),
+        *Featureperioden::Dispatcher.domain_classes(
+          "Export::Tabular::Events::ShortList"
+        ))
 
       # jobs
       Export::SubscriptionsJob.prepend Insieme::Export::SubscriptionsJob
       Export::EventsExportJob.prepend Insieme::Export::EventsExportJob
 
-
       admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
-      admin[:active_for] << 'reporting_parameters' << 'global_value'
+      admin[:active_for] << "reporting_parameters" << "global_value"
     end
 
-    initializer 'insieme.add_settings' do |_app|
-      Settings.add_source!(File.join(paths['config'].existent, 'settings.yml'))
+    initializer "insieme.add_settings" do |_app|
+      Settings.add_source!(File.join(paths["config"].existent, "settings.yml"))
       Settings.reload!
     end
 
     private
 
     def seed_fixtures
-      fixtures = root.join('db', 'seeds')
-      ENV['NO_ENV'] ? [fixtures] : [fixtures, File.join(fixtures, Rails.env)]
+      fixtures = root.join("db", "seeds")
+      ENV["NO_ENV"] ? [fixtures] : [fixtures, File.join(fixtures, Rails.env)]
     end
-
   end
 end

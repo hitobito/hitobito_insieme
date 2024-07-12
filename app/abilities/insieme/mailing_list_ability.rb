@@ -18,5 +18,4 @@ module Insieme::MailingListAbility
   def any_role_in_same_layer
     group && user_context.layer_ids(user_context.user.groups).include?(group.layer_group_id)
   end
-
 end

@@ -7,7 +7,6 @@
 
 module Fp2015
   class TimeRecord::Report::VolunteerWithoutVerificationTime < TimeRecord::Report::Base
-
     def paragraph_74
       record.total_paragraph_74_pensum
     end
@@ -19,6 +18,5 @@ module Fp2015
     def total
       record.total_pensum
     end
-
   end
 end

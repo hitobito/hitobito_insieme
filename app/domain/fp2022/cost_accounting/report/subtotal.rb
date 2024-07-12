@@ -8,7 +8,6 @@
 module Fp2022::CostAccounting
   module Report
     class Subtotal < Base
-
       class_attribute :summed_reports, :summed_fields
 
       self.kind = :subtotal
@@ -30,7 +29,6 @@ module Fp2022::CostAccounting
       def kontrolle
         nil
       end
-
     end
   end
 end

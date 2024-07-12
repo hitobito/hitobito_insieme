@@ -14,16 +14,16 @@ module Insieme
 
       included do
         self.role_types = [::Event::Course::Role::LeaderAdmin,
-                           ::Event::Course::Role::LeaderReporting,
-                           ::Event::Course::Role::LeaderBasic,
-                           ::Event::Course::Role::Expert,
-                           ::Event::Course::Role::HelperPaid,
-                           ::Event::Course::Role::HelperUnpaid,
-                           ::Event::Course::Role::Caretaker,
-                           ::Event::Course::Role::Kitchen,
-                           ::Event::Course::Role::Challenged,
-                           ::Event::Course::Role::Affiliated,
-                           ::Event::Course::Role::NotEntitledForBenefit]
+          ::Event::Course::Role::LeaderReporting,
+          ::Event::Course::Role::LeaderBasic,
+          ::Event::Course::Role::Expert,
+          ::Event::Course::Role::HelperPaid,
+          ::Event::Course::Role::HelperUnpaid,
+          ::Event::Course::Role::Caretaker,
+          ::Event::Course::Role::Kitchen,
+          ::Event::Course::Role::Challenged,
+          ::Event::Course::Role::Affiliated,
+          ::Event::Course::Role::NotEntitledForBenefit]
 
         self.used_attributes -= [:kind_id, :group_ids]
       end
@@ -31,7 +31,6 @@ module Insieme
       def year
         years.first
       end
-
     end
   end
 end

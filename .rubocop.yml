@@ -1,32 +1,12 @@
-inherit_from: ../hitobito/.rubocop.yml
+inherit_from:
+  - ../hitobito/.rubocop.yml
+  - .rubocop_todo.yml
 
 AllCops:
   Exclude:
+    - Rakefile
+    - Gemfile
     - db/**/*
     - config/**/*
     - bin/**/*
     - tmp/**/*
-    - spec/**/*
-    - test/**/*
-    - vendor/**/*
-
-Naming/MethodParameterName:
-  AllowedNames:
-    - lk
-    # defaults were (lets see what we really need):
-    # - at
-    # - by
-    # - db
-    # - id
-    # - in
-    # - io
-    # - ip
-    # - of
-    # - on
-    # - os
-    # - pp
-    # - to
-
-Naming/VariableNumber:
-  AllowedPatterns:
-    - .*paragraph_74.*

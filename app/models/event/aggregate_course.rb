@@ -41,7 +41,6 @@
 #
 
 class Event::AggregateCourse < Event
-
   attr_writer :year
 
   # All attributes actually used (and mass-assignable) by the respective STI type.
@@ -54,7 +53,7 @@ class Event::AggregateCourse < Event
 
   include Event::Reportable
 
-  validates :year, numericality: { only_integer: true }
+  validates :year, numericality: {only_integer: true}
 
   before_validation :update_dates
 
@@ -68,11 +67,10 @@ class Event::AggregateCourse < Event
     if @year
       dates.destroy_all
       dates.build(event: self,
-                  start_at: Time.zone.local(@year.to_i, 1, 1),
-                  finish_at: Time.zone.local(@year.to_i, 12, 31))
+        start_at: Time.zone.local(@year.to_i, 1, 1),
+        finish_at: Time.zone.local(@year.to_i, 12, 31))
 
       course_record&.set_defaults
     end
   end
-
 end

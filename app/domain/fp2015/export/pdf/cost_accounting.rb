@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2015::Export::Pdf
   class CostAccounting < ::Export::Tabular::Base
     include CostAccounting::Style
@@ -13,9 +12,8 @@ module Fp2015::Export::Pdf
 
     attr_accessor :year
 
-    COLSPANS = { 22 => [0, 1, 2, 3, 4, 5, 6, 7],
-                 23 => [0, 1, 2]
-    }.freeze
+    COLSPANS = {22 => [0, 1, 2, 3, 4, 5, 6, 7],
+                23 => [0, 1, 2]}.freeze
 
     self.row_class = Export::Pdf::CostAccounting::Row
 
@@ -26,7 +24,7 @@ module Fp2015::Export::Pdf
     end
 
     def generate
-      pdf = Prawn::Document.new(page_size: 'A4', page_layout: :landscape)
+      pdf = Prawn::Document.new(page_size: "A4", page_layout: :landscape)
       style_pdf(pdf)
 
       add_header(pdf)
@@ -75,20 +73,20 @@ module Fp2015::Export::Pdf
 
     def colspan_cell(row, value)
       colspan_length = COLSPANS[row].count
-      { content: value, colspan: colspan_length }
+      {content: value, colspan: colspan_length}
     end
 
     def add_header(pdf)
       pdf.draw_text(@group_name, at: [0, 500], size: 9)
-      pdf.draw_text("#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}",
-                    at: [300, 500],
-                    size: 9)
+      pdf.draw_text("#{I18n.t("cost_accounting.index.reporting_year")}: #{@year}",
+        at: [300, 500],
+        size: 9)
       pdf.draw_text(printed_at, at: [680, 500])
     end
 
     def printed_at
       date = I18n.l(Time.zone.today)
-      time = Time.zone.now.strftime(' %H:%M')
+      time = Time.zone.now.strftime(" %H:%M")
       "Druck:   #{date} #{time}"
     end
 
@@ -100,7 +98,7 @@ module Fp2015::Export::Pdf
       {}.tap do |labels|
         labels[:report] = human(:report)
 
-        fp_class('CostAccounting::Table').fields.each do |field|
+        fp_class("CostAccounting::Table").fields.each do |field|
           labels[field.to_sym] = human(field)
         end
       end

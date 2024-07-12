@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class AboAddressesController < ApplicationController
-
   before_action :authorize
 
   def index
@@ -20,7 +19,7 @@ class AboAddressesController < ApplicationController
   end
 
   def people
-    AboAddresses::Query.new(params[:country] == 'ch', params[:language]).people
+    AboAddresses::Query.new(params[:country] == "ch", params[:language]).people
   end
 
   def group

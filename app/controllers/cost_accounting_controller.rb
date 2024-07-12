@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class CostAccountingController < ReportingBaseController
-
   include Rememberable
 
   include Featureperioden::Domain
@@ -21,7 +20,7 @@ class CostAccountingController < ReportingBaseController
   before_action :report, only: [:edit]
 
   rescue_from ActiveRecord::RecordNotFound do
-    redirect_to request.parameters.except(:report).merge({ action: index })
+    redirect_to request.parameters.except(:report).merge({action: index})
   end
 
   def index
@@ -32,11 +31,14 @@ class CostAccountingController < ReportingBaseController
     end
   end
 
+  def edit
+  end
+
   private
 
   def entry
     @entry ||= CostAccountingRecord.where(group_id: group.id, year: year, report: params[:report])
-                                   .first_or_initialize
+      .first_or_initialize
   end
 
   def previous_entry
@@ -50,24 +52,24 @@ class CostAccountingController < ReportingBaseController
   end
 
   def table
-    @table ||= fp_class('CostAccounting::Table').new(group, year)
+    @table ||= fp_class("CostAccounting::Table").new(group, year)
   end
 
   def permitted_params
     fields = report.editable_fields
-    fields -= ['abgrenzung_dachorganisation'] unless group.is_a?(Group::Dachverein)
+    fields -= ["abgrenzung_dachorganisation"] unless group.is_a?(Group::Dachverein)
     params.require(:cost_accounting_record).permit(fields)
   end
 
   def render_xlsx
-    xlsx = fp_class('Export::Tabular::CostAccounting::List')
-           .xlsx(@table.visible_reports.values, group.name, year)
+    xlsx = fp_class("Export::Tabular::CostAccounting::List")
+      .xlsx(@table.visible_reports.values, group.name, year)
     send_data xlsx, type: :xlsx, filename: export_filename(:xlsx)
   end
 
   def render_pdf
-    pdf = fp_class('Export::Pdf::CostAccounting')
-          .new(@table.visible_reports.values, group.name, year)
+    pdf = fp_class("Export::Pdf::CostAccounting")
+      .new(@table.visible_reports.values, group.name, year)
     send_data pdf.generate, type: :pdf, filename: export_filename(:pdf)
   end
 
@@ -76,10 +78,10 @@ class CostAccountingController < ReportingBaseController
   end
 
   def vid
-    group.vid.present? && "_vid#{group.vid}" || ''
+    group.vid.present? && "_vid#{group.vid}" || ""
   end
 
   def bsv
-    group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
+    group.bsv_number.present? && "_bsv#{group.bsv_number}" || ""
   end
 end

@@ -39,7 +39,7 @@ module Fp2020::Export::Tabular::TimeRecords
     end
 
     def labels
-      [fp_t('group_or_stat'), '']
+      [fp_t("group_or_stat"), ""]
     end
 
     private
@@ -67,15 +67,15 @@ module Fp2020::Export::Tabular::TimeRecords
     def specific_with_grundlagen(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       data = @stats.lufeb_data_for(group.id) # could be time_record_data, if I had the linelength
 
-      kostenrechnung = fp_class('CostAccounting::Table').new(group, year)
+      kostenrechnung = fp_class("CostAccounting::Table").new(group, year)
 
-      vollkosten_tp = kostenrechnung.value_of('vollkosten', 'treffpunkte').to_f
+      vollkosten_tp = kostenrechnung.value_of("vollkosten", "treffpunkte").to_f
       vollkosten_alle =
         if vollkosten_tp.positive?
           vollkosten_tp +
-            kostenrechnung.value_of('vollkosten', 'blockkurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'tageskurse').to_f +
-            kostenrechnung.value_of('vollkosten', 'jahreskurse').to_f
+            kostenrechnung.value_of("vollkosten", "blockkurse").to_f +
+            kostenrechnung.value_of("vollkosten", "tageskurse").to_f +
+            kostenrechnung.value_of("vollkosten", "jahreskurse").to_f
         else
           0
         end
@@ -91,7 +91,7 @@ module Fp2020::Export::Tabular::TimeRecords
     end
 
     def fp_t(field, options = {})
-      I18n.t(field, **options.merge(scope: fp_i18n_scope('time_records.lufeb_times')))
+      I18n.t(field, **options.merge(scope: fp_i18n_scope("time_records.lufeb_times")))
     end
   end
 end

@@ -36,19 +36,17 @@
 #
 
 class Group::ExterneOrganisation < Group
-
   self.layer = true
   self.used_attributes += [:full_name, :vid, :bsv_number, :canton]
   self.event_types = [Event, Event::Course, Event::AggregateCourse]
   self.reporting = true
 
   children Group::ExterneOrganisation,
-           Group::Aktivmitglieder,
-           Group::Passivmitglieder,
-           Group::Kollektivmitglieder,
-           Group::ExterneOrganisationListe,
-           Group::ExterneOrganisationGremium
-
+    Group::Aktivmitglieder,
+    Group::Passivmitglieder,
+    Group::Kollektivmitglieder,
+    Group::ExterneOrganisationListe,
+    Group::ExterneOrganisationGremium
 
   ### ROLES
 
@@ -104,14 +102,13 @@ class Group::ExterneOrganisation < Group
   end
 
   roles Praesident,
-        Vorstandsmitglied,
-        Geschaeftsfuehrung,
-        Sekretariat,
-        Adressverwaltung,
-        Versandadresse,
-        Rechnungsadresse,
-        Controlling,
-        Invoicing,
-        External
-
+    Vorstandsmitglied,
+    Geschaeftsfuehrung,
+    Sekretariat,
+    Adressverwaltung,
+    Versandadresse,
+    Rechnungsadresse,
+    Controlling,
+    Invoicing,
+    External
 end

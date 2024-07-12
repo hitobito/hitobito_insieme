@@ -13,9 +13,9 @@ module Insieme
       def duplicates(attrs)
         if attrs[:number].present?
           ::Person.where(number: attrs[:number]).to_a.presence ||
-          check_duplicate_with_different_number(attrs, super)
+            check_duplicate_with_different_number(attrs, super)
         else
-          super(attrs)
+          super
         end
       end
 
@@ -31,8 +31,8 @@ module Insieme
 
       def add_duplicate_with_different_number_error(person)
         person.errors.add(:base,
-                          translate(:duplicate_with_different_number,
-                                    number: person.number))
+          translate(:duplicate_with_different_number,
+            number: person.number))
       end
     end
   end

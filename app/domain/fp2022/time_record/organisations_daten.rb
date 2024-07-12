@@ -53,14 +53,14 @@ module Fp2022
     private
 
     def fetch_organsations_daten(verein, year)
-      table = fp_class('TimeRecord::Table').new(verein, year)
+      table = fp_class("TimeRecord::Table").new(verein, year)
 
       [
-        table.value_of('employee_pensum', :total).to_d,
-        table.value_of('employee_pensum', :paragraph_74).to_d,
-        table.record('volunteer_with_verification_time').total_pensum.to_d,
-        table.record('volunteer_without_verification_time').total_pensum.to_d,
-        table.record('volunteer_with_verification_time').total_paragraph_74_pensum.to_d
+        table.value_of("employee_pensum", :total).to_d,
+        table.value_of("employee_pensum", :paragraph_74).to_d,
+        table.record("volunteer_with_verification_time").total_pensum.to_d,
+        table.record("volunteer_without_verification_time").total_pensum.to_d,
+        table.record("volunteer_with_verification_time").total_paragraph_74_pensum.to_d
       ]
     end
   end

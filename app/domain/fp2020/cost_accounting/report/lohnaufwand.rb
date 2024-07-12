@@ -8,9 +8,7 @@
 module Fp2020::CostAccounting
   module Report
     class Lohnaufwand < TimeDistributed
-
-      self.kontengruppe = '500'
-
+      self.kontengruppe = "500"
     end
   end
 end

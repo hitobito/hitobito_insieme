@@ -5,10 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module CourseReporting
   class CourseDays
-
     attr_reader :dates
 
     NOON = 12.hours + 30.minutes
@@ -40,8 +38,8 @@ module CourseReporting
 
     def half_day?(date)
       afternoon?(date.start_at) ||
-      !afternoon?(date.finish_at) ||
-      (date.finish_at - date.start_at) <= HALF_DAY_HOURS
+        !afternoon?(date.finish_at) ||
+        (date.finish_at - date.start_at) <= HALF_DAY_HOURS
     end
 
     def days_in_between(date)
@@ -54,14 +52,12 @@ module CourseReporting
 
     def full_start(date)
       Event::Date.new(start_at: date.start_at,
-                      finish_at: date.start_at.end_of_day)
+        finish_at: date.start_at.end_of_day)
     end
 
     def full_finish(date)
       Event::Date.new(start_at: date.finish_at.midnight,
-                      finish_at: date.finish_at)
+        finish_at: date.finish_at)
     end
-
   end
-
 end

@@ -16,8 +16,7 @@ module Insieme::PersonAbility
 
   def other_with_contact_data_in_same_layer
     other_with_contact_data &&
-    contains_any?(user_context.layer_ids(user.groups_with_permission(:contact_data)),
-                  subject.layer_group_ids)
+      contains_any?(user_context.layer_ids(user.groups_with_permission(:contact_data)),
+        subject.layer_group_ids)
   end
-
 end

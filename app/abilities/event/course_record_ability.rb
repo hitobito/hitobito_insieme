@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class Event::CourseRecordAbility < AbilityDsl::Base
-
   include AbilityDsl::Constraints::Event
 
   on(Event::CourseRecord) do
@@ -36,10 +35,10 @@ class Event::CourseRecordAbility < AbilityDsl::Base
   def controller_in_group?
     event_group = event.groups.first
 
-    if event_group.class.const_defined?('Controlling')
-      user_context.user.roles.
-        select { |role| role.group_id == event_group.id }.
-        any? { |role| role.is_a?(event_group.class.const_get('Controlling')) }
+    if event_group.class.const_defined?(:Controlling)
+      user_context.user.roles
+        .select { |role| role.group_id == event_group.id }
+        .any? { |role| role.is_a?(event_group.class.const_get(:Controlling)) }
     end
   end
 end

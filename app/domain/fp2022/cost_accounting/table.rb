@@ -7,7 +7,6 @@
 
 module Fp2022::CostAccounting
   class Table
-
     REPORTS = [
       Report::Lohnaufwand,
       Report::Sozialversicherungsaufwand,
@@ -59,13 +58,13 @@ module Fp2022::CostAccounting
       Report::Deckungsbeitrag4
     ].freeze
 
-    GEMEINKOSTEN_FIELDS = %w(
+    GEMEINKOSTEN_FIELDS = %w[
       raeumlichkeiten
       mittelbeschaffung
       verwaltung
-    ).freeze
+    ].freeze
 
-    SECTION_FIELDS = %w(
+    SECTION_FIELDS = %w[
       beratung
       medien_und_publikationen
       jahreskurse
@@ -73,13 +72,13 @@ module Fp2022::CostAccounting
       tageskurse
       treffpunkte
       lufeb
-    ).freeze
+    ].freeze
 
     attr_reader :group, :year
 
     class << self
       def fields
-        Report::Base::FIELDS - %w(abgrenzung_dachorganisation personal)
+        Report::Base::FIELDS - %w[abgrenzung_dachorganisation personal]
       end
     end
 
@@ -98,7 +97,7 @@ module Fp2022::CostAccounting
 
     def time_record
       @time_record ||= ::TimeRecord::EmployeeTime.where(group_id: group.id, year: year)
-                                                 .first_or_initialize
+        .first_or_initialize
     end
 
     def reports
@@ -118,12 +117,12 @@ module Fp2022::CostAccounting
 
     # "Total Gemeinkosten" in "Gemeinkostenumlage"
     def general_costs(field)
-      vollkosten = value_of('vollkosten', field).to_d
-      direkte_kosten = %w(
+      vollkosten = value_of("vollkosten", field).to_d
+      direkte_kosten = %w[
         raumaufwand
         uebriger_sachaufwand
         honorare
-      ).sum { |report| value_of(report, field).to_d }
+      ].sum { |report| value_of(report, field).to_d }
 
       vollkosten - direkte_kosten
     end
@@ -154,23 +153,22 @@ module Fp2022::CostAccounting
 
     def prepare_course_costs
       nested_hash = Hash.new { |h, k| h[k] = {} }
-      load_course_costs.
-        each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
-        hash[lk] = { 'honorare' => honorare,
-                     'raumaufwand' => unterkunft,
-                     'uebriger_sachaufwand' => uebriges }
+      load_course_costs
+        .each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
+        hash[lk] = {"honorare" => honorare,
+                     "raumaufwand" => unterkunft,
+                     "uebriger_sachaufwand" => uebriges}
       end
     end
 
     def load_course_costs
-      Event::CourseRecord.
-        joins(:event).
-        group('events.leistungskategorie').
-        where(year: year, subventioniert: true).
-        merge(Event.with_group_id(group.id)).
-        pluck('leistungskategorie, ' \
-              'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
+      Event::CourseRecord
+        .joins(:event)
+        .group("events.leistungskategorie")
+        .where(year: year, subventioniert: true)
+        .merge(Event.with_group_id(group.id))
+        .pluck("leistungskategorie, " \
+              "SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)")
     end
-
   end
 end

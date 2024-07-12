@@ -8,9 +8,7 @@
 module Fp2020::CostAccounting
   module Report
     class UebrigerPersonalaufwand < TimeDistributed
-
-      self.kontengruppe = '508'
-
+      self.kontengruppe = "508"
     end
   end
 end

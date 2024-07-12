@@ -8,24 +8,22 @@
 module Fp2015::CostAccounting
   module Report
     class SonstigeBeitraege < Base
-
-      self.kontengruppe = '331'
+      self.kontengruppe = "331"
 
       self.aufwand = false
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
-                                  abgrenzung_dachorganisation
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
 
-                                  beratung
-                                  treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb
-                                  mittelbeschaffung)
-
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
     end
   end
 end

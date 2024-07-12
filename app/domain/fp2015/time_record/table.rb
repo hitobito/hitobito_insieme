@@ -7,15 +7,14 @@
 
 module Fp2015
   class TimeRecord::Table
-
     REPORTS = [Fp2015::TimeRecord::Report::EmployeePensum,
-               Fp2015::TimeRecord::Report::EmployeeTime,
-               Fp2015::TimeRecord::Report::VolunteerWithoutVerificationTime,
-               Fp2015::TimeRecord::Report::VolunteerWithVerificationTime,
-               Fp2015::TimeRecord::Report::EmployeeEfforts,
-               Fp2015::TimeRecord::Report::EmployeeEffortsPensum,
-               Fp2015::TimeRecord::Report::CapitalSubstrate,
-               Fp2015::TimeRecord::Report::CapitalSubstrateLimit]
+      Fp2015::TimeRecord::Report::EmployeeTime,
+      Fp2015::TimeRecord::Report::VolunteerWithoutVerificationTime,
+      Fp2015::TimeRecord::Report::VolunteerWithVerificationTime,
+      Fp2015::TimeRecord::Report::EmployeeEfforts,
+      Fp2015::TimeRecord::Report::EmployeeEffortsPensum,
+      Fp2015::TimeRecord::Report::CapitalSubstrate,
+      Fp2015::TimeRecord::Report::CapitalSubstrateLimit]
 
     attr_reader :group, :year
 
@@ -70,6 +69,5 @@ module Fp2015
         nil
       end
     end
-
   end
 end

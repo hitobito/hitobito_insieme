@@ -8,7 +8,6 @@
 module Fp2022::CostAccounting
   module Report
     class Deckungsbeitrag < Base
-
       self.kind = :deckungsbeitrag
 
       def aufteilung_kontengruppen
@@ -46,7 +45,6 @@ module Fp2022::CostAccounting
       def kontrolle
         nil
       end
-
     end
   end
 end

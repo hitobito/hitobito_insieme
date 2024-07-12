@@ -21,9 +21,9 @@ module Fp2022
     end
 
     def allocation_base
-      if table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero?
-        table.cost_accounting_value_of('vollkosten', 'total').to_d /
-          table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d
+      if table.cost_accounting_value_of("total_aufwand", "aufwand_ertrag_fibu").nonzero?
+        table.cost_accounting_value_of("vollkosten", "total").to_d /
+          table.cost_accounting_value_of("total_aufwand", "aufwand_ertrag_fibu").to_d
       else
         0
       end
@@ -46,7 +46,7 @@ module Fp2022
     end
 
     def deckungsbeitrag4
-      deckungsbeitrag4_total = table.cost_accounting_value_of('beitraege_iv', 'total').to_d
+      deckungsbeitrag4_total = table.cost_accounting_value_of("beitraege_iv", "total").to_d
       return 0 if deckungsbeitrag4_total >= DECKUNGSBEITRAG4_THRESHOLD
 
       deckungsbeitrag4_sum
@@ -89,23 +89,23 @@ module Fp2022
       return current if (lower..upper).cover?(current)
 
       return lower if current < lower
-      return upper if current > upper
+      upper if current > upper
     end
 
     private
 
     def deckungsbeitrag4_period(start, finish)
       (start..finish).sum do |y|
-        time_record_table(y).cost_accounting_value_of('deckungsbeitrag4', 'total').to_d
+        time_record_table(y).cost_accounting_value_of("deckungsbeitrag4", "total").to_d
       end
     end
 
     def iv_finanzierungsgrad_period(start, finish)
       summe_finanzierungsgrade = (start..finish).sum do |y|
-        total_iv_beitrag = time_record_table(y).cost_accounting_value_of('beitraege_iv', 'aufwand_ertrag_fibu').to_d # rubocop:disable Layout/LineLength
-        gesamtkosten = time_record_table(y).cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_ko_re').to_d # rubocop:disable Layout/LineLength
+        total_iv_beitrag = time_record_table(y).cost_accounting_value_of("beitraege_iv", "aufwand_ertrag_fibu").to_d # rubocop:disable Layout/LineLength
+        gesamtkosten = time_record_table(y).cost_accounting_value_of("total_aufwand", "aufwand_ertrag_ko_re").to_d # rubocop:disable Layout/LineLength
 
-        next 0.to_d if gesamtkosten.zero?
+        next BigDecimal("0") if gesamtkosten.zero?
 
         total_iv_beitrag / gesamtkosten
       end
@@ -116,12 +116,11 @@ module Fp2022
     end
 
     def time_record_table(year)
-      @time_record_tables[year] ||= fp_class('TimeRecord::Table').new(table.group, year)
+      @time_record_tables[year] ||= fp_class("TimeRecord::Table").new(table.group, year)
     end
 
     def globals
       @globals ||= ReportingParameter.for(table.year)
     end
-
   end
 end

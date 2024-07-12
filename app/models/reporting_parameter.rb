@@ -20,7 +20,6 @@
 #
 
 class ReportingParameter < ActiveRecord::Base
-
   validates_by_schema
   validates :year, uniqueness: true
 
@@ -29,11 +28,10 @@ class ReportingParameter < ActiveRecord::Base
   def self.for(year)
     return unless year
 
-    where('year <= ?', year).order('year DESC').first
+    where(year: ..year).order("year DESC").first
   end
 
   def to_s
     year
   end
-
 end

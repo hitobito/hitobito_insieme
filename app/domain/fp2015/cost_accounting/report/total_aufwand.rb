@@ -8,33 +8,31 @@
 module Fp2015::CostAccounting
   module Report
     class TotalAufwand < Subtotal
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
+      self.summed_reports = %w[lohnaufwand
+        sozialversicherungsaufwand
+        uebriger_personalaufwand
+        honorare
+        raumaufwand
+        uebriger_sachaufwand
+        abschreibungen]
 
-      self.summed_reports = %w(lohnaufwand
-                               sozialversicherungsaufwand
-                               uebriger_personalaufwand
-                               honorare
-                               raumaufwand
-                               uebriger_sachaufwand
-                               abschreibungen)
+      self.summed_fields = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
 
-      self.summed_fields = %w(aufwand_ertrag_fibu
-                              abgrenzung_fibu
-                              abgrenzung_dachorganisation
-
-                              raeumlichkeiten
-                              verwaltung
-                              beratung
-                              treffpunkte
-                              blockkurse
-                              tageskurse
-                              jahreskurse
-                              lufeb
-                              mittelbeschaffung)
+        raeumlichkeiten
+        verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       define_summed_field_methods
-
     end
   end
 end

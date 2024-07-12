@@ -12,45 +12,45 @@ module Insieme::GroupAbility
     r.permissions.include?(:layer_and_below_full)
   end
 
-  REPORTING_DACH_ROLES  = DACH_MANAGER_ROLES + [Group::Dachverein::Controlling]
+  REPORTING_DACH_ROLES = DACH_MANAGER_ROLES + [Group::Dachverein::Controlling]
 
   REPORTING_REGIO_ROLES = [Group::Regionalverein::Geschaeftsfuehrung,
-                           Group::Regionalverein::Sekretariat,
-                           Group::Regionalverein::Adressverwaltung,
-                           Group::Regionalverein::Controlling,
-                           Group::ExterneOrganisation::Geschaeftsfuehrung,
-                           Group::ExterneOrganisation::Sekretariat,
-                           Group::ExterneOrganisation::Adressverwaltung,
-                           Group::ExterneOrganisation::Controlling].freeze
+    Group::Regionalverein::Sekretariat,
+    Group::Regionalverein::Adressverwaltung,
+    Group::Regionalverein::Controlling,
+    Group::ExterneOrganisation::Geschaeftsfuehrung,
+    Group::ExterneOrganisation::Sekretariat,
+    Group::ExterneOrganisation::Adressverwaltung,
+    Group::ExterneOrganisation::Controlling].freeze
 
   included do # rubocop:disable Metrics/BlockLength
     on(Group) do # rubocop:disable Metrics/BlockLength
-      permission(:any).
-        may(:read).
-        any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
+      permission(:any)
+        .may(:read)
+        .any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
 
-      permission(:any).
-        may(:index_events, :'index_event/courses').
-        any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
+      permission(:any)
+        .may(:index_events, :"index_event/courses")
+        .any_role_in_same_layer_or_if_dachverein_manager_or_if_regionalverein
 
-      permission(:any).may(:'index_event/aggregate_courses').in_same_group
-      permission(:group_full).may(:'export_event/aggregate_courses').in_same_group
-      permission(:group_and_below_full).
-        may(:'export_event/aggregate_courses').
-        in_same_group_or_below
-      permission(:layer_read).
-        may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
-        in_same_layer
-      permission(:layer_and_below_read).
-        may(:'index_event/aggregate_courses', :'export_event/aggregate_courses').
-        in_same_layer_or_below
+      permission(:any).may(:"index_event/aggregate_courses").in_same_group
+      permission(:group_full).may(:"export_event/aggregate_courses").in_same_group
+      permission(:group_and_below_full)
+        .may(:"export_event/aggregate_courses")
+        .in_same_group_or_below
+      permission(:layer_read)
+        .may(:"index_event/aggregate_courses", :"export_event/aggregate_courses")
+        .in_same_layer
+      permission(:layer_and_below_read)
+        .may(:"index_event/aggregate_courses", :"export_event/aggregate_courses")
+        .in_same_layer_or_below
 
-      permission(:any).may(:export_course_records).
-        if_dachverein_reporting_or_regionalverein_reporting_in_same_group
+      permission(:any).may(:export_course_records)
+        .if_dachverein_reporting_or_regionalverein_reporting_in_same_group
 
-      permission(:any).
-        may(:index_mailing_lists).
-        any_role_in_same_layer_or_if_dachverein_manager
+      permission(:any)
+        .may(:index_mailing_lists)
+        .any_role_in_same_layer_or_if_dachverein_manager
 
       permission(:any).may(:deleted_subgroups).none
       permission(:layer_full).may(:deleted_subgroups).in_same_layer
@@ -58,9 +58,9 @@ module Insieme::GroupAbility
 
       permission(:contact_data).may(:index_people).contact_data_in_same_layer
 
-      permission(:any).
-        may(:reporting).
-        if_dachverein_reporting_or_regionalverein_reporting_in_same_group
+      permission(:any)
+        .may(:reporting)
+        .if_dachverein_reporting_or_regionalverein_reporting_in_same_group
 
       permission(:group_read).may(:statistics).in_same_group
       permission(:group_and_below_read).may(:statistics).in_same_group
@@ -76,17 +76,16 @@ module Insieme::GroupAbility
       general(:reporting).for_reporting_group
       general(:statistics).for_dachverein
       general(:controlling).for_dachverein
-
     end
   end
 
   def if_permission_in_layer_and_manual_deletion_enabled
-    FeatureGate.enabled?('people.manual_deletion') && if_permission_in_layer
+    FeatureGate.enabled?("people.manual_deletion") && if_permission_in_layer
   end
 
   def if_dachverein_reporting_or_regionalverein_reporting_in_same_group
     if_dachverein_reporting ||
-    if_regionalverein_reporting_in_same_group
+      if_regionalverein_reporting_in_same_group
   end
 
   def if_regionalverein_reporting_in_same_group
@@ -104,9 +103,9 @@ module Insieme::GroupAbility
 
   def any_role_in_same_layer_or_layer_group_or_if_dachverein_manager
     any_role_in_same_layer ||
-    if_dachverein_manager ||
-    if_regionalverein_and_not_external_member ||
-    if_group_in_hierarchy
+      if_dachverein_manager ||
+      if_regionalverein_and_not_external_member ||
+      if_group_in_hierarchy
   end
 
   def any_role_in_same_layer_or_if_dachverein_manager
@@ -123,8 +122,8 @@ module Insieme::GroupAbility
 
   def contact_data_in_same_layer
     group &&
-    user_context.layer_ids(user.groups_with_permission(:contact_data))
-                .include?(group.layer_group_id)
+      user_context.layer_ids(user.groups_with_permission(:contact_data))
+        .include?(group.layer_group_id)
   end
 
   def if_group_in_hierarchy
@@ -133,7 +132,7 @@ module Insieme::GroupAbility
 
   def if_regionalverein_and_not_external_member
     if_regionalverein &&
-    user_context.user.groups.any? { |g| g.layer_group.is_a?(Group::Regionalverein) }
+      user_context.user.groups.any? { |g| g.layer_group.is_a?(Group::Regionalverein) }
   end
 
   def if_regionalverein
@@ -150,9 +149,8 @@ module Insieme::GroupAbility
 
   def any_role_in_same_group_except_external_and_addressverwaltung
     user_context.user.roles.any? do |r|
-      r.group.id == group.id && r.class.name.demodulize != 'External' &&
-        r.class.name.demodulize != 'Adressverwaltung'
+      r.group.id == group.id && r.class.name.demodulize != "External" &&
+        r.class.name.demodulize != "Adressverwaltung"
     end
   end
-
 end

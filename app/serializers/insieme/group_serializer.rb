@@ -11,10 +11,9 @@ module Insieme::GroupSerializer
   included do
     extension(:attrs) do |_|
       map_properties :full_name,
-                     :vid,
-                     :bsv_number,
-                     :canton
+        :vid,
+        :bsv_number,
+        :canton
     end
   end
-
 end

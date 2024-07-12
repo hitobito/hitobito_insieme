@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == Schema Information
 #
 # Table name: time_records
@@ -47,51 +46,50 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe TimeRecordsController do
   let(:group) { groups(:dachverein) }
 
-  it 'raises 404 for unsupported group type' do
+  it "raises 404 for unsupported group type" do
     sign_in(people(:top_leader))
     expect do
-      get :edit, params: { id: groups(:kommission74).id, year: 2014, report: 'employee_time' }
+      get :edit, params: {id: groups(:kommission74).id, year: 2014, report: "employee_time"}
     end.to raise_error(CanCan::AccessDenied)
   end
 
-  it 'raises 404 for unsupported report type' do
+  it "raises 404 for unsupported report type" do
     sign_in(people(:top_leader))
     expect do
-      get :edit, params: { id: group.id, year: 2014, report: 'employee_tux' }
+      get :edit, params: {id: group.id, year: 2014, report: "employee_tux"}
     end.to raise_error(ActionController::RoutingError)
   end
 
-  context 'authorization' do
-    it 'top leader is allowed to update dachverein' do
+  context "authorization" do
+    it "top leader is allowed to update dachverein" do
       sign_in(people(:top_leader))
-      get :edit, params: { id: group.id, year: 2014, report: 'employee_time' }
+      get :edit, params: {id: group.id, year: 2014, report: "employee_time"}
       expect(response).to be_ok
     end
 
-    it 'regio leader is not allowed to update dachverein' do
+    it "regio leader is not allowed to update dachverein" do
       expect do
         sign_in(people(:regio_leader))
-        get :edit, params: { id: group.id, year: 2014, report: 'employee_time' }
+        get :edit, params: {id: group.id, year: 2014, report: "employee_time"}
       end.to raise_error(CanCan::AccessDenied)
     end
   end
 
-  context '#edit' do
+  context "#edit" do
     before { sign_in(people(:top_leader)) }
 
-    it 'builds new time_record based on group and year' do
-      get :edit, params: { id: group.id, year: 2014, report: 'employee_time' }
+    it "builds new time_record based on group and year" do
+      get :edit, params: {id: group.id, year: 2014, report: "employee_time"}
       expect(response.status).to eq(200)
 
       expect(assigns(:record)).not_to be_persisted
@@ -99,30 +97,30 @@ describe TimeRecordsController do
       expect(assigns(:record).year).to eq 2014
     end
 
-    it 'reuses existing time_record based on group and year' do
+    it "reuses existing time_record based on group and year" do
       record = TimeRecord::EmployeeTime.create!(group: group, year: 2014)
-      get :edit, params: { id: group.id, year: 2014, report: 'employee_time' }
+      get :edit, params: {id: group.id, year: 2014, report: "employee_time"}
       expect(assigns(:record)).to eq record
       expect(assigns(:record)).to be_persisted
     end
 
-    it 'builds nested employee pensum' do
-      get :edit, params: { id: group.id, year: 2014, report: 'employee_time' }
+    it "builds nested employee pensum" do
+      get :edit, params: {id: group.id, year: 2014, report: "employee_time"}
       expect(response.status).to eq(200)
 
       expect(assigns(:record).employee_pensum).to be
     end
 
-    it 'supports other volunteer report types' do
-      get :edit, params: { id: group.id, year: 2014, report: 'volunteer_without_verification_time' }
+    it "supports other volunteer report types" do
+      get :edit, params: {id: group.id, year: 2014, report: "volunteer_without_verification_time"}
       expect(response.status).to eq(200)
 
-      get :edit, params: { id: group.id, year: 2014, report: 'volunteer_with_verification_time' }
+      get :edit, params: {id: group.id, year: 2014, report: "volunteer_with_verification_time"}
       expect(response.status).to eq(200)
     end
   end
 
-  context '#update' do
+  context "#update" do
     before { sign_in(people(:top_leader)) }
 
     let(:attrs) do
@@ -163,9 +161,9 @@ describe TimeRecordsController do
       }
     end
 
-    it 'assigns all permitted params' do
+    it "assigns all permitted params" do
       expect do
-        put :update, params: { id: group.id, year: 2014, report: 'employee_time', time_record: attrs }
+        put :update, params: {id: group.id, year: 2014, report: "employee_time", time_record: attrs}
       end.to change { TimeRecord.count }.by(1)
 
       expect(assigns(:record).kontakte_medien).to eq(10)

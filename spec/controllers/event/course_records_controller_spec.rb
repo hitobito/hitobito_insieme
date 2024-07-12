@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == Schema Information
 #
 # Table name: event_course_records
@@ -39,40 +38,39 @@
 #  tage_weitere                     :decimal(12, 2)
 #
 
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Event::CourseRecordsController do
   let(:group) { groups(:be) }
   let(:event) { events(:top_course) }
-  let(:role)  { roles(:regio_leader) }
+  let(:role) { roles(:regio_leader) }
 
   before { sign_in(role.person) }
 
-  context 'authorization' do
-    context 'simple event (not course)' do
-      it 'not found' do
+  context "authorization" do
+    context "simple event (not course)" do
+      it "not found" do
         simple_event = Fabricate(:event, groups: [group])
 
         expect do
-          get :edit, params: { group_id: group.id, event_id: simple_event.id }
+          get :edit, params: {group_id: group.id, event_id: simple_event.id}
         end.to raise_error(ActionController::RoutingError)
       end
     end
 
-    context 'layer_and_below_full' do
-      it 'is allowed to update course record of regionalverein' do
-        get :edit, params: { group_id: group.id, event_id: event.id }
+    context "layer_and_below_full" do
+      it "is allowed to update course record of regionalverein" do
+        get :edit, params: {group_id: group.id, event_id: event.id}
         expect(response).to be_ok
       end
     end
 
-    context 'course leader' do
+    context "course leader" do
       let(:role) do
         role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
         participation = Fabricate(:event_participation, event: event, person: role.person)
@@ -80,59 +78,59 @@ describe Event::CourseRecordsController do
         role
       end
 
-      it 'is allowed to update course record of regionalverein' do
-        get :edit, params: { group_id: group.id, event_id: event.id }
+      it "is allowed to update course record of regionalverein" do
+        get :edit, params: {group_id: group.id, event_id: event.id}
         expect(response).to be_ok
       end
     end
 
-    context 'course participant with controlling role on group' do
+    context "course participant with controlling role on group" do
       let(:role) do
         role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
-                  participation: Fabricate(:event_participation,
-                                           event: event, person: role.person))
+          participation: Fabricate(:event_participation,
+            event: event, person: role.person))
         role
       end
 
-      it 'is allowed to update course record of regionalverein' do
-        get :edit, params: { group_id: group.id, event_id: event.id }
+      it "is allowed to update course record of regionalverein" do
+        get :edit, params: {group_id: group.id, event_id: event.id}
         expect(response).to be_ok
       end
     end
 
-    context 'course participant' do
+    context "course participant" do
       let(:role) do
         role = Fabricate(Group::Regionalverein::Versandadresse.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
-                  participation: Fabricate(:event_participation,
-                                           event: event, person: role.person))
+          participation: Fabricate(:event_participation,
+            event: event, person: role.person))
         role
       end
 
-      it 'is not allowed to update course record of regionalverein' do
+      it "is not allowed to update course record of regionalverein" do
         expect do
-          get :edit, params: { group_id: group.id, event_id: event.id }
+          get :edit, params: {group_id: group.id, event_id: event.id}
         end.to raise_error(CanCan::AccessDenied)
       end
     end
   end
 
-  context '#edit' do
-    it 'builds new course_record based on group and event' do
+  context "#edit" do
+    it "builds new course_record based on group and event" do
       event.course_record.destroy!
-      get :edit, params: { group_id: group.id, event_id: event.id }
+      get :edit, params: {group_id: group.id, event_id: event.id}
       expect(response.status).to eq(200)
 
       expect(assigns(:course_record)).not_to be_persisted
       expect(assigns(:course_record).event).to eq event
     end
 
-    it 'reuses existing course_record based on group and event' do
+    it "reuses existing course_record based on group and event" do
       record = event.course_record
-      record.update!(inputkriterien: 'a', kursart: 'weiterbildung')
+      record.update!(inputkriterien: "a", kursart: "weiterbildung")
 
-      get :edit, params: { group_id: group.id, event_id: event.id }
+      get :edit, params: {group_id: group.id, event_id: event.id}
       expect(response.status).to eq(200)
 
       expect(assigns(:course_record)).to eq record
@@ -140,71 +138,71 @@ describe Event::CourseRecordsController do
       expect(assigns(:course_record)).to be_persisted
     end
 
-    context 'number formatting' do
-      let(:field) { dom.find('#event_course_record_kursdauer') }
+    context "number formatting" do
+      let(:field) { dom.find("#event_course_record_kursdauer") }
       let(:dom) { Capybara::Node::Simple.new(response.body) }
       let(:event) { Fabricate(:course, groups: [group], leistungskategorie: leistungskategorie, fachkonzept: fachkonzept) }
 
-      context 'for sk', db: :mysql do
-        let(:leistungskategorie) { 'sk' }
-        let(:fachkonzept) { 'sport_jugend' }
+      context "for sk", db: :mysql do
+        let(:leistungskategorie) { "sk" }
+        let(:fachkonzept) { "sport_jugend" }
 
         render_views
 
         before { event.create_course_record!(kursdauer: 1) }
 
-        it 'renders 1.0 as 1' do
-          get :edit, params: { group_id: group.id, event_id: event.id }
-          expect(field.value).to eq '1'
+        it "renders 1.0 as 1" do
+          get :edit, params: {group_id: group.id, event_id: event.id}
+          expect(field.value).to eq "1"
         end
       end
 
-      context 'for tp', db: :mysql do
-        let(:leistungskategorie) { 'tp' }
-        let(:fachkonzept) { 'treffpunkt' }
+      context "for tp", db: :mysql do
+        let(:leistungskategorie) { "tp" }
+        let(:fachkonzept) { "treffpunkt" }
 
         render_views
 
         before { event.create_course_record!(kursdauer: 1) }
 
-        it 'renders 1.0 as 1' do
-          get :edit, params: { group_id: group.id, event_id: event.id }
-          expect(field.value).to eq '1'
+        it "renders 1.0 as 1" do
+          get :edit, params: {group_id: group.id, event_id: event.id}
+          expect(field.value).to eq "1"
         end
       end
     end
   end
 
-  context '#update' do
+  context "#update" do
     let(:attrs) do
-      { subventioniert: true,
-        inputkriterien: 'a',
-        kursart: 'weiterbildung',
-        spezielle_unterkunft: false,
-        kursdauer: 10,
-        teilnehmende_mehrfachbehinderte: 3,
-        challenged_canton_count_attributes: { 'be' => 1, 'zh' => 2, 'another' => 3 },
-        affiliated_canton_count_attributes: { 'ag' => 4, 'ge' => 5 },
-        teilnehmende_weitere: 10,
-        absenzen_behinderte: 10,
-        absenzen_angehoerige: 10,
-        absenzen_weitere: 10,
-        leiterinnen: 10,
-        fachpersonen: 10,
-        hilfspersonal_ohne_honorar: 10,
-        hilfspersonal_mit_honorar: 10,
-        kuechenpersonal: 10,
-        honorare_inkl_sozialversicherung: 10,
-        unterkunft: 10,
-        uebriges: 10,
-        beitraege_teilnehmende: 10 }
+      {subventioniert: true,
+       inputkriterien: "a",
+       kursart: "weiterbildung",
+       spezielle_unterkunft: false,
+       kursdauer: 10,
+       teilnehmende_mehrfachbehinderte: 3,
+       challenged_canton_count_attributes: {"be" => 1, "zh" => 2, "another" => 3},
+       affiliated_canton_count_attributes: {"ag" => 4, "ge" => 5},
+       teilnehmende_weitere: 10,
+       absenzen_behinderte: 10,
+       absenzen_angehoerige: 10,
+       absenzen_weitere: 10,
+       leiterinnen: 10,
+       fachpersonen: 10,
+       hilfspersonal_ohne_honorar: 10,
+       hilfspersonal_mit_honorar: 10,
+       kuechenpersonal: 10,
+       honorare_inkl_sozialversicherung: 10,
+       unterkunft: 10,
+       uebriges: 10,
+       beitraege_teilnehmende: 10}
     end
 
-    it 'assigns all permitted params' do
-      put :update, params: { group_id: group.id, event_id: event.id, event_course_record: attrs }
+    it "assigns all permitted params" do
+      put :update, params: {group_id: group.id, event_id: event.id, event_course_record: attrs}
 
       attrs.each do |key, value|
-        unless key.to_s =~ /_attributes$/
+        unless /_attributes$/.match?(key.to_s)
           expect(event.course_record.send(key)).to eq value
         end
       end

@@ -7,7 +7,6 @@
 
 module Fp2015
   class TimeRecord::Vereinsliste
-
     attr_reader :year, :type
 
     def initialize(year, type)
@@ -17,13 +16,13 @@ module Fp2015
 
     def vereine
       @vereine ||=
-        Group.
-        without_deleted.
-        where(type: [Group::Dachverein,
-                     Group::Regionalverein,
-                     Group::ExterneOrganisation].
-                     collect(&:sti_name)).
-      order_by_type
+        Group
+          .without_deleted
+          .where(type: [Group::Dachverein,
+            Group::Regionalverein,
+            Group::ExterneOrganisation]
+                     .collect(&:sti_name))
+          .order_by_type
     end
 
     def time_record(verein)
@@ -32,11 +31,10 @@ module Fp2015
 
     def time_records
       @time_records ||=
-        ::TimeRecord.where(type: type, year: year).
-        each_with_object({}) do |record, hash|
+        ::TimeRecord.where(type: type, year: year)
+          .each_with_object({}) do |record, hash|
           hash[record.group_id] = record
         end
     end
-
   end
 end

@@ -5,17 +5,15 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2015::Export::Xlsx::CostAccounting
   class Style < Export::Xlsx::Style
-
-    BLACK = '000000'
+    BLACK = "000000"
     CURRENCY = 2
 
     self.style_definition_labels += [:total_label, :total_currency,
-                                     :currency, :vereinsname,
-                                     :reporting_jahr, :default_border,
-                                     :centered_border]
+      :currency, :vereinsname,
+      :reporting_jahr, :default_border,
+      :centered_border]
 
     def column_widths
       [57.62, nil, nil, nil, nil, 3]
@@ -56,39 +54,41 @@ module Fp2015::Export::Xlsx::CostAccounting
       default_border_style.deep_merge(
         style: {
           bg_color: LABEL_BACKGROUND,
-          alignment: { text_rotation: 90, vertical: :center, horizontal: :center } },
+          alignment: {text_rotation: 90, vertical: :center, horizontal: :center}
+        },
         height: 230
       )
     end
 
     # override default style
     def default_style
-      { style: {
+      {style: {
         sz: 16,
-        font_name: Settings.xlsx.font_name, alignment: { horizontal: :left } }
-      }
+        font_name: Settings.xlsx.font_name, alignment: {horizontal: :left}
+      }}
     end
 
     def total_label_style
-      default_border_style.deep_merge(style: { bg_color: LABEL_BACKGROUND })
+      default_border_style.deep_merge(style: {bg_color: LABEL_BACKGROUND})
     end
 
     def total_currency_style
-      currency_style.deep_merge(style: { bg_color: LABEL_BACKGROUND })
+      currency_style.deep_merge(style: {bg_color: LABEL_BACKGROUND})
     end
 
     def currency_style
       centered_border_style.deep_merge(style: {
-                                         num_fmt: CURRENCY,
-                                         alignment: { horizontal: :center } })
+        num_fmt: CURRENCY,
+        alignment: {horizontal: :center}
+      })
     end
 
     def vereinsname_style
-      default_style.deep_merge(style: { sz: 20 })
+      default_style.deep_merge(style: {sz: 20})
     end
 
     def reporting_jahr_style
-      centered_style.merge(style: { sz: 20 ,font_name: Settings.xlsx.font_name })
+      centered_style.merge(style: {sz: 20, font_name: Settings.xlsx.font_name})
     end
 
     def default_border_style
@@ -100,11 +100,11 @@ module Fp2015::Export::Xlsx::CostAccounting
     end
 
     def border_styling
-      { style: { border: { style: :thin, color: BLACK } } }
+      {style: {border: {style: :thin, color: BLACK}}}
     end
 
     def centered_style
-      default_style.deep_merge(style: { alignment: { horizontal: :center } })
+      default_style.deep_merge(style: {alignment: {horizontal: :center}})
     end
   end
 end

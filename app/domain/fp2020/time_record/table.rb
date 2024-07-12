@@ -7,16 +7,15 @@
 
 module Fp2020
   class TimeRecord::Table
-
     REPORTS = [Fp2020::TimeRecord::Report::EmployeePensum,
-               Fp2020::TimeRecord::Report::EmployeeTime,
-               Fp2020::TimeRecord::Report::VolunteerWithoutVerificationTime,
-               Fp2020::TimeRecord::Report::VolunteerWithVerificationTime,
-               Fp2020::TimeRecord::Report::EmployeeEfforts,
-               Fp2020::TimeRecord::Report::EmployeeEffortsPensum,
-               Fp2020::TimeRecord::Report::CapitalSubstrate,
-               Fp2020::TimeRecord::Report::CapitalSubstrateLimit,
-               Fp2020::TimeRecord::Report::CapitalSubstrateFactor].freeze
+      Fp2020::TimeRecord::Report::EmployeeTime,
+      Fp2020::TimeRecord::Report::VolunteerWithoutVerificationTime,
+      Fp2020::TimeRecord::Report::VolunteerWithVerificationTime,
+      Fp2020::TimeRecord::Report::EmployeeEfforts,
+      Fp2020::TimeRecord::Report::EmployeeEffortsPensum,
+      Fp2020::TimeRecord::Report::CapitalSubstrate,
+      Fp2020::TimeRecord::Report::CapitalSubstrateLimit,
+      Fp2020::TimeRecord::Report::CapitalSubstrateFactor].freeze
 
     attr_reader :group, :year
 
@@ -71,6 +70,5 @@ module Fp2020
         nil
       end
     end
-
   end
 end

@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Export
   module Tabular
     module TimeRecords
       class BaseInformation
-
         class << self
           def csv(table)
             Export::Csv::Generator.new(new(table)).call
@@ -33,20 +31,19 @@ module Export
 
         def labels
           [nil,
-           I18n.t('time_record.base_informations.index.paragraph_74'),
-           I18n.t('time_record.base_informations.index.not_paragraph_74'),
-           I18n.t('time_record.base_informations.index.whole_organization')]
+            I18n.t("time_record.base_informations.index.paragraph_74"),
+            I18n.t("time_record.base_informations.index.not_paragraph_74"),
+            I18n.t("time_record.base_informations.index.whole_organization")]
         end
 
         private
 
         def report_values(report)
           [report.human_name,
-           report.paragraph_74,
-           report.not_paragraph_74,
-           report.total]
+            report.paragraph_74,
+            report.not_paragraph_74,
+            report.total]
         end
-
       end
     end
   end

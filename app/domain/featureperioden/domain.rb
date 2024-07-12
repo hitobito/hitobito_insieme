@@ -9,10 +9,10 @@ module Featureperioden
   module Domain
     def featureperiode
       @featureperiode ||= begin
-                             raise Featureperioden::NoYearError if year.blank?
+        raise Featureperioden::NoYearError if year.blank?
 
-                             Featureperioden::Dispatcher.new(year)
-                           end
+        Featureperioden::Dispatcher.new(year)
+      end
     end
 
     def fp_class(class_name)

@@ -7,10 +7,8 @@
 
 module Export::Tabular::People
   class SubscriptionsAddress < ::Export::Tabular::People::PeopleAddress
-
     def additional_person_attributes
       super + [:language, :salutation, :canton, :additional_information]
     end
-
   end
 end

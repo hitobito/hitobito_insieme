@@ -6,13 +6,11 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module CourseReporting::AggregationHelper
-
   def course_aggregation_csv_button(attrs)
-    attrs = { categories: [1, 2, 3], subsidized: true, format: :csv }.merge(attrs)
+    attrs = {categories: [1, 2, 3], subsidized: true, format: :csv}.merge(attrs)
     key = [attrs[:subsidized] ? :subsidized : :unsubsidized, Array(attrs[:categories])]
-    action_button(t("course_reporting.aggregations.index.#{key.join('_')}"),
-                  aggregation_export_group_path(attrs),
-                  :download)
+    action_button(t("course_reporting.aggregations.index.#{key.join("_")}"),
+      aggregation_export_group_path(attrs),
+      :download)
   end
-
 end

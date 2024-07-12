@@ -7,7 +7,6 @@
 
 module Dropdown
   class AboAddressesExport < Base
-
     def initialize(template, group)
       super(template, translate(:button), :download)
       @group = group
@@ -26,11 +25,10 @@ module Dropdown
 
     def add_abo_item(country, language)
       add_item(translate("#{country}_#{language}"),
-               template.abo_addresses_group_path(@group,
-                                                 country: country,
-                                                 language: language,
-                                                 format: :csv))
+        template.abo_addresses_group_path(@group,
+          country: country,
+          language: language,
+          format: :csv))
     end
-
   end
 end

@@ -9,26 +9,25 @@ module Fp2020::CostAccounting
   module Report
     # Gemeinkosten
     class TotalUmlagen < Subtotal
-
       self.total_includes_gemeinkostentraeger = false
 
-      self.summed_reports = %w(
+      self.summed_reports = %w[
         umlage_mittelbeschaffung
 
         total_personalaufwand
         raumaufwand
         uebriger_sachaufwand
         abschreibungen
-      )
+      ]
 
-      self.summed_fields = %w(
+      self.summed_fields = %w[
         mittelbeschaffung
         verwaltung
         raeumlichkeiten
-      )
+      ]
 
       class_attribute :topic_fields
-      self.topic_fields = %w(
+      self.topic_fields = %w[
         beratung
         medien_und_publikationen
         treffpunkte
@@ -36,7 +35,7 @@ module Fp2020::CostAccounting
         tageskurse
         jahreskurse
         lufeb
-      )
+      ]
 
       # this deviates from a "normal" subtotal as specific fields are calculated
       # with specific quotas derived from other specific field. The specifics are
@@ -56,7 +55,7 @@ module Fp2020::CostAccounting
       private
 
       def gemeinkosten_quota(field)
-        has_employees = table.value_of('lohnaufwand', 'total').positive?
+        has_employees = table.value_of("lohnaufwand", "total").positive?
 
         quota_base = (has_employees ? :personalaufwand : :direktkosten)
 
@@ -69,14 +68,14 @@ module Fp2020::CostAccounting
       end
 
       def personalaufwand_for_topic(field)
-        table.value_of('total_personalaufwand', field).to_d - table.value_of('honorare', field).to_d
+        table.value_of("total_personalaufwand", field).to_d - table.value_of("honorare", field).to_d
       end
 
       def direktkosten_for_topic(field)
         [
-          table.value_of('raumaufwand', field).to_d,
-          table.value_of('uebriger_sachaufwand', field).to_d,
-          table.value_of('honorare', field).to_d
+          table.value_of("raumaufwand", field).to_d,
+          table.value_of("uebriger_sachaufwand", field).to_d,
+          table.value_of("honorare", field).to_d
         ].sum
       end
 

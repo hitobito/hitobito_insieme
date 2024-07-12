@@ -7,13 +7,12 @@
 
 module Fp2015
   class TimeRecord::Report::CapitalSubstrate < TimeRecord::Report::Base
-
     self.kind = :capital_substrate
 
     def allocation_base
-      if table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero?
-        table.cost_accounting_value_of('vollkosten', 'total').to_d /
-          table.cost_accounting_value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d
+      if table.cost_accounting_value_of("total_aufwand", "aufwand_ertrag_fibu").nonzero?
+        table.cost_accounting_value_of("vollkosten", "total").to_d /
+          table.cost_accounting_value_of("total_aufwand", "aufwand_ertrag_fibu").to_d
       else
         0
       end
@@ -24,7 +23,7 @@ module Fp2015
     end
 
     def half_profit_margin
-      table.cost_accounting_value_of('deckungsbeitrag4', 'total').to_d * 0.5.to_d
+      table.cost_accounting_value_of("deckungsbeitrag4", "total").to_d * BigDecimal("0.5")
     end
 
     def exemption
@@ -47,6 +46,5 @@ module Fp2015
     def globals
       @globals ||= ReportingParameter.for(table.year)
     end
-
   end
 end

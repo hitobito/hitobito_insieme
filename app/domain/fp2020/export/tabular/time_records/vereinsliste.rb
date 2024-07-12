@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2020::Export
   module Tabular
     module TimeRecords
@@ -80,13 +79,13 @@ module Fp2020::Export
         def initialize(liste)
           super(liste.vereine)
           @liste = liste
-          @year  = 2020
+          @year = 2020
         end
 
         def attribute_label(attr)
           I18n.t(attr,
-                 scope: fp_i18n_scope(model_class.name.tableize),
-                 default: [human_attribute(attr)])
+            scope: fp_i18n_scope(model_class.name.tableize),
+            default: [human_attribute(attr)])
         end
 
         private
@@ -107,7 +106,6 @@ module Fp2020::Export
         end
 
         class Row
-
           attr_reader :verein, :record
 
           def initialize(verein, record)
@@ -122,9 +120,7 @@ module Fp2020::Export
               record.send(attr)
             end
           end
-
         end
-
       end
     end
   end

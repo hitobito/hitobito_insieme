@@ -18,10 +18,10 @@ module Insieme
     end
 
     def exporter_class
-      list_type = 'ShortList'
+      list_type = "ShortList"
 
       if ability.can?(:export_course_records, group) && course_records?
-        list_type = 'DetailList'
+        list_type = "DetailList"
       end
 
       list_type = "AggregateCourse::#{list_type}" if aggregate_course?

@@ -36,18 +36,16 @@
 #
 
 class Group::Dachverein < Group
-
   self.layer = true
   self.used_attributes += [:full_name, :vid, :bsv_number, :canton]
   self.event_types = [Event, Event::Course, Event::AggregateCourse]
   self.reporting = true
 
   children Group::DachvereinListe,
-           Group::DachvereinGremium,
-           Group::DachvereinAbonnemente,
-           Group::Regionalverein,
-           Group::ExterneOrganisation
-
+    Group::DachvereinGremium,
+    Group::DachvereinAbonnemente,
+    Group::Regionalverein,
+    Group::ExterneOrganisation
 
   ### ROLES
   #
@@ -97,15 +95,13 @@ class Group::Dachverein < Group
     self.kind = :external
   end
 
-
   roles Praesident,
-        Vorstandsmitglied,
-        Geschaeftsfuehrung,
-        Sekretariat,
-        Adressverwaltung,
-        Controlling,
-        Invoicing,
-        ItSupport,
-        External
-
+    Vorstandsmitglied,
+    Geschaeftsfuehrung,
+    Sekretariat,
+    Adressverwaltung,
+    Controlling,
+    Invoicing,
+    ItSupport,
+    External
 end

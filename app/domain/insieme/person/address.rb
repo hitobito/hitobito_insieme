@@ -17,7 +17,7 @@ module Insieme::Person::Address
       [
         @person.billing_general_company_name.to_s.squish,
         @person.billing_general_full_name.to_s.squish
-      ].reject(&:blank?)
+      ].compact_blank
     else
       [@person.billing_general_full_name.to_s.squish]
     end
@@ -25,10 +25,10 @@ module Insieme::Person::Address
 
   def billing_general_address
     [@person.billing_general_address.to_s.strip,
-     [@person.billing_general_zip_code, @person.billing_general_town].
-       compact.
-       join(' ').
-       squish,
-     country]
+      [@person.billing_general_zip_code, @person.billing_general_town]
+        .compact
+        .join(" ")
+        .squish,
+      country]
   end
 end

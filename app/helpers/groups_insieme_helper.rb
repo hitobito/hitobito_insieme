@@ -6,9 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module GroupsInsiemeHelper
-
   def format_group_canton(group)
     group.canton_label
   end
-
 end

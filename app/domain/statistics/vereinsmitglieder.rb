@@ -7,14 +7,13 @@
 
 module Statistics
   class Vereinsmitglieder
-
     COUNTED_ROLES = [Group::Aktivmitglieder::Aktivmitglied,
-                     Group::Aktivmitglieder::AktivmitgliedOhneAbo,
-                     Group::Aktivmitglieder::Zweitmitgliedschaft,
-                     Group::Kollektivmitglieder::Kollektivmitglied,
-                     Group::Kollektivmitglieder::KollektivmitgliedMitAbo,
-                     Group::Passivmitglieder::Passivmitglied,
-                     Group::Passivmitglieder::PassivmitgliedMitAbo].freeze
+      Group::Aktivmitglieder::AktivmitgliedOhneAbo,
+      Group::Aktivmitglieder::Zweitmitgliedschaft,
+      Group::Kollektivmitglieder::Kollektivmitglied,
+      Group::Kollektivmitglieder::KollektivmitgliedMitAbo,
+      Group::Passivmitglieder::Passivmitglied,
+      Group::Passivmitglieder::PassivmitgliedMitAbo].freeze
 
     def vereine
       @vereine ||= Group::Regionalverein.without_deleted.includes(:contact).order(:name)
@@ -70,15 +69,15 @@ module Statistics
     end
 
     def role_types_param
-      COUNTED_ROLES.collect { |r| "'#{r.sti_name}'" }.join(', ')
+      COUNTED_ROLES.collect { |r| "'#{r.sti_name}'" }.join(", ")
     end
 
     def type_index_switch
-      statement = 'CASE roles.type '
+      statement = "CASE roles.type "
       COUNTED_ROLES.each_with_index do |t, i|
         statement += "WHEN '#{t.sti_name}' THEN #{i} "
       end
-      statement += 'END'
+      statement += "END"
     end
 
     def people_per_verein
@@ -88,6 +87,5 @@ module Statistics
         hash[r.first][r.second] << r.last
       end
     end
-
   end
 end

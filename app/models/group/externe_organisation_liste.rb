@@ -36,9 +36,7 @@
 #
 
 class Group::ExterneOrganisationListe < Group
-
   children Group::ExterneOrganisationListe
-
 
   ### ROLES
 
@@ -50,6 +48,6 @@ class Group::ExterneOrganisationListe < Group
   class Person < ::Role; end
 
   roles Listenverwaltung,
-        Person
+    Person
   self.default_role = Person
 end

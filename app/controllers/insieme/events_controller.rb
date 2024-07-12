@@ -14,7 +14,7 @@ module Insieme
 
       base.permitted_attrs += [
         course_record_attributes: [:id, :anzahl_kurse, :subventioniert, :inputkriterien,
-                                   :spezielle_unterkunft, :kursart]
+          :spezielle_unterkunft, :kursart]
       ]
     end
 
@@ -33,13 +33,12 @@ module Insieme
 
     def model_params
       super.tap do |p|
-        p[:course_record_attributes] ||= {} if action_name == 'create'
+        p[:course_record_attributes] ||= {} if action_name == "create"
       end
     end
 
     def custom_filename
       ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
     end
-
   end
 end

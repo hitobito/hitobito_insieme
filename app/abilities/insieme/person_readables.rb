@@ -11,9 +11,9 @@ module Insieme::PersonReadables
   end
 
   def contact_data_condition
-    ['people.contact_data_visible = ? AND groups.layer_group_id IN (?)',
-     true,
-     contact_data_layer_ids]
+    ["people.contact_data_visible = ? AND groups.layer_group_id IN (?)",
+      true,
+      contact_data_layer_ids]
   end
 
   def has_group_based_conditions?

@@ -8,29 +8,27 @@
 module Fp2022::CostAccounting
   module Report
     class TotalPersonalaufwand < Subtotal
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
+      self.summed_reports = %w[lohnaufwand
+        sozialversicherungsaufwand
+        uebriger_personalaufwand
+        honorare]
 
-      self.summed_reports = %w(lohnaufwand
-                               sozialversicherungsaufwand
-                               uebriger_personalaufwand
-                               honorare)
+      self.summed_fields = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
 
-      self.summed_fields = %w(aufwand_ertrag_fibu
-                              abgrenzung_fibu
-
-                              verwaltung
-                              beratung
-                              treffpunkte
-                              blockkurse
-                              tageskurse
-                              jahreskurse
-                              lufeb
-                              mittelbeschaffung
-                              medien_und_publikationen)
+        verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung
+        medien_und_publikationen]
 
       define_summed_field_methods
-
     end
   end
 end

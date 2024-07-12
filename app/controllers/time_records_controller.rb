@@ -6,10 +6,9 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class TimeRecordsController < ReportingBaseController
-
   TYPES = [TimeRecord::EmployeeTime,
-           TimeRecord::VolunteerWithVerificationTime,
-           TimeRecord::VolunteerWithoutVerificationTime].freeze
+    TimeRecord::VolunteerWithVerificationTime,
+    TimeRecord::VolunteerWithoutVerificationTime].freeze
 
   include Rememberable
   include Featureperioden::Views
@@ -23,7 +22,7 @@ class TimeRecordsController < ReportingBaseController
     respond_to do |format|
       format.html { redirect_to show_path }
       format.csv do
-        send_data fp_class('Export::Tabular::TimeRecords::List')
+        send_data fp_class("Export::Tabular::TimeRecords::List")
           .csv(list_entries), type: :csv
       end
     end
@@ -48,7 +47,7 @@ class TimeRecordsController < ReportingBaseController
   end
 
   def permitted_params
-    fields = TimeRecord.column_names - %w(id year group_id)
+    fields = TimeRecord.column_names - %w[id year group_id]
     if entry.is_a?(TimeRecord::EmployeeTime)
       fields += [employee_pensum_attributes: [:id, :paragraph_74, :not_paragraph_74]]
     end
@@ -56,11 +55,10 @@ class TimeRecordsController < ReportingBaseController
   end
 
   def show_path
-    if params['report'].present?
-      time_record_report_group_path(group, year: year, report: params['report'])
+    if params["report"].present?
+      time_record_report_group_path(group, year: year, report: params["report"])
     else
       time_record_base_information_group_path(group, year: year)
     end
   end
-
 end

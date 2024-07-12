@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2015::Export
   module Tabular
     module Statistics
       class GroupFigures
-
         class << self
           def csv(figures)
             Export::Csv::Generator.new(new(figures)).call
@@ -32,7 +30,7 @@ module Fp2015::Export
         end
 
         def labels
-          labels = [t('name'), t('canton'), t('vid'), t('bsv')]
+          labels = [t("name"), t("canton"), t("vid"), t("bsv")]
           append_course_labels(labels)
           append_time_labels(labels)
           append_fte_labels(labels)
@@ -45,48 +43,48 @@ module Fp2015::Export
         def append_course_labels(labels)
           iterate_courses do |lk, cat|
             lk_label = t("leistungskategorie_#{lk}")
-            cat_label = t('kategorie', number: cat)
-            labels << t('anzahl_kurse', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('total_vollkosten', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_behinderte', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_angehoerige', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_weitere', leistungskategorie: lk_label, kategorie: cat_label)
-            labels << t('tage_total', leistungskategorie: lk_label, kategorie: cat_label)
+            cat_label = t("kategorie", number: cat)
+            labels << t("anzahl_kurse", leistungskategorie: lk_label, kategorie: cat_label)
+            labels << t("total_vollkosten", leistungskategorie: lk_label, kategorie: cat_label)
+            labels << t("tage_behinderte", leistungskategorie: lk_label, kategorie: cat_label)
+            labels << t("tage_angehoerige", leistungskategorie: lk_label, kategorie: cat_label)
+            labels << t("tage_weitere", leistungskategorie: lk_label, kategorie: cat_label)
+            labels << t("tage_total", leistungskategorie: lk_label, kategorie: cat_label)
           end
         end
 
         def append_time_labels(labels)
-          %w(employees volunteers).each do |type|
+          %w[employees volunteers].each do |type|
             prefix = t("lufeb_hours_#{type}")
-            %w(general private specific promoting).each do |section|
-              labels << prefix + ': ' + I18n.t("time_records.lufeb_fields_full.lufeb_#{section}")
+            %w[general private specific promoting].each do |section|
+              labels << prefix + ": " + I18n.t("time_records.lufeb_fields_full.lufeb_#{section}")
             end
           end
-          labels << t('lufeb_hours_volunteers_without')
+          labels << t("lufeb_hours_volunteers_without")
         end
 
         def append_fte_labels(labels)
-          labels << t('fte_employees_total')
-          labels << t('fte_employees_only_art_74')
-          labels << t('fte_volunteers_total')
-          labels << t('fte_volunteers_only_art_74')
-          labels << t('fte_volunteers_with_verification_only_art_74')
+          labels << t("fte_employees_total")
+          labels << t("fte_employees_only_art_74")
+          labels << t("fte_volunteers_total")
+          labels << t("fte_volunteers_only_art_74")
+          labels << t("fte_volunteers_with_verification_only_art_74")
         end
 
         def append_cost_accounting_labels(labels)
-          labels << t('geschluesseltes_kapitalsubstrat')
-          labels << t('total_aufwand')
-          labels << t('vollkosten_nach_umlagen_betrieb')
-          labels << t('iv_beitrag')
-          labels << t('deckungsbeitrag_4')
+          labels << t("geschluesseltes_kapitalsubstrat")
+          labels << t("total_aufwand")
+          labels << t("vollkosten_nach_umlagen_betrieb")
+          labels << t("iv_beitrag")
+          labels << t("deckungsbeitrag_4")
         end
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def values(group)
           values = [group.full_name.presence || group.name,
-                    group.canton_label,
-                    group.vid,
-                    group.bsv_number]
+            group.canton_label,
+            group.vid,
+            group.bsv_number]
 
           iterate_courses do |lk, cat|
             append_course_values(values, figures.course_record(group, lk, cat))
@@ -153,10 +151,10 @@ module Fp2015::Export
 
         def append_cost_accounting_values(values, table)
           if table
-            values << table.value_of('total_aufwand', 'aufwand_ertrag_fibu')
-            values << table.value_of('vollkosten', 'total')
-            values << table.value_of('beitraege_iv', 'total')
-            values << table.value_of('deckungsbeitrag4', 'total')
+            values << table.value_of("total_aufwand", "aufwand_ertrag_fibu")
+            values << table.value_of("vollkosten", "total")
+            values << table.value_of("beitraege_iv", "total")
+            values << table.value_of("deckungsbeitrag4", "total")
           else
             values << 0.0 << 0.0 << 0.0 << 0.0
           end
@@ -176,11 +174,11 @@ module Fp2015::Export
           # The category 1 is the default value if a leistungskategorie
           # has no customer-visible categories. Therefore we do not hide it.
           # Also, `category` is a String, not a number...
-          return false if category == '1'
+          return false if category == "1"
 
           # Semesterkurse and Treffpunkte hide categories
-          return true if leistungskategorie == 'sk'
-          return true if leistungskategorie == 'tp'
+          return true if leistungskategorie == "sk"
+          return true if leistungskategorie == "tp"
 
           # by default we do not hide categories, except in the cases above :rolling_eyes:
           false

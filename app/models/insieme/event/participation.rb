@@ -12,14 +12,13 @@ module Insieme
 
       include I18nEnums
 
-      DISABILITIES = %w(geistig hoer koerper krankheit psychisch seh sprach sucht)
+      DISABILITIES = %w[geistig hoer koerper krankheit psychisch seh sprach sucht]
 
       included do
         accepts_nested_attributes_for :person
 
         i18n_enum :disability, DISABILITIES
       end
-
     end
   end
 end

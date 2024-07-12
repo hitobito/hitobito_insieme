@@ -8,13 +8,12 @@
 module Fp2022::CostAccounting
   module Report
     class Vollkosten < Subtotal
-
-      self.summed_reports = %w(
+      self.summed_reports = %w[
         total_aufwand
         total_umlagen
-      )
+      ]
 
-      self.summed_fields = %w(
+      self.summed_fields = %w[
         beratung
         treffpunkte
         blockkurse
@@ -22,7 +21,7 @@ module Fp2022::CostAccounting
         jahreskurse
         lufeb
         medien_und_publikationen
-      )
+      ]
 
       self.total_includes_gemeinkostentraeger = false
 
@@ -31,7 +30,6 @@ module Fp2022::CostAccounting
       def aufwand_ertrag_ko_re
         nil
       end
-
     end
   end
 end

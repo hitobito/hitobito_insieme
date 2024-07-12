@@ -5,13 +5,13 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2022::TimeRecord::Report::EmployeeTime do
   let(:year) { 2022 }
   let(:group) { groups(:be) }
-  let(:table) { fp_class('TimeRecord::Table').new(group, year) }
-  let(:report) { table.reports.fetch('employee_time') }
+  let(:table) { fp_class("TimeRecord::Table").new(group, year) }
+  let(:report) { table.reports.fetch("employee_time") }
 
   subject { report }
 
@@ -19,24 +19,24 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
     create_report(TimeRecord::EmployeeTime, blockkurse: (3 * 1900), nicht_art_74_leistungen: (5 * 1900))
 
     # honorar_costs for 1 fte
-    create_report(CostAccountingRecord, report: 'honorare', aufwand_ertrag_fibu: (130 * 1900), beratung: (2 * 130 * 1900))
+    create_report(CostAccountingRecord, report: "honorare", aufwand_ertrag_fibu: (130 * 1900), beratung: (2 * 130 * 1900))
   end
 
-  context '#paragraph_74' do
-    it 'calculates the correct value' do
-      expect(report.paragraph_74).to eq 3.to_d
+  context "#paragraph_74" do
+    it "calculates the correct value" do
+      expect(report.paragraph_74).to eq BigDecimal("3")
     end
   end
 
-  context '#not_paragraph_74' do
-    it 'calculates the correct value' do
-      expect(report.not_paragraph_74).to eq 5.to_d
+  context "#not_paragraph_74" do
+    it "calculates the correct value" do
+      expect(report.not_paragraph_74).to eq BigDecimal("5")
     end
   end
 
-  context '#total' do
-    it 'calculates the correct value' do
-      expect(report.total).to eq ( 3.to_d + 5.to_d ) # 8
+  context "#total" do
+    it "calculates the correct value" do
+      expect(report.total).to eq(BigDecimal("3") + BigDecimal("5")) # 8
     end
   end
 
@@ -44,4 +44,3 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
     model_name.create!(values.merge(group_id: group.id, year: year))
   end
 end
-

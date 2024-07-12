@@ -8,22 +8,21 @@
 module Fp2015::CostAccounting
   module Report
     class TimeDistributed < Base
+      TIME_FIELDS = %w[verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
-      TIME_FIELDS = %w(verwaltung
-                       beratung
-                       treffpunkte
-                       blockkurse
-                       tageskurse
-                       jahreskurse
-                       lufeb
-                       mittelbeschaffung)
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
-
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
-                                  abgrenzung_dachorganisation)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
+        abgrenzung_dachorganisation]
 
       delegate :time_record, to: :table
 
@@ -33,11 +32,10 @@ module Fp2015::CostAccounting
           @time_fields[f] ||=
             if aufwand_ertrag_ko_re > 0 && time_record.total_paragraph_74 > 0
               aufwand_ertrag_ko_re *
-              time_record.send(f).to_d / time_record.total_paragraph_74
+                time_record.send(f).to_d / time_record.total_paragraph_74
             end
         end
       end
-
     end
   end
 end

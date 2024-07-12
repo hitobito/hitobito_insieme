@@ -8,40 +8,40 @@
 module Fp2020::CostAccounting
   module Report
     class Base
-      FIELDS = %w(aufwand_ertrag_fibu
-                  abgrenzung_fibu
-                  aufwand_ertrag_ko_re
+      FIELDS = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
+        aufwand_ertrag_ko_re
 
-                  raeumlichkeiten
-                  verwaltung
-                  mittelbeschaffung
-                  beratung
-                  medien_und_publikationen
-                  jahreskurse
-                  blockkurse
-                  tageskurse
-                  treffpunkte
-                  lufeb
-                  total
-                  kontrolle).freeze
+        raeumlichkeiten
+        verwaltung
+        mittelbeschaffung
+        beratung
+        medien_und_publikationen
+        jahreskurse
+        blockkurse
+        tageskurse
+        treffpunkte
+        lufeb
+        total
+        kontrolle].freeze
 
       # The fields displayed in the detail view of the report.
       class_attribute :used_fields
       # Most commonly used fields, override in subclasses
-      self.used_fields = %w(aufwand_ertrag_fibu
-                            abgrenzung_fibu
-                            aufwand_ertrag_ko_re
+      self.used_fields = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
+        aufwand_ertrag_ko_re
 
-                            beratung
-                            medien_und_publikationen
-                            treffpunkte
-                            blockkurse
-                            tageskurse
-                            jahreskurse
-                            lufeb
-                            mittelbeschaffung
-                            total
-                            kontrolle)
+        beratung
+        medien_und_publikationen
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung
+        total
+        kontrolle]
 
       # The editable fields of this report.
       class_attribute :editable_fields
@@ -68,16 +68,16 @@ module Fp2020::CostAccounting
         end
 
         def short_name(year)
-          scope = Featureperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          scope = Featureperioden::Dispatcher.new(year).i18n_scope("cost_accounting")
           I18n.t("report.#{key}.short_name",
-                 scope: scope,
-                 default: I18n.t("cost_accounting.report.#{key}.short_name"))
+            scope: scope,
+            default: I18n.t("cost_accounting.report.#{key}.short_name"))
         end
 
         def human_name(year)
-          scope = Featureperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          scope = Featureperioden::Dispatcher.new(year).i18n_scope("cost_accounting")
           I18n.t("report.#{key}.name", scope: scope,
-                                       default: I18n.t("cost_accounting.report.#{key}.name"))
+            default: I18n.t("cost_accounting.report.#{key}.name"))
         end
 
         def delegate_editable_fields(fields)
@@ -113,10 +113,8 @@ module Fp2020::CostAccounting
       end
 
       def aufwand_ertrag_ko_re
-        @aufwand_ertrag_ko_re ||= begin
-          aufwand_ertrag_fibu.to_d -
+        @aufwand_ertrag_ko_re ||= aufwand_ertrag_fibu.to_d -
           abgrenzung_fibu.to_d
-        end
       end
 
       def gemeinkostentraeger
@@ -124,8 +122,7 @@ module Fp2020::CostAccounting
       end
 
       def total # rubocop:disable Metrics/AbcSize
-        @total ||= begin
-          beratung.to_d +
+        @total ||= beratung.to_d +
           medien_und_publikationen.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
@@ -133,7 +130,6 @@ module Fp2020::CostAccounting
           jahreskurse.to_d +
           lufeb.to_d +
           (total_includes_gemeinkostentraeger ? gemeinkostentraeger : 0)
-        end
       end
 
       def kontrolle
@@ -143,7 +139,6 @@ module Fp2020::CostAccounting
       def record
         @record ||= table.cost_record(key)
       end
-
     end
   end
 end

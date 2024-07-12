@@ -6,29 +6,27 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class Event::CourseRecordDecorator < ApplicationDecorator
-
   def absence_caption
-    return translate('.absenzstunden') if duration_in_hours?
+    return translate(".absenzstunden") if duration_in_hours?
 
-    translate('.absenztage')
+    translate(".absenztage")
   end
 
   def presence_caption
-    return translate('.teilnehmer_stunden') if duration_in_hours?
+    return translate(".teilnehmer_stunden") if duration_in_hours?
 
-    translate('.teilnehmer_tage')
+    translate(".teilnehmer_tage")
   end
 
   def kursdauer_label
-    return translate('.kursdauer_h') if duration_in_hours?
+    return translate(".kursdauer_h") if duration_in_hours?
 
-    translate('.kursdauer_d')
+    translate(".kursdauer_d")
   end
 
   def duration_unit
-    return I18n.t('global.hours_short') if duration_in_hours?
+    return I18n.t("global.hours_short") if duration_in_hours?
 
-    I18n.t('global.days_short')
+    I18n.t("global.days_short")
   end
-
 end

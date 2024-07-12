@@ -1,60 +1,55 @@
-# encoding: utf-8
-
 #  Copyright (c) 2014-2024, insime Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 describe Import::PersonImporter do
-
   before do
     parser.parse
     Person.stamper = user
   end
 
-  let(:parser)        { Import::CsvParser.new([header, row].join("\n")) }
-  let(:data)          { parser.map_data(mapping) }
-  let(:user)          { people(:regio_leader) }
+  let(:parser) { Import::CsvParser.new([header, row].join("\n")) }
+  let(:data) { parser.map_data(mapping) }
+  let(:user) { people(:regio_leader) }
   let(:foreign_group) { groups(:chaeib) }
-  let(:header)        { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache" }
-  let(:row)           { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse,23,3007,CH,de,de" }
-  let(:number)        { 123 }
+  let(:header) { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache" }
+  let(:row) { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse,23,3007,CH,de,de" }
+  let(:number) { 123 }
 
-  let(:importer)  do
+  let(:importer) do
     importer = Import::PersonImporter.new(data, groups(:aktiv), Group::Aktivmitglieder::Aktivmitglied)
     importer.user_ability = Ability.new(people(:top_leader))
     importer
   end
 
   let(:import_person) { importer.people.first }
-  let(:person)        { import_person.person }
+  let(:person) { import_person.person }
 
-
-  context 'no number mapped' do
+  context "no number mapped" do
     let(:mapping) do
       {
-        Vorname: 'first_name',
-        Nachname: 'last_name',
-        Geburtsdatum: 'birthday',
-        Stadt: 'town',
-        Strasse: 'street',
-        Hausnummer: 'housenumber',
-        PLZ: 'zip_code',
-        Land: 'country',
-        Korrespondenzsprache: 'correspondence_language',
-        Sprache: 'language',
+        Vorname: "first_name",
+        Nachname: "last_name",
+        Geburtsdatum: "birthday",
+        Stadt: "town",
+        Strasse: "street",
+        Hausnummer: "housenumber",
+        PLZ: "zip_code",
+        Land: "country",
+        Korrespondenzsprache: "correspondence_language",
+        Sprache: "language"
       }
     end
 
-    it 'keeps number of matching person' do
-      existing = Fabricate( :person,
-        first_name: 'John',
-        last_name: 'Lennon',
-        town: 'Liverpool',
+    it "keeps number of matching person" do
+      existing = Fabricate(:person,
+        first_name: "John",
+        last_name: "Lennon",
+        town: "Liverpool",
         number: 2,
-        manual_number: true
-      )
+        manual_number: true)
 
       expect(person).to eq existing
       expect(person.number).to eq 2
@@ -62,11 +57,11 @@ describe Import::PersonImporter do
 
       expect { importer.import }.not_to change { Person.count }
       expect(existing.reload.number).to eq 2
-      expect(existing.first_name).to eq 'John'
-      expect(existing.town).to eq 'Liverpool'
+      expect(existing.first_name).to eq "John"
+      expect(existing.town).to eq "Liverpool"
     end
 
-    it 'generates number for new person' do
+    it "generates number for new person" do
       expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
       expect(person).to be_new_record
       expect(import_person).to be_valid
@@ -75,31 +70,30 @@ describe Import::PersonImporter do
     end
   end
 
-  context 'number mapped' do
+  context "number mapped" do
     let(:mapping) do
-      { Vorname: 'first_name',
-        Nachname: 'last_name',
-        Geburtsdatum: 'birthday',
-        Nummer: 'number',
-        Stadt: 'town',
-        Strasse: 'street',
-        Hausnummer: 'housenumber',
-        PLZ: 'zip_code',
-        Land: 'country',
-        Korrespondenzsprache: 'correspondence_language',
-        Sprache: 'language' }
+      {Vorname: "first_name",
+       Nachname: "last_name",
+       Geburtsdatum: "birthday",
+       Nummer: "number",
+       Stadt: "town",
+       Strasse: "street",
+       Hausnummer: "housenumber",
+       PLZ: "zip_code",
+       Land: "country",
+       Korrespondenzsprache: "correspondence_language",
+       Sprache: "language"}
     end
 
-    context 'and given' do
-      context 'automatic' do
+    context "and given" do
+      context "automatic" do
         let(:number) { Person::AUTOMATIC_NUMBER_RANGE.first }
 
-        it 'uses person with same automatic number from db' do
+        it "uses person with same automatic number from db" do
           existing = Fabricate(:person,
-            first_name: 'Hans',
-            last_name: 'Lehmann',
-            town: 'Liverpool'
-          )
+            first_name: "Hans",
+            last_name: "Lehmann",
+            town: "Liverpool")
           expect(existing.number).to eq number
 
           expect(person).to eq existing
@@ -108,11 +102,11 @@ describe Import::PersonImporter do
 
           expect { importer.import }.not_to change { Person.count }
           expect(existing.reload.number).to eq number
-          expect(existing.first_name).to eq 'Hans'
-          expect(existing.town).to eq 'Liverpool'
+          expect(existing.first_name).to eq "Hans"
+          expect(existing.town).to eq "Liverpool"
         end
 
-        it 'fails to create new person' do
+        it "fails to create new person" do
           expect(person.errors).not_to be_empty
           expect(person).to be_new_record
 
@@ -120,16 +114,14 @@ describe Import::PersonImporter do
         end
       end
 
-      context 'manual' do
-
-        it 'uses person with same manual number from db' do
+      context "manual" do
+        it "uses person with same manual number from db" do
           existing = Fabricate(:person,
-            first_name: 'Hans',
-            last_name: 'Lehmann',
-            town: 'Liverpool',
+            first_name: "Hans",
+            last_name: "Lehmann",
+            town: "Liverpool",
             number: number,
-            manual_number: true
-          )
+            manual_number: true)
 
           expect(person).to eq existing
           expect(person.number).to eq number
@@ -137,49 +129,45 @@ describe Import::PersonImporter do
 
           expect { importer.import }.not_to change { Person.count }
           expect(existing.reload.number).to eq number
-          expect(existing.first_name).to eq 'Hans'
-          expect(existing.town).to eq 'Liverpool'
+          expect(existing.first_name).to eq "Hans"
+          expect(existing.town).to eq "Liverpool"
         end
 
-        it 'fails if person with other number matches' do
+        it "fails if person with other number matches" do
           existing = Fabricate(:person,
-            first_name: 'John',
-            last_name: 'Lennon',
-            town: 'Manchester',
+            first_name: "John",
+            last_name: "Lennon",
+            town: "Manchester",
             number: 456,
-            manual_number: true
-          )
+            manual_number: true)
 
           expect(person).to eq existing
           expect(import_person.person.errors).not_to be_empty
 
           expect { importer.import }.not_to change { Person.count }
           expect(existing.reload.number).to eq 456
-          expect(existing.town).to eq 'Manchester'
+          expect(existing.town).to eq "Manchester"
         end
 
-        it 'creates person if no other is found' do
+        it "creates person if no other is found" do
           expect(person.number).to eq 123
           expect(import_person).to be_valid
           expect(person).to be_new_record
           expect { importer.import }.to change { Person.count }.by(1)
         end
-
       end
-
     end
 
-    context 'and not given' do
-      let(:number) { '' }
+    context "and not given" do
+      let(:number) { "" }
 
-      it 'keeps number of matching person' do
+      it "keeps number of matching person" do
         existing = Fabricate(:person,
-          first_name: 'John',
-          last_name: 'Lennon',
-          town: 'Liverpool',
+          first_name: "John",
+          last_name: "Lennon",
+          town: "Liverpool",
           number: 2,
-          manual_number: true
-        )
+          manual_number: true)
 
         expect(person).to eq existing
         expect(person.number).to eq 2
@@ -187,19 +175,17 @@ describe Import::PersonImporter do
 
         expect { importer.import }.not_to change { Person.count }
         expect(existing.reload.number).to eq 2
-        expect(existing.first_name).to eq 'John'
-        expect(existing.town).to eq 'Liverpool'
+        expect(existing.first_name).to eq "John"
+        expect(existing.town).to eq "Liverpool"
       end
 
-      it 'generates number when creating person' do
+      it "generates number when creating person" do
         expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
         expect(person).to be_new_record
         expect(import_person).to be_valid
 
         expect { importer.import }.to change { Person.count }.by(1)
       end
-
     end
   end
-
 end

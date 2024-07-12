@@ -7,7 +7,6 @@
 
 module Fp2015
   class TimeRecord::Calculation
-
     DEFAULT_BSV_HOURS_PER_YEAR = 1900
 
     attr_reader :record
@@ -17,46 +16,46 @@ module Fp2015
     end
 
     delegate :total_lufeb_general,
-             :total_lufeb_private,
-             :total_lufeb_specific,
-             :total_lufeb_promoting,
-             :nicht_art_74_leistungen,
-             :verwaltung,
-             :beratung,
-             :treffpunkte,
-             :blockkurse,
-             :tageskurse,
-             :jahreskurse,
-             :kontakte_medien,
-             :interviews,
-             :publikationen,
-             :referate,
-             :medienkonferenzen,
-             :informationsveranstaltungen,
-             :sensibilisierungskampagnen,
-             :auskunftserteilung,
-             :kontakte_meinungsbildner,
-             :beratung_medien,
-             :eigene_zeitschriften,
-             :newsletter,
-             :informationsbroschueren,
-             :eigene_webseite,
-             :erarbeitung_instrumente,
-             :erarbeitung_grundlagen,
-             :projekte,
-             :vernehmlassungen,
-             :gremien,
-             :vermittlung_kontakte,
-             :unterstuetzung_selbsthilfeorganisationen,
-             :koordination_selbsthilfe,
-             :treffen_meinungsaustausch,
-             :beratung_fachhilfeorganisationen,
-             :unterstuetzung_behindertenhilfe,
-             :mittelbeschaffung,
-             :allgemeine_auskunftserteilung,
-             :type,
-             :year,
-             to: :record
+      :total_lufeb_private,
+      :total_lufeb_specific,
+      :total_lufeb_promoting,
+      :nicht_art_74_leistungen,
+      :verwaltung,
+      :beratung,
+      :treffpunkte,
+      :blockkurse,
+      :tageskurse,
+      :jahreskurse,
+      :kontakte_medien,
+      :interviews,
+      :publikationen,
+      :referate,
+      :medienkonferenzen,
+      :informationsveranstaltungen,
+      :sensibilisierungskampagnen,
+      :auskunftserteilung,
+      :kontakte_meinungsbildner,
+      :beratung_medien,
+      :eigene_zeitschriften,
+      :newsletter,
+      :informationsbroschueren,
+      :eigene_webseite,
+      :erarbeitung_instrumente,
+      :erarbeitung_grundlagen,
+      :projekte,
+      :vernehmlassungen,
+      :gremien,
+      :vermittlung_kontakte,
+      :unterstuetzung_selbsthilfeorganisationen,
+      :koordination_selbsthilfe,
+      :treffen_meinungsaustausch,
+      :beratung_fachhilfeorganisationen,
+      :unterstuetzung_behindertenhilfe,
+      :mittelbeschaffung,
+      :allgemeine_auskunftserteilung,
+      :type,
+      :year,
+      to: :record
 
     def total_lufeb
       total_lufeb_general.to_i +
@@ -173,6 +172,5 @@ module Fp2015
         unterstuetzung_behindertenhilfe.to_i
     end
     # rubocop:enable Metrics/AbcSize
-
   end
 end

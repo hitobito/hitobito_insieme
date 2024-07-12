@@ -17,8 +17,8 @@ module Fp2020::Statistics
 
     def groups
       @groups ||= Group.where(type: [Group::Dachverein,
-                                     Group::Regionalverein,
-                                     Group::ExterneOrganisation].collect(&:sti_name)).order_by_type
+        Group::Regionalverein,
+        Group::ExterneOrganisation].collect(&:sti_name)).order_by_type
     end
 
     def leistungskategorien
@@ -54,11 +54,11 @@ module Fp2020::Statistics
     end
 
     def capital_substrate(group)
-      fp_class('TimeRecord::Report::CapitalSubstrate').new(capital_substrate_time_table(group))
+      fp_class("TimeRecord::Report::CapitalSubstrate").new(capital_substrate_time_table(group))
     end
 
     def capital_substrate_factor(group)
-      fp_class('TimeRecord::Report::CapitalSubstrateFactor').new(
+      fp_class("TimeRecord::Report::CapitalSubstrateFactor").new(
         capital_substrate_time_table(group)
       )
     end
@@ -77,30 +77,30 @@ module Fp2020::Statistics
 
     def load_course_records
       Event::CourseRecord.select(course_record_columns)
-                         .joins(:event)
-                         .joins('INNER JOIN events_groups ON events.id = events_groups.event_id')
-                         .where(year: year, subventioniert: true)
-                         .group('events_groups.group_id, events.leistungskategorie, ' \
-                                'events.fachkonzept')
+        .joins(:event)
+        .joins("INNER JOIN events_groups ON events.id = events_groups.event_id")
+        .where(year: year, subventioniert: true)
+        .group("events_groups.group_id, events.leistungskategorie, " \
+                                "events.fachkonzept")
     end
 
     def course_record_columns
-      'events_groups.group_id, events.leistungskategorie, ' \
-      'events.fachkonzept, ' \
-      'MAX(event_course_records.year) AS year, ' \
-      'SUM(anzahl_kurse) AS anzahl_kurse, ' \
-      'SUM(tage_behinderte) AS tage_behinderte, ' \
-      'SUM(tage_angehoerige) AS tage_angehoerige, ' \
-      'SUM(tage_weitere) AS tage_weitere, ' \
-      'SUM(direkter_aufwand) AS direkter_aufwand, ' \
-      'SUM(betreuungsstunden) AS betreuungsstunden, ' \
-      'SUM(gemeinkostenanteil) AS gemeinkostenanteil'
+      "events_groups.group_id, events.leistungskategorie, " \
+      "events.fachkonzept, " \
+      "MAX(event_course_records.year) AS year, " \
+      "SUM(anzahl_kurse) AS anzahl_kurse, " \
+      "SUM(tage_behinderte) AS tage_behinderte, " \
+      "SUM(tage_angehoerige) AS tage_angehoerige, " \
+      "SUM(tage_weitere) AS tage_weitere, " \
+      "SUM(direkter_aufwand) AS direkter_aufwand, " \
+      "SUM(betreuungsstunden) AS betreuungsstunden, " \
+      "SUM(gemeinkostenanteil) AS gemeinkostenanteil"
     end
 
     def time_records
       @time_records ||= begin
         hash = Hash.new { |h, k| h[k] = {} }
-        TimeRecord.where(year: year).each do |record|
+        TimeRecord.where(year: year).find_each do |record|
           hash[record.group_id][record.type] = record
         end
         hash
@@ -109,28 +109,27 @@ module Fp2020::Statistics
 
     def employee_pensums
       @employee_pensums ||= TimeRecord::EmployeePensum
-                            .select('*, time_records.group_id AS group_id')
-                            .joins(:time_record)
-                            .where(time_records: { year: year })
-                            .index_by(&:group_id)
+        .select("*, time_records.group_id AS group_id")
+        .joins(:time_record)
+        .where(time_records: {year: year})
+        .index_by(&:group_id)
     end
 
     # Fp2020::CostAccounting::Aggregation
     def cost_accounting
-      @cost_accounting ||= fp_class('CostAccounting::Aggregation').new(year)
+      @cost_accounting ||= fp_class("CostAccounting::Aggregation").new(year)
     end
 
     def capital_substrate_time_table(group)
       cost_table = cost_accounting_table(group) || nil_cost_accounting_table(group)
       substrate = capital_substrates[group.id]
-      time_table = fp_class('TimeRecord::Table').new(group, year, cost_table).tap do |t|
-        t.records = { fp_class('TimeRecord::Report::CapitalSubstrate').key => substrate }
+      fp_class("TimeRecord::Table").new(group, year, cost_table).tap do |t|
+        t.records = {fp_class("TimeRecord::Report::CapitalSubstrate").key => substrate}
       end
-      time_table
     end
 
     def nil_cost_accounting_table(group)
-      fp_class('CostAccounting::Table').new(group, year).tap do |table|
+      fp_class("CostAccounting::Table").new(group, year).tap do |table|
         table.set_records(nil, nil, nil)
       end
     end
@@ -144,6 +143,5 @@ module Fp2020::Statistics
         cs_hash
       end
     end
-
   end
 end

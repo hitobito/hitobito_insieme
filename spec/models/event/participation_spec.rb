@@ -1,14 +1,11 @@
-# encoding: utf-8
-
 #  Copyright (c) 2014 Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Event::Participation do
-
   let(:participation) { event_participations(:top_participant) }
 
   before do
@@ -19,7 +16,7 @@ describe Event::Participation do
     end
   end
 
-  it 'allows nil values for multiple disability' do
+  it "allows nil values for multiple disability" do
     participation.multiple_disability = true
     expect(participation).to be_valid
     participation.save!
@@ -31,7 +28,7 @@ describe Event::Participation do
     expect(participation.reload.multiple_disability).to be nil
   end
 
-  it 'does not allow nil values for wheel chair' do
+  it "does not allow nil values for wheel chair" do
     participation.wheel_chair = false
     expect(participation).to be_valid
     participation.save!
@@ -40,5 +37,4 @@ describe Event::Participation do
     participation.wheel_chair = nil
     expect(participation).not_to be_valid
   end
-
 end

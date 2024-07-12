@@ -8,22 +8,20 @@
 module Fp2015::CostAccounting
   module Report
     class Raumaufwand < CourseRelated
+      self.kontengruppe = "600"
 
-      self.kontengruppe = '600'
+      self.used_fields += %w[raeumlichkeiten]
 
-      self.used_fields += %w(raeumlichkeiten)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
-                                  abgrenzung_dachorganisation
-
-                                  raeumlichkeiten
-                                  beratung
-                                  treffpunkte
-                                  lufeb
-                                  mittelbeschaffung)
-
+        raeumlichkeiten
+        beratung
+        treffpunkte
+        lufeb
+        mittelbeschaffung]
     end
   end
 end

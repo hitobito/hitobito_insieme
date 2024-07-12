@@ -19,7 +19,7 @@ module Insieme
             proxy = AddressProxy.new(contactable, @address_type)
             super(proxy, proxy.full_name)
           else
-            super(contactable, name)
+            super
           end
         end
 
@@ -46,15 +46,19 @@ module Insieme
           end
 
           def respond_to?(name)
-            @person.respond_to?("#{@address_type}_#{name}") || super
+            @person.respond_to?(:"#{@address_type}_#{name}") || super
           end
 
           def method_missing(name, *args)
             if respond_to?(name)
-              @person.send("#{@address_type}_#{name}")
+              @person.send(:"#{@address_type}_#{name}")
             else
               super
             end
+          end
+
+          def respond_to_missing?(name, include_private)
+            super
           end
         end
       end

@@ -7,36 +7,35 @@
 
 module Fp2015::CostAccounting
   class Table
-
     REPORTS = [Report::Lohnaufwand,
-               Report::Sozialversicherungsaufwand,
-               Report::UebrigerPersonalaufwand,
-               Report::Honorare,
-               Report::TotalPersonalaufwand,
-               Report::Raumaufwand,
-               Report::UebrigerSachaufwand,
-               Report::Abschreibungen,
-               Report::TotalAufwand,
-               Report::UmlagePersonal,
-               Report::UmlageRaeumlichkeiten,
-               Report::UmlageVerwaltung,
-               Report::TotalUmlagen,
-               Report::Vollkosten,
-               Report::Leistungsertrag,
-               Report::BeitraegeIv,
-               Report::SonstigeBeitraege,
-               Report::DirekteSpenden,
-               Report::IndirekteSpenden,
-               Report::DirekteSpendenAusserhalb,
-               Report::TotalErtraege,
-               Report::Separator,
-               Report::Deckungsbeitrag1,
-               Report::Deckungsbeitrag2,
-               Report::Deckungsbeitrag3,
-               Report::Deckungsbeitrag4,
-               Report::Unternehmenserfolg].freeze
+      Report::Sozialversicherungsaufwand,
+      Report::UebrigerPersonalaufwand,
+      Report::Honorare,
+      Report::TotalPersonalaufwand,
+      Report::Raumaufwand,
+      Report::UebrigerSachaufwand,
+      Report::Abschreibungen,
+      Report::TotalAufwand,
+      Report::UmlagePersonal,
+      Report::UmlageRaeumlichkeiten,
+      Report::UmlageVerwaltung,
+      Report::TotalUmlagen,
+      Report::Vollkosten,
+      Report::Leistungsertrag,
+      Report::BeitraegeIv,
+      Report::SonstigeBeitraege,
+      Report::DirekteSpenden,
+      Report::IndirekteSpenden,
+      Report::DirekteSpendenAusserhalb,
+      Report::TotalErtraege,
+      Report::Separator,
+      Report::Deckungsbeitrag1,
+      Report::Deckungsbeitrag2,
+      Report::Deckungsbeitrag3,
+      Report::Deckungsbeitrag4,
+      Report::Unternehmenserfolg].freeze
 
-    SECTION_FIELDS = %w(
+    SECTION_FIELDS = %w[
       raeumlichkeiten
       verwaltung
       beratung
@@ -46,7 +45,7 @@ module Fp2015::CostAccounting
       jahreskurse
       lufeb
       mittelbeschaffung
-    ).freeze
+    ].freeze
 
     VISIBLE_REPORTS = REPORTS
 
@@ -69,7 +68,7 @@ module Fp2015::CostAccounting
 
     def time_record
       @time_record ||= TimeRecord::EmployeeTime.where(group_id: group.id, year: year)
-                                               .first_or_initialize
+        .first_or_initialize
     end
 
     def reports
@@ -88,11 +87,11 @@ module Fp2015::CostAccounting
     end
 
     def general_costs(field)
-      value_of('lohnaufwand', field).to_d +
-      value_of('sozialversicherungsaufwand', field).to_d +
-      value_of('uebriger_personalaufwand', field).to_d +
-      value_of('umlage_raeumlichkeiten', field).to_d +
-      value_of('umlage_verwaltung', field).to_d
+      value_of("lohnaufwand", field).to_d +
+        value_of("sozialversicherungsaufwand", field).to_d +
+        value_of("uebriger_personalaufwand", field).to_d +
+        value_of("umlage_raeumlichkeiten", field).to_d +
+        value_of("umlage_verwaltung", field).to_d
     end
 
     def value_of(report, field)
@@ -121,23 +120,22 @@ module Fp2015::CostAccounting
 
     def prepare_course_costs
       nested_hash = Hash.new { |h, k| h[k] = {} }
-      load_course_costs.
-        each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
-        hash[lk] = { 'honorare' => honorare,
-                     'raumaufwand' => unterkunft,
-                     'uebriger_sachaufwand' => uebriges }
+      load_course_costs
+        .each_with_object(nested_hash) do |(lk, honorare, unterkunft, uebriges), hash|
+        hash[lk] = {"honorare" => honorare,
+                     "raumaufwand" => unterkunft,
+                     "uebriger_sachaufwand" => uebriges}
       end
     end
 
     def load_course_costs
-      Event::CourseRecord.
-        joins(:event).
-        group('events.leistungskategorie').
-        where(year: year, subventioniert: true).
-        merge(Event.with_group_id(group.id)).
-        pluck('leistungskategorie, ' \
-              'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
+      Event::CourseRecord
+        .joins(:event)
+        .group("events.leistungskategorie")
+        .where(year: year, subventioniert: true)
+        .merge(Event.with_group_id(group.id))
+        .pluck("leistungskategorie, " \
+              "SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)")
     end
-
   end
 end

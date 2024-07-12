@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2020::Export
   module Tabular
     module CourseReporting
       class Aggregation
-
         include Featureperioden::Domain
 
         # rubocop:disable Style/SymbolArray
@@ -68,8 +66,8 @@ module Fp2020::Export
         end
 
         def labels
-          values('') do |kriterium, kursart|
-            if kriterium == 'all'
+          values("") do |kriterium, kursart|
+            if kriterium == "all"
               kursart_label(kursart)
             else
               I18n.t("activerecord.attributes.event/course.fachkonzepte.#{kriterium}")
@@ -80,7 +78,7 @@ module Fp2020::Export
         private
 
         def fp_translation(attr)
-          scope = fp_i18n_scope('course_reporting.aggregations')
+          scope = fp_i18n_scope("course_reporting.aggregations")
           if treffpunkt?
             I18n.t("#{attr}_tp", scope: scope, default: [attr.to_sym, t(attr)])
           elsif abrechnung_in_stunden?
@@ -93,15 +91,15 @@ module Fp2020::Export
         def t(attr)
           if abrechnung_in_stunden?
             I18n.t("course_reporting.aggregations.#{attr}_stunden",
-                   default: :"course_reporting.aggregations.#{attr}")
+              default: :"course_reporting.aggregations.#{attr}")
           else
             I18n.t("course_reporting.aggregations.#{attr}")
           end
         end
 
         def kursart_label(kursart)
-          if kursart == 'total'
-            I18n.t('course_reporting.aggregations.total')
+          if kursart == "total"
+            I18n.t("course_reporting.aggregations.total")
           else
             I18n.t("activerecord.attributes.event/course_record.kursarten.#{kursart}")
           end
@@ -127,11 +125,11 @@ module Fp2020::Export
           end
         end
 
-        def each_column(&block)
-          kriterien.
-            product(kursarten).
-            append(%w(all total)).
-            each(&block)
+        def each_column(&)
+          kriterien
+            .product(kursarten)
+            .append(%w[all total])
+            .each(&)
         end
 
         def kriterien
@@ -143,29 +141,28 @@ module Fp2020::Export
         def kursarten
           return aggregation.kursarten if treffpunkt?
 
-          aggregation.kursarten + %w(total)
+          aggregation.kursarten + %w[total]
         end
 
         def blockkurs?
-          aggregation.leistungskategorie == 'bk'
+          aggregation.leistungskategorie == "bk"
         end
 
         def tageskurs?
-          aggregation.leistungskategorie == 'tk'
+          aggregation.leistungskategorie == "tk"
         end
 
         def jahreskurs?
-          aggregation.leistungskategorie == 'sk'
+          aggregation.leistungskategorie == "sk"
         end
 
         def treffpunkt?
-          aggregation.leistungskategorie == 'tp'
+          aggregation.leistungskategorie == "tp"
         end
 
         def abrechnung_in_stunden?
           jahreskurs? || treffpunkt?
         end
-
       end
     end
   end

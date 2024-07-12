@@ -7,17 +7,15 @@
 
 module Fp2015
   class TimeRecord::Report::EmployeeEffortsPensum < TimeRecord::Report::Base
-
     self.kind = :controlling
 
     def paragraph_74
-      if table.value_of('employee_time', 'paragraph_74').nonzero?
-        table.value_of('employee_efforts', 'paragraph_74').to_d /
-          table.value_of('employee_time', 'paragraph_74').to_d
+      if table.value_of("employee_time", "paragraph_74").nonzero?
+        table.value_of("employee_efforts", "paragraph_74").to_d /
+          table.value_of("employee_time", "paragraph_74").to_d
       else
         0
       end
     end
-
   end
 end

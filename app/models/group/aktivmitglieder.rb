@@ -36,9 +36,7 @@
 #
 
 class Group::Aktivmitglieder < Group
-
   children Group::Aktivmitglieder
-
 
   ### ROLES
 
@@ -49,8 +47,8 @@ class Group::Aktivmitglieder < Group
   class Zweitmitgliedschaft < ::Role; end
 
   roles Aktivmitglied,
-        AktivmitgliedOhneAbo,
-        Zweitmitgliedschaft
+    AktivmitgliedOhneAbo,
+    Zweitmitgliedschaft
 
   self.default_role = Aktivmitglied
 end

@@ -7,27 +7,29 @@
 
 module Fp2022::Export::Tabular::Events
   class AggregateCourse::ShortList < ShortList
-
     def title_header_values
       row = Array.new(20)
       row[0] = @group_name
       row[2] = reporting_year
       row[10] = document_title
-      row[17] = "#{I18n.t('global.printed')}: "
+      row[17] = "#{I18n.t("global.printed")}: "
       row[19] = printed_at
       row
     end
 
     def title
-      I18n.t('activerecord.models.event/aggregate_course.other')
+      I18n.t("activerecord.models.event/aggregate_course.other")
     end
 
     # rubocop:disable Layout/EmptyLineBetweenDefs
-    def add_date_labels(_labels); end
-    def add_contact_labels(_labels); end
-    def add_additional_labels(_labels); end
-    def add_count_labels(_labels); end
+    def add_date_labels(_labels)
+    end
+    def add_contact_labels(_labels)
+    end
+    def add_additional_labels(_labels)
+    end
+    def add_count_labels(_labels)
+    end
     # rubocop:enable Layout/EmptyLineBetweenDefs
-
   end
 end

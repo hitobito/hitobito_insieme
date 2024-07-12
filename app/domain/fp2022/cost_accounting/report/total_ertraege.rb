@@ -8,30 +8,28 @@
 module Fp2022::CostAccounting
   module Report
     class TotalErtraege < Subtotal
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
+      self.summed_reports = %w[leistungsertrag
+        beitraege_iv
+        sonstige_beitraege
+        direkte_spenden
+        indirekte_spenden
+        direkte_spenden_ausserhalb]
 
-      self.summed_reports = %w(leistungsertrag
-                               beitraege_iv
-                               sonstige_beitraege
-                               direkte_spenden
-                               indirekte_spenden
-                               direkte_spenden_ausserhalb)
+      self.summed_fields = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
 
-      self.summed_fields = %w(aufwand_ertrag_fibu
-                              abgrenzung_fibu
-
-                              beratung
-                              medien_und_publikationen
-                              treffpunkte
-                              blockkurse
-                              tageskurse
-                              jahreskurse
-                              lufeb
-                              mittelbeschaffung)
+        beratung
+        medien_und_publikationen
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       define_summed_field_methods
-
     end
   end
 end

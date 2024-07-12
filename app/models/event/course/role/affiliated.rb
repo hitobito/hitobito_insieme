@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 # == Schema Information
 #
 # Table name: event_roles
@@ -17,7 +16,5 @@
 #
 
 class Event::Course::Role::Affiliated < Event::Course::Role::Participant
-
   self.permissions = []
-
 end

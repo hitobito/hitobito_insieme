@@ -7,7 +7,6 @@
 
 module Fp2015::CostAccounting
   class Aggregation
-
     attr_reader :year
 
     def initialize(year)
@@ -62,20 +61,20 @@ module Fp2015::CostAccounting
       @course_costs ||=
         Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }.tap do |hash|
           load_course_costs.each do |group_id, lk, honorare, unterkunft, uebriges|
-            hash[group_id][lk] = { 'honorare' => honorare,
-                                   'raumaufwand' => unterkunft,
-                                   'uebriger_sachaufwand' => uebriges }
+            hash[group_id][lk] = {"honorare" => honorare,
+                                   "raumaufwand" => unterkunft,
+                                   "uebriger_sachaufwand" => uebriges}
           end
         end
     end
 
     def load_course_costs
-      Event::CourseRecord.
-        joins(event: :groups).
-        group('groups.id, events.leistungskategorie').
-        where(year: year, subventioniert: true).
-        pluck('groups.id AS group_id, leistungskategorie, ' \
-              'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
+      Event::CourseRecord
+        .joins(event: :groups)
+        .group("groups.id, events.leistungskategorie")
+        .where(year: year, subventioniert: true)
+        .pluck("groups.id AS group_id, leistungskategorie, " \
+              "SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)")
     end
 
     class Report
@@ -101,6 +100,5 @@ module Fp2015::CostAccounting
         I18n.t("cost_accounting.report.#{key}.name")
       end
     end
-
   end
 end

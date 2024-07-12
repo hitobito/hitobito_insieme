@@ -36,9 +36,7 @@
 #
 
 class Group::DachvereinGremium < Group
-
   children Group::DachvereinGremium
-
 
   ### ROLES
 
@@ -53,6 +51,6 @@ class Group::DachvereinGremium < Group
   end
 
   roles Leitung,
-        Mitglied
+    Mitglied
   self.default_role = Mitglied
 end

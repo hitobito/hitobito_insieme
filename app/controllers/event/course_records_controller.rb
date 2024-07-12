@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class Event::CourseRecordsController < CrudController
-
   include Featureperioden::Views
 
   decorates :event, :course_record
@@ -16,33 +15,33 @@ class Event::CourseRecordsController < CrudController
   self.nesting = Group, Event
 
   self.permitted_attrs = [:subventioniert,
-                          :inputkriterien,
-                          :kursart,
-                          :spezielle_unterkunft,
-                          :kursdauer,
-                          :teilnehmende_mehrfachbehinderte,
-                          :teilnehmende_weitere,
-                          :absenzen_behinderte,
-                          :absenzen_angehoerige,
-                          :absenzen_weitere,
-                          :tage_behinderte,
-                          :tage_angehoerige,
-                          :tage_weitere,
-                          :leiterinnen,
-                          :fachpersonen,
-                          :hilfspersonal_ohne_honorar,
-                          :hilfspersonal_mit_honorar,
-                          :kuechenpersonal,
-                          :betreuerinnen,
-                          :betreuungsstunden,
-                          :honorare_inkl_sozialversicherung,
-                          :unterkunft,
-                          :uebriges,
-                          :beitraege_teilnehmende,
-                          :anzahl_kurse,
-                          :year,
-                          challenged_canton_count_attributes: Cantons::SHORT_NAMES,
-                          affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
+    :inputkriterien,
+    :kursart,
+    :spezielle_unterkunft,
+    :kursdauer,
+    :teilnehmende_mehrfachbehinderte,
+    :teilnehmende_weitere,
+    :absenzen_behinderte,
+    :absenzen_angehoerige,
+    :absenzen_weitere,
+    :tage_behinderte,
+    :tage_angehoerige,
+    :tage_weitere,
+    :leiterinnen,
+    :fachpersonen,
+    :hilfspersonal_ohne_honorar,
+    :hilfspersonal_mit_honorar,
+    :kuechenpersonal,
+    :betreuerinnen,
+    :betreuungsstunden,
+    :honorare_inkl_sozialversicherung,
+    :unterkunft,
+    :uebriges,
+    :beitraege_teilnehmende,
+    :anzahl_kurse,
+    :year,
+    challenged_canton_count_attributes: Cantons::SHORT_NAMES,
+    affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
 
   before_render_form :replace_decimal_with_integer
   before_render_form :set_numbers
@@ -96,9 +95,9 @@ class Event::CourseRecordsController < CrudController
     return unless entry.duration_in_hours?
 
     [:kursdauer, :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
-     :tage_behinderte, :tage_angehoerige, :tage_weitere].each do |field|
+      :tage_behinderte, :tage_angehoerige, :tage_weitere].each do |field|
       value = entry.send(field)
-      entry.send("#{field}=", value.to_i) if value.to_i == value
+      entry.send(:"#{field}=", value.to_i) if value.to_i == value
     end
   end
 
@@ -108,7 +107,7 @@ class Event::CourseRecordsController < CrudController
 
   def alert_missing_reporting_parameters
     unless ReportingParameter.for(entry.year)
-      flash.now[:alert] = t('event.course_records.form.missing_reporting_parameters')
+      flash.now[:alert] = t("event.course_records.form.missing_reporting_parameters")
     end
   end
 

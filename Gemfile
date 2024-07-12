@@ -5,9 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_cevi.
 
-load File.expand_path('../app_root.rb', __FILE__)
+load File.expand_path("../app_root.rb", __FILE__)
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in hitobito_insieme.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -15,8 +15,7 @@ source 'https://rubygems.org'
 gemspec
 
 # Load application Gemfile for all application dependencies.
-# rubocop:disable Security/Eval
-eval File.read(File.expand_path('Gemfile', ENV['APP_ROOT']))
+eval File.read(File.expand_path("Gemfile", ENV["APP_ROOT"])) # rubocop:disable Security/Eval
 
 group :development, :test do
   # Explicitly define the path for dependencies on other wagons.

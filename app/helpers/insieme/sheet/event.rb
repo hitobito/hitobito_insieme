@@ -11,12 +11,11 @@ module Insieme::Sheet::Event
 
   included do
     tabs.insert(-1,
-                Sheet::Tab.new('event.course_records.title',
-                               :group_event_course_record_path,
-                               if: lambda do |view, _group, event|
-                                 event.reportable? &&
-                                  view.can?(:update, Event::CourseRecord.new(event: event))
-                               end))
+      Sheet::Tab.new("event.course_records.title",
+        :group_event_course_record_path,
+        if: lambda do |view, _group, event|
+          event.reportable? &&
+           view.can?(:update, Event::CourseRecord.new(event: event))
+        end))
   end
-
 end

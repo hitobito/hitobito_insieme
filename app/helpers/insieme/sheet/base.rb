@@ -18,7 +18,7 @@ module Insieme::Sheet::Base
       when Event::CourseRecordsController
         Sheet::Event
       else
-        super(view_context)
+        super
       end
     end
   end

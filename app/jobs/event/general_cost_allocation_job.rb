@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class Event::GeneralCostAllocationJob < BaseJob
-
   self.parameters = [:general_cost_allocation_id]
 
   def initialize(general_cost_allocation)
@@ -25,7 +24,7 @@ class Event::GeneralCostAllocationJob < BaseJob
   def update_subsidized
     general_cost_allocation.considered_course_records.includes(:event).find_each do |record|
       record.update!(gemeinkostenanteil: calculate_gemeinkostenanteil(record),
-                     gemeinkosten_updated_at: general_cost_allocation.updated_at)
+        gemeinkosten_updated_at: general_cost_allocation.updated_at)
     end
   end
 
@@ -33,7 +32,7 @@ class Event::GeneralCostAllocationJob < BaseJob
     general_cost_allocation.considered_course_records(false).find_each do |record|
       # update each individually to trigger after_save kategorie calculations.
       record.update!(gemeinkostenanteil: 0,
-                     gemeinkosten_updated_at: general_cost_allocation.updated_at)
+        gemeinkosten_updated_at: general_cost_allocation.updated_at)
     end
   end
 
@@ -47,5 +46,4 @@ class Event::GeneralCostAllocationJob < BaseJob
   def general_cost_allocation
     @general_cost_allocation ||= Event::GeneralCostAllocation.find(@general_cost_allocation_id)
   end
-
 end

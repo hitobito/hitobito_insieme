@@ -1,16 +1,12 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
-
+require "spec_helper"
 
 describe PersonAbility do
-
-  let(:role) { Fabricate(role_name.to_sym, group: group)}
+  let(:role) { Fabricate(role_name.to_sym, group: group) }
   let(:ability) { Ability.new(role.person.reload) }
 
   subject { ability }
@@ -19,32 +15,32 @@ describe PersonAbility do
     let(:group) { groups(:be) }
     let(:role_name) { Group::Regionalverein::Controlling.name }
 
-    context 'in same layer' do
+    context "in same layer" do
       let(:gremium) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: group) }
 
-      it 'may show person with contact data' do
+      it "may show person with contact data" do
         other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium).person
         is_expected.to be_able_to(:show, other)
       end
 
-      it 'may index people in own group' do
+      it "may index people in own group" do
         is_expected.to be_able_to(:index_people, group)
       end
 
-      it 'may index people in other group' do
+      it "may index people in other group" do
         is_expected.to be_able_to(:index_people, gremium)
       end
     end
 
-    context 'in lower layer' do
+    context "in lower layer" do
       let(:subgroup) { groups(:seeland) }
 
-      it 'may not show person with contact data' do
+      it "may not show person with contact data" do
         other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: subgroup).person
         is_expected.not_to be_able_to(:show, other)
       end
 
-      it 'may not index people' do
+      it "may not index people" do
         is_expected.not_to be_able_to(:index_people, subgroup)
       end
     end

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -53,21 +51,17 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe TimeRecord::VolunteerWithoutVerificationTime do
-
-  context '#update_totals' do
-
-    it 'uses the manual lufeb subtotals to calculate the total' do
+  context "#update_totals" do
+    it "uses the manual lufeb subtotals to calculate the total" do
       record = TimeRecord::VolunteerWithoutVerificationTime.new(year: 2014,
-                                                                group: groups(:be),
-                                                                total_lufeb_general: 1,
-                                                                total_lufeb_private: 2,
-                                                                total_lufeb_specific: 3,
-                                                                total_lufeb_promoting: 4)
-
-
+        group: groups(:be),
+        total_lufeb_general: 1,
+        total_lufeb_private: 2,
+        total_lufeb_specific: 3,
+        total_lufeb_promoting: 4)
 
       expect(record.total_lufeb_general).to eq 1
       expect(record.total_lufeb_private).to eq 2
@@ -84,5 +78,4 @@ describe TimeRecord::VolunteerWithoutVerificationTime do
       expect(record.total).to eq 10
     end
   end
-
 end

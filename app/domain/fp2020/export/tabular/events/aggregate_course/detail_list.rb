@@ -7,27 +7,29 @@
 
 module Fp2020::Export::Tabular::Events
   class AggregateCourse::DetailList < DetailList
-
     def title_header_values
       row = Array.new(39)
       row[0] = @group_name
       row[2] = reporting_year
       row[7] = document_title
-      row[28] = "#{I18n.t('global.printed')}: "
+      row[28] = "#{I18n.t("global.printed")}: "
       row[31] = printed_at
       row
     end
 
     def title
-      I18n.t('activerecord.models.event/aggregate_course.other')
+      I18n.t("activerecord.models.event/aggregate_course.other")
     end
 
     # rubocop:disable Layout/EmptyLineBetweenDefs
-    def add_date_labels(_labels); end
-    def add_contact_labels(_labels); end
-    def add_additional_labels(_labels); end
-    def add_count_labels(_labels); end
+    def add_date_labels(_labels)
+    end
+    def add_contact_labels(_labels)
+    end
+    def add_additional_labels(_labels)
+    end
+    def add_count_labels(_labels)
+    end
     # rubocop:enable Layout/EmptyLineBetweenDefs
-
   end
 end

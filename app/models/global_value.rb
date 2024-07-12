@@ -14,7 +14,6 @@
 #
 
 class GlobalValue < ActiveRecord::Base
-
   delegate :clear_cache, to: :class
 
   validates_by_schema
@@ -22,11 +21,9 @@ class GlobalValue < ActiveRecord::Base
   before_create :assert_no_other_records
   after_save :clear_cache
 
-
   class << self
-
-    %w(default_reporting_year
-       reporting_frozen_until_year).each do |attr|
+    %w[default_reporting_year
+      reporting_frozen_until_year].each do |attr|
       define_method(attr) do
         cached[attr]
       end
@@ -42,7 +39,6 @@ class GlobalValue < ActiveRecord::Base
       Rails.cache.clear
       true
     end
-
   end
 
   def to_s
@@ -54,5 +50,4 @@ class GlobalValue < ActiveRecord::Base
   def assert_no_other_records
     errors.add(:base, :record_exists) if GlobalValue.exists?
   end
-
 end

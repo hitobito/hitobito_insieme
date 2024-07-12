@@ -8,42 +8,41 @@
 module Fp2015::CostAccounting
   module Report
     class Base
+      FIELDS = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
+        aufwand_ertrag_ko_re
 
-      FIELDS = %w(aufwand_ertrag_fibu
-                  abgrenzung_fibu
-                  abgrenzung_dachorganisation
-                  aufwand_ertrag_ko_re
-
-                  personal
-                  raeumlichkeiten
-                  verwaltung
-                  beratung
-                  treffpunkte
-                  blockkurse
-                  tageskurse
-                  jahreskurse
-                  lufeb
-                  mittelbeschaffung
-                  total
-                  kontrolle)
+        personal
+        raeumlichkeiten
+        verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung
+        total
+        kontrolle]
 
       # The fields displayed in the detail view of the report.
       class_attribute :used_fields
       # Most commonly used fields, override in subclasses
-      self.used_fields = %w(aufwand_ertrag_fibu
-                            abgrenzung_fibu
-                            abgrenzung_dachorganisation
-                            aufwand_ertrag_ko_re
+      self.used_fields = %w[aufwand_ertrag_fibu
+        abgrenzung_fibu
+        abgrenzung_dachorganisation
+        aufwand_ertrag_ko_re
 
-                            beratung
-                            treffpunkte
-                            blockkurse
-                            tageskurse
-                            jahreskurse
-                            lufeb
-                            mittelbeschaffung
-                            total
-                            kontrolle)
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung
+        total
+        kontrolle]
 
       # The editable fields of this report.
       class_attribute :editable_fields
@@ -65,15 +64,15 @@ module Fp2015::CostAccounting
         end
 
         def short_name(year)
-          scope = Featureperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          scope = Featureperioden::Dispatcher.new(year).i18n_scope("cost_accounting")
           I18n.t("report.#{key}.short_name", scope: scope,
-                 default: I18n.t("cost_accounting.report.#{key}.short_name"))
+            default: I18n.t("cost_accounting.report.#{key}.short_name"))
         end
 
         def human_name(year)
-          scope = Featureperioden::Dispatcher.new(year).i18n_scope('cost_accounting')
+          scope = Featureperioden::Dispatcher.new(year).i18n_scope("cost_accounting")
           I18n.t("report.#{key}.name", scope: scope,
-                 default: I18n.t("cost_accounting.report.#{key}.name"))
+            default: I18n.t("cost_accounting.report.#{key}.name"))
         end
 
         def delegate_editable_fields(fields)
@@ -109,17 +108,14 @@ module Fp2015::CostAccounting
       end
 
       def aufwand_ertrag_ko_re
-        @aufwand_ertrag_ko_re ||= begin
-          aufwand_ertrag_fibu.to_d -
+        @aufwand_ertrag_ko_re ||= aufwand_ertrag_fibu.to_d -
           abgrenzung_fibu.to_d -
           abgrenzung_dachorganisation.to_d
-        end
       end
 
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def total
-        @total ||= begin
-          raeumlichkeiten.to_d +
+        @total ||= raeumlichkeiten.to_d +
           verwaltung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
@@ -128,7 +124,6 @@ module Fp2015::CostAccounting
           jahreskurse.to_d +
           lufeb.to_d +
           mittelbeschaffung.to_d
-        end
       end
       # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
@@ -139,7 +134,6 @@ module Fp2015::CostAccounting
       def record
         @record ||= table.cost_record(key)
       end
-
     end
   end
 end

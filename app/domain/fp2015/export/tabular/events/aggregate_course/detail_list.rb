@@ -7,20 +7,18 @@
 
 module Fp2015::Export::Tabular::Events
   class AggregateCourse::DetailList < DetailList
-
     def title_header_values
       row = Array.new(18)
       row[0] = @group_name
       row[2] = reporting_year
       row[10] = document_title
-      row[56] = "#{I18n.t('global.printed')}: "
+      row[56] = "#{I18n.t("global.printed")}: "
       row[57] = printed_at
       row
     end
 
     def title
-      I18n.t('activerecord.models.event/aggregate_course.other')
+      I18n.t("activerecord.models.event/aggregate_course.other")
     end
-
   end
 end

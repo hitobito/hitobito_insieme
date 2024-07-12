@@ -7,7 +7,6 @@
 
 module Fp2020
   class TimeRecord::Report::CapitalSubstrateFactor < TimeRecord::Report::Base
-
     self.kind = :capital_substrate
 
     def paragraph_74
@@ -19,12 +18,11 @@ module Fp2020
     private
 
     def capital_substrate
-      table.value_of('capital_substrate', 'paragraph_74')
+      table.value_of("capital_substrate", "paragraph_74")
     end
 
     def vollkosten_total
-      table.cost_accounting_value_of('vollkosten', 'total')
+      table.cost_accounting_value_of("vollkosten", "total")
     end
-
   end
 end

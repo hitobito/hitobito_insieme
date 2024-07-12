@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2015::Export
   module Tabular
     module CourseReporting
       class ClientStatistics
-
         class << self
           def csv(stats)
             Export::Csv::Generator.new(new(stats)).call
@@ -35,25 +33,25 @@ module Fp2015::Export
         end
 
         def labels
-          label = I18n.t('course_reporting.client_statistics.disability_or_canton')
+          label = I18n.t("course_reporting.client_statistics.disability_or_canton")
           values(label) do |lk, role|
             I18n.t("activerecord.attributes.event/course.leistungskategorien.#{lk}", count: 3) +
-            ' ' +
-            I18n.t("course_reporting.client_statistics.#{role}")
+              " " +
+              I18n.t("course_reporting.client_statistics.#{role}")
           end
         end
 
         private
 
         def participant_values
-          label = I18n.t('course_reporting.client_statistics.participants')
+          label = I18n.t("course_reporting.client_statistics.participants")
           values(label) do |lk, role|
             stats.participant_count(lk, role)
           end
         end
 
         def multiple_challenged_values
-          label = I18n.t('course_reporting.client_statistics.multiple_challenged')
+          label = I18n.t("course_reporting.client_statistics.multiple_challenged")
           values(label) do |lk, role|
             if role == :challenged
               stats.participant_count(lk, :multiple)
@@ -69,7 +67,7 @@ module Fp2015::Export
         end
 
         def canton_totals
-          label = I18n.t('course_reporting.client_statistics.total')
+          label = I18n.t("course_reporting.client_statistics.total")
           values(label) do |lk, role|
             stats.canton_total(lk, role)
           end

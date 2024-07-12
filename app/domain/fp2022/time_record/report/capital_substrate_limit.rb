@@ -7,11 +7,10 @@
 
 module Fp2022
   class TimeRecord::Report::CapitalSubstrateLimit < TimeRecord::Report::Base
-
     self.kind = :capital_substrate
 
     def paragraph_74
-      limit.to_d * table.cost_accounting_value_of('vollkosten', 'total')
+      limit.to_d * table.cost_accounting_value_of("vollkosten", "total")
     end
 
     private
@@ -19,6 +18,5 @@ module Fp2022
     def limit
       @limit ||= ReportingParameter.for(table.year).capital_substrate_limit
     end
-
   end
 end

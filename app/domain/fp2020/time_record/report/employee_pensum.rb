@@ -7,7 +7,6 @@
 
 module Fp2020
   class TimeRecord::Report::EmployeePensum < TimeRecord::Report::Base
-
     delegate :paragraph_74, to: :record
 
     delegate :not_paragraph_74, to: :record
@@ -17,9 +16,8 @@ module Fp2020
     private
 
     def record
-      table.record('employee_time').employee_pensum ||
-        table.record('employee_time').build_employee_pensum
+      table.record("employee_time").employee_pensum ||
+        table.record("employee_time").build_employee_pensum
     end
-
   end
 end

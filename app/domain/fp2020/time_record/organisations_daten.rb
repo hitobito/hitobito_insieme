@@ -59,16 +59,16 @@ module Fp2020
     private
 
     def fetch_organsations_daten(verein, year)
-      table = fp_class('TimeRecord::Table').new(verein, year)
+      table = fp_class("TimeRecord::Table").new(verein, year)
 
       [
-        table.value_of('employee_pensum', :total).to_d,
-        table.value_of('employee_pensum', :paragraph_74).to_d,
-        table.record('volunteer_with_verification_time').total_pensum.to_d,
-        table.record('volunteer_without_verification_time').total_pensum.to_d,
-        table.record('volunteer_with_verification_time').total_paragraph_74_pensum.to_d,
-        table.cost_accounting_value_of('honorare', 'aufwand_ertrag_fibu').to_d,
-        table.cost_accounting_value_of('honorare', 'total').to_d
+        table.value_of("employee_pensum", :total).to_d,
+        table.value_of("employee_pensum", :paragraph_74).to_d,
+        table.record("volunteer_with_verification_time").total_pensum.to_d,
+        table.record("volunteer_without_verification_time").total_pensum.to_d,
+        table.record("volunteer_with_verification_time").total_paragraph_74_pensum.to_d,
+        table.cost_accounting_value_of("honorare", "aufwand_ertrag_fibu").to_d,
+        table.cost_accounting_value_of("honorare", "total").to_d
       ]
     end
 
@@ -78,11 +78,11 @@ module Fp2020
 
     def bsv_hours_per_year
       ReportingParameter.for(year)&.bsv_hours_per_year ||
-        fp_class('TimeRecord::Calculation')::DEFAULT_BSV_HOURS_PER_YEAR
+        fp_class("TimeRecord::Calculation")::DEFAULT_BSV_HOURS_PER_YEAR
     end
 
     def assumed_hourly_rate
-      fp_class('TimeRecord::Calculation')::ASSUMED_HOURLY_RATE
+      fp_class("TimeRecord::Calculation")::ASSUMED_HOURLY_RATE
     end
   end
 end

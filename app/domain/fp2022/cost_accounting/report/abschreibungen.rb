@@ -8,13 +8,11 @@
 module Fp2022::CostAccounting
   module Report
     class Abschreibungen < Base
+      self.kontengruppe = "692"
 
-      self.kontengruppe = '692'
-
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu)
-
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu]
 
       alias_method :verwaltung, :aufwand_ertrag_ko_re
       alias_method :total, :aufwand_ertrag_ko_re

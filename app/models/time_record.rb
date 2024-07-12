@@ -53,13 +53,12 @@
 #
 
 class TimeRecord < ActiveRecord::Base
-
   include Insieme::ReportingFreezable
 
   belongs_to :group
 
   validates_by_schema
-  validates :year, uniqueness: { scope: [:group_id, :type] }
+  validates :year, uniqueness: {scope: [:group_id, :type]}
   validate :assert_group_has_reporting
 
   before_save :update_totals
@@ -81,16 +80,16 @@ class TimeRecord < ActiveRecord::Base
   def fp_calculations
     # Fp2020::TimeRecord::Calculation
     @fp_calculations ||= Featureperioden::Dispatcher
-                         .new(year)
-                         .domain_class('TimeRecord::Calculation')
-                         .new(self)
+      .new(year)
+      .domain_class("TimeRecord::Calculation")
+      .new(self)
   end
 
   delegate :total_lufeb, :total_courses, :total_additional_person_specific, :total_remaining,
-           :total_paragraph_74, :total_not_paragraph_74, :total,
-           :total_paragraph_74_pensum, :total_not_paragraph_74_pensum, :total_pensum,
-           :update_totals,
-           to: :fp_calculations
+    :total_paragraph_74, :total_not_paragraph_74, :total,
+    :total_paragraph_74_pensum, :total_not_paragraph_74_pensum, :total_pensum,
+    :update_totals,
+    to: :fp_calculations
 
   def to_s
     self.class.model_name.human
@@ -103,5 +102,4 @@ class TimeRecord < ActiveRecord::Base
       errors.add(:group_id, :is_not_allowed)
     end
   end
-
 end

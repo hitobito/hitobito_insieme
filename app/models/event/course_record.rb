@@ -46,44 +46,43 @@
 #
 
 class Event::CourseRecord < ActiveRecord::Base
-
-  INPUTKRITERIEN = %w(a b c).freeze
-  KURSARTEN = %w(weiterbildung freizeit_und_sport).freeze
+  INPUTKRITERIEN = %w[a b c].freeze
+  KURSARTEN = %w[weiterbildung freizeit_und_sport].freeze
 
   include Insieme::ReportingFreezable
 
   belongs_to :event
   belongs_to :challenged_canton_count, dependent: :destroy,
-                                       class_name: 'Event::ParticipationCantonCount'
+    class_name: "Event::ParticipationCantonCount"
   belongs_to :affiliated_canton_count, dependent: :destroy,
-                                       class_name: 'Event::ParticipationCantonCount'
+    class_name: "Event::ParticipationCantonCount"
 
   accepts_nested_attributes_for :challenged_canton_count
   accepts_nested_attributes_for :affiliated_canton_count
 
   validates_by_schema
   validates :event_id, uniqueness: true
-  validates :inputkriterien, inclusion: { in: INPUTKRITERIEN }
-  validates :kursart, inclusion: { in: KURSARTEN }
-  validates :year, inclusion: { in: ->(course_record) { course_record.event.years } }
+  validates :inputkriterien, inclusion: {in: INPUTKRITERIEN}
+  validates :kursart, inclusion: {in: KURSARTEN}
+  validates :year, inclusion: {in: ->(course_record) { course_record.event.years }}
 
   validates :anzahl_kurse,
-            numericality: { greater_than: 0, if: ->(cr) { cr.event.is_a? Event::AggregateCourse } }
+    numericality: {greater_than: 0, if: ->(cr) { cr.event.is_a? Event::AggregateCourse }}
   validates :anzahl_kurse,
-            numericality: { equal: 1, if: ->(cr) { cr.event.is_a? Event::Course } }
+    numericality: {equal: 1, if: ->(cr) { cr.event.is_a? Event::Course }}
 
   validates :kursdauer,
-            :teilnehmende_behinderte, :teilnehmende_angehoerige, :teilnehmende_weitere,
-            :absenzen_behinderte,     :absenzen_angehoerige,     :absenzen_weitere,
-            :tage_behinderte,         :tage_angehoerige,         :tage_weitere,
-            :leiterinnen,
-            :fachpersonen,
-            :hilfspersonal_ohne_honorar,
-            :hilfspersonal_mit_honorar,
-            :kuechenpersonal,
-            :betreuerinnen,
-            :teilnehmende_mehrfachbehinderte,
-            numericality: { greater_than_or_equal_to: 0, allow_blank: true }
+    :teilnehmende_behinderte, :teilnehmende_angehoerige, :teilnehmende_weitere,
+    :absenzen_behinderte, :absenzen_angehoerige, :absenzen_weitere,
+    :tage_behinderte, :tage_angehoerige, :tage_weitere,
+    :leiterinnen,
+    :fachpersonen,
+    :hilfspersonal_ohne_honorar,
+    :hilfspersonal_mit_honorar,
+    :kuechenpersonal,
+    :betreuerinnen,
+    :teilnehmende_mehrfachbehinderte,
+    numericality: {greater_than_or_equal_to: 0, allow_blank: true}
 
   validate :assert_mehrfachbehinderte_less_than_behinderte
   validate :assert_duration_values_precision
@@ -101,7 +100,7 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def to_s
-    ''
+    ""
   end
 
   def year
@@ -111,21 +110,21 @@ class Event::CourseRecord < ActiveRecord::Base
   # returns a Fp2020::Event::CourseRecord::Calculation since 2020
   def fp_calculations
     @fp_calculations ||= Featureperioden::Dispatcher
-                         .new(year)
-                         .domain_class('Event::CourseRecord::Calculation')
-                         .new(self)
+      .new(year)
+      .domain_class("Event::CourseRecord::Calculation")
+      .new(self)
   end
 
   delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,
-           :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
-           :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
-           :set_cached_values, :direkte_kosten_pro_betreuungsstunde,
-           :vollkosten_pro_betreuungsstunde,
-           to: :fp_calculations
+    :praesenz_prozent, :betreuungsschluessel, :total_vollkosten,
+    :direkte_kosten_pro_le, :vollkosten_pro_le, :duration_in_days?, :duration_in_hours?,
+    :set_cached_values, :direkte_kosten_pro_betreuungsstunde,
+    :vollkosten_pro_betreuungsstunde,
+    to: :fp_calculations
 
   def anzahl_spezielle_unterkunft
     @anzahl_spezielle_unterkunft ||
-      attributes['anzahl_spezielle_unterkunft'] ||
+      attributes["anzahl_spezielle_unterkunft"] ||
       (spezielle_unterkunft ? 1 : 0)
   end
 
@@ -134,15 +133,15 @@ class Event::CourseRecord < ActiveRecord::Base
   end
 
   def set_defaults
-    self.kursart ||= 'weiterbildung'
-    self.inputkriterien ||= 'a'
+    self.kursart ||= "weiterbildung"
+    self.inputkriterien ||= "a"
     self.subventioniert ||= true if subventioniert.nil?
     self.year = event.years.first if event.years.size == 1
     self.anzahl_kurse = 1 if event.is_a?(Event::Course)
 
     if sk?
       self.spezielle_unterkunft = false
-      self.inputkriterien = 'a'
+      self.inputkriterien = "a"
     end
 
     true # ensure callback chain continues
@@ -185,7 +184,7 @@ class Event::CourseRecord < ActiveRecord::Base
       if duration_in_hours?
         check_modulus(attr, value, 1, :not_an_integer)
       else
-        msg = I18n.t('activerecord.errors.messages.must_be_multiple_of', multiple: 0.5)
+        msg = I18n.t("activerecord.errors.messages.must_be_multiple_of", multiple: 0.5)
         check_modulus(attr, value, 0.5, msg)
       end
     end
@@ -204,5 +203,4 @@ class Event::CourseRecord < ActiveRecord::Base
       errors.add(attr, message)
     end
   end
-
 end

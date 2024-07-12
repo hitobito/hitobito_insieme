@@ -1,26 +1,22 @@
-# encoding: utf-8
-
 #  Copyright (c) 2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Statistics::Vereinsmitglieder do
-
   let(:vereinsmitglieder) { described_class.new }
 
-  context '#vereine' do
+  context "#vereine" do
     subject { vereinsmitglieder.vereine }
 
-    it 'contains only Regionalvereine' do
+    it "contains only Regionalvereine" do
       expect(subject.all? { |g| g.is_a?(Group::Regionalverein) }).to be true
     end
   end
 
-  context '#count' do
-
+  context "#count" do
     subject { vereinsmitglieder }
 
     let(:layer) { groups(:be) }
@@ -29,7 +25,7 @@ describe Statistics::Vereinsmitglieder do
     let(:passive) { Fabricate(Group::Passivmitglieder.name.to_sym, parent: layer) }
     let(:collective) { Fabricate(Group::Kollektivmitglieder.name.to_sym, parent: layer) }
 
-    it 'counts all member roles in layer' do
+    it "counts all member roles in layer" do
       subject.role_types do |role, index|
         index.times { Fabricate(role.name.to_sym, group: role_group(role)) }
       end
@@ -39,30 +35,30 @@ describe Statistics::Vereinsmitglieder do
       end
     end
 
-    it 'counts people only in sub layer' do
+    it "counts people only in sub layer" do
       expect(subject.count(layer, 0)).to eq 0
       expect(subject.count(groups(:seeland), 0)).to eq 1
     end
 
-    it 'counts people with roles in two layers twice' do
+    it "counts people with roles in two layers twice" do
       Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
-                group: active,
-                person: people(:regio_aktiv))
+        group: active,
+        person: people(:regio_aktiv))
 
       expect(subject.count(layer, 0)).to eq 1
       expect(subject.count(groups(:seeland), 0)).to eq 1
     end
 
-    it 'counts people with multiple roles in one layer only once' do
+    it "counts people with multiple roles in one layer only once" do
       Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
-                group: active,
-                person: people(:regio_aktiv))
+        group: active,
+        person: people(:regio_aktiv))
       Fabricate(Group::Kollektivmitglieder::Kollektivmitglied.name.to_sym,
-                group: collective,
-                person: people(:regio_aktiv))
+        group: collective,
+        person: people(:regio_aktiv))
       Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
-                group: passive,
-                person: people(:regio_aktiv))
+        group: passive,
+        person: people(:regio_aktiv))
 
       expect(subject.count(layer, 0)).to eq 0
       expect(subject.count(layer, 1)).to eq 1
@@ -72,17 +68,17 @@ describe Statistics::Vereinsmitglieder do
       (1..6).each { |i| expect(subject.count(groups(:seeland), i)).to eq 0 }
     end
 
-    it 'does not count deleted roles' do
+    it "does not count deleted roles" do
       o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
-                    group: active,
-                    created_at: 2.years.ago)
+        group: active,
+        created_at: 2.years.ago)
       a = Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
-                    group: active,
-                    person: people(:regio_aktiv),
-                    created_at: 2.years.ago)
-      b = Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
-                    group: passive,
-                    person: people(:regio_aktiv))
+        group: active,
+        person: people(:regio_aktiv),
+        created_at: 2.years.ago)
+      Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
+        group: passive,
+        person: people(:regio_aktiv))
       o.update!(deleted_at: 1.year.ago)
       a.update!(deleted_at: 1.year.ago)
 
@@ -99,5 +95,4 @@ describe Statistics::Vereinsmitglieder do
       end
     end
   end
-
 end

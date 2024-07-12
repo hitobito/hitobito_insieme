@@ -8,17 +8,16 @@
 module Fp2020::CostAccounting
   module Report
     class UmlageVerwaltung < Base
-
       delegate :time_record, to: :table
 
-      FIELDS = %w(mittelbeschaffung
-                  beratung
-                  treffpunkte
-                  blockkurse
-                  tageskurse
-                  jahreskurse
-                  lufeb
-                  medien_und_publikationen).freeze
+      FIELDS = %w[mittelbeschaffung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        medien_und_publikationen].freeze
 
       FIELDS.each do |field|
         define_method(field) do
@@ -26,10 +25,10 @@ module Fp2020::CostAccounting
 
           if verwaltung.positive?
             @allocated_fields[field] ||= if time_record.total.positive?
-                                           allocated_with_time_record(field)
-                                         else
-                                           allocated_without_time_record(field)
-                                         end
+              allocated_with_time_record(field)
+            else
+              allocated_without_time_record(field)
+            end
           end
         end
       end
@@ -40,14 +39,13 @@ module Fp2020::CostAccounting
 
       def verwaltung
         @verwaltung ||=
-          table.value_of('total_aufwand', 'verwaltung').to_d +
-            table.value_of('umlage_personal', 'verwaltung').to_d +
-            table.value_of('umlage_raeumlichkeiten', 'verwaltung').to_d
+          table.value_of("total_aufwand", "verwaltung").to_d +
+          table.value_of("umlage_personal", "verwaltung").to_d +
+          table.value_of("umlage_raeumlichkeiten", "verwaltung").to_d
       end
 
       def total # rubocop:disable Metrics/AbcSize
-        @total ||= begin
-          mittelbeschaffung.to_d +
+        @total ||= mittelbeschaffung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
@@ -55,7 +53,6 @@ module Fp2020::CostAccounting
           jahreskurse.to_d +
           lufeb.to_d +
           medien_und_publikationen.to_d
-        end
       end
 
       def kontrolle
@@ -88,7 +85,7 @@ module Fp2020::CostAccounting
       end
 
       def aufwand(field)
-        table.value_of('total_aufwand', field).to_d
+        table.value_of("total_aufwand", field).to_d
       end
     end
   end

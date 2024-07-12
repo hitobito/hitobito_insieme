@@ -9,8 +9,8 @@ module Insieme::Export::Tabular::People
   module HouseholdRow
     def name
       with_combined_first_names.collect do |last_name, combined_first_name|
-        without_blanks([combined_first_name, last_name]).join(' ')
-      end.join(', ')
+        without_blanks([combined_first_name, last_name]).join(" ")
+      end.join(", ")
     end
   end
 end

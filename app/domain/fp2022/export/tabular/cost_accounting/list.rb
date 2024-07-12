@@ -5,7 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2022::Export::Tabular::CostAccounting
   class List < Export::Tabular::Base
     include Featureperioden::Domain
@@ -19,7 +18,7 @@ module Fp2022::Export::Tabular::CostAccounting
       @group_name = group_name
       @year = year
       @list = only_visible_reports(list)
-      self.model_class = fp_class('CostAccounting::Report::Base')
+      self.model_class = fp_class("CostAccounting::Report::Base")
       add_header_rows
     end
 
@@ -27,7 +26,7 @@ module Fp2022::Export::Tabular::CostAccounting
       {}.tap do |labels|
         labels[:report] = human(:report)
 
-        fp_class('CostAccounting::Table').fields.each do |field|
+        fp_class("CostAccounting::Table").fields.each do |field|
           labels[field.to_sym] = human(field)
         end
       end
@@ -58,24 +57,23 @@ module Fp2022::Export::Tabular::CostAccounting
       row = Array.new(18)
       row[0] = @group_name
       row[1] = reporting_year
-      row[14] = "#{I18n.t('global.printed')}: "
+      row[14] = "#{I18n.t("global.printed")}: "
       row[15] = printed_at
       row
     end
 
     def combined_labels_row
       row = Array.new(18)
-      row[5] = I18n.t('cost_accounting.index.gemeinkosten')
+      row[5] = I18n.t("cost_accounting.index.gemeinkosten")
       row
     end
 
     def reporting_year
-      "#{I18n.t('cost_accounting.index.reporting_year')}: #{@year}"
+      "#{I18n.t("cost_accounting.index.reporting_year")}: #{@year}"
     end
 
     def printed_at
-      I18n.l(Time.zone.today) + Time.zone.now.strftime(' %H:%M')
+      I18n.l(Time.zone.today) + Time.zone.now.strftime(" %H:%M")
     end
-
   end
 end

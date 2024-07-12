@@ -7,7 +7,6 @@
 
 module Insieme::Export::Tabular::People
   module PersonRow
-
     extend ActiveSupport::Concern
 
     def reference_person_first_name
@@ -34,8 +33,8 @@ module Insieme::Export::Tabular::People
       grouped_roles = entry.reference_person&.grouped_active_membership_roles
       if grouped_roles.present?
         grouped_roles.map do |group, roles|
-          group.with_layer.join(' / ') + ': ' + roles.join(', ')
-        end.join('; ')
+          group.with_layer.join(" / ") + ": " + roles.join(", ")
+        end.join("; ")
       end
     end
 
@@ -44,10 +43,9 @@ module Insieme::Export::Tabular::People
     end
 
     Person::ADDRESS_TYPES.each do |type|
-      define_method("#{type}_country") do
-        entry.send("#{type}_country_label")
+      define_method(:"#{type}_country") do
+        entry.send(:"#{type}_country_label")
       end
     end
-
   end
 end

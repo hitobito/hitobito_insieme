@@ -8,7 +8,6 @@
 module Fp2015::CostAccounting
   module Report
     class UmlagePersonal < Base
-
       # This report has no data
 
       def aufwand_ertrag_ko_re
@@ -22,7 +21,6 @@ module Fp2015::CostAccounting
       def kontrolle
         nil
       end
-
     end
   end
 end

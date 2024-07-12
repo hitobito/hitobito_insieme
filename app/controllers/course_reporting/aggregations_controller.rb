@@ -6,12 +6,11 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class CourseReporting::AggregationsController < ApplicationController
-
   include Featureperioden::Views
   include Featureperioden::Domain
   include YearBasedPaging
 
-  layout 'reporting'
+  layout "reporting"
 
   before_action :authorize
 
@@ -26,7 +25,7 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def export
-    csv = fp_class('Export::Tabular::CourseReporting::Aggregation').csv(aggregation)
+    csv = fp_class("Export::Tabular::CourseReporting::Aggregation").csv(aggregation)
     send_data csv, type: :csv, filename: filename
   end
 
@@ -37,11 +36,11 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def aggregation
-    @aggregation ||= fp_class('CourseReporting::Aggregation').new(aggregation_group_id,
-                                                                  year,
-                                                                  leistungskategorie,
-                                                                  categories,
-                                                                  subsidized)
+    @aggregation ||= fp_class("CourseReporting::Aggregation").new(aggregation_group_id,
+      year,
+      leistungskategorie,
+      categories,
+      subsidized)
   end
 
   def aggregation_group_id
@@ -57,7 +56,7 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def subsidized
-    params[:subsidized].to_s.downcase == 'true'
+    params[:subsidized].to_s.downcase == "true"
   end
 
   def leistungskategorie
@@ -69,17 +68,16 @@ class CourseReporting::AggregationsController < ApplicationController
   end
 
   def filename
-    subsi = subsidized ? 'subsidized' : 'unsubsidized'
-    lk = t('activerecord.attributes.event/course.leistungskategorien.' +
+    subsi = subsidized ? "subsidized" : "unsubsidized"
+    lk = t("activerecord.attributes.event/course.leistungskategorien." +
            leistungskategorie, count: 3).downcase
-    consolidated = aggregation_group_id.nil? ? '_consolidated' : ''
-    "#{prefix}_#{year}_#{lk}_#{subsi}_#{categories.join('_')}#{consolidated}.csv"
+    consolidated = aggregation_group_id.nil? ? "_consolidated" : ""
+    "#{prefix}_#{year}_#{lk}_#{subsi}_#{categories.join("_")}#{consolidated}.csv"
   end
 
   def prefix
-    vid = group.vid.present? && "_vid#{group.vid}" || ''
-    bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ''
+    vid = group.vid.present? && "_vid#{group.vid}" || ""
+    bsv = group.bsv_number.present? && "_bsv#{group.bsv_number}" || ""
     "course_statistics#{vid}#{bsv}_#{group.name.parameterize}"
   end
-
 end

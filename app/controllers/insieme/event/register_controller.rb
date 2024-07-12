@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::Event::RegisterController
-
   def save_entry
     if super
       role = external_role_class.new

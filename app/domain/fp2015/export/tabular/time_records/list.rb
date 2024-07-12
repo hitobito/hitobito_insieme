@@ -10,7 +10,6 @@ module Fp2015
     module Tabular
       module TimeRecords
         class List
-
           ATTRIBUTES = [
             :kontakte_medien,
             :interviews,
@@ -102,31 +101,30 @@ module Fp2015
 
           def labels
             [nil,
-             ::TimeRecord::EmployeeTime.model_name.human,
-             ::TimeRecord::VolunteerWithVerificationTime.model_name.human,
-             ::TimeRecord::VolunteerWithoutVerificationTime.model_name.human]
+              ::TimeRecord::EmployeeTime.model_name.human,
+              ::TimeRecord::VolunteerWithVerificationTime.model_name.human,
+              ::TimeRecord::VolunteerWithoutVerificationTime.model_name.human]
           end
 
           private
 
           def pensum_attributes(attr)
             [::TimeRecord::EmployeePensum.human_attribute_name(attr),
-             records['employee_time'].try(:employee_pensum).try(attr),
-             nil,
-             nil]
+              records["employee_time"].try(:employee_pensum).try(attr),
+              nil,
+              nil]
           end
 
           def attributes(attr)
             [::TimeRecord.human_attribute_name(attr),
-             value(::TimeRecord::EmployeeTime, attr),
-             value(::TimeRecord::VolunteerWithVerificationTime, attr),
-             value(::TimeRecord::VolunteerWithoutVerificationTime, attr)]
+              value(::TimeRecord::EmployeeTime, attr),
+              value(::TimeRecord::VolunteerWithVerificationTime, attr),
+              value(::TimeRecord::VolunteerWithoutVerificationTime, attr)]
           end
 
           def value(klass, attr)
             records[klass.key].try(attr)
           end
-
         end
       end
     end

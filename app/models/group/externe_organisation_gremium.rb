@@ -36,9 +36,7 @@
 #
 
 class Group::ExterneOrganisationGremium < Group
-
   children Group::ExterneOrganisationGremium
-
 
   ### ROLES
 
@@ -53,6 +51,6 @@ class Group::ExterneOrganisationGremium < Group
   end
 
   roles Leitung,
-        Mitglied
+    Mitglied
   self.default_role = Mitglied
 end

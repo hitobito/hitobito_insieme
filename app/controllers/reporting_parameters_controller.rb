@@ -20,21 +20,19 @@
 #
 
 class ReportingParametersController < SimpleCrudController
-
   self.permitted_attrs = [:id,
-                          :year,
-                          :vollkosten_le_schwelle1_blockkurs,
-                          :vollkosten_le_schwelle2_blockkurs,
-                          :vollkosten_le_schwelle1_tageskurs,
-                          :vollkosten_le_schwelle2_tageskurs,
-                          :bsv_hours_per_year,
-                          :capital_substrate_exemption,
-                          :capital_substrate_limit]
+    :year,
+    :vollkosten_le_schwelle1_blockkurs,
+    :vollkosten_le_schwelle2_blockkurs,
+    :vollkosten_le_schwelle1_tageskurs,
+    :vollkosten_le_schwelle2_tageskurs,
+    :bsv_hours_per_year,
+    :capital_substrate_exemption,
+    :capital_substrate_limit]
 
   private
 
   def list_entries
     super.list
   end
-
 end

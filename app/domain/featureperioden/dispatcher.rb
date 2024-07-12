@@ -18,7 +18,7 @@ module Featureperioden
     end
 
     def view_path
-      Wagons.find('insieme').root / 'app' / 'views' / "fp#{determine}"
+      Wagons.find("insieme").root / "app" / "views" / "fp#{determine}"
     end
 
     def domain_class(class_name)
@@ -30,7 +30,7 @@ module Featureperioden
     end
 
     def supported?
-      (KNOWN_BASE_YEARS.first..).include?(@year)
+      (KNOWN_BASE_YEARS.first..).cover?(@year)
     end
 
     def determine
@@ -38,7 +38,7 @@ module Featureperioden
       return KNOWN_BASE_YEARS.first unless supported? # the earliest year
 
       KNOWN_BASE_YEARS.each_cons(2) do |period, next_period|
-        return period if (period...next_period).include? @year
+        return period if (period...next_period).cover? @year
       end
     end
   end

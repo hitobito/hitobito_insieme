@@ -53,156 +53,155 @@
 #  nicht_art_74_leistungen                  :integer
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe TimeRecord do
-
   let(:record) do
     TimeRecord.new(group: groups(:be), year: 2014,
-                   total_lufeb_general: 1,
-                   total_lufeb_private: 2,
-                   total_lufeb_specific: 3,
-                   total_lufeb_promoting: 4,
-                   blockkurse: 5,
-                   tageskurse: 6,
-                   jahreskurse: 7,
-                   treffpunkte: 8,
-                   beratung: 9,
-                   mittelbeschaffung: 10,
-                   verwaltung: 11,
-                   nicht_art_74_leistungen: 12,
+      total_lufeb_general: 1,
+      total_lufeb_private: 2,
+      total_lufeb_specific: 3,
+      total_lufeb_promoting: 4,
+      blockkurse: 5,
+      tageskurse: 6,
+      jahreskurse: 7,
+      treffpunkte: 8,
+      beratung: 9,
+      mittelbeschaffung: 10,
+      verwaltung: 11,
+      nicht_art_74_leistungen: 12,
 
-                   # lufeb general
-                   kontakte_medien: 10,
-                   interviews: 11,
-                   publikationen: 12,
-                   referate: 13,
-                   medienkonferenzen: 14,
-                   informationsveranstaltungen: 15,
-                   sensibilisierungskampagnen: 16,
-                   allgemeine_auskunftserteilung: 17,
-                   kontakte_meinungsbildner: 18,
-                   beratung_medien: 19,
+      # lufeb general
+      kontakte_medien: 10,
+      interviews: 11,
+      publikationen: 12,
+      referate: 13,
+      medienkonferenzen: 14,
+      informationsveranstaltungen: 15,
+      sensibilisierungskampagnen: 16,
+      allgemeine_auskunftserteilung: 17,
+      kontakte_meinungsbildner: 18,
+      beratung_medien: 19,
 
-                   # lufeb_private
-                   eigene_zeitschriften: 21,
-                   newsletter: 22,
-                   informationsbroschueren: 23,
-                   eigene_webseite: 24,
+      # lufeb_private
+      eigene_zeitschriften: 21,
+      newsletter: 22,
+      informationsbroschueren: 23,
+      eigene_webseite: 24,
 
-                   # lufeb_specific
-                   erarbeitung_instrumente: 31,
-                   erarbeitung_grundlagen: 32,
-                   projekte: 33,
-                   vernehmlassungen: 34,
-                   gremien: 35,
+      # lufeb_specific
+      erarbeitung_instrumente: 31,
+      erarbeitung_grundlagen: 32,
+      projekte: 33,
+      vernehmlassungen: 34,
+      gremien: 35,
 
-                   # lufeb_promoting
-                   auskunftserteilung: 41,
-                   vermittlung_kontakte: 42,
-                   unterstuetzung_selbsthilfeorganisationen: 43,
-                   koordination_selbsthilfe: 44,
-                   treffen_meinungsaustausch: 45,
-                   beratung_fachhilfeorganisationen: 46,
-                   unterstuetzung_behindertenhilfe: 47)
+      # lufeb_promoting
+      auskunftserteilung: 41,
+      vermittlung_kontakte: 42,
+      unterstuetzung_selbsthilfeorganisationen: 43,
+      koordination_selbsthilfe: 44,
+      treffen_meinungsaustausch: 45,
+      beratung_fachhilfeorganisationen: 46,
+      unterstuetzung_behindertenhilfe: 47)
   end
 
-  context 'calculated totals' do
-    context '#total_lufeb' do
-      it 'is 0 for new record' do
+  context "calculated totals" do
+    context "#total_lufeb" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_lufeb).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_lufeb).to eq 10
       end
     end
 
-    context '#total_courses' do
-      it 'is 0 for new record' do
+    context "#total_courses" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_courses).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_courses).to eq 18
       end
     end
 
-    context '#total_additional_person_specific' do
-      it 'is 0 for new record' do
+    context "#total_additional_person_specific" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_additional_person_specific).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_additional_person_specific).to eq 17
       end
     end
 
-    context '#total_remaining' do
-      it 'is 0 for new record' do
+    context "#total_remaining" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_remaining).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_remaining).to eq 21
       end
     end
 
-    context '#total_paragraph_74' do
-      it 'is 0 for new record' do
+    context "#total_paragraph_74" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_paragraph_74).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_paragraph_74).to eq 66
       end
     end
 
-    context '#total_not_paragraph_74' do
-      it 'is 0 for new record' do
+    context "#total_not_paragraph_74" do
+      it "is 0 for new record" do
         expect(TimeRecord.new.total_not_paragraph_74).to eq(0)
       end
 
-      it 'is the sum the values set' do
+      it "is the sum the values set" do
         expect(record.total_not_paragraph_74).to eq 12
       end
     end
   end
 
-  context 'stored totals' do
-    context '#update_totals' do
-      it 'is called on save' do
+  context "stored totals" do
+    context "#update_totals" do
+      it "is called on save" do
         expect(record).to receive(:update_totals)
 
-        record.type = 'TimeRecord::EmployeeTime'
+        record.type = "TimeRecord::EmployeeTime"
         record.save!
       end
     end
 
     [[:total_lufeb_general, 145],
-     [:total_lufeb_private, 90],
-     [:total_lufeb_specific, 165],
-     [:total_lufeb_promoting, 308],
-     [:total, 776]].each do |method, value|
+      [:total_lufeb_private, 90],
+      [:total_lufeb_specific, 165],
+      [:total_lufeb_promoting, 308],
+      [:total, 776]].each do |method, value|
       context "##{method}" do
         if method == :total
-          it 'is 0 for new record before save' do
+          it "is 0 for new record before save" do
             expect(TimeRecord.new.send(method)).to eq 0
           end
         else
-          it 'is nil for new record before save' do
+          it "is nil for new record before save" do
             expect(TimeRecord.new.send(method)).to be_nil
           end
         end
 
-        it 'is 0 for new record after save' do
-          new_record = TimeRecord.new(group: groups(:be), year: 2014, type: 'TimeRecord::EmployeeTime')
+        it "is 0 for new record after save" do
+          new_record = TimeRecord.new(group: groups(:be), year: 2014, type: "TimeRecord::EmployeeTime")
           new_record.save!
           expect(new_record.send(method)).to eq(0)
         end
 
-        it 'is the correct sum for nonempty record' do
-          record.type = 'TimeRecord::EmployeeTime'
+        it "is the correct sum for nonempty record" do
+          record.type = "TimeRecord::EmployeeTime"
           record.save!
           expect(record.send(method)).to eq(value)
         end
@@ -210,71 +209,69 @@ describe TimeRecord do
     end
   end
 
-  context 'pensums' do
-    it 'exists a bsv_hours_per_year reporting parameter' do
+  context "pensums" do
+    it "exists a bsv_hours_per_year reporting parameter" do
       expect(ReportingParameter.for(2014).bsv_hours_per_year).to eq 1900
     end
 
-    context '#total_paragraph_74_pensum' do
-      it 'is 0 for new record' do
+    context "#total_paragraph_74_pensum" do
+      it "is 0 for new record" do
         expect(TimeRecord.new(year: 2014).total_paragraph_74_pensum).to eq(0)
       end
 
-      it 'is the equivalent to 100%-jobs' do
-        expect(record.total_paragraph_74_pensum).to eq 66.to_d / 1900
+      it "is the equivalent to 100%-jobs" do
+        expect(record.total_paragraph_74_pensum).to eq BigDecimal("66") / 1900
       end
     end
 
-    context '#total_not_paragraph_74_pensum' do
-      it 'is 0 for new record' do
+    context "#total_not_paragraph_74_pensum" do
+      it "is 0 for new record" do
         expect(TimeRecord.new(year: 2014).total_not_paragraph_74_pensum).to eq(0)
       end
 
-      it 'is the equivalent to 100%-jobs' do
-        expect(record.total_not_paragraph_74_pensum).to eq 12.to_d / 1900
+      it "is the equivalent to 100%-jobs" do
+        expect(record.total_not_paragraph_74_pensum).to eq BigDecimal("12") / 1900
       end
     end
 
-    context '#total_pensum' do
-      it 'is 0 for new record before save' do
+    context "#total_pensum" do
+      it "is 0 for new record before save" do
         expect(TimeRecord.new(year: 2014).total_pensum).to eq(0)
       end
 
-      it 'is 0 for new record after save' do
-        new_record = TimeRecord.new(group: groups(:be), year: 2014, type: 'TimeRecord::EmployeeTime')
+      it "is 0 for new record after save" do
+        new_record = TimeRecord.new(group: groups(:be), year: 2014, type: "TimeRecord::EmployeeTime")
         new_record.save!
         expect(new_record.total_pensum).to eq(0)
       end
 
-      it 'is the equivalent to 100%-jobs' do
-        record.type = 'TimeRecord::EmployeeTime'
+      it "is the equivalent to 100%-jobs" do
+        record.type = "TimeRecord::EmployeeTime"
         record.save!
-        expect(record.total_pensum).to eq 776.to_d / 1900
+        expect(record.total_pensum).to eq BigDecimal("776") / 1900
       end
     end
-
   end
 
-  context 'frozen reporting year' do
+  context "frozen reporting year" do
     before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
-    after  { GlobalValue.clear_cache }
+    after { GlobalValue.clear_cache }
 
-    it 'cannot create new record' do
-      record = TimeRecord.new(group: groups(:be), year: 2014, type: 'TimeRecord::EmployeeTime')
+    it "cannot create new record" do
+      record = TimeRecord.new(group: groups(:be), year: 2014, type: "TimeRecord::EmployeeTime")
       expect(record).to have(1).error_on(:year)
     end
 
-    it 'cannot change year to frozen period' do
-      record = TimeRecord.create!(group: groups(:be), year: 2016, type: 'TimeRecord::EmployeeTime')
+    it "cannot change year to frozen period" do
+      record = TimeRecord.create!(group: groups(:be), year: 2016, type: "TimeRecord::EmployeeTime")
       record.year = 2015
       expect(record).to have(1).error_on(:year)
     end
 
-    it 'cannot destroy record in frozen year' do
-      record = TimeRecord.create!(group: groups(:be), year: 2016, type: 'TimeRecord::EmployeeTime')
+    it "cannot destroy record in frozen year" do
+      record = TimeRecord.create!(group: groups(:be), year: 2016, type: "TimeRecord::EmployeeTime")
       record.update_column(:year, 2015)
-      expect{ record.destroy }.not_to change { TimeRecord.count }
+      expect { record.destroy }.not_to change { TimeRecord.count }
     end
   end
-
 end

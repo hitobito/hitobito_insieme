@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Export
   module Tabular
     module Events
       class GeneralCostAllocation
-
         class << self
           def csv(entry)
             Export::Csv::Generator.new(new(entry)).call
@@ -33,20 +31,19 @@ module Export
 
         def labels
           [nil,
-           ::Event::GeneralCostAllocation.human_attribute_name(:total_direct_costs),
-           ::Event::GeneralCostAllocation.human_attribute_name(:general_costs_blockkurse),
-           ::Event::GeneralCostAllocation.human_attribute_name(:general_costs_allowance)]
+            ::Event::GeneralCostAllocation.human_attribute_name(:total_direct_costs),
+            ::Event::GeneralCostAllocation.human_attribute_name(:general_costs_blockkurse),
+            ::Event::GeneralCostAllocation.human_attribute_name(:general_costs_allowance)]
         end
 
         private
 
         def values(lk)
           [I18n.t("activerecord.attributes.event/course.leistungskategorien.#{lk}.other"),
-           entry.total_costs(lk),
-           entry.general_costs(lk),
-           entry.general_costs_allowance(lk)]
+            entry.total_costs(lk),
+            entry.general_costs(lk),
+            entry.general_costs_allowance(lk)]
         end
-
       end
     end
   end

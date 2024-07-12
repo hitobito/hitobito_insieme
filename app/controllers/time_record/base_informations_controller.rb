@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class TimeRecord::BaseInformationsController < ReportingBaseController
-
   include Rememberable
   include Featureperioden::Domain
 
@@ -17,7 +16,7 @@ class TimeRecord::BaseInformationsController < ReportingBaseController
   def index
     # Fp2015::TimeRecord::Table
     # Fp2020::TimeRecord::Table
-    @table = fp_class('TimeRecord::Table').new(group, year)
+    @table = fp_class("TimeRecord::Table").new(group, year)
 
     respond_to do |format|
       format.html
@@ -26,5 +25,4 @@ class TimeRecord::BaseInformationsController < ReportingBaseController
       end
     end
   end
-
 end

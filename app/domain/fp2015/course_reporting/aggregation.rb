@@ -7,7 +7,6 @@
 
 module Fp2015::CourseReporting
   class Aggregation
-
     COUNTS = [
       :anzahl_kurse,
       :kursdauer,
@@ -59,7 +58,7 @@ module Fp2015::CourseReporting
     end
 
     def kursarten
-      return [] if leistungskategorie == 'tp'
+      return [] if leistungskategorie == "tp"
 
       Event::CourseRecord::KURSARTEN
     end
@@ -69,16 +68,16 @@ module Fp2015::CourseReporting
     end
 
     def scope
-      Event::CourseRecord.
-        joins(:event).
-        group(:kursart, :inputkriterien).
-        merge(group_id ? Event.with_group_id(group_id) : {}).
-        where(events: { leistungskategorie: leistungskategorie },
-              event_course_records: {
-                year: year,
-                zugeteilte_kategorie: zugeteilte_kategorien,
-                subventioniert: subventioniert
-              })
+      Event::CourseRecord
+        .joins(:event)
+        .group(:kursart, :inputkriterien)
+        .merge(group_id ? Event.with_group_id(group_id) : {})
+        .where(events: {leistungskategorie: leistungskategorie},
+          event_course_records: {
+            year: year,
+            zugeteilte_kategorie: zugeteilte_kategorien,
+            subventioniert: subventioniert
+          })
     end
 
     private
@@ -94,7 +93,7 @@ module Fp2015::CourseReporting
 
     def build_categories(hash)
       inputkriterien.each do |kriterium|
-        hash[kriterium]['total'] = total(records_for(:inputkriterien, kriterium))
+        hash[kriterium]["total"] = total(records_for(:inputkriterien, kriterium))
         kursarten.each do |kursart|
           hash[kriterium][kursart] = find_record(kriterium, kursart)
         end
@@ -102,9 +101,9 @@ module Fp2015::CourseReporting
     end
 
     def build_totals(hash)
-      hash['all']['total'] = total(records)
+      hash["all"]["total"] = total(records)
       kursarten.each do |kursart|
-        hash['all'][kursart] = total(records_for(:kursart, kursart))
+        hash["all"][kursart] = total(records_for(:kursart, kursart))
       end
     end
 
@@ -128,21 +127,21 @@ module Fp2015::CourseReporting
     def total(course_records)
       RUBY_SUMMED_ATTRS.each_with_object(empty_course_record) do |attr, total|
         sum = course_records
-              .collect { |record| record.send(attr) }
-              .compact
-              .sum
-        total.send("#{attr}=", sum)
+          .collect { |record| record.send(attr) }
+          .compact
+          .sum
+        total.send(:"#{attr}=", sum)
       end
     end
 
     def select_clause
-      columns = ['event_course_records.year',
-                 'event_course_records.kursart',
-                 'event_course_records.inputkriterien',
-                 'event_course_records.event_id']
+      columns = ["event_course_records.year",
+        "event_course_records.kursart",
+        "event_course_records.inputkriterien",
+        "event_course_records.event_id"]
       columns.concat(sql_summed_attrs)
       columns << sql_sum_unterkunft
-      columns.join(', ')
+      columns.join(", ")
     end
 
     def sql_summed_attrs
@@ -154,9 +153,8 @@ module Fp2015::CourseReporting
       # quoted_true_value = Event::CourseRecord.connection.quote(true, column)
       quoted_true_value = ActiveRecord::Type::Boolean.new.serialize(true)
       "SUM(CASE WHEN event_course_records.spezielle_unterkunft = #{quoted_true_value} " \
-      'THEN event_course_records.anzahl_kurse ELSE 0 END) ' \
-      'AS anzahl_spezielle_unterkunft'
+      "THEN event_course_records.anzahl_kurse ELSE 0 END) " \
+      "AS anzahl_spezielle_unterkunft"
     end
-
   end
 end

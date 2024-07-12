@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -28,27 +26,25 @@
 #  aufteilung_kontengruppen    :text
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe CostAccountingRecord do
-
   let(:group) { groups(:be) }
 
-  context 'validation' do
-    it 'is fine with empty fields' do
-      r = CostAccountingRecord.new(group: group, year: 2014, report: 'lohnaufwand')
+  context "validation" do
+    it "is fine with empty fields" do
+      r = CostAccountingRecord.new(group: group, year: 2014, report: "lohnaufwand")
       expect(r).to be_valid
     end
 
-    it 'fails for invalid report' do
-      r = CostAccountingRecord.new(group: group, year: 2014, report: 'foo')
+    it "fails for invalid report" do
+      r = CostAccountingRecord.new(group: group, year: 2014, report: "foo")
       expect(r).not_to be_valid
     end
 
-    it 'fails for invalid group' do
-      r = CostAccountingRecord.new(group: groups(:aktiv), year: 2014, report: 'lohnaufwand')
+    it "fails for invalid group" do
+      r = CostAccountingRecord.new(group: groups(:aktiv), year: 2014, report: "lohnaufwand")
       expect(r).not_to be_valid
     end
   end
-
 end

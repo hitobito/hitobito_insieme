@@ -5,10 +5,9 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Export::Pdf::Labels do
-
   let(:person) { people(:top_leader) }
 
   let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), address_type) }
@@ -21,109 +20,107 @@ describe Export::Pdf::Labels do
 
   before do
     person.update!(
-      street: 'My Street',
+      street: "My Street",
       housenumber: nil,
-      town: 'Bern',
-      zip_code: '3007',
+      town: "Bern",
+      zip_code: "3007",
       correspondence_course_same_as_main: false,
-      correspondence_course_first_name: 'Course',
-      correspondence_course_last_name: 'Leader',
-      correspondence_course_company_name: 'Chiefs Inc',
-      correspondence_course_address: 'Course Street',
-      correspondence_course_zip_code: '3030',
-      correspondence_course_town: 'Wabern',
-      correspondence_course_country: 'Schweiz'
+      correspondence_course_first_name: "Course",
+      correspondence_course_last_name: "Leader",
+      correspondence_course_company_name: "Chiefs Inc",
+      correspondence_course_address: "Course Street",
+      correspondence_course_zip_code: "3030",
+      correspondence_course_town: "Wabern",
+      correspondence_course_country: "Schweiz"
     )
   end
 
-  context 'for person' do
+  context "for person" do
+    context "for main address" do
+      let(:address_type) { "main" }
 
-    context 'for main address' do
-      let(:address_type) { 'main' }
-
-      it 'renders correct address' do
+      it "renders correct address" do
         is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
       end
     end
 
-    context 'for correspondence course address' do
-      let(:address_type) { 'correspondence_course' }
+    context "for correspondence course address" do
+      let(:address_type) { "correspondence_course" }
 
-      it 'renders correct address' do
+      it "renders correct address" do
         is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
       end
     end
   end
 
-  context 'for company person' do
+  context "for company person" do
     let(:company) { true }
-    let(:company_name) { 'Chiefs Incorporated' }
+    let(:company_name) { "Chiefs Incorporated" }
+
     before do
       person.update(company: company, company_name: company_name)
     end
 
-    context 'for main address' do
-      let(:address_type) { 'main' }
+    context "for main address" do
+      let(:address_type) { "main" }
 
-      it 'has assumptions' do
-        expect(person.first_name).to eq 'Top'
-        expect(person.last_name).to eq 'Leader'
-        expect(person.full_name).to eq 'Top Leader'
-        expect(person.company_name).to eq 'Chiefs Incorporated'
+      it "has assumptions" do
+        expect(person.first_name).to eq "Top"
+        expect(person.last_name).to eq "Leader"
+        expect(person.full_name).to eq "Top Leader"
+        expect(person.company_name).to eq "Chiefs Incorporated"
         expect(person.company).to be_truthy
       end
 
-      context 'with a company-name set' do
-        let(:company_name) { 'Chiefs Incorporated' }
-        let(:address_type) { 'main' }
+      context "with a company-name set" do
+        let(:company_name) { "Chiefs Incorporated" }
+        let(:address_type) { "main" }
 
-        context 'when marked as a company' do
+        context "when marked as a company" do
           let(:company) { true }
 
-          it 'renders company_name' do
+          it "renders company_name" do
             is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
           end
         end
 
-        context 'when not marked as a company' do
+        context "when not marked as a company" do
           let(:company) { false }
 
-          it 'does also render company_name' do
+          it "does also render company_name" do
             is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
           end
         end
       end
 
-      context 'with no company-name set' do
+      context "with no company-name set" do
         let(:company_name) { nil }
-        let(:address_type) { 'main' }
+        let(:address_type) { "main" }
 
-        context 'when marked as a company' do
+        context "when marked as a company" do
           let(:company) { true }
 
-          it 'does not render company_name' do
+          it "does not render company_name" do
             is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
           end
         end
 
-        context 'when not marked as a company' do
+        context "when not marked as a company" do
           let(:company) { false }
 
-          it 'does also not render company_name' do
+          it "does also not render company_name" do
             is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
           end
         end
       end
     end
 
-    context 'for correspondence course address' do
-      let(:address_type) { 'correspondence_course' }
+    context "for correspondence course address" do
+      let(:address_type) { "correspondence_course" }
 
-      it 'renders correct address' do
+      it "renders correct address" do
         is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
       end
     end
-
-
   end
 end

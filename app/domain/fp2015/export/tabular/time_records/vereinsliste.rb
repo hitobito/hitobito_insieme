@@ -5,12 +5,10 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module Fp2015::Export
   module Tabular
     module TimeRecords
       class Vereinsliste < Export::Tabular::Base
-
         ATTRS_LUFEB = [
           :kontakte_medien,
           :interviews,
@@ -103,7 +101,6 @@ module Fp2015::Export
         end
 
         class Row
-
           attr_reader :verein, :record
 
           def initialize(verein, record)
@@ -118,9 +115,7 @@ module Fp2015::Export
               record.send(attr)
             end
           end
-
         end
-
       end
     end
   end

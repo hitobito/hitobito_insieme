@@ -1,20 +1,16 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
-
+require "spec_helper"
 
 describe PersonReadables do
-
   [:index, :layer_search, :deep_search, :global].each do |action|
     context action do
       let(:action) { action }
-      let(:user)   { role.person.reload }
-      let(:ability) { PersonReadables.new(user, action == :index ? group : nil) }
+      let(:user) { role.person.reload }
+      let(:ability) { PersonReadables.new(user, (action == :index) ? group : nil) }
 
       let(:all_accessibles) do
         people = Person.accessible_by(ability)
@@ -26,44 +22,42 @@ describe PersonReadables do
         end
       end
 
-
       subject { all_accessibles }
-
 
       context :contact_data do
         let(:role) { Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:be)) }
 
-        context 'in own group' do
+        context "in own group" do
           let(:group) { role.group }
 
-          it 'may get himself' do
+          it "may get himself" do
             is_expected.to include(role.person)
           end
 
-          it 'may get people with contact data' do
+          it "may get people with contact data" do
             other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
             is_expected.to include(other.person)
           end
         end
 
-        context 'in other group in same layer' do
+        context "in other group in same layer" do
           let(:group) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: role.group) }
 
-          it 'may get people with contact data' do
+          it "may get people with contact data" do
             other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: group)
             is_expected.to include(other.person)
           end
 
-          it 'may not get people without contact data' do
+          it "may not get people without contact data" do
             other = Fabricate(Group::RegionalvereinGremium::Mitglied.name.to_sym, group: group)
             is_expected.not_to include(other.person)
           end
         end
 
-        context 'in lower layer' do
+        context "in lower layer" do
           let(:group) { groups(:seeland) }
 
-          it 'may not get person with contact data' do
+          it "may not get person with contact data" do
             other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
             is_expected.not_to include(other.person)
           end

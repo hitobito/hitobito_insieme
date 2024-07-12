@@ -8,16 +8,16 @@
 module Insieme::Person
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(de fr it en another).freeze
-  CORRESPONDENCE_LANGUAGES = %w(de fr).freeze
+  LANGUAGES = %w[de fr it en another].freeze
+  CORRESPONDENCE_LANGUAGES = %w[de fr].freeze
 
-  ADDRESS_TYPES = %w(correspondence_general
-                     billing_general
-                     correspondence_course
-                     billing_course).freeze
+  ADDRESS_TYPES = %w[correspondence_general
+    billing_general
+    correspondence_course
+    billing_course].freeze
 
-  ADDRESS_FIELDS = %w(salutation first_name last_name company_name company
-                      address zip_code town country).freeze
+  ADDRESS_FIELDS = %w[salutation first_name last_name company_name company
+    address zip_code town country].freeze
 
   included do # rubocop:disable Metrics/BlockLength
     attr_accessor :newly_registered
@@ -32,7 +32,7 @@ module Insieme::Person
       i18n_boolean_setter "#{prefix}_company"
 
       validates "#{prefix}_country", inclusion: Countries.codes, allow_blank: true
-      validates "#{prefix}_address", length: { allow_nil: true, maximum: 1024 }
+      validates "#{prefix}_address", length: {allow_nil: true, maximum: 1024}
     end
 
     i18n_enum :language, LANGUAGES
@@ -42,10 +42,10 @@ module Insieme::Person
     before_save :normalize_addresses
     before_save :normalize_disabled_person_reference
 
-    validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
+    validates :canton, inclusion: {in: Cantons.short_name_strings, allow_blank: true}
     validates :number, presence: true, uniqueness: true
     validates :disabled_person_birthday,
-              timeliness: { type: :date, allow_blank: true, before: Date.new(9999, 12, 31) }
+      timeliness: {type: :date, allow_blank: true, before: Date.new(9999, 12, 31)}
 
     validate :assert_address_types_zip_is_valid_swiss_post_code
     validate :assert_full_name_or_company_name
@@ -71,8 +71,8 @@ module Insieme::Person
   def grouped_active_membership_roles
     if @grouped_active_membership_roles.nil?
       active_memberships = roles.includes(:group)
-                                .joins(:group)
-                                .where(groups: { type: ::Group::Aktivmitglieder })
+        .joins(:group)
+        .where(groups: {type: ::Group::Aktivmitglieder})
       @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
       active_memberships.each do |role|
         @grouped_active_membership_roles[role.group] << role
@@ -85,20 +85,19 @@ module Insieme::Person
     Cantons.full_name(canton)
   end
 
-
   ADDRESS_TYPES.each do |prefix|
-    define_method("#{prefix}_country_label") do
-      Countries.label(send("#{prefix}_country"))
+    define_method(:"#{prefix}_country_label") do
+      Countries.label(send(:"#{prefix}_country"))
     end
 
-    define_method("#{prefix}_country=") do |value|
+    define_method(:"#{prefix}_country=") do |value|
       super(Countries.normalize(value))
       value
     end
 
-    define_method("#{prefix}_full_name") do |format = :default|
-      first_name = send("#{prefix}_first_name")
-      last_name = send("#{prefix}_last_name")
+    define_method(:"#{prefix}_full_name") do |format = :default|
+      first_name = send(:"#{prefix}_first_name")
+      last_name = send(:"#{prefix}_last_name")
       case format
       when :list, :print_list then "#{last_name} #{first_name}".strip
       else "#{first_name} #{last_name}".strip
@@ -110,8 +109,8 @@ module Insieme::Person
 
   def assert_address_types_zip_is_valid_swiss_post_code
     ADDRESS_TYPES.each do |address_type|
-      zip_code = send("#{address_type}_zip_code").to_s.strip
-      country = send("#{address_type}_country")
+      zip_code = send(:"#{address_type}_zip_code").to_s.strip
+      country = send(:"#{address_type}_country")
 
       if Countries.swiss?(country) && zip_code.present? && !zip_code.match(/^\d{4}$/)
         errors.add("#{address_type}_zip_code")
@@ -151,5 +150,4 @@ module Insieme::Person
       self.disabled_person_birthday = nil
     end
   end
-
 end

@@ -8,18 +8,17 @@
 module Fp2022::CostAccounting
   module Report
     class UmlageRaeumlichkeiten < Base
-
       delegate :time_record, to: :table
 
-      FIELDS = %w(verwaltung
-                  mittelbeschaffung
-                  beratung
-                  treffpunkte
-                  blockkurse
-                  tageskurse
-                  jahreskurse
-                  lufeb
-                  medien_und_publikationen).freeze
+      FIELDS = %w[verwaltung
+        mittelbeschaffung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        medien_und_publikationen].freeze
 
       FIELDS.each do |field|
         define_method(field) do
@@ -27,10 +26,10 @@ module Fp2022::CostAccounting
 
           if raeumlichkeiten.positive?
             @allocated_fields[field] ||= if time_record.total.positive?
-                                           allocated_with_time_record(field)
-                                         else
-                                           allocated_without_time_record(field)
-                                         end
+              allocated_with_time_record(field)
+            else
+              allocated_without_time_record(field)
+            end
           end
         end
       end
@@ -41,13 +40,12 @@ module Fp2022::CostAccounting
 
       def raeumlichkeiten
         @raeumlichkeiten ||=
-          table.value_of('total_aufwand', 'raeumlichkeiten').to_d +
-            table.value_of('umlage_personal', 'raeumlichkeiten').to_d
+          table.value_of("total_aufwand", "raeumlichkeiten").to_d +
+          table.value_of("umlage_personal", "raeumlichkeiten").to_d
       end
 
       def total # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-        @total ||= begin
-          verwaltung.to_d +
+        @total ||= verwaltung.to_d +
           mittelbeschaffung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
@@ -56,7 +54,6 @@ module Fp2022::CostAccounting
           jahreskurse.to_d +
           lufeb.to_d +
           medien_und_publikationen.to_d
-        end
       end
 
       def kontrolle
@@ -89,7 +86,7 @@ module Fp2022::CostAccounting
       end
 
       def aufwand(field)
-        table.value_of('total_aufwand', field).to_d
+        table.value_of("total_aufwand", field).to_d
       end
     end
   end

@@ -54,11 +54,9 @@
 #
 
 class TimeRecord::VolunteerWithoutVerificationTime < TimeRecord
-
   private
 
   def update_totals
     # Don't update LUFEB subtotals, use manual values
   end
-
 end

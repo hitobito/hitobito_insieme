@@ -7,8 +7,7 @@
 
 module Fp2015
   class TimeRecord::Report::Base
-
-    FIELDS = %w(paragraph_74 not_paragraph_74 total).freeze
+    FIELDS = %w[paragraph_74 not_paragraph_74 total].freeze
 
     class << self
       def key

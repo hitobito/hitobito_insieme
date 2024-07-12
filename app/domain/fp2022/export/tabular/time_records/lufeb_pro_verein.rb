@@ -39,7 +39,7 @@ module Fp2022::Export::Tabular::TimeRecords
     end
 
     def labels
-      [fp_t('group_or_stat'), '']
+      [fp_t("group_or_stat"), ""]
     end
 
     private
@@ -66,13 +66,13 @@ module Fp2022::Export::Tabular::TimeRecords
 
     def specific_with_grundlagen(group)
       @stats.lufeb_data_for(group.id).to_h
-            .values_at(:specific, :lufeb_grundlagen, :kurse_grundlagen)
-            .compact
-            .sum.to_d
+        .values_at(:specific, :lufeb_grundlagen, :kurse_grundlagen)
+        .compact
+        .sum.to_d
     end
 
     def fp_t(field, options = {})
-      I18n.t(field, **options.merge(scope: fp_i18n_scope('time_records.lufeb_times')))
+      I18n.t(field, **options.merge(scope: fp_i18n_scope("time_records.lufeb_times")))
     end
   end
 end

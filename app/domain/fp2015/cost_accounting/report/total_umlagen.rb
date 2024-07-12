@@ -8,25 +8,23 @@
 module Fp2015::CostAccounting
   module Report
     class TotalUmlagen < Subtotal
+      self.summed_reports = %w[umlage_personal
+        umlage_raeumlichkeiten
+        umlage_verwaltung]
 
-      self.summed_reports = %w(umlage_personal
-                               umlage_raeumlichkeiten
-                               umlage_verwaltung)
-
-      self.summed_fields = %w(beratung
-                              treffpunkte
-                              blockkurse
-                              tageskurse
-                              jahreskurse
-                              lufeb
-                              mittelbeschaffung)
+      self.summed_fields = %w[beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       define_summed_field_methods
 
       def aufwand_ertrag_ko_re
         nil
       end
-
     end
   end
 end

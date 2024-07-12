@@ -10,7 +10,7 @@ module Insieme
     def data
       ::Export::Tabular::People::SubscriptionsAddress.export(
         @format,
-        mailing_list.people(::Person.select('people.*'))
+        mailing_list.people(::Person.select("people.*"))
                     .order_by_name
                     .preload_public_accounts
                     .preload(roles: :group)

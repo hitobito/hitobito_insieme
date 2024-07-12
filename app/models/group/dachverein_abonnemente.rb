@@ -36,9 +36,7 @@
 #
 
 class Group::DachvereinAbonnemente < Group
-
   children Group::DachvereinAbonnemente
-
 
   ### ROLES
 
@@ -52,8 +50,8 @@ class Group::DachvereinAbonnemente < Group
   end
 
   roles Einzelabo,
-        Geschenkabo,
-        Gratisabo
+    Geschenkabo,
+    Gratisabo
 
   self.default_role = Einzelabo
 end

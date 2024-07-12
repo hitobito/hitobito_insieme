@@ -15,12 +15,10 @@
 #
 
 class TimeRecord::EmployeePensum < ActiveRecord::Base
-
   belongs_to :time_record
 
   def total
     paragraph_74.to_d +
-    not_paragraph_74.to_d
+      not_paragraph_74.to_d
   end
-
 end

@@ -10,11 +10,11 @@
 # Original from: https://github.com/thams/db_fixtures_dump/
 namespace :db do
   namespace :fixtures do
-    desc 'Dumps some models into fixtures.'
+    desc "Dumps some models into fixtures."
     task dump: :environment do
-      Rake::Task['fixtures:groups'].invoke
+      Rake::Task["fixtures:groups"].invoke
 
-      puts '# Please copy this into the spec/fixtures/groups.yml yourself'
+      puts "# Please copy this into the spec/fixtures/groups.yml yourself"
     end
   end
 
@@ -28,37 +28,37 @@ namespace :db do
         - sum      (sum of previous Featureperioden, float-parseable)
     TEXT
     task :previous_capital_substrates, [:year, :filename] => [:environment] do |_, args|
-      args.with_defaults(filename: 'previous_capital_substrates.csv')
-      abort 'this needs a year in which the capitalsubstrates are summed up' if args.year.nil?
+      args.with_defaults(filename: "previous_capital_substrates.csv")
+      abort "this needs a year in which the capitalsubstrates are summed up" if args.year.nil?
 
-      puts 'Importing summed values for capital substrates of previous years'
+      puts "Importing summed values for capital substrates of previous years"
       puts "Reading from:   #{args.filename}"
       puts "Storing sum in: #{args.year}"
 
       cs_sum_csv = Pathname.new(args.filename)
 
-      abort 'Import file not found' unless cs_sum_csv.exist?
+      abort "Import file not found" unless cs_sum_csv.exist?
 
-      unless cs_sum_csv.each_line.first =~ /group_id.*sum/
-        abort 'Import file is not in the expected format'
+      unless /group_id.*sum/.match?(cs_sum_csv.each_line.first)
+        abort "Import file is not in the expected format"
       end
 
-      require 'csv'
+      require "csv"
 
-      puts 'Importing data'
+      puts "Importing data"
       errors = []
       CSV.parse(cs_sum_csv.read, headers: true).each do |row|
-        cs = CapitalSubstrate.find_or_create_by(year: args.year, group_id: row['group_id'])
-        cs.previous_substrate_sum = row['sum']
+        cs = CapitalSubstrate.find_or_create_by(year: args.year, group_id: row["group_id"])
+        cs.previous_substrate_sum = row["sum"]
         if cs.save(validate: false) # allow writing even if ReportingPeriod is closed
-          print '.'
+          print "."
         else
-          print 'E'
+          print "E"
           errors << [cs, row]
         end
       end
       puts
-      puts 'Done.'
+      puts "Done."
 
       if errors.any?
         puts
@@ -69,24 +69,24 @@ namespace :db do
           puts cs.errors.full_messages.to_sentence if cs.errors.any?
           puts
         end
-        puts 'End of Errors.'
+        puts "End of Errors."
       end
     end
 
-    desc 'Convert Group-Names to Group-IDs'
+    desc "Convert Group-Names to Group-IDs"
     task :convert, [:filename] => [:environment] do |_, args|
-      args.with_defaults(filename: 'previous_capital_substrates.csv')
+      args.with_defaults(filename: "previous_capital_substrates.csv")
 
-      puts 'Convert Group-Names to group-ids for capital substrates of previous years'
+      puts "Convert Group-Names to group-ids for capital substrates of previous years"
       puts "Reading from:   #{args.filename}"
 
       cs_sum_csv = Pathname.new(args.filename)
 
-      abort 'Import file not found' unless cs_sum_csv.exist?
+      abort "Import file not found" unless cs_sum_csv.exist?
 
-      require 'csv'
+      require "csv"
 
-      puts 'Converting data'
+      puts "Converting data"
       errors = []
       new_data = []
       CSV.parse(cs_sum_csv.read, headers: true).each do |row|
@@ -99,19 +99,19 @@ namespace :db do
           Group.without_deleted.find_by(name: name.strip)
 
         sum =
-          sum.tr("'", '_') # change 1000s-group separator to something readable and ruby-valid
+          sum.tr("'", "_") # change 1000s-group separator to something readable and ruby-valid
 
         if group.present?
           new_data << [group.id, sum]
-          print '.'
+          print "."
         else
-          print 'E'
+          print "E"
           errors << [row]
         end
       end
 
       puts
-      puts 'Done.'
+      puts "Done."
 
       if errors.any?
         puts
@@ -120,13 +120,13 @@ namespace :db do
         errors.each do |row|
           puts row.inspect
         end
-        puts 'End of Errors.'
+        puts "End of Errors."
         puts
       end
 
       CSV.open(
-        "#{cs_sum_csv.dirname}/converted-#{cs_sum_csv.basename}", 'w',
-        headers: %w(group_id sum),
+        "#{cs_sum_csv.dirname}/converted-#{cs_sum_csv.basename}", "w",
+        headers: %w[group_id sum],
         write_headers: true
       ) do |csv|
         new_data.each do |id, sum|

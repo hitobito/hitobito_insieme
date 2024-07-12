@@ -36,9 +36,7 @@
 #
 
 class Group::DachvereinListe < Group
-
   children Group::DachvereinListe
-
 
   ### ROLES
 
@@ -50,7 +48,7 @@ class Group::DachvereinListe < Group
   class Person < ::Role; end
 
   roles Listenverwaltung,
-        Person
+    Person
 
   self.default_role = Person
 end

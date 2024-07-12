@@ -46,7 +46,6 @@
 #
 
 module Event::CourseRecordsHelper
-
   def kursart_label(art)
     t("activerecord.attributes.event/course_record.kursarten.#{art}")
   end
@@ -55,9 +54,9 @@ module Event::CourseRecordsHelper
     string = format_money(record.gemeinkostenanteil)
     if record.gemeinkosten_updated_at
       string = safe_join([string,
-                          ' &nbsp; &nbsp; '.html_safe,
-                          t('event.course_records.form.updated_at',
-                            date: format_attr(record, :gemeinkosten_updated_at))])
+        " &nbsp; &nbsp; ".html_safe,
+        t("event.course_records.form.updated_at",
+          date: format_attr(record, :gemeinkosten_updated_at))])
     end
     string
   end
@@ -67,19 +66,19 @@ module Event::CourseRecordsHelper
       record.zugeteilte_kategorie
     else
       safe_join([record.zugeteilte_kategorie.to_s,
-                 ' &nbsp; &nbsp; '.html_safe,
-                 t('event.course_records.form.info_not_subsidized')])
+        " &nbsp; &nbsp; ".html_safe,
+        t("event.course_records.form.info_not_subsidized")])
     end
   end
 
   def participant_field(form, attr, options = {})
-    options[:addon] ||= t('global.persons_short')
+    options[:addon] ||= t("global.persons_short")
     form.labeled_input_field(attr, options)
   end
 
   def participant_field_with_suggestion(form, attr, suggestion, options = {})
     if event_may_have_participants?
-      help_text = t('event.course_records.form.according_to_list', count: f(suggestion))
+      help_text = t("event.course_records.form.according_to_list", count: f(suggestion))
       options[:help_inline] = muted(help_text)
     end
     participant_field(form, attr, options)
@@ -89,14 +88,14 @@ module Event::CourseRecordsHelper
     if allowance
       format_percent(allowance * 100)
     else
-      ''
+      ""
     end
   end
 
   def participant_readonly_value_with_suggestion(form, attr, value, suggestion, options = {})
     options[:value] = value
     if event_may_have_participants?
-      help_text = t('event.course_records.form.according_to_list', count: suggestion)
+      help_text = t("event.course_records.form.according_to_list", count: suggestion)
       options[:help_inline] = help_text
     end
     form.labeled_readonly_value(attr, options)
@@ -120,14 +119,13 @@ module Event::CourseRecordsHelper
 
   def kursdauer_help_inline
     duration = entry.duration_in_hours? ? @numbers.duration_hours : @numbers.duration_days
-    i18n_key = entry.tp? ? 'vor_und_nacharbeit' : 'according_to_course_dates'
+    i18n_key = entry.tp? ? "vor_und_nacharbeit" : "according_to_course_dates"
 
     help_text = t(i18n_key,
-                  scope: 'event.course_records.form',
-                  duration: number_with_precision(duration,
-                                                  precision: 1,
-                                                  delimiter: t('number.format.delimiter')))
+      scope: "event.course_records.form",
+      duration: number_with_precision(duration,
+        precision: 1,
+        delimiter: t("number.format.delimiter")))
     muted(help_text.html_safe) # rubocop:disable Rails/OutputSafety
   end
-
 end

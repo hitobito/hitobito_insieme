@@ -11,7 +11,6 @@
 # # if all fields are empty, set the _same_as_main flag and copy all fields from main.
 # # if all fields are equal to main, set the _same_as_main flag
 class Person::AddressNormalizer
-
   attr_reader :person
 
   def initialize(person)
@@ -41,16 +40,16 @@ class Person::AddressNormalizer
   end
 
   def same_as_main?(type)
-    person.send("#{type}_same_as_main?")
+    person.send(:"#{type}_same_as_main?")
   end
 
   def set_same_as_main(type) # rubocop:disable Naming/AccessorMethodName
-    person.send("#{type}_same_as_main=", true)
+    person.send(:"#{type}_same_as_main=", true)
   end
 
   def copy_fields_from_main(type)
     fields(type).each do |typed_field, field|
-      person.send("#{typed_field}=", person.send(field))
+      person.send(:"#{typed_field}=", person.send(field))
     end
   end
 
@@ -65,7 +64,6 @@ class Person::AddressNormalizer
   end
 
   def fields(type)
-    Person::ADDRESS_FIELDS.map { |field| [[type, field].join('_'), field] }
+    Person::ADDRESS_FIELDS.map { |field| [[type, field].join("_"), field] }
   end
-
 end

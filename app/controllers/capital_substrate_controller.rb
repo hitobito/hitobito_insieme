@@ -6,22 +6,20 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class CapitalSubstrateController < ReportingBaseController
-
   include Featureperioden::Views
   include Featureperioden::Domain
 
   helper_method :report
 
-  def edit; end
+  def edit
+  end
 
   private
 
   def report
-    @report ||= begin
-                  fp_class('TimeRecord::Report::CapitalSubstrate').new(
-                    fp_class('TimeRecord::Table').new(group, year)
-                  )
-                end
+    @report ||= fp_class("TimeRecord::Report::CapitalSubstrate").new(
+      fp_class("TimeRecord::Table").new(group, year)
+    )
   end
 
   def entry
@@ -29,11 +27,10 @@ class CapitalSubstrateController < ReportingBaseController
   end
 
   def permitted_params
-    params.require(:capital_substrate).permit(CapitalSubstrate.column_names - %w(id year group_id))
+    params.require(:capital_substrate).permit(CapitalSubstrate.column_names - %w[id year group_id])
   end
 
   def show_path
     capital_substrate_group_path(group, year)
   end
-
 end

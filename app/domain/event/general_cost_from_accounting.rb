@@ -6,23 +6,21 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class Event::GeneralCostFromAccounting
-
   include Featureperioden::Domain
 
   attr_accessor :year
 
-  LEISTUNGSKATEGORIE_MAPPING = { 'bk' => 'blockkurse',
-                                 'tk' => 'tageskurse',
-                                 'sk' => 'jahreskurse',
-                                 'tp' => 'treffpunkte' }.freeze
+  LEISTUNGSKATEGORIE_MAPPING = {"bk" => "blockkurse",
+                                "tk" => "tageskurse",
+                                "sk" => "jahreskurse",
+                                "tp" => "treffpunkte"}.freeze
 
   def initialize(group, year)
     @year = year
-    @table = fp_class('CostAccounting::Table').new(group, year)
+    @table = fp_class("CostAccounting::Table").new(group, year)
   end
 
   def general_cost(leistungskategorie)
     @table.general_costs(LEISTUNGSKATEGORIE_MAPPING.fetch(leistungskategorie))
   end
-
 end

@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::ReportingFreezable
-
   extend ActiveSupport::Concern
 
   included do
@@ -21,7 +20,7 @@ module Insieme::ReportingFreezable
     frozen = GlobalValue.reporting_frozen_until_year
     if frozen
       if (year && year <= frozen) ||
-        (year_changed? && year_was && year_was <= frozen)
+          (year_changed? && year_was && year_was <= frozen)
         errors.add(:year, :reporting_frozen)
       end
     end
@@ -31,5 +30,4 @@ module Insieme::ReportingFreezable
     assert_year_not_frozen
     throw :abort unless errors.blank?
   end
-
 end

@@ -7,7 +7,6 @@
 
 module Fp2020::CostAccounting
   class Aggregation
-
     attr_reader :year
 
     def initialize(year)
@@ -44,11 +43,9 @@ module Fp2020::CostAccounting
     end
 
     def time_records
-      @time_records ||= begin
-        TimeRecord::EmployeeTime
-          .where(year: year).includes(:group)
-          .index_by(&:group)
-      end
+      @time_records ||= TimeRecord::EmployeeTime
+        .where(year: year).includes(:group)
+        .index_by(&:group)
     end
 
     def cost_records
@@ -63,20 +60,20 @@ module Fp2020::CostAccounting
       @course_costs ||=
         Hash.new { |h1, k1| h1[k1] = Hash.new { |h2, k2| h2[k2] = {} } }.tap do |hash|
           load_course_costs.each do |group_id, lk, honorare, unterkunft, uebriges|
-            hash[group_id][lk] = { 'honorare' => honorare,
-                                   'raumaufwand' => unterkunft,
-                                   'uebriger_sachaufwand' => uebriges }
+            hash[group_id][lk] = {"honorare" => honorare,
+                                   "raumaufwand" => unterkunft,
+                                   "uebriger_sachaufwand" => uebriges}
           end
         end
     end
 
     def load_course_costs
-      Event::CourseRecord.
-        joins(event: :groups).
-        group('groups.id, events.leistungskategorie').
-        where(year: year, subventioniert: true).
-        pluck('groups.id AS group_id, leistungskategorie, ' \
-              'SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)')
+      Event::CourseRecord
+        .joins(event: :groups)
+        .group("groups.id, events.leistungskategorie")
+        .where(year: year, subventioniert: true)
+        .pluck("groups.id AS group_id, leistungskategorie, " \
+              "SUM(honorare_inkl_sozialversicherung), SUM(unterkunft), SUM(uebriges)")
     end
 
     class Report
@@ -99,16 +96,15 @@ module Fp2020::CostAccounting
 
       def short_name
         I18n.t("report.#{key}.short_name",
-               scope: fp_i18n_scope('cost_accounting'),
-               default: I18n.t("cost_accounting.report.#{key}.short_name"))
+          scope: fp_i18n_scope("cost_accounting"),
+          default: I18n.t("cost_accounting.report.#{key}.short_name"))
       end
 
       def human_name
         I18n.t("report.#{key}.name",
-               scope: fp_i18n_scope('cost_accounting'),
-               default: I18n.t("cost_accounting.report.#{key}.name"))
+          scope: fp_i18n_scope("cost_accounting"),
+          default: I18n.t("cost_accounting.report.#{key}.name"))
       end
     end
-
   end
 end

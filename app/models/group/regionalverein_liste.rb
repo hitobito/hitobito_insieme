@@ -36,9 +36,7 @@
 #
 
 class Group::RegionalvereinListe < Group
-
   children Group::RegionalvereinListe
-
 
   ### ROLES
 
@@ -50,7 +48,6 @@ class Group::RegionalvereinListe < Group
   class Person < ::Role; end
 
   roles Listenverwaltung,
-        Person
+    Person
   self.default_role = Person
-
 end

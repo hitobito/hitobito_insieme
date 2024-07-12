@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2022::TimeRecord::LufebProVerein do
   let(:year) { 2022 }
@@ -13,33 +13,32 @@ describe Fp2022::TimeRecord::LufebProVerein do
 
   let(:group) { groups(:dachverein) }
 
-  it 'knows a list of groups to export' do
+  it "knows a list of groups to export" do
     expected = [
-      'insieme Schweiz',
-      'Kanton Bern',
-      'Biel-Seeland',
-      'Freiburg'
+      "insieme Schweiz",
+      "Kanton Bern",
+      "Biel-Seeland",
+      "Freiburg"
     ]
 
     expect(subject.vereine.map(&:name)).to match_array expected
     expect(subject.vereine.map(&:name)).to eq expected
   end
 
-
-  it 'has a structured data-object for all groups' do
+  it "has a structured data-object for all groups" do
     list = subject.vereine.map { |verein| subject.lufeb_data_for(verein.id) }
 
     expect(list).to be_all described_class::Data
   end
 
-  it 'has correct data' do
+  it "has correct data" do
     create_time_record(
       TimeRecord::EmployeeTime,
       auskuenfte: 1,
       gremien: 2,
       beratung_fachhilfeorganisationen: 3,
       lufeb_grundlagen: 4,
-      kurse_grundlagen: 5,
+      kurse_grundlagen: 5
     )
 
     create_time_record(
@@ -48,7 +47,7 @@ describe Fp2022::TimeRecord::LufebProVerein do
       gremien: 4,
       beratung_fachhilfeorganisationen: 3,
       lufeb_grundlagen: 2,
-      kurse_grundlagen: 1,
+      kurse_grundlagen: 1
     )
 
     data = subject.lufeb_data_for(group.id)

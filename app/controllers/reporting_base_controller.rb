@@ -6,13 +6,12 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class ReportingBaseController < ApplicationController
-
   extend ActiveModel::Callbacks
   include YearBasedPaging
 
   define_model_callbacks :save
 
-  layout 'reporting'
+  layout "reporting"
 
   respond_to :html
 
@@ -25,7 +24,8 @@ class ReportingBaseController < ApplicationController
 
   after_save :set_success_notice
 
-  def edit; end
+  def edit
+  end
 
   def update
     entry.attributes = permitted_params
@@ -36,12 +36,12 @@ class ReportingBaseController < ApplicationController
   private
 
   def set_success_notice
-    flash[:notice] = I18n.t('crud.update.flash.success', model: entry)
+    flash[:notice] = I18n.t("crud.update.flash.success", model: entry)
   end
 
   def show_path
-    if params['report'].present?
-      cost_accounting_report_group_path(group, year, params['report'])
+    if params["report"].present?
+      cost_accounting_report_group_path(group, year, params["report"])
     else
       cost_accounting_group_path(group, year: year)
     end
@@ -58,5 +58,4 @@ class ReportingBaseController < ApplicationController
   def authorize
     authorize!(:reporting, group)
   end
-
 end

@@ -22,5 +22,4 @@ module Insieme::VariousAbility
       permission(:admin).may(:show, :update).all
     end
   end
-
 end

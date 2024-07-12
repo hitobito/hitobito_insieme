@@ -10,7 +10,6 @@ module Insieme
     module Tabular
       module People
         module PeopleAddress
-
           def person_attributes
             super +
               additional_person_attributes +
@@ -30,7 +29,6 @@ module Insieme
             end
             attrs
           end
-
         end
       end
     end

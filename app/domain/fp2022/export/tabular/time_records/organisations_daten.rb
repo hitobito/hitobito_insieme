@@ -39,7 +39,7 @@ module Fp2022::Export::Tabular::TimeRecords
     end
 
     def labels
-      [fp_t('group_or_stat'), '']
+      [fp_t("group_or_stat"), ""]
     end
 
     private
@@ -60,7 +60,7 @@ module Fp2022::Export::Tabular::TimeRecords
     end
 
     def fp_t(field, options = {})
-      I18n.t(field, **options.merge(scope: fp_i18n_scope('time_records.group_data')))
+      I18n.t(field, **options.merge(scope: fp_i18n_scope("time_records.group_data")))
     end
   end
 end

@@ -7,18 +7,16 @@
 
 module Insieme::Export::Tabular::People
   module ParticipationRow
-
     extend ActiveSupport::Concern
 
     included do
       delegate :multiple_disability, :wheel_chair,
-               :invoice_text, :invoice_amount,
-               to: :participation
+        :invoice_text, :invoice_amount,
+        to: :participation
     end
 
     def disability
       participation.disability_label
     end
-
   end
 end

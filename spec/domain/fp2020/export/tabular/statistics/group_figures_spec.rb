@@ -5,78 +5,83 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2020::Export::Tabular::Statistics::GroupFigures do
-
   let(:year) { 2020 }
 
   before do
     TimeRecord::EmployeeTime.create!(group: groups(:be),
-                                     year: year,
-                                     interviews: 10,
-                                     beratung: 9,
-                                     employee_pensum_attributes: { paragraph_74: 0.25,  })
+      year: year,
+      interviews: 10,
+      beratung: 9,
+      employee_pensum_attributes: {paragraph_74: 0.25})
     TimeRecord::EmployeeTime.create!(group: groups(:be), year: year - 1, newsletter: 11)
     TimeRecord::EmployeeTime.create!(group: groups(:fr),
-                                     year: year,
-                                     projekte: 12,
-                                     employee_pensum_attributes: {
-                                       paragraph_74: 1.6, not_paragraph_74: 0.4 })
+      year: year,
+      projekte: 12,
+      employee_pensum_attributes: {
+        paragraph_74: 1.6, not_paragraph_74: 0.4
+      })
 
     TimeRecord::VolunteerWithVerificationTime.create!(
-      group: groups(:be), year: year, vermittlung_kontakte: 20)
+      group: groups(:be), year: year, vermittlung_kontakte: 20
+    )
     TimeRecord::VolunteerWithVerificationTime.create!(
-      group: groups(:fr), year: year, referate: 21)
+      group: groups(:fr), year: year, referate: 21
+    )
 
     TimeRecord::VolunteerWithoutVerificationTime.create!(
-      group: groups(:be), year: year, total_lufeb_promoting: 30)
+      group: groups(:be), year: year, total_lufeb_promoting: 30
+    )
 
-    CostAccountingRecord.create!(group: groups(:be), year: year, report: 'raumaufwand',
-                                 raeumlichkeiten: 100)
-    CostAccountingRecord.create!(group: groups(:be), year: year, report: 'honorare',
-                                 aufwand_ertrag_fibu: 100, verwaltung: 10,
-                                 beratung: 30)
-    CostAccountingRecord.create!(group: groups(:be), year: year, report: 'leistungsertrag',
-                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
-                                 lufeb: 20)
-    CostAccountingRecord.create!(group: groups(:be), year: year, report: 'direkte_spenden',
-                                 aufwand_ertrag_fibu: 10, lufeb: 2, tageskurse: 8)
-    CostAccountingRecord.create!(group: groups(:be), year: year, report: 'beitraege_iv',
-                                 aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
-                                 lufeb: 20)
+    CostAccountingRecord.create!(group: groups(:be), year: year, report: "raumaufwand",
+      raeumlichkeiten: 100)
+    CostAccountingRecord.create!(group: groups(:be), year: year, report: "honorare",
+      aufwand_ertrag_fibu: 100, verwaltung: 10,
+      beratung: 30)
+    CostAccountingRecord.create!(group: groups(:be), year: year, report: "leistungsertrag",
+      aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+      lufeb: 20)
+    CostAccountingRecord.create!(group: groups(:be), year: year, report: "direkte_spenden",
+      aufwand_ertrag_fibu: 10, lufeb: 2, tageskurse: 8)
+    CostAccountingRecord.create!(group: groups(:be), year: year, report: "beitraege_iv",
+      aufwand_ertrag_fibu: 100, abgrenzung_fibu: 80,
+      lufeb: 20)
 
     CapitalSubstrate.create!(
-      group: groups(:be), year: year, organization_capital: 500_000)
+      group: groups(:be), year: year, organization_capital: 500_000
+    )
     CapitalSubstrate.create!(
-      group: groups(:fr), year: year, organization_capital: 250_000)
+      group: groups(:fr), year: year, organization_capital: 250_000
+    )
 
-    create_course(year, :be, 'bk', '1', kursdauer: 10, unterkunft: 500,
-                  challenged_canton_count_attributes: { zh: 100 })
-    create_course(year, :be, 'bk', '1', kursdauer: 11, gemeinkostenanteil: 600,
-                  affiliated_canton_count_attributes: { zh: 101 })
-    create_course(year, :be, 'bk', '2', kursdauer: 12, unterkunft: 800,
-                  challenged_canton_count_attributes: { zh: 450 })
-    create_course(year, :be, 'bk', '3', kursdauer: 13, teilnehmende_weitere: 650, uebriges: 200)
-    create_course(year, :be, 'sk', '1', kursdauer: 14, unterkunft: 400,
-                  honorare_inkl_sozialversicherung: 10,
-                  challenged_canton_count_attributes: { zh: 102 })
-    create_course(year, :fr, 'bk', '1', kursdauer: 15, unterkunft: 0,
-                  challenged_canton_count_attributes: { zh: 103 })
-    create_course(year, :fr, 'tk', '1', kursdauer: 16, teilnehmende_weitere: 104, unterkunft: 500)
-    create_course(year, :fr, 'tk', '3', kursdauer: 17, uebriges: 600,
-                  challenged_canton_count_attributes: { zh: 500 })
-    create_course(year, :fr, 'tp', '1', kursdauer: 18, betreuerinnen: 2)
+    create_course(year, :be, "bk", "1", kursdauer: 10, unterkunft: 500,
+      challenged_canton_count_attributes: {zh: 100})
+    create_course(year, :be, "bk", "1", kursdauer: 11, gemeinkostenanteil: 600,
+      affiliated_canton_count_attributes: {zh: 101})
+    create_course(year, :be, "bk", "2", kursdauer: 12, unterkunft: 800,
+      challenged_canton_count_attributes: {zh: 450})
+    create_course(year, :be, "bk", "3", kursdauer: 13, teilnehmende_weitere: 650, uebriges: 200)
+    create_course(year, :be, "sk", "1", kursdauer: 14, unterkunft: 400,
+      honorare_inkl_sozialversicherung: 10,
+      challenged_canton_count_attributes: {zh: 102})
+    create_course(year, :fr, "bk", "1", kursdauer: 15, unterkunft: 0,
+      challenged_canton_count_attributes: {zh: 103})
+    create_course(year, :fr, "tk", "1", kursdauer: 16, teilnehmende_weitere: 104, unterkunft: 500)
+    create_course(year, :fr, "tk", "3", kursdauer: 17, uebriges: 600,
+      challenged_canton_count_attributes: {zh: 500})
+    create_course(year, :fr, "tp", "1", kursdauer: 18, betreuerinnen: 2)
 
     # other year
-    create_course(year - 1, :fr, 'bk', '1', kursdauer: 17, teilnehmende_weitere: 105)
+    create_course(year - 1, :fr, "bk", "1", kursdauer: 17, teilnehmende_weitere: 105)
   end
 
-  let(:figures) { fp_class('Statistics::GroupFigures').new(year) }
+  let(:figures) { fp_class("Statistics::GroupFigures").new(year) }
 
   let(:subject) { described_class.new(figures) }
 
-  it 'contains correct headers in order' do
+  it "contains correct headers in order" do
     labels = subject.labels
     expected = [
       "Vollständiger Name",
@@ -235,11 +240,11 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
     expect(labels).to eq expected
   end
 
-  context 'contains correct summed values' do
+  context "contains correct summed values" do
     let(:data) do
       subject.data_rows.to_a
-             .each { |row| row.map! { |value| value.is_a?(BigDecimal) ? value.to_f.round(5) : value } }
-             .map { |row| subject.labels.zip(row).to_h }
+        .each { |row| row.map! { |value| value.is_a?(BigDecimal) ? value.to_f.round(5) : value } }
+        .map { |row| subject.labels.zip(row).to_h }
     end
 
     let(:empty_row) do
@@ -372,32 +377,32 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => 0.0,
         "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => 0.0,
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74" => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 0.0
       }
     end
 
-    it 'for insieme Schweiz' do
+    it "for insieme Schweiz" do
       expect(data.first).to include(empty_row.merge({
-        "Vollständiger Name"=>"insieme Schweiz",
-        "Kanton"=>nil,
-        "VID"=>nil,
-        "BSV Nummer"=>2343,
+        "Vollständiger Name" => "insieme Schweiz",
+        "Kanton" => nil,
+        "VID" => nil,
+        "BSV Nummer" => 2343,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
-        "Faktor Kapitalsubstrat"                      => 0.0,
-        "Totaler Aufwand gemäss FIBU"                 => 0.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
-        "IV-Beitrag"                                  => 0.0,
-        "Deckungsbeitrag 4"                           => 0.0,
+        "Faktor Kapitalsubstrat" => 0.0,
+        "Totaler Aufwand gemäss FIBU" => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 0.0,
+        "IV-Beitrag" => 0.0,
+        "Deckungsbeitrag 4" => 0.0
       }))
     end
 
-    it 'for Freiburg' do
+    it "for Freiburg" do
       expect(data.second).to include(empty_row.merge({
-        "Vollständiger Name"=>"Freiburg",
-        "Kanton"=>"Freiburg",
-        "VID"=>nil,
-        "BSV Nummer"=>12607,
+        "Vollständiger Name" => "Freiburg",
+        "Kanton" => "Freiburg",
+        "VID" => nil,
+        "BSV Nummer" => 12607,
 
         "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 1,
         "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
@@ -423,20 +428,20 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ angestellte Mitarbeiter (Art. 74)" => 1.6,
         "VZÄ angestellte Mitarbeiter (ganze Organisation)" => 2.0,
         # 21 Stunden für LUFEB / 1900 BSV-Stunden = 0.01105
-        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => (21.0/1900).round(5),
-        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => (21.0/1900).round(5),
-        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => (21.0/1900).round(5),
+        "VZÄ ehrenamtliche Mitarbeiter (Art. 74)" => (21.0 / 1900).round(5),
+        "VZÄ ehrenamtliche Mitarbeiter (ganze Organisation)" => (21.0 / 1900).round(5),
+        "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => (21.0 / 1900).round(5),
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -201100.0,
-        "Faktor Kapitalsubstrat"                      => -182.81818,
-        "Totaler Aufwand gemäss FIBU"                 => 0.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 1100.0,
-        "IV-Beitrag"                                  => 0.0,
-        "Deckungsbeitrag 4"                           => -1100.0,
+        "Faktor Kapitalsubstrat" => -182.81818,
+        "Totaler Aufwand gemäss FIBU" => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 1100.0,
+        "IV-Beitrag" => 0.0,
+        "Deckungsbeitrag 4" => -1100.0
       }))
     end
 
-    it 'for Kanton Bern' do
+    it "for Kanton Bern" do
       # 30 Stunden für LUFEB / 1900 BSV-Stunden
       expect(data.third).to include(empty_row.merge({
         "Vollständiger Name" => "Kanton Bern",
@@ -496,26 +501,26 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "VZÄ ehrenamtliche Mitarbeiter mit Leistungsausweis (Art. 74)" => 0.0,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 10048000.0,
-        "Faktor Kapitalsubstrat"                      => 4901.46341,
-        "Totaler Aufwand gemäss FIBU"                 => 100.0,
-        "IV-Beitrag"                                  => 20.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 2050.0,
-        "Deckungsbeitrag 4"                           => -2000.0,
+        "Faktor Kapitalsubstrat" => 4901.46341,
+        "Totaler Aufwand gemäss FIBU" => 100.0,
+        "IV-Beitrag" => 20.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 2050.0,
+        "Deckungsbeitrag 4" => -2000.0
       }))
     end
 
-    it 'for Biel-Seeland' do
+    it "for Biel-Seeland" do
       expect(data.fourth).to include(empty_row.merge({
         "Vollständiger Name" => "Biel-Seeland",
-        'Kanton'             => 'Bern',
-        'BSV Nummer'         => 3115,
+        "Kanton" => "Bern",
+        "BSV Nummer" => 3115,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
-        "Faktor Kapitalsubstrat"                      => 0.0,
-        "Totaler Aufwand gemäss FIBU"                 => 0.0,
-        "Vollkosten nach Umlagen Betrieb Art. 74"     => 0.0,
-        "IV-Beitrag"                                  => 0.0,
-        "Deckungsbeitrag 4"                           => 0.0,
+        "Faktor Kapitalsubstrat" => 0.0,
+        "Totaler Aufwand gemäss FIBU" => 0.0,
+        "Vollkosten nach Umlagen Betrieb Art. 74" => 0.0,
+        "IV-Beitrag" => 0.0,
+        "Deckungsbeitrag 4" => 0.0
       }))
     end
   end
@@ -523,14 +528,13 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
   private
 
   def create_course(year, group_key, leistungskategorie, kategorie, attrs)
-    fachkonzept = leistungskategorie == 'tp' ? 'treffpunkt' : 'sport_jugend'
+    fachkonzept = (leistungskategorie == "tp") ? "treffpunkt" : "sport_jugend"
 
     event = Fabricate(:course, leistungskategorie: leistungskategorie, fachkonzept: fachkonzept)
     event.update(groups: [groups(group_key)])
-    event.dates.create!(start_at: Time.zone.local(year, 05, 11))
+    event.dates.create!(start_at: Time.zone.local(year, 0o5, 11))
 
     r = Event::CourseRecord.create!(attrs.merge(event_id: event.id, year: year))
     r.update_column(:zugeteilte_kategorie, kategorie)
   end
-
 end

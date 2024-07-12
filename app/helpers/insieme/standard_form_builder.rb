@@ -15,8 +15,8 @@ module Insieme
 
     def labeled_fp_input_field(field, options)
       options = options.merge(label: I18n.t(field,
-                                            scope: fp_i18n_scope,
-                                            default: field.to_s.humanize.titleize))
+        scope: fp_i18n_scope,
+        default: field.to_s.humanize.titleize))
 
       labeled_input_field field, options
     end

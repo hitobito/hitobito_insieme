@@ -8,27 +8,26 @@
 module Fp2015::CostAccounting
   module Report
     class UmlageRaeumlichkeiten < Base
-
       delegate :time_record, to: :table
 
-      FIELDS = %w(verwaltung
-                  beratung
-                  treffpunkte
-                  blockkurse
-                  tageskurse
-                  jahreskurse
-                  lufeb
-                  mittelbeschaffung)
+      FIELDS = %w[verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       FIELDS.each do |field|
         define_method(field) do
           @allocated_fields ||= {}
 
           if raeumlichkeiten > 0
-            if time_record.total > 0
-              @allocated_fields[field] ||= allocated_with_time_record(field)
+            @allocated_fields[field] ||= if time_record.total > 0
+              allocated_with_time_record(field)
             else
-              @allocated_fields[field] ||= allocated_without_time_record(field)
+              allocated_without_time_record(field)
             end
           end
         end
@@ -40,8 +39,7 @@ module Fp2015::CostAccounting
 
       # rubocop:disable Metrics/AbcSize
       def total
-        @total ||= begin
-          verwaltung.to_d +
+        @total ||= verwaltung.to_d +
           beratung.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
@@ -49,7 +47,6 @@ module Fp2015::CostAccounting
           jahreskurse.to_d +
           lufeb.to_d +
           mittelbeschaffung.to_d
-        end
       end
       # rubocop:enable Metrics/AbcSize
 
@@ -58,7 +55,7 @@ module Fp2015::CostAccounting
       end
 
       def raeumlichkeiten
-        table.value_of('raumaufwand', 'raeumlichkeiten').to_d
+        table.value_of("raumaufwand", "raeumlichkeiten").to_d
       end
 
       private
@@ -86,7 +83,7 @@ module Fp2015::CostAccounting
       end
 
       def aufwand(field)
-        table.value_of('total_aufwand', field).to_d
+        table.value_of("total_aufwand", field).to_d
       end
     end
   end

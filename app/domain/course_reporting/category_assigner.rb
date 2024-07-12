@@ -5,10 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module CourseReporting
   class CategoryAssigner
-
     attr_reader :record
 
     def initialize(course_record)
@@ -19,14 +17,14 @@ module CourseReporting
       if !all_information_present? || record.sk?
         1
       else
-        send("category_from_input_#{record.inputkriterien}")
+        send(:"category_from_input_#{record.inputkriterien}")
       end
     end
 
     def all_information_present?
       Event::CourseRecord::INPUTKRITERIEN.include?(record.inputkriterien) &&
-      record.year? &&
-      (record.sk? || globals)
+        record.year? &&
+        (record.sk? || globals)
     end
 
     private

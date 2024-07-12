@@ -7,7 +7,6 @@
 
 module Fp2015
   class Event::CourseRecord::Calculation
-
     attr_reader :record
 
     def initialize(record)
@@ -16,47 +15,47 @@ module Fp2015
 
     # rubocop:disable Layout/EmptyLinesAroundArguments
     delegate :inputkriterien,
-             :subventioniert,
-             :kursart,
-             :kursdauer,
-             :teilnehmende_behinderte,
-             :teilnehmende_angehoerige,
-             :teilnehmende_weitere,
-             :absenzen_behinderte,
-             :absenzen_angehoerige,
-             :absenzen_weitere,
-             :leiterinnen,
-             :fachpersonen,
-             :hilfspersonal_ohne_honorar,
-             :hilfspersonal_mit_honorar,
-             :kuechenpersonal,
-             :honorare_inkl_sozialversicherung,
-             :unterkunft,
-             :uebriges,
-             :beitraege_teilnehmende,
-             :spezielle_unterkunft,
-             :year,
-             :teilnehmende_mehrfachbehinderte,
-             :direkter_aufwand,
-             :gemeinkostenanteil,
-             :gemeinkosten_updated_at,
-             :zugeteilte_kategorie,
-             :challenged_canton_count_id,
-             :affiliated_canton_count_id,
-             :anzahl_kurse,
-             :tage_behinderte,
-             :tage_angehoerige,
-             :tage_weitere,
-             :betreuerinnen,
+      :subventioniert,
+      :kursart,
+      :kursdauer,
+      :teilnehmende_behinderte,
+      :teilnehmende_angehoerige,
+      :teilnehmende_weitere,
+      :absenzen_behinderte,
+      :absenzen_angehoerige,
+      :absenzen_weitere,
+      :leiterinnen,
+      :fachpersonen,
+      :hilfspersonal_ohne_honorar,
+      :hilfspersonal_mit_honorar,
+      :kuechenpersonal,
+      :honorare_inkl_sozialversicherung,
+      :unterkunft,
+      :uebriges,
+      :beitraege_teilnehmende,
+      :spezielle_unterkunft,
+      :year,
+      :teilnehmende_mehrfachbehinderte,
+      :direkter_aufwand,
+      :gemeinkostenanteil,
+      :gemeinkosten_updated_at,
+      :zugeteilte_kategorie,
+      :challenged_canton_count_id,
+      :affiliated_canton_count_id,
+      :anzahl_kurse,
+      :tage_behinderte,
+      :tage_angehoerige,
+      :tage_weitere,
+      :betreuerinnen,
 
-             :event,
-             :challenged_canton_count,
-             :affiliated_canton_count,
+      :event,
+      :challenged_canton_count,
+      :affiliated_canton_count,
 
-             :anzahl_spezielle_unterkunft,
+      :anzahl_spezielle_unterkunft,
 
-             :event,
-             to: :record
+      :event,
+      to: :record
     # rubocop:enable Layout/EmptyLinesAroundArguments
 
     ::Event::Reportable::LEISTUNGSKATEGORIEN.each do |kategorie|
@@ -65,14 +64,14 @@ module Fp2015
 
     def total_absenzen
       absenzen_behinderte.to_d +
-          absenzen_angehoerige.to_d +
-          absenzen_weitere.to_d
+        absenzen_angehoerige.to_d +
+        absenzen_weitere.to_d
     end
 
     def teilnehmende
       teilnehmende_behinderte.to_i +
-          teilnehmende_angehoerige.to_i +
-          teilnehmende_weitere.to_i
+        teilnehmende_angehoerige.to_i +
+        teilnehmende_weitere.to_i
     end
 
     def betreuende
@@ -80,16 +79,16 @@ module Fp2015
         betreuerinnen.to_i
       else
         leiterinnen.to_i +
-            fachpersonen.to_i +
-            hilfspersonal_mit_honorar.to_i +
-            hilfspersonal_ohne_honorar.to_i
+          fachpersonen.to_i +
+          hilfspersonal_mit_honorar.to_i +
+          hilfspersonal_ohne_honorar.to_i
       end
     end
 
     def total_tage_teilnehmende
       tage_behinderte.to_d +
-          tage_angehoerige.to_d +
-          tage_weitere.to_d
+        tage_angehoerige.to_d +
+        tage_weitere.to_d
     end
 
     def total_stunden_betreuung
@@ -114,7 +113,7 @@ module Fp2015
 
     def total_vollkosten
       direkter_aufwand.to_d +
-          gemeinkostenanteil.to_d
+        gemeinkostenanteil.to_d
     end
 
     def direkte_kosten_pro_le
@@ -156,8 +155,8 @@ module Fp2015
 
     def calculate_direkter_aufwand
       honorare_inkl_sozialversicherung.to_d +
-          unterkunft.to_d +
-          uebriges.to_d
+        unterkunft.to_d +
+        uebriges.to_d
     end
 
     def calculate_tage_behinderte
@@ -171,6 +170,5 @@ module Fp2015
     def calculate_tage_weitere
       (kursdauer.to_d * teilnehmende_weitere.to_i) - absenzen_weitere.to_d
     end
-
   end
 end

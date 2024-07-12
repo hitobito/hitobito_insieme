@@ -8,26 +8,25 @@
 module Fp2015::CostAccounting
   module Report
     class UmlageVerwaltung < Base
-
       delegate :time_record, to: :table
 
-      FIELDS = %w(beratung
-                  treffpunkte
-                  blockkurse
-                  tageskurse
-                  jahreskurse
-                  lufeb
-                  mittelbeschaffung)
+      FIELDS = %w[beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       FIELDS.each do |field|
         define_method(field) do
           @allocated_fields ||= {}
 
           if verwaltung > 0
-            if time_record.total > 0
-              @allocated_fields[field] ||= allocated_with_time_record(field)
+            @allocated_fields[field] ||= if time_record.total > 0
+              allocated_with_time_record(field)
             else
-              @allocated_fields[field] ||= allocated_without_time_record(field)
+              allocated_without_time_record(field)
             end
           end
         end
@@ -39,21 +38,19 @@ module Fp2015::CostAccounting
 
       def verwaltung
         @verwaltung ||=
-          table.value_of('total_aufwand', 'verwaltung').to_d +
-          table.value_of('umlage_raeumlichkeiten', 'verwaltung').to_d
+          table.value_of("total_aufwand", "verwaltung").to_d +
+          table.value_of("umlage_raeumlichkeiten", "verwaltung").to_d
       end
 
       # rubocop:disable Metrics/AbcSize
       def total
-        @total ||= begin
-          beratung.to_d +
+        @total ||= beratung.to_d +
           treffpunkte.to_d +
           blockkurse.to_d +
           tageskurse.to_d +
           jahreskurse.to_d +
           lufeb.to_d +
           mittelbeschaffung.to_d
-        end
       end
       # rubocop:enable Metrics/AbcSize
 
@@ -87,7 +84,7 @@ module Fp2015::CostAccounting
       end
 
       def aufwand(field)
-        table.value_of('total_aufwand', field).to_d
+        table.value_of("total_aufwand", field).to_d
       end
     end
   end

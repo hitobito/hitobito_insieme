@@ -9,7 +9,7 @@ module Insieme
   module Event::ParticipationsController
     def self.prepended(base)
       base.permitted_attrs += [:disability, :multiple_disability, :wheel_chair,
-                               { person_attributes: additional_person_attributes }]
+        {person_attributes: additional_person_attributes}]
     end
 
     private
@@ -28,23 +28,24 @@ module Insieme
       attrs
     end
 
-    private_class_method
+    class << self
+      private
 
-    def self.additional_person_attributes
-      person_attributes = [:id, :canton, :birthday, :ahv_number,
-                           :address,
-                           :address_care_of, :street, :housenumber, :postbox,
-                           :zip_code, :town, :country, :newly_registered]
+      def additional_person_attributes
+        person_attributes = [:id, :canton, :birthday, :ahv_number,
+          :address,
+          :address_care_of, :street, :housenumber, :postbox,
+          :zip_code, :town, :country, :newly_registered]
 
-      Person::ADDRESS_TYPES.grep(/course/).each do |prefix|
-        person_attributes << :"#{prefix}_same_as_main"
-        Person::ADDRESS_FIELDS.each do |field|
-          person_attributes << :"#{prefix}_#{field}"
+        Person::ADDRESS_TYPES.grep(/course/).each do |prefix|
+          person_attributes << :"#{prefix}_same_as_main"
+          Person::ADDRESS_FIELDS.each do |field|
+            person_attributes << :"#{prefix}_#{field}"
+          end
         end
+
+        person_attributes
       end
-
-      person_attributes
     end
-
   end
 end

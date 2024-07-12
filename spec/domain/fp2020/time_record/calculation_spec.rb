@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2020::TimeRecord::Calculation do
   let(:year) { 2020 }
@@ -53,55 +53,55 @@ describe Fp2020::TimeRecord::Calculation do
       freiwilligen_akquisition: 30,
 
       # lufeb_grundlagen
-      lufeb_grundlagen: 31,
+      lufeb_grundlagen: 31
     )
   end
 
   subject { described_class.new(record) }
 
-  it 'total_lufeb' do
+  it "total_lufeb" do
     expect(subject.total_lufeb).to eq 39
   end
 
-  it 'total_media' do
+  it "total_media" do
     expect(subject.total_media).to eq 2
   end
 
-  it 'total_lufeb_grundlagen' do
+  it "total_lufeb_grundlagen" do
     expect(subject.total_lufeb_grundlagen).to eq 31
   end
 
-  it 'total_courses' do
+  it "total_courses" do
     expect(subject.total_courses).to eq 26
   end
 
-  it 'total_additional_person_specific' do
+  it "total_additional_person_specific" do
     expect(subject.total_additional_person_specific).to eq 9
   end
 
-  it 'total_remaining' do
+  it "total_remaining" do
     expect(subject.total_remaining).to eq 21
   end
 
-  it 'total_paragraph_74' do
+  it "total_paragraph_74" do
     expect(subject.total_paragraph_74).to eq 97
   end
-  it 'total_paragraph_74_pensum' do
-    expect(subject.total_paragraph_74_pensum).to eq 97.to_d / 1900
+  it "total_paragraph_74_pensum" do
+    expect(subject.total_paragraph_74_pensum).to eq BigDecimal("97") / 1900
   end
 
-  it 'total_not_paragraph_74' do
+  it "total_not_paragraph_74" do
     expect(subject.total_not_paragraph_74).to eq 12
   end
-  it 'total_not_paragraph_74_pensum' do
-    expect(subject.total_not_paragraph_74_pensum).to eq 12.to_d / 1900
+  it "total_not_paragraph_74_pensum" do
+    expect(subject.total_not_paragraph_74_pensum).to eq BigDecimal("12") / 1900
   end
 
-  it 'total_pensum' do
+  it "total_pensum" do
     expect(subject.total_pensum).to eq (12 + 97).to_d / 1900
   end
 
-  it 'update_totals' do
+  it "update_totals" do
     expect(subject.total_lufeb_general).to eq 1
     expect(subject.total_lufeb_specific).to eq 3
     expect(subject.total_lufeb_promoting).to eq 4

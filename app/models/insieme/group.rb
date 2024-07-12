@@ -43,7 +43,7 @@ module Insieme::Group
 
     has_many :time_records, dependent: :destroy
 
-    validates :canton, inclusion: { in: Cantons.short_name_strings, allow_blank: true }
+    validates :canton, inclusion: {in: Cantons.short_name_strings, allow_blank: true}
 
     def self.by_bsv_number
       where

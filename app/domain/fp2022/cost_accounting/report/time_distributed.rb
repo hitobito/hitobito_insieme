@@ -8,22 +8,21 @@
 module Fp2022::CostAccounting
   module Report
     class TimeDistributed < Base
+      TIME_FIELDS = %w[verwaltung
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung
+        medien_und_publikationen].freeze
 
-      TIME_FIELDS = %w(verwaltung
-                       beratung
-                       treffpunkte
-                       blockkurse
-                       tageskurse
-                       jahreskurse
-                       lufeb
-                       mittelbeschaffung
-                       medien_und_publikationen).freeze
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
-
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu]
 
       delegate :time_record, to: :table
 
@@ -34,9 +33,9 @@ module Fp2022::CostAccounting
             if aufwand_ertrag_ko_re.nonzero? && time_record.total_paragraph_74.nonzero?
               time_record_value =
                 case field
-                when 'lufeb'       then sum_fields(:lufeb, :kurse_grundlagen)
-                when 'treffpunkte' then sum_fields(:treffpunkte, :treffpunkte_grundlagen)
-                else                    sum_fields(field.to_sym)
+                when "lufeb" then sum_fields(:lufeb, :kurse_grundlagen)
+                when "treffpunkte" then sum_fields(:treffpunkte, :treffpunkte_grundlagen)
+                else sum_fields(field.to_sym)
                 end
 
               aufwand_ertrag_ko_re * time_record_value / time_record.total_paragraph_74.abs
@@ -51,7 +50,6 @@ module Fp2022::CostAccounting
           time_record.send(field).to_d
         end.sum
       end
-
     end
   end
 end

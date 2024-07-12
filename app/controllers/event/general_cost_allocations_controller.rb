@@ -20,7 +20,6 @@
 #  updated_at                  :datetime
 #
 class Event::GeneralCostAllocationsController < ReportingBaseController
-
   include Featureperioden::Views
 
   helper_method :general_cost_from_accounting
@@ -40,7 +39,7 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
 
   def entry
     @entry ||= Event::GeneralCostAllocation.where(group_id: group.id, year: year)
-                                           .first_or_initialize
+      .first_or_initialize
   end
 
   def group
@@ -53,10 +52,10 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
 
   def permitted_params
     params.require(:event_general_cost_allocation)
-          .permit(:general_costs_blockkurse,
-                  :general_costs_tageskurse,
-                  :general_costs_semesterkurse,
-                  :general_costs_treffpunkte)
+      .permit(:general_costs_blockkurse,
+        :general_costs_tageskurse,
+        :general_costs_semesterkurse,
+        :general_costs_treffpunkte)
   end
 
   def show_path
@@ -64,11 +63,10 @@ class Event::GeneralCostAllocationsController < ReportingBaseController
   end
 
   def set_success_notice
-    flash[:notice] = I18n.t('event.general_cost_allocations.update.flash.success', model: entry)
+    flash[:notice] = I18n.t("event.general_cost_allocations.update.flash.success", model: entry)
   end
 
   def schedule_allocation_job
     Event::GeneralCostAllocationJob.new(entry).enqueue!
   end
-
 end

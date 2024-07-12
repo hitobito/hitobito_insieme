@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Fp2020::CostAccounting::Aggregation do
   let(:year) { 2020 }
@@ -13,17 +13,17 @@ describe Fp2020::CostAccounting::Aggregation do
 
   let(:values) { subject.reports.values }
 
-  context 'has assumptions, it' do
-    it 'does not blow up' do
+  context "has assumptions, it" do
+    it "does not blow up" do
       expect(subject.year).to be 2020
     end
 
-    it 'has a used API, returning [Fp2020::CostAccounting::Aggregation::Report]' do
+    it "has a used API, returning [Fp2020::CostAccounting::Aggregation::Report]" do
       expect(values).to be_an Array
       expect(values.first).to be_a Fp2020::CostAccounting::Aggregation::Report
     end
 
-    it 'has reports for each row (which then filtered in the export-class)' do
+    it "has reports for each row (which then filtered in the export-class)" do
       expected_report_keys = %w[
         lohnaufwand
         sozialversicherungsaufwand

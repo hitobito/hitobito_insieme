@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2012-2013, Jungwacht Blauring Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -40,43 +38,41 @@
 #  updater_id                  :integer
 #
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Event::AggregateCourse do
-
   let(:event) do
     Event::AggregateCourse.new(groups: [groups(:dachverein)],
-                               leistungskategorie: 'bk',
-                               fachkonzept: 'sport_jugend',
-                               name: 'Foo')
+      leistungskategorie: "bk",
+      fachkonzept: "sport_jugend",
+      name: "Foo")
   end
 
-  context '#year' do
-
-    it 'causes a validation error if not set' do
+  context "#year" do
+    it "causes a validation error if not set" do
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'causes a validation error if empty string' do
-      event.year = ''
+    it "causes a validation error if empty string" do
+      event.year = ""
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'causes a validation error if string' do
-      event.year = 'asdf'
+    it "causes a validation error if string" do
+      event.year = "asdf"
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'causes a validation error if float' do
+    it "causes a validation error if float" do
       event.year = 1.5
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
 
-    it 'adds date according to given year' do
+    it "adds date according to given year" do
       event.year = 2000
       expect(event.valid?).to be_truthy
 
@@ -90,14 +86,14 @@ describe Event::AggregateCourse do
       expect(finish_at.day).to eq(31)
     end
 
-    it 'represents year of first date' do
+    it "represents year of first date" do
       event.year = 2000
       expect(event.year).to eq(2000)
       event.save!
       expect(Event::AggregateCourse.find(event.id).year).to eq(2000)
     end
 
-    it 'can be updated' do
+    it "can be updated" do
       event.year = 2000
       event.save!
       event_id = event.id
@@ -111,44 +107,42 @@ describe Event::AggregateCourse do
       expect(event.year).to eq(2001)
     end
 
-    it 'causes a validation error on invalid update' do
+    it "causes a validation error on invalid update" do
       event.year = 2000
       event.save!
       event_id = event.id
 
       event = Event::AggregateCourse.find(event_id)
-      event.year = ''
+      event.year = ""
       expect(event.valid?).to be_falsey
       expect(event.errors[:year]).to be_present
     end
   end
 
-  context 'frozen reporting' do
+  context "frozen reporting" do
     before { event.build_course_record }
     before { GlobalValue.first.update!(reporting_frozen_until_year: 2015) }
-    after  { GlobalValue.clear_cache }
+    after { GlobalValue.clear_cache }
 
-    it 'cannot create new record' do
+    it "cannot create new record" do
       event.year = 2014
       expect(event).to have(1).error_on(:base)
       expect(event.errors.full_messages.uniq.size).to eq(1) # just one message for the same issue
     end
 
-    it 'cannot change year into frozen period' do
+    it "cannot change year into frozen period" do
       event.year = 2016
       event.save!
       event.year = 2015
       expect(event).to have(1).error_on(:base)
     end
 
-    it 'cannot destroy frozen period' do
+    it "cannot destroy frozen period" do
       GlobalValue.first.update!(reporting_frozen_until_year: 2015)
       event.year = 2016
       event.save!
       GlobalValue.first.update!(reporting_frozen_until_year: 2016)
       expect { event.destroy }.not_to change { Event.count }
     end
-
   end
-
 end

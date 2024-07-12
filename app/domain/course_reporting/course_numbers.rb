@@ -5,10 +5,8 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-
 module CourseReporting
   class CourseNumbers
-
     attr_reader :event
 
     def initialize(event)
@@ -34,10 +32,10 @@ module CourseReporting
     def challenged_multiple_count
       @challenged_multiple_count ||=
         event.participations.joins(:roles)
-             .where(active: true, multiple_disability: true)
-             .where(event_roles: { type: Event::Course::Role::Challenged.sti_name })
-             .distinct
-             .count
+          .where(active: true, multiple_disability: true)
+          .where(event_roles: {type: Event::Course::Role::Challenged.sti_name})
+          .distinct
+          .count
     end
 
     def affiliated_count
@@ -58,8 +56,8 @@ module CourseReporting
 
     def leader_count
       role_count(Event::Course::Role::LeaderAdmin) +
-      role_count(Event::Course::Role::LeaderReporting) +
-      role_count(Event::Course::Role::LeaderBasic)
+        role_count(Event::Course::Role::LeaderReporting) +
+        role_count(Event::Course::Role::LeaderBasic)
     end
 
     def expert_count
@@ -84,23 +82,23 @@ module CourseReporting
 
     def team_count
       leader_count +
-      expert_count +
-      helper_paid_count +
-      helper_unpaid_count +
-      caretaker_count
+        expert_count +
+        helper_paid_count +
+        helper_unpaid_count +
+        caretaker_count
     end
 
     def participant_count
       challenged_count +
-      affiliated_count +
-      not_entitled_for_benefit_count
+        affiliated_count +
+        not_entitled_for_benefit_count
     end
 
     def invoice_amount_sum
-      event.participations.
-        map(&:invoice_amount).
-        map(&:to_d).
-        inject(&:+)
+      event.participations
+        .map(&:invoice_amount)
+        .map(&:to_d)
+        .inject(&:+)
     end
 
     private
@@ -129,10 +127,10 @@ module CourseReporting
 
     def canton_counts(role)
       counts = event.participations.includes(:roles)
-                    .joins(:roles, :person)
-                    .where(event_roles: { type: role.sti_name })
-                    .group('people.canton').count
-      counts['undefined'] = ((counts.delete(nil) || 0) + (counts.delete('') || 0))
+        .joins(:roles, :person)
+        .where(event_roles: {type: role.sti_name})
+        .group("people.canton").count
+      counts["undefined"] = ((counts.delete(nil) || 0) + (counts.delete("") || 0))
       counts
     end
   end

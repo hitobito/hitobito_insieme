@@ -8,33 +8,31 @@
 module Fp2015::CostAccounting
   module Report
     class IndirekteSpenden < Base
-
-      self.kontengruppe = '3320/680-685/74/333/335/910'
+      self.kontengruppe = "3320/680-685/74/333/335/910"
 
       self.aufwand = false
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_dachorganisation
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_dachorganisation
 
-                                  beratung
-                                  treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb
-                                  mittelbeschaffung)
+        beratung
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb
+        mittelbeschaffung]
 
       def abgrenzung_fibu
         abgrenzung_factor && (abgrenzung_factor * aufwand_ertrag_fibu.to_d)
       end
 
       def abgrenzung_factor
-        @abgrenzung_factor ||= table.value_of('total_aufwand', 'aufwand_ertrag_fibu').nonzero? && \
-                               (1 - table.value_of('vollkosten', 'total').to_d / \
-                                table.value_of('total_aufwand', 'aufwand_ertrag_fibu').to_d)
+        @abgrenzung_factor ||= table.value_of("total_aufwand", "aufwand_ertrag_fibu").nonzero? &&
+          (1 - table.value_of("vollkosten", "total").to_d /
+           table.value_of("total_aufwand", "aufwand_ertrag_fibu").to_d)
       end
-
     end
   end
 end

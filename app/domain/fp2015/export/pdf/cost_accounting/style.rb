@@ -11,7 +11,7 @@ module Fp2015::Export::Pdf::CostAccounting::Style
   CUSTOM_WIDTH_COLUMNS = [5].freeze
 
   def style_pdf(pdf)
-    pdf.font 'Helvetica', size: 6
+    pdf.font "Helvetica", size: 6
   end
 
   def style_table(table)
@@ -36,7 +36,7 @@ module Fp2015::Export::Pdf::CostAccounting::Style
 
   def color_table(table)
     COLORED_ROWS.each do |row_index|
-      table.row(row_index).background_color = 'BBBBBB'
+      table.row(row_index).background_color = "BBBBBB"
     end
   end
 
@@ -55,7 +55,7 @@ module Fp2015::Export::Pdf::CostAccounting::Style
   def table_width(table)
     CUSTOM_WIDTH_COLUMNS.each do |column_index|
       table.column(column_index).width = 8
-      table.column(column_index).row(1..26).content = ''
+      table.column(column_index).row(1..26).content = ""
       table.column(column_index).row(0).padding_left = 3
     end
   end

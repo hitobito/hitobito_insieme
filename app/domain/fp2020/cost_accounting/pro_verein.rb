@@ -34,8 +34,8 @@ module Fp2020::CostAccounting
 
       def members
         [:aufwand_ertrag_fibu, :abgrenzung, :klr, :gemeinkosten, :sozialberatung,
-         :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung, :media,
-         :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb]
+          :bauberatung, :rechtsberatung, :vermittlung, :wohnbegleitung, :media,
+          :jahreskurse, :blockkurse, :tageskurse, :treffpunkte, :lufeb]
       end
 
       def +(other)
@@ -66,27 +66,27 @@ module Fp2020::CostAccounting
       data = ->(value) { table.value_of(report.to_s, value).to_d }
 
       [
-        data['aufwand_ertrag_fibu'],
-        data['abgrenzung_fibu'],
-        [data['verwaltung'], data['raeumlichkeiten'], data['mittelbeschaffung']].sum,
-        data['beratung'],
-        data['medien_und_publikationen'],
+        data["aufwand_ertrag_fibu"],
+        data["abgrenzung_fibu"],
+        [data["verwaltung"], data["raeumlichkeiten"], data["mittelbeschaffung"]].sum,
+        data["beratung"],
+        data["medien_und_publikationen"],
 
-        data['jahreskurse'],
-        data['blockkurse'],
-        data['tageskurse'],
-        data['treffpunkte'],
-        data['lufeb']
+        data["jahreskurse"],
+        data["blockkurse"],
+        data["tageskurse"],
+        data["treffpunkte"],
+        data["lufeb"]
       ]
     end
 
     def fetch_data_for(group) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-      table = fp_class('CostAccounting::Table').new(group, year) # Fp2020::CostAccounting::Table
+      table = fp_class("CostAccounting::Table").new(group, year) # Fp2020::CostAccounting::Table
 
-      row                      = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
-      empty                    = CostAccountingRow.empty_row
+      row = ->(report) { CostAccountingRow.new(*report_data(report, table)) }
+      empty = CostAccountingRow.empty_row
       row_without_gemeinkosten = ->(report) { row[report].nullify(:gemeinkosten) }
-      row_with_method          = ->(method) { CostAccountingRow.new(*send(method, table)) }
+      row_with_method = ->(method) { CostAccountingRow.new(*send(method, table)) }
 
       {
         personalaufwand: row_with_method[:personalaufwand],
@@ -113,13 +113,13 @@ module Fp2020::CostAccounting
     end
 
     def gemeinkosten(table)
-      Array.new(3, nil) + report_data(:total_umlagen, table)[3..-1]
+      Array.new(3, nil) + report_data(:total_umlagen, table)[3..]
     end
 
     def indirekte_spenden(table)
       data = report_data(:indirekte_spenden, table)
 
-      [data[0], nil, nil, *data[3..-1]]
+      [data[0], nil, nil, *data[3..]]
     end
   end
 end

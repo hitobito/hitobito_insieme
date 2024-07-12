@@ -6,7 +6,6 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class StatisticsController < ApplicationController
-
   before_action :authorize
 
   decorates :group

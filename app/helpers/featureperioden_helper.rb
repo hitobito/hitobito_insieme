@@ -12,11 +12,11 @@ module FeatureperiodenHelper
 
   def fp_t(key, options = {})
     scope = [fp_i18n_scope]
-    scope << action_name if key.to_s.start_with?('.')
+    scope << action_name if key.to_s.start_with?(".")
 
     translate(
-      key.delete_prefix('.'),
-      **{ scope: scope.join('.') }.merge(options)
+      key.delete_prefix("."),
+      scope: scope.join("."), **options
     )
   end
 end

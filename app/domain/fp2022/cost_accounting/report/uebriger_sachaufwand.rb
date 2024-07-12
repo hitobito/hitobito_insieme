@@ -8,21 +8,19 @@
 module Fp2022::CostAccounting
   module Report
     class UebrigerSachaufwand < CourseRelated
+      self.kontengruppe = "40-43/61-67"
 
-      self.kontengruppe = '40-43/61-67'
+      self.used_fields += %w[verwaltung]
 
-      self.used_fields += %w(verwaltung)
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
-
-                                  verwaltung
-                                  beratung
-                                  medien_und_publikationen
-                                  lufeb
-                                  mittelbeschaffung)
-
+        verwaltung
+        beratung
+        medien_und_publikationen
+        lufeb
+        mittelbeschaffung]
     end
   end
 end

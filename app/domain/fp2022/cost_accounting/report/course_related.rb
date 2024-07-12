@@ -8,18 +8,16 @@
 module Fp2022::CostAccounting
   module Report
     class CourseRelated < Base
-
-      COURSE_FIELDS = { blockkurse: 'bk',
-                        tageskurse: 'tk',
-                        jahreskurse: 'sk',
-                        treffpunkte: 'tp' }.freeze
+      COURSE_FIELDS = {blockkurse: "bk",
+                       tageskurse: "tk",
+                       jahreskurse: "sk",
+                       treffpunkte: "tp"}.freeze
 
       COURSE_FIELDS.each do |field, lk|
         define_method(field) do
           table.course_costs(key, lk).try(:to_d)
         end
       end
-
     end
   end
 end

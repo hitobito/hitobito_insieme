@@ -7,7 +7,6 @@
 
 module Insieme::Export::Tabular::Events
   module List
-
     def build_attribute_labels
       super.tap do |labels|
         if model_class <= Event::Reportable
@@ -40,6 +39,5 @@ module Insieme::Export::Tabular::Events
     def remove_course_record_label(labels, attr)
       labels.except! attr
     end
-
   end
 end

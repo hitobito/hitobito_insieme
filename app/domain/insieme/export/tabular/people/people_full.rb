@@ -7,11 +7,10 @@
 
 module Insieme::Export::Tabular::People
   module PeopleFull
-
     REFERENCE_PERSON_FIELDS = [:reference_person_first_name, :reference_person_last_name,
-                               :reference_person_address, :reference_person_zip_code,
-                               :reference_person_town, :reference_person_active_membership_roles,
-                               :reference_person_additional_information]
+      :reference_person_address, :reference_person_zip_code,
+      :reference_person_town, :reference_person_active_membership_roles,
+      :reference_person_additional_information]
 
     def person_attributes
       super + REFERENCE_PERSON_FIELDS - [:disabled_person_reference]
@@ -24,6 +23,5 @@ module Insieme::Export::Tabular::People
       end
       labels
     end
-
   end
 end

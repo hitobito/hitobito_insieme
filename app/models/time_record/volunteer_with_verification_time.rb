@@ -54,5 +54,4 @@
 #
 
 class TimeRecord::VolunteerWithVerificationTime < TimeRecord
-
 end

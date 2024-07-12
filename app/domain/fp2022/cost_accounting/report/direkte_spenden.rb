@@ -8,23 +8,21 @@
 module Fp2022::CostAccounting
   module Report
     class DirekteSpenden < Base
-
-      self.kontengruppe = '3321/3323/32/900'
+      self.kontengruppe = "3321/3323/32/900"
 
       self.aufwand = false
 
-      delegate_editable_fields %w(aufwand_ertrag_fibu
-                                  aufteilung_kontengruppen
-                                  abgrenzung_fibu
+      delegate_editable_fields %w[aufwand_ertrag_fibu
+        aufteilung_kontengruppen
+        abgrenzung_fibu
 
-                                  beratung
-                                  medien_und_publikationen
-                                  treffpunkte
-                                  blockkurse
-                                  tageskurse
-                                  jahreskurse
-                                  lufeb)
-
+        beratung
+        medien_und_publikationen
+        treffpunkte
+        blockkurse
+        tageskurse
+        jahreskurse
+        lufeb]
     end
   end
 end

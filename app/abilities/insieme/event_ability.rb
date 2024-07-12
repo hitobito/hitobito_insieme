@@ -45,5 +45,4 @@ module Insieme::EventAbility
   def in_regionalverein
     event.groups.any? { |g| g.is_a?(Group::Regionalverein) }
   end
-
 end
