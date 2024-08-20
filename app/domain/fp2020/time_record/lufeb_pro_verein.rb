@@ -40,7 +40,7 @@ module Fp2020
           "SUM(total_lufeb_specific) AS specific",
           "SUM(total_lufeb_promoting) AS promoting",
           "SUM(lufeb_grundlagen) AS lufeb_grundlagen",
-          "SUM(kurse_grundlagen) AS kurse_grundlage"'
+          "SUM(kurse_grundlagen) AS kurse_grundlage"
         ].join(", "))
         .all
         .each_with_object({}) do |tr, memo|

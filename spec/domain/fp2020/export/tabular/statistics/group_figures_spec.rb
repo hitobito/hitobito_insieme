@@ -398,7 +398,7 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
     end
 
     it "for Freiburg" do
-      expect(data.second).to include(empty_row.merge({
+      expect(data.third).to include(empty_row.merge({
         "Vollständiger Name" => "Freiburg",
         "Kanton" => "Freiburg",
         "VID" => nil,
@@ -510,7 +510,7 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
     end
 
     it "for Biel-Seeland" do
-      expect(data.fourth).to include(empty_row.merge({
+      expect(data.second).to include(empty_row.merge({
         "Vollständiger Name" => "Biel-Seeland",
         "Kanton" => "Bern",
         "BSV Nummer" => 3115,
