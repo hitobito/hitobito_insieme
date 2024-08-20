@@ -88,7 +88,8 @@ describe "Statistics::GroupFigures" do
         groups(:dachverein),
         groups(:seeland),
         groups(:fr),
-        groups(:be)]
+        groups(:be)
+      ]
     end
   end
 

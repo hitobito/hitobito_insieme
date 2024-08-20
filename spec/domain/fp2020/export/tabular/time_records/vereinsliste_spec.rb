@@ -129,16 +129,16 @@ describe Fp2020::Export::Tabular::TimeRecords::Vereinsliste do
       it "contains all data" do
         data = export
         expect(data[3]).to eq(["Kanton Bern",
-                               nil, nil, nil, nil, 0,
-                               nil, nil, nil, nil, 0,
-                               nil, nil, nil, nil, 0, 0,
-                               nil, nil, nil, nil, nil, nil, nil, 0,
-                               nil, 300,
-                               nil, nil, nil, 300,
-                               nil,
-                               nil, nil, 0,
-                               300, 50,
-                               350])
+          nil, nil, nil, nil, 0,
+          nil, nil, nil, nil, 0,
+          nil, nil, nil, nil, 0, 0,
+          nil, nil, nil, nil, nil, nil, nil, 0,
+          nil, 300,
+          nil, nil, nil, 300,
+          nil,
+          nil, nil, 0,
+          300, 50,
+          350])
       end
 
       it "includes externe organisation" do

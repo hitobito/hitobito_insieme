@@ -29,21 +29,21 @@ module Fp2020
     def time_records # rubocop:disable Metrics/MethodLength
       @time_records ||=
         ::TimeRecord
-        .where(year: @year, type: [
-          "TimeRecord::EmployeeTime",
-          "TimeRecord::VolunteerWithVerificationTime"
-               ])
-        .group(:group_id)
-        .select([
-          "group_id",
-          "SUM(total_lufeb_general) AS general",
-          "SUM(total_lufeb_specific) AS specific",
-          "SUM(total_lufeb_promoting) AS promoting",
-          "SUM(lufeb_grundlagen) AS lufeb_grundlagen",
-          "SUM(kurse_grundlagen) AS kurse_grundlage"
-        ].join(", "))
-        .all
-        .each_with_object({}) do |tr, memo|
+          .where(year: @year, type: [
+            "TimeRecord::EmployeeTime",
+            "TimeRecord::VolunteerWithVerificationTime"
+          ])
+          .group(:group_id)
+          .select([
+            "group_id",
+            "SUM(total_lufeb_general) AS general",
+            "SUM(total_lufeb_specific) AS specific",
+            "SUM(total_lufeb_promoting) AS promoting",
+            "SUM(lufeb_grundlagen) AS lufeb_grundlagen",
+            "SUM(kurse_grundlagen) AS kurse_grundlage"
+          ].join(", "))
+          .all
+          .each_with_object({}) do |tr, memo|
           memo[tr.group_id] = [
             tr.general,
             tr.specific,

@@ -127,12 +127,12 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
       it "contains all data" do
         data = export
         expect(data[3]).to eq(["Kanton Bern",
-                               nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 0,
-                               200, nil, nil, 330, 530,
-                               nil, nil, nil, nil, nil, 0,
-                               nil, nil, nil, nil, nil, nil, nil, 0,
-                               530, 300, nil, nil, 300, nil, nil, 0, nil, nil, 0,
-                               830, 50, 880])
+          nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 0,
+          200, nil, nil, 330, 530,
+          nil, nil, nil, nil, nil, 0,
+          nil, nil, nil, nil, nil, nil, nil, 0,
+          530, 300, nil, nil, 300, nil, nil, 0, nil, nil, 0,
+          830, 50, 880])
       end
 
       it "includes externe organisation" do
@@ -155,12 +155,12 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
       it "contains all data" do
         data = export
         expect(data[3]).to eq(["Kanton Bern",
-                               300,
-                               nil,
-                               nil,
-                               nil,
-                               300, nil, 55, nil, 55, nil, nil, 0, nil, nil, 0,
-                               355, 50, 405])
+          300,
+          nil,
+          nil,
+          nil,
+          300, nil, 55, nil, 55, nil, nil, 0, nil, nil, 0,
+          355, 50, 405])
       end
     end
   end
