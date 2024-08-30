@@ -106,7 +106,8 @@ module Fp2020::CourseReporting
     end
 
     def records_for(attr, value)
-      records.select { |record| record.send(attr) == value }
+      Event::Course.first.fachkonzept
+      records.select { |record| record.event.send(attr) == value }
     end
 
     def find_record(fachkonzept, kursart)
@@ -136,10 +137,10 @@ module Fp2020::CourseReporting
     end
 
     def select_clause
-      columns = ["event_course_records.year",
-        "event_course_records.kursart",
-        "events.fachkonzept",
-        "event_course_records.event_id"]
+      columns = ["MIN(event_course_records.year) AS year",
+        "MIN(event_course_records.kursart) AS kursart",
+        "MIN(events.fachkonzept) AS fachkonzept",
+        "MIN(event_course_records.event_id) AS event_id"]
       columns.concat(sql_summed_attrs)
       columns << sql_sum_unterkunft
       columns.join(", ")

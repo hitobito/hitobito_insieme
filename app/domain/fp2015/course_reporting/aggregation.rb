@@ -135,10 +135,10 @@ module Fp2015::CourseReporting
     end
 
     def select_clause
-      columns = ["event_course_records.year",
-        "event_course_records.kursart",
-        "event_course_records.inputkriterien",
-        "event_course_records.event_id"]
+      columns = ["MIN(event_course_records.year) AS year",
+        "MIN(event_course_records.kursart) AS kursart",
+        "MIN(event_course_records.inputkriterien) AS inputkriterien",
+        "MIN(event_course_records.event_id) AS event_id"]
       columns.concat(sql_summed_attrs)
       columns << sql_sum_unterkunft
       columns.join(", ")

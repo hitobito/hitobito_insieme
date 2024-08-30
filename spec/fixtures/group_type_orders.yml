@@ -1,0 +1,51 @@
+dachverein:
+  name: Group::Dachverein
+  order_weight: 1
+
+dachverein_liste:
+  name: Group::DachvereinListe
+  order_weight: 2
+
+dachverein_gremium:
+  name: Group::DachvereinGremium
+  order_weight: 3
+
+dachverein_abonnemente:
+  name: Group::DachvereinAbonnemente
+  order_weight: 4
+
+regionalverein:
+  name: Group::Regionalverein
+  order_weight: 5
+
+regionalverein_liste:
+  name: Group::RegionalvereinListe
+  order_weight: 6
+
+regionalverein_gremium:
+  name: Group::RegionalvereinGremium
+  order_weight: 7
+
+externe_organisation:
+  name: Group::ExterneOrganisation
+  order_weight: 8
+
+aktivmitglieder:
+  name: Group::Aktivmitglieder
+  order_weight: 9
+
+passivmitglieder:
+  name: Group::Passivmitglieder
+  order_weight: 10
+
+kollektivmitglieder:
+  name: Group::Kollektivmitglieder
+  order_weight: 11
+
+externe_organisation_liste:
+  name: Group::ExterneOrganisationListe
+  order_weight: 12
+
+externe_organisation_gremium:
+  name: Group::ExterneOrganisationGremium
+  order_weight: 13

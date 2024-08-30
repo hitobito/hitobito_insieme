@@ -24,6 +24,9 @@ module Insieme::Person
 
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
+    Person::SEARCHABLE_ATTRS << :number << :salutation << :canton
+    include PgSearchable
+
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|
         Person::PUBLIC_ATTRS << :"#{prefix}_#{field}"
@@ -72,7 +75,7 @@ module Insieme::Person
     if @grouped_active_membership_roles.nil?
       active_memberships = roles.includes(:group)
         .joins(:group)
-        .where(groups: {type: ::Group::Aktivmitglieder})
+        .where(groups: {type: ::Group::Aktivmitglieder.sti_name})
       @grouped_active_membership_roles = Hash.new { |h, k| h[k] = [] }
       active_memberships.each do |role|
         @grouped_active_membership_roles[role.group] << role

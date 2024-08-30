@@ -1,0 +1,203 @@
+dachverein_praesident:
+  name: Group::Dachverein::Praesident
+  order_weight: 1
+
+dachverein_vorstandsmitglied:
+  name: Group::Dachverein::Vorstandsmitglied
+  order_weight: 2
+
+dachverein_geschaeftsfuehrung:
+  name: Group::Dachverein::Geschaeftsfuehrung
+  order_weight: 3
+
+dachverein_sekretariat:
+  name: Group::Dachverein::Sekretariat
+  order_weight: 4
+
+dachverein_adressverwaltung:
+  name: Group::Dachverein::Adressverwaltung
+  order_weight: 5
+
+dachverein_controlling:
+  name: Group::Dachverein::Controlling
+  order_weight: 6
+
+dachverein_invoicing:
+  name: Group::Dachverein::Invoicing
+  order_weight: 7
+
+dachverein_it_support:
+  name: Group::Dachverein::ItSupport
+  order_weight: 8
+
+dachverein_external:
+  name: Group::Dachverein::External
+  order_weight: 9
+
+dachverein_liste_listenverwaltung:
+  name: Group::DachvereinListe::Listenverwaltung
+  order_weight: 10
+
+dachverein_liste_person:
+  name: Group::DachvereinListe::Person
+  order_weight: 11
+
+dachverein_gremium_leitung:
+  name: Group::DachvereinGremium::Leitung
+  order_weight: 12
+
+dachverein_gremium_mitglied:
+  name: Group::DachvereinGremium::Mitglied
+  order_weight: 13
+
+dachverein_abonnemente_einzelabo:
+  name: Group::DachvereinAbonnemente::Einzelabo
+  order_weight: 14
+
+dachverein_abonnemente_geschenkabo:
+  name: Group::DachvereinAbonnemente::Geschenkabo
+  order_weight: 15
+
+dachverein_abonnemente_gratisabo:
+  name: Group::DachvereinAbonnemente::Gratisabo
+  order_weight: 16
+
+regionalverein_praesident:
+  name: Group::Regionalverein::Praesident
+  order_weight: 17
+
+regionalverein_vorstandsmitglied:
+  name: Group::Regionalverein::Vorstandsmitglied
+  order_weight: 18
+
+regionalverein_geschaeftsfuehrung:
+  name: Group::Regionalverein::Geschaeftsfuehrung
+  order_weight: 19
+
+regionalverein_sekretariat:
+  name: Group::Regionalverein::Sekretariat
+  order_weight: 20
+
+regionalverein_adressverwaltung:
+  name: Group::Regionalverein::Adressverwaltung
+  order_weight: 21
+
+regionalverein_versandadresse:
+  name: Group::Regionalverein::Versandadresse
+  order_weight: 22
+
+regionalverein_rechnungsadresse:
+  name: Group::Regionalverein::Rechnungsadresse
+  order_weight: 23
+
+regionalverein_controlling:
+  name: Group::Regionalverein::Controlling
+  order_weight: 24
+
+regionalverein_invoicing:
+  name: Group::Regionalverein::Invoicing
+  order_weight: 25
+
+regionalverein_external:
+  name: Group::Regionalverein::External
+  order_weight: 26
+
+regionalverein_liste_listenverwaltung:
+  name: Group::RegionalvereinListe::Listenverwaltung
+  order_weight: 27
+
+regionalverein_liste_person:
+  name: Group::RegionalvereinListe::Person
+  order_weight: 28
+
+regionalverein_gremium_leitung:
+  name: Group::RegionalvereinGremium::Leitung
+  order_weight: 29
+
+regionalverein_gremium_mitglied:
+  name: Group::RegionalvereinGremium::Mitglied
+  order_weight: 30
+
+externe_organisation_praesident:
+  name: Group::ExterneOrganisation::Praesident
+  order_weight: 31
+
+externe_organisation_vorstandsmitglied:
+  name: Group::ExterneOrganisation::Vorstandsmitglied
+  order_weight: 32
+
+externe_organisation_geschaeftsfuehrung:
+  name: Group::ExterneOrganisation::Geschaeftsfuehrung
+  order_weight: 33
+
+externe_organisation_sekretariat:
+  name: Group::ExterneOrganisation::Sekretariat
+  order_weight: 34
+
+externe_organisation_adressverwaltung:
+  name: Group::ExterneOrganisation::Adressverwaltung
+  order_weight: 35
+
+externe_organisation_versandadresse:
+  name: Group::ExterneOrganisation::Versandadresse
+  order_weight: 36
+
+externe_organisation_rechnungsadresse:
+  name: Group::ExterneOrganisation::Rechnungsadresse
+  order_weight: 37
+
+externe_organisation_controlling:
+  name: Group::ExterneOrganisation::Controlling
+  order_weight: 38
+
+externe_organisation_invoicing:
+  name: Group::ExterneOrganisation::Invoicing
+  order_weight: 39
+
+externe_organisation_external:
+  name: Group::ExterneOrganisation::External
+  order_weight: 40
+
+aktivmitglieder_aktivmitglied:
+  name: Group::Aktivmitglieder::Aktivmitglied
+  order_weight: 41
+
+aktivmitglieder_aktivmitglied_ohne_abo:
+  name: Group::Aktivmitglieder::AktivmitgliedOhneAbo
+  order_weight: 42
+
+aktivmitglieder_zweitmitgliedschaft:
+  name: Group::Aktivmitglieder::Zweitmitgliedschaft
+  order_weight: 43
+
+passivmitglieder_passivmitglied:
+  name: Group::Passivmitglieder::Passivmitglied
+  order_weight: 44
+
+passivmitglieder_passivmitglied_mit_abo:
+  name: Group::Passivmitglieder::PassivmitgliedMitAbo
+  order_weight: 45
+
+kollektivmitglieder_kollektivmitglied:
+  name: Group::Kollektivmitglieder::Kollektivmitglied
+  order_weight: 46
+
+kollektivmitglieder_kollektivmitglied_mit_abo:
+  name: Group::Kollektivmitglieder::KollektivmitgliedMitAbo
+  order_weight: 47
+
+externe_organisation_liste_listenverwaltung:
+  name: Group::ExterneOrganisationListe::Listenverwaltung
+  order_weight: 48
+
+externe_organisation_liste_person:
+  name: Group::ExterneOrganisationListe::Person
+  order_weight: 49
+
+externe_organisation_gremium_leitung:
+  name: Group::ExterneOrganisationGremium::Leitung
+  order_weight: 50
+
+externe_organisation_gremium_mitglied:
+  name: Group::ExterneOrganisationGremium::Mitglied
+  order_weight: 51

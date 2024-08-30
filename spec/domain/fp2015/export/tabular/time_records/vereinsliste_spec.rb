@@ -126,7 +126,7 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
     context "for employee time" do
       it "contains all data" do
         data = export
-        expect(data[2]).to eq(["Kanton Bern",
+        expect(data[3]).to eq(["Kanton Bern",
           nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 0,
           200, nil, nil, 330, 530,
           nil, nil, nil, nil, nil, 0,
@@ -154,7 +154,7 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
 
       it "contains all data" do
         data = export
-        expect(data[2]).to eq(["Kanton Bern",
+        expect(data[3]).to eq(["Kanton Bern",
           300,
           nil,
           nil,

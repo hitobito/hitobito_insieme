@@ -37,10 +37,10 @@ module Statistics
     end
 
     def type_counts_per_layer
-      result = Role.connection.execute(type_counts_per_layer_query)
+      result = Role.connection.execute(type_counts_per_layer_query).to_a
       result.each_with_object({}) do |row, hash|
-        hash[row[0]] ||= Hash.new(0)
-        hash[row[0]][row[1]] = row[2]
+        hash[row["layer_group_id"]] ||= Hash.new(0)
+        hash[row["layer_group_id"]][row["type_index"]] = row["count"]
       end
     end
 
@@ -54,16 +54,16 @@ module Statistics
 
     def person_roles_per_layer_query
       <<-SQL
-        SELECT `groups`.layer_group_id AS layer_group_id,
+        SELECT "groups".layer_group_id AS layer_group_id,
                MIN(#{type_index_switch}) AS type_index,
                roles.person_id AS person_id
         FROM roles
-        INNER JOIN `groups` `groups` ON `groups`.id = roles.group_id
-        INNER JOIN `groups` layers ON layers.id = `groups`.layer_group_id
+        INNER JOIN "groups" "groups" ON "groups".id = roles.group_id
+        INNER JOIN "groups" layers ON layers.id = "groups".layer_group_id
         WHERE layers.type = '#{Group::Regionalverein.sti_name}' AND
               roles.deleted_at IS NULL AND
               roles.type IN (#{role_types_param})
-        GROUP BY `groups`.layer_group_id,
+        GROUP BY "groups".layer_group_id,
                  roles.person_id
       SQL
     end
