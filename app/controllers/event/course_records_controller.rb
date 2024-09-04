@@ -90,7 +90,6 @@ class Event::CourseRecordsController < CrudController
     edit_group_event_course_record_path(*parents)
   end
 
-  # with mysql when saving value 1 it is rerenderd as 1.0 which is considered decimal
   def replace_decimal_with_integer
     return unless entry.duration_in_hours?
 
