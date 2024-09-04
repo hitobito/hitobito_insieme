@@ -143,7 +143,7 @@ describe Event::CourseRecordsController do
       let(:dom) { Capybara::Node::Simple.new(response.body) }
       let(:event) { Fabricate(:course, groups: [group], leistungskategorie: leistungskategorie, fachkonzept: fachkonzept) }
 
-      context "for sk", db: :mysql do
+      context "for sk", db: :postgres do
         let(:leistungskategorie) { "sk" }
         let(:fachkonzept) { "sport_jugend" }
 
@@ -157,7 +157,7 @@ describe Event::CourseRecordsController do
         end
       end
 
-      context "for tp", db: :mysql do
+      context "for tp", db: :postgres do
         let(:leistungskategorie) { "tp" }
         let(:fachkonzept) { "treffpunkt" }
 
