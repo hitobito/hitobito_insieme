@@ -68,19 +68,19 @@ describe Statistics::Vereinsmitglieder do
       (1..6).each { |i| expect(subject.count(groups(:seeland), i)).to eq 0 }
     end
 
-    it "does not count deleted roles" do
+    it "does not count ended roles" do
       o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
         group: active,
-        created_at: 2.years.ago)
+        start_on: 2.years.ago,
+        end_on: 1.year.ago)
       a = Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
         group: active,
         person: people(:regio_aktiv),
-        created_at: 2.years.ago)
+        start_on: 2.years.ago,
+        end_on: 1.year.ago)
       Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
         group: passive,
         person: people(:regio_aktiv))
-      o.update!(deleted_at: 1.year.ago)
-      a.update!(deleted_at: 1.year.ago)
 
       (0..5).each { |i| expect(subject.count(layer, i)).to eq 0 }
       expect(subject.count(layer, 6)).to eq 1

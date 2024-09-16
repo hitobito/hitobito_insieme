@@ -45,8 +45,8 @@ describe AboAddresses::Query do
         abos = Fabricate(Group::DachvereinAbonnemente.name.to_sym, parent: groups(:dachverein))
         abo = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym,
           group: abos,
-          created_at: 2.years.ago).person
-        abo.roles.first.update!(deleted_at: 1.year.ago)
+          start_on: 2.years.ago,
+          end_on: 1.year.ago).person
 
         is_expected.not_to include(abo)
       end

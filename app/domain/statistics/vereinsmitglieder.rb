@@ -60,8 +60,8 @@ module Statistics
         FROM roles
         INNER JOIN "groups" "groups" ON "groups".id = roles.group_id
         INNER JOIN "groups" layers ON layers.id = "groups".layer_group_id
-        WHERE layers.type = '#{Group::Regionalverein.sti_name}' AND
-              roles.deleted_at IS NULL AND
+        #{Role.active.arel.where_sql} AND
+              layers.type = '#{Group::Regionalverein.sti_name}' AND
               roles.type IN (#{role_types_param})
         GROUP BY "groups".layer_group_id,
                  roles.person_id
