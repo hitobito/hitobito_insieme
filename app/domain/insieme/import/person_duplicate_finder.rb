@@ -10,25 +10,23 @@ module Insieme
     module PersonDuplicateFinder
       private
 
-      def duplicate_ids_with_first_person(attrs)
+      def duplicates(attrs)
         if attrs[:number].present?
-          people_ids = ::Person.where(number: attrs[:number]).pluck(:id).presence
-          return {people_ids:, first_person: find_first_person(people_ids)} if people_ids
-          check_duplicate_with_different_number(attrs, super)
+          ::Person.where(number: attrs[:number]).to_a.presence ||
+            check_duplicate_with_different_number(attrs, super)
         else
           super
         end
       end
 
-      def check_duplicate_with_different_number(attrs, duplicate_ids_with_first_person)
-        duplicate_ids = duplicate_ids_with_first_person[:people_ids]
-        first_person = duplicate_ids_with_first_person[:first_person]
-        if duplicate_ids.present?
-          add_duplicate_with_different_number_error(first_person) if first_person.number?
+      def check_duplicate_with_different_number(attrs, duplicates)
+        if duplicates.present?
+          person = duplicates.first
+          add_duplicate_with_different_number_error(person) if person.number?
         else
           attrs[:manual_number] = true
         end
-        duplicate_ids_with_first_person
+        duplicates
       end
 
       def add_duplicate_with_different_number_error(person)
