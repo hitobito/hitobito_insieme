@@ -25,7 +25,6 @@ module Insieme::Person
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
     Person::SEARCHABLE_ATTRS << :number << :salutation << :canton
-    include PgSearchable
 
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|
