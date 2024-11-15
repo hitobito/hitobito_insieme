@@ -69,11 +69,11 @@ describe Statistics::Vereinsmitglieder do
     end
 
     it "does not count ended roles" do
-      o = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
+      Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
         group: active,
         start_on: 2.years.ago,
         end_on: 1.year.ago)
-      a = Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
+      Fabricate(Group::Aktivmitglieder::AktivmitgliedOhneAbo.name.to_sym,
         group: active,
         person: people(:regio_aktiv),
         start_on: 2.years.ago,
