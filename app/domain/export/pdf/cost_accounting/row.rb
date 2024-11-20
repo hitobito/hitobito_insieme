@@ -7,7 +7,7 @@
 #
 
 module Export::Pdf
-  class CostAccounting::Row
+  class CostAccounting::Row < Export::Tabular::Row
     class_attribute :dynamic_attributes
     self.dynamic_attributes = {}
 
@@ -33,7 +33,7 @@ module Export::Pdf
     end
 
     def currency_format(number)
-      format("%.2f", number.to_f).to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1'")
+      Kernel.format("%.2f", number.to_f).to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1'")
     end
 
     def report
