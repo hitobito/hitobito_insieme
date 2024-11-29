@@ -31,6 +31,7 @@ describe Export::Pdf::Invoice do
   end
 
   subject do
+
     pdf = described_class.render(invoice, articles: true)
     PDF::Inspector::Text.analyze(pdf)
   end
@@ -52,14 +53,14 @@ describe Export::Pdf::Invoice do
         [57, 674, "Teststrasse 23"],
         [57, 662, "3007 Bern"],
         [57, 537, "Rechnungsartikel"],
-        [362, 537, "Anzahl"],
-        [419, 537, "Preis"],
-        [462, 537, "Betrag"],
-        [515, 537, "MwSt."],
+        [412, 537, "Anzahl"],
+        [469, 537, "Preis"],
+        [512, 537, "Betrag"],
         [389, 522, "Zwischenbetrag"],
         [506, 522, "0.00 CHF"],
         [389, 504, "Gesamtbetrag"],
-        [490, 504, "1'500.00 CHF"]
+        [490, 504, "1'500.00 CHF"],
+        [515, 537, "MwSt."]
       ]
 
       text_with_position.each_with_index do |l, i|
@@ -98,14 +99,14 @@ describe Export::Pdf::Invoice do
         [57, 674, "Musterweg 2"],
         [57, 662, "8000 Hitobitingen"],
         [57, 537, "Rechnungsartikel"],
-        [362, 537, "Anzahl"],
-        [419, 537, "Preis"],
-        [462, 537, "Betrag"],
-        [515, 537, "MwSt."],
+        [412, 537, "Anzahl"],
+        [469, 537, "Preis"],
+        [512, 537, "Betrag"],
         [389, 522, "Zwischenbetrag"],
         [506, 522, "0.00 CHF"],
         [389, 504, "Gesamtbetrag"],
-        [490, 504, "1'500.00 CHF"]
+        [490, 504, "1'500.00 CHF"],
+        [515, 537, "MwSt."]
       ]
 
       text_with_position.each_with_index do |l, i|
