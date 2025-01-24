@@ -19,7 +19,7 @@ describe Event::ParticipationsController do
         person_attributes: {id: person.id,
                             canton: "Be",
                             birthday: "2014-09-22",
-                            zip_code: "1234",
+                            zip_code: "10115",
                             town: "dummy",
                             street: "dummy",
                             country: "DE",
@@ -50,7 +50,7 @@ describe Event::ParticipationsController do
     expect(person.reload.canton).to eq "be"
     expect(person.birthday).to eq Date.parse("2014-09-22")
     expect(person.ahv_number).to eq "123"
-    expect(person.zip_code).to eq "1234"
+    expect(person.zip_code).to eq "10115"
 
     %w[billing_course_zip_code correspondence_course_zip_code].each do |attr|
       expect(person.send(attr.to_sym)).to eq 1234

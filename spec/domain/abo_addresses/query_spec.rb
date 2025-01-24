@@ -83,7 +83,7 @@ describe AboAddresses::Query do
       end
 
       it "does not contain person if country is DE" do
-        people(:regio_aktiv).update!(country: "DE")
+        people(:regio_aktiv).update!(country: "DE", zip_code: "12345")
         is_expected.not_to include(people(:regio_aktiv))
       end
     end
@@ -112,7 +112,7 @@ describe AboAddresses::Query do
     let(:swiss) { false }
 
     it "contains person if country is de" do
-      people(:regio_aktiv).update!(country: "DE")
+      people(:regio_aktiv).update!(country: "DE", zip_code: "12345")
       is_expected.to include(people(:regio_aktiv))
     end
 
