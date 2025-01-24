@@ -64,10 +64,10 @@ describe Export::Tabular::People do
           additional_information: "English musician"))
 
       person.country = "US"
+      person.zip_code = 60601
       person.correspondence_general_same_as_main = false
       person.correspondence_general_first_name = "Töp"
       person.correspondence_general_country = "FR"
-      person
 
       person.reference_person_number = "123"
 

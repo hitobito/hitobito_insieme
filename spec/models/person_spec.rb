@@ -175,7 +175,7 @@ describe Person do
       expect(person.reload.correspondence_general_last_name).to eq "Lennon"
       expect(person.correspondence_course_address).to eq "Pennylane"
       expect(person.billing_general_town).to eq "Liverpool"
-      expect(person.billing_course_zip_code).to eq 9933
+      expect(person.billing_course_zip_code).to eq 60601
       expect(person.billing_course_country).to eq "US"
     end
 
@@ -192,7 +192,7 @@ describe Person do
     def create(attrs = {})
       Fabricate(:person, attrs.merge(first_name: "John", last_name: "Lennon",
         street: "Pennylane", housenumber: nil,
-        zip_code: "9933", town: "Liverpool", country: "US"))
+        zip_code: "60601", town: "Liverpool", country: "US"))
     end
   end
 
