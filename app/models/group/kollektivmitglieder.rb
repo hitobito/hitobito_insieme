@@ -46,5 +46,5 @@ class Group::Kollektivmitglieder < Group
 
   roles Kollektivmitglied,
     KollektivmitgliedMitAbo
-  self.default_role = KollektivmitgliedMitAbo
+  self.standard_role = KollektivmitgliedMitAbo
 end
