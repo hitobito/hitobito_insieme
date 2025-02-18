@@ -53,5 +53,5 @@ class Group::DachvereinAbonnemente < Group
     Geschenkabo,
     Gratisabo
 
-  self.default_role = Einzelabo
+  self.standard_role = Einzelabo
 end

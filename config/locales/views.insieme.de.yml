@@ -126,12 +126,12 @@ de:
       teilnehmende_angehoerige: davon Angehörige
       teilnehmende_weitere: davon nicht Bezugsberechtigte
 
-      total_absenzen:  Absenztage
+      total_absenzen: Absenztage
       absenzen_behinderte: davon Absenztage Personen mit Behinderung
       absenzen_angehoerige: davon Absenztage Angehörige
       absenzen_weitere: davon Absenztage nicht Bezugsberechtigte
 
-      total_absenzen_stunden:  Absenzstunden
+      total_absenzen_stunden: Absenzstunden
       absenzen_behinderte_stunden: davon Absenzstunden Personen mit Behinderung
       absenzen_angehoerige_stunden: davon Absenzstunden Angehörige
       absenzen_weitere_stunden: davon Absenzstunden nicht Bezugsberechtigte
@@ -163,9 +163,12 @@ de:
 
       direkte_kosten_pro_le: Durchschnittliche direkte Kosten pro TeilnehmerInnentag
       direkte_kosten_pro_le_stunden: Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde
+      direkte_kosten_pro_betreuungsstunde: Durchschnittliche direkte Kosten pro Betreuungsstunde
+
       total_vollkosten: Vollkosten
       vollkosten_pro_le: Durchschnittliche Vollkosten pro TeilnehmerInnentag
       vollkosten_pro_le_stunden: Durchschnittliche Vollkosten pro TeilnehmerInnenstunde
+      vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
       beitraege_teilnehmende: Beiträge Teilnehmende
       betreuungsschluessel: Betreuungschlüssel (Teilnehmende / Betreuende)
       anzahl_spezielle_unterkunft: Anzahl Kurse mit spezieller Unterkunft
@@ -178,12 +181,12 @@ de:
     other_fr: Ausland französisch
 
   dropdown/event/role_add:
-    add_to_event/course: 'BetreuerIn hinzufügen'
+    add_to_event/course: "BetreuerIn hinzufügen"
 
   event:
     lists:
       courses:
-        xlsx_export_button: 'Excel Export'
+        xlsx_export_button: "Excel Export"
         xlsx_export_title: Liste
     course_records:
       title: Kursabschluss
@@ -230,16 +233,16 @@ de:
         active_memberships: Aktivmitgliedschaften
 
   event/participations:
-    full_entry_label: '%{model_label} von <i>%{person}</i> in <i>%{event}</i>'
-    success: '%{full_entry_label} wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an.'
-    instructions: 'Für die definitive Anmeldung musst du die Teilnahmebestätigung über <i>Drucken</i> ausdrucken, unterzeichnen und per Post an die entsprechende Adresse schicken.'
-    export_enqueued: 'Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen.'
-    waiting_list: 'Es sind derzeit alle Plätze belegt, die Anmeldung ist auf der Warteliste.'
-    pending: 'Es wurde eine Voranmeldung für %{full_entry_label} erstellt. Die Teilnahme ist noch nicht definitiv und muss von der Kursadministration bestätigt werden.'
+    full_entry_label: "%{model_label} von <i>%{person}</i> in <i>%{event}</i>"
+    success: "%{full_entry_label} wurde erfolgreich erstellt. Bitte überprüfe die Kontaktdaten und passe diese gegebenenfalls an."
+    instructions: "Für die definitive Anmeldung musst du die Teilnahmebestätigung über <i>Drucken</i> ausdrucken, unterzeichnen und per Post an die entsprechende Adresse schicken."
+    export_enqueued: "Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen."
+    waiting_list: "Es sind derzeit alle Plätze belegt, die Anmeldung ist auf der Warteliste."
+    pending: "Es wurde eine Voranmeldung für %{full_entry_label} erstellt. Die Teilnahme ist noch nicht definitiv und muss von der Kursadministration bestätigt werden."
 
   events:
     tabs:
-      participants: 'Team & Teilnehmende'
+      participants: "Team & Teilnehmende"
     global:
       link:
         add_event/aggregate_course: Sammelkurs erstellen
@@ -261,7 +264,7 @@ de:
   people:
     fields_insieme:
       manual_number: Manuell
-      reference_person_number_help: 'Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben.'
+      reference_person_number_help: "Für Vergünstigungen des Vereins: Personnr. einer Bezugsperson, die Vereinsmitglied ist, eingeben."
 
     fields_insieme_disabled_person:
       reference_title: Zugehörige Person mit Behinderung
@@ -283,7 +286,7 @@ de:
     index:
       export: CSV Export
     group_figures:
-      name: 'Vollständiger Name'
+      name: "Vollständiger Name"
       canton: Kanton
       vid: VID
       bsv: BSV Nummer
@@ -693,12 +696,12 @@ de:
     title: Kurse
 
   fp2015/export/tabular/events/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2015/export/tabular/events/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
@@ -715,12 +718,12 @@ de:
     direkter_aufwand: Direkter Aufwand
 
   fp2015/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2015/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
@@ -736,14 +739,13 @@ de:
     total_tage_teilnehmende: Anzahl tatsächliche LE
     direkter_aufwand: Direkter Aufwand
 
-
   fp2020/export/tabular/events/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2020/export/tabular/events/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
@@ -764,12 +766,12 @@ de:
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
   fp2020/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2020/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
@@ -790,12 +792,12 @@ de:
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
   fp2022/export/tabular/events/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2022/export/tabular/events/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung
@@ -816,12 +818,12 @@ de:
     vollkosten_pro_betreuungsstunde: Vollkosten/Betreuungsstunde
 
   fp2022/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
 
   fp2022/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisatoren'
+    group_names: "Organisatoren"
     duration: Zeitraum
     date: "Datum %{index}"
     teilnehmende_behinderte: Effektiv Teilnehmende Personen mit Behinderung

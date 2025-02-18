@@ -68,7 +68,7 @@ module Fp2020::CostAccounting
       [
         data["aufwand_ertrag_fibu"],
         data["abgrenzung_fibu"],
-        [data["verwaltung"], data["raeumlichkeiten"], data["mittelbeschaffung"]].sum,
+        [data["verwaltung"], data["raeumlichkeiten"], data["mittelbeschaffung"]].reduce(:+),
         data["beratung"],
         data["medien_und_publikationen"],
 
@@ -91,7 +91,7 @@ module Fp2020::CostAccounting
       {
         personalaufwand: row_with_method[:personalaufwand],
         honorare: row[:honorare],
-        sachaufwand: [row[:raumaufwand], row[:uebriger_sachaufwand]].sum,
+        sachaufwand: [row[:raumaufwand], row[:uebriger_sachaufwand]].reduce(:+),
         aufwand: empty,
         gemeinkosten: row_with_method[:gemeinkosten],
         umlagen: empty,
@@ -109,7 +109,7 @@ module Fp2020::CostAccounting
         CostAccountingRow.new(*report_data(:lohnaufwand, table)),
         CostAccountingRow.new(*report_data(:sozialversicherungsaufwand, table)),
         CostAccountingRow.new(*report_data(:uebriger_personalaufwand, table))
-      ].sum
+      ].reduce(:+)
     end
 
     def gemeinkosten(table)
