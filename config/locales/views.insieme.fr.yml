@@ -150,11 +150,11 @@ fr:
     other_de: Etranger allemand
     other_fr: Etranger français
   dropdown/event/role_add:
-    add_to_event/course: 'Ajouter personnel d''encadrement'
+    add_to_event/course: "Ajouter personnel d'encadrement"
   event:
     lists:
       courses:
-        xlsx_export_button: 'Excel Export'
+        xlsx_export_button: "Excel Export"
         xlsx_export_title: Liste
     course_records:
       title: Clôture du cours
@@ -197,15 +197,15 @@ fr:
       asides_insieme:
         active_memberships: Membres actifs
   event/participations:
-    full_entry_label: '%{model_label}de<i>%{person}</i> au<i>%{event}</i>'
-    success: '%{full_entry_label}a été créé avec succès. Veuillez vérifier les données de contact et les adapter si nécessaire.'
-    instructions: 'Pour l''inscription définitive, tu dois imprimer la confirmation de participation via <i>Imprimer</i>, la signer et l''envoyer par la poste à l''adresse correspondante.'
-    export_enqueued: 'Export est lancé en arrière-plan et téléchargé une fois terminé.'
-    waiting_list: 'Toutes les places sont actuellement occupées, l''inscription est sur la liste  d''attente.'
-    pending: 'Une préinscription a été créée pour %{full_entry_label}. La participation n''est pas encore définitive et doit être confirmée par l''administration du cours.'
+    full_entry_label: "%{model_label}de<i>%{person}</i> au<i>%{event}</i>"
+    success: "%{full_entry_label}a été créé avec succès. Veuillez vérifier les données de contact et les adapter si nécessaire."
+    instructions: "Pour l'inscription définitive, tu dois imprimer la confirmation de participation via <i>Imprimer</i>, la signer et l'envoyer par la poste à l'adresse correspondante."
+    export_enqueued: "Export est lancé en arrière-plan et téléchargé une fois terminé."
+    waiting_list: "Toutes les places sont actuellement occupées, l'inscription est sur la liste  d'attente."
+    pending: "Une préinscription a été créée pour %{full_entry_label}. La participation n'est pas encore définitive et doit être confirmée par l'administration du cours."
   events:
     tabs:
-      participants: 'Equipe & Participants'
+      participants: "Equipe & Participants"
     global:
       link:
         add_event/aggregate_course: Etablir plusieurs cours
@@ -224,7 +224,7 @@ fr:
   people:
     fields_insieme:
       manual_number: Manuellement
-      reference_person_number_help: 'Pour des réductions de l''association: indiquer le no personnel d''une personne de référence qui est membre de l''association. '
+      reference_person_number_help: "Pour des réductions de l'association: indiquer le no personnel d'une personne de référence qui est membre de l'association. "
     fields_insieme_disabled_person:
       reference_title: Personne désignée avec handicap
       reference: Référence à la personne avec handicap
@@ -242,7 +242,7 @@ fr:
     index:
       export: CSV Export
     group_figures:
-      name: 'Nom complet'
+      name: "Nom complet"
       canton: Canton
       vid: Identification de l'association IDA
       bsv: Numéro OFAS
@@ -612,11 +612,11 @@ fr:
   export/tabular/events:
     title: Cours
   fp2015/export/tabular/events/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2015/export/tabular/events/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
@@ -632,11 +632,11 @@ fr:
     total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
   fp2015/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2015/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
@@ -652,11 +652,11 @@ fr:
     total_tage_teilnehmende: Nombre effectif de unité de prestation
     direkter_aufwand: Charges directes
   fp2020/export/tabular/events/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2020/export/tabular/events/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
@@ -676,11 +676,11 @@ fr:
     total_stunden_betreuung: Total heures d’accompagnement
     vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
   fp2020/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2020/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
@@ -700,11 +700,11 @@ fr:
     total_stunden_betreuung: Total heures d’accompagnement
     vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
   fp2022/export/tabular/events/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2022/export/tabular/events/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
@@ -724,11 +724,11 @@ fr:
     total_stunden_betreuung: Total heures d’accompagnement
     vollkosten_pro_betreuungsstunde: Coûts complets par heure d’accompagnement
   fp2022/export/tabular/events/aggregate_course/short_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
   fp2022/export/tabular/events/aggregate_course/detail_list:
-    group_names: 'Organisateurs'
+    group_names: "Organisateurs"
     duration: Période
     date: "Date %{index}"
     teilnehmende_behinderte: Participants effectifs personnes en situation de handicap
