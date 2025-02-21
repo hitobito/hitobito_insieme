@@ -87,14 +87,14 @@ describe Fp2020::TimeRecord::Calculation do
     expect(subject.total_paragraph_74).to eq 97
   end
   it "total_paragraph_74_pensum" do
-    expect(subject.total_paragraph_74_pensum).to eq BigDecimal("97") / 1900
+    expect(subject.total_paragraph_74_pensum).to eq BigDecimal(97) / 1900
   end
 
   it "total_not_paragraph_74" do
     expect(subject.total_not_paragraph_74).to eq 12
   end
   it "total_not_paragraph_74_pensum" do
-    expect(subject.total_not_paragraph_74_pensum).to eq BigDecimal("12") / 1900
+    expect(subject.total_not_paragraph_74_pensum).to eq BigDecimal(12) / 1900
   end
 
   it "total_pensum" do

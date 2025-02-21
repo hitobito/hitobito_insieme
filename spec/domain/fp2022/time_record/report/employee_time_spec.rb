@@ -24,19 +24,19 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
 
   context "#paragraph_74" do
     it "calculates the correct value" do
-      expect(report.paragraph_74).to eq BigDecimal("3")
+      expect(report.paragraph_74).to eq BigDecimal(3)
     end
   end
 
   context "#not_paragraph_74" do
     it "calculates the correct value" do
-      expect(report.not_paragraph_74).to eq BigDecimal("5")
+      expect(report.not_paragraph_74).to eq BigDecimal(5)
     end
   end
 
   context "#total" do
     it "calculates the correct value" do
-      expect(report.total).to eq(BigDecimal("3") + BigDecimal("5")) # 8
+      expect(report.total).to eq(BigDecimal(3) + BigDecimal(5)) # 8
     end
   end
 

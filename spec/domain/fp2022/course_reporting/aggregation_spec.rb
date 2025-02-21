@@ -141,8 +141,8 @@ describe Fp2022::CourseReporting::Aggregation do
       expect_values(:unterkunft, 60)
       expect_values(:uebriges, 90)
 
-      dk_pro_le = BigDecimal("180") / BigDecimal("12") # direkter_aufwand / total_tage_teilnehmende
-      vk_pro_le = BigDecimal("210") / BigDecimal("12") # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = BigDecimal(180) / BigDecimal(12) # direkter_aufwand / total_tage_teilnehmende
+      vk_pro_le = BigDecimal(210) / BigDecimal(12) # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le)
       expect_values(:total_vollkosten, 210)
@@ -193,8 +193,8 @@ describe Fp2022::CourseReporting::Aggregation do
       expect_values(:unterkunft, 80)
       expect_values(:uebriges, 120)
 
-      dk_pro_le = BigDecimal("240") / 16 # direkter_aufwand / total_tage_teilnehmende
-      vk_pro_le = BigDecimal("280") / 16 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = BigDecimal(240) / 16 # direkter_aufwand / total_tage_teilnehmende
+      vk_pro_le = BigDecimal(280) / 16 # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le)
       expect_values(:vollkosten_pro_le, vk_pro_le)
@@ -279,8 +279,8 @@ describe Fp2022::CourseReporting::Aggregation do
         assert_summed(attr, :total, :sport_jugend, aggregation_123, aggregation_be_123, aggregation_fr_123)
       end
 
-      dk_pro_le = BigDecimal("360") / 24 # direkter_aufwand / total_tage_teilnehmende
-      vk_pro_le = BigDecimal("420") / 24 # total_vollkosten / total_tage_teilnehmende
+      dk_pro_le = BigDecimal(360) / 24 # direkter_aufwand / total_tage_teilnehmende
+      vk_pro_le = BigDecimal(420) / 24 # total_vollkosten / total_tage_teilnehmende
 
       expect_values(:direkte_kosten_pro_le, dk_pro_le)
       expect_values(:vollkosten_pro_le, vk_pro_le)

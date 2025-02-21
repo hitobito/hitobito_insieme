@@ -36,8 +36,8 @@ describe Event::CourseRecord do
 
     it "calculates vollkosten pro betreuungsstunde" do
       expect(record.year).to eq 2022
-      expect(record.betreuungsstunden).to eq(BigDecimal("4"))
-      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal("20"))
+      expect(record.betreuungsstunden).to eq(BigDecimal(4))
+      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal(20))
     end
 
     it "handles division by zero" do
@@ -45,7 +45,7 @@ describe Event::CourseRecord do
       record.set_cached_values # trigger before-validation hook to update values
 
       expect(record.year).to eq 2022
-      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal("0"))
+      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal(0))
     end
   end
 
@@ -70,17 +70,17 @@ describe Event::CourseRecord do
 
     it "calculates vollkosten pro betreuungsstunde" do
       expect(subject.year).to eq 2022
-      expect(subject.betreuungsstunden).to eq(BigDecimal("4"))
+      expect(subject.betreuungsstunden).to eq(BigDecimal(4))
       expect(subject.direkter_aufwand).to eq(60)
       expect(subject.gemeinkostenanteil).to eq(20)
-      expect(subject.total_vollkosten).to eq(BigDecimal("80"))
-      expect(subject.vollkosten_pro_betreuungsstunde).to eq(BigDecimal("20"))
+      expect(subject.total_vollkosten).to eq(BigDecimal(80))
+      expect(subject.vollkosten_pro_betreuungsstunde).to eq(BigDecimal(20))
     end
 
     it "handles division by zero" do
       record.betreuungsstunden = 0
       expect(record.year).to eq 2022
-      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal("0"))
+      expect(record.vollkosten_pro_betreuungsstunde).to eq(BigDecimal(0))
     end
   end
 end

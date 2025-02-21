@@ -128,7 +128,7 @@ describe CourseReporting::CourseNumbers do
           event.participations.build(attrs)
         end
 
-        expect(subject.invoice_amount_sum).to eq(BigDecimal("3"))
+        expect(subject.invoice_amount_sum).to eq(BigDecimal(3))
       end
     end
 

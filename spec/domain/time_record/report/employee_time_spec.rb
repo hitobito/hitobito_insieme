@@ -17,19 +17,19 @@ describe "TimeRecord::Report::EmployeeTime" do
 
   context "#paragraph_74" do
     it "calculates the correct value" do
-      expect(report.paragraph_74).to eq BigDecimal("3") / 1900
+      expect(report.paragraph_74).to eq BigDecimal(3) / 1900
     end
   end
 
   context "#not_paragraph_74" do
     it "calculates the correct value" do
-      expect(report.not_paragraph_74).to eq BigDecimal("5") / 1900
+      expect(report.not_paragraph_74).to eq BigDecimal(5) / 1900
     end
   end
 
   context "#total" do
     it "calculates the correct value" do
-      expect(report.total).to eq BigDecimal("3") / 1900 + BigDecimal("5") / 1900
+      expect(report.total).to eq BigDecimal(3) / 1900 + BigDecimal(5) / 1900
     end
   end
 

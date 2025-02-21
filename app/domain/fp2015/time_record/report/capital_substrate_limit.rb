@@ -10,7 +10,7 @@ module Fp2015
     self.kind = :capital_substrate
 
     def paragraph_74
-      BigDecimal("2") * table.cost_accounting_value_of("vollkosten", "total")
+      BigDecimal(2) * table.cost_accounting_value_of("vollkosten", "total")
     end
   end
 end

@@ -338,19 +338,19 @@ describe Event::CourseRecord do
 
     context "#betreuungsschluessel" do
       it "is correct" do
-        expect(subject.betreuungsschluessel).to eq(BigDecimal("5") / BigDecimal("6"))
+        expect(subject.betreuungsschluessel).to eq(BigDecimal(5) / BigDecimal(6))
       end
     end
 
     context "#direkter_aufwand" do
       it "is correct" do
-        expect(subject.direkter_aufwand).to eq(BigDecimal("250"))
+        expect(subject.direkter_aufwand).to eq(BigDecimal(250))
       end
     end
 
     context "#total_vollkosten" do
       it "is correct" do
-        expect(subject.total_vollkosten).to eq(BigDecimal("300"))
+        expect(subject.total_vollkosten).to eq(BigDecimal(300))
       end
     end
 
@@ -398,25 +398,25 @@ describe Event::CourseRecord do
 
     context "#betreuungsschluessel" do
       it "is correct" do
-        expect(subject.betreuungsschluessel).to eq(BigDecimal("0"))
+        expect(subject.betreuungsschluessel).to eq(BigDecimal(0))
       end
     end
 
     context "#direkter_aufwand" do
       it "is correct" do
-        expect(subject.direkter_aufwand).to eq(BigDecimal("0"))
+        expect(subject.direkter_aufwand).to eq(BigDecimal(0))
       end
     end
 
     context "#total_vollkosten" do
       it "is correct" do
-        expect(subject.total_vollkosten).to eq(BigDecimal("0"))
+        expect(subject.total_vollkosten).to eq(BigDecimal(0))
       end
     end
 
     context "#vollkosten_pro_le" do
       it "is correct" do
-        expect(subject.vollkosten_pro_le).to eq(BigDecimal("0"))
+        expect(subject.vollkosten_pro_le).to eq(BigDecimal(0))
       end
     end
 

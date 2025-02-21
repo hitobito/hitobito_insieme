@@ -105,7 +105,7 @@ module Fp2020
         total_iv_beitrag = time_record_table(y).cost_accounting_value_of("beitraege_iv", "aufwand_ertrag_fibu").to_d # rubocop:disable Layout/LineLength
         gesamtkosten = time_record_table(y).cost_accounting_value_of("total_aufwand", "aufwand_ertrag_ko_re").to_d # rubocop:disable Layout/LineLength
 
-        next BigDecimal("0") if gesamtkosten.zero?
+        next BigDecimal(0) if gesamtkosten.zero?
 
         total_iv_beitrag / gesamtkosten
       end
