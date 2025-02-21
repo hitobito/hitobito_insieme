@@ -48,7 +48,7 @@ module Event::Reportable
 
   def reporting_frozen?
     frozen = GlobalValue.reporting_frozen_until_year
-    frozen && course_record && course_record.year && course_record.year <= frozen
+    frozen && course_record&.year && course_record.year <= frozen
   end
 
   private

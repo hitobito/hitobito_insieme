@@ -169,12 +169,12 @@ describe "Statistics::GroupFigures" do
 
     it "returns the pensums" do
       time = figures.employee_time(groups(:be))
-      expect(time.total_pensum).to eq(BigDecimal("15") / 1900)
-      expect(time.total_paragraph_74_pensum).to eq(BigDecimal("10") / 1900)
+      expect(time.total_pensum).to eq(BigDecimal(15) / 1900)
+      expect(time.total_paragraph_74_pensum).to eq(BigDecimal(10) / 1900)
 
       time = figures.employee_time(groups(:fr))
-      expect(time.total_pensum).to eq(BigDecimal("12") / 1900)
-      expect(time.total_paragraph_74_pensum).to eq(BigDecimal("12") / 1900)
+      expect(time.total_pensum).to eq(BigDecimal(12) / 1900)
+      expect(time.total_paragraph_74_pensum).to eq(BigDecimal(12) / 1900)
     end
 
     it "returns nil for groups without records" do
@@ -210,12 +210,12 @@ describe "Statistics::GroupFigures" do
 
     it "returns the pensums" do
       time = figures.volunteer_with_verification_time(groups(:be))
-      expect(time.total_pensum).to eq(BigDecimal("20") / 1900)
-      expect(time.total_paragraph_74_pensum).to eq(BigDecimal("20") / 1900)
+      expect(time.total_pensum).to eq(BigDecimal(20) / 1900)
+      expect(time.total_paragraph_74_pensum).to eq(BigDecimal(20) / 1900)
 
       time = figures.volunteer_with_verification_time(groups(:fr))
-      expect(time.total_pensum).to eq(BigDecimal("21") / 1900)
-      expect(time.total_paragraph_74_pensum).to eq(BigDecimal("21") / 1900)
+      expect(time.total_pensum).to eq(BigDecimal(21) / 1900)
+      expect(time.total_paragraph_74_pensum).to eq(BigDecimal(21) / 1900)
     end
 
     it "returns nil for groups without records" do

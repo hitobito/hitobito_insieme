@@ -169,7 +169,7 @@ describe TimeRecord do
 
       it "is the equivalent to 100%-jobs" do
         expect(record.total_paragraph_74).to eq 66
-        expect(record.total_paragraph_74_pensum).to eq BigDecimal("66") / 1900
+        expect(record.total_paragraph_74_pensum).to eq BigDecimal(66) / 1900
       end
     end
 
@@ -180,7 +180,7 @@ describe TimeRecord do
 
       it "is the equivalent to 100%-jobs" do
         expect(record.total_not_paragraph_74).to eq 12
-        expect(record.total_not_paragraph_74_pensum).to eq BigDecimal("12") / 1900
+        expect(record.total_not_paragraph_74_pensum).to eq BigDecimal(12) / 1900
       end
     end
 
@@ -199,7 +199,7 @@ describe TimeRecord do
         record.type = "TimeRecord::EmployeeTime"
         record.save!
         expect(record.total).to eq 455
-        expect(record.total_pensum).to eq BigDecimal("455") / 1900
+        expect(record.total_pensum).to eq BigDecimal(455) / 1900
       end
     end
   end
