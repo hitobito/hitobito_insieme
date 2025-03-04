@@ -22,19 +22,15 @@ module AboAddresses
       :first_name,
       :last_name,
       :company_name,
+      :address_care_of,
+      :street,
+      :housenumber,
+      :postbox,
       :zip_code,
       :town,
       :country,
       :number
     ]
-    if FeatureGate.enabled?("structured_addresses")
-      REQUIRED_ATTRS << :address_care_of
-      REQUIRED_ATTRS << :street
-      REQUIRED_ATTRS << :housenumber
-      REQUIRED_ATTRS << :postbox
-    else
-      REQUIRED_ATTRS << :address
-    end
 
     attr_reader :swiss, :language
 
