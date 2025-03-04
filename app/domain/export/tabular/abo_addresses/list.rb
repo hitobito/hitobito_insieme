@@ -52,15 +52,11 @@ module Export::Tabular::AboAddresses
       private
 
       def address_line(line_index)
-        lines = if FeatureGate.enabled?("structured_addresses")
-          [
-            entry.address_care_of,
-            entry.address,
-            entry.postbox
-          ].compact
-        else
-          entry.address.to_s.split($INPUT_RECORD_SEPARATOR)
-        end
+        lines = [
+          entry.address_care_of,
+          entry.address,
+          entry.postbox
+        ].compact
 
         line = lines[line_index]
         line&.strip
