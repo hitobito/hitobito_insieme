@@ -31,14 +31,26 @@ describe Export::SubscriptionsJob do
     it "with salutation, number, correspondence_language, language, canton and additional_information" do
       subject.perform
 
-      expect(file).to respond_to :read
-      content = file.read
-      expect(content).not_to be_nil
-      expect(content).to respond_to :lines
-
-      lines = content.lines
+      lines = content_lines(file)
       expect(lines.size).to eq(4) # header and three entries
       expect(lines[0]).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
     end
   end
+end
+
+def content_lines(file)
+  # trying to find the flakiness-reason...
+  expect(file).to respond_to :generated_file
+  expect(file.generated_file).to_not be_nil
+  expect(file.generated_file).to be_attached
+
+  expect(file).to respond_to :read
+
+  content = file.read
+
+  # trying to find the flakiness-reason...
+  expect(content).not_to be_nil
+  expect(content).to respond_to :lines
+
+  content.lines
 end
