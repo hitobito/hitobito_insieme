@@ -12,6 +12,11 @@ module Insieme::Person::Address
 
   private
 
+  # NOTE: according to existing specs this wagon relies only on company_name and ignores company flag
+  def print_company?(name)
+    @person.company_name? && @person.company_name != name
+  end
+
   def billing_general_person_and_company_name
     if @person.billing_general_company?
       [
@@ -29,6 +34,7 @@ module Insieme::Person::Address
         .compact
         .join(" ")
         .squish,
-      country]
+      country_string(:country).presence
+    ]
   end
 end
