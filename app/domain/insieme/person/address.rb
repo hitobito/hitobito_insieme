@@ -34,7 +34,6 @@ module Insieme::Person::Address
         .compact
         .join(" ")
         .squish,
-      country_string(:country).presence
-    ]
+      country_string(:country).presence]
   end
 end

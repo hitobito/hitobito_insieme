@@ -28,7 +28,6 @@ module Insieme
         end
 
         class AddressProxy
-
           delegate :additional_addresses, to: "@person"
 
           def initialize(person, address_type)
