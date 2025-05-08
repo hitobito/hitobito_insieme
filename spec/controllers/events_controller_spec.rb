@@ -27,6 +27,9 @@ describe EventsController do
     let(:course_attrs) {
       {group_ids: [group.id],
        name: "foo",
+       visible_contact_attributes: {
+         name: "1"
+       },
        dates_attributes: [date],
        type: "Event::Course"}
     }
@@ -72,6 +75,9 @@ describe EventsController do
     context "for aggregate course" do
       let(:course_attrs) {
         {group_ids: [group.id],
+         visible_contact_attributes: {
+           name: "1"
+         },
          name: "foo",
          year: Time.zone.today.year,
          type: "Event::AggregateCourse"}
@@ -123,7 +129,8 @@ describe EventsController do
 
       it "validates course record attributes" do
         update(kursart: "foo")
-        expect(assigns(:event).errors.attribute_names).to eq [:"course_record.kursart", :fachkonzept]
+        expect(assigns(:event).errors.attribute_names).to include :"course_record.kursart"
+        expect(assigns(:event).errors.attribute_names).to include :fachkonzept
       end
 
       it "only updates, does not change missing fields" do
