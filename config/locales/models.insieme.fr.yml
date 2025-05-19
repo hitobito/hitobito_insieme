@@ -1,6 +1,12 @@
+#  Copyright (c) 2012-2022, insieme Schweiz. This file is part of
+#  hitobito_insieme and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_insieme.
+
 fr:
   activerecord:
     models:
+
       group/dachverein:
         one: Organisation faîtière
         other: Organisations faîtières
@@ -53,6 +59,7 @@ fr:
         one: Comité
         other: Comités
         long: Comité organisation externe
+
       group/dachverein/praesident:
         one: Président-e
         many: Présidents
@@ -177,30 +184,40 @@ fr:
         one: Membre actif
         other: Membre actif
         short: Actif
+        description:
       group/aktivmitglieder/aktivmitglied_ohne_abo:
         one: Membre actif sans abo
         other: Membre actif sans abo
         short: Actif sans abo
+        description:
       group/aktivmitglieder/zweitmitgliedschaft:
         one: 'Double appartenance '
         other: Double adhésion
         short: A double
+        description:
+
       group/passivmitglieder/passivmitglied:
         one: Membre passif
         other: Membre passif
         short: Passif
+        description:
       group/passivmitglieder/passivmitglied_mit_abo:
         one: Membre passif avec abo
         other: Membre passif avec abo
         short: Passif avec abo
+        description:
+
       group/kollektivmitglieder/kollektivmitglied:
         one: Membre collectif
         other: Membre collectif
         short: Collectif
+        description:
       group/kollektivmitglieder/kollektivmitglied_mit_abo:
         one: Membre collectif avec abo
         other: Membre collectif avec abo
         short: Collectif avec abo
+        description:
+
       group/externe_organisation/praesident:
         one: Président-e-s
         many: Président-e-s
@@ -320,12 +337,15 @@ fr:
       time_record/employee_time:
         one: Enregistrement des heures de travail des employé-e-s
         short: Employé-e-s
+
       time_record/volunteer_without_verification_time:
         one: Enregistrement des heures de travail des bénévoles sans preuve de prestations
         short: Bénévole sans preuve de prestations
+
       time_record/volunteer_with_verification_time:
         one: Enregistrement des heures de travail des bénévoles avec preuve des prestations
         short: Bénévole avec preuve de prestations
+
       event/course_record:
         one: Reports des cours
         many: Reports des cours
@@ -345,6 +365,7 @@ fr:
     attributes:
       cantons:
         another: Autre provenance
+
       cost_accounting_record:
         group_id: Groupe
         group: Groupe
@@ -371,17 +392,21 @@ fr:
         gemeinkosten: Total des frais généraux
         kostentraeger: Total Unité d’imputation de coûts
         aufteilung_kontengruppen: Notices
+
       global_value:
         default_reporting_year: Année Default Reporting
         reporting_frozen_until_year: Reporting bloqué jusqu'au
+
       event:
         leistungskategorie: Catégorie de prestations
         teamer_count: Nombre de personnel d'encadrement
+
       event/aggregate_course:
         leistungskategorie: Catégorie de prestations
         year: Année
         dates_full: Année
         fachkonzept: Contenu du cours
+
       event/course:
         leistungskategorie: Catégorie de prestations
         leistungskategorien:
@@ -409,6 +434,7 @@ fr:
           sport_erwachsen: sports adultes et personnes d'âge mixte
           autonomie_foerderung: aide à l’entraide / éducation
           treffpunkt: Lieux d’accueil
+
       event/course_record:
         event_id: Cours
         event: Cours
@@ -448,9 +474,11 @@ fr:
         zugeteilte_kategorie: Catégorie attribuée
         year: Reporting dans l'année
         anzahl_kurse: Nombre de cours
+
         kursarten:
           weiterbildung: Formation continue
           freizeit_und_sport: Loisirs et sport
+
       event/general_cost_allocation:
         year: Année
         group_id: Groupe
@@ -460,22 +488,25 @@ fr:
         general_costs_treffpunkte: Total des frais généraux
         total_direct_costs: Total des frais directs
         general_costs_allowance: Suppléments de frais généraux
+
       event/participation:
         disability: Handicap
         disability_label: Handicap
         disabilities:
           geistig: Handicap mental et difficultés d'apprentissage
-          hoer: 'Handicap de l''ouïe '
+          hoer:  'Handicap de l''ouïe '
           koerper: Handicap physique
           krankheit: Handicap suite maladie
           psychisch: Handicap psychique
           seh: Handicap de la vue
           sprach: Handicap du langage
           sucht: Handicap suite dépendance
+          _nil: ''
         multiple_disability: Polyhandicap
         wheel_chair: Chaise roulante
         invoice_text: Texte comptable
         invoice_amount: Montant de la facture
+
       event/participation_canton_count:
         ag: AG
         ai: AI
@@ -505,11 +536,13 @@ fr:
         zh: ZH
         another: Autre provenance
         undefined: Pas fixé
+
       group:
         full_name: Nom complet
         vid: Identification de l'association IDA
         bsv_number: Numéro OFAS
         canton: Canton
+
       person:
         salutation: Titre
         canton: Canton
@@ -520,10 +553,14 @@ fr:
           it: Italien
           en: Anglais
           another: Autre
+          _nil: ''
+
         correspondence_language: Langue de correspondance
         correspondence_languages:
           de: Allemand
           fr: Français
+          _nil: ''
+
         disabled_person_reference: A référence à la personne avec handicap
         disabled_person_first_name: Prénom de la personne désignée avec handicap
         disabled_person_last_name: Nom de famille de la personne désignée avec handicap
@@ -531,6 +568,7 @@ fr:
         disabled_person_zip_code: NPA de la personne désignée avec handicap
         disabled_person_town: Lieu de la personne désignée avec handicap
         disabled_person_birthday: Anniversaire de la personne désignée avec handicap
+
         number: Numéro personnel
         reference_person_number: No personnel de la personne de référence
         reference_person_first_name: Prénom de la personne de référence
@@ -542,6 +580,7 @@ fr:
         reference_person_additional_information: Indications supplémentaires de la personne de référence
         dossier: Lien du dossier
         ahv_number: Numéro AVS
+
         address_labels:
           Privat: Personnel
           Arbeit: Professionnel
@@ -551,6 +590,7 @@ fr:
           Wohngruppe: Groupe d'habitation
           Wohnheim: Logement
           Andere: Autres
+
         correspondence_general_salutation: Titre pour l'adresse de correspondance en général
         correspondence_general_first_name: Prénom pour l'adresse de correspondance en général
         correspondence_general_last_name: Nom de famille pour l'adresse de correspondance en général
@@ -562,6 +602,7 @@ fr:
         correspondence_general_country: Pays pour l'adresse de correspondance en général
         correspondence_general_same_as_main: Même adresse de correspondance en général que l'adresse principale
         correspondence_general_label: Label
+
         billing_general_salutation: Titre pour l'adresse de facturation en général
         billing_general_first_name: Prénom pour l'adresse de facturation en général
         billing_general_last_name: Nom de famille pour l'adresse de facturation en général
@@ -573,6 +614,7 @@ fr:
         billing_general_country: Pays pour l'adresse de facturation en général
         billing_general_same_as_main: Même adresse de facturation en général que l'adresse principale
         billing_general_label: Label
+
         correspondence_course_salutation: Titre pour l'adresse de correspondance pour les cours
         correspondence_course_first_name: Prénom pour l'adresse de correspondance pour les cours
         correspondence_course_last_name: Nom de famille pour l'adresse de correspondance pour les cours
@@ -584,6 +626,7 @@ fr:
         correspondence_course_country: Pays adresse de correspondance pour les cours
         correspondence_course_same_as_main: Même adresse de correspondance pour les cours que l'adresse principale
         correspondence_course_label: Label
+
         billing_course_salutation: Titre pour l'adresse de facturation pour les cours
         billing_course_first_name: Prénom pour l'adresse de facturation pour les cours
         billing_course_last_name: Nom de famille pour l'adresse de facturation pour les cours
@@ -595,6 +638,7 @@ fr:
         billing_course_country: Pays adresse de facturation pour les cours
         billing_course_same_as_main: Même adresse de facturation que l'adresse principale
         billing_course_label: Label
+
       contact_account:
         predefined_labels:
           privat: Personnel
@@ -605,6 +649,7 @@ fr:
           wohngruppe: Groupe d'habitation
           wohnheim: Logement
           andere: Autres
+
       reporting_parameter:
         year: Année
         vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP
@@ -614,6 +659,7 @@ fr:
         bsv_hours_per_year: Heures OFAS par année
         capital_substrate_exemption: Substrat de capital OFAS montant libre
         capital_substrate_limit: OFAS Substrat du capital maximal
+
       time_record:
         year: Année
         group: Groupe
@@ -628,27 +674,32 @@ fr:
         allgemeine_auskunftserteilung: Renseignements généraux et orientation des usagers
         kontakte_meinungsbildner: Contacts avec des conseillers en communication
         beratung_medien: Conseil aux journalistes
+
         eigene_zeitschriften: Publications de l'organisation
         newsletter: Lettres d'information périodiques / Newsletter
         informationsbroschueren: Brochures et fiches d'information, mémentos
         eigene_webseite: Site internet de l'organisation et Social Media
+
         erarbeitung_instrumente: Elaboration d'instruments de travail et de plans
         erarbeitung_grundlagen: Elaboration de bases qualitatives
         projekte: Lancement, direction et réalisation de projets
         vernehmlassungen: Participation aux procédures de consultation
         gremien: Appartenance ou collaboration à des organes
+
         auskunftserteilung: Renseignements et conseil succincts
         vermittlung_kontakte: Transmission de contacts
-        unterstuetzung_selbsthilfeorganisationen: Conseil et suivi professionnel
+        unterstuetzung_selbsthilfeorganisationen:  Conseil et suivi professionnel
         koordination_selbsthilfe: Coordination d'activités d'entraide
         treffen_meinungsaustausch: Planification, organisation et tenue de réunions informelles
         beratung_fachhilfeorganisationen: Information et conseil aux organisations d'aide spécialisée concernant l'encouragement de l'entraide
         unterstuetzung_behindertenhilfe: Soutien aux personnes handicapées dans les organes directeurs des organisations de l'aide privée aux personnes handicapées
+
         lufeb_grundlagen: Travail de fond PROSPREH
         unterstuetzung_leitorgane: Soutien de personnes handicapée dans des organes directeurs
         freiwilligen_akquisition: Recrutement de bénévoles
         auskuenfte: 'Renseignements au public : personnes handicapées, proches, spécialistes, médias'
         medien_zusammenarbeit: Collaboration avec des médias
+
         media: Médias et publications
         medien_grundlagen: Travail de fond Médias et publications
         website: Page Internet
@@ -656,34 +707,44 @@ fr:
         social_media: Résaux sociaux
         beratungsmodule: Module de conseil standardisé
         apps: Applications
+
         total_lufeb_general: Tâches générales d'information et de relations publiques
         total_lufeb_private: Médias et publications de l'organisation accessibles au public
         total_lufeb_specific: Travail de fond ou projets ayant pour objet un thème spécifique
         total_lufeb_promoting: "Prestations de base pour l'encouragment de l'entraide ou conseil aux organisations et groupes d'entraide ainsi qu'aux particuliers"
         total_lufeb: Total des prestations de la PROSPREH
         total_media: Médias et publications
+
         kurse_grundlagen: Travail de fond cours
         treffpunkte_grundlagen: Travail de fond lieux d'accueil
         blockkurse: Cours en bloc
         tageskurse: Cours d'un jour
         jahreskurse: Cours annuels/semestriels
         total_courses: Total des cours
+
         treffpunkte: Prise en charge dans les lieux d'accueil
         beratung: Conseil social
         total_additional_person_specific: Total des autres besoins personnels spécifiques
+
         mittelbeschaffung: Collecte de fonds
-        verwaltung: Direction de l'association et administration
+        verwaltung:  Direction de l'association et administration
         total_remaining: Total des autres prestations
+
         total_paragraph_74: Total concernant l'art. 74
         total_paragraph_74_pensum: Exprimé en postes à 100%
+
         nicht_art_74_leistungen: Prestations
+
         total_not_paragraph_74: Total ne concernant pas l'art. 74
         total_not_paragraph_74_pensum: Exprimé en postes à 100%
+
         total: Total
         total_pensum: Exprimé en postes à 100%
+
       time_record/employee_pensum:
         paragraph_74: Art. 74 relatif aux postes à 100%
         not_paragraph_74: Art. 74 pas relatif aux postes à 100%
+
       capital_substrate:
         year: Année
         allocation_base: Barème
@@ -701,6 +762,7 @@ fr:
         iv_finanzierungsgrad_fp2015: Taux de financement AI 2015 - 2019
         iv_finanzierungsgrad_fp2020: Taux de financement AI 2020 - 2023
         iv_finanzierungsgrad_current: Taux de financement AI actuel
+
     errors:
       models:
         event/aggregate_course:
@@ -713,9 +775,11 @@ fr:
             fachkonzept:
               invalid_for_course_leistungskategorie: doit être un contenu de cours si la catégorie de performance est un cours.
               invalid_for_treffpunkt_leistungskategorie: doit être le lieu d'accueil si la catégorie de performance est lieux d'accueils.
+
       attributes:
         group_id:
           is_not_allowed: Ne peut par être utilisé pour le reporting
+
       messages:
         must_be_multiple_of: 'doit être un multiple de %{multiple} '
         manual_number_in_automatic_range: Ne doit pas être compris entre %{lower} et %{upper}, s'il est inscrit manuellement.
@@ -723,6 +787,7 @@ fr:
         less_than_teilnehmende_behinderte: doit être inférieur ou égal au nombre de personnes avec handicap.
         reporting_frozen: Est bouclé et a été bloqué
         event_reporting_frozen: Cette année de reporting est bouclée et a été bloquée
+
   cost_accounting:
     report:
       lohnaufwand:
@@ -791,6 +856,9 @@ fr:
       total_ertraege:
         name: Total des produits
         short_name: Total des produits
+      separator:
+        name: ''
+        short_name: ''
       deckungsbeitrag1:
         name: Marge de contribution 1 (produit des prestations- coûts directs)
         short_name: Marge de contribution 1
@@ -806,5 +874,6 @@ fr:
       unternehmenserfolg:
         name: Résultat de l'entreprise
         short_name: Résultat de l'entreprise
+
   import/person_duplicate_finder:
     duplicate_with_different_number: Une même personne a été trouvée avec un autre numéro de personne (%{number}).
