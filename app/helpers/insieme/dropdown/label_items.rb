@@ -30,7 +30,7 @@ module Insieme
           params.merge(format: :pdf,
             label_format_id: format_id,
             address_type: type),
-          target: :new)
+          target: :_blank)
       end
     end
   end
