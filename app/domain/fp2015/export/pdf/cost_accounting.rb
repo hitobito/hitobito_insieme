@@ -24,7 +24,7 @@ module Fp2015::Export::Pdf
     end
 
     def generate
-      pdf = Prawn::Document.new(page_size: "A4", page_layout: :landscape)
+      pdf = Export::Pdf::Document.new(page_layout: :landscape).pdf
       style_pdf(pdf)
 
       add_header(pdf)
