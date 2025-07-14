@@ -1,5 +1,9 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
+* Eigene Startseite nach User-Login aktiviert (hitobito_insieme#150)
+
 ## Version 2.0
 
 *  Möglichkeit, Personen ohne Rollen zu löschen an einige Rollen vergeben (hitobito_insieme#151)

@@ -32,6 +32,9 @@ people:
   cleanup_job:
     enabled: false
 
+custom_dashboard_page:
+  enabled: true
+
 .common_contact_labels: &common_contact_labels
   - "--"
   - Privat
