@@ -10,7 +10,7 @@ describe Event::Role do
     event_type.role_types.each do |part|
       context part do
         it "must have valid permissions" do
-          expect(Event::Role::Permissions).to include(*part.permissions)
+          expect(Event::Role::Permissions).to include(*part.permissions) if part.permissions.present?
         end
       end
     end
