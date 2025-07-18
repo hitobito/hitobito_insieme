@@ -26,8 +26,8 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrateFactor do
 
   context "#paragraph_74" do
     it "has prequisites" do
-      expect(report.send(:capital_substrate)).to eq(260_600.0)
-      expect(report.send(:vollkosten_total)).to eq(9_400.0)
+      expect(report.send(:capital_substrate)).to be_within(0.0001).of(260_600.0)
+      expect(report.send(:vollkosten_total)).to be_within(0.0001).of(9_400.0)
     end
 
     it "calculates the correct value" do

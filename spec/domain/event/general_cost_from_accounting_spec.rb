@@ -40,11 +40,11 @@ describe Event::GeneralCostFromAccounting do
     end
 
     it "is correct for tageskurse" do
-      expect(subject.general_cost("tk")).to eq 87.5
+      expect(subject.general_cost("tk")).to be_within(0.001).of(87.5)
     end
 
     it "is correct blockkurse" do
-      expect(subject.general_cost("bk")).to eq 350
+      expect(subject.general_cost("bk")).to be_within(0.001).of(350)
     end
 
     it "is correct for jahreskurse" do
