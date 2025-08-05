@@ -101,7 +101,7 @@ module Insieme::Person
       first_name = send(:"#{prefix}_first_name")
       last_name = send(:"#{prefix}_last_name")
       case format
-      when :list, :print_list then "#{last_name} #{first_name}".strip
+      when :list then "#{last_name} #{first_name}".strip
       else "#{first_name} #{last_name}".strip
       end
     end
