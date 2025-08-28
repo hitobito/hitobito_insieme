@@ -9,7 +9,7 @@ require "csv"
 describe Export::Tabular::People::ParticipationsFull do
   let(:person) { people(:top_leader) }
   let(:participation) { event_participations(:top_leader) }
-  let(:list) { [participation] }
+  let(:list) { Event::Participation.where(id: participation) }
   let(:people_list) { Export::Tabular::People::ParticipationsFull.new(list) }
   let(:labels) { people_list.attribute_labels }
 
@@ -52,7 +52,7 @@ describe Export::Tabular::People::ParticipationsFull do
     end
 
     context "values" do
-      let(:data) { Export::Tabular::People::ParticipationsFull.csv([participation]) }
+      let(:data) { Export::Tabular::People::ParticipationsFull.csv(Event::Participation.where(id: participation.id)) }
       let(:csv) { CSV.parse(data, headers: true, col_sep: Settings.csv.separator) }
 
       it "should export disabled person fields" do

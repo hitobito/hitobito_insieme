@@ -9,7 +9,8 @@ module Insieme
   module Event::ParticipationsController
     def self.prepended(base)
       base.permitted_attrs += [:disability, :multiple_disability, :wheel_chair,
-        {person_attributes: additional_person_attributes}]
+        :participant_type,
+        {participant_attributes: additional_person_attributes}]
     end
 
     private

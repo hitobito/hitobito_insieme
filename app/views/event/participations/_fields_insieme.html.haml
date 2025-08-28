@@ -21,7 +21,8 @@
     = f.labeled_input_field :invoice_amount, addon: t('global.currency')
 
 .form-horizontal.participation-person
-  = f.fields_for(:person, entry.person) do |pf|
+  - f.hidden_field(:participant_type, value: Person.sti_name)
+  = f.fields_for(:participant, entry.participant) do |pf|
     = field_set_tag Person.model_name.human do
       = pf.hidden_field(:newly_registered, value: 'true')
       = pf.hidden_field :id

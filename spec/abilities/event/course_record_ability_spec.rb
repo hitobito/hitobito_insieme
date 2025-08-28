@@ -103,7 +103,7 @@ describe Event::CourseRecordAbility do
 
     context Event::Course do
       it "may update report of event he manages" do
-        participation = Fabricate(:event_participation, event: event, person: user)
+        participation = Fabricate(:event_participation, event: event, participant: user)
         Event::Course::Role::LeaderAdmin.create!(participation: participation)
         is_expected.to be_able_to(:update, event)
       end
@@ -111,7 +111,7 @@ describe Event::CourseRecordAbility do
       it "may not update report of event he doesn't manage" do
         Fabricate(Event::Role::Participant.name.to_sym,
           participation: Fabricate(:event_participation,
-            event: event, person: user))
+            event: event, participant: user))
 
         is_expected.not_to be_able_to(:update, event)
       end

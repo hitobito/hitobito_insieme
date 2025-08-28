@@ -16,34 +16,35 @@ describe Event::ParticipationsController do
   it "POST create updates person attributes" do
     expect do
       post :create, params: {group_id: event.groups.first.id, event_id: event.id, event_participation: {
-        person_attributes: {id: person.id,
-                            canton: "Be",
-                            birthday: "2014-09-22",
-                            zip_code: "10115",
-                            town: "dummy",
-                            street: "dummy",
-                            country: "DE",
-                            ahv_number: "123",
-                            correspondence_course_same_as_main: false,
-                            correspondence_course_salutation: "dummy",
-                            correspondence_course_first_name: "dummy",
-                            correspondence_course_last_name: "dummy",
-                            correspondence_course_company_name: "dummy",
-                            correspondence_course_company: "1",
-                            correspondence_course_address: "dummy",
-                            correspondence_course_zip_code: "1234",
-                            correspondence_course_town: "dummy",
-                            correspondence_course_country: "DE",
-                            billing_course_same_as_main: "0",
-                            billing_course_salutation: "dummy",
-                            billing_course_first_name: "dummy",
-                            billing_course_last_name: "dummy",
-                            billing_course_company_name: "dummy",
-                            billing_course_company: "1",
-                            billing_course_address: "dummy",
-                            billing_course_zip_code: "1234",
-                            billing_course_town: "dummy",
-                            billing_course_country: "DE"}
+        participant_type: Person.sti_name,
+        participant_attributes: {id: person.id,
+                                 canton: "Be",
+                                 birthday: "2014-09-22",
+                                 zip_code: "10115",
+                                 town: "dummy",
+                                 street: "dummy",
+                                 country: "DE",
+                                 ahv_number: "123",
+                                 correspondence_course_same_as_main: false,
+                                 correspondence_course_salutation: "dummy",
+                                 correspondence_course_first_name: "dummy",
+                                 correspondence_course_last_name: "dummy",
+                                 correspondence_course_company_name: "dummy",
+                                 correspondence_course_company: "1",
+                                 correspondence_course_address: "dummy",
+                                 correspondence_course_zip_code: "1234",
+                                 correspondence_course_town: "dummy",
+                                 correspondence_course_country: "DE",
+                                 billing_course_same_as_main: "0",
+                                 billing_course_salutation: "dummy",
+                                 billing_course_first_name: "dummy",
+                                 billing_course_last_name: "dummy",
+                                 billing_course_company_name: "dummy",
+                                 billing_course_company: "1",
+                                 billing_course_address: "dummy",
+                                 billing_course_zip_code: "1234",
+                                 billing_course_town: "dummy",
+                                 billing_course_country: "DE"}
       }}
     end.to change { Event::Participation.count }.by(1)
 
@@ -94,11 +95,11 @@ describe Event::ParticipationsController do
           group_id: event.groups.first.id,
           event_id: event.id,
           for_someone_else: true,
-          event_participation: {person_id: someone_else.id}
+          event_participation: {participant_type: Person.sti_name, participant_id: someone_else.id}
         }
     end.to change { Event::Participation.count }.by(1)
 
-    participation = Event::Participation.find_by(event_id: event.id, person_id: someone_else.id)
+    participation = Event::Participation.find_by(event_id: event.id, participant_id: someone_else.id, participant_type: Person.sti_name)
 
     expect(participation).to be_present
     expect(participation).to be_active
@@ -112,19 +113,24 @@ describe Event::ParticipationsController do
         params: {
           group_id: event.groups.first.id,
           event_id: event.id,
-          event_participation: {person_attributes: {id: people(:top_leader).id, canton: "Bern"}}
+          event_participation: {participant_attributes: {id: people(:top_leader).id, canton: "Bern"}}
         }
-    end.to raise_error ActiveRecord::RecordNotFound
+    end.to raise_error ArgumentError
   end
 
   it "POST create does not allow creation of person" do
     expect do
-      post :create,
-        params: {
-          group_id: event.groups.first.id,
-          event_id: event.id,
-          event_participation: {person_attributes: {canton: "Bern"}}
-        }
+      expect do
+        post :create,
+          params: {
+            group_id: event.groups.first.id,
+            event_id: event.id,
+            event_participation: {
+              participant_type: Person.sti_name,
+              participant_attributes: {canton: "Bern"}
+            }
+          }
+      end.to raise_error(ArgumentError)
     end.not_to change { Person.count }
   end
 
@@ -136,9 +142,12 @@ describe Event::ParticipationsController do
           group_id: event.groups.first.id,
           event_id: event.id,
           id: participation.id,
-          event_participation: {person_attributes: {id: people(:top_leader).id, canton: "Bern"}}
+          event_participation: {
+            participant_type: Person.sti_name,
+            participant_attributes: {id: people(:top_leader).id, canton: "Bern"}
+          }
         }
-    end.to raise_error ActiveRecord::RecordNotFound
+    end.to raise_error ArgumentError
   end
 
   it "PUT update changes participation fields" do
@@ -198,7 +207,7 @@ describe Event::ParticipationsController do
           Fabricate(attrs[:group_role].name.to_sym, group: groups(attrs[:group_name])).person
         end
         let(:participation) do
-          p = Fabricate(:event_participation, event: course, person: person, active: true)
+          p = Fabricate(:event_participation, event: course, participant: person, active: true)
           p.roles << Fabricate(:event_role, type: attrs[:course_role].name)
           p
         end
@@ -261,7 +270,7 @@ describe Event::ParticipationsController do
         Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
           group: groups(:dachverein)).person
       end
-      let(:participation) { Fabricate(:event_participation, event: course, person: person) }
+      let(:participation) { Fabricate(:event_participation, event: course, participant: person) }
 
       it "ignores attributes on create" do
         post :create, params: {group_id: group.id, event_id: course.id, event_participation: internal_fields}
