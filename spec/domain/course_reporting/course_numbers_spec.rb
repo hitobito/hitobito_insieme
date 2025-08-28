@@ -137,7 +137,7 @@ describe CourseReporting::CourseNumbers do
         Fabricate(role.name.to_sym,
           participation: Fabricate(:event_participation,
             event: event,
-            person: Fabricate(:person, canton: canton)))
+            participant: Fabricate(:person, canton: canton)))
       end
 
       [[:challenged_canton_counts,

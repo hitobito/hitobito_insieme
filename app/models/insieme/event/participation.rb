@@ -15,7 +15,7 @@ module Insieme
       DISABILITIES = %w[geistig hoer koerper krankheit psychisch seh sprach sucht]
 
       included do
-        accepts_nested_attributes_for :person
+        accepts_nested_attributes_for :participant
 
         i18n_enum :disability, DISABILITIES
       end
