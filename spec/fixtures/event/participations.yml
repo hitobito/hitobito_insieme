@@ -5,11 +5,13 @@
 
 top_leader:
   event: top_course
-  person: top_leader
+  participant: top_leader
+  participant_type: Person
   active: true
 
 top_participant:
   event: top_course
-  person: regio_aktiv
+  participant: regio_aktiv
+  participant_type: Person
   active: true
   application: top_participant

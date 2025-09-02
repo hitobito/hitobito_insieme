@@ -45,6 +45,7 @@ class Event::AggregateCourse < Event
 
   # All attributes actually used (and mass-assignable) by the respective STI type.
   self.used_attributes = [:name, :description, :year]
+  self.used_attributes -= [:guest_limit]
 
   # No participations possible
   self.role_types = []

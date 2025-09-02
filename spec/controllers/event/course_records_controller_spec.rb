@@ -73,7 +73,7 @@ describe Event::CourseRecordsController do
     context "course leader" do
       let(:role) do
         role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
-        participation = Fabricate(:event_participation, event: event, person: role.person)
+        participation = Fabricate(:event_participation, event: event, participant: role.person)
         Event::Course::Role::LeaderAdmin.create!(participation: participation)
         role
       end
@@ -89,7 +89,7 @@ describe Event::CourseRecordsController do
         role = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
           participation: Fabricate(:event_participation,
-            event: event, person: role.person))
+            event: event, participant: role.person))
         role
       end
 
@@ -104,7 +104,7 @@ describe Event::CourseRecordsController do
         role = Fabricate(Group::Regionalverein::Versandadresse.name.to_sym, group: group)
         Fabricate(Event::Role::Participant.name.to_sym,
           participation: Fabricate(:event_participation,
-            event: event, person: role.person))
+            event: event, participant: role.person))
         role
       end
 

@@ -127,7 +127,8 @@ module CourseReporting
 
     def canton_counts(role)
       counts = event.participations.includes(:roles)
-        .joins(:roles, :person)
+        .joins(:roles)
+        .with_person_participants
         .where(event_roles: {type: role.sti_name})
         .group("people.canton").count
       counts["undefined"] = ((counts.delete(nil) || 0) + (counts.delete("") || 0))
