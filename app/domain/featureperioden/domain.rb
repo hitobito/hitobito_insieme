@@ -20,7 +20,7 @@ module Featureperioden
       namespaces = Featureperioden::Dispatcher::KNOWN_BASE_YEARS
                     .select { |y| y <= target_year }
                     .sort.reverse
-                    .map { |y| Object.const_get("FP#{y}") }
+                    .map { |y| Object.const_get("fp#{y}") }
       
       parts = class_name.split("::")
       namespaces.each do |ns|
