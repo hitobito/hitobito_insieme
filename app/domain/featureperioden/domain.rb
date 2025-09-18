@@ -44,7 +44,6 @@ module Featureperioden
       raise NameError, "Class #{class_name} not found in FP chain: #{namespaces.map(&:name).join(' → ')}"
     end
 
-
     def fp_i18n_scope(controller_name)
       featureperiode.i18n_scope(controller_name).tap do |fp_i18n_scope|
         Rails.logger.debug "FP: I18n-scope #{fp_i18n_scope}"
