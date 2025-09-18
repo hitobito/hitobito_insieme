@@ -13,8 +13,12 @@ module Featureperioden
       parts = class_name.split("::")
 
       KNOWN_BASE_YEARS.filter_map do |fp|
-        ns = Object.const_get("Fp#{fp}") rescue nil
-        next unless ns
+        begin
+          ns = Object.const_get("Fp#{fp}")
+        rescue NameError
+          Rails.logger.debug("FP skip: Fp#{fp}::#{class_name} not found") if fp == KNOWN_BASE_YEARS.last
+          next
+        end
 
         ctx = ns
         ok = parts.all? do |name|
@@ -23,6 +27,7 @@ module Featureperioden
             ctx = ctx.const_get(name)
             true
           else
+            Rails.logger.debug("FP skip: Fp#{fp}::#{parts.join('::')} not found")
             false
           end
         end
