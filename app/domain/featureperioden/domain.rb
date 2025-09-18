@@ -16,7 +16,6 @@ module Featureperioden
     end
 
     def fp_class(class_name)
- def fp_class(class_name)
       target_year = featureperiode.determine
 
       namespaces = Featureperioden::Dispatcher::KNOWN_BASE_YEARS
@@ -44,6 +43,7 @@ module Featureperioden
 
       raise NameError, "Class #{class_name} not found in FP chain: #{namespaces.map(&:name).join(' → ')}"
     end
+
 
     def fp_i18n_scope(controller_name)
       featureperiode.i18n_scope(controller_name).tap do |fp_i18n_scope|
