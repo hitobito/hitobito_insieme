@@ -10,7 +10,24 @@ module Featureperioden
     KNOWN_BASE_YEARS = [2015, 2020, 2022, 2024].freeze
 
     def self.domain_classes(class_name)
-      KNOWN_BASE_YEARS.map { |fp| Dispatcher.new(fp).domain_class(class_name) }
+      parts = class_name.split("::")
+
+      KNOWN_BASE_YEARS.filter_map do |fp|
+        ns = Object.const_get("Fp#{fp}") rescue nil
+        next unless ns
+
+        ctx = ns
+        ok = parts.all? do |name|
+          # don't search ancestors; avoid autoloading errors
+          if ctx.const_defined?(name, false)
+            ctx = ctx.const_get(name)
+            true
+          else
+            false
+          end
+        end
+        ok ? ctx : nil
+      end
     end
 
     def initialize(year)
