@@ -35,7 +35,7 @@ describe Featureperioden::Dispatcher do
     described_class.domain_classes("Nonexistent::Thing")
 
     expect(Rails.logger).to have_received(:debug)
-      .with(a_string_including("FP skip:", "Nonexistent::Thing", "not found"))
+      .with(a_string_including("Class skip:", "Nonexistent::Thing", "not found"))
       .at_least(:once)
   end
 
