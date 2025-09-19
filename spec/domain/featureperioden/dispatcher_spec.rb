@@ -65,6 +65,15 @@ describe Featureperioden::Dispatcher do
     it "for 2023 and later, it is 2022" do
       expect(described_class.new(2023).determine).to be 2022
     end
+
+    it "for 2024, it is 2024" do
+      expect(described_class.new(2024).determine).to be 2024
+    end
+
+    it "for 2025 and later, it is 2024" do
+      expect(described_class.new(2025).determine).to be 2024
+    end
+  
   end
 
   # if this grows too much, we might need to rethink this. Maybe optimize

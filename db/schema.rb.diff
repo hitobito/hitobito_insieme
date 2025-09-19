@@ -574,16 +574,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_27_090212) do												Activ
 																		     >	  end
 																		     >
   create_table "group_translations", force: :cascade do |t|												  create_table "group_translations", force: :cascade do |t|
-    t.integer "group_id", null: false														     |	    t.bigint "group_id", null: false
+    t.bigint "group_id", null: false															    t.bigint "group_id", null: false
     t.string "locale", null: false															    t.string "locale", null: false
-																		     >	    t.string "privacy_policy_title"
+    t.string "privacy_policy_title"															    t.string "privacy_policy_title"
     t.datetime "created_at", null: false														    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false														    t.datetime "updated_at", null: false
-    t.string "privacy_policy_title"														     <
     t.string "custom_self_registration_title"														    t.string "custom_self_registration_title"
-																		     >	    t.index ["group_id", "locale"], name: "index_group_translations_on_group_id_and_locale", unique: true
+    t.index ["group_id", "locale"], name: "index_group_translations_on_group_id_and_locale", unique: true						    t.index ["group_id", "locale"], name: "index_group_translations_on_group_id_and_locale", unique: true
     t.index ["group_id"], name: "index_group_translations_on_group_id"											    t.index ["group_id"], name: "index_group_translations_on_group_id"
-    t.index ["locale"], name: "index_group_translations_on_locale"										     <
   end																			  end
 
   create_table "group_type_orders", force: :cascade do |t|												  create_table "group_type_orders", force: :cascade do |t|
@@ -1406,8 +1404,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_27_090212) do												Activ
     t.string "name"																	    t.string "name"
     t.integer "taggings_count", default: 0														    t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true												    t.index ["name"], name: "index_tags_on_name", unique: true
-  end																			  end
-
+																		     >	  end
+																		     >
 																		     >	  create_table "time_record_employee_pensums", id: :serial, force: :cascade do |t|
 																		     >	    t.integer "time_record_id", null: false
 																		     >	    t.decimal "paragraph_74", precision: 12, scale: 2
@@ -1471,8 +1469,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_27_090212) do												Activ
 																		     >	    t.integer "lufeb_grundlagen"
 																		     >	    t.integer "treffpunkte_grundlagen"
 																		     >	    t.index ["group_id", "year", "type"], name: "index_time_records_on_group_id_and_year_and_type", unique: true
-																		     >	  end
-																		     >
+  end																			  end
+
   create_table "versions", id: :serial, force: :cascade do |t|												  create_table "versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false															    t.string "item_type", null: false
     t.integer "item_id", null: false															    t.integer "item_id", null: false
@@ -1493,7 +1491,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_27_090212) do												Activ
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"								  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"								  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_tags", "tags", on_delete: :cascade												  add_foreign_key "calendar_tags", "tags", on_delete: :cascade
-																		     >	  add_foreign_key "group_translations", "groups"
+  add_foreign_key "group_translations", "groups"													  add_foreign_key "group_translations", "groups"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"									  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"									  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_openid_requests", "oauth_access_grants", column: "access_grant_id", on_delete: :cascade					  add_foreign_key "oauth_openid_requests", "oauth_access_grants", column: "access_grant_id", on_delete: :cascade
