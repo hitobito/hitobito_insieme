@@ -25,6 +25,20 @@ describe Featureperioden::Dispatcher do
     expect(subject.i18n_scope("time_records")).to eq "fp2020.time_records"
   end
 
+  it "returns only existing classes" do
+    expect(described_class.domain_classes("Nonexistent::Thing")).to eq([])
+  end
+
+  it "logs skips for missing class paths" do
+    allow(Rails.logger).to receive(:debug)
+
+    described_class.domain_classes("Nonexistent::Thing")
+
+    expect(Rails.logger).to have_received(:debug)
+      .with(a_string_including("FP skip:", "Nonexistent::Thing", "not found"))
+      .at_least(:once)
+  end
+
   context "can determine the correct period" do
     it "for 2014 and earlier, it is 2015" do
       expect(described_class.new(2014).determine).to be 2015
