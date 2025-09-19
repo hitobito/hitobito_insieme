@@ -74,7 +74,7 @@ describe Featureperioden::Dispatcher do
   # here, maybe add some performance-specs.
   context "is a sensible solution, it" do
     it "covers all periods" do
-      expect(described_class::KNOWN_BASE_YEARS).to have(3).items
+      expect(described_class::KNOWN_BASE_YEARS).to have(4).items
     end
   end
 end
