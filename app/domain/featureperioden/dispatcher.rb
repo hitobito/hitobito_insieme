@@ -27,7 +27,7 @@ module Featureperioden
             ctx = ctx.const_get(name)
             true
           else
-            Rails.logger.debug("FP skip: Fp#{fp}::#{parts.join('::')} not found")
+            Rails.logger.debug("Class skip: Fp#{fp}::#{parts.join('::')} not found")
             false
           end
         end
