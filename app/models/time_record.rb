@@ -53,6 +53,8 @@
 #
 
 class TimeRecord < ActiveRecord::Base
+  include Featureperioden::Domain
+
   include Insieme::ReportingFreezable
 
   belongs_to :group
@@ -77,12 +79,8 @@ class TimeRecord < ActiveRecord::Base
     total_media
   end
 
-  def fp_calculations
-    # Fp2020::TimeRecord::Calculation
-    @fp_calculations ||= Featureperioden::Dispatcher
-      .new(year)
-      .domain_class("TimeRecord::Calculation")
-      .new(self)
+  def fp_calculation
+    @fp_calculation ||= fp_class("TimeRecord::Calculation").new(self)
   end
 
   delegate :total_lufeb, :total_courses, :total_additional_person_specific, :total_remaining,
