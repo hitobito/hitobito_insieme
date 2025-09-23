@@ -79,8 +79,8 @@ class TimeRecord < ActiveRecord::Base
     total_media
   end
 
-  def fp_calculation
-    @fp_calculation ||= fp_class("TimeRecord::Calculation").new(self)
+  def fp_calculations
+    @fp_calculations ||= fp_class("TimeRecord::Calculation").new(self)
   end
 
   delegate :total_lufeb, :total_courses, :total_additional_person_specific, :total_remaining,
