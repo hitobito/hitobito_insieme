@@ -109,7 +109,7 @@ describe TimeRecord do
   context "calculated totals" do
     context "#total_lufeb" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_lufeb).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_lufeb).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -119,7 +119,7 @@ describe TimeRecord do
 
     context "#total_courses" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_courses).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_courses).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -129,7 +129,7 @@ describe TimeRecord do
 
     context "#total_additional_person_specific" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_additional_person_specific).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_additional_person_specific).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -139,7 +139,7 @@ describe TimeRecord do
 
     context "#total_remaining" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_remaining).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_remaining).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -149,7 +149,7 @@ describe TimeRecord do
 
     context "#total_paragraph_74" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_paragraph_74).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_paragraph_74).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -159,7 +159,7 @@ describe TimeRecord do
 
     context "#total_not_paragraph_74" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_not_paragraph_74).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_not_paragraph_74).to eq(0)
       end
 
       it "is the sum the values set" do
