@@ -16,9 +16,24 @@ describe Featureperioden::Domain do
     stub_const('Fp2022::DummyOnlyHere', Class.new)
   end
 
-  it "resolves to newest FP when class exists" do
+  it "resolves to correct FP when class exists within FP" do
+    @year = 2019
+    expect(fp_class("Statistics::GroupFigures")).to eq Fp2015::Statistics::GroupFigures
+  end
+
+  it "resolves to correct FP when class exists within FP" do
+    @year = 2021
+    expect(fp_class("CostAccounting::Aggregation")).to eq Fp2020::CostAccounting::Aggregation
+  end
+
+  it "resolves to correct FP when class exists within FP" do
     @year = 2022
     expect(fp_class("TimeRecord::Table")).to eq Fp2022::TimeRecord::Table
+  end
+
+  it "resolves to correct FP when class exists within FP" do
+    @year = 2023
+    expect(fp_class("CourseReporting::ClientStatistics")).to eq Fp2022::CourseReporting::ClientStatistics
   end
 
   it "falls back to older FP when missing in newer one" do
