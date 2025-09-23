@@ -274,4 +274,28 @@ describe TimeRecord do
       expect { record.destroy }.not_to change { TimeRecord.count }
     end
   end
+
+  describe "#fp_calculations" do
+    it "falls back to Fp2022::TimeRecord::Calculation for year 2024" do
+      rec = described_class.new(year: 2024)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::TimeRecord::Calculation")
+    end
+    it "resolves to Fp2022::TimeRecord::Calculation for year 2022" do
+      rec = described_class.new(year: 2022)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::TimeRecord::Calculation")
+    end
+        it "resolves to Fp2020::TimeRecord::Calculation for year 2020" do
+      rec = described_class.new(year: 2020)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2020::TimeRecord::Calculation")
+    end
+  end
 end
