@@ -186,11 +186,11 @@ describe TimeRecord do
       context "##{method}" do
         if method == :total
           it "is 0 for new record before save" do
-            expect(TimeRecord.new.send(method)).to eq 0
+            expect(TimeRecord.new(year: 2024).send(method)).to eq 0
           end
         else
           it "is nil for new record before save" do
-            expect(TimeRecord.new.send(method)).to be_nil
+            expect(TimeRecord.new(year: 2024).send(method)).to be_nil
           end
         end
 
