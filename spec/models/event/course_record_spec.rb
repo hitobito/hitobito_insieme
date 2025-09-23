@@ -571,4 +571,21 @@ describe Event::CourseRecord do
       end
     end
   end
+
+  describe "#fp_calculations" do
+    it "falls back to Fp2022::Event::CourseRecord::Calculation for year 2024" do
+      rec = described_class.new(year: 2024)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::Event::CourseRecord::Calculation")
+    end
+    it "resolves to Fp2020::Event::CourseRecord::Calculation for year 2020" do
+      rec = described_class.new(year: 2020)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::Event::CourseRecord::Calculation")
+    end
+  end
 end
