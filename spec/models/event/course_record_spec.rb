@@ -580,12 +580,19 @@ describe Event::CourseRecord do
 
       expect(result.class.name).to eq("Fp2022::Event::CourseRecord::Calculation")
     end
-    it "resolves to Fp2020::Event::CourseRecord::Calculation for year 2020" do
-      rec = described_class.new(year: 2020)
+    it "resolves to Fp2022::Event::CourseRecord::Calculation for year 2022" do
+      rec = described_class.new(year: 2022)
 
       result = rec.fp_calculations
 
       expect(result.class.name).to eq("Fp2022::Event::CourseRecord::Calculation")
+    end
+        it "resolves to Fp2020::Event::CourseRecord::Calculation for year 2020" do
+      rec = described_class.new(year: 2020)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2020::Event::CourseRecord::Calculation")
     end
   end
 end
