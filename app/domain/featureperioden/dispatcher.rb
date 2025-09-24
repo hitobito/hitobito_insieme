@@ -7,7 +7,7 @@
 
 module Featureperioden
   class Dispatcher
-    KNOWN_BASE_YEARS = [2015, 2020, 2022].freeze
+    KNOWN_BASE_YEARS = [2015, 2020, 2022, 2024].freeze
 
     def self.domain_classes(class_name)
       parts = class_name.split("::")
