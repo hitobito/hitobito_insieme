@@ -27,8 +27,6 @@ groups:
     enabled: false
 
 people:
-  manual_deletion:
-    enabled: true
   cleanup_job:
     enabled: false
 

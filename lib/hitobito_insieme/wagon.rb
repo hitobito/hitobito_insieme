@@ -40,11 +40,6 @@ module HitobitoInsieme
       PersonSerializer.include Insieme::PersonSerializer
       GroupSerializer.include Insieme::GroupSerializer
 
-      # permissions
-      Role::Permissions << :manual_deletion
-      AbilityDsl::UserContext::GROUP_PERMISSIONS << :manual_deletion
-      AbilityDsl::UserContext::LAYER_PERMISSIONS << :manual_deletion
-
       # abilities
       GroupAbility.include Insieme::GroupAbility
       EventAbility.include Insieme::EventAbility
