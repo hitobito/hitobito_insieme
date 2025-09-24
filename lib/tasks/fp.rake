@@ -79,8 +79,9 @@ namespace :fp do
     dispatcher_path = domain_root.join("featureperioden/dispatcher.rb")
     new_supported   = (known_years + [year]).uniq.sort
     content = File.read(dispatcher_path)
-    content.sub!(/KNOWN_BASE_YEARS = \[.*\]/,
-                 "KNOWN_BASE_YEARS = [#{new_supported.join(', ')}].freeze")
+    content.sub!(/KNOWN_BASE_YEARS = \[.*\](?:\.freeze)?/,
+                "KNOWN_BASE_YEARS = [#{new_supported.join(', ')}].freeze")
+
     File.write(dispatcher_path, content)
     puts "updated KNOWN_BASE_YEARS in #{dispatcher_path} -> #{new_supported.inspect}"
 
