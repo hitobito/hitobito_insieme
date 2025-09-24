@@ -60,17 +60,17 @@ class Group::Dachverein < Group
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance]
+    self.permissions = [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
   class Sekretariat < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
   class Adressverwaltung < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 
