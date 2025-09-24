@@ -5,71 +5,102 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
+require "fileutils"
+
 # rubocop:disable Metrics/BlockLength
 namespace :fp do
-  desc "Copy a Featureperiode to start a new one"
+  desc "Create a new Featureperiode skeleton (domain = shell only, views still copied)"
   task :new, [:year] => [:environment] do |_, args|
     args.with_defaults(year: Date.current.year)
     year = args[:year].to_i
 
     known_years = Featureperioden::Dispatcher::KNOWN_BASE_YEARS
-    last_year = known_years.last
+    last_year   = known_years.last
 
-    raise "#{year} is already known" if known_years.include? year
-
+    abort "#{year} is already known" if known_years.include?(year)
     puts "#{last_year} -> #{year}"
 
-    domain_path = Pathname.new("app/domain/").expand_path
-    spec_path = Pathname.new("spec/").expand_path
-    view_path = Pathname.new("app/views/").expand_path
+    domain_root = Rails.root.join("app/domain")
+    views_root  = Rails.root.join("app/views")
+    spec_root   = Rails.root.join("spec")
 
-    # copy customized views
-    new_year_views = view_path.join("fp#{year}")
-    cp_r view_path.join("fp#{last_year}"), new_year_views
+    # --- 1) Views (unchanged behavior) ---------------------------------------
+    # keep copying fp-specific views so explicit overrides are available
+    from_views = views_root.join("fp#{last_year}")
+    to_views   = views_root.join("fp#{year}")
 
-    # copy domain
-    new_year_domain = domain_path.join("fp#{year}")
-    cp_r domain_path.join("fp#{last_year}"), new_year_domain
-
-    # adapt domain
-    sh "find #{new_year_domain} -type f | " \
-       "xargs -l1 sed -i 's/Fp#{last_year}/Fp#{year}/'"
-
-    # copy and adapt specs (those exist for domain-classes and models which use
-    # those domain-classes)
-    %w[domain models].each do |subdir|
-      new_year_specs = spec_path.join(subdir).join("fp#{year}")
-      cp_r spec_path.join(subdir).join("fp#{last_year}"), new_year_specs
-
-      sh "find #{new_year_specs} -type f | " \
-         "xargs -l1 sed -i 's/#{last_year}/#{year}/g'" # there may be multiple dates on a line
+    if from_views.exist?
+      if to_views.exist?
+        puts "views/fp#{year} already exists, skipping copy"
+      else
+        FileUtils.cp_r(from_views, to_views)
+        puts "copied views: #{from_views} -> #{to_views}"
+      end
+    else
+      puts "no fp#{last_year} views to copy (#{from_views} missing)"
     end
 
-    # adapt dispatcher
-    new_supported_years = known_years + [year.to_i]
-    sh <<~BASH
-      sed -i \
-        's/KNOWN_BASE_YEARS = \\[.*\\]/KNOWN_BASE_YEARS = [#{new_supported_years.join(", ")}]/' \
-        app/domain/featureperioden/dispatcher.rb
-    BASH
+    # --- 2) Domain (NEW: shell only, no copy) --------------------------------
+    fp_module_file = domain_root.join("fp#{year}.rb")
+    fp_folder      = domain_root.join("fp#{year}")
 
+    # create module file if missing
+    unless fp_module_file.exist?
+      File.write(fp_module_file, "module Fp#{year}; end\n")
+      puts "created: #{fp_module_file}"
+    else
+      puts "exists:  #{fp_module_file}"
+    end
+
+    # create empty fp folder (for deltas / overrides)
+    if fp_folder.exist?
+      puts "exists:  #{fp_folder}/"
+    else
+      FileUtils.mkdir_p(fp_folder)
+      FileUtils.touch(fp_folder.join(".keep"))
+      puts "created: #{fp_folder}/"
+    end
+
+   # --- 3) Spec skeletons (no copies; just empty dirs) -------------------------
+    %w[domain models].each do |subdir|
+      dst = spec_root.join(subdir, "fp#{year}")
+      if dst.exist?
+        puts "exists:  #{dst}/"
+      else
+        FileUtils.mkdir_p(dst)
+        FileUtils.touch(dst.join(".keep"))
+        puts "created: #{dst}/"
+      end
+    end
+    puts "NOTE: No spec files copied. Add specs only where you add/override domain classes in fp#{year}."
+
+    # --- 4) Update dispatcher KNOWN_BASE_YEARS --------------------------------
+    dispatcher_path = domain_root.join("featureperioden/dispatcher.rb")
+    new_supported   = (known_years + [year]).uniq.sort
+    content = File.read(dispatcher_path)
+    content.sub!(/KNOWN_BASE_YEARS = \[.*\]/,
+                 "KNOWN_BASE_YEARS = [#{new_supported.join(', ')}].freeze")
+    File.write(dispatcher_path, content)
+    puts "updated KNOWN_BASE_YEARS in #{dispatcher_path} -> #{new_supported.inspect}"
+
+    # --- 5) TODOs -------------------------------------------------------------
     puts "TODOs:"
     puts "- [ ] Adapt spec/domain/featureperioden/dispatcher_spec.rb to cover #{year}."
     puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
 
-    puts "- [ ] check locales for wrong or missing featureperioden-descriptions"
+    puts "- [ ] Add CHANGELOG entry: 'Vertragsperiode #{year} hinzugefügt (Domain: Fallback, Views: Kopie)'."
     puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
 
-    puts "- [ ] Run specs an fix failing ones"
+    puts "- [ ] Run specs and fix failing ones"
     puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
 
-    puts "- [ ] check views in app/views/fp#{year} for mistakes"
-    puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
-    j
-    puts "- [ ] Add 'Vertragsperiode #{year} hinzugefügt' to the CHANGELOG.md"
+    puts "- [ ] Create only the domain classes you actually change in app/domain/fp#{year}/ (override via subclass)."
     puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
 
-    puts "- [ ] inform client about the need to change translations"
+    puts "- [ ] Check locales for new/changed View-keys in app/views/fp#{year}/*."
+    puts "- [ ] Add and commit the additions NOW to keep commits small and focussed."
+
+    puts "- [ ] Inform client about the need to change translations"
   end
 end
 # rubocop:enable Metrics/BlockLength
