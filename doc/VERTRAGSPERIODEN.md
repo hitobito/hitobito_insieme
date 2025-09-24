@@ -42,12 +42,25 @@ bleiben unverändert bestehen.
 
 #### Neue Featureperiode
 
-Seit `Fp2024` genügt es, eine leere Hülle für die neue VP anzulegen:
+Seit `Fp2024` genügt es, eine leere Hülle für die neue VP anzulegen, da die Domainklassen
+über den Fallback-Mechanismus automatisch aus älteren FPs wiederverwendet werden:
+- `app/domain/fp2024.rb` mit `module FpYYYY; end`
+- ein leeres Verzeichnis `app/domain/fpYYYY/` (optional mit Unterordnern wie `export/`, `cost_accounting/`)
 
-- `app/domain/fp2024.rb` mit `module Fp2024; end`
-- optional ein leeres Verzeichnis `app/domain/fp2024/` (z.B. mit `export/`, `cost_accounting/`)
-- Dann erweitert man den Dispatcher selbst (`app/domain/vertragsperioden/dispatcher.rb`), um die neue Vertragsperiode
-bestimmen zu können (Methode `determine`). Ab dort dann normale Entwicklung in der neuen Vertragsperiode.
+Anschliessend wird der Dispatcher (`app/domain/vertragsperioden/dispatcher.rb`) um das neue Jahr in 
+`KNOWN_BASE_YEARS` ergänzt.
+Ab dort kann die normale Entwicklung in der neuen VP erfolgen (neue Klassen oder Overrides nur dort anlegen,
+wo sich tatsächlich etwas ändert).
+
+Dafür existiert ein (überarbeiteter) Rake-Task:
+`rake fp:new[YEAR]`
+
+Dieser erzeugt:
+- die Moduldatei `app/domain/fpYYYY.rb`
+- das leere Verzeichnis `app/domain/fpYYYY/`
+- leere Spec-Skeletions (`spec/domain/fpYYYY/`, `spec/models/fpYYYY/`)
+- kopierte Views (`app/views/fpYYYY`), da Views weiterhin strikt pro VP überschrieben werden
+- und passt die `KNOWN_BASE_YEARS` im Dispatcher an.
 
 Ein vollständiges Kopieren des vorherigen FP-Verzeichnisses ist nicht mehr notwendig.
 
@@ -95,9 +108,7 @@ einen `NameError` auszulösen.
 #### Ein Wort zur domain_class Methode in dispatcher.rb
 Diese Methode nutzt immer noch eine strikte Klassen-Ermittlung (kein Fallback-Mechanismus). Das bedeutet, die Ermittlung einer
 Klasse in einer Vertragsperiode via domain_class(class_name), wird mit einem `NameError` fehlschlagen, wenn die Klasse in
-diesem Vertragsperioden-Namespace (noch) nicht existiert.
-
-{Beispiel anhand Fp2024}: ...
+diesem Vertragsperioden-Namespace nicht existiert.
 
 **Sanity-Checks:**
 Das gesamte Repo hitobito_insieme wurde mit `grep -Rn "domain_class(" .` auf die Nutzung der domain_class Methode aus dem Dispatcher geprüft.
@@ -108,8 +119,8 @@ Die Methode wurde noch in folgenden Dateien verwendet:
 Die Verwendung in dispatcher_spec.rb ist unproblematisch, in den beiden anderen Dateien fürht sie aber für die Jahre
 2024 und nachfolgende zu einem `NameError` bei der Generierung von Kursstatistik Exporten und bei Zeiterfassungs-Berechnungen.
 Deshalb wurde die domain_class Methode in den beiden betreffenden Models durch die fp_class Methode aus domain.rb ersetzt, welche
-über die Fallback-Mechanik verfügt. Dadurch wird für 2024 und nachfolgende Jahre jetzt korrekt die Implementation aus der Vertrgas-
-periode 2022 verwendet.
+über die Fallback-Mechanik verfügt. Dadurch wird für 2024 und nachfolgende Jahre jetzt korrekt die Implementation aus der vorherigen VP
+(`fp2022`) verwendet.
 
 #### Vorteile dieser Implementierung
 - Weniger Code-Duplikation
@@ -182,30 +193,24 @@ anpassen müssen.
 Es ist etwas unsauber, dass der "Shared Context" in allen Specs vorhanden ist. Besser wäre es
 vielleicht, wenn diese nur den domain-specs inkludiert wird.
 
-### neue Featureperioden
+### `domain_classes` im Wagon
+In `wagon.rb` werden an einigen Stellen `Featureperioden::Dispatcher.domain_classes(...)`-Aufrufe verwendet,
+um alle bekannten VP-spezifischen Klassen parallel einzusammeln und miteinander zu registrieren
+(z.B. für `Export::Xlsx::Style`).
+Mit Einführung des neuen Fallback-Ansatzes werden Domainklassen jedoch nicht mehr vollständig in jede neue
+VP kopiert. Das bedeutet:
+- Bei der Enumeration über alle FPs fehlen Klassen in neueren FPs, solange dort keine Overrides angelegt wurden.
+- Diese werden von `domain_classes` übersprungen und per Logmeldung (FP skip: … not found) dokumentiert.
+- Das ist erwartetes Verhalten und kein Fehler: für neue FPs greift dann automatisch die Implementierung aus einer älteren FP,
+bis eine explizite neue Klasse in der FP implementiert wird.
+- Die Registierungen in `wagon.rb` funktionieren weiterhin, weil die Fallback-Logik später
+beim tatsächlichen Export die richtige (ältere) Klasse auflöst
 
-Der bestehende rake-task `rake fp:new[YEAR]` erzeugt aktuell noch eine neue VP durch
-Kopieren der Dateien der bisherigen FP und Ersetzten der bisherigen Jahreszahl mit der neuen.
-Mit dem neuen Fallback-Mechanismus ist das nicht mehr notwendig.
-Der Task sollte künftig nur noch:
-- `app/domain/fpYYYY.rb mit leerem Modul anlegen,
-- ein leeres Verzeichnis `app/domain/fpYYYY/` erzeugen.
-
-Diese Anpassung des Rake-Tasks ist noch nicht umgesetzt. Bis dahin verhält er sich weiterhin
-nach der alten Logik (Full-Copy).
-
-**Vor September 2025:**
-Es existiert ein rake-task (`lib/tasks/fp.rake`), der dabei hilft, eine neue Vertragsperiode
-anzulegen (im Kern eine Mischung aus `cp` und `find | sed -i`):
-
-    `rake fp:new[YEAR]`
-
-YEAR ist dabei das "neue Anfangsjahr" der Vertragsperiode und damit
-gleichzeitig das namensgebende Jahr. Es werden fast alle Dateien für die
-bisherige FP kopiert und das bisherige Jahr mit dem neuen ersetzt.
-
-Damit ist ein Startpunkt vorhanden, von dem aus die neue Vertragsperiode
-implementiert werden kann.
+**Hinweis:**
+- Wenn die Logs zu unübersichtlich werden, gibt es zwei Optionen:
+1) Logging trimmen (z.B. nur für aktuellste VP loggen).
+2) Registrierungslogik in `wagon.rb` refaktorisieren, sodass nicht mehr alle FPs beim Boot enumeriert werden,sondern jeweils
+zur Laufzeit per `fp_class` nur die für den aktuellen Request/Jahreskontext benötigten Klassen registriert/geladen werden.
 
 ### Angleichung FP-Namespaces und BSV-Vertragsperioden
 - In Zukunft ist eine klare Angleichung der Entwicklungshistorie von FP-Namespaces und den 
