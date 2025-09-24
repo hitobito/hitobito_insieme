@@ -149,6 +149,8 @@ weiterhin getestet werden können. Der Helper sollte nur in domain-specs notwend
   - neue Views in `app/views/fp2020` anlegen und so existierende Views überschreiben
 - domain:
   - Neue oder geänderte Domainklassen nur in der aktuellen FP ablegen.
+  - Falls auch ältere VPs versuchen, die neue Klasse aufzurufen, entweder Call guarden oder neue Klasse als
+  Stub-Klasse in alte VP kopieren.
   - Unveränderte Funktionalität wird per Fallback aus älteren FPs übernommen.
   - `include Featureperioden::Domain` verwenden und mit `fp_class('TimeRecord')` aufrufen.
   - z.B. `TimeRecord.new(args)` -> `fp_class('TimeRecord').new(args)`
