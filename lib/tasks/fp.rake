@@ -20,9 +20,10 @@ namespace :fp do
     abort "#{year} is already known" if known_years.include?(year)
     puts "#{last_year} -> #{year}"
 
-    domain_root = Rails.root.join("app/domain")
-    views_root  = Rails.root.join("app/views")
-    spec_root   = Rails.root.join("spec")
+    wagon_root = Wagons.find("insieme").root
+    domain_root = wagon_root.join("app/domain")
+    views_root  = wagon_root.join("app/views")
+    spec_root   = wagon_root.join("spec")
 
     # --- 1) Views (unchanged behavior) ---------------------------------------
     # keep copying fp-specific views so explicit overrides are available
