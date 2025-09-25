@@ -30,13 +30,15 @@ describe Featureperioden::Dispatcher do
   end
 
   it "logs skips for missing class paths" do
-    allow(Rails.logger).to receive(:debug)
+    messages = []
+    allow(Rails.logger).to receive(:debug) do |*args, &blk|
+      messages << (args.first || blk&.call)
+    end
 
     described_class.domain_classes("Nonexistent::Thing")
 
-    expect(Rails.logger).to have_received(:debug)
-      .with(a_string_including("Class skip:", "Nonexistent::Thing", "not found"))
-      .at_least(:once)
+    expect(messages.join("\n"))
+      .to include("Class skip:", "Nonexistent::Thing", "not found")
   end
 
   context "can determine the correct period" do
