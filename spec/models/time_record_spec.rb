@@ -290,7 +290,7 @@ describe TimeRecord do
 
       expect(result.class.name).to eq("Fp2022::TimeRecord::Calculation")
     end
-        it "resolves to Fp2020::TimeRecord::Calculation for year 2020" do
+    it "resolves to Fp2020::TimeRecord::Calculation for year 2020" do
       rec = described_class.new(year: 2020)
 
       result = rec.fp_calculations

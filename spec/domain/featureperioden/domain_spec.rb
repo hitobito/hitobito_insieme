@@ -5,13 +5,11 @@
 #  the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
 
-# frozen_string_literal: true
-
 require "spec_helper"
 
 describe Featureperioden::Domain do
   include Featureperioden::Domain
-  def year; @year; end
+  attr_reader :year
 
   def set_year(y)
     @year = y
@@ -20,7 +18,7 @@ describe Featureperioden::Domain do
 
   before do
     # Create a class that exists only in fp2022 for forward-fill test
-    stub_const('Fp2022::DummyOnlyHere', Class.new)
+    stub_const("Fp2022::DummyOnlyHere", Class.new)
   end
 
   it "resolves to Fp2015 when year is before 2020" do
@@ -72,12 +70,12 @@ describe Featureperioden::Domain do
   context "with overridden classes in newer FP" do
     before do
       # Base in Fp2022
-      stub_const('Fp2022::OverrideDemo', Module.new)
-      stub_const('Fp2022::OverrideDemo::Thing', Class.new)
+      stub_const("Fp2022::OverrideDemo", Module.new)
+      stub_const("Fp2022::OverrideDemo::Thing", Class.new)
 
       # Override in Fp2024
-      stub_const('Fp2024::OverrideDemo', Module.new)
-      stub_const('Fp2024::OverrideDemo::Thing', Class.new(Fp2022::OverrideDemo::Thing))
+      stub_const("Fp2024::OverrideDemo", Module.new)
+      stub_const("Fp2024::OverrideDemo::Thing", Class.new(Fp2022::OverrideDemo::Thing))
     end
 
     it "falls back to Fp2022 for 2023" do

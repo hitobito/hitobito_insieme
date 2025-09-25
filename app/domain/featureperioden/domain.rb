@@ -19,15 +19,15 @@ module Featureperioden
       target_year = featureperiode.determine
 
       namespaces = Featureperioden::Dispatcher::KNOWN_BASE_YEARS
-                      .select { |y| y <= target_year }   # backwards only
-                      .sort.reverse                      # newest → oldest
-                      .map { |y| Object.const_get("Fp#{y}") }
+        .select { |y| y <= target_year }   # backwards only
+        .sort.reverse                      # newest → oldest
+        .map { |y| Object.const_get("Fp#{y}") }
 
       parts = class_name.split("::")
 
       namespaces.each do |ns|
         ctx = ns
-        ok  = true
+        ok = true
 
         parts.each do |name|
           if ctx.const_defined?(name, false)
@@ -41,7 +41,7 @@ module Featureperioden
         return ctx if ok
       end
 
-      raise NameError, "Class #{class_name} not found in FP chain: #{namespaces.map(&:name).join(' → ')}"
+      raise NameError, "Class #{class_name} not found in FP chain: #{namespaces.map(&:name).join(" → ")}"
     end
 
     def fp_i18n_scope(controller_name)

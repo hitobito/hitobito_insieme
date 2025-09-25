@@ -15,20 +15,20 @@ namespace :fp do
     year = args[:year].to_i
 
     known_years = Featureperioden::Dispatcher::KNOWN_BASE_YEARS
-    last_year   = known_years.last
+    last_year = known_years.last
 
     abort "#{year} is already known" if known_years.include?(year)
     puts "#{last_year} -> #{year}"
 
     wagon_root = Wagons.find("insieme").root
     domain_root = wagon_root.join("app/domain")
-    views_root  = wagon_root.join("app/views")
-    spec_root   = wagon_root.join("spec")
+    views_root = wagon_root.join("app/views")
+    spec_root = wagon_root.join("spec")
 
     # --- 1) Views (unchanged behavior) ---------------------------------------
     # keep copying fp-specific views so explicit overrides are available
     from_views = views_root.join("fp#{last_year}")
-    to_views   = views_root.join("fp#{year}")
+    to_views = views_root.join("fp#{year}")
 
     if from_views.exist?
       if to_views.exist?
@@ -43,14 +43,14 @@ namespace :fp do
 
     # --- 2) Domain (NEW: shell only, no copy) --------------------------------
     fp_module_file = domain_root.join("fp#{year}.rb")
-    fp_folder      = domain_root.join("fp#{year}")
+    fp_folder = domain_root.join("fp#{year}")
 
     # create module file if missing
-    unless fp_module_file.exist?
+    if fp_module_file.exist?
+      puts "exists:  #{fp_module_file}"
+    else
       File.write(fp_module_file, "module Fp#{year}; end\n")
       puts "created: #{fp_module_file}"
-    else
-      puts "exists:  #{fp_module_file}"
     end
 
     # create empty fp folder (for deltas / overrides)
@@ -62,7 +62,7 @@ namespace :fp do
       puts "created: #{fp_folder}/"
     end
 
-   # --- 3) Spec skeletons (no copies; just empty dirs) -------------------------
+    # --- 3) Spec skeletons (no copies; just empty dirs) -------------------------
     %w[domain models].each do |subdir|
       dst = spec_root.join(subdir, "fp#{year}")
       if dst.exist?
@@ -77,10 +77,10 @@ namespace :fp do
 
     # --- 4) Update dispatcher KNOWN_BASE_YEARS --------------------------------
     dispatcher_path = domain_root.join("featureperioden/dispatcher.rb")
-    new_supported   = (known_years + [year]).uniq.sort
+    new_supported = (known_years + [year]).uniq.sort
     content = File.read(dispatcher_path)
     content.sub!(/KNOWN_BASE_YEARS = \[.*\](?:\.freeze)?/,
-                "KNOWN_BASE_YEARS = [#{new_supported.join(', ')}].freeze")
+      "KNOWN_BASE_YEARS = [#{new_supported.join(", ")}].freeze")
 
     File.write(dispatcher_path, content)
     puts "updated KNOWN_BASE_YEARS in #{dispatcher_path} -> #{new_supported.inspect}"
