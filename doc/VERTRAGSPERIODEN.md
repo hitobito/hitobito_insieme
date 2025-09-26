@@ -100,12 +100,7 @@ Falls **shared code** über alle VPs versucht, auf neue Klasen zuzugreifen, gibt
 - Back-Copying von neuen Klassen als Stub-Klasse in ältere VPs.
 Diese Stub-Klassen tun nichts, ausser die neue Klasse in alten VPs zu definieren, um den `NameError` zu vermeiden.
 
-#### Enumeration
-`Featureperioden::Dispatcher.domain_classes` verhält sich jetzt tolerant.
-Nicht existierende Klassen in einer VP werden übersprungen und als "FP skip ... not found" geloggt, statt
-einen `NameError` auszulösen.
-
-#### Ein Wort zur domain_class Methode in dispatcher.rb
+#### `domain_class` Methode in dispatcher.rb (strikte Klassenresolution)
 Diese Methode nutzt immer noch eine strikte Klassen-Ermittlung (kein Fallback-Mechanismus). Das bedeutet, die Ermittlung einer
 Klasse in einer Vertragsperiode via domain_class(class_name), wird mit einem `NameError` fehlschlagen, wenn die Klasse in
 diesem Vertragsperioden-Namespace nicht existiert.
@@ -121,6 +116,31 @@ Die Verwendung in dispatcher_spec.rb ist unproblematisch, in den beiden anderen 
 Deshalb wurde die domain_class Methode in den beiden betreffenden Models durch die fp_class Methode aus domain.rb ersetzt, welche
 über die Fallback-Mechanik verfügt. Dadurch wird für 2024 und nachfolgende Jahre jetzt korrekt die Implementation aus der vorherigen VP
 (`fp2022`) verwendet.
+
+#### `domain_classes` Methode in dispatcher.rb (tolerante Enumeration)
+`Featureperioden::Dispatcher.domain_classes` verhält sich jetzt tolerant.
+Nicht existierende Klassen in einer VP werden übersprungen und als "FP skip ... not found" geloggt, statt
+einen `NameError` auszulösen.
+
+Die Methode `domain_classes(class_name)` von dispatcher.rb wird aktuell ausschliesslich in
+`lib/hitobito_insieme/wagon.rb, 98` genutzt. Sie wird dort zur Boottime aufgerufen, um den tabellarischen Export-Klassen
+die zugehöirgen Style-Klassen zuzuordnen und dieses Paar jeweils pro Vertragsperiode in einer Registry zu speichern:
+- `"Export::Tabular::CostAccounting::List"` -> `"Export::Xlsx::CostAccounting::Style"` (Excel-Export Kostenrechnung)
+- `"Export::Tabular::Events::AggregateCourse::DetailList"` -> `"Export::Xlsx::Events::AggregateCourse::Style"` (Excel-Export Sammelkurse)
+- `"Export::Tabular::Events::AggregateCourse::ShortList"` -> `"Export::Xlsx::Events::AggregateCourse::Style"` (Excel-Export Sammelkurse)
+
+Mit Einführung des neuen Fallback-Ansatzes werden Domainklassen jedoch nicht mehr vollständig in jede neue
+VP kopiert. Das bedeutet:
+- Bei der Enumeration über alle Vertragsperioden fehlen Klassen in neueren VPs, solange dort keine Overrides angelegt wurden.
+- Mit der toleranten Implementierung von `domain_classes` werden fehlende Klassen neu übersprungen und per Logmeldung (FP skip: … not found) dokumentiert.
+- Das ist erwartetes Verhalten und kein Fehler:  
+  - **Kostenrechnung (CostAccounting):** die `::List`-Klassen werden hier direkt im `CostAccountingController` via `fp_class(class_name)` aufgerufen.
+  Dadurch greift automatisch der Fallback-Mechanismus: existiert in der neuen VP noch keine Klasse, wird die letzte verfügbare Implementierung (z. B. aus Fp2022) genutzt.  
+  - **Sammelkurse (AggregateCourse):** diese Exporte haben keinen eigenen Controller im Wagon, sondern laufen über die Boot-Time-Registrierung im `wagon.rb`.
+  Dort wird beim Starten die jeweils letzte verfügbare Implementierung in die Registry eingetragen und später von `Export::Xlsx::Generator` genutzt.  
+- Solange in einer neuen VP keine Overrides existieren, erscheinen also nur Logmeldungen (“skip … not found”), die Exporte selbst funktionieren aber weiterhin korrekt.  
+- **Zukunft:** falls die Boot-Time-Registrierung zu laut oder unflexibel wird, könnte man die Zuweisung von Styles statt in `wagon.rb` auch lazy (zur Laufzeit) lösen,
+z. B. direkt in den Controllern oder über einen Hook im `Generator`. Damit würde die Registry nur noch mit tatsächlich verwendeten Klassen befüllt.
 
 #### Vorteile dieser Implementierung
 - Weniger Code-Duplikation
@@ -192,25 +212,6 @@ anpassen müssen.
 
 Es ist etwas unsauber, dass der "Shared Context" in allen Specs vorhanden ist. Besser wäre es
 vielleicht, wenn diese nur den domain-specs inkludiert wird.
-
-### `domain_classes` im Wagon
-In `wagon.rb` werden an einigen Stellen `Featureperioden::Dispatcher.domain_classes(...)`-Aufrufe verwendet,
-um alle bekannten VP-spezifischen Klassen parallel einzusammeln und miteinander zu registrieren
-(z.B. für `Export::Xlsx::Style`).
-Mit Einführung des neuen Fallback-Ansatzes werden Domainklassen jedoch nicht mehr vollständig in jede neue
-VP kopiert. Das bedeutet:
-- Bei der Enumeration über alle FPs fehlen Klassen in neueren FPs, solange dort keine Overrides angelegt wurden.
-- Diese werden von `domain_classes` übersprungen und per Logmeldung (FP skip: … not found) dokumentiert.
-- Das ist erwartetes Verhalten und kein Fehler: für neue FPs greift dann automatisch die Implementierung aus einer älteren FP,
-bis eine explizite neue Klasse in der FP implementiert wird.
-- Die Registierungen in `wagon.rb` funktionieren weiterhin, weil die Fallback-Logik später
-beim tatsächlichen Export die richtige (ältere) Klasse auflöst
-
-**Hinweis:**
-- Wenn die Logs zu unübersichtlich werden, gibt es zwei Optionen:
-1) Logging trimmen (z.B. nur für aktuellste VP loggen).
-2) Registrierungslogik in `wagon.rb` refaktorisieren, sodass nicht mehr alle FPs beim Boot enumeriert werden,sondern jeweils
-zur Laufzeit per `fp_class` nur die für den aktuellen Request/Jahreskontext benötigten Klassen registriert/geladen werden.
 
 ### Angleichung FP-Namespaces und BSV-Vertragsperioden
 - In Zukunft ist eine klare Angleichung der Entwicklungshistorie von FP-Namespaces und den 
