@@ -692,6 +692,155 @@ de:
       total_media: Medien & Publikationen
       beratung: Sozialberatung
 
+  fp2024:
+    cost_accounting:
+      report:
+        total_umlagen:
+          name: Gemeinkosten
+          short_name: Gemeinkosten
+        unternehmenserfolg:
+          name: Ertrag minus Aufwand
+          short_name: Ertrag minus Aufwand
+        deckungsbeitrag4:
+          name: Deckungsbeitrag 4
+          short_name: Deckungsbeitrag 4
+      headers:
+        beratung: Sozialberatung
+      beratung: Sozialberatung
+      pro_verein:
+        # row-labels
+        type: Kostenarten
+        personalaufwand: Personalaufwand
+        honorare: Honorare
+        sachaufwand: Sachaufwand
+        aufwand: Aufwand
+        gemeinkosten: Gemeinkosten # also a column-label
+        umlagen: Umlagen
+        total_aufwand: Total Aufwand & Umlagen
+        leistungen: Leistungen
+        beitraege_iv: Beiträge IV/AHV
+        sonstige_beitraege: Sonstige Beiträge Bund/Kant./Geme.
+        spenden_zweckgebunden: zweckgeb. Spenden/sonstige Erträge
+        spenden_nicht_zweckgebunden: nicht zweckgeb. Spenden/sonstige Erträge
+
+        # column-labels
+        aufwand_ertrag_fibu: FiBu - KLR
+        abgrenzung: Abgrenzung
+        klr: KLR
+        sozialberatung: Sozialberatung
+        bauberatung: Bauberatung
+        rechtsberatung: Rechtsberatung
+        vermittlung: Vermittlung Betreuung
+        wohnbegleitung: Begleitetes Wohnen
+        media: Medien und Publikationen
+        jahreskurse: Semester-/Jahreskurse
+        blockkurse: Blockkurse
+        tageskurse: Tageskurse
+        treffpunkte: Treffpunkte
+        lufeb: LUFEB
+
+    course_records:
+      vollkosten_pro_betreuungsstunde: Vollkosten pro Betreuungsstunde
+      anzahl_durchfuehrungen: Anzahl Durchführungen
+    course_reporting:
+      aggregations:
+        anzahl_kurse_tp: Anzahl Durchführungen
+        betreuende_tp: Betreuungspersonen
+        direkte_kosten_pro_betreuungsstunde: Durchschnittliche direkte Kosten pro Betreuungsstunde
+        vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
+      client_statistics:
+        group_or_course_type: Verein / Kurstyp
+        course_count: Anzahl Kurse
+        course_hours: LE Beitragsberechtigte
+        other_attendees: LE Nicht Beitragsberechtigte
+        course_total: Total
+        course_fachkonzept: Kursinhalt
+        fachkonzept:
+          weiterbildung: Weiterbildung
+          sport: Sport/Freizeit
+          treffpunkt: Treffpunkt
+    events:
+      anzahl_durchfuehrungen: Anzahl Durchführungen
+    statistics:
+      group_figures:
+        anzahl_kurse: "%{leistungskategorie} Anzahl Kurse %{fachkonzept}"
+        total_vollkosten: "%{leistungskategorie} Total Vollkosten %{fachkonzept}"
+        tage_behinderte: "%{leistungskategorie} TN Tage Personen mit Behinderung %{fachkonzept}"
+        tage_angehoerige: "%{leistungskategorie} TN Tage Angehörige %{fachkonzept}"
+        tage_weitere: "%{leistungskategorie} TN Tage nicht Bezugsberechtigte %{fachkonzept}"
+        tage_total: "%{leistungskategorie} TN Tage Total %{fachkonzept}"
+        betreuungsstunden_total: "%{leistungskategorie} Betreuungsstunden Total %{fachkonzept}"
+        hours_employees: Stunden Angestellte
+        hours_volunteers: Stunden Ehrenamtliche mit Leistungsausweis
+        hours_volunteers_without: Stunden Ehrenamtliche ohne Leistungsausweis
+    time_records:
+      lufeb_grundlagen: Grundlagenarbeit zu LUFEB
+
+      lufeb_promoting: Förderung der Selbsthilfe
+      beratung_fachhilfeorganisationen: Information / Beratung von Organisationen und Einzelpersonen
+      unterstuetzung_leitorgane: Unterstützung von Menschen mit Behinderungen in Leitorganen
+      freiwilligen_akquisition: Akquisition von Freiwilligen
+      total_lufeb_promoting: Förderung der Selbsthilfe
+
+      lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
+      auskuenfte: Auskünfte an die Öffentlichkeit, Menschen mit Behinderung, Angehörige, Fachpersonen, Medien
+      referate: Vorträge / Referate
+      medien_zusammenarbeit: Zusammenarbeit mit Medien
+      sensibilisierungskampagnen: Sensibilisierungs- und Entstigmatisierungsarbeiten resp. -veranstaltungen
+
+      lufeb_specific: Themenspezifische Grundlagenarbeit
+      erarbeitung_grundlagen: Grundlagenarbeit (Arbeitsinstrumente, Konzepte, Studien, Grundlagenpapiere)
+      gremien: Mitgliedschaft / Mitarbeit in Gremien
+      vernehmlassungen: Mitarbeit bei Vernehmlassungen
+      projekte: Projekte Art. 74 (Vorbereitung und Durchführung)
+
+      media: Medien & Publikationen
+      medien_grundlagen: Grundlagenarbeit zu Medien & Publikationen
+      website: Website
+      newsletter: Rundbriefe, Broschüren, Merkblätter
+      videos: Videos
+      social_media: Soziale Medien
+      beratungsmodule: Standardisierte Beratungsmodule
+      apps: Applikationen
+      total_media: Medien & Publikationen
+
+      treffpunkte: Treffpunkte
+      treffpunkte_grundlagen: Grundlagenarbeit zu Treffpunkten
+      kurse_grundlagen: Grundlagenarbeit zu Kursen
+      beratung: Sozialberatung (inkl. Grundlagenarbeit)
+      total_courses: Total Kurse & Treffpunkte
+      edit:
+        courses: Kurse & Treffpunkte
+        beratung: Sozialberatung
+
+      lufeb_fields_sumarized:
+        total_media: Medien & Publikationen (inkl. Grundlagenarbeit)
+
+      lufeb_times:
+        group_or_stat: Gruppe/Feldname
+        general: Allgemeine Medien & Öffentlichkeitsarbeit
+        specific_with_grundlagen: Themenspezifische Grundlagenarbeit
+        promoting: Förderung der Selbsthilfe
+
+      group_data:
+        group_or_stat: Gruppe/Feldname
+        angestellte_insgesamt: FTE Angestellte MA insgesamt
+        angestellte_art_74: FTE Angestellte MA Betrieb Art. 74 IVG
+        freiwillige_insgesamt: FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt
+        freiwillige_art_74: FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG
+
+    lufeb_fields_full:
+      lufeb_grundlagen: Grundlagenarbeit zu LUFEB
+      lufeb_promoting: Förderung der Selbsthilfe
+      lufeb_general: Allgemeine Medien & Öffentlichkeitsarbeit
+      lufeb_specific: Themenspezifische Grundlagenarbeit
+    fields_full:
+      kurse_grundlagen: Grundlagenarbeit Kurse
+      treffpunkte_grundlagen: Grundlagenarbeit Treffpunkte
+      media_grundlagen: Grundlagenarbeit Medien & Publikationen
+      total_media: Medien & Publikationen
+      beratung: Sozialberatung
+      
   export/tabular/events:
     title: Kurse
 
