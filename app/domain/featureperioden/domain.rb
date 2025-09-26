@@ -15,6 +15,11 @@ module Featureperioden
       end
     end
 
+    # Resolve the given constant path, e.g. "CourseReporting::ClientStatistics" in the newest FP <= target year,
+    # falling back to older FPs, if it doesn't exist in the newest.
+    # - Skips/logs missing FP modules (e.g., Fp2024 not yet defined).
+    # - Walks constants without ancestor lookup (const_defined?(..., false)).
+    # - Raises with a clear chain if nothing is found.
     def fp_class(class_name)
       target_year = featureperiode.determine
 
@@ -26,19 +31,19 @@ module Featureperioden
       parts = class_name.split("::")
 
       namespaces.each do |ns|
-        ctx = ns
+        context_namespace = ns
         ok = true
 
         parts.each do |name|
-          if ctx.const_defined?(name, false)
-            ctx = ctx.const_get(name)
+          if context_namespace.const_defined?(name, false)
+            context_namespace = context_namespace.const_get(name)
           else
             ok = false
             break
           end
         end
 
-        return ctx if ok
+        return context_namespace if ok
       end
 
       raise NameError, "Class #{class_name} not found in FP chain: #{namespaces.map(&:name).join(" → ")}"
