@@ -7,6 +7,7 @@ require "spec_helper"
 
 describe Event::CourseRecordsHelper do
   include FormatHelper
+  include ColumnHelper
   include UtilityHelper
   include LayoutHelper
 
