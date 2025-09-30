@@ -9,10 +9,10 @@ RSpec.describe PolicyRegistry do
       expect(policy.include_grundlagen_hours?).to eq(true)
     end
 
-    it "currently returns V10 for 2025 (will change in next PR)" do
+    it "returns V11 for 2025" do
       policy = described_class.for(year: 2025)
-      expect(policy).to be_a(Policies::Fsio2428::V10) # update to V11 in next PR
-      expect(policy.include_grundlagen_hours?).to eq(true)
+      expect(policy).to be_a(Policies::Fsio2428::V11)
+      expect(policy.include_grundlagen_hours?).to eq(false)
     end
   end
 end
