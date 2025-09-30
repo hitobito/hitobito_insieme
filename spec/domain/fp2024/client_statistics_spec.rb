@@ -5,7 +5,8 @@ require "spec_helper"
 #   #course_hours_including_grundlagen_hours(gcp)
 # in Fp2024::Export::Tabular::CourseReporting::ClientStatistics.
 # The Fp2022 base implementation adds Grundlagenstunden; the Fp2024 override
-# delegates to the base *only* if the policy says to include them.
+# delegates to the base only if the policy says to include them. Otherwise it
+# only adds Grundlagenstunden for tp, not for sk, bk, tk.
 RSpec.describe Fp2024::Export::Tabular::CourseReporting::ClientStatistics do
   let(:group) { groups(:be) }
 
@@ -78,10 +79,10 @@ RSpec.describe Fp2024::Export::Tabular::CourseReporting::ClientStatistics do
       expect(result).to eq(10.0)
     end
 
-    it "does NOT add grundlagen for treffpunkt" do
+    it "DOES add grundlagen for treffpunkt" do
       gcp = build_gcp(fachkonzept: "treffpunkt", hours: 7.0)
       result = exporter.send(:course_hours_including_grundlagen_hours, gcp)
-      expect(result).to eq(7.0)
+      expect(result).to eq(7.0 + 888.0)
     end
   end
 end
