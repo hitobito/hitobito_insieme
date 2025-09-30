@@ -12,10 +12,11 @@ module Fp2024
                         @policy ||= PolicyRegistry.for(year: year)
                     end
 
-                    # Only change: if the policy says "exclude grundlagen_hours", return just the course_hours.
-                    # Otherwise, fall back to the fp2022 behavior (which adds grundlagen_hours).
+                    # Only change: if the policy says "exclude grundlagen_hours for Kurse", return just the course_hours
+                    # for the leistungskategorien sk, bk, tk, but still include grundlagen_hours for tp.
+                    # Otherwise, fall back to the fp2022 behavior (which adds grundlagen_hours for all leistungskategorien).
                     def course_hours_including_grundlagen_hours(gcp)
-                        return super if policy.include_grundlagen_hours?
+                        return super if policy.include_grundlagen_hours_for?(gcp.fachkonzept)
                         maybe_zero(gcp.course_hours.to_f)
                     end
                 end
