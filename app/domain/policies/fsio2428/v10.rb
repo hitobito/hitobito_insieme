@@ -3,6 +3,7 @@ module Policies
         class V10
             def include_grundlagen_hours_for?(fachkonzept)
                 true
+            end
         end
     end
 end

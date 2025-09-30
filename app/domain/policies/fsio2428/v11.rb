@@ -6,6 +6,7 @@ module Policies
         class V11
             def include_grundlagen_hours_for?(fachkonzept)
                 fachkonzept == "treffpunkt"
+            end
         end
     end
 end
