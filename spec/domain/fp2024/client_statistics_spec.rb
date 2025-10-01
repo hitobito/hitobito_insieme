@@ -1,9 +1,11 @@
 # frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Fp2024::Export::Tabular::CourseReporting::ClientStatistics do
   let(:year) { 2024 }
   let(:stats) { instance_double("stats", year: year) } # adapt if your constructor differs
+
   subject(:exporter) { described_class.new(stats) }
 
   it "calls super when policy includes grundlagen hours" do
