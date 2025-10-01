@@ -2,6 +2,8 @@
 
 ## unreleased
 
+* Featureperiode 2024 hinzugefügt (hitobito_insieme#tbd)
+* Fallback-Mechanismus für Domain-Klassen hinzugefügt (hitobito_insieme#tbd)
 * Eigene Startseite nach User-Login aktiviert (hitobito_insieme#150)
 
 ## Version 2.0
