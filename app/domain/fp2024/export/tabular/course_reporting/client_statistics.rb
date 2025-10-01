@@ -15,8 +15,10 @@ module Fp2024
                         return enum_for(:data_rows) unless block_given?
 
                         # prepend a stamp row
+                        yield empty_row
                         yield ["Policy:", policy.class.name.demodulize]
-                        yield ["Generated at:", Time.zone.now.to_s]
+                        yield ["Druck:", Time.zone.now.strftime("%d.%m.%Y %H:%M")]
+                        yield empty_row
 
                         # then call super to yield the normal rows
                         super
