@@ -5,19 +5,10 @@ module Fp2024
         module Tabular
             module CourseReporting
                 class ClientStatistics < Fp2022::Export::Tabular::CourseReporting::ClientStatistics
-                    private
 
                     # Policy is computed from the year exposed by the fp2022 base (delegates :year to stats)
                     def policy
                         @policy ||= PolicyRegistry.for(year: year)
-                    end
-
-                    # Only change: if the policy says "exclude grundlagen_hours for Kurse", return just the course_hours
-                    # for the leistungskategorien sk, bk, tk, but still include grundlagen_hours for tp.
-                    # Otherwise, fall back to the fp2022 behavior (which adds grundlagen_hours for all leistungskategorien).
-                    def course_hours_including_grundlagen_hours(gcp)
-                        return super if policy.include_grundlagen_hours_for?(gcp.fachkonzept)
-                        maybe_zero(gcp.course_hours.to_f)
                     end
 
                     def data_rows(_format = :csv)
@@ -29,6 +20,16 @@ module Fp2024
 
                         # then call super to yield the normal rows
                         super
+                    end
+
+                    private
+
+                    # If the policy says "exclude grundlagen_hours for Kurse", return just the course_hours
+                    # for the leistungskategorien sk, bk, tk, but still include grundlagen_hours for tp.
+                    # Otherwise, fall back to the fp2022 behavior (which adds grundlagen_hours for all leistungskategorien).
+                    def course_hours_including_grundlagen_hours(gcp)
+                        return super if policy.include_grundlagen_hours_for?(gcp.fachkonzept)
+                        maybe_zero(gcp.course_hours.to_f)
                     end
                 end
             end
