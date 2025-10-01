@@ -44,7 +44,7 @@ bleiben unverändert bestehen.
 
 Seit `Fp2024` genügt es, eine leere Hülle für die neue VP anzulegen, da die Domainklassen
 über den Fallback-Mechanismus automatisch aus älteren FPs wiederverwendet werden:
-- `app/domain/fp2024.rb` mit `module FpYYYY; end`
+- `app/domain/fpYYYY.rb` mit `module FpYYYY; end`
 - ein leeres Verzeichnis `app/domain/fpYYYY/` (optional mit Unterordnern wie `export/`, `cost_accounting/`)
 
 Anschliessend wird der Dispatcher (`app/domain/vertragsperioden/dispatcher.rb`) um das neue Jahr in 
@@ -58,7 +58,7 @@ Dafür existiert ein (überarbeiteter) Rake-Task:
 Dieser erzeugt:
 - die Moduldatei `app/domain/fpYYYY.rb`
 - das leere Verzeichnis `app/domain/fpYYYY/`
-- leere Spec-Skeletions (`spec/domain/fpYYYY/`, `spec/models/fpYYYY/`)
+- leere Spec-Skeletons (`spec/domain/fpYYYY/`, `spec/models/fpYYYY/`)
 - kopierte Views (`app/views/fpYYYY`), da Views weiterhin strikt pro VP überschrieben werden
 - und passt die `KNOWN_BASE_YEARS` im Dispatcher an.
 
@@ -90,6 +90,9 @@ fällt bei Nichtvorhandensein auf `Fp2022::Export::Xlsx` zurück, danach ggf. au
   class Fp2024::CourseReporting::ClientStatistics < Fp2022::CourseReporting::ClientStatistics
     # Überschriebene Methoden oder neue Logik
   end
+
+Subclassing wird nicht nur bei tiefgreifenden strukturellen Änderungen eingesetzt, sondern auch, wenn kleine Anpassungen (z. B. Policy-Wiring, siehe unten) innerhalb einer VP erforderlich sind. Ziel ist immer, die Änderungen sauber im Namespace der aktuellen VP zu kapseln und ältere VPs unverändert zu lassen.“
+
 - **Neue Klasse ab einer VP**
   Direkt in `fp2024/` anlegen. Ältere VPs sehen diese Klasse nicht.
 
@@ -142,13 +145,80 @@ VP kopiert. Das bedeutet:
 - **Zukunft:** falls die Boot-Time-Registrierung zu laut oder unflexibel wird, könnte man die Zuweisung von Styles statt in `wagon.rb` auch lazy (zur Laufzeit) lösen,
 z. B. direkt in den Controllern oder über einen Hook im `Generator`. Damit würde die Registry nur noch mit tatsächlich verwendeten Klassen befüllt.
 
-#### Vorteile dieser Implementierung
-- Weniger Code-Duplikation
-- Änderungen pro VP sind im Verzeichnisbaum klar sichtbar (deltas statt Full-Copy)
-- (hoffentlich) erhöhte Wartbarkeit und Transparenz
-- Grunlage für eine saubere Angleichung der VP/fp-Struktur an die BSV-Vertragsperioden (4-Jahreszyklen)
-- Innerhalb einer VP können kleinere Änderungen künftig über Policies abgebildet werden, ohne gleich
-eine neue VP einführen zu müssen
+#### Policy-Infrastruktur
+Ab VP2024 gibt es zusätzlich eine Policy-Infrastruktur, um granulare Änderungen innerhalb einer VP umzusetzen, ohne jedes Mal eine neue FP-Struktur aufmachen zu müssen.
+**Motivation:**
+- Vertragsperioden laufen normalerweise 4 Jahre, aber innerhalb dieser Zeit können sich Regeln (z.B. BSV-Vorgaben) ändern.
+- Policies kapseln diese kleineren Änderungen versionssicher, vermeiden doppelten Code und erhalten gleichzeitig die Reproduzierbarkeit pro Jahr.
+
+**Aufbau:**
+- `app/domain/policy_registry.rb`: Wählt für ein Jahr die richtige Policy-Klasse aus.
+- `app/domain/policies/fsio2428/v10.rb`: Basis-Policy (z.B. für 2024).
+- `app/domain/policies/fsio2428/v11.rb`: tbd.
+- Policy-Klassen sind einfach: sie liefern ein Label (`.label`) und definieren Methoden für spezifische Regeln, z.B. tbd.
+
+**Verwendung:**
+- Eine VP-Klasse (z.B. `Fp2024::Export::Tabular::CourseReporting::ClientStatistics`) ruft `PolicyRegistry.for(year: year)` auf.
+- Die zurückgegebenen Policy entscheidet dann, ob eine Berechnung wie bisher läuft oder angepasst wird.
+- Beispiel: tbd
+
+#### Zusammenspiel von Fallback, Subclassing und Policies
+
+Seit VP2024 basiert die Entwicklung auf drei ineinandergreifenden Mechanismen: **Fallback**, 
+**Subclassing** und **Policies**. Diese Aufteilung ist bewusst gewählt.
+
+1. **Ausrichtung auf BSV-Vertragsperioden**  
+   - Jeder neue FP-Namespace entspricht einem neuen Vertragszyklus (z. B. `Fp2024` für BSV-Vertrag 2024–2028).  
+   - Innerhalb dieses Zeitraums werden Änderungen im entsprechenden FP gebündelt, bis die nächste VP beginnt.
+
+2. **Subclassing für Änderungen in der aktuellen VP (groß **oder** klein)**  
+   - Neue oder geänderte Funktionalität wird in der **aktuellen VP** als Subclass der letzten relevanten Implementierung angelegt.  
+   - Das gilt sowohl für **strukturelle Änderungen** (z. B. andere Spalten/Layouts) **als auch** für **kleine, VP-lokale Anpassungen**, bei denen wir die alten Namespaces nicht mit neuem Policy-Wiring anfassen wollen.  
+   - Beispiel:  
+     ```ruby
+     class Fp2024::Export::Tabular::CourseReporting::ClientStatistics <
+       Fp2022::Export::Tabular::CourseReporting::ClientStatistics
+       def initialize(year, policy: Reporting::PolicyRegistry.for(year: year))
+         super
+         @policy = policy
+       end
+
+       # überschreibt nur das, was ab 2024/2025 in dieser VP gelten soll
+     end
+     ```
+   - **Vorteile**: ältere Implementierungen (`Fp2022`, `Fp2020` …) bleiben unverändert; Änderungen sind eindeutig der aktuellen VP zugeordnet.
+
+3. **Policies für Jahr-zu-Jahr-Anpassungen innerhalb einer VP**  
+   - Kleinere Regeln, die sich im laufenden Zyklus ändern (z. B. ab 2025: Grundlagen-Stunden in Kursen ausschließen, in Treffpunkten beibehalten), werden als **Policy-Versionen** modelliert (`fsio2428 v1.0`, `v1.1`, …).  
+   - Die Policy wird in der VP-Subclass injiziert und entscheidet pro **Kalenderjahr**, welche Variante gilt.  
+   - **Ergebnis**: feingranulare Änderungen ohne neue FP und gleichzeitig **Reproduzierbarkeit pro Jahr**.
+
+4. **Fallback für unveränderte Funktionalität**  
+   - `fp_class("...")` sucht zuerst in der aktuellen VP und fällt dann **rückwärts** in ältere VPs zurück.  
+   - So überschreiben wir nur Klassen, die sich wirklich ändern; Vollkopien entfallen.
+
+**Entscheidungsleitfaden (Kurzfassung)**  
+- **Nur alte Logik wiederverwenden?** → Nichts tun, Fallback reicht.  
+- **Kleine VP-lokale Änderung (Policy-Wiring, punktuelle Methode):** → **Subclass in aktueller VP**, Policy injizieren, nur benötigte Methoden überschreiben.  
+- **Große/strukturelle Änderung:** → **Subclass in aktueller VP** (oder Neuaufbau), alte VPs unangetastet lassen.  
+- **Kleiner Jahreswechsel innerhalb VP (2024 vs. 2025):** → **Policy-Version** anpassen; Code bleibt in der VP-Subclass.
+
+**Zusammenfassung:**  
+- **Neue VP = neuer Namespace.**  
+- **Änderungen (groß **oder** klein) in der aktuellen VP = Subclass dort**, damit ältere VPs sauber bleiben.  
+- **Jahresweise Regeln = Policy-Versionen** innerhalb der VP.  
+- **Unverändertes = Fallback** aus älteren VPs.
+
+#### Vorteile dieser Architektur
+
+Diese Architektur sorgt dafür, dass
+
+- die Codebasis klar an die 4-jährigen Vertragszyklen des BSV gekoppelt bleibt,  
+- Änderungen pro VP im Verzeichnisbaum sichtbar und nachvollziehbar sind (deltas statt Full-Copy),  
+- kleinere Anpassungen innerhalb einer VP über **Policies** versionssicher umgesetzt werden können, ohne eine neue VP einführen zu müssen,  
+- frühere VPs unverändert und reproduzierbar bleiben, während neue Anpassungen sauber im Namespace der aktuellen VP gekapselt sind,  
+- Code-Duplikation stark reduziert wird,  
+- und die Wartbarkeit sowie Transparenz insgesamt steigen (klare Trennung zwischen großen VP-Wechseln und kleinen Policy-Änderungen).
 
 ### i18n-Scope
 
@@ -175,24 +245,35 @@ weiterhin getestet werden können. Der Helper sollte nur in domain-specs notwend
 
 ## Hinweise in der Anwendung
 
-- views:
-  - `*Controller` -> `include Featureperioden::Views`
-  - neue Views in `app/views/fp2020` anlegen und so existierende Views überschreiben
-- domain:
-  - Neue oder geänderte Domainklassen nur in der aktuellen FP ablegen.
-  - Falls auch ältere VPs versuchen, die neue Klasse aufzurufen, entweder Call guarden oder neue Klasse als
-  Stub-Klasse in alte VP kopieren.
-  - Unveränderte Funktionalität wird per Fallback aus älteren FPs übernommen.
-  - `include Featureperioden::Domain` verwenden und mit `fp_class('TimeRecord')` aufrufen.
-  - z.B. `TimeRecord.new(args)` -> `fp_class('TimeRecord').new(args)`
-- models:
-  - anzupassenden Code in eine Domain-Klasse verschieben
-  - Siehe "domain" :-)
-- controller:
-  - anzupassenden Code in eine Domain-Klasse verschieben
-  - Siehe "domain" :-)
-- specs:
-  - neue Specs, die speziell für eine VP sind, werden in `spec/fp2020/` angelegt.
+- **Views**
+  - In Controllern `include Featureperioden::Views` verwenden.
+  - Neue oder angepasste Views in `app/views/fpYYYY` ablegen, um bestehende Views gezielt zu überschreiben.
+  - Es wird immer nur ein VP-Verzeichnis im View-Path berücksichtigt.
+
+- **Domain**
+  - Neue oder geänderte Domainklassen immer in der **aktuellen VP** anlegen (z. B. `fp2024/`).
+  - Unveränderte Funktionalität wird automatisch per **Fallback** aus älteren VPs übernommen.
+  - Falls shared code über alle VPs auf eine neue Klasse zugreift, die in älteren VPs nicht existiert:
+    - entweder den Aufruf per Jahr/Policy guarden, oder  
+    - in älteren VPs eine **Stub-Klasse** (No-Op) definieren, um `NameError` zu vermeiden.
+  - Für FP-spezifische Klassenauflösung: `include Featureperioden::Domain` und `fp_class('TimeRecord')` nutzen.  
+    Beispiel:  
+    ```ruby
+    # statt direkt:
+    TimeRecord.new(args)
+    # korrekt:
+    fp_class('TimeRecord').new(args)
+    ```
+
+- **Models**
+  - Anzupassenden Code in eine Domainklasse verschieben (siehe „Domain“).
+
+- **Controller**
+  - Anzupassenden Code in eine Domainklasse verschieben (siehe „Domain“).
+
+- **Specs**
+  - Neue Specs, die speziell für eine VP sind, in `spec/fpYYYY/` anlegen.
+  - Für Jahr-übergreifende Tests `let(:year)` setzen und `fp_class` verwenden.
 
 ## Probleme/Ausblick
 
@@ -213,8 +294,22 @@ anpassen müssen.
 Es ist etwas unsauber, dass der "Shared Context" in allen Specs vorhanden ist. Besser wäre es
 vielleicht, wenn diese nur den domain-specs inkludiert wird.
 
-### Angleichung FP-Namespaces und BSV-Vertragsperioden
-- In Zukunft ist eine klare Angleichung der Entwicklungshistorie von FP-Namespaces und den 
-BSV-Vertragsperioden (business cycles) vorgesehen.
-- Kleinere Anpassungen innerhalb einer VP können über **Policies** ermöglicht werden, ohne eine komplett
-neue VP anlegen zu müssen.
+### Subclass-Chains & Architektur
+- **Zu tiefe Vererbungsketten** (z. B. `Fp2029::X < Fp2024::X < Fp2022::X`) erschweren Verständnis und Debugging.  
+  **Maßnahmen:** 
+  - Bei Bedarf **flachziehen** (statt Subclass: Delegation/Wrapper oder Modul-Overrides via `prepend`).
+  - Reusable Deltas in **kleine Module** extrahieren (z. B. `Fp2024::Overrides::...`) und in neuen FPs gezielt einbinden.
+  - Pro Klasse dokumentieren, **von welcher Basis** geerbt/delegiert wird (kurzer Header-Kommentar).
+
+### Fallback & Performance / Sichtbarkeit
+- Fallback reduziert Kopien, erschwert aber das **Auffinden der „effektiven“ Implementierung**.
+  **Maßnahmen:** 
+  - „Override-Index“ pflegen (`docs/fp_overrides.md`): Liste aller Klassen, die in der aktuellen VP überschrieben sind, inkl. Basisklasse.
+  - Optional: Rake-Task, der pro Klasse den **ersten Treffer** im Fallback-Pfad ausgibt (Dev-Hilfsmittel).
+
+### Policy-Governance
+- Risiko von **Policy-Sprawl** (viele kleine Versionen, unklare Zuständigkeit).
+  **Maßnahmen:** 
+  - **Benennungs-/Versionierungs-Konvention** festlegen (z. B. `FSIO-2024 v1.0`, `v1.1` für Jahresschnitte; `v2.0` bei Strukturwechsel).
+  - **Registry** mit **Cutover-Datum** dokumentieren (Kommentar + Changelog). 
+  - Jede Policy mit **„Effective as of“** versehen; Export stempelt **Profil + Version** in die Datei (Audit).
