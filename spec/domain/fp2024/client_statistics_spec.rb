@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "spec_helper"
 
 # This spec only tests the override of
@@ -12,17 +13,18 @@ RSpec.describe Fp2024::Export::Tabular::CourseReporting::ClientStatistics do
 
   # Minimal stub: the method under test only reads these fields.
   # See Fp2022::CourseReporting::ClientStatistics for a full description of GroupCantonParticipant.
-  GcpStub = Struct.new(:group_id, :leistungskategorie, :fachkonzept, :course_hours)
+  let(:gcp_stub_class) { Struct.new(:group_id, :leistungskategorie, :fachkonzept, :course_hours) }
 
   def build_gcp(fachkonzept:, hours:)
     # leistungskategorie doesn't influence grundlagen field selection except tp vs others
     lk = (fachkonzept == "treffpunkt") ? "tp" : "sk"
-    GcpStub.new(group.id, lk, fachkonzept, hours)
+    gcp_stub_class.new(group.id, lk, fachkonzept, hours)
   end
 
   context "policy V10 (include grundlagen hours)" do
-    let(:year)  { 2024 }
+    let(:year) { 2024 }
     let(:stats) { instance_double("stats", year: year) }
+
     subject(:exporter) { described_class.new(stats) }
 
     before do
@@ -60,8 +62,9 @@ RSpec.describe Fp2024::Export::Tabular::CourseReporting::ClientStatistics do
   end
 
   context "policy V11 (exclude grundlagen hours)" do
-    let(:year)  { 2025 }
+    let(:year) { 2025 }
     let(:stats) { instance_double("stats", year: year) }
+
     subject(:exporter) { described_class.new(stats) }
 
     before do

@@ -1,5 +1,4 @@
 class PolicyRegistry
-
   def self.for(year:)
     case year.to_i
     when 2024
