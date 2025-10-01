@@ -16,7 +16,7 @@ module Fp2024
 
                         # prepend a stamp row
                         yield empty_row
-                        yield ["Policy:", policy.class.name.demodulize]
+                        yield ["Policy:", policy.class.label]
                         yield ["Druck:", Time.zone.now.strftime("%d.%m.%Y %H:%M")]
                         yield empty_row
 
