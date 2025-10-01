@@ -19,6 +19,17 @@ module Fp2024
                         return super if policy.include_grundlagen_hours_for?(gcp.fachkonzept)
                         maybe_zero(gcp.course_hours.to_f)
                     end
+
+                    def data_rows(_format = :csv)
+                        return enum_for(:data_rows) unless block_given?
+
+                        # prepend a stamp row
+                        yield ["Policy:", policy.class.name.demodulize]
+                        yield ["Generated at:", Time.zone.now.to_s]
+
+                        # then call super to yield the normal rows
+                        super
+                    end
                 end
             end
         end
