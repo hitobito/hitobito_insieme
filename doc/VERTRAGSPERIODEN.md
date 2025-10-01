@@ -295,6 +295,16 @@ anpassen müssen.
 Es ist etwas unsauber, dass der "Shared Context" in allen Specs vorhanden ist. Besser wäre es
 vielleicht, wenn diese nur den domain-specs inkludiert wird.
 
+### Disziplin an Call-Sites
+Ein Risiko ist die Verwendung von **harten Klassenreferenzen** (`Fp2022::…`) in gemeinsam genutztem Code.  
+Damit wird der Fallback/Policy-Mechanismus umgangen und künftige Änderungen (z. B. in `Fp2024`) greifen ggf. nicht.  
+
+**Ausblick / Maßnahmen:**
+- Änderungen oder neue Funktionen in einer VP: immer `fp_class("…")` statt direkter Referenzen.  
+- Falls eine Klasse nur ab einem Jahr existiert: Call guarden oder Stub/NullObject in älteren VPs.  
+- Migration erfolgt **inkrementell** („on touch“), alte Pfade bleiben unangetastet.  
+- Optional: kleine Guardrails in Reviews/CI, um neue harte Referenzen zu verhindern.
+
 ### Subclass-Chains & Architektur
 - **Zu tiefe Vererbungsketten** (z. B. `Fp2029::X < Fp2024::X < Fp2022::X`) erschweren Verständnis und Debugging.  
   **Maßnahmen:** 
