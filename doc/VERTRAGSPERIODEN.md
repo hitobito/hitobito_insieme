@@ -154,13 +154,14 @@ Ab VP2024 gibt es zusätzlich eine Policy-Infrastruktur, um granulare Änderunge
 **Aufbau:**
 - `app/domain/policy_registry.rb`: Wählt für ein Jahr die richtige Policy-Klasse aus.
 - `app/domain/policies/fsio2428/v10.rb`: Basis-Policy (z.B. für 2024).
-- `app/domain/policies/fsio2428/v11.rb`: tbd.
-- Policy-Klassen sind einfach: sie liefern ein Label (`.label`) und definieren Methoden für spezifische Regeln, z.B. tbd.
+- `app/domain/policies/fsio2428/v11.rb`: Geänderte Policy (z. B. für 2025+).
+- Policy-Klassen sind einfach: sie liefern ein Label (`.label`) und definieren Methoden für spezifische Regeln, z.B.
+`include_grundlagen_hours_for?(fachkonzept)`.
 
 **Verwendung:**
 - Eine VP-Klasse (z.B. `Fp2024::Export::Tabular::CourseReporting::ClientStatistics`) ruft `PolicyRegistry.for(year: year)` auf.
 - Die zurückgegebenen Policy entscheidet dann, ob eine Berechnung wie bisher läuft oder angepasst wird.
-- Beispiel: tbd
+- Beispiel: V10 (2024) addiert Grundlagenstunden für alle Kurstypen, V11 (2025+) nur noch für Treffpunkte.
 
 #### Zusammenspiel von Fallback, Subclassing und Policies
 
