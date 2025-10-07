@@ -2,8 +2,11 @@
 
 ## unreleased
 
-* Featureperiode 2024 hinzugefügt (hitobito_insieme#tbd)
-* Fallback-Mechanismus für Domain-Klassen hinzugefügt (hitobito_insieme#tbd)
+* Neue Policy hinzugefügt; neu wird im Export client_statitics Grundlagenarbeit nur noch zur Leistungskategorie "Treffpunkte hinzugefügt
+(vorher zu allen Leistungskategorien (Blockkurse, Semester-/Jahreskurse, Tageskurse und Treffpunkte) hinzugefügt) (hitobito_insieme#grundlagenarbeit-policy-change)
+* Policy-Infrastruktur für Änderungen innerhalb einer BSV-Vertragsperiode hinzugefügt (hitobito_insieme#policy-infrastructure)
+* Featureperiode 2024 hinzugefügt (hitobito_insieme#featureperioden-restructure)
+* Fallback-Mechanismus für Domain-Klassen hinzugefügt (hitobito_insieme#featureperioden-restructure)
 * Eigene Startseite nach User-Login aktiviert (hitobito_insieme#150)
 
 ## Version 2.0
