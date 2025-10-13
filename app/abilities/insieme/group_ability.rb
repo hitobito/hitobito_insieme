@@ -67,20 +67,12 @@ module Insieme::GroupAbility
       permission(:layer_read).may(:statistics).in_same_group
       permission(:layer_and_below_read).may(:statistics).in_same_group
 
-      permission(:manual_deletion)
-        .may(:manually_delete_people)
-        .if_permission_in_layer_and_manual_deletion_enabled
-
       permission(:any).may(:controlling).if_dachverein_reporting
 
       general(:reporting).for_reporting_group
       general(:statistics).for_dachverein
       general(:controlling).for_dachverein
     end
-  end
-
-  def if_permission_in_layer_and_manual_deletion_enabled
-    FeatureGate.enabled?("people.manual_deletion") && if_permission_in_layer
   end
 
   def if_dachverein_reporting_or_regionalverein_reporting_in_same_group
