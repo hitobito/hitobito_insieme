@@ -7,7 +7,9 @@ require "spec_helper"
 
 describe Insieme::Export::EventsExportJob do
   let(:filename) { Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s }
-  subject { Export::EventsExportJob.new(:csv, person.id, group.id, event_filter.to_h, filename: filename) }
+  subject {
+    Export::EventsExportJob.new(:csv, person.id, group.id, event_filter.to_h, filename: filename)
+  }
 
   let(:event_filter) { Event::Filter.new(group, type, "all", 2012, false) }
 
@@ -16,7 +18,8 @@ describe Insieme::Export::EventsExportJob do
     let(:type) { "Event::Course" }
 
     before do
-      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: "bk", fachkonzept: "sport_jugend")
+      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: "bk",
+        fachkonzept: "sport_jugend")
       group.update!(vid: 42, bsv_number: "99")
       Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
     end
@@ -32,7 +35,9 @@ describe Insieme::Export::EventsExportJob do
     end
 
     context "vorstand" do
-      let(:person) { Fabricate(:role, group: group, type: "Group::Dachverein::Vorstandsmitglied").person }
+      let(:person) {
+        Fabricate(:role, group: group, type: "Group::Dachverein::Vorstandsmitglied").person
+      }
 
       it "creates detail export for courses" do
         expect(subject.exporter_class).to eq(Fp2015::Export::Tabular::Events::ShortList)
@@ -47,8 +52,10 @@ describe Insieme::Export::EventsExportJob do
     let(:type) { "Event::AggregateCourse" }
 
     before do
-      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: "bk", fachkonzept: "sport_jugend")
-      Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend")
+      c = Fabricate(:course, groups: [group], kind: Event::Kind.first, leistungskategorie: "bk",
+        fachkonzept: "sport_jugend")
+      Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk",
+        fachkonzept: "sport_jugend")
       Fabricate(:event_date, event: c, start_at: Date.new(2012, 3, 5))
     end
 
@@ -57,17 +64,24 @@ describe Insieme::Export::EventsExportJob do
 
       it "creates detail export for aggregate courses" do
         group.update!(vid: 42, bsv_number: "99")
+        # rubocop:todo Layout/LineLength
         expect(subject.exporter_class).to eq Fp2015::Export::Tabular::Events::AggregateCourse::DetailList
+        # rubocop:enable Layout/LineLength
         expect(subject.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end
 
     context "vorstand" do
-      let(:person) { Fabricate(:role, group: groups(:be), type: "Group::Regionalverein::Vorstandsmitglied").person }
+      let(:person) {
+        Fabricate(:role, group: groups(:be),
+          type: "Group::Regionalverein::Vorstandsmitglied").person
+      }
 
       it "creates short export for aggregate courses" do
         group.update!(vid: 42, bsv_number: "99")
+        # rubocop:todo Layout/LineLength
         expect(subject.exporter_class).to eq Fp2015::Export::Tabular::Events::AggregateCourse::ShortList
+        # rubocop:enable Layout/LineLength
         expect(subject.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end

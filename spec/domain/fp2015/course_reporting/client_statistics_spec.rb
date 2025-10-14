@@ -98,6 +98,8 @@ describe Fp2015::CourseReporting::ClientStatistics do
 
   private
 
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/AbcSize
   def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {},
     subventioniert = true, event_type = :course)
     event = nil
@@ -119,4 +121,6 @@ describe Fp2015::CourseReporting::ClientStatistics do
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
     r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 3)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

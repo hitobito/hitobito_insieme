@@ -44,8 +44,12 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
           "Koordination von Selbsthilfeaktivitäten",
           "Planung, Organisation und Durchführung von informellen Treffen",
           "Information, Beratung von Fachhilfeorganisationen betreffend Förderung der Selbsthilfe",
+          # rubocop:todo Layout/LineLength
           "Unterstützung von Personen mit Behinderung in den Leitorganen von Organisationen der privaten Behindertenhilfe",
+          # rubocop:enable Layout/LineLength
+          # rubocop:todo Layout/LineLength
           "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+          # rubocop:enable Layout/LineLength
           "Total LUFEB-Leistungen",
           "Blockkurse",
           "Tageskurse",
@@ -72,7 +76,9 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
           "Allgemeine Medien- und Öffentlichkeitsarbeit",
           "Eigene öffentlich zugängliche Medien und Publikationen",
           "Themenspezifische Grundlagenarbeit / Projekte",
+          # rubocop:todo Layout/LineLength
           "Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+          # rubocop:enable Layout/LineLength
           "Total LUFEB-Leistungen",
           "Blockkurse",
           "Tageskurse",
@@ -105,12 +111,16 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
   context "with records" do
     before do
       TimeRecord::EmployeeTime.create!(
+        # rubocop:todo Layout/LineLength
         group: groups(:be), year: year, eigene_zeitschriften: 200, eigene_webseite: 330, blockkurse: 300,
+        # rubocop:enable Layout/LineLength
         nicht_art_74_leistungen: 50,
         employee_pensum_attributes: {paragraph_74: 1.5, not_paragraph_74: 0.5}
       )
       TimeRecord::EmployeeTime.create!(
+        # rubocop:todo Layout/LineLength
         group: groups(:fr), year: year, eigene_zeitschriften: 100, eigene_webseite: 230, blockkurse: 200,
+        # rubocop:enable Layout/LineLength
         nicht_art_74_leistungen: 0o0
       )
       TimeRecord::VolunteerWithVerificationTime.create!(
@@ -140,7 +150,9 @@ describe Fp2015::Export::Tabular::TimeRecords::Vereinsliste do
           name: "externa",
           type: Group::ExterneOrganisation.sti_name)
         TimeRecord::EmployeeTime.create!(
+          # rubocop:todo Layout/LineLength
           group: external_group, year: year, eigene_zeitschriften: 42, eigene_webseite: 230, blockkurse: 200,
+          # rubocop:enable Layout/LineLength
           nicht_art_74_leistungen: 0o0
         )
         data = export

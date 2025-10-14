@@ -132,7 +132,8 @@ class Event::CourseRecord < ActiveRecord::Base
     betreuungsstunden
   end
 
-  def set_defaults
+  # rubocop:todo Metrics/AbcSize
+  def set_defaults # rubocop:todo Metrics/CyclomaticComplexity # rubocop:todo Metrics/AbcSize
     self.kursart ||= "weiterbildung"
     self.inputkriterien ||= "a"
     self.subventioniert ||= true if subventioniert.nil?
@@ -146,6 +147,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
     true # ensure callback chain continues
   end
+  # rubocop:enable Metrics/AbcSize
 
   # this is redefined in VP2020::CourseReporting::Aggregation to mark an
   # empty/aggregation record.

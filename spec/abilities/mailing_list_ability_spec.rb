@@ -12,14 +12,18 @@ describe MailingListAbility do
     subject { ability }
 
     context "layer read and below" do
-      let(:role) { Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, group: groups(:dachverein)) }
+      let(:role) {
+        Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, group: groups(:dachverein))
+      }
 
       context "in same layer" do
         it { is_expected.to be_able_to(:show, Fabricate.build(:mailing_list, group: role.group)) }
       end
 
       context "in lower layer" do
-        it { is_expected.to be_able_to(:show, Fabricate.build(:mailing_list, group: groups(:seeland))) }
+        it {
+          is_expected.to be_able_to(:show, Fabricate.build(:mailing_list, group: groups(:seeland)))
+        }
       end
     end
 
@@ -31,11 +35,17 @@ describe MailingListAbility do
       end
 
       context "in upper layer" do
-        it { is_expected.not_to be_able_to(:show, Fabricate.build(:mailing_list, group: groups(:dachverein))) }
+        it {
+          is_expected.not_to be_able_to(:show,
+            Fabricate.build(:mailing_list, group: groups(:dachverein)))
+        }
       end
 
       context "in lower layer" do
-        it { is_expected.not_to be_able_to(:show, Fabricate.build(:mailing_list, group: groups(:seeland))) }
+        it {
+          is_expected.not_to be_able_to(:show,
+            Fabricate.build(:mailing_list, group: groups(:seeland)))
+        }
       end
     end
   end

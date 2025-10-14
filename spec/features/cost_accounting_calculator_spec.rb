@@ -43,7 +43,9 @@ describe "CostAccountingCalculator", js: true do
 
       page.all("form.report button[type=submit]").first.click
 
+      # rubocop:todo Layout/LineLength
       expect(page.find("#flash .alert-success")).to have_content("Honorare wurde erfolgreich aktualisiert.")
+      # rubocop:enable Layout/LineLength
 
       record = CostAccountingRecord.find_by(group_id: group.id, year: year, report: report)
       expect(record.aufwand_ertrag_fibu).to eq(10000.0)

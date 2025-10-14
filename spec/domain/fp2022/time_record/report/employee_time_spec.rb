@@ -16,10 +16,12 @@ describe Fp2022::TimeRecord::Report::EmployeeTime do
   subject { report }
 
   before do
-    create_report(TimeRecord::EmployeeTime, blockkurse: (3 * 1900), nicht_art_74_leistungen: (5 * 1900))
+    create_report(TimeRecord::EmployeeTime, blockkurse: (3 * 1900),
+      nicht_art_74_leistungen: (5 * 1900))
 
     # honorar_costs for 1 fte
-    create_report(CostAccountingRecord, report: "honorare", aufwand_ertrag_fibu: (130 * 1900), beratung: (2 * 130 * 1900))
+    create_report(CostAccountingRecord, report: "honorare", aufwand_ertrag_fibu: (130 * 1900),
+      beratung: (2 * 130 * 1900))
   end
 
   context "#paragraph_74" do

@@ -45,7 +45,8 @@ describe Fp2020::CourseReporting::ClientStatistics do
 
   it "has a list of groups" do
     expect(stats.groups).to be_an Array
-    expect(stats.groups.map(&:class).map(&:name).uniq).to eql ["Group::Dachverein", "Group::Regionalverein"]
+    expect(stats.groups.map(&:class).map(&:name).uniq).to eql ["Group::Dachverein",
+      "Group::Regionalverein"]
     expect(stats.groups.map(&:name)).to eql [
       "insieme Schweiz",
       "Kanton Bern",
@@ -79,7 +80,8 @@ describe Fp2020::CourseReporting::ClientStatistics do
     expect(results).to be_a Hash
     expect(results.keys).to match_array [groups(:be).id, groups(:fr).id]
 
-    expect(stats.send(:group_canton_participants).keys).to match_array [groups(:be).id, groups(:fr).id]
+    expect(stats.send(:group_canton_participants).keys).to match_array [groups(:be).id,
+      groups(:fr).id]
   end
 
   it "contains summed values per group" do
@@ -112,6 +114,8 @@ describe Fp2020::CourseReporting::ClientStatistics do
 
   private
 
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/AbcSize
   def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {},
     subventioniert = true, event_type = :course)
     event = nil
@@ -135,4 +139,6 @@ describe Fp2020::CourseReporting::ClientStatistics do
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
     r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 3)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

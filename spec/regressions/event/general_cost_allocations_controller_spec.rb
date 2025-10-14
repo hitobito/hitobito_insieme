@@ -22,7 +22,9 @@ describe Event::GeneralCostAllocationsController, type: :controller do
       get :show, params: {group_id: group.id, year: 2014}, format: :csv
       csv = response.body
       expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM};"))
+      # rubocop:todo Layout/LineLength
       expect(csv).to match(Regexp.new("^#{Export::Csv::UTF8_BOM};Total direkte Kosten;Total Gemeinkosten;Gemeinkostenzuschlag$"))
+      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -55,7 +57,8 @@ describe Event::GeneralCostAllocationsController, type: :controller do
     it "assigns all permitted params" do
       expect do
         expect do
-          put :update, params: {group_id: group.id, year: 2014, event_general_cost_allocation: attrs}
+          put :update,
+            params: {group_id: group.id, year: 2014, event_general_cost_allocation: attrs}
         end.to change { Event::GeneralCostAllocation.count }.by(1)
       end.to change { Delayed::Job.count }.by(1)
 

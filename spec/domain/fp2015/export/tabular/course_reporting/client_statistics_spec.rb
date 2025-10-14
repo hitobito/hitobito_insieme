@@ -42,7 +42,8 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
 
     it "contains correct sums" do
       expect(data[0]).to eq(["mit geistiger Behinderung/Lernbehinderung", 30, 14, 3, 0, 3, 0, 3, 0])
-      expect(data[1]).to eq(["davon Personen mit Mehrfachbehinderung", 15, nil, 1, nil, 1, nil, 1, nil])
+      expect(data[1]).to eq(["davon Personen mit Mehrfachbehinderung", 15, nil, 1, nil, 1, nil, 1,
+        nil])
       expect(data[2]).to eq(["Aargau", 6, 3, 1, 0, 1, 0, 1, 0])
       expect(data[3]).to eq(["Appenzell Innerrhoden", 0, 0, 0, 0, 0, 0, 0, 0])
       expect(data[5]).to eq(["Bern", 3, 1, 1, 0, 1, 0, 1, 0])
@@ -64,7 +65,10 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
 
   private
 
-  def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {}, event_type = :course)
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/AbcSize
+  def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {},
+    event_type = :course)
     event = nil
     fachkonzept = (leistungskategorie == "tp") ? "treffpunkt" : "sport_jugend"
     if event_type == :aggregate_course
@@ -84,4 +88,6 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
     r.create_affiliated_canton_count!(affiliated) if affiliated.present?
     r.update!(teilnehmende_mehrfachbehinderte: challenged.values.sum / 2)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

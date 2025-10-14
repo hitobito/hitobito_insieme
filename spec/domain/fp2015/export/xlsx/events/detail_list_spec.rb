@@ -37,9 +37,15 @@ module Fp2015
     private
 
     def column_widths
+      # rubocop:todo Layout/LineLength
       [20, 20, 3.3, 20, 2.57, 7.43, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 2.57, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         20, 5.7, 9.14, 9.14, 2.57, 3.7, 3, 7, 2.57, 2.57, 17.14, 4.29, 3.71, 2.57, 11.57, 3.71, 2.57, 4.29, 4.29, 4.29,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         4.29, 4.29, 4.29, 4.29, 4.29, 6.29, 6.29, 6.29, 2.57, 2.57, 2.57, 2.57, 2.57, 8.14, 8.14, 8.14, 8.14, 8.14,
+        # rubocop:enable Layout/LineLength
         2.57, 8.14, 9.14, 8.14, 2.54]
     end
   end

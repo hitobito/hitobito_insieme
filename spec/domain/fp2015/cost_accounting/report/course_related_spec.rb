@@ -109,7 +109,7 @@ describe "CostAccounting::Report::CourseRelated" do
     end
   end
 
-  def create_course_records
+  def create_course_records # rubocop:todo Metrics/MethodLength
     Event::CourseRecord.create!(
       event: Fabricate(:course,
         groups: [group],
@@ -120,18 +120,21 @@ describe "CostAccounting::Report::CourseRelated" do
       uebriges: 600
     )
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk",
+        fachkonzept: "sport_jugend", year: year),
       unterkunft: 44000,
       uebriges: 700
     )
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "tk", fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "tk",
+        fachkonzept: "sport_jugend", year: year),
       unterkunft: 50,
       uebriges: 8000
     )
     # not subventioniert are ignored
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: "bk",
+        fachkonzept: "sport_jugend", year: year),
       unterkunft: 500,
       uebriges: 8000,
       subventioniert: false

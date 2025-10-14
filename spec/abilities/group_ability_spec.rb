@@ -171,7 +171,8 @@ describe GroupAbility do
       end
 
       it "may not show external organization" do
-        is_expected.not_to be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+        is_expected.not_to be_able_to(:show,
+          Group::ExterneOrganisation.new(parent: groups(:dachverein)))
       end
 
       it "may index events in same layer" do
@@ -280,7 +281,8 @@ describe GroupAbility do
       end
 
       it "may not show external organization" do
-        is_expected.not_to be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+        is_expected.not_to be_able_to(:show,
+          Group::ExterneOrganisation.new(parent: groups(:dachverein)))
       end
 
       it "may index events in same layer" do
@@ -353,7 +355,8 @@ describe GroupAbility do
       end
 
       it "may not show other external organization" do
-        is_expected.not_to be_able_to(:show, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+        is_expected.not_to be_able_to(:show,
+          Group::ExterneOrganisation.new(parent: groups(:dachverein)))
       end
 
       it "may create subgroups in own layer" do
@@ -373,7 +376,8 @@ describe GroupAbility do
       end
 
       it "may not manually delete people in another layer" do
-        is_expected.not_to be_able_to(:manually_delete_people, Group::ExterneOrganisation.new(parent: groups(:dachverein)))
+        is_expected.not_to be_able_to(:manually_delete_people,
+          Group::ExterneOrganisation.new(parent: groups(:dachverein)))
       end
     end
   end

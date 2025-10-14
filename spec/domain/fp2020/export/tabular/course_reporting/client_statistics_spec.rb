@@ -83,7 +83,9 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     it "contains translated headers" do
       expect(exporter.labels).to match_array([
+        # rubocop:todo Layout/LineLength
         "Verein / Kurstyp", "Kursinhalt", "Anzahl Kurse", "LE Beitragsberechtigte", "LE Nicht Beitragsberechtigte", "Total",
+        # rubocop:enable Layout/LineLength
         "AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE",
         "NW", "OW", "SG", "SH", "SO", "SZ", "TG", "TI", "UR", "VD", "VS", "ZG", "ZH",
         "Andere Herkunft"
@@ -97,43 +99,152 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
     end
 
     it "contains correct sums" do
+      # rubocop:todo Layout/LineLength
       #                                                         'kursinhalt'    Kurse  Std  NB  'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
-      expect(data[0]).to match_array(["insieme Schweiz", 2343, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[1]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[2]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[3]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[4]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[5]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[6]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[7]).to match_array(["Treffpunkte", "Treffpunkt", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[8]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[9]).to match_array(["Kanton Bern", 2024, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[10]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[11]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[12]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[13]).to match_array(["Blockkurse", "Sport/Freizeit", 2, 28, 5, 44, 9, nil, nil, 4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 13, 18])
-      expect(data[14]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[15]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[16]).to match_array(["Treffpunkte", "Treffpunkt", 1, nil, nil, 9, 3, nil, nil, 3, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 3])
-      expect(data[17]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[18]).to match_array(["Biel-Seeland", 3115, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[19]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[20]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[21]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[22]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[23]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[24]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[25]).to match_array(["Treffpunkte", "Treffpunkt", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[26]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[27]).to match_array(["Freiburg", 12607, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[28]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 8, 0, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[29]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", 7, 6, nil, 3, 1, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
-      expect(data[30]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[31]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[32]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
-      expect(data[33]).to match_array(["Tageskurse", "Sport/Freizeit", 1, 6, nil, 3, 1, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
-      expect(data[34]).to match_array(["Treffpunkte", "Treffpunkt", 1, nil, nil, 3, 1, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
+      # rubocop:enable Layout/LineLength
+      expect(data[0]).to match_array(["insieme Schweiz", 2343, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[1]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[2]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[3]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[4]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[5]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[6]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[7]).to match_array(["Treffpunkte", "Treffpunkt", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[8]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[9]).to match_array(["Kanton Bern", 2024, nil, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[10]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[11]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[12]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[13]).to match_array(["Blockkurse", "Sport/Freizeit", 2, 28, 5, 44, 9, nil, nil,
+        # rubocop:todo Layout/LineLength
+        4, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 13, 18])
+      # rubocop:enable Layout/LineLength
+      expect(data[14]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[15]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[16]).to match_array(["Treffpunkte", "Treffpunkt", 1, nil, nil, 9, 3, nil, nil, 3,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 3])
+      # rubocop:enable Layout/LineLength
+      expect(data[17]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[18]).to match_array(["Biel-Seeland", 3115, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[19]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[20]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[21]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[22]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[23]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[24]).to match_array(["Tageskurse", "Sport/Freizeit", nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[25]).to match_array(["Treffpunkte", "Treffpunkt", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[26]).to match_array([nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[27]).to match_array(["Freiburg", 12607, nil, nil, nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[28]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 8, 0, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[29]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", 7, 6, nil, 3, 1,
+        # rubocop:todo Layout/LineLength
+        nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
+      # rubocop:enable Layout/LineLength
+      expect(data[30]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[31]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[32]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil, nil, nil,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
+      # rubocop:enable Layout/LineLength
+      expect(data[33]).to match_array(["Tageskurse", "Sport/Freizeit", 1, 6, nil, 3, 1, nil, nil,
+        # rubocop:todo Layout/LineLength
+        1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
+      # rubocop:enable Layout/LineLength
+      expect(data[34]).to match_array(["Treffpunkte", "Treffpunkt", 1, nil, nil, 3, 1, nil, nil, 1,
+        # rubocop:todo Layout/LineLength
+        nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1])
+      # rubocop:enable Layout/LineLength
+      # rubocop:todo Layout/LineLength
       #                                                         'kursinhalt'    Kurse  Std  NB  'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
+      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -151,7 +262,8 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
       )
     end
 
-    create_course(year, :seeland, "bk", {be: 40}, {be: 10}, :aggregate_course).tap do |course, record|
+    create_course(year, :seeland, "bk", {be: 40}, {be: 10},
+      :aggregate_course).tap do |course, record|
       record.update!(
         anzahl_kurse: 3,
         kursdauer: 15,
@@ -182,10 +294,14 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     data = exporter.data_rows.to_a
 
+    # rubocop:todo Layout/LineLength
     #                                      Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
+    # rubocop:enable Layout/LineLength
     expect(data[18][0..5]).to match_array(["Biel-Seeland", 3115, nil, nil, nil, nil])
-    expect(data[19][0..5]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 1, 150, 10, 15])
-    expect(data[20][0..5]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil])
+    expect(data[19][0..5]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 1, 150, 10,
+      15])
+    expect(data[20][0..5]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil,
+      nil, nil])
     expect(data[21][0..5]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil])
     expect(data[22][0..5]).to match_array(["Blockkurse", "Sport/Freizeit", 3, 45, 3, 50])
     expect(data[23][0..5]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil])
@@ -222,10 +338,14 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     data = exporter.data_rows.to_a
 
+    # rubocop:todo Layout/LineLength
     #                                      Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
+    # rubocop:enable Layout/LineLength
     expect(data[18][0..5]).to match_array(["Biel-Seeland", 3115, nil, nil, nil, nil])
-    expect(data[19][0..5]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 6, 0, nil, nil])
-    expect(data[20][0..5]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil])
+    expect(data[19][0..5]).to match_array(["Semester-/Jahreskurse", "Weiterbildung", 6, 0, nil,
+      nil])
+    expect(data[20][0..5]).to match_array(["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil,
+      nil, nil])
     expect(data[21][0..5]).to match_array(["Blockkurse", "Weiterbildung", nil, nil, nil, nil])
     expect(data[22][0..5]).to match_array(["Blockkurse", "Sport/Freizeit", nil, nil, nil, nil])
     expect(data[23][0..5]).to match_array(["Tageskurse", "Weiterbildung", nil, nil, nil, nil])
@@ -242,7 +362,8 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
     before do
       TimeRecord::EmployeeTime.create!(group_id: gcp.group_id, year: year, kurse_grundlagen: 20)
-      TimeRecord::VolunteerWithoutVerificationTime.create!(group_id: gcp.group_id, year: year, kurse_grundlagen: 44)
+      TimeRecord::VolunteerWithoutVerificationTime.create!(group_id: gcp.group_id, year: year,
+        kurse_grundlagen: 44)
     end
 
     context "has assumptions, the implementation" do
@@ -261,10 +382,14 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
       it "fetches various parts from the kostenrechnung and sums them" do
         kostenrechnung = fp_class("CostAccounting::Table").new(Group.find(gcp.group_id), year)
 
-        expect(kostenrechnung).to receive(:value_of).with("vollkosten", "jahreskurse").and_return(BigDecimal("1495.24"))
-        expect(kostenrechnung).to receive(:value_of).with("vollkosten", "blockkurse").and_return(BigDecimal("4990.48"))
-        expect(kostenrechnung).to receive(:value_of).with("vollkosten", "tageskurse").and_return(BigDecimal("1497.62"))
-        expect(kostenrechnung).to receive(:value_of).with("vollkosten", "treffpunkte").and_return(BigDecimal("3244.05"))
+        expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+          "jahreskurse").and_return(BigDecimal("1495.24"))
+        expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+          "blockkurse").and_return(BigDecimal("4990.48"))
+        expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+          "tageskurse").and_return(BigDecimal("1497.62"))
+        expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+          "treffpunkte").and_return(BigDecimal("3244.05"))
 
         total = [
           kostenrechnung.value_of("vollkosten", "jahreskurse"),
@@ -299,13 +424,18 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
       # return-values from collbarators
       allow(stats).to receive(:year).and_return(year) # from let above
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "jahreskurse").and_return(BigDecimal("1495.24"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "blockkurse").and_return(BigDecimal("4990.48"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "tageskurse").and_return(BigDecimal("1497.62"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "treffpunkte").and_return(BigDecimal("3244.05"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "jahreskurse").and_return(BigDecimal("1495.24"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "blockkurse").and_return(BigDecimal("4990.48"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "tageskurse").and_return(BigDecimal("1497.62"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "treffpunkte").and_return(BigDecimal("3244.05"))
 
       # wire collaborators together
-      expect(fp_class("CostAccounting::Table")).to receive(:new).with(Group.find(gcp.group_id), year).and_return(kostenrechnung)
+      expect(fp_class("CostAccounting::Table")).to receive(:new).with(Group.find(gcp.group_id),
+        year).and_return(kostenrechnung)
 
       # execute
       result = described_class.new(stats)
@@ -317,7 +447,10 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
 
   private
 
-  def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {}, event_type = :course)
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/AbcSize
+  def create_course(year, group, leistungskategorie, challenged = {}, affiliated = {},
+    event_type = :course)
     event = nil
     fachkonzept = (leistungskategorie == "tp") ? "treffpunkt" : "sport_jugend"
     if event_type == :aggregate_course
@@ -342,4 +475,6 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
     })
     [event, r]
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

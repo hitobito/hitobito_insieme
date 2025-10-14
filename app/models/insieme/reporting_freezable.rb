@@ -16,7 +16,7 @@ module Insieme::ReportingFreezable
 
   private
 
-  def assert_year_not_frozen
+  def assert_year_not_frozen # rubocop:todo Metrics/CyclomaticComplexity
     frozen = GlobalValue.reporting_frozen_until_year
     if frozen
       if (year && year <= frozen) ||

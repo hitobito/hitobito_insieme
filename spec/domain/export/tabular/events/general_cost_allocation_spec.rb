@@ -40,10 +40,14 @@ describe Export::Tabular::Events::GeneralCostAllocation do
     end
 
     before do
-      create_course_and_course_record(group, "bk", year: year, subventioniert: true, unterkunft: 5000)
-      create_course_and_course_record(group, "bk", year: year, subventioniert: true, unterkunft: 6000)
-      create_course_and_course_record(group, "sk", year: year, subventioniert: true, unterkunft: 3000)
-      create_course_and_course_record(group, "tp", year: year, subventioniert: true, unterkunft: 1500)
+      create_course_and_course_record(group, "bk", year: year, subventioniert: true,
+        unterkunft: 5000)
+      create_course_and_course_record(group, "bk", year: year, subventioniert: true,
+        unterkunft: 6000)
+      create_course_and_course_record(group, "sk", year: year, subventioniert: true,
+        unterkunft: 3000)
+      create_course_and_course_record(group, "tp", year: year, subventioniert: true,
+        unterkunft: 1500)
     end
 
     it "contains all data" do

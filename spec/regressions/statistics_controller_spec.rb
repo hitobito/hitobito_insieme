@@ -24,7 +24,9 @@ describe StatisticsController, type: :controller do
   it "exports csv" do
     get :index, params: {id: groups(:dachverein).id}, format: :csv
     csv = response.body
+    # rubocop:todo Layout/LineLength
     expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM}VID;Name;Aktivmitglieder;Aktivmitglieder ohne Abo;"))
+    # rubocop:enable Layout/LineLength
     expect(csv).to match(/^;Biel-Seeland;1;0;0;0;0;0;0;;;;;Bern/)
   end
 end

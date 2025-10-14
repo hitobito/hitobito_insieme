@@ -16,7 +16,9 @@ describe Event::CourseRecordsHelper do
     before { event.build_course_record }
 
     context "aggregate course" do
-      let(:event) { Fabricate(:aggregate_course, leistungskategorie: "sk", fachkonzept: "sport_jugend") }
+      let(:event) {
+        Fabricate(:aggregate_course, leistungskategorie: "sk", fachkonzept: "sport_jugend")
+      }
       let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
 
       it "does not show inline help text if aggregate course" do
@@ -46,7 +48,9 @@ describe Event::CourseRecordsHelper do
     end
 
     context 'aggregate course "treffpunkt"' do
-      let(:event) { Fabricate(:aggregate_course, leistungskategorie: "tp", fachkonzept: "treffpunkt") }
+      let(:event) {
+        Fabricate(:aggregate_course, leistungskategorie: "tp", fachkonzept: "treffpunkt")
+      }
       let(:entry) { Event::CourseRecordDecorator.new(event.course_record) }
 
       it "shows only some inline help text" do

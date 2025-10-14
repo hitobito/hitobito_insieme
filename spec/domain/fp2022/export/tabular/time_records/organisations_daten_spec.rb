@@ -41,20 +41,26 @@ describe Fp2022::Export::Tabular::TimeRecords::OrganisationsDaten do
     expect(rows[2]).to eq ["FTE Angestellte MA insgesamt", 10]
     expect(rows[3]).to eq ["FTE Angestellte MA Betrieb Art. 74 IVG", 5]
     expect(rows[4]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt", 28]
-    expect(rows[5]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 4]
+    expect(rows[5]).to eq [
+      "FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 4
+    ]
     expect(rows[6]).to be_all nil
     # no values
     expect(rows[7]).to eq ["Kanton Bern", nil]
     expect(rows[8]).to eq ["FTE Angestellte MA insgesamt", 0]
     expect(rows[9]).to eq ["FTE Angestellte MA Betrieb Art. 74 IVG", 0]
     expect(rows[10]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt", 0]
-    expect(rows[11]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 0]
+    expect(rows[11]).to eq [
+      "FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 0
+    ]
     expect(rows[12]).to be_all nil
     # no honorar-ausgaben
     expect(rows[13]).to eq ["Biel-Seeland", nil]
     expect(rows[14]).to eq ["FTE Angestellte MA insgesamt", 10]
     expect(rows[15]).to eq ["FTE Angestellte MA Betrieb Art. 74 IVG", 5]
     expect(rows[16]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende insgesamt", 27]
-    expect(rows[17]).to eq ["FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 4]
+    expect(rows[17]).to eq [
+      "FTE Freiwillig und ehrenamtlich Mitarbeitende des Betriebes Art. 74 IVG", 4
+    ]
   end
 end

@@ -60,10 +60,14 @@ describe Fp2020::Export::Tabular::TimeRecords::LufebProVerein do
     it "fetches various parts from the kostenrechnung and sums them" do
       kostenrechnung = fp_class("CostAccounting::Table").new(group, year)
 
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "jahreskurse").and_return(BigDecimal("1495.24"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "blockkurse").and_return(BigDecimal("4990.48"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "tageskurse").and_return(BigDecimal("1497.62"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "treffpunkte").and_return(BigDecimal("3244.05"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "jahreskurse").and_return(BigDecimal("1495.24"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "blockkurse").and_return(BigDecimal("4990.48"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "tageskurse").and_return(BigDecimal("1497.62"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "treffpunkte").and_return(BigDecimal("3244.05"))
 
       total = [
         kostenrechnung.value_of("vollkosten", "jahreskurse"),
@@ -102,13 +106,18 @@ describe Fp2020::Export::Tabular::TimeRecords::LufebProVerein do
       allow(stats).to receive(:year).and_return(year) # from let above
       expect(stats).to receive(:lufeb_data_for).with(group.id).and_return(lufeb_verein_data)
 
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "jahreskurse").and_return(BigDecimal("1495.24"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "blockkurse").and_return(BigDecimal("4990.48"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "tageskurse").and_return(BigDecimal("1497.62"))
-      expect(kostenrechnung).to receive(:value_of).with("vollkosten", "treffpunkte").and_return(BigDecimal("3244.05"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "jahreskurse").and_return(BigDecimal("1495.24"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "blockkurse").and_return(BigDecimal("4990.48"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "tageskurse").and_return(BigDecimal("1497.62"))
+      expect(kostenrechnung).to receive(:value_of).with("vollkosten",
+        "treffpunkte").and_return(BigDecimal("3244.05"))
 
       # wire collaborators together
-      expect(fp_class("CostAccounting::Table")).to receive(:new).with(group, year).and_return(kostenrechnung)
+      expect(fp_class("CostAccounting::Table")).to receive(:new).with(group,
+        year).and_return(kostenrechnung)
 
       # execute
       result = described_class.new(stats)

@@ -228,7 +228,8 @@ describe Fp2015::CourseReporting::Aggregation do
       aggregation_be_1 = new_aggregation
       aggregation_fr_1 = new_aggregation(group_id: groups(:fr).id)
       aggregation_be_123 = new_aggregation(zugeteilte_kategorie: [1, 2, 3])
-      aggregation_fr_123 = new_aggregation(group_id: groups(:fr).id, zugeteilte_kategorie: [1, 2, 3])
+      aggregation_fr_123 = new_aggregation(group_id: groups(:fr).id,
+        zugeteilte_kategorie: [1, 2, 3])
       aggregation_123 = new_aggregation(group_id: nil, zugeteilte_kategorie: [1, 2, 3])
 
       [
@@ -269,12 +270,15 @@ describe Fp2015::CourseReporting::Aggregation do
         :anzahl_spezielle_unterkunft
       ].each do |attr|
         assert_summed(attr, :total, :all, aggregation, aggregation_be_1, aggregation_fr_1)
-        assert_summed(attr, :freizeit_und_sport, :a, aggregation, aggregation_be_1, aggregation_fr_1)
+        assert_summed(attr, :freizeit_und_sport, :a, aggregation, aggregation_be_1,
+          aggregation_fr_1)
         assert_summed(attr, :weiterbildung, :a, aggregation, aggregation_be_1, aggregation_fr_1)
 
         assert_summed(attr, :total, :all, aggregation_123, aggregation_be_123, aggregation_fr_123)
-        assert_summed(attr, :freizeit_und_sport, :a, aggregation_123, aggregation_be_123, aggregation_fr_123)
-        assert_summed(attr, :weiterbildung, :a, aggregation_123, aggregation_be_123, aggregation_fr_123)
+        assert_summed(attr, :freizeit_und_sport, :a, aggregation_123, aggregation_be_123,
+          aggregation_fr_123)
+        assert_summed(attr, :weiterbildung, :a, aggregation_123, aggregation_be_123,
+          aggregation_fr_123)
       end
 
       dk_pro_le = BigDecimal(360) / 24 # direkter_aufwand / total_tage_teilnehmende
@@ -311,7 +315,8 @@ describe Fp2015::CourseReporting::Aggregation do
   end
 
   def expect_values(attr, total, freizeit_und_sport = total, weiterbildung = nil)
-    expect(course_totals(attr)).to eq(total), "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
+    expect(course_totals(attr)).to eq(total),
+      "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
     expect(course_counts(attr, :freizeit_und_sport)).to eq(freizeit_und_sport)
     expect(course_counts(attr, :weiterbildung)).to eq(weiterbildung)
   end

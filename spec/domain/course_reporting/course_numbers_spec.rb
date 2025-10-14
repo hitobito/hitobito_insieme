@@ -106,9 +106,12 @@ describe CourseReporting::CourseNumbers do
 
     context "#team_count" do
       before do
-        Fabricate(Event::Course::Role::Caretaker.name.to_sym, participation: Fabricate(:event_participation, event: event))
-        Fabricate(Event::Course::Role::Expert.name.to_sym, participation: Fabricate(:event_participation, event: event))
-        Fabricate(Event::Course::Role::Affiliated.name.to_sym, participation: Fabricate(:event_participation, event: event))
+        Fabricate(Event::Course::Role::Caretaker.name.to_sym,
+          participation: Fabricate(:event_participation, event: event))
+        Fabricate(Event::Course::Role::Expert.name.to_sym,
+          participation: Fabricate(:event_participation, event: event))
+        Fabricate(Event::Course::Role::Affiliated.name.to_sym,
+          participation: Fabricate(:event_participation, event: event))
       end
 
       it "is correct" do

@@ -136,14 +136,16 @@ describe Fp2020::TimeRecord::Report::CapitalSubstrate do
     end
 
     it "can be calculated for VP 2020" do
-      create_cost_accounting_report("abschreibungen", year: 2020, aufwand_ertrag_fibu: 2_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report("abschreibungen", year: 2020, aufwand_ertrag_fibu: 2_000,
+        abgrenzung_fibu: 100)
       create_cost_accounting_report("beitraege_iv", year: 2020, aufwand_ertrag_fibu: 1_000)
 
       expect(subject.iv_finanzierungsgrad_fp2020).to eql 0.5
     end
 
     it "can be calculated for the current year" do
-      create_cost_accounting_report("abschreibungen", aufwand_ertrag_fibu: 10_000, abgrenzung_fibu: 100)
+      create_cost_accounting_report("abschreibungen", aufwand_ertrag_fibu: 10_000,
+        abgrenzung_fibu: 100)
       create_cost_accounting_report("beitraege_iv", aufwand_ertrag_fibu: 1_000)
 
       expect(subject.iv_finanzierungsgrad_current).to eql 0.1
@@ -212,7 +214,8 @@ describe Fp2020::TimeRecord::Report::CapitalSubstrate do
 
   def create_course_record(lk, honorare)
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk,
+        fachkonzept: "sport_jugend", year: year),
       honorare_inkl_sozialversicherung: honorare
     )
   end

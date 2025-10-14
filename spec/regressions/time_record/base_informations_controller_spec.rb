@@ -24,7 +24,11 @@ describe TimeRecord::BaseInformationsController, type: :controller do
   it "exports csv" do
     get :index, params: {id: groups(:dachverein).id, year: 2014}, format: :csv
     csv = response.body
+    # rubocop:todo Layout/LineLength
     expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM};Art. 74 betreffend;Art. 74 nicht betreffend;Ganze Organisation"))
+    # rubocop:enable Layout/LineLength
+    # rubocop:todo Layout/LineLength
     expect(csv).to match(/^Angestellte MitarbeiterInnen\. Gemäss Arbeitsvertrag \(in 100% Stellen\);;;0\.0$/)
+    # rubocop:enable Layout/LineLength
   end
 end

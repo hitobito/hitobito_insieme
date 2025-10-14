@@ -18,7 +18,8 @@ describe Event::CourseRecord do
 
   context "treffpunkt courses" do
     let(:event) do
-      event = Fabricate(:course, groups: [group], leistungskategorie: "tp", fachkonzept: "treffpunkt")
+      event = Fabricate(:course, groups: [group], leistungskategorie: "tp",
+        fachkonzept: "treffpunkt")
       event.dates = [
         Fabricate(:event_date, start_at: Date.new(2022, 3, 16))
       ]
@@ -51,7 +52,8 @@ describe Event::CourseRecord do
 
   context "treffpunkt aggregate courses" do
     let(:event) do
-      event = Fabricate(:aggregate_course, groups: [group], leistungskategorie: "tp", fachkonzept: "treffpunkt")
+      event = Fabricate(:aggregate_course, groups: [group], leistungskategorie: "tp",
+        fachkonzept: "treffpunkt")
       event.dates = [
         Fabricate(:event_date, start_at: Date.new(2022, 3, 16))
       ]

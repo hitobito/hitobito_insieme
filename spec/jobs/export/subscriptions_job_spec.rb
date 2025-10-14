@@ -21,14 +21,21 @@ describe Export::SubscriptionsJob do
   end
 
   context "has the correct data for the export" do
-    subject { Export::SubscriptionsJob.new(:csv, person.id, list.id, household: true, filename: "subscription_export") }
+    subject {
+      Export::SubscriptionsJob.new(:csv, person.id, list.id, household: true,
+        filename: "subscription_export")
+    }
 
+    # rubocop:todo Layout/LineLength
     it "with salutation, number, correspondence_language, language, canton and additional_information" do
+      # rubocop:enable Layout/LineLength
       data = subject.data
 
       lines = data.lines
       expect(lines.size).to eq(4) # header and three entries
+      # rubocop:todo Layout/LineLength
       expect(lines[0]).to match(/.*Anrede;Korrespondenzsprache;Person Sprache;Kanton;Zusätzliche Angaben;.*/)
+      # rubocop:enable Layout/LineLength
     end
   end
 end

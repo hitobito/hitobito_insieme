@@ -86,17 +86,20 @@ describe Person do
     end
 
     it "fails when manual number is at beginning of invalid range" do
-      person = Fabricate.build(:person, first_name: "John", number: Person::AUTOMATIC_NUMBER_RANGE.first, manual_number: true)
+      person = Fabricate.build(:person, first_name: "John",
+        number: Person::AUTOMATIC_NUMBER_RANGE.first, manual_number: true)
       expect(person).not_to be_valid
     end
 
     it "fails when manual number is at end of invalid range" do
-      person = Fabricate.build(:person, first_name: "John", number: Person::AUTOMATIC_NUMBER_RANGE.last - 1, manual_number: true)
+      person = Fabricate.build(:person, first_name: "John",
+        number: Person::AUTOMATIC_NUMBER_RANGE.last - 1, manual_number: true)
       expect(person).not_to be_valid
     end
 
     it "is valid when manual number is just after invalid range" do
-      person = Fabricate.build(:person, first_name: "John", number: Person::AUTOMATIC_NUMBER_RANGE.last, manual_number: true)
+      person = Fabricate.build(:person, first_name: "John",
+        number: Person::AUTOMATIC_NUMBER_RANGE.last, manual_number: true)
       expect(person).to be_valid
     end
 
@@ -132,7 +135,8 @@ describe Person do
       end
 
       it "generates automatic number if manual is nil" do
-        person = Fabricate.build(:person, first_name: "John", number: Person::AUTOMATIC_NUMBER_RANGE.first + 10)
+        person = Fabricate.build(:person, first_name: "John",
+          number: Person::AUTOMATIC_NUMBER_RANGE.first + 10)
         person.save
         expect(person.number).to eq Person::AUTOMATIC_NUMBER_RANGE.first
       end
@@ -303,11 +307,15 @@ describe Person do
       end
 
       it "has not only a last_name" do
-        expect { nicknamed_person.first_name = nil }.to change { nicknamed_person.valid? }.from(true).to(false)
+        expect { nicknamed_person.first_name = nil }.to change {
+          nicknamed_person.valid?
+        }.from(true).to(false)
       end
 
       it "has not only a first_name" do
-        expect { nicknamed_person.last_name = nil }.to change { nicknamed_person.valid? }.from(true).to(false)
+        expect { nicknamed_person.last_name = nil }.to change {
+          nicknamed_person.valid?
+        }.from(true).to(false)
       end
 
       it "has a street" do
@@ -315,7 +323,9 @@ describe Person do
       end
 
       it "has a zip_code" do
-        expect { named_person.zip_code = nil }.to change { named_person.valid? }.from(true).to(false)
+        expect { named_person.zip_code = nil }.to change {
+          named_person.valid?
+        }.from(true).to(false)
       end
 
       it "has a town" do
@@ -327,11 +337,15 @@ describe Person do
       end
 
       it "has a correspondence_language" do
-        expect { named_person.correspondence_language = nil }.to change { named_person.valid? }.from(true).to(false)
+        expect { named_person.correspondence_language = nil }.to change {
+          named_person.valid?
+        }.from(true).to(false)
       end
 
       it "has a language" do
-        expect { named_person.language = nil }.to change { named_person.valid? }.from(true).to(false)
+        expect { named_person.language = nil }.to change {
+          named_person.valid?
+        }.from(true).to(false)
       end
     end
   end

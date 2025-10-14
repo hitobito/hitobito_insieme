@@ -15,7 +15,9 @@ describe Event::ParticipationsController do
 
   it "POST create updates person attributes" do
     expect do
+      # rubocop:todo Layout/LineLength
       post :create, params: {group_id: event.groups.first.id, event_id: event.id, event_participation: {
+        # rubocop:enable Layout/LineLength
         participant_type: Person.sti_name,
         participant_attributes: {id: person.id,
                                  canton: "Be",
@@ -84,10 +86,13 @@ describe Event::ParticipationsController do
     expect(person.billing_course_country).to eq "DE"
   end
 
+  # rubocop:todo Layout/LineLength
   it "POST create for someone else creates active participation and removes application from waiting_list" do
+    # rubocop:enable Layout/LineLength
     event.update(waiting_list: true, maximum_participants: 2) # already 2 participants present
 
-    someone_else = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: groups(:aktiv)).person
+    someone_else = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
+      group: groups(:aktiv)).person
 
     expect do
       post :create,
@@ -99,7 +104,8 @@ describe Event::ParticipationsController do
         }
     end.to change { Event::Participation.count }.by(1)
 
-    participation = Event::Participation.find_by(event_id: event.id, participant_id: someone_else.id, participant_type: Person.sti_name)
+    participation = Event::Participation.find_by(event_id: event.id,
+      participant_id: someone_else.id, participant_type: Person.sti_name)
 
     expect(participation).to be_present
     expect(participation).to be_active
@@ -113,7 +119,8 @@ describe Event::ParticipationsController do
         params: {
           group_id: event.groups.first.id,
           event_id: event.id,
-          event_participation: {participant_attributes: {id: people(:top_leader).id, canton: "Bern"}}
+          event_participation: {participant_attributes: {id: people(:top_leader).id,
+                                                         canton: "Bern"}}
         }
     end.to raise_error ArgumentError
   end
@@ -171,11 +178,15 @@ describe Event::ParticipationsController do
   end
 
   context "internal fields" do
-    let(:csv) { CSV.parse(Delayed::Job.last.payload_object.send(:data), headers: true, col_sep: ";") }
+    let(:csv) {
+      CSV.parse(Delayed::Job.last.payload_object.send(:data), headers: true, col_sep: ";")
+    }
     let(:internal_fields) { {invoice_text: "test", invoice_amount: "1.2"} }
 
     let(:group) { groups(:be) }
-    let(:course) { Fabricate(:course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend") }
+    let(:course) {
+      Fabricate(:course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend")
+    }
 
     before do
       course.update_attribute(:state, :application_open)
@@ -214,14 +225,18 @@ describe Event::ParticipationsController do
 
         if attrs[:permission] != ":participations_full"
           it "updates attributes on create" do
-            post :create, params: {group_id: group.id, event_id: course.id, event_participation: internal_fields}
+            post :create,
+              params: {group_id: group.id, event_id: course.id,
+                       event_participation: internal_fields}
             expect(assigns(:participation).invoice_text).to eq "test"
             expect(assigns(:participation).invoice_amount).to eq 1.2
           end
         end
 
         it "updates attributes on update" do
-          patch :update, params: {group_id: group.id, event_id: course.id, id: participation.id, event_participation: internal_fields}
+          patch :update,
+            params: {group_id: group.id, event_id: course.id, id: participation.id,
+                     event_participation: internal_fields}
           expect(participation.reload.invoice_text).to eq "test"
           expect(participation.reload.invoice_amount).to eq 1.2
         end
@@ -236,7 +251,8 @@ describe Event::ParticipationsController do
                       },
             format: :csv
 
-          expect(response).to redirect_to group_event_participations_path(group, course, returning: true)
+          expect(response).to redirect_to group_event_participations_path(group, course,
+            returning: true)
           expect(csv["Rollstuhl"]).to eq %w[ja]
           expect(csv["Behinderung"]).to eq %w[Hörbehindert]
           expect(csv["Mehrfachbehinderung"]).to eq [nil]
@@ -273,20 +289,24 @@ describe Event::ParticipationsController do
       let(:participation) { Fabricate(:event_participation, event: course, participant: person) }
 
       it "ignores attributes on create" do
-        post :create, params: {group_id: group.id, event_id: course.id, event_participation: internal_fields}
+        post :create,
+          params: {group_id: group.id, event_id: course.id, event_participation: internal_fields}
         expect(assigns(:participation).invoice_text).to be_blank
         expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it "ignores attributes on update" do
-        patch :update, params: {group_id: group.id, event_id: course.id, id: participation.id, event_participation: internal_fields}
+        patch :update,
+          params: {group_id: group.id, event_id: course.id, id: participation.id,
+                   event_participation: internal_fields}
         expect(assigns(:participation).invoice_text).to be_blank
         expect(assigns(:participation).invoice_amount).to be_nil
       end
 
       it "does not include attributes in csv" do
         activate_participation
-        get :index, params: {group_id: group.id, event_id: course.id, filter: :participants}, format: :csv
+        get :index, params: {group_id: group.id, event_id: course.id, filter: :participants},
+          format: :csv
 
         expect(csv.headers).not_to include "Behinderung"
         expect(csv.headers).not_to include "Mehrfachbehindert"

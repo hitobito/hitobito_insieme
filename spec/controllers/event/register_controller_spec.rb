@@ -16,7 +16,11 @@ describe Event::RegisterController do
 
       it "creates external role in same group" do
         expect do
-          put :register, params: {group_id: group.id, id: event.id, person: {last_name: "foo", first_name: "bar", email: "foo@example.com", newly_registered: "true"}}
+          put :register,
+            params: {group_id: group.id, id: event.id,
+                     # rubocop:todo Layout/LineLength
+                     person: {last_name: "foo", first_name: "bar", email: "foo@example.com", newly_registered: "true"}}
+          # rubocop:enable Layout/LineLength
         end.to change { Group::Regionalverein::External.where(group_id: group.id).count }.by(1)
       end
     end
@@ -26,8 +30,14 @@ describe Event::RegisterController do
 
       it "creates external role in layer group" do
         expect do
-          put :register, params: {group_id: group.id, id: event.id, person: {last_name: "foo", first_name: "bar", email: "foo@example.com", newly_registered: "true"}}
-        end.to change { Group::Regionalverein::External.where(group_id: groups(:seeland).id).count }.by(1)
+          put :register,
+            params: {group_id: group.id, id: event.id,
+                     # rubocop:todo Layout/LineLength
+                     person: {last_name: "foo", first_name: "bar", email: "foo@example.com", newly_registered: "true"}}
+          # rubocop:enable Layout/LineLength
+        end.to change {
+                 Group::Regionalverein::External.where(group_id: groups(:seeland).id).count
+               }.by(1)
       end
     end
   end
