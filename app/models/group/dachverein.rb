@@ -60,7 +60,8 @@ class Group::Dachverein < Group
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance, :manual_deletion]
+    self.permissions = [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance,
+      :manual_deletion]
     self.two_factor_authentication_enforced = true
   end
 

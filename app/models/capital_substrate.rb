@@ -25,7 +25,9 @@ class CapitalSubstrate < ActiveRecord::Base
   belongs_to :group
 
   validates_by_schema
+  # rubocop:todo Rails/UniqueValidationWithoutIndex
   validates :year, uniqueness: {scope: [:group_id]}
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
   validate :assert_group_has_reporting
 
   def to_s

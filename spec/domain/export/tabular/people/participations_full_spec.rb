@@ -52,7 +52,11 @@ describe Export::Tabular::People::ParticipationsFull do
     end
 
     context "values" do
-      let(:data) { Export::Tabular::People::ParticipationsFull.csv(Event::Participation.where(id: participation.id)) }
+      let(:data) {
+        # rubocop:todo Layout/LineLength
+        Export::Tabular::People::ParticipationsFull.csv(Event::Participation.where(id: participation.id))
+        # rubocop:enable Layout/LineLength
+      }
       let(:csv) { CSV.parse(data, headers: true, col_sep: Settings.csv.separator) }
 
       it "should export disabled person fields" do

@@ -14,12 +14,17 @@ describe Import::PersonImporter do
   let(:data) { parser.map_data(mapping) }
   let(:user) { people(:regio_leader) }
   let(:foreign_group) { groups(:chaeib) }
-  let(:header) { "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache" }
+  let(:header) {
+    # rubocop:todo Layout/LineLength
+    "Vorname,Nachname,Geburtsdatum,Nummer,Stadt,Strasse,Hausnummer,PLZ,Land,Korrespondenzsprache,Sprache"
+  }
+  # rubocop:enable Layout/LineLength
   let(:row) { "John,Lennon,9.10.1940,#{number},Liverpool,Teststrasse,23,3007,CH,de,de" }
   let(:number) { 123 }
 
   let(:importer) do
-    importer = Import::PersonImporter.new(data, groups(:aktiv), Group::Aktivmitglieder::Aktivmitglied)
+    importer = Import::PersonImporter.new(data, groups(:aktiv),
+      Group::Aktivmitglieder::Aktivmitglied)
     importer.user_ability = Ability.new(people(:top_leader))
     importer
   end

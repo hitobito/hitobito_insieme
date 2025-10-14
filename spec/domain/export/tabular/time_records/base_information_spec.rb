@@ -34,10 +34,14 @@ describe Export::Tabular::TimeRecords::BaseInformation do
 
   it "contains all data" do
     data = export.each { |row| row.collect! { |v| v.is_a?(BigDecimal) ? v.to_f.round(2) : v } }
-    expect(data[0]).to eq(["Angestellte MitarbeiterInnen. Gemäss Arbeitsvertrag (in 100% Stellen)", 1.5, 0.5, 2.0])
-    expect(data[1]).to eq(["Angestellte MitarbeiterInnen. Zeiterfassung (in 100% Stellen)", 0.44, 0.03, 0.46])
-    expect(data[2]).to eq(["Ehrenamtliche Arbeit ohne Leistungsnachweis (in 100% Stellen)", 0.19, 0.03, 0.21])
-    expect(data[3]).to eq(["Ehrenamtliche Arbeit mit Leistungsnachweis (in 100% Stellen)", 0.31, 0.03, 0.34])
+    expect(data[0]).to eq(["Angestellte MitarbeiterInnen. Gemäss Arbeitsvertrag (in 100% Stellen)",
+      1.5, 0.5, 2.0])
+    expect(data[1]).to eq(["Angestellte MitarbeiterInnen. Zeiterfassung (in 100% Stellen)", 0.44,
+      0.03, 0.46])
+    expect(data[2]).to eq(["Ehrenamtliche Arbeit ohne Leistungsnachweis (in 100% Stellen)", 0.19,
+      0.03, 0.21])
+    expect(data[3]).to eq(["Ehrenamtliche Arbeit mit Leistungsnachweis (in 100% Stellen)", 0.31,
+      0.03, 0.34])
     expect(data[4]).to eq(["Personalaufwand inkl. Soz. Versicherung", 0.0, nil, nil])
     expect(data[5]).to eq(["Personalaufwand umgerechnet auf 100%-Stelle", 0.0, nil, nil])
     expect(data[6]).to eq(["Geschlüsseltes Kapitalsubstrat nach Art. 74 IVG", -200_000.0, nil, nil])

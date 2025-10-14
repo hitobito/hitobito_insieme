@@ -31,7 +31,9 @@ describe "Insieme::Dropdown::PeopleExport" do
     expect(menu).to be_present
     top_menu_entries = menu.all("> li > a").map(&:text)
     expect(top_menu_entries).to match_array(["CSV", "Etiketten", "Excel", "PDF", "vCard"])
+    # rubocop:todo Layout/LineLength
     label_format_submenu = menu.all("> li > a:contains('Etiketten') ~ ul.dropdown-menu.submenu").first
+    # rubocop:enable Layout/LineLength
     expect(label_format_submenu).to be_present
   end
 end

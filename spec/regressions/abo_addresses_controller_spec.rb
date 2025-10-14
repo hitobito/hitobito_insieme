@@ -13,7 +13,9 @@ describe AboAddressesController, type: :controller do
   it "exports csv" do
     get :index, params: {id: groups(:dachverein).id, language: "de", country: "ch"}, format: :csv
     csv = response.body
+    # rubocop:todo Layout/LineLength
     expect(csv).to match(Regexp.new("\\A#{Export::Csv::UTF8_BOM}Kd.Nr.;Vorname und Name;Firma;Adresse 1;Adresse 2;Adresse 3;PLZ und Ort;Land$"))
+    # rubocop:enable Layout/LineLength
     expect(csv).to match(/^;Active Person;;Teststrasse 23;;;3007 Bern;$/)
   end
 

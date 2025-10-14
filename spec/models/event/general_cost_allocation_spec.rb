@@ -49,19 +49,26 @@ describe Event::GeneralCostAllocation do
 
     before do
       # Avoid Fabricate(:course) as it sets event_dates (used by course_record)
-      create_course_and_course_record(group, "bk", "sport_jugend", year: 2014, subventioniert: true, unterkunft: 5000)
-      create_course_and_course_record(group, "bk", "sport_jugend", year: 2014, subventioniert: true, unterkunft: 6000)
-      create_course_and_course_record(group, "sk", "sport_jugend", year: 2014, subventioniert: true, unterkunft: 3000)
-      create_course_and_course_record(group, "tp", "treffpunkt", year: 2014, subventioniert: true, unterkunft: 2000)
+      create_course_and_course_record(group, "bk", "sport_jugend", year: 2014,
+        subventioniert: true, unterkunft: 5000)
+      create_course_and_course_record(group, "bk", "sport_jugend", year: 2014,
+        subventioniert: true, unterkunft: 6000)
+      create_course_and_course_record(group, "sk", "sport_jugend", year: 2014,
+        subventioniert: true, unterkunft: 3000)
+      create_course_and_course_record(group, "tp", "treffpunkt", year: 2014, subventioniert: true,
+        unterkunft: 2000)
 
       # wrong year
-      create_course_and_course_record(group, "tk", "sport_jugend", year: 2013, subventioniert: true, unterkunft: 4000)
+      create_course_and_course_record(group, "tk", "sport_jugend", year: 2013,
+        subventioniert: true, unterkunft: 4000)
 
       # not subsidized
-      create_course_and_course_record(group, "sk", "sport_jugend", year: 2014, subventioniert: false, unterkunft: 1000)
+      create_course_and_course_record(group, "sk", "sport_jugend", year: 2014,
+        subventioniert: false, unterkunft: 1000)
 
       # other group
-      create_course_and_course_record(groups(:seeland), "bk", "sport_jugend", year: 2014, subventioniert: true, unterkunft: 2000)
+      create_course_and_course_record(groups(:seeland), "bk", "sport_jugend", year: 2014,
+        subventioniert: true, unterkunft: 2000)
     end
 
     def create_course_and_course_record(group, leistungskategorie, fachkonzept, course_record_attrs)

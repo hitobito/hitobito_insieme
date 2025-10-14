@@ -147,12 +147,22 @@ describe Fp2015::Export::Tabular::Statistics::GroupFigures do
       "LUFEB Stunden Angestellte: Allgemeine Medien- und Öffentlichkeitsarbeit",
       "LUFEB Stunden Angestellte: Eigene öffentlich zugängliche Medien und Publikationen",
       "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit / Projekte",
+      # rubocop:todo Layout/LineLength
       "LUFEB Stunden Angestellte: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+      # rubocop:enable Layout/LineLength
 
+      # rubocop:todo Layout/LineLength
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien- und Öffentlichkeitsarbeit",
+      # rubocop:enable Layout/LineLength
+      # rubocop:todo Layout/LineLength
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Eigene öffentlich zugängliche Medien und Publikationen",
+      # rubocop:enable Layout/LineLength
+      # rubocop:todo Layout/LineLength
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit / Projekte",
+      # rubocop:enable Layout/LineLength
+      # rubocop:todo Layout/LineLength
       "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe / Unterstützung von Selbsthilfeorganisationen und -gruppen sowie Einzelpersonen",
+      # rubocop:enable Layout/LineLength
 
       "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)",
 

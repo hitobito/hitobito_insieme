@@ -32,7 +32,9 @@ describe Fp2022::TimeRecord::OrganisationsDaten do
   end
 
   it "has correct data" do
+    # rubocop:todo Layout/LineLength
     create_cost_accounting_report("honorare", aufwand_ertrag_fibu: 123_500) # 0.5 FTE, not taken into account
+    # rubocop:enable Layout/LineLength
     create_time_report(TimeRecord::EmployeeTime, {})
       .create_employee_pensum(paragraph_74: 0.5) # 0.5 FTE Art74
     create_time_report(

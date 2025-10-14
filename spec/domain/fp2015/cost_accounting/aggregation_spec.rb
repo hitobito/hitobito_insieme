@@ -150,7 +150,9 @@ describe "CostAccounting::Aggregation" do
     it "gives access to all values" do
       lohnaufwand = aggregation.reports["lohnaufwand"]
       expect(lohnaufwand.key).to eq("lohnaufwand")
+      # rubocop:todo Layout/LineLength
       expect(lohnaufwand.kontengruppe).to eq(fp_class("CostAccounting::Report::Lohnaufwand").kontengruppe)
+      # rubocop:enable Layout/LineLength
       expect(lohnaufwand.aufwand_ertrag_fibu).to eq(3600)
       expect(lohnaufwand.total).to be_within(0.0001).of(3000)
       expect(lohnaufwand.kontrolle).to be_within(0.0001).of(-500)
@@ -196,9 +198,11 @@ describe "CostAccounting::Aggregation" do
     end
   end
 
-  def create_course_record(group, lk, unterkunft = nil, honorare = nil, uebriger_sachaufwand = nil, subventioniert = true)
+  def create_course_record(group, lk, unterkunft = nil, honorare = nil, uebriger_sachaufwand = nil,
+    subventioniert = true)
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk,
+        fachkonzept: "sport_jugend", year: year),
       unterkunft: unterkunft,
       honorare_inkl_sozialversicherung: honorare,
       uebriges: uebriger_sachaufwand,

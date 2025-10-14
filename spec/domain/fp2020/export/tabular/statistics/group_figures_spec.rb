@@ -168,9 +168,13 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
 
       "Semester-/Jahreskurse Anzahl Kurse Freizeit Erwachsene & altersdurchmischt",
       "Semester-/Jahreskurse Total Vollkosten Freizeit Erwachsene & altersdurchmischt",
+      # rubocop:todo Layout/LineLength
       "Semester-/Jahreskurse TN Tage Personen mit Behinderung Freizeit Erwachsene & altersdurchmischt",
+      # rubocop:enable Layout/LineLength
       "Semester-/Jahreskurse TN Tage Angehörige Freizeit Erwachsene & altersdurchmischt",
+      # rubocop:todo Layout/LineLength
       "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Freizeit Erwachsene & altersdurchmischt",
+      # rubocop:enable Layout/LineLength
       "Semester-/Jahreskurse TN Tage Total Freizeit Erwachsene & altersdurchmischt",
 
       "Semester-/Jahreskurse Anzahl Kurse Sport Kinder & Jugendliche",
@@ -260,7 +264,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "Blockkurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
         "Blockkurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
         "Blockkurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        # rubocop:todo Layout/LineLength
         "Blockkurse TN Tage Personen mit Behinderung Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
         "Blockkurse TN Tage Personen mit Behinderung Freizeit Kinder & Jugendliche" => 0.0,
         "Blockkurse TN Tage Personen mit Behinderung Förderung der Autonomie/Bildung" => 0.0,
         "Blockkurse TN Tage Personen mit Behinderung Sport Erwachsene & altersdurchmischt" => 0.0,
@@ -289,7 +295,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "LUFEB Stunden Angestellte: Förderung der Selbsthilfe" => 0,
         "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB" => 0,
         "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 0,
+        # rubocop:todo Layout/LineLength
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        # rubocop:enable Layout/LineLength
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe" => 0,
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB" => 0,
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit" => 0,
@@ -304,20 +312,36 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "Semester-/Jahreskurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
         "Semester-/Jahreskurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
         "Semester-/Jahreskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Freizeit Kinder & Jugendliche" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Förderung der Autonomie/Bildung" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Sport Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Sport Kinder & Jugendliche" => 0.0,
         "Semester-/Jahreskurse TN Tage Total Freizeit Erwachsene & altersdurchmischt" => 0.0,
         "Semester-/Jahreskurse TN Tage Total Freizeit Kinder & Jugendliche" => 0.0,
         "Semester-/Jahreskurse TN Tage Total Förderung der Autonomie/Bildung" => 0.0,
         "Semester-/Jahreskurse TN Tage Total Sport Erwachsene & altersdurchmischt" => 0.0,
         "Semester-/Jahreskurse TN Tage Total Sport Kinder & Jugendliche" => 0.0,
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Freizeit Kinder & Jugendliche" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Förderung der Autonomie/Bildung" => 0.0,
+        # rubocop:enable Layout/LineLength
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
         "Semester-/Jahreskurse Total Vollkosten Freizeit Erwachsene & altersdurchmischt" => 0.0,
         "Semester-/Jahreskurse Total Vollkosten Freizeit Kinder & Jugendliche" => 0.0,
@@ -343,7 +367,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "Tageskurse TN Tage Angehörige Förderung der Autonomie/Bildung" => 0.0,
         "Tageskurse TN Tage Angehörige Sport Erwachsene & altersdurchmischt" => 0.0,
         "Tageskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        # rubocop:todo Layout/LineLength
         "Tageskurse TN Tage Personen mit Behinderung Freizeit Erwachsene & altersdurchmischt" => 0.0,
+        # rubocop:enable Layout/LineLength
         "Tageskurse TN Tage Personen mit Behinderung Freizeit Kinder & Jugendliche" => 0.0,
         "Tageskurse TN Tage Personen mit Behinderung Förderung der Autonomie/Bildung" => 0.0,
         "Tageskurse TN Tage Personen mit Behinderung Sport Erwachsene & altersdurchmischt" => 0.0,
@@ -412,7 +438,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "Blockkurse Total Vollkosten Sport Kinder & Jugendliche" => 0.0,
 
         "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 12,
+        # rubocop:todo Layout/LineLength
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 21,
+        # rubocop:enable Layout/LineLength
         "LUFEB Stunden Ehrenamtliche ohne Leistungsausweis (Total)" => 0,
 
         "Tageskurse Anzahl Kurse Sport Kinder & Jugendliche" => 2,
@@ -458,7 +486,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
 
         "Semester-/Jahreskurse Anzahl Kurse Sport Kinder & Jugendliche" => 1,
         "Semester-/Jahreskurse TN Tage Angehörige Sport Kinder & Jugendliche" => 0.0,
+        # rubocop:todo Layout/LineLength
         "Semester-/Jahreskurse TN Tage Personen mit Behinderung Sport Kinder & Jugendliche" => 1428.0,
+        # rubocop:enable Layout/LineLength
         "Semester-/Jahreskurse TN Tage Total Sport Kinder & Jugendliche" => 1428.0,
         "Semester-/Jahreskurse TN Tage nicht Bezugsberechtigte Sport Kinder & Jugendliche" => 0.0,
         "Semester-/Jahreskurse Total Vollkosten Sport Kinder & Jugendliche" => 410.0,
@@ -475,7 +505,9 @@ describe Fp2020::Export::Tabular::Statistics::GroupFigures do
         "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB" => 0,
         "LUFEB Stunden Angestellte: Themenspezifische Grundlagenarbeit" => 0,
 
+        # rubocop:todo Layout/LineLength
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
+        # rubocop:enable Layout/LineLength
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Förderung der Selbsthilfe" => 0,
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Grundlagenarbeit zu LUFEB" => 0,
         "LUFEB Stunden Ehrenamtliche mit Leistungsausweis: Themenspezifische Grundlagenarbeit" => 0,

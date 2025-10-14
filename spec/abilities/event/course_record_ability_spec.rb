@@ -8,7 +8,9 @@ require "spec_helper"
 describe Event::CourseRecordAbility do
   let(:user) { role.person }
   let(:group) { role.group }
-  let(:event) { Fabricate(:course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend") }
+  let(:event) {
+    Fabricate(:course, groups: [group], leistungskategorie: "bk", fachkonzept: "sport_jugend")
+  }
   let(:record) { Event::CourseRecord.new(event: event) }
 
   subject { Ability.new(user.reload) }

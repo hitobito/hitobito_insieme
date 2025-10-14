@@ -12,7 +12,8 @@ describe Event::Participation do
     # required when migration was run in this same process, after model class got loaded
     # for the first time.
     if Event::Participation.validators_on(:wheel_chair).blank?
-      Event::Participation.validates_by_schema only: [:multiple_disability, :wheel_chair, :disability]
+      Event::Participation.validates_by_schema only: [:multiple_disability, :wheel_chair,
+        :disability]
     end
   end
 

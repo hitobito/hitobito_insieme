@@ -25,7 +25,9 @@ describe ControllingController, type: :controller do
     before { get :client_statistics, params: {id: groups(:dachverein), year: 2014}, format: :xlsx }
 
     it "exports table" do
+      # rubocop:todo Layout/LineLength
       expect(@response.body).to match(/Personen mit Behinderung \/ Kanton;Blockkurse Anzahl Personen mit Behinderung;Blockkurse /)
+      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -41,8 +43,12 @@ describe ControllingController, type: :controller do
     end
 
     it "exports table" do
+      # rubocop:todo Layout/LineLength
       expect(@response.body).to match(Regexp.new("^#{Export::Csv::UTF8_BOM}Gruppe;Kontakte zu Medien, zu Medienschaffenden;.+;Total$"))
+      # rubocop:enable Layout/LineLength
+      # rubocop:todo Layout/LineLength
       expect(@response.body).to match(/^insieme Schweiz;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
+      # rubocop:enable Layout/LineLength
       expect(@response.body).to match(/^Kanton Bern;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;$/)
     end
   end

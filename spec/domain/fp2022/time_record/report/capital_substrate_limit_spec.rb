@@ -53,7 +53,8 @@ describe Fp2022::TimeRecord::Report::CapitalSubstrateLimit do
 
   def create_course_record(lk, honorare)
     Event::CourseRecord.create!(
-      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk, fachkonzept: "sport_jugend", year: year),
+      event: Fabricate(:aggregate_course, groups: [group], leistungskategorie: lk,
+        fachkonzept: "sport_jugend", year: year),
       honorare_inkl_sozialversicherung: honorare
     )
   end

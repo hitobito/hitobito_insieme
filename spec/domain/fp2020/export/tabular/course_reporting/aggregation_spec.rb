@@ -43,11 +43,16 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
   %w[bk tk].each do |leistungskategorie|
     context leistungskategorie do
       before do
-        create!(create_course(leistungskategorie, fachkonzept: "sport_jugend"), "freizeit_und_sport", values)
-        create!(create_course(leistungskategorie, fachkonzept: "sport_erwachsen"), "freizeit_und_sport", values)
-        create!(create_course(leistungskategorie, fachkonzept: "freizeit_jugend"), "freizeit_und_sport", values)
-        create!(create_course(leistungskategorie, fachkonzept: "freizeit_erwachsen"), "freizeit_und_sport", values)
-        create!(create_course(leistungskategorie, fachkonzept: "autonomie_foerderung"), "weiterbildung", values)
+        create!(create_course(leistungskategorie, fachkonzept: "sport_jugend"),
+          "freizeit_und_sport", values)
+        create!(create_course(leistungskategorie, fachkonzept: "sport_erwachsen"),
+          "freizeit_und_sport", values)
+        create!(create_course(leistungskategorie, fachkonzept: "freizeit_jugend"),
+          "freizeit_und_sport", values)
+        create!(create_course(leistungskategorie, fachkonzept: "freizeit_erwachsen"),
+          "freizeit_und_sport", values)
+        create!(create_course(leistungskategorie, fachkonzept: "autonomie_foerderung"),
+          "weiterbildung", values)
       end
 
       it "contains correct headers" do
@@ -71,13 +76,17 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
         expect(rows[5]).to eq ["davon Angehörige", 2, 2, 2, 2, 2, 10]
         expect(rows[6]).to eq ["davon nicht Bezugsberechtigte", 0, 0, 0, 0, 0, 0]
         expect(rows[7]).to eq ["Absenztage", 1.5, 1.5, 1.5, 1.5, 1.5, 7.5]
-        expect(rows[8]).to eq ["davon Absenztage Personen mit Behinderung", 0.5, 0.5, 0.5, 0.5, 0.5, 2.5]
+        expect(rows[8]).to eq ["davon Absenztage Personen mit Behinderung", 0.5, 0.5, 0.5, 0.5,
+          0.5, 2.5]
         expect(rows[9]).to eq ["davon Absenztage Angehörige", 1.0, 1.0, 1.0, 1.0, 1.0, 5.0]
         expect(rows[10]).to eq ["davon Absenztage nicht Bezugsberechtigte", 0, 0, 0, 0.0, 0.0, 0.0]
         expect(rows[11]).to eq ["Effektive TeilnehmerInnentage", 4.5, 4.5, 4.5, 4.5, 4.5, 22.5]
-        expect(rows[12]).to eq ["davon TeilnehmerInnentage Personen mit Behinderung", 1.5, 1.5, 1.5, 1.5, 1.5, 7.5]
-        expect(rows[13]).to eq ["davon TeilnehmerInnentage Angehörige", 3.0, 3.0, 3.0, 3.0, 3.0, 15.0]
-        expect(rows[14]).to eq ["davon TeilnehmerInnentage nicht Bezugsberechtigte", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        expect(rows[12]).to eq ["davon TeilnehmerInnentage Personen mit Behinderung", 1.5, 1.5,
+          1.5, 1.5, 1.5, 7.5]
+        expect(rows[13]).to eq ["davon TeilnehmerInnentage Angehörige", 3.0, 3.0, 3.0, 3.0, 3.0,
+          15.0]
+        expect(rows[14]).to eq ["davon TeilnehmerInnentage nicht Bezugsberechtigte", 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0]
         expect(rows[15]).to eq ["Anzahl Betreuungspersonal", 10, 10, 10, 10, 10, 50]
         expect(rows[16]).to eq ["davon LeiterInnen", 1, 1, 1, 1, 1, 5]
         expect(rows[17]).to eq ["davon Fachpersonen hochqualifiziert", 2, 2, 2, 2, 2, 10]
@@ -87,7 +96,8 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
         expect(rows[21]).to eq ["Gesamtaufwand direkte Kosten", 60.0, 60.0, 60.0, 60.0, 60.0, 300.0]
         expect(rows[22]).to eq ["davon Honorare", 10.0, 10.0, 10.0, 10.0, 10.0, 50.0]
         expect(rows[23]).to eq ["davon Unterkunft/Raumaufwand", 20.0, 20.0, 20.0, 20.0, 20.0, 100.0]
-        expect(rows[24]).to eq ["davon übriger Aufwand inkl. Verpflegung", 30.0, 30.0, 30.0, 30.0, 30.0, 150.0]
+        expect(rows[24]).to eq ["davon übriger Aufwand inkl. Verpflegung", 30.0, 30.0, 30.0, 30.0,
+          30.0, 150.0]
 
         expect(rows[25][0]).to eq "Durchschnittliche direkte Kosten pro TeilnehmerInnentag"
         expect(rows[25][1..].collect(&:to_i)).to eq [13, 13, 13, 13, 13, 13]
@@ -95,7 +105,8 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
         expect(rows[27][0]).to eq "Durchschnittliche Vollkosten pro TeilnehmerInnentag"
         expect(rows[27][1..].collect(&:to_i)).to eq [15, 15, 15, 15, 15, 15]
         expect(rows[28]).to eq ["Beiträge Teilnehmende", 10.0, 10.0, 10.0, 10.0, 10.0, 50.0]
-        expect(rows[29]).to eq ["Betreuungschlüssel (Teilnehmende / Betreuende)", 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+        expect(rows[29]).to eq ["Betreuungschlüssel (Teilnehmende / Betreuende)", 0.1, 0.1, 0.1,
+          0.1, 0.1, 0.1]
         expect(rows[30]).to eq ["Anzahl Kurse mit spezieller Unterkunft", 1, 1, 1, 1, 1, 5]
       end
     end
@@ -125,36 +136,45 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
     it "contains correct row headers, values and sums" do
       rows = [nil] + export("sk")
       expect(rows[1]).to eq ["Anzahl Kurse", 2, 0, 0, 0, 2, 4]
-      expect(rows[2]).to eq ["Anzahl Kursstunden", BigDecimal("4.0"), BigDecimal("0.0"), BigDecimal("0.0"), BigDecimal("0.0"), BigDecimal("4.0"), BigDecimal("8.0")]
+      expect(rows[2]).to eq ["Anzahl Kursstunden", BigDecimal("4.0"), BigDecimal("0.0"),
+        BigDecimal("0.0"), BigDecimal("0.0"), BigDecimal("4.0"), BigDecimal("8.0")]
       expect(rows[3]).to eq ["Anzahl effektive TeilnehmerInnen", 6, 0, 0, 0, 6, 12]
       expect(rows[4]).to eq ["davon Personen mit Behinderung", 2, 0, 0, 0, 2, 4]
       expect(rows[5]).to eq ["davon Angehörige", 4, 0, 0, 0, 4, 8]
       expect(rows[6]).to eq ["davon nicht Bezugsberechtigte", 0, 0, 0, 0, 0, 0]
       expect(rows[7]).to eq ["Absenzstunden", 6.00, 0.00, 0.00, 0.00, 6.00, 12.00]
-      expect(rows[8]).to eq ["davon Absenzstunden Personen mit Behinderung", 4.00, 0.00, 0.00, 0.00, 4.00, 8.00]
+      expect(rows[8]).to eq ["davon Absenzstunden Personen mit Behinderung", 4.00, 0.00, 0.00,
+        0.00, 4.00, 8.00]
       expect(rows[9]).to eq ["davon Absenzstunden Angehörige", 2.00, 0.00, 0.00, 0.00, 2.00, 4.00]
-      expect(rows[10]).to eq ["davon Absenzstunden nicht Bezugsberechtigte", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+      expect(rows[10]).to eq ["davon Absenzstunden nicht Bezugsberechtigte", 0.00, 0.00, 0.00,
+        0.00, 0.00, 0.00]
       expect(rows[11]).to eq ["Effektive TeilnehmerInnenstunden", 6.0, 0.0, 0.0, 0.0, 6.0, 12.00]
-      expect(rows[12]).to eq ["davon TeilnehmerInnenstunden Personen mit Behinderung", 0.0, 0.0, 0.0, 0.0, 0.0, 0.00]
-      expect(rows[13]).to eq ["davon TeilnehmerInnenstunden Angehörige", 6.00, 0.00, 0.00, 0.00, 6.00, 12.00]
-      expect(rows[14]).to eq ["davon TeilnehmerInnenstunden nicht Bezugsberechtigte", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+      expect(rows[12]).to eq ["davon TeilnehmerInnenstunden Personen mit Behinderung", 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.00]
+      expect(rows[13]).to eq ["davon TeilnehmerInnenstunden Angehörige", 6.00, 0.00, 0.00, 0.00,
+        6.00, 12.00]
+      expect(rows[14]).to eq ["davon TeilnehmerInnenstunden nicht Bezugsberechtigte", 0.00, 0.00,
+        0.00, 0.00, 0.00, 0.00]
       expect(rows[15]).to eq ["Anzahl Betreuungspersonal", 20, 0, 0, 0, 20, 40]
       expect(rows[16]).to eq ["davon LeiterInnen", 2, 0, 0, 0, 2, 4]
       expect(rows[17]).to eq ["davon Fachpersonen hochqualifiziert", 4, 0, 0, 0, 4, 8]
       expect(rows[18]).to eq ["davon Hilfspersonal ohne Honorar", 6, 0, 0, 0, 6, 12]
       expect(rows[19]).to eq ["davon Hilfspersonal mit Honorar", 8, 0, 0, 0, 8, 16]
       expect(rows[20]).to eq ["Anzahl Küchenpersonal", 10, 0, 0, 0, 10, 20]
-      expect(rows[21]).to eq ["Gesamtaufwand direkte Kosten", 120.00, 0.00, 0.00, 0.00, 120.00, 240.00]
+      expect(rows[21]).to eq ["Gesamtaufwand direkte Kosten", 120.00, 0.00, 0.00, 0.00, 120.00,
+        240.00]
       expect(rows[22]).to eq ["davon Honorare", 20.00, 0.00, 0.00, 0.00, 20.00, 40.00]
       expect(rows[23]).to eq ["davon Unterkunft/Raumaufwand", 40.00, 0.00, 0.00, 0.00, 40.00, 80.00]
-      expect(rows[24]).to eq ["davon übriger Aufwand inkl. Verpflegung", 60.00, 0.00, 0.00, 0.00, 60.00, 120.00]
+      expect(rows[24]).to eq ["davon übriger Aufwand inkl. Verpflegung", 60.00, 0.00, 0.00, 0.00,
+        60.00, 120.00]
       expect(rows[25][0]).to eq "Durchschnittliche direkte Kosten pro TeilnehmerInnenstunde"
       expect(rows[25][1..].collect(&:to_i)).to eq [nil, 20, 0, 0, 0, 20, 20][1..]
       expect(rows[26]).to eq ["Vollkosten", 140.00, 0.00, 0.00, 0.00, 140.00, 280.00]
       expect(rows[27][0]).to eq "Durchschnittliche Vollkosten pro TeilnehmerInnenstunde"
       expect(rows[27][1..].collect(&:to_i)).to eq [nil, 23, 0, 0, 0, 23, 23][1..]
       expect(rows[28]).to eq ["Beiträge Teilnehmende", 20.00, 0.00, 0.00, 0.00, 20.00, 40.00]
-      expect(rows[29]).to eq ["Betreuungschlüssel (Teilnehmende / Betreuende)", 0.10, 0.00, 0.00, 0.00, 0.10, 0.10]
+      expect(rows[29]).to eq ["Betreuungschlüssel (Teilnehmende / Betreuende)", 0.10, 0.00, 0.00,
+        0.00, 0.10, 0.10]
       expect(rows[30]).to eq ["Anzahl Kurse mit spezieller Unterkunft", 0, 0, 0, 0, 0, 0]
     end
   end
@@ -194,7 +214,8 @@ describe Fp2020::Export::Tabular::CourseReporting::Aggregation do
     end
   end
 
-  def create_course(leistungskategorie = "bk", group_list: [groups(:be)], year: 2020, fachkonzept: "sport_jugend")
+  def create_course(leistungskategorie = "bk", group_list: [groups(:be)], year: 2020,
+    fachkonzept: "sport_jugend")
     Event::Course.create!(groups: group_list,
       name: "test",
       leistungskategorie: leistungskategorie, fachkonzept: fachkonzept,

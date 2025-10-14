@@ -9,7 +9,9 @@ require "spec_helper"
 
 describe ContactableInsiemeHelper, type: :helper do
   describe "#contact_method_label_select" do
-    let(:additional_email) { people(:top_leader).additional_emails.build(email: "other@example.com") }
+    let(:additional_email) {
+      people(:top_leader).additional_emails.build(email: "other@example.com")
+    }
     let(:form) { StandardFormBuilder.new(:additional_email, additional_email, self, {}) }
 
     standard_options = AdditionalEmail.predefined_labels
@@ -29,7 +31,9 @@ describe ContactableInsiemeHelper, type: :helper do
       additional_email.label = standard_options.third
       result = helper.contact_method_label_select(form)
 
+      # rubocop:todo Layout/LineLength
       expect(result).to have_selector("option[value='#{standard_options.third}'][selected='selected']")
+      # rubocop:enable Layout/LineLength
     end
 
     it "includes current value as option" do

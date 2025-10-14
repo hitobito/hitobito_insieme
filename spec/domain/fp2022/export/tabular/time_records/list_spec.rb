@@ -35,7 +35,9 @@ describe "Export::Tabular::TimeRecords::List" do
         employee_pensum_attributes: {paragraph_74: 1.5, not_paragraph_74: 0.5}
       )
       TimeRecord::VolunteerWithVerificationTime.create!(
+        # rubocop:todo Layout/LineLength
         group: group, year: year, lufeb_grundlagen: 100, blockkurse: 400, verwaltung: 88, treffpunkte_grundlagen: 43,
+        # rubocop:enable Layout/LineLength
         nicht_art_74_leistungen: 50
       )
       TimeRecord::VolunteerWithoutVerificationTime.create!(
@@ -45,12 +47,17 @@ describe "Export::Tabular::TimeRecords::List" do
     end
 
     it "contains all data" do
-      data = [nil] + export.each { |row| row.collect! { |v| v.is_a?(BigDecimal) ? v.to_f.round(2) : v } }
+      data = [nil] + export.each { |row|
+        row.collect! { |v|
+       v.is_a?(BigDecimal) ? v.to_f.round(2) : v # rubocop:todo Layout/IndentationWidth
+        }
+      }
       expect(data[1]).to eq(["Art. 74 betreffend in 100% Stellen", 1.5, nil, nil])
       expect(data[2]).to eq(["Art. 74 nicht betreffend in 100% Stellen", 0.5, nil, nil])
       expect(data[3]).to eq(["Total", 2.0, nil, nil])
       expect(data[4]).to eq(["Grundlagenarbeit zu LUFEB", nil, 100.0, nil])
-      expect(data[5]).to eq(["Information / Beratung von Organisationen und Einzelpersonen", nil, nil, nil])
+      expect(data[5]).to eq(["Information / Beratung von Organisationen und Einzelpersonen", nil,
+        nil, nil])
 
       expect(data[13]).to eq(["Allgemeine Medien- und Öffentlichkeitsarbeit", 0, 0, 300])
 

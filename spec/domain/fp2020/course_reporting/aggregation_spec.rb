@@ -227,7 +227,8 @@ describe Fp2020::CourseReporting::Aggregation do
       aggregation_be_1 = new_aggregation
       aggregation_fr_1 = new_aggregation(group_id: groups(:fr).id)
       aggregation_be_123 = new_aggregation(zugeteilte_kategorie: [1, 2, 3])
-      aggregation_fr_123 = new_aggregation(group_id: groups(:fr).id, zugeteilte_kategorie: [1, 2, 3])
+      aggregation_fr_123 = new_aggregation(group_id: groups(:fr).id,
+        zugeteilte_kategorie: [1, 2, 3])
       aggregation_123 = new_aggregation(group_id: nil, zugeteilte_kategorie: [1, 2, 3])
 
       [
@@ -276,7 +277,8 @@ describe Fp2020::CourseReporting::Aggregation do
         assert_summed(attr, :total, :sport_jugend, aggregation, aggregation_be_1, aggregation_fr_1)
 
         assert_summed(attr, :total, :all, aggregation_123, aggregation_be_123, aggregation_fr_123)
-        assert_summed(attr, :total, :sport_jugend, aggregation_123, aggregation_be_123, aggregation_fr_123)
+        assert_summed(attr, :total, :sport_jugend, aggregation_123, aggregation_be_123,
+          aggregation_fr_123)
       end
 
       dk_pro_le = BigDecimal(360) / 24 # direkter_aufwand / total_tage_teilnehmende
@@ -303,7 +305,9 @@ describe Fp2020::CourseReporting::Aggregation do
     end
 
     let!(:treffpunkt_a_course_record) do
+      # rubocop:todo Layout/LineLength
       create!(create_course("tp", [groups(:fr)], 2020, "treffpunkt"), "weiterbildung", cr_defaults.merge({
+        # rubocop:enable Layout/LineLength
         challenged_canton_count_attributes: {be: 10},
         affiliated_canton_count_attributes: {be: 2},
 
@@ -317,7 +321,9 @@ describe Fp2020::CourseReporting::Aggregation do
     end
 
     let!(:treffpunkt_b_course_record) do
+      # rubocop:todo Layout/LineLength
       create!(create_course("tp", [groups(:fr)], 2020, "treffpunkt"), "weiterbildung", cr_defaults.merge({
+        # rubocop:enable Layout/LineLength
         challenged_canton_count_attributes: {be: 5},
         affiliated_canton_count_attributes: {be: 1},
 
@@ -388,7 +394,8 @@ describe Fp2020::CourseReporting::Aggregation do
   end
 
   def expect_values(attr, total)
-    expect(course_totals(attr)).to eq(total), "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
+    expect(course_totals(attr)).to eq(total),
+      "expected #{attr} to equal #{total}, got #{course_totals(attr)}"
   end
 
   def new_aggregation(attrs = {})
@@ -400,7 +407,8 @@ describe Fp2020::CourseReporting::Aggregation do
     described_class.new(*defaults.merge(attrs).values)
   end
 
-  def create_course(leistungskategorie = "bk", group_list = [groups(:be)], year = 2020, fachkonzept = "sport_jugend")
+  def create_course(leistungskategorie = "bk", group_list = [groups(:be)], year = 2020,
+    fachkonzept = "sport_jugend")
     Event::Course.create!(groups: group_list,
       name: "test",
       leistungskategorie: leistungskategorie, fachkonzept: fachkonzept,

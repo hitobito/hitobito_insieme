@@ -8,6 +8,7 @@
 module CostAccountingHelper
   include Featureperioden::Domain
 
+  # rubocop:todo Metrics/AbcSize
   def cost_accounting_input_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName
     course_fields = fp_class("CostAccounting::Report::CourseRelated")::COURSE_FIELDS
       .keys.map(&:to_s)
@@ -23,6 +24,7 @@ module CostAccountingHelper
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def cost_accounting_input_and_course_fields(f, *fields) # rubocop:disable Metrics/MethodLength,Naming/MethodParameterName,Metrics/AbcSize
     course_fields = fp_class("CostAccounting::Report::CourseRelated")::COURSE_FIELDS

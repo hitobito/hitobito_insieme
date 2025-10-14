@@ -7,7 +7,8 @@ require "spec_helper"
 
 describe Event::Course do
   subject do
-    Fabricate(:course, groups: [groups(:dachverein)], leistungskategorie: "bk", fachkonzept: "sport_jugend")
+    Fabricate(:course, groups: [groups(:dachverein)], leistungskategorie: "bk",
+      fachkonzept: "sport_jugend")
   end
 
   context "#years" do
@@ -42,7 +43,8 @@ describe Event::Course do
 
   context "leistungskategorien and fachkonzepte" do
     let(:course) do
-      Fabricate(:course, groups: [groups(:dachverein)], leistungskategorie: leistungskategorie, fachkonzept: fachkonzept)
+      Fabricate(:course, groups: [groups(:dachverein)], leistungskategorie: leistungskategorie,
+        fachkonzept: fachkonzept)
     end
 
     context "contains Blockkurse" do
@@ -110,7 +112,8 @@ describe Event::Course do
     end
 
     it "translates Semesterkurs" do
-      expect(described_class.available_leistungskategorien).to include(["sk", "Semester-/Jahreskurs"])
+      expect(described_class.available_leistungskategorien).to include(["sk",
+        "Semester-/Jahreskurs"])
     end
 
     it "translates Treffpunkt" do
@@ -120,23 +123,28 @@ describe Event::Course do
 
   context "#available_fachkonzepte" do
     it "translates Freizeit Kinder & Jugendliche" do
-      expect(described_class.available_fachkonzepte).to include(["freizeit_jugend", "Freizeit Kinder & Jugendliche"])
+      expect(described_class.available_fachkonzepte).to include(["freizeit_jugend",
+        "Freizeit Kinder & Jugendliche"])
     end
 
     it "translates Freizeit Erwachsene & altersdurchmischt" do
-      expect(described_class.available_fachkonzepte).to include(["freizeit_erwachsen", "Freizeit Erwachsene & altersdurchmischt"])
+      expect(described_class.available_fachkonzepte).to include(["freizeit_erwachsen",
+        "Freizeit Erwachsene & altersdurchmischt"])
     end
 
     it "translates Sport Kinder & Jugendliche" do
-      expect(described_class.available_fachkonzepte).to include(["sport_jugend", "Sport Kinder & Jugendliche"])
+      expect(described_class.available_fachkonzepte).to include(["sport_jugend",
+        "Sport Kinder & Jugendliche"])
     end
 
     it "translates Sport Erwachsene & altersdurchmischt" do
-      expect(described_class.available_fachkonzepte).to include(["sport_erwachsen", "Sport Erwachsene & altersdurchmischt"])
+      expect(described_class.available_fachkonzepte).to include(["sport_erwachsen",
+        "Sport Erwachsene & altersdurchmischt"])
     end
 
     it "translates Förderung der Autonomie/Bildung" do
-      expect(described_class.available_fachkonzepte).to include(["autonomie_foerderung", "Förderung der Autonomie/Bildung"])
+      expect(described_class.available_fachkonzepte).to include(["autonomie_foerderung",
+        "Förderung der Autonomie/Bildung"])
     end
 
     it "translates Treffpunkt" do

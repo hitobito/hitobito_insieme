@@ -35,7 +35,9 @@ describe InvoicesController do
       )
       get :new, params: {group_id: group.id, invoice: {recipient_id: person.id}}
       expect(response).to be_successful
+      # rubocop:todo Layout/LineLength
       expect(assigns(:invoice).recipient_address).to eq("Max Mustermann\nMusterweg 2\n8000 Hitobitingen")
+      # rubocop:enable Layout/LineLength
     end
   end
 end

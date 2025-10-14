@@ -15,7 +15,8 @@ describe PeopleInsiemeHelper, type: :helper do
 
     expected_options = Settings.addresses.predefined_labels
 
-    %w[correspondence_general correspondence_course billing_general billing_course].each do |address_type|
+    %w[correspondence_general correspondence_course billing_general
+      billing_course].each do |address_type|
       context "with prefix=#{address_type}" do
         def available_options(html_string)
           Capybara.string(html_string).all(:option).map(&:value)
@@ -32,7 +33,9 @@ describe PeopleInsiemeHelper, type: :helper do
           person.send(:"#{address_type}_label=", expected_options.third)
           result = helper.address_label_select(form, address_type)
 
+          # rubocop:todo Layout/LineLength
           expect(result).to have_selector("option[value='#{expected_options.third}'][selected='selected']")
+          # rubocop:enable Layout/LineLength
         end
 
         it "includes current value as option" do

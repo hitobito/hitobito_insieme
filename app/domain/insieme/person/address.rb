@@ -12,7 +12,9 @@ module Insieme::Person::Address
 
   private
 
+  # rubocop:todo Layout/LineLength
   # NOTE: according to existing specs this wagon relies only on company_name and ignores company flag
+  # rubocop:enable Layout/LineLength
   def print_company?(name)
     @person.company_name? && @person.company_name != name
   end

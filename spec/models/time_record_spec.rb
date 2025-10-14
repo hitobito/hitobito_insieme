@@ -195,7 +195,8 @@ describe TimeRecord do
         end
 
         it "is 0 for new record after save" do
-          new_record = TimeRecord.new(group: groups(:be), year: 2014, type: "TimeRecord::EmployeeTime")
+          new_record = TimeRecord.new(group: groups(:be), year: 2014,
+            type: "TimeRecord::EmployeeTime")
           new_record.save!
           expect(new_record.send(method)).to eq(0)
         end
@@ -240,7 +241,8 @@ describe TimeRecord do
       end
 
       it "is 0 for new record after save" do
-        new_record = TimeRecord.new(group: groups(:be), year: 2014, type: "TimeRecord::EmployeeTime")
+        new_record = TimeRecord.new(group: groups(:be), year: 2014,
+          type: "TimeRecord::EmployeeTime")
         new_record.save!
         expect(new_record.total_pensum).to eq(0)
       end

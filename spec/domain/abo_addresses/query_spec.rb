@@ -18,12 +18,14 @@ describe AboAddresses::Query do
       it "contains only included roles and layers" do
         passive = Fabricate(Group::Passivmitglieder.name.to_sym, parent: groups(:be))
         pm = Fabricate(Group::Passivmitglieder::Passivmitglied.name.to_sym, group: passive).person
-        pa = Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym, group: passive).person
+        pa = Fabricate(Group::Passivmitglieder::PassivmitgliedMitAbo.name.to_sym,
+          group: passive).person
         abos = Fabricate(Group::DachvereinAbonnemente.name.to_sym, parent: groups(:dachverein))
         abo = Fabricate(Group::DachvereinAbonnemente::Einzelabo.name.to_sym, group: abos).person
         externals = Fabricate(Group::ExterneOrganisation.name.to_sym, parent: groups(:dachverein))
         e_active = Fabricate(Group::Aktivmitglieder.name.to_sym, parent: externals)
-        extern = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym, group: e_active).person
+        extern = Fabricate(Group::Aktivmitglieder::Aktivmitglied.name.to_sym,
+          group: e_active).person
 
         is_expected.to include(pa)
         is_expected.to include(people(:regio_aktiv))
