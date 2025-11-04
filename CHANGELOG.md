@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 2.7
 
 * Eigene Startseite nach User-Login aktiviert (hitobito_insieme#150)
 
