@@ -109,7 +109,7 @@ describe TimeRecord do
   context "calculated totals" do
     context "#total_lufeb" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_lufeb).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_lufeb).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -119,7 +119,7 @@ describe TimeRecord do
 
     context "#total_courses" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_courses).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_courses).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -129,7 +129,7 @@ describe TimeRecord do
 
     context "#total_additional_person_specific" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_additional_person_specific).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_additional_person_specific).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -139,7 +139,7 @@ describe TimeRecord do
 
     context "#total_remaining" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_remaining).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_remaining).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -149,7 +149,7 @@ describe TimeRecord do
 
     context "#total_paragraph_74" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_paragraph_74).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_paragraph_74).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -159,7 +159,7 @@ describe TimeRecord do
 
     context "#total_not_paragraph_74" do
       it "is 0 for new record" do
-        expect(TimeRecord.new.total_not_paragraph_74).to eq(0)
+        expect(TimeRecord.new(year: 2024).total_not_paragraph_74).to eq(0)
       end
 
       it "is the sum the values set" do
@@ -186,11 +186,11 @@ describe TimeRecord do
       context "##{method}" do
         if method == :total
           it "is 0 for new record before save" do
-            expect(TimeRecord.new.send(method)).to eq 0
+            expect(TimeRecord.new(year: 2024).send(method)).to eq 0
           end
         else
           it "is nil for new record before save" do
-            expect(TimeRecord.new.send(method)).to be_nil
+            expect(TimeRecord.new(year: 2024).send(method)).to be_nil
           end
         end
 
@@ -274,6 +274,30 @@ describe TimeRecord do
       record = TimeRecord.create!(group: groups(:be), year: 2016, type: "TimeRecord::EmployeeTime")
       record.update_column(:year, 2015)
       expect { record.destroy }.not_to change { TimeRecord.count }
+    end
+  end
+
+  describe "#fp_calculations" do
+    it "falls back to Fp2022::TimeRecord::Calculation for year 2024" do
+      rec = described_class.new(year: 2024)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::TimeRecord::Calculation")
+    end
+    it "resolves to Fp2022::TimeRecord::Calculation for year 2022" do
+      rec = described_class.new(year: 2022)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2022::TimeRecord::Calculation")
+    end
+    it "resolves to Fp2020::TimeRecord::Calculation for year 2020" do
+      rec = described_class.new(year: 2020)
+
+      result = rec.fp_calculations
+
+      expect(result.class.name).to eq("Fp2020::TimeRecord::Calculation")
     end
   end
 end

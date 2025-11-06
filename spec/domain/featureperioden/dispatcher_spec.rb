@@ -25,6 +25,22 @@ describe Featureperioden::Dispatcher do
     expect(subject.i18n_scope("time_records")).to eq "fp2020.time_records"
   end
 
+  it "returns only existing classes" do
+    expect(described_class.domain_classes("Nonexistent::Thing")).to eq([])
+  end
+
+  it "logs skips for missing class paths" do
+    messages = []
+    allow(Rails.logger).to receive(:debug) do |*args, &blk|
+      messages << (args.first || blk&.call)
+    end
+
+    described_class.domain_classes("Nonexistent::Thing")
+
+    expect(messages.join("\n"))
+      .to include("Class skip:", "Nonexistent::Thing", "not found")
+  end
+
   context "can determine the correct period" do
     it "for 2014 and earlier, it is 2015" do
       expect(described_class.new(2014).determine).to be 2015
@@ -65,6 +81,14 @@ describe Featureperioden::Dispatcher do
     it "for 2023 and later, it is 2022" do
       expect(described_class.new(2023).determine).to be 2022
     end
+
+    it "for 2024, it is 2024" do
+      expect(described_class.new(2024).determine).to be 2024
+    end
+
+    it "for 2025 and later, it is 2024" do
+      expect(described_class.new(2025).determine).to be 2024
+    end
   end
 
   # if this grows too much, we might need to rethink this. Maybe optimize
@@ -74,7 +98,7 @@ describe Featureperioden::Dispatcher do
   # here, maybe add some performance-specs.
   context "is a sensible solution, it" do
     it "covers all periods" do
-      expect(described_class::KNOWN_BASE_YEARS).to have(3).items
+      expect(described_class::KNOWN_BASE_YEARS).to have(4).items
     end
   end
 end
