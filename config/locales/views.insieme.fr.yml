@@ -163,12 +163,14 @@ fr:
 
       direkte_kosten_pro_le: Moyenne des frais directs par journée participant
       direkte_kosten_pro_le_stunden: Moyenne des frais directs par heure participant
-      direkte_kosten_pro_betreuungsstunde: Durchschnittliche direkte Kosten pro Betreuungsstunde
+      direkte_kosten_pro_betreuungsstunde: ' Coûts directs moyen par heure d''encadrement
+
+         '
 
       total_vollkosten: Frais totaux
       vollkosten_pro_le: Moyenne des frais totaux par journée participant
       vollkosten_pro_le_stunden: Moyenne des frais totaux par heure participant
-      vollkosten_pro_betreuungsstunde: Durchschnittliche Vollkosten pro Betreuungsstunde
+      vollkosten_pro_betreuungsstunde: Frais generaux moyen par heure d'encadrement
       beitraege_teilnehmende: Contributions participant-e-s
       betreuungsschluessel: Personnel d'encadrement (participant / auxiliaire
       anzahl_spezielle_unterkunft: Nombre de cours avec logement spécialement équipé
