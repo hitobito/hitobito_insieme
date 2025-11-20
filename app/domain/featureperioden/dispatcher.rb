@@ -7,10 +7,42 @@
 
 module Featureperioden
   class Dispatcher
-    KNOWN_BASE_YEARS = [2015, 2020, 2022].freeze
+    # Start years of all supported Featureperioden (FPs).
+    KNOWN_BASE_YEARS = [2015, 2020, 2022, 2024].freeze
 
+    # Enumerate the given constant path (e.g. "Export::Xlsx::CostAccounting::Style")
+    # across all known FP namespaces (Fp2015, Fp2020, …). Returns an array of the
+    # constants that exist; missing ones are skipped (and logged).
+    #
+    # Used at boot in wagon.rb to pre-register XLSX styles for tabular exports.
+    # Missing classes in newer FPs are expected with the fallback approach (see
+    # VERTRAGSPERIODEN.md for more information).
     def self.domain_classes(class_name)
-      KNOWN_BASE_YEARS.map { |fp| Dispatcher.new(fp).domain_class(class_name) }
+      parts = class_name.split("::")
+
+      KNOWN_BASE_YEARS.filter_map do |fp|
+        # Resolve the FP namespace (e.g. Object::Fp2024). If the newest FP
+        # doesn’t exist yet, log once to avoid noise.
+        begin
+          ns = Object.const_get("Fp#{fp}")
+        rescue NameError
+          Rails.logger.debug { "FP skip: Fp#{fp}::#{class_name} not found" } if fp == KNOWN_BASE_YEARS.last
+          next
+        end
+
+        # Walk the nested constants without falling back to ancestors.
+        context_namespace = ns
+        ok = parts.all? do |name|
+          if context_namespace.const_defined?(name, false)
+            context_namespace = context_namespace.const_get(name)
+            true
+          else
+            Rails.logger.debug { "Class skip: Fp#{fp}::#{parts.join("::")} not found" }
+            false
+          end
+        end
+        ok ? context_namespace : nil
+      end
     end
 
     def initialize(year)
