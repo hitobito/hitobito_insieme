@@ -38,10 +38,6 @@ module Insieme::EventAbility
 
   private
 
-  def participating
-    user_context.participations.collect(&:event_id).include?(event.id)
-  end
-
   def in_regionalverein
     event.groups.any? { |g| g.is_a?(Group::Regionalverein) }
   end
