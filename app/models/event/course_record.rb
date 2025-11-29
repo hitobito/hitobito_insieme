@@ -46,6 +46,8 @@
 #
 
 class Event::CourseRecord < ActiveRecord::Base
+  include Featureperioden::Domain
+
   INPUTKRITERIEN = %w[a b c].freeze
   KURSARTEN = %w[weiterbildung freizeit_und_sport].freeze
 
@@ -109,10 +111,7 @@ class Event::CourseRecord < ActiveRecord::Base
 
   # returns a Fp2020::Event::CourseRecord::Calculation since 2020
   def fp_calculations
-    @fp_calculations ||= Featureperioden::Dispatcher
-      .new(year)
-      .domain_class("Event::CourseRecord::Calculation")
-      .new(self)
+    @fp_calculations ||= fp_class("Event::CourseRecord::Calculation").new(self)
   end
 
   delegate :total_absenzen, :teilnehmende, :betreuende, :total_tage_teilnehmende,
