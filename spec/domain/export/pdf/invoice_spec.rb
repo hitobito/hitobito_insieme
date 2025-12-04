@@ -8,22 +8,21 @@ require "spec_helper"
 describe Export::Pdf::Invoice do
   let(:recipient) { people(:top_leader) }
   let(:invoice) do
-    Invoice.new(
-      sequence_number: "1-1",
-      payment_slip: :qr,
-      total: 1500,
-      iban: "CH93 0076 2011 6238 5295 7",
-      reference: "RF561A",
-      esr_number: "00 00834 96356 70000 00000 00019",
-      payee: "Acme Corp\nHallesche Str. 37\n3007 Hinterdupfing",
-      recipient: recipient,
-      recipient_address: Person::Address.new(recipient).for_invoice,
-      issued_at: Date.new(2022, 9, 26),
-      due_at: Date.new(2022, 10, 26),
-      creator: people(:top_leader),
-      vat_number: "CH 1234",
-      group: groups(:dachverein)
-    )
+    Fabricate.build(:invoice,
+      Person::Address.new(recipient).invoice_recipient_address_attributes.merge({
+        sequence_number: "1-1",
+        payment_slip: :qr,
+        total: 1500,
+        iban: "CH93 0076 2011 6238 5295 7",
+        reference: "RF561A",
+        esr_number: "00 00834 96356 70000 00000 00019",
+        recipient: recipient,
+        issued_at: Date.new(2022, 9, 26),
+        due_at: Date.new(2022, 10, 26),
+        creator: people(:top_leader),
+        vat_number: "CH 1234",
+        group: groups(:dachverein)
+      }))
   end
 
   before do
@@ -51,20 +50,17 @@ describe Export::Pdf::Invoice do
         [57, 686, "Top Leader"],
         [57, 674, "Teststrasse 23"],
         [57, 662, "3007 Bern"],
-        [57, 537, "Rechnungsartikel"],
-        [412, 537, "Anzahl"],
-        [469, 537, "Preis"],
-        [512, 537, "Betrag"],
-        [389, 522, "Zwischenbetrag"],
-        [506, 522, "0.00 CHF"],
-        [389, 504, "Gesamtbetrag"],
-        [490, 504, "1'500.00 CHF"],
-        [515, 537, "MwSt."]
+        [57, 554, invoice.title],
+        [57, 521, "Rechnungsartikel"],
+        [412, 521, "Anzahl"],
+        [469, 521, "Preis"],
+        [512, 521, "Betrag"],
+        [389, 506, "Zwischenbetrag"],
+        [506, 506, "0.00 CHF"],
+        [389, 488, "Gesamtbetrag"],
+        [490, 488, "1'500.00 CHF"]
       ]
-
-      text_with_position.each_with_index do |l, i|
-        expect(l).to eq(invoice_text[i])
-      end
+      expect(text_with_position).to eq invoice_text
     end
   end
 
@@ -97,20 +93,18 @@ describe Export::Pdf::Invoice do
         [57, 686, "Max Mustermann"],
         [57, 674, "Musterweg 2"],
         [57, 662, "8000 Hitobitingen"],
-        [57, 537, "Rechnungsartikel"],
-        [412, 537, "Anzahl"],
-        [469, 537, "Preis"],
-        [512, 537, "Betrag"],
-        [389, 522, "Zwischenbetrag"],
-        [506, 522, "0.00 CHF"],
-        [389, 504, "Gesamtbetrag"],
-        [490, 504, "1'500.00 CHF"],
-        [515, 537, "MwSt."]
+        [57, 554, invoice.title],
+        [57, 521, "Rechnungsartikel"],
+        [412, 521, "Anzahl"],
+        [469, 521, "Preis"],
+        [512, 521, "Betrag"],
+        [389, 506, "Zwischenbetrag"],
+        [506, 506, "0.00 CHF"],
+        [389, 488, "Gesamtbetrag"],
+        [490, 488, "1'500.00 CHF"]
       ]
 
-      text_with_position.each_with_index do |l, i|
-        expect(l).to eq(invoice_text[i])
-      end
+      expect(text_with_position).to eq invoice_text
     end
   end
 

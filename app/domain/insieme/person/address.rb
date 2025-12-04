@@ -6,36 +6,57 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::Person::Address
-  def for_invoice
-    (billing_general_person_and_company_name + billing_general_address).compact.join("\n")
+  def invoice_recipient_address_attributes # rubocop:disable Metrics/AbcSize
+    @addressable = additional_addresses.find(&:invoices?) || person
+
+    {
+      recipient_address_care_of: "",
+      recipient_company_name: billing_general_company? ?
+        billing_general_company_name.to_s.squish : nil,
+      recipient_name: billing_general_full_name.to_s.squish,
+      recipient_street: billing_general_street.to_s.squish,
+      recipient_housenumber: billing_general_housenumber.to_s.squish,
+      recipient_postbox: "",
+      recipient_zip_code: billing_general_zip_code,
+      recipient_town: billing_general_town,
+      recipient_country: billing_general_country || default_country
+    }
   end
 
   private
 
-  # rubocop:todo Layout/LineLength
-  # NOTE: according to existing specs this wagon relies only on company_name and ignores company flag
-  # rubocop:enable Layout/LineLength
+  delegate :billing_general_company?, :billing_general_company_name, :billing_general_full_name,
+    :billing_general_address, :billing_general_zip_code, :billing_general_town,
+    :billing_general_country, :company_name?, to: :person
+
+  # NOTE: according to existing specs, this wagon relies only on company_name and ignores the
+  # company flag
   def print_company?(name)
-    @person.company_name? && @person.company_name != name
+    @person.company_name? && company_name != name
   end
 
   def billing_general_person_and_company_name
-    if @person.billing_general_company?
+    if billing_general_company?
       [
-        @person.billing_general_company_name.to_s.squish,
-        @person.billing_general_full_name.to_s.squish
+        billing_general_company_name.to_s.squish,
+        billing_general_full_name.to_s.squish
       ].compact_blank
     else
-      [@person.billing_general_full_name.to_s.squish]
+      [billing_general_full_name.to_s.squish]
     end
   end
 
-  def billing_general_address
-    [@person.billing_general_address.to_s.strip,
-      [@person.billing_general_zip_code, @person.billing_general_town]
-        .compact
-        .join(" ")
-        .squish,
-      country_string(:country).presence]
+  # TODO this is a pretty dumb implementation for a very complex task
+  # see https://github.com/hitobito/hitobito_insieme/issues/195
+  def billing_general_street
+    parts = billing_general_address.split(" ")
+    (parts.length > 1) ? parts[0..-2].join(" ") : parts[0]
+  end
+
+  # TODO this is a pretty dumb implementation for a very complex task
+  # see https://github.com/hitobito/hitobito_insieme/issues/195
+  def billing_general_housenumber
+    parts = billing_general_address.split(" ")
+    (parts.length > 1) ? parts[-1] : nil
   end
 end

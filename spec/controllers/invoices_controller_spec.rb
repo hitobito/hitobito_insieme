@@ -21,7 +21,11 @@ describe InvoicesController do
     it "GET#new uses normal address" do
       get :new, params: {group_id: group.id, invoice: {recipient_id: person.id}}
       expect(response).to be_successful
-      expect(assigns(:invoice).recipient_address).to eq("Top Leader\nTeststrasse 23\n3007 Bern")
+      expect(assigns(:invoice).recipient_name).to eq("Top Leader")
+      expect(assigns(:invoice).recipient_street).to eq("Teststrasse")
+      expect(assigns(:invoice).recipient_housenumber).to eq("23")
+      expect(assigns(:invoice).recipient_zip_code).to eq("3007")
+      expect(assigns(:invoice).recipient_town).to eq("Bern")
     end
 
     it "GET#new uses billing_general address if different from normal address" do
@@ -35,9 +39,11 @@ describe InvoicesController do
       )
       get :new, params: {group_id: group.id, invoice: {recipient_id: person.id}}
       expect(response).to be_successful
-      # rubocop:todo Layout/LineLength
-      expect(assigns(:invoice).recipient_address).to eq("Max Mustermann\nMusterweg 2\n8000 Hitobitingen")
-      # rubocop:enable Layout/LineLength
+      expect(assigns(:invoice).recipient_name).to eq("Max Mustermann")
+      expect(assigns(:invoice).recipient_street).to eq("Musterweg")
+      expect(assigns(:invoice).recipient_housenumber).to eq("2")
+      expect(assigns(:invoice).recipient_zip_code).to eq("8000")
+      expect(assigns(:invoice).recipient_town).to eq("Hitobitingen")
     end
   end
 end
