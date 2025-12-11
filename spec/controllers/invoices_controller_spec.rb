@@ -8,7 +8,6 @@ require "spec_helper"
 describe InvoicesController do
   let(:group) { groups(:dachverein) }
   let(:person) { people(:top_leader) }
-  let(:invoice) { invoices(:invoice) }
 
   before { sign_in(person) }
 
@@ -19,7 +18,10 @@ describe InvoicesController do
     end
 
     it "GET#new uses normal address" do
-      get :new, params: {group_id: group.id, invoice: {recipient_id: person.id}}
+      get :new, params: {
+        group_id: group.id,
+        invoice: {recipient_type: "Person", recipient_id: person.id}
+      }
       expect(response).to be_successful
       expect(assigns(:invoice).recipient_name).to eq("Top Leader")
       expect(assigns(:invoice).recipient_street).to eq("Teststrasse")
@@ -37,7 +39,10 @@ describe InvoicesController do
         billing_general_zip_code: "8000",
         billing_general_town: "Hitobitingen"
       )
-      get :new, params: {group_id: group.id, invoice: {recipient_id: person.id}}
+      get :new, params: {
+        group_id: group.id,
+        invoice: {recipient_type: "Person", recipient_id: person.id}
+      }
       expect(response).to be_successful
       expect(assigns(:invoice).recipient_name).to eq("Max Mustermann")
       expect(assigns(:invoice).recipient_street).to eq("Musterweg")
