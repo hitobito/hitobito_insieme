@@ -107,19 +107,6 @@ describe PeopleController do
       end
     end
 
-    context "ahv_number" do
-      it "will be updated" do
-        put :update, params: {
-          group_id: group.id,
-          id: person.id,
-          person: {ahv_number: "123456789"}
-        }
-        expect(assigns(:person)).to be_valid
-        expect(person.reload.ahv_number).to eq "123456789"
-      end
-    end
-  end
-
   context "GET index" do
     before { sign_in(person) }
 

@@ -7,5 +7,3 @@
 
 - if can?(:modify_internal_fields, @participation)
   = render_attrs(@participation, :invoice_text, :invoice_amount)
-
-= render_attrs(@participation.person, :ahv_number)

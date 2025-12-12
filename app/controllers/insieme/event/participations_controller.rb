@@ -33,7 +33,7 @@ module Insieme
       private
 
       def additional_person_attributes
-        person_attributes = [:id, :canton, :birthday, :ahv_number,
+        person_attributes = [:id, :canton, :birthday,
           :address,
           :address_care_of, :street, :housenumber, :postbox,
           :zip_code, :town, :country, :newly_registered]
