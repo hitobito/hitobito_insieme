@@ -3,4 +3,4 @@
 -#  or later. See the COPYING file at the top-level directory or at
 -#  https://github.com/hitobito/hitobito_insieme.
 
-= render_attrs(entry, *entry.used_attributes(:full_name, :vid, :bsv_number, :canton))
+= render_attrs(entry, *entry.used_attributes(:full_name, :vid, :bsv_number), :insieme_id, *entry.used_attributes(:canton))

@@ -540,6 +540,7 @@ de:
         vid: VID
         bsv_number: BSV-Nummer
         canton: Kanton
+        insieme_id: Insieme-ID
 
       person:
         salutation: Anrede

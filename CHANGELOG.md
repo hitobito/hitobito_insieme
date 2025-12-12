@@ -1,5 +1,9 @@
 # Hitobito Insieme Changelog
 
+## unreleased
+
+* Gruppen ID wird als Insieme-ID auf der Gruppenseite angezeigt (hitobito_insieme#189)
+
 ## Version 2.7
 
 * Eigene Startseite nach User-Login aktiviert (hitobito_insieme#150)

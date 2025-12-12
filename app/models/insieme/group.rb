@@ -50,6 +50,8 @@ module Insieme::Group
         .not(bsv_number: nil)
         .order(Arel.sql("CASE WHEN id = #{Group.root.id} THEN 0 ELSE bsv_number END"))
     end
+
+    alias_method :insieme_id, :id
   end
 
   def canton
