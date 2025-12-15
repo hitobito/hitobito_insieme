@@ -51,47 +51,47 @@ class Group::ExterneOrganisation < Group
   ### ROLES
 
   class Praesident < ::Role
-    self.permissions = [:layer_read, :contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Vorstandsmitglied < ::Role
-    self.permissions = [:layer_read]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:layer_full, :contact_data, :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Sekretariat < ::Role
-    self.permissions = [:layer_full, :contact_data, :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Adressverwaltung < ::Role
-    self.permissions = [:layer_full, :contact_data, :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Versandadresse < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Rechnungsadresse < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Controlling < ::Role
-    self.permissions = [:contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Invoicing < ::Role
-    self.permissions = [:layer_and_below_read, :finance]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
@@ -99,6 +99,21 @@ class Group::ExterneOrganisation < Group
     self.permissions = []
     self.visible_from_above = false
     self.kind = :external
+  end
+
+  class BerechtigungNurLesen < ::Role
+    self.permissions = [:layer_read]
+    self.two_factor_authentication_enforced = true
+  end
+
+  class BerechtigungSekretariat < ::Role
+    self.permissions = [:layer_full, :contact_data, :manual_deletion]
+    self.two_factor_authentication_enforced = true
+  end
+
+  class BerechtigungRechnungen < ::Role
+    self.permissions = [:layer_and_below_read, :finance]
+    self.two_factor_authentication_enforced = true
   end
 
   roles Praesident,
@@ -110,5 +125,8 @@ class Group::ExterneOrganisation < Group
     Rechnungsadresse,
     Controlling,
     Invoicing,
-    External
+    External,
+    BerechtigungNurLesen,
+    BerechtigungSekretariat,
+    BerechtigungRechnungen
 end

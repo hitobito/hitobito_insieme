@@ -92,6 +92,22 @@ de:
         one: IT Support
         other: IT Support
         description:
+      group/dachverein/berechtigung_zv:
+        one: Berechtigung Zv
+        other: Berechtigung Zv
+        description:
+      group/dachverein/berechtigung_admin:
+        one: Berechtigung Admin
+        other: Berechtigung Admin
+        description:
+      group/dachverein/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+        description:
+      group/dachverein/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
+        description:
       group/dachverein/external:
         one: Extern
         other: Externe
@@ -167,6 +183,18 @@ de:
       group/regionalverein/external:
         one: Extern
         other: Externe
+        description:
+      group/regionalverein/berechtigung_nur_lesen:
+        one: Berechtigung nur Lesen
+        other: Berechtigung nur Lesen
+        description:
+      group/regionalverein/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+        description:
+      group/regionalverein/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
         description:
 
       group/regionalverein_liste/listenverwaltung:
@@ -264,6 +292,18 @@ de:
       group/externe_organisation/external:
         one: Extern
         other: Externe
+        description:
+      group/externe_organisation/berechtigung_nur_lesen:
+        one: Berechtigung nur Lesen
+        other: Berechtigung nur Lesen
+        description:
+      group/externe_organisation/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+        description:
+      group/externe_organisation/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
         description:
 
       group/externe_organisation_liste/listenverwaltung:
