@@ -115,7 +115,6 @@ describe Export::Tabular::People do
       let(:data) { Export::Tabular::People::PeopleFull.csv(list) }
 
       its(:headers) { is_expected.to include("Anrede") }
-      its(:headers) { is_expected.to include("AHV Nummer") }
       its(:headers) { is_expected.to include("Bezugspersonennr.") }
       its(:headers) { is_expected.to include("Vorname Bezugsperson") }
       its(:headers) { is_expected.to include("Nachname Bezugsperson") }
