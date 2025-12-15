@@ -6,12 +6,12 @@
 top_leader:
   person: top_leader
   group: dachverein
-  type: Group::Dachverein::Geschaeftsfuehrung
+  type: Group::Dachverein::BerechtigungAdmin
 
 regio_leader:
   person: regio_leader
   group: be
-  type: Group::Regionalverein::Geschaeftsfuehrung
+  type: Group::Regionalverein::BerechtigungSekretariat
 
 regio_aktiv:
   person: regio_aktiv
