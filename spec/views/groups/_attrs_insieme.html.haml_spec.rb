@@ -22,7 +22,7 @@ describe "groups/_attrs_insieme.html.haml" do
 
   let(:group) { groups(:dachverein) }
 
-  it "renders founded_on field" do
+  it "renders insieme_id field" do
     render
     expect(dom).to have_css ".labeled-grid:nth-of-type(3) dt", text: "BSV-Nummer"
     expect(dom).to have_css ".labeled-grid:nth-of-type(4) dt", text: "Insieme-ID"
