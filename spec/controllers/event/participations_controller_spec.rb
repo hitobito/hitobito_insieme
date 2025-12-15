@@ -26,7 +26,6 @@ describe Event::ParticipationsController do
                                  town: "dummy",
                                  street: "dummy",
                                  country: "DE",
-                                 ahv_number: "123",
                                  correspondence_course_same_as_main: false,
                                  correspondence_course_salutation: "dummy",
                                  correspondence_course_first_name: "dummy",
@@ -52,7 +51,6 @@ describe Event::ParticipationsController do
 
     expect(person.reload.canton).to eq "be"
     expect(person.birthday).to eq Date.parse("2014-09-22")
-    expect(person.ahv_number).to eq "123"
     expect(person.zip_code).to eq "10115"
 
     %w[billing_course_zip_code correspondence_course_zip_code].each do |attr|

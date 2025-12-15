@@ -32,7 +32,6 @@
       = render 'contactable/single_address_fields', f: pf, prefix: prefix
 
     = field_set_tag do
-      = pf.labeled_string_field(:ahv_number)
       = pf.labeled_string_field(:birthday,
                                 value: pf.date_value(:birthday),
                                 help_inline: t('people.fields.format_birthday'),

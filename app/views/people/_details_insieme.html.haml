@@ -6,7 +6,6 @@
 - detail_attrs = [:salutation, :canton, :language, :correspondence_language, :number]
 
 - if show_full
-  - detail_attrs << :ahv_number
   - if entry.id != current_user.id
     - detail_attrs << :dossier
 

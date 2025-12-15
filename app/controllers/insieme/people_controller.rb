@@ -10,7 +10,7 @@ module Insieme
     def self.prepended(base) # rubocop:disable Metrics/MethodLength
       base.permitted_attrs +=
         [:salutation, :canton, :language, :correspondence_language,
-          :number, :manual_number, :reference_person_number, :dossier, :ahv_number,
+          :number, :manual_number, :reference_person_number, :dossier,
           :disabled_person_reference, :disabled_person_first_name,
           :disabled_person_last_name, :disabled_person_address,
           :disabled_person_zip_town, :disabled_person_zip_code,

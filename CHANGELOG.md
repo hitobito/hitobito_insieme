@@ -3,6 +3,7 @@
 ## unreleased
 
 * Gruppen ID wird als Insieme-ID auf der Gruppenseite angezeigt (hitobito_insieme#189)
+* AHV Nummern wurden den Personen entfernt (hitobito_insieme#192)
 
 ## Version 2.7
 

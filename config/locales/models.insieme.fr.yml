@@ -579,7 +579,6 @@ fr:
         reference_person_active_membership_roles: Rôles des membres actifs de la personne de référence
         reference_person_additional_information: Indications supplémentaires de la personne de référence
         dossier: Lien du dossier
-        ahv_number: Numéro AVS
 
         address_labels:
           Privat: Personnel
