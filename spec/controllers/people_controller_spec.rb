@@ -106,6 +106,7 @@ describe PeopleController do
         end
       end
     end
+  end
 
   context "GET index" do
     before { sign_in(person) }
