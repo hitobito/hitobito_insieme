@@ -50,43 +50,42 @@ class Group::Dachverein < Group
   ### ROLES
   #
   class Praesident < ::Role
-    self.permissions = [:layer_read, :contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Vorstandsmitglied < ::Role
-    self.permissions = [:layer_read]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Geschaeftsfuehrung < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :contact_data, :impersonation, :finance,
-      :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Sekretariat < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data, :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Adressverwaltung < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data, :manual_deletion]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Controlling < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :contact_data]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class Invoicing < ::Role
-    self.permissions = [:layer_and_below_read, :finance]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
   class ItSupport < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :impersonation]
+    self.permissions = []
     self.two_factor_authentication_enforced = true
   end
 
@@ -94,6 +93,26 @@ class Group::Dachverein < Group
     self.permissions = []
     self.visible_from_above = false
     self.kind = :external
+  end
+
+  class BerechtigungZv < ::Role
+    self.permissions = [:layer_read, :contact_data]
+    self.two_factor_authentication_enforced = true
+  end
+
+  class BerechtigungAdmin < ::Role
+    self.permissions = [:admin, :layer_and_below_full, :contact_data, :manual_deletion]
+    self.two_factor_authentication_enforced = true
+  end
+
+  class BerechtigungSekretariat < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data, :manual_deletion]
+    self.two_factor_authentication_enforced = true
+  end
+
+  class BerechtigungRechnungen < ::Role
+    self.permissions = [:layer_and_below_read, :layer_and_below_finance]
+    self.two_factor_authentication_enforced = true
   end
 
   roles Praesident,
@@ -104,5 +123,9 @@ class Group::Dachverein < Group
     Controlling,
     Invoicing,
     ItSupport,
+    BerechtigungZv,
+    BerechtigungAdmin,
+    BerechtigungSekretariat,
+    BerechtigungRechnungen,
     External
 end
