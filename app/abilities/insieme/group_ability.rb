@@ -13,15 +13,7 @@ module Insieme::GroupAbility
   end
 
   REPORTING_DACH_ROLES = DACH_MANAGER_ROLES + [Group::Dachverein::Controlling]
-
-  REPORTING_REGIO_ROLES = [Group::Regionalverein::Geschaeftsfuehrung,
-    Group::Regionalverein::Sekretariat,
-    Group::Regionalverein::Adressverwaltung,
-    Group::Regionalverein::Controlling,
-    Group::ExterneOrganisation::Geschaeftsfuehrung,
-    Group::ExterneOrganisation::Sekretariat,
-    Group::ExterneOrganisation::Adressverwaltung,
-    Group::ExterneOrganisation::Controlling].freeze
+  REPORTING_REGIO_ROLES = [Group::Regionalverein::BerechtigungSekretariat].freeze
 
   included do # rubocop:disable Metrics/BlockLength
     on(Group) do # rubocop:disable Metrics/BlockLength
