@@ -23,7 +23,7 @@ describe PeopleController do
     context "manual number and reference_person_number" do
       context "by another person" do
         let(:other_person) do
-          Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
+          Fabricate(Group::Dachverein::BerechtigungAdmin.sti_name.to_sym, group: group).person
         end
 
         before { sign_in(other_person) }
@@ -76,7 +76,7 @@ describe PeopleController do
     context "dossier" do
       context "by another person" do
         let(:other_person) do
-          Fabricate(Group::Dachverein::Geschaeftsfuehrung.sti_name.to_sym, group: group).person
+          Fabricate(Group::Dachverein::BerechtigungAdmin.sti_name.to_sym, group: group).person
         end
 
         before { sign_in(other_person) }
