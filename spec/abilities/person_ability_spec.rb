@@ -12,19 +12,17 @@ describe PersonAbility do
   subject { ability }
 
   context :contact_data do
-    let(:group) { groups(:be) }
-    let(:role_name) { Group::Regionalverein::Controlling.name }
+    let(:gremium) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: groups(:be)) }
+    let(:role) { Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium) }
 
     context "in same layer" do
-      let(:gremium) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: group) }
-
       it "may show person with contact data" do
-        other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium).person
+        other = Fabricate(Group::Regionalverein::BerechtigungSekretariat.sti_name, group: groups(:be)).person
         is_expected.to be_able_to(:show, other)
       end
 
       it "may index people in own group" do
-        is_expected.to be_able_to(:index_people, group)
+        is_expected.to be_able_to(:index_people, gremium)
       end
 
       it "may index people in other group" do

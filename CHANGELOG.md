@@ -4,6 +4,7 @@
 
 * Gruppen ID wird als Insieme-ID auf der Gruppenseite angezeigt (hitobito_insieme#189)
 * AHV Nummern wurden den Personen entfernt (hitobito_insieme#192)
+* Neue Rollen wurden hinzugefügt und Berechtigungen von bestehenden Rollen angepasst (hitobito_insieme#188)
 
 ## Version 2.7
 

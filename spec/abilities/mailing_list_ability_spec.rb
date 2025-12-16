@@ -13,7 +13,7 @@ describe MailingListAbility do
 
     context "layer read and below" do
       let(:role) {
-        Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym, group: groups(:dachverein))
+        Fabricate(Group::Dachverein::BerechtigungAdmin.sti_name, group: groups(:dachverein))
       }
 
       context "in same layer" do
@@ -28,7 +28,9 @@ describe MailingListAbility do
     end
 
     context "any role" do
-      let(:role) { Fabricate(Group::Regionalverein::Praesident.name.to_sym, group: groups(:be)) }
+      let(:role) {
+        Fabricate(Group::Regionalverein::BerechtigungSekretariat.sti_name, group: groups(:be))
+      }
 
       context "in same layer" do
         it { is_expected.to be_able_to(:show, Fabricate.build(:mailing_list, group: role.group)) }
