@@ -47,8 +47,7 @@ describe CourseReporting::AggregationsController do
   end
 
   it "export does not render consolidated if not allowed" do
-    sign_in(Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name, group: groups(:be)).person)
-
+    sign_in(Fabricate(Group::Regionalverein::BerechtigungSekretariat.name, group: groups(:be)).person)
     get :export,
       params: {id: groups(:be).id, year: 2014, lk: "bk", subsidized: "true", categories: [1, 2, 3],
                consolidate: true}

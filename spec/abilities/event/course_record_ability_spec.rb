@@ -36,7 +36,7 @@ describe Event::CourseRecordAbility do
 
   context :layer_full do
     let(:role) do
-      Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
+      Fabricate(Group::Regionalverein::BerechtigungSekretariat.name.to_sym, group: groups(:be))
     end
 
     context Event::Course do
