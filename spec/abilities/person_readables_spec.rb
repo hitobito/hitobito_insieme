@@ -6,63 +6,31 @@
 require "spec_helper"
 
 describe PersonReadables do
-  [:index, :layer_search, :deep_search, :global].each do |action|
-    context action do
-      let(:action) { action }
-      let(:user) { role.person.reload }
-      let(:ability) { PersonReadables.new(user, (action == :index) ? group : nil) }
+  let(:action) { action }
+  let(:user) { role.person.reload }
+  let(:ability) { PersonReadables.new(user, nil) }
 
-      let(:all_accessibles) do
-        people = Person.accessible_by(ability)
-        case action
-        when :index then people
-        when :layer_search then people.in_layer(group.layer_group)
-        when :deep_search then people.in_or_below(group.layer_group)
-        when :global then people
-        end
-      end
+  let(:all_accessibles) { Person.accessible_by(ability) }
 
-      subject { all_accessibles }
+  subject { all_accessibles }
 
-      context :contact_data do
-        let(:role) { Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:be)) }
+  context :contact_data do
+    let(:gremium) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: groups(:be)) }
+    let(:role) { Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: gremium) }
 
-        context "in own group" do
-          let(:group) { role.group }
+    it "may get other person with contact data" do
+      other = Fabricate(Group::Regionalverein::BerechtigungSekretariat.name.to_sym, group: groups(:be))
+      is_expected.to include(other.person)
+    end
 
-          it "may get himself" do
-            is_expected.to include(role.person)
-          end
+    it "may not get other person with contact data in lower layer" do
+      other = Fabricate(Group::Regionalverein::BerechtigungSekretariat.name.to_sym, group: groups(:seeland))
+      is_expected.not_to include(other.person)
+    end
 
-          it "may get people with contact data" do
-            other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
-            is_expected.to include(other.person)
-          end
-        end
-
-        context "in other group in same layer" do
-          let(:group) { Fabricate(Group::RegionalvereinGremium.name.to_sym, parent: role.group) }
-
-          it "may get people with contact data" do
-            other = Fabricate(Group::RegionalvereinGremium::Leitung.name.to_sym, group: group)
-            is_expected.to include(other.person)
-          end
-
-          it "may not get people without contact data" do
-            other = Fabricate(Group::RegionalvereinGremium::Mitglied.name.to_sym, group: group)
-            is_expected.not_to include(other.person)
-          end
-        end
-
-        context "in lower layer" do
-          let(:group) { groups(:seeland) }
-
-          it "may not get person with contact data" do
-            other = Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: group)
-            is_expected.not_to include(other.person)
-          end
-        end
-      end
+    it "may not get other person with contact data in upper layer" do
+      other = Fabricate(Group::Dachverein::BerechtigungAdmin.name.to_sym, group: groups(:dachverein))
+      is_expected.not_to include(other.person)
     end
   end
 end
