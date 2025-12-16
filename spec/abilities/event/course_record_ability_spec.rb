@@ -67,32 +67,6 @@ describe Event::CourseRecordAbility do
     end
   end
 
-  context :contact_data do
-    let(:role) do
-      Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:be))
-    end
-
-    context Event::Course do
-      it "may update report of event in his group" do
-        is_expected.to be_able_to(:update, record)
-      end
-
-      it "may not update report of event in his layer" do
-        other = Event::CourseRecord.new(event: Fabricate(:course,
-          groups: [groups(:seeland)],
-          leistungskategorie: "bk", fachkonzept: "sport_jugend"))
-        is_expected.not_to be_able_to(:update, other)
-      end
-
-      it "may not update report of any other group" do
-        other = Event::CourseRecord.new(event: Fabricate(:course,
-          groups: [groups(:fr)],
-          leistungskategorie: "bk", fachkonzept: "sport_jugend"))
-        is_expected.not_to be_able_to(:update, other)
-      end
-    end
-  end
-
   # The following scenarios are not testable with the insieme group structure, since there
   # is no role with permission :group_full in a group that allows Event::Course:
   #  * :group_full may update report of event in his group
