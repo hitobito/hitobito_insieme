@@ -107,7 +107,7 @@ describe Export::Tabular::People do
         its(["Land"]) { is_expected.to eq person.country_label }
         its(["Vorname Korrespondenzadresse allgemein"]) { is_expected.to eq "Töp" }
         its(["Land Korrespondenzadresse allgemein"]) { is_expected.to eq "Frankreich" }
-        its(["Rollen"]) { is_expected.to eq "Geschäftsführung insieme Schweiz" }
+        its(["Rollen"]) { is_expected.to eq "Berechtigung Admin insieme Schweiz" }
       end
     end
 

@@ -38,7 +38,7 @@ describe EventAbility do
 
     context "layer read and below" do
       let(:role) {
-        Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
+        Fabricate(Group::Dachverein::BerechtigungAdmin.name.to_sym,
           group: groups(:dachverein))
       }
 
@@ -123,7 +123,9 @@ describe EventAbility do
     end
 
     context "any role" do
-      let(:role) { Fabricate(Group::Regionalverein::Praesident.name.to_sym, group: groups(:be)) }
+      let(:role) {
+        Fabricate(Group::Regionalverein::BerechtigungSekretariat.name.to_sym, group: groups(:be))
+      }
 
       context "regular event" do
         context "in same layer" do
