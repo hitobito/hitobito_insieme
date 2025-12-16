@@ -101,7 +101,13 @@ class Group::Dachverein < Group
   end
 
   class BerechtigungAdmin < ::Role
-    self.permissions = [:admin, :layer_and_below_full, :contact_data, :manual_deletion]
+    self.permissions = [
+      :admin,
+      :layer_and_below_full,
+      :contact_data,
+      :manual_deletion,
+      :impersonation
+    ]
     self.two_factor_authentication_enforced = true
   end
 
