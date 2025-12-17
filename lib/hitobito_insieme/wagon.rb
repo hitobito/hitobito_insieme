@@ -71,6 +71,8 @@ module HitobitoInsieme
       EventDecorator.prepend Insieme::EventDecorator
 
       # domain
+      Contactable::Address.prepend Insieme::Contactable::Address
+
       Export::Tabular::People::PeopleAddress.prepend Insieme::Export::Tabular::People::PeopleAddress
       Export::Tabular::People::PeopleFull.prepend Insieme::Export::Tabular::People::PeopleFull
       Export::Tabular::People::PersonRow.include Insieme::Export::Tabular::People::PersonRow
@@ -88,7 +90,6 @@ module HitobitoInsieme
         Insieme::Export::Pdf::Invoice::InvoiceInformation
       )
       Import::PersonDuplicateFinder.prepend Insieme::Import::PersonDuplicateFinder
-      Person::Address.prepend Insieme::Person::Address
 
       Featureperioden::Dispatcher
         .domain_classes("Export::Xlsx::CostAccounting::Style")
