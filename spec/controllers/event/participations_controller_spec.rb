@@ -203,11 +203,11 @@ describe Event::ParticipationsController do
 
     [
       {permission: ":layer_full",
-       group_role: Group::Regionalverein::Geschaeftsfuehrung,
+       group_role: Group::Regionalverein::BerechtigungSekretariat,
        group_name: :be,
        course_role: Event::Course::Role::LeaderBasic},
       {permission: ":participations_full",
-       group_role: Group::Dachverein::Geschaeftsfuehrung,
+       group_role: Group::Dachverein::BerechtigungAdmin,
        group_name: :dachverein,
        course_role: Event::Course::Role::LeaderAdmin}
     ].each do |attrs|
@@ -281,7 +281,7 @@ describe Event::ParticipationsController do
 
     context "without :layer_full or :participations_full permission" do
       let(:person) do
-        Fabricate(Group::Dachverein::Geschaeftsfuehrung.name.to_sym,
+        Fabricate(Group::Dachverein::BerechtigungAdmin.sti_name,
           group: groups(:dachverein)).person
       end
       let(:participation) { Fabricate(:event_participation, event: course, participant: person) }

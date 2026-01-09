@@ -14,7 +14,7 @@ describe GroupAbility do
   context "Dachverein" do
     let(:group) { groups(:dachverein) }
 
-    %w[Geschaeftsfuehrung Sekretariat Adressverwaltung].each do |role_class|
+    %w[BerechtigungAdmin].each do |role_class|
       context role_class do
         let(:role_name) { "Group::Dachverein::#{role_class}" }
 
@@ -87,26 +87,6 @@ describe GroupAbility do
         is_expected.not_to be_able_to(:controlling, group)
       end
     end
-
-    context Group::Dachverein::Controlling do
-      let(:role_name) { "Group::Dachverein::Controlling" }
-
-      it "may :statistics on layer" do
-        is_expected.to be_able_to(:statistics, group)
-      end
-
-      it "may :reporting on layer" do
-        is_expected.to be_able_to(:reporting, group)
-      end
-
-      it "may :controlling on layer" do
-        is_expected.to be_able_to(:controlling, group)
-      end
-
-      it "may :reporting on layer below" do
-        is_expected.to be_able_to(:reporting, groups(:be))
-      end
-    end
   end
 
   context "Regionalverein" do
@@ -122,8 +102,8 @@ describe GroupAbility do
       end
     end
 
-    context Group::Regionalverein::Geschaeftsfuehrung do
-      let(:role_name) { "Group::Regionalverein::Geschaeftsfuehrung" }
+    context Group::Regionalverein::BerechtigungSekretariat do
+      let(:role_name) { "Group::Regionalverein::BerechtigungSekretariat" }
       let(:subgroup) { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
       it "may :reporting on same group" do
@@ -240,8 +220,8 @@ describe GroupAbility do
       let(:role_name) { "Group::Regionalverein::Controlling" }
       let(:subgroup) { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
-      it "may :reporting on same group" do
-        is_expected.to be_able_to(:reporting, group)
+      it "may not :reporting on same group" do
+        is_expected.not_to be_able_to(:reporting, group)
       end
 
       it "may not :reporting on layer above" do
@@ -301,8 +281,8 @@ describe GroupAbility do
         is_expected.to be_able_to(:index_events, groups(:fr))
       end
 
-      it "may index people in same layer" do
-        is_expected.to be_able_to(:index_people, group)
+      it "may not index people in same layer" do
+        is_expected.not_to be_able_to(:index_people, group)
       end
 
       it "may not index people in layer below" do
@@ -335,7 +315,7 @@ describe GroupAbility do
     let(:group) { Fabricate(Group::ExterneOrganisation.name.to_sym, parent: groups(:dachverein)) }
 
     context "Geschaeftsfuehrung" do
-      let(:role_name) { "Group::ExterneOrganisation::Geschaeftsfuehrung" }
+      let(:role_name) { "Group::ExterneOrganisation::BerechtigungSekretariat" }
       let(:subgroup) { Group.new(parent: group, layer_group_id: group.layer_group_id) }
 
       it "may read group in same layer" do
