@@ -14,6 +14,7 @@ describe InvoicesController do
 
   context "new" do
     before do
+      Fabricate(Group::Dachverein::BerechtigungRechnungen.sti_name, group:, person:)
       # trigger address normalization
       person.save!
     end

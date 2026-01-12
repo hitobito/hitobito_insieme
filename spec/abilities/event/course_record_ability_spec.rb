@@ -36,7 +36,7 @@ describe Event::CourseRecordAbility do
 
   context :layer_full do
     let(:role) do
-      Fabricate(Group::Regionalverein::Geschaeftsfuehrung.name.to_sym, group: groups(:be))
+      Fabricate(Group::Regionalverein::BerechtigungSekretariat.name.to_sym, group: groups(:be))
     end
 
     context Event::Course do
@@ -63,32 +63,6 @@ describe Event::CourseRecordAbility do
             leistungskategorie: "bk", fachkonzept: "sport_jugend"))
           is_expected.not_to be_able_to(:update, other)
         end
-      end
-    end
-  end
-
-  context :contact_data do
-    let(:role) do
-      Fabricate(Group::Regionalverein::Controlling.name.to_sym, group: groups(:be))
-    end
-
-    context Event::Course do
-      it "may update report of event in his group" do
-        is_expected.to be_able_to(:update, record)
-      end
-
-      it "may not update report of event in his layer" do
-        other = Event::CourseRecord.new(event: Fabricate(:course,
-          groups: [groups(:seeland)],
-          leistungskategorie: "bk", fachkonzept: "sport_jugend"))
-        is_expected.not_to be_able_to(:update, other)
-      end
-
-      it "may not update report of any other group" do
-        other = Event::CourseRecord.new(event: Fabricate(:course,
-          groups: [groups(:fr)],
-          leistungskategorie: "bk", fachkonzept: "sport_jugend"))
-        is_expected.not_to be_able_to(:update, other)
       end
     end
   end
