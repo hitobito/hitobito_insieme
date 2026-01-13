@@ -92,6 +92,22 @@ fr:
         one: support informatique
         many: support informatique
         other: support informatique
+      group/dachverein/berechtigung_zv:
+        one: Berechtigung Zv
+        many: Berechtigung Zv
+        other: Berechtigung Zv
+      group/dachverein/berechtigung_admin:
+        one: Berechtigung Admin
+        many: Berechtigung Admin
+        other: Berechtigung Admin
+      group/dachverein/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        many: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+      group/dachverein/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        many: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
       group/dachverein/external:
         one: Externe
         many: Externe
@@ -164,6 +180,18 @@ fr:
         one: E
         many: Externe
         other: Externe
+      group/regionalverein/berechtigung_nur_lesen:
+        one: Berechtigung nur Lesen
+        many: Berechtigung nur Lesen
+        other: Berechtigung nur Lesen
+      group/regionalverein/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        many: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+      group/regionalverein/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        many: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
       group/regionalverein_liste/listenverwaltung:
         one: Li
         many: Gestion des listes
@@ -258,6 +286,18 @@ fr:
         one: Externe
         many: Externe
         other: Externe
+      group/externe_organisation/berechtigung_nur_lesen:
+        one: Berechtigung nur Lesen
+        many: Berechtigung nur Lesen
+        other: Berechtigung nur Lesen
+      group/externe_organisation/berechtigung_sekretariat:
+        one: Berechtigung Sekretariat
+        many: Berechtigung Sekretariat
+        other: Berechtigung Sekretariat
+      group/externe_organisation/berechtigung_rechnungen:
+        one: Berechtigung Rechnungen
+        many: Berechtigung Rechnungen
+        other: Berechtigung Rechnungen
       group/externe_organisation_liste/listenverwaltung:
         one: Gestion des listes
         many: Gestion des listes
