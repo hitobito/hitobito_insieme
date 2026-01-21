@@ -92,7 +92,7 @@ module Fp2022::Export
         private
 
         def attributes
-          [:group].tap do |attrs|
+          [:group, :group_id].tap do |attrs|
             if liste.type == TimeRecord::VolunteerWithoutVerificationTime.sti_name
               attrs.concat(ATTRS_LUFEB_SUM)
             else
@@ -115,10 +115,11 @@ module Fp2022::Export
           end
 
           def fetch(attr)
-            if attr == :group
-              verein.to_s
-            elsif record
-              record.send(attr)
+            case attr
+            when :group then verein.to_s
+            when :group_id then verein.id
+            else
+              record.send(attr) if record
             end
           end
         end

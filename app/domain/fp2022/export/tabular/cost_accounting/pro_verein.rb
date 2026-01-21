@@ -57,7 +57,7 @@ module Fp2022::Export::Tabular::CostAccounting
     end
 
     def group_row(group)
-      [group.name, group.bsv_number, *Array.new(label_keys.count - 2, nil)]
+      [group.name, group.bsv_number, group.id, *Array.new(label_keys.count - 3, nil)]
     end
 
     def data_row(row_label, row_data)

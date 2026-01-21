@@ -63,7 +63,7 @@ module Fp2022::Export
         end
 
         def group_label(group)
-          [group.name, group.bsv_number, nil, nil, nil, nil] + stats.cantons.map { |_| nil }
+          [group.name, group.bsv_number, group.id, nil, nil, nil] + stats.cantons.map { |_| nil }
         end
 
         def group_stats(group_id, lk, fachkonzept) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize

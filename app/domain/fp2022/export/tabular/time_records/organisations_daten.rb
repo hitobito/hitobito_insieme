@@ -45,7 +45,7 @@ module Fp2022::Export::Tabular::TimeRecords
     private
 
     def group_label(group)
-      [group.name, nil]
+      [group.name, group.id]
     end
 
     def group_row(group, stat)

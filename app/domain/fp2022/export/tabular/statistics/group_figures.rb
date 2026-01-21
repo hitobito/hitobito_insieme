@@ -34,7 +34,7 @@ module Fp2022::Export
         end
 
         def labels
-          labels = [t("name"), t("canton"), t("vid"), t("bsv")]
+          labels = [t("name"), t("canton"), t("vid"), t("bsv"), t("id")]
           append_course_labels(labels)
           append_time_labels(labels)
           append_fte_labels(labels)
@@ -98,7 +98,8 @@ module Fp2022::Export
           values = [group.full_name.presence || group.name,
             group.canton_label,
             group.vid,
-            group.bsv_number]
+            group.bsv_number,
+            group.id]
 
           iterate_courses do |lk, fk|
             append_course_values(values, figures.course_record(group, lk, fk), lk)

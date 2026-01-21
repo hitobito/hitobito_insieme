@@ -290,6 +290,7 @@ de:
       canton: Kanton
       vid: VID
       bsv: BSV Nummer
+      id: Insieme-ID
       kategorie: Kat. %{number}
       leistungskategorie_bk: Blockkurse
       leistungskategorie_tk: Tageskurse
@@ -672,6 +673,8 @@ de:
         general: Allgemeine Medien & Öffentlichkeitsarbeit
         specific_with_grundlagen: Themenspezifische Grundlagenarbeit
         promoting: Förderung der Selbsthilfe
+
+      group_id: Insieme-ID
 
       group_data:
         group_or_stat: Gruppe/Feldname

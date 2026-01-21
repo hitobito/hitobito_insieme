@@ -89,6 +89,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
       "Kanton",
       "VID",
       "BSV Nummer",
+      "Insieme-ID",
 
       "Blockkurse Anzahl Kurse Freizeit Kinder & Jugendliche",
       "Blockkurse Total Vollkosten Freizeit Kinder & Jugendliche",
@@ -420,6 +421,7 @@ describe Fp2022::Export::Tabular::Statistics::GroupFigures do
         "Kanton" => nil,
         "VID" => nil,
         "BSV Nummer" => 2343,
+        "Insieme-ID" => groups(:dachverein).id,
 
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => -200_000.0,
         "Faktor Kapitalsubstrat" => 0.0,
