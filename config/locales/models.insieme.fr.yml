@@ -91,23 +91,23 @@ fr:
       group/dachverein/it_support:
         one: support informatique
         many: support informatique
-        other: support informatique
+        other: Support informatique
       group/dachverein/berechtigung_zv:
-        one: Berechtigung Zv
-        many: Berechtigung Zv
-        other: Berechtigung Zv
+        one: Autorisation Zv
+        many: Autorisation Zv
+        other: Autorisation comité
       group/dachverein/berechtigung_admin:
-        one: Berechtigung Admin
-        many: Berechtigung Admin
-        other: Berechtigung Admin
+        one: Autorisation Admin
+        many: Autorisation Admin
+        other: Autorisation admin
       group/dachverein/berechtigung_sekretariat:
-        one: Berechtigung Sekretariat
-        many: Berechtigung Sekretariat
-        other: Berechtigung Sekretariat
+        one: Autorisation Secrétariat
+        many: Autorisation Secrétariat
+        other: Autorisation secrétariat
       group/dachverein/berechtigung_rechnungen:
-        one: Berechtigung Rechnungen
-        many: Berechtigung Rechnungen
-        other: Berechtigung Rechnungen
+        one: Autorisation Factures
+        many: Autorisation Factures
+        other: Autorisation factures
       group/dachverein/external:
         one: Externe
         many: Externe
@@ -181,17 +181,17 @@ fr:
         many: Externe
         other: Externe
       group/regionalverein/berechtigung_nur_lesen:
-        one: Berechtigung nur Lesen
-        many: Berechtigung nur Lesen
-        other: Berechtigung nur Lesen
+        one: Autorisation de lecture uniquement
+        many: Autorisation de lecture uniquement
+        other: Autorisation lecture uniquement
       group/regionalverein/berechtigung_sekretariat:
-        one: Berechtigung Sekretariat
-        many: Berechtigung Sekretariat
-        other: Berechtigung Sekretariat
+        one: Autorisation Secrétariat
+        many: Autorisation Secrétariat
+        other: Autorisation secrétariat
       group/regionalverein/berechtigung_rechnungen:
-        one: Berechtigung Rechnungen
-        many: Berechtigung Rechnungen
-        other: Berechtigung Rechnungen
+        one: Autorisation Factures
+        many: Autorisation Factures
+        other: Autorisation factures
       group/regionalverein_liste/listenverwaltung:
         one: Li
         many: Gestion des listes
@@ -287,17 +287,17 @@ fr:
         many: Externe
         other: Externe
       group/externe_organisation/berechtigung_nur_lesen:
-        one: Berechtigung nur Lesen
-        many: Berechtigung nur Lesen
-        other: Berechtigung nur Lesen
+        one: Autorisation de lecture uniquement
+        many: Autorisation de lecture uniquement
+        other: Autorisation lecture uniquement
       group/externe_organisation/berechtigung_sekretariat:
-        one: Berechtigung Sekretariat
-        many: Berechtigung Sekretariat
-        other: Berechtigung Sekretariat
+        one: Autorisation Secrétariat
+        many: Autorisation Secrétariat
+        other: Autorisation secrétariat
       group/externe_organisation/berechtigung_rechnungen:
-        one: Berechtigung Rechnungen
-        many: Berechtigung Rechnungen
-        other: Berechtigung Rechnungen
+        one: Autorisation Factures
+        many: Autorisation Factures
+        other: Autorisation factures
       group/externe_organisation_liste/listenverwaltung:
         one: Gestion des listes
         many: Gestion des listes
@@ -329,7 +329,7 @@ fr:
       event/course/role/caretaker:
         one: personne soignant
         many: personnel soignant
-        other: personnel soignant
+        other: Personnel soignant
       event/course/role/expert:
         one: Spécialistes hautement qualifiés
         many: Spécialistes hautement qualifiés
@@ -468,11 +468,11 @@ fr:
             other: Lieux d’accueil
         fachkonzept: Contenu du cours
         fachkonzepte:
-          freizeit_jugend: loisirs enfants et jeunes
-          freizeit_erwachsen: loisirs adultes et personnes d'âge mixte
-          sport_jugend: sports enfants et jeunes
-          sport_erwachsen: sports adultes et personnes d'âge mixte
-          autonomie_foerderung: aide à l’entraide / éducation
+          freizeit_jugend: Loisirs enfants et jeunes
+          freizeit_erwachsen: Loisirs adultes et personnes d'âge mixte
+          sport_jugend: Sports enfants et jeunes
+          sport_erwachsen: Sports adultes et personnes d'âge mixte
+          autonomie_foerderung: Aide à l’entraide / éducation
           treffpunkt: Lieux d’accueil
 
       event/course_record:
@@ -498,7 +498,7 @@ fr:
         hilfspersonal_ohne_honorar: Personnel auxiliaire sans honoraire
         hilfspersonal_mit_honorar: Personnel auxiliaire avec honoraire
         kuechenpersonal: Personnel en cuisine
-        betreuerinnen: personnel soignant
+        betreuerinnen: Personnel soignant
         honorare_inkl_sozialversicherung: Honoraires, assurance sociale y comprise
         unterkunft: 'Hébergement / charges de locaux '
         uebriges: Autres y compris nourriture
@@ -582,7 +582,7 @@ fr:
         vid: Identification de l'association IDA
         bsv_number: Numéro OFAS
         canton: Canton
-        insieme_id: Insieme-ID
+        insieme_id: ID insieme
 
       person:
         salutation: Titre
@@ -825,7 +825,7 @@ fr:
         manual_number_in_automatic_range: Ne doit pas être compris entre %{lower} et %{upper}, s'il est inscrit manuellement.
         automatic_number_in_manual_range: Doit être compris entre %{lower} et %{upper}, s'il est inscrit automatiquement.
         less_than_teilnehmende_behinderte: doit être inférieur ou égal au nombre de personnes avec handicap.
-        reporting_frozen: Est bouclé et a été bloqué
+        reporting_frozen: est bouclé et a été bloqué
         event_reporting_frozen: Cette année de reporting est bouclée et a été bloquée
 
   cost_accounting:
