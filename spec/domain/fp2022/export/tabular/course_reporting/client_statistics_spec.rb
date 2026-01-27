@@ -102,7 +102,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
       # rubocop:todo Layout/LineLength
       #                                                         'kursinhalt'    Kurse  Std  NB  'Sum' 'AG' 'AI' 'AR' 'BE' 'BL' 'BS' 'FR' 'GE' 'GL' 'GR' 'JU' 'LU' 'NE' 'NW' 'OW' 'SG' 'SH' 'SO' 'SZ' 'TG' 'TI' 'UR' 'VD' 'VS' 'ZG' 'ZH' 'Andere Herkunft'
       # rubocop:enable Layout/LineLength
-      expect(data[0]).to match_array(["insieme Schweiz", 2343, nil, nil, nil, nil, nil, nil, nil,
+      expect(data[0]).to match_array(["insieme Schweiz", 2343, groups(:dachverein).id, nil, nil, nil, nil, nil, nil,
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
@@ -138,7 +138,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
-      expect(data[9]).to match_array(["Kanton Bern", 2024, nil, nil, nil, nil, nil, nil, nil, nil,
+      expect(data[9]).to match_array(["Kanton Bern", 2024, groups(:be).id, nil, nil, nil, nil, nil, nil, nil,
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
@@ -174,7 +174,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
-      expect(data[18]).to match_array(["Biel-Seeland", 3115, nil, nil, nil, nil, nil, nil, nil,
+      expect(data[18]).to match_array(["Biel-Seeland", 3115, groups(:seeland).id, nil, nil, nil, nil, nil, nil,
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
@@ -210,7 +210,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
-      expect(data[27]).to match_array(["Freiburg", 12607, nil, nil, nil, nil, nil, nil, nil, nil,
+      expect(data[27]).to match_array(["Freiburg", 12607, groups(:fr).id, nil, nil, nil, nil, nil, nil, nil,
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
@@ -295,7 +295,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
     data = exporter.data_rows.to_a
 
     #                             Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
-    expect(data[18][0..5]).to eq ["Biel-Seeland", 3115, nil, nil, nil, nil]
+    expect(data[18][0..5]).to eq ["Biel-Seeland", 3115, groups(:seeland).id, nil, nil, nil]
     expect(data[19][0..5]).to eq ["Semester-/Jahreskurse", "Weiterbildung", 1, 150, 10, 15]
     expect(data[20][0..5]).to eq ["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil]
     expect(data[21][0..5]).to eq ["Blockkurse", "Weiterbildung", nil, nil, nil, nil]
@@ -335,7 +335,7 @@ describe Fp2022::Export::Tabular::CourseReporting::ClientStatistics do
     data = exporter.data_rows.to_a
 
     #                             Verein / Kurstyp         Kursinhalt        Anz  LE   NB  Total
-    expect(data[18][0..5]).to eq ["Biel-Seeland", 3115, nil, nil, nil, nil]
+    expect(data[18][0..5]).to eq ["Biel-Seeland", 3115, groups(:seeland).id, nil, nil, nil]
     expect(data[19][0..5]).to eq ["Semester-/Jahreskurse", "Weiterbildung", 6, nil, nil, nil]
     expect(data[20][0..5]).to eq ["Semester-/Jahreskurse", "Sport/Freizeit", nil, nil, nil, nil]
     expect(data[21][0..5]).to eq ["Blockkurse", "Weiterbildung", nil, nil, nil, nil]

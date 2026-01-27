@@ -38,12 +38,12 @@ describe Fp2022::Export::Tabular::TimeRecords::LufebProVerein do
     rows = subject.data_rows.take(10)
 
     expect(rows[0]).to be_all nil
-    expect(rows[1]).to eq ["insieme Schweiz", nil]
+    expect(rows[1]).to eq ["insieme Schweiz", groups(:dachverein).id]
     expect(rows[2]).to eq ["Allgemeine Medien & Öffentlichkeitsarbeit", 1]
     expect(rows[3]).to eq ["Themenspezifische Grundlagenarbeit", 11]
     expect(rows[4]).to eq ["Förderung der Selbsthilfe", 3]
     expect(rows[5]).to be_all nil
-    expect(rows[6]).to eq ["Kanton Bern", nil]
+    expect(rows[6]).to eq ["Kanton Bern", groups(:be).id]
     expect(rows[7]).to eq ["Allgemeine Medien & Öffentlichkeitsarbeit", 2]
     expect(rows[8]).to eq ["Themenspezifische Grundlagenarbeit", 21]
     expect(rows[9]).to eq ["Förderung der Selbsthilfe", 6]

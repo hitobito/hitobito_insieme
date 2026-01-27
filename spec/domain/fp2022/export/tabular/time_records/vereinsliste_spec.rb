@@ -17,6 +17,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
         labels = described_class.new(fp_class("TimeRecord::Vereinsliste").new(year, type)).labels
         expected_labels = [
           "Gruppe",
+          "Insieme-ID",
           "Grundlagenarbeit zu LUFEB",
           "Information / Beratung von Organisationen und Einzelpersonen",
           "Unterstützung von Menschen mit Behinderungen in Leitorganen",
@@ -70,6 +71,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
         labels = described_class.new(fp_class("TimeRecord::Vereinsliste").new(year, type)).labels
         expected_labels = [
           "Gruppe",
+          "Insieme-ID",
           "Grundlagenarbeit zu LUFEB",
           "Förderung der Selbsthilfe",
           "Allgemeine Medien- und Öffentlichkeitsarbeit",
@@ -98,7 +100,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
 
     it "contains no data" do
       rows = export
-      expect(rows[0]).to match_array ["insieme Schweiz",
+      expect(rows[0]).to match_array ["insieme Schweiz", groups(:dachverein).id,
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
         nil, nil, nil, nil, nil,
         nil, nil, nil, nil, nil, nil, nil,
@@ -136,7 +138,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
     context "for employee time" do
       it "contains all data" do
         data = export
-        expect(data[3]).to eq(["Kanton Bern",
+        expect(data[3]).to eq(["Kanton Bern", groups(:be).id,
           nil, nil, nil, nil, 0,
           nil, nil, nil, nil, 0,
           nil, nil, nil, nil, 0, 0,
@@ -177,6 +179,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
         data = export
         expect(labels.zip(data[3]).to_h).to eq empty_row.merge({
           "Gruppe" => "Kanton Bern",
+          "Insieme-ID" => groups(:be).id,
 
           "Allgemeine Medien- und Öffentlichkeitsarbeit" => 300,
           "Total LUFEB-Leistungen" => 300,
