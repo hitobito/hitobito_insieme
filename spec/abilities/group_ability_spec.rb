@@ -314,9 +314,13 @@ describe GroupAbility do
   context "Externe Organisation" do
     let(:group) { Fabricate(Group::ExterneOrganisation.name.to_sym, parent: groups(:dachverein)) }
 
-    context "Geschaeftsfuehrung" do
+    context Group::ExterneOrganisation::BerechtigungSekretariat do
       let(:role_name) { "Group::ExterneOrganisation::BerechtigungSekretariat" }
       let(:subgroup) { Group.new(parent: group, layer_group_id: group.layer_group_id) }
+
+      it "may :reporting on same group" do
+        is_expected.to be_able_to(:reporting, group)
+      end
 
       it "may read group in same layer" do
         is_expected.to be_able_to(:show, subgroup)
