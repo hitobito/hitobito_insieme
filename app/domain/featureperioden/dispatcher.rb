@@ -7,7 +7,7 @@
 
 module Featureperioden
   class Dispatcher
-    KNOWN_BASE_YEARS = [2015, 2020, 2022].freeze
+    KNOWN_BASE_YEARS = [2015, 2020, 2022, 2024].freeze
 
     def self.domain_classes(class_name)
       KNOWN_BASE_YEARS.map { |fp| Dispatcher.new(fp).domain_class(class_name) }
