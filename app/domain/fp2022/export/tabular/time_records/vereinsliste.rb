@@ -119,7 +119,7 @@ module Fp2022::Export
             when :group then verein.to_s
             when :group_id then verein.id
             else
-              record.send(attr) if record
+              record.send(attr) if record # rubocop:disable Style/SafeNavigation
             end
           end
         end

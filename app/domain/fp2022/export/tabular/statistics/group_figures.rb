@@ -95,11 +95,13 @@ module Fp2022::Export
         end
 
         def values(group) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-          values = [group.full_name.presence || group.name,
+          values = [
+            group.full_name.presence || group.name,
             group.canton_label,
             group.vid,
             group.bsv_number,
-            group.id]
+            group.id
+          ]
 
           iterate_courses do |lk, fk|
             append_course_values(values, figures.course_record(group, lk, fk), lk)
