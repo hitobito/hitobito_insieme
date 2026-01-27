@@ -121,7 +121,8 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
   context "IV Finanzierungsgrad" do
     it "has assumptions" do
       expect((2015..2019).to_a.size).to eq 5
-      expect((2020..2024).to_a.size).to eq 3
+      expect((2020..2022).to_a.size).to eq 3
+      expect((2023..2024).to_a.size).to eq 2
     end
 
     it "can be calculated for VP 2015" do
@@ -140,8 +141,8 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
         abgrenzung_fibu: 100)
       create_cost_accounting_report("beitraege_iv", year: 2020, aufwand_ertrag_fibu: 1_000)
 
-      anzahl_jahre = (2020..year).to_a.size.to_d
-      expect(anzahl_jahre).to eql 3.0
+      anzahl_jahre = (2020..2023).to_a.size.to_d
+      expect(anzahl_jahre).to eql 4.0
 
       # rubocop:todo Layout/LineLength
       expect(subject.iv_finanzierungsgrad_fp2020).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100)) / anzahl_jahre)
@@ -197,11 +198,11 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
     end
 
     it "returns current year if within bounds" do
-      expect(subject.current_or(2024, 2023)).to eql 2024
+      expect(subject.current_or(2023, 2024)).to eql 2024
     end
 
     it "return lower bound if below" do
-      expect(subject.current_or(2024, 2023)).to eql 2024
+      expect(subject.current_or(2025, 2026)).to eql 2025
     end
 
     it "return uppper bound if above" do
