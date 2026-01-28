@@ -33,16 +33,25 @@ module Fp2024
       allocation_base.to_d * record.organization_capital.to_d
     end
 
+    # display DB4 values per BSV contractperiod
     def deckungsbeitrag4_fp2015
-      record.newest_previous_sum.to_d
+      deckungsbeitrag4_period(2015, 2019)
     end
 
     def deckungsbeitrag4_fp2020
-      deckungsbeitrag4_period(2020, table.year)
+      deckungsbeitrag4_period(2020, 2023)
     end
 
+    def deckungsbeitrag4_fp2024
+      deckungsbeitrag4_period(2024, [2027, table.year].min)
+    end
+
+    # total DB4 up to current year
+    # newest_previous_sum is defined in App::Models::CapitalSubstrate;
+    # the method returns previous_substrate_sum, which is derived from an extern csv
+    # and written into the database via lib/tasks/db.rake
     def deckungsbeitrag4_sum
-      deckungsbeitrag4_fp2015 + deckungsbeitrag4_fp2020
+      record.newest_previous_sum.to_d + deckungsbeitrag4_fp2024
     end
 
     def deckungsbeitrag4
