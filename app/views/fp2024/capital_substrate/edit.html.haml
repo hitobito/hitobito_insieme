@@ -21,8 +21,8 @@
     = f.labeled_input_field :earmarked_funds, addon: t('global.currency'), help_inline: t('.help_per_date', date: f(Date.new(year).end_of_year))
 
   = field_set_tag do
-    = f.labeled_readonly_value :deckungsbeitrag4_fp2015, value: format_money(report.deckungsbeitrag4_fp2015)
     = f.labeled_readonly_value :deckungsbeitrag4_fp2020, value: format_money(report.deckungsbeitrag4_fp2020)
+    = f.labeled_readonly_value :deckungsbeitrag4_fp2024, value: format_money(report.deckungsbeitrag4_fp2024)
     = f.labeled_readonly_value :deckungsbeitrag4_sum, label: t('.deckungsbeitrag4_sum', year: report.year), value: format_money(report.deckungsbeitrag4_sum)
     %p= t('.deckungsbeitrag4_sum_notice').html_safe
 

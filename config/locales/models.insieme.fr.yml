@@ -755,8 +755,9 @@ fr:
         fund_building: Formation des fonds liés provenant des liquidités libres
         exemption: Montant libre déduit
         capital_substrate_allocated: Substrat de capital codé art. 74
-        deckungsbeitrag4_fp2015: Somme des CC4 de 2015-2019
-        deckungsbeitrag4_fp2020: Somme des CC4 de la durée contractuelle de 2020-2023
+        deckungsbeitrag4_fp2015: Somme des CC4 du contrat de 2015-2019
+        deckungsbeitrag4_fp2020: Somme des CC4 du contrat de 2020-2023
+        deckungsbeitrag4_fp2024: Somme des CC4 du contrat de 2024-2027
         deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
         iv_finanzierungsgrad_since_2015: Taux de financement AI depuis 2015
         iv_finanzierungsgrad_fp2015: Taux de financement AI 2015 - 2019
