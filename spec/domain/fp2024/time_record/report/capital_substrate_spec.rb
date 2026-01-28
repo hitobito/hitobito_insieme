@@ -68,8 +68,7 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
       cs = CapitalSubstrate.find_by(group_id: group.id, year: year)
       cs.update(previous_substrate_sum: 1650.0)
 
-      expect(report.deckungsbeitrag4_fp2015).to eq(1650.0)
-      expect(report.deckungsbeitrag4_fp2020).to eq(-150.0)
+      expect(report.deckungsbeitrag4_fp2024).to eq(-150.0)
       expect(report.deckungsbeitrag4_sum).to eq(1500.0)
     end
 
@@ -79,7 +78,7 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
       create_cost_accounting_report("beitraege_iv", beratung: 5_000, year: year)
       create_cost_accounting_report("beitraege_iv", beratung: 7_000, year: year + 1)
 
-      expect(report.deckungsbeitrag4_fp2020).to eq(5_000 + existing_db4)
+      expect(report.deckungsbeitrag4_fp2024).to eq(5_000 + existing_db4)
     end
   end
 
