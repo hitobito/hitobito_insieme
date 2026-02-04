@@ -148,6 +148,27 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
       # rubocop:enable Layout/LineLength
     end
 
+    it "can be calculated for VP 2024" do
+      create_cost_accounting_report("abschreibungen", year: 2024, aufwand_ertrag_fibu: 2_000,
+        abgrenzung_fibu: 100)
+      create_cost_accounting_report("beitraege_iv", year: 2024, aufwand_ertrag_fibu: 1_000)
+
+      anzahl_jahre = (2024..2024).to_a.size.to_d
+      expect(anzahl_jahre).to eql 1.0
+
+      # Note: A "raumaufwand" record with raeumlichkeiten: 100 is created in the global `before` block.
+      # TotalAufwand aggregates multiple reports, including "abschreibungen" and "raumaufwand".
+      #
+      # Therefore the calculation of gesamtkosten (aufwand_ertrag_ko_re) is:
+      #   abschreibungen: 2000 - 100 = 1900
+      #   + raumaufwand: 100
+      #   -------------------
+      #   = 2000
+      #
+      # This differs from the VP2020 test, where no raumaufwand record exists and the value remains 1900.
+      expect(subject.iv_finanzierungsgrad_fp2024).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100 + 100)) / anzahl_jahre)
+    end
+
     it "can be calculated for the current year" do
       create_cost_accounting_report("abschreibungen", aufwand_ertrag_fibu: 10_000,
         abgrenzung_fibu: 100)
