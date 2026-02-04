@@ -70,7 +70,11 @@ module Fp2024
     end
 
     def iv_finanzierungsgrad_fp2020
-      iv_finanzierungsgrad_period(2020, current_or(2020, 2023)).to_d
+      iv_finanzierungsgrad_period(2020, 2023).to_d
+    end
+
+    def iv_finanzierungsgrad_fp2024
+      iv_finanzierungsgrad_period(2024, [2027, table.year].min).to_d
     end
 
     def iv_finanzierungsgrad_current
