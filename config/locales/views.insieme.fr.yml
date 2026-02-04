@@ -38,10 +38,11 @@ fr:
     edit:
       deckungsbeitrag4_sum_notice: "Remarque: Pour les associations ayant une contribution AI inférieure à 300'000.00 fr., les CC4 cumulées depuis 2015 sont prises en compte dans le calcul du substrat de capital."
       deckungsbeitrag4_sum: Somme des CC 4 2015 à %{year}
-      iv_finanzierungsgrad_since_2015: Taux de financement AI moyen 2015
+      iv_finanzierungsgrad_since_2015: Taux de financement AI moyen 2015 - %{year}
       iv_finanzierungsgrad_fp2015: Taux de financement AI moyen 2015 - 2019
       iv_finanzierungsgrad_fp2020: Taux de financement AI moyen 2020 - 2023
-      iv_finanzierungsgrad_current: Taux de financement AI
+      iv_finanzierungsgrad_fp2024: Taux de financement AI moyen 2024 - 2027
+      iv_finanzierungsgrad_current: Taux de financement AI %{year}
       help_per_date: en %{date}
 
   contactable:

@@ -41,6 +41,7 @@ de:
       iv_finanzierungsgrad_since_2015: Durchschnittlicher IV Finanzierungsgrad 2015 - %{year}
       iv_finanzierungsgrad_fp2015: Durchschnittlicher IV Finanzierungsgrad 2015 - 2019
       iv_finanzierungsgrad_fp2020: Durchschnittlicher IV Finanzierungsgrad 2020 - 2023
+      iv_finanzierungsgrad_fp2024: Durchschnittlicher IV Finanzierungsgrad 2024 - 2027
       iv_finanzierungsgrad_current: IV Finanzierungsgrad %{year}
       help_per_date: per %{date}
 
