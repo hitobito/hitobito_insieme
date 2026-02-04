@@ -762,6 +762,7 @@ fr:
         iv_finanzierungsgrad_since_2015: Taux de financement AI depuis 2015
         iv_finanzierungsgrad_fp2015: Taux de financement AI 2015 - 2019
         iv_finanzierungsgrad_fp2020: Taux de financement AI 2020 - 2023
+        iv_finanzierungsgrad_fp2024: Taux de financement AI 2024 - 2027
         iv_finanzierungsgrad_current: Taux de financement AI actuel
 
     errors:
