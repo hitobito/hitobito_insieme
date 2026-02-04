@@ -32,6 +32,6 @@
 
   = field_set_tag do
     = f.labeled_readonly_value :iv_finanzierungsgrad_since_2015, value: format_percent(report.iv_finanzierungsgrad_since_2015 * 100), label: t('.iv_finanzierungsgrad_since_2015', year: report.year)
-    = f.labeled_readonly_value :iv_finanzierungsgrad_fp2015,     value: format_percent(report.iv_finanzierungsgrad_fp2015 * 100), label: t('.iv_finanzierungsgrad_fp2015')
     = f.labeled_readonly_value :iv_finanzierungsgrad_fp2020,     value: format_percent(report.iv_finanzierungsgrad_fp2020 * 100), label: t('.iv_finanzierungsgrad_fp2020')
+    = f.labeled_readonly_value :iv_finanzierungsgrad_fp2024,     value: format_percent(report.iv_finanzierungsgrad_fp2024 * 100), label: t('.iv_finanzierungsgrad_fp2024')
     = f.labeled_readonly_value :iv_finanzierungsgrad_current,    value: format_percent(report.iv_finanzierungsgrad_current * 100), label: t('.iv_finanzierungsgrad_current', year: report.year)
