@@ -292,6 +292,7 @@ fr:
       canton: Canton
       vid: Identification de l'association IDA
       bsv: Numéro OFAS
+      id: Insieme-ID
       kategorie: Cat. %{number}
       leistungskategorie_bk: Cours en bloc
       leistungskategorie_tk: Cours d'un  jour
@@ -674,6 +675,8 @@ fr:
         general: Tâches générales d’information et de relations publiques
         specific_with_grundlagen: Travail de fond ayant pour objet un thème spécifique
         promoting: Encouragement de l’entraide
+
+      group_id: Insieme-ID
 
       group_data:
         group_or_stat: Groupe/nom de champ
