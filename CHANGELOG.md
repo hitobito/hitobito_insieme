@@ -1,6 +1,6 @@
 # Hitobito Insieme Changelog
 
-## unreleased
+## Version 2.8
 
 * Gruppen ID wird als Insieme-ID auf der Gruppenseite angezeigt (hitobito_insieme#189)
 * AHV Nummern wurden den Personen entfernt (hitobito_insieme#192)
