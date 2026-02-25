@@ -53,6 +53,27 @@ describe Export::Tabular::People do
         "PLZ Rechnungsadresse Kurs",
         "Ort Rechnungsadresse Kurs",
         "Land Rechnungsadresse Kurs"
+      ] +
+      [
+        "Telefonnummer Andere",
+        "Telefonnummer Arbeit",
+        "Telefonnummer Beistand",
+        "Telefonnummer Fax",
+        "Telefonnummer Mobil",
+        "Telefonnummer Mutter",
+        "Telefonnummer Privat",
+        "Telefonnummer Vater",
+        "Telefonnummer Wohngruppe",
+        "Telefonnummer Wohnheim",
+        "Weitere E-Mail Andere",
+        "Weitere E-Mail Arbeit",
+        "Weitere E-Mail Beistand",
+        "Weitere E-Mail Mutter",
+        "Weitere E-Mail Privat",
+        "Weitere E-Mail Vater",
+        "Weitere E-Mail Wohngruppe",
+        "Weitere E-Mail Wohnheim",
+        "Weitere E-Mails Freitext"
       ]
   end
 
