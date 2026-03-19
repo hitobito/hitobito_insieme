@@ -9,8 +9,6 @@ module Insieme
   module Export::EventsExportJob
     include Featureperioden::Domain
 
-    delegate :year, to: :filter
-
     def data
       group_name = filter.group.name.parameterize
 
@@ -29,11 +27,15 @@ module Insieme
     end
 
     def aggregate_course?
-      filter.type == ::Event::AggregateCourse.sti_name
+      filter.params.fetch(:type, nil) == ::Event::AggregateCourse.sti_name
     end
 
     def course_records?
       entries.first.respond_to?(:course_record)
+    end
+
+    def year
+      filter.params[:year]
     end
   end
 end

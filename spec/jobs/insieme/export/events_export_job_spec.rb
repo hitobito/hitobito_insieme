@@ -6,12 +6,15 @@
 require "spec_helper"
 
 describe Insieme::Export::EventsExportJob do
-  let(:filename) { Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s }
-  subject {
-    Export::EventsExportJob.new(:csv, person.id, group.id, event_filter.to_h, filename: filename)
-  }
+  let(:year) { 2012 }
+  let(:filename) { Export::Event::Filename.new(group, type, year).to_s }
+  let(:filter) do
+    {range: "all", year: year, type: type}
+  end
 
-  let(:event_filter) { Event::Filter.new(group, type, "all", 2012, false) }
+  subject do
+    Export::EventsExportJob.new(:csv, person.id, group.id, filter, filename: filename)
+  end
 
   context "dachverein" do
     let(:group) { groups(:dachverein) }
@@ -64,9 +67,9 @@ describe Insieme::Export::EventsExportJob do
 
       it "creates detail export for aggregate courses" do
         group.update!(vid: 42, bsv_number: "99")
-        # rubocop:todo Layout/LineLength
-        expect(subject.exporter_class).to eq Fp2015::Export::Tabular::Events::AggregateCourse::DetailList
-        # rubocop:enable Layout/LineLength
+        expect(subject.exporter_class).to eq(
+          Fp2015::Export::Tabular::Events::AggregateCourse::DetailList
+        )
         expect(subject.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end
@@ -79,9 +82,9 @@ describe Insieme::Export::EventsExportJob do
 
       it "creates short export for aggregate courses" do
         group.update!(vid: 42, bsv_number: "99")
-        # rubocop:todo Layout/LineLength
-        expect(subject.exporter_class).to eq Fp2015::Export::Tabular::Events::AggregateCourse::ShortList
-        # rubocop:enable Layout/LineLength
+        expect(subject.exporter_class).to eq(
+          Fp2015::Export::Tabular::Events::AggregateCourse::ShortList
+        )
         expect(subject.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end
