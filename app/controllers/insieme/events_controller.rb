@@ -38,7 +38,8 @@ module Insieme
     end
 
     def custom_filename
-      ::Export::Event::Filename.new(group, event_filter.type, event_filter.year).to_s
+      args = event_filter.params
+      ::Export::Event::Filename.new(group, args[:type], args[:year]).to_s
     end
   end
 end
