@@ -57,6 +57,12 @@ Rails.application.routes.draw do
       resources :events, only: [] do # do not redefine events actions, only add new ones
         collection do
           get 'aggregate_course' => 'events#index', type: 'Event::AggregateCourse'
+          scope module: "events", only: [:new, :create] do
+            resources :filters,
+                      path: "aggregate_course/filters",
+                      as: "events_aggregate_course_filters",
+                      type: "Event::AggregateCourse"
+          end
 
           scope 'general_cost_allocation' do
             get ':year' => 'event/general_cost_allocations#show', as: :general_cost_allocation
