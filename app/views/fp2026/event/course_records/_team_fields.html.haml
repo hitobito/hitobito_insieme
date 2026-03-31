@@ -1,0 +1,26 @@
+-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+= field_set_tag(t('event.course_records.form.betreuerinnen')) do
+  - if entry.tp?
+    = participant_field_with_suggestion(f, :betreuerinnen, @numbers.caretaker_count)
+  - else
+    = participant_field_with_suggestion(f, :leiterinnen, @numbers.leader_count)
+    = participant_field_with_suggestion(f, :fachpersonen, @numbers.expert_count)
+    = participant_field_with_suggestion(f, :hilfspersonal_mit_honorar, @numbers.helper_paid_count)
+    = participant_field_with_suggestion(f, :hilfspersonal_ohne_honorar, @numbers.helper_unpaid_count)
+
+    = participant_readonly_value_with_suggestion(f, :total, fnumber(entry.betreuende), fnumber(@numbers.team_count))
+
+  = f.labeled_readonly_value :betreuungsschluessel,
+                              value: t('event.course_records.form.challenged_per_team', ratio: f(entry.betreuungsschluessel))
+
+- if entry.event.is_a?(::Event::AggregateCourse) && entry.tp?
+  = field_set_tag(t('event.course_records.form.total_betreuungsstunden')) do
+    = f.labeled_input_field :betreuungsstunden, addon: t('global.hours_short')
+
+- unless entry.tp?
+  = field_set_tag(t('event.course_records.form.personal')) do
+    = participant_field_with_suggestion(f, :kuechenpersonal, @numbers.kitchen_count)
