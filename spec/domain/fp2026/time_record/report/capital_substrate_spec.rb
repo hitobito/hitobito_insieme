@@ -68,7 +68,7 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
       cs = CapitalSubstrate.find_by(group_id: group.id, year: year)
       cs.update(previous_substrate_sum: 1650.0)
 
-      expect(report.deckungsbeitrag4_fp2026).to eq(-150.0)
+      expect(report.deckungsbeitrag4_fp2024).to eq(-150.0)
       expect(report.deckungsbeitrag4_sum).to eq(1500.0)
     end
 
@@ -78,7 +78,7 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
       create_cost_accounting_report("beitraege_iv", beratung: 5_000, year: year)
       create_cost_accounting_report("beitraege_iv", beratung: 7_000, year: year + 1)
 
-      expect(report.deckungsbeitrag4_fp2026).to eq(5_000 + existing_db4)
+      expect(report.deckungsbeitrag4_fp2024).to eq(5_000 + existing_db4)
     end
   end
 
@@ -121,7 +121,8 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
     it "has assumptions" do
       expect((2015..2019).to_a.size).to eq 5
       expect((2020..2022).to_a.size).to eq 3
-      expect((2023..2026).to_a.size).to eq 2
+      expect((2023..2024).to_a.size).to eq 2
+      expect((2025..2026).to_a.size).to eq 2
     end
 
     it "can be calculated for VP 2015" do
@@ -148,13 +149,13 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
       # rubocop:enable Layout/LineLength
     end
 
-    it "can be calculated for VP 2026" do
+    it "can be calculated for VP 2024 in year 2026" do
       create_cost_accounting_report("abschreibungen", year: 2026, aufwand_ertrag_fibu: 2_000,
         abgrenzung_fibu: 100)
       create_cost_accounting_report("beitraege_iv", year: 2026, aufwand_ertrag_fibu: 1_000)
 
-      anzahl_jahre = (2026..2026).to_a.size.to_d
-      expect(anzahl_jahre).to eql 1.0
+      anzahl_jahre = (2024..2026).to_a.size.to_d
+      expect(anzahl_jahre).to eql 3.0
 
       # Note: A "raumaufwand" record with raeumlichkeiten: 100 is created in the global `before` block.
       # TotalAufwand aggregates multiple reports, including "abschreibungen" and "raumaufwand".
@@ -166,7 +167,7 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
       #   = 2000
       #
       # This differs from the VP2020 test, where no raumaufwand record exists and the value remains 1900.
-      expect(subject.iv_finanzierungsgrad_fp2026).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100 + 100)) / anzahl_jahre)
+      expect(subject.iv_finanzierungsgrad_fp2024).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100 + 100)) / anzahl_jahre)
     end
 
     it "can be calculated for the current year" do
@@ -222,7 +223,7 @@ describe Fp2026::TimeRecord::Report::CapitalSubstrate do
     end
 
     it "return lower bound if below" do
-      expect(subject.current_or(2025, 2026)).to eql 2025
+      expect(subject.current_or(2027, 2030)).to eql 2027
     end
 
     it "return uppper bound if above" do

@@ -483,7 +483,7 @@ describe Fp2026::Export::Tabular::Statistics::GroupFigures do
       expect(data.fourth).to include(empty_row.merge({
         "Vollständiger Name" => "Kanton Bern",
         "Kanton" => "Bern",
-        "BSV Nummer" => 2026,
+        "BSV Nummer" => 2024,
         "VID" => nil,
 
         "Blockkurse Anzahl Kurse Sport Kinder & Jugendliche" => 4,
