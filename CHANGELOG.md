@@ -2,6 +2,7 @@
 
 ## Version 2.8
 
+* fp2026 für neue Featureperiode 2026 hinzugefügt
 * fp2024 für neue BSV-Vertragsperiode 2024-2027 hinzugefügt (hitobito_insieme#204)
 * Gruppen ID wird als Insieme-ID auf der Gruppenseite angezeigt (hitobito_insieme#189)
 * AHV Nummern wurden den Personen entfernt (hitobito_insieme#192)
