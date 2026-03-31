@@ -66,8 +66,16 @@ describe Featureperioden::Dispatcher do
       expect(described_class.new(2023).determine).to be 2022
     end
 
-    it "for 2024 and later it is 2024" do
+    it "for 2024, it is 2024" do
       expect(described_class.new(2024).determine).to be 2024
+    end
+
+    it "for 2025, it is 2024" do
+      expect(described_class.new(2025).determine).to be 2024
+    end
+
+    it "for 2026 and later it is 2026" do
+      expect(described_class.new(2026).determine).to be 2026
     end
   end
 
@@ -78,7 +86,7 @@ describe Featureperioden::Dispatcher do
   # here, maybe add some performance-specs.
   context "is a sensible solution, it" do
     it "covers all periods" do
-      expect(described_class::KNOWN_BASE_YEARS).to have(4).items
+      expect(described_class::KNOWN_BASE_YEARS).to have(5).items
     end
   end
 end
