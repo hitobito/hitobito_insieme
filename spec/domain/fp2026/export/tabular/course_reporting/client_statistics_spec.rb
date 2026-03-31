@@ -138,7 +138,7 @@ describe Fp2026::Export::Tabular::CourseReporting::ClientStatistics do
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
-      expect(data[9]).to match_array(["Kanton Bern", 2026, nil, nil, nil, nil, nil, nil, nil, nil,
+      expect(data[9]).to match_array(["Kanton Bern", 2024, nil, nil, nil, nil, nil, nil, nil, nil,
         # rubocop:todo Layout/LineLength
         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil])
       # rubocop:enable Layout/LineLength
