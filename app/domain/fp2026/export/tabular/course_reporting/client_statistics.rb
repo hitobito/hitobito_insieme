@@ -81,11 +81,13 @@ module Fp2026::Export
         end
 
         def course_hours_including_grundlagen_hours(gcp)
-          grundlagen_field = if gcp.fachkonzept == "treffpunkt"
-            :treffpunkte_grundlagen
-          else
+          grundlagen_field = if gcp.leistungskategorie == "bk"
             :kurse_grundlagen
+          elsif gcp.leistungskategorie == "tp"
+            :treffpunkte_grundlagen
           end
+
+          return maybe_zero(gcp.course_hours.to_f) unless grundlagen_field
 
           grundlagen_hours = ::TimeRecord.where(
             group_id: gcp.group_id, year: year,

@@ -367,7 +367,13 @@ describe Fp2026::Export::Tabular::CourseReporting::ClientStatistics do
 
     let(:kurse_gcp) do
       Fp2026::CourseReporting::ClientStatistics::GroupCantonParticipant.new(
-        group.id, "sk", "freizeit_jugend", 5, 85, 0, *Array.new(27) { 0 }
+        group.id, "bk", "sport", 5, 85, 0, *Array.new(27) { 0 }
+      )
+    end
+
+    let(:kurse_gcp_sk) do
+      Fp2026::CourseReporting::ClientStatistics::GroupCantonParticipant.new(
+        group.id, "sk", "sport", 5, 75, 0, *Array.new(27) { 0 }
       )
     end
 
@@ -383,6 +389,15 @@ describe Fp2026::Export::Tabular::CourseReporting::ClientStatistics do
         expected = send(:"#{kind}_gcp").course_hours + employee_time.send(:"#{kind}_grundlagen")
         expect(result).to be_within(0.001).of(expected)
       end
+    end
+
+    it "does not add kurse_grundlagen to sk" do
+      stats = double("client-statistics", year: year)
+
+      result = described_class.new(stats)
+        .send(:course_hours_including_grundlagen_hours, kurse_gcp_sk)
+
+      expect(result).to be_within(0.001).of(kurse_gcp_sk.course_hours)
     end
   end
 
