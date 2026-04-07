@@ -73,6 +73,7 @@ module Event::CourseRecordsHelper
 
   def participant_field(form, attr, options = {})
     options[:addon] ||= t("global.persons_short")
+    options[:value] = "%g" % entry.send(attr).to_f
     form.labeled_input_field(attr, options)
   end
 
