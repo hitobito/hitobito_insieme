@@ -51,6 +51,8 @@ module Insieme::Contactable::Address
   # TODO this is a pretty dumb implementation for a very complex task
   # see https://github.com/hitobito/hitobito_insieme/issues/195
   def billing_general_street
+    return nil if billing_general_address.nil?
+
     parts = billing_general_address.split(" ")
     (parts.length > 1) ? parts[0..-2].join(" ") : parts[0]
   end
@@ -58,6 +60,8 @@ module Insieme::Contactable::Address
   # TODO this is a pretty dumb implementation for a very complex task
   # see https://github.com/hitobito/hitobito_insieme/issues/195
   def billing_general_housenumber
+    return nil if billing_general_address.nil?
+
     parts = billing_general_address.split(" ")
     (parts.length > 1) ? parts[-1] : nil
   end
