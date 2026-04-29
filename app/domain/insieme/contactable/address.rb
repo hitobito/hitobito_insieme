@@ -14,7 +14,8 @@ module Insieme::Contactable::Address
         recipient_address_care_of: "",
         recipient_company_name: billing_general_company? ?
           billing_general_company_name.to_s.squish : nil,
-        recipient_name: billing_general_full_name.to_s.squish,
+        recipient_first_name: billing_general_first_name.to_s.squish,
+        recipient_last_name: billing_general_last_name.to_s.squish,
         recipient_street: billing_general_street.to_s.squish,
         recipient_housenumber: billing_general_housenumber.to_s.squish,
         recipient_postbox: "",
@@ -27,7 +28,8 @@ module Insieme::Contactable::Address
 
   private
 
-  delegate :billing_general_company?, :billing_general_company_name, :billing_general_full_name,
+  delegate :billing_general_company?, :billing_general_company_name,
+    :billing_general_first_name, :billing_general_last_name,
     :billing_general_address, :billing_general_zip_code, :billing_general_town,
     :billing_general_country, to: :contactable
 
