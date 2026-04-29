@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::Contactable::Address
-  def invoice_recipient_address_attributes # rubocop:disable Metrics/AbcSize
+  def invoice_recipient_address_attributes # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     return super unless contactable.is_a?(Person)
 
     with_invoice_addressable do
