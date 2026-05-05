@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module Insieme::Contactable::Address
-  def invoice_recipient_address_attributes # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def invoice_recipient_address_attributes # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return super unless contactable.is_a?(Person)
 
     with_invoice_addressable do
@@ -14,8 +14,8 @@ module Insieme::Contactable::Address
         recipient_address_care_of: "",
         recipient_company_name: billing_general_company? ?
           billing_general_company_name.to_s.squish : nil,
-        recipient_first_name: billing_general_first_name.to_s.squish,
-        recipient_last_name: billing_general_last_name.to_s.squish,
+        recipient_first_name: nil,
+        recipient_last_name: billing_general_full_name.to_s.squish,
         recipient_street: billing_general_street.to_s.squish,
         recipient_housenumber: billing_general_housenumber.to_s.squish,
         recipient_postbox: "",
@@ -28,8 +28,7 @@ module Insieme::Contactable::Address
 
   private
 
-  delegate :billing_general_company?, :billing_general_company_name,
-    :billing_general_first_name, :billing_general_last_name,
+  delegate :billing_general_company?, :billing_general_company_name, :billing_general_full_name,
     :billing_general_address, :billing_general_zip_code, :billing_general_town,
     :billing_general_country, to: :contactable
 
