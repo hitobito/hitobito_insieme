@@ -138,7 +138,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
     context "for employee time" do
       it "contains all data" do
         data = export
-        expect(data[3]).to eq(["Kanton Bern", groups(:be).id,
+        expect(data[2]).to eq(["Kanton Bern", groups(:be).id,
           nil, nil, nil, nil, 0,
           nil, nil, nil, nil, 0,
           nil, nil, nil, nil, 0, 0,
@@ -177,7 +177,7 @@ describe Fp2022::Export::Tabular::TimeRecords::Vereinsliste do
 
       it "contains all data" do
         data = export
-        expect(labels.zip(data[3]).to_h).to eq empty_row.merge({
+        expect(labels.zip(data[2]).to_h).to eq empty_row.merge({
           "Gruppe" => "Kanton Bern",
           "Insieme-ID" => groups(:be).id,
 
