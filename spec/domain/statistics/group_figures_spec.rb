@@ -86,9 +86,9 @@ describe "Statistics::GroupFigures" do
     it "returns group sorted by type" do
       expect(figures.groups).to eq [
         groups(:dachverein),
-        groups(:seeland),
         groups(:fr),
-        groups(:be)
+        groups(:be),
+        groups(:seeland)
       ]
     end
   end

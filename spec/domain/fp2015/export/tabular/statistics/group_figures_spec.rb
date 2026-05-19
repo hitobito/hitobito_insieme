@@ -200,7 +200,7 @@ describe Fp2015::Export::Tabular::Statistics::GroupFigures do
       -200000.0, 0.0, 0.0, 0.0, 0.0
     ]
 
-    expect(data.second).to eq [
+    expect(data.fourth).to eq [
       "Biel-Seeland", "Bern", nil, 3115,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -217,7 +217,7 @@ describe Fp2015::Export::Tabular::Statistics::GroupFigures do
       -200000.0, 0.0, 0.0, 0.0, 0.0
     ]
 
-    expect(data.third).to eq [
+    expect(data.second).to eq [
       "Freiburg", "Freiburg", nil, 12607,
       1, 0.0, 1545.0, 0.0, 0.0, 1545.0,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -234,7 +234,7 @@ describe Fp2015::Export::Tabular::Statistics::GroupFigures do
       -185550.0, 0.0, 1100.0, 0.0, -1100.0
     ]
 
-    expect(data.fourth).to eq [
+    expect(data.third).to eq [
       "Kanton Bern", "Bern", nil, 2024,
       2, 1100.0, 1000.0, 1111.0, 0.0, 2111.0,
       1, 800.0, 5400.0, 0.0, 0.0, 5400.0,
