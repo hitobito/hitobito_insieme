@@ -34,7 +34,7 @@ describe Insieme::Export::EventsExportJob do
         subject.enqueue!
 
         expect(subject.exporter_class).to eq(Fp2015::Export::Tabular::Events::DetailList)
-        expect(subject.user_job_result.filename).to start_with("course_vid42_bsv99_insieme-schweiz_2012")
+        expect(subject.job_observation.filename).to start_with("course_vid42_bsv99_insieme-schweiz_2012")
         expect(subject.data).to be_present
       end
     end
@@ -48,7 +48,7 @@ describe Insieme::Export::EventsExportJob do
         subject.enqueue!
 
         expect(subject.exporter_class).to eq(Fp2015::Export::Tabular::Events::ShortList)
-        expect(subject.user_job_result.filename).to start_with("course_vid42_bsv99_insieme-schweiz_2012")
+        expect(subject.job_observation.filename).to start_with("course_vid42_bsv99_insieme-schweiz_2012")
         expect(subject.data).to be_present
       end
     end
@@ -76,7 +76,7 @@ describe Insieme::Export::EventsExportJob do
         expect(subject.exporter_class).to eq(
           Fp2015::Export::Tabular::Events::AggregateCourse::DetailList
         )
-        expect(subject.user_job_result.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
+        expect(subject.job_observation.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end
 
@@ -93,7 +93,7 @@ describe Insieme::Export::EventsExportJob do
         expect(subject.exporter_class).to eq(
           Fp2015::Export::Tabular::Events::AggregateCourse::ShortList
         )
-        expect(subject.user_job_result.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
+        expect(subject.job_observation.filename).to start_with("aggregate_course_vid42_bsv99_kanton-bern_2012")
       end
     end
   end
