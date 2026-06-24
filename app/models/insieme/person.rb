@@ -24,7 +24,7 @@ module Insieme::Person
 
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
-    Person::SEARCHABLE_ATTRS << :number << :salutation << :canton
+    Person::SEARCHABLE_ATTRS << :salutation << :canton
 
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|

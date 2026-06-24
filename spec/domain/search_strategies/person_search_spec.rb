@@ -10,17 +10,17 @@ describe SearchStrategies::PersonSearch do
     people(:regio_leader).update!(number: 12345, salutation: "Wassup Regio Leader")
   end
 
-  describe "#search_fulltext" do
+  describe "#search" do
     let(:user) { people(:top_leader) }
 
     it "finds accessible person by number" do
-      result = search_class(people(:regio_leader).number.to_s).search_fulltext
+      result = search_class(people(:regio_leader).number.to_s).search
 
       expect(result).to include(people(:regio_leader))
     end
 
     it "finds accessible person by salutation" do
-      result = search_class(people(:regio_leader).salutation[0..5]).search_fulltext
+      result = search_class(people(:regio_leader).salutation[0..5]).search
 
       expect(result).to include(people(:regio_leader))
     end
