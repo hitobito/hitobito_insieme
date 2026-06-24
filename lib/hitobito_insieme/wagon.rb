@@ -73,6 +73,8 @@ module HitobitoInsieme
       # domain
       Contactable::Address.prepend Insieme::Contactable::Address
 
+      SearchStrategies::PersonSearch.prepend Insieme::SearchStrategies::PersonSearch
+
       Export::Tabular::People::PeopleAddress.prepend Insieme::Export::Tabular::People::PeopleAddress
       Export::Tabular::People::PeopleFull.prepend Insieme::Export::Tabular::People::PeopleFull
       Export::Tabular::People::PersonRow.include Insieme::Export::Tabular::People::PersonRow
