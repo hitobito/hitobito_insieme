@@ -238,7 +238,7 @@ fr:
     full_entry_label: "%{model_label}de<i>%{person}</i> au<i>%{event}</i>"
     success: "%{full_entry_label}a été créé avec succès. Veuillez vérifier les données de contact et les adapter si nécessaire."
     instructions: "Pour l'inscription définitive, tu dois imprimer la confirmation de participation via <i>Imprimer</i>, la signer et l'envoyer par la poste à l'adresse correspondante."
-    export_enqueued: "Export wird im Hintergrund gestartet und kann nach Fertigstellung auf der Jobübersicht heruntergeladen werden: %{overview_link}"
+    export_enqueued: "L'exportation commence en arrière-plan et peut être téléchargée une fois terminée depuis l'aperçu des travaux: %{overview_link}"
     waiting_list: "Toutes les places sont actuellement occupées, l'inscription est sur la liste  d'attente."
     pending: "Une préinscription a été créée pour %{full_entry_label}. La participation n'est pas encore définitive et doit être confirmée par l'administration du cours."
 
