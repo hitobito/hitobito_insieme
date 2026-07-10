@@ -30,7 +30,7 @@ describe Export::Pdf::Invoice do
   end
 
   subject do
-    pdf = described_class.render(invoice, articles: true)
+    pdf = described_class.render([invoice], articles: true)
     PDF::Inspector::Text.analyze(pdf)
   end
 
