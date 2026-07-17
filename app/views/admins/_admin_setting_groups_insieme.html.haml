@@ -1,0 +1,7 @@
+.col-xl-3.col-lg-4.col-md-6.col-sm-12
+  %h2= t("admins.show.reporting")
+  %ul.container
+    - if can?(:index, ReportingParameter)
+      %li= link_to t(".reporting_parameters"), reporting_parameters_path
+    - if can?(:update, GlobalValue)
+      %li= link_to t(".global_values"), edit_global_value_path
