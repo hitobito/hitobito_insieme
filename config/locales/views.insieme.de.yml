@@ -4,6 +4,13 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 de:
+  admins:
+    show:
+      reporting: Auswertung
+    admin_setting_groups_insieme:
+      reporting_parameters: Parameter
+      global_values: Globale Werte
+
   global:
     currency: CHF
     hours_short: Std.
