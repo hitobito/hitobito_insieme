@@ -123,13 +123,12 @@ module HitobitoInsieme
 
       NavigationHelper::ADMIN_GROUPS[:reporting] = {
         heading: "admins.show.reporting",
+
         items: [
-          {label: "admin_setting_groups_insieme.reporting_parameters",
-           path: :reporting_parameters_path,
-           if: ->(_) { can?(:index, ReportingParameter) }},
-          {label: "admin_setting_groups_insieme.global_values",
-           path: :edit_global_value_path,
-           if: ->(_) { can?(:update, GlobalValue) }}
+          NavigationHelper::Item.new(model: ReportingParameter, path: :reporting_parameters_path),
+          NavigationHelper::Item.new(model: GlobalValue, path: :edit_global_value_path, if: ->(_) {
+            can?(:update, GlobalValue)
+          })
         ]
       }
     end
