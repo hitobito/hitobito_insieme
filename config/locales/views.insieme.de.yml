@@ -4,6 +4,10 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 de:
+  admins:
+    show:
+      reporting: Auswertung
+
   global:
     currency: CHF
     hours_short: Std.

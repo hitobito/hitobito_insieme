@@ -121,8 +121,16 @@ module HitobitoInsieme
       Export::SubscriptionsJob.prepend Insieme::Export::SubscriptionsJob
       Export::EventsExportJob.prepend Insieme::Export::EventsExportJob
 
-      admin = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
-      admin[:active_for] << "reporting_parameters" << "global_value"
+      NavigationHelper::ADMIN_GROUPS[:reporting] = {
+        heading: "admins.show.reporting",
+
+        items: [
+          NavigationHelper::Item.new(model: ReportingParameter, path: :reporting_parameters_path),
+          NavigationHelper::Item.new(model: GlobalValue, path: :edit_global_value_path, if: ->(_) {
+            can?(:update, GlobalValue)
+          })
+        ]
+      }
     end
 
     initializer "insieme.add_settings" do |_app|
