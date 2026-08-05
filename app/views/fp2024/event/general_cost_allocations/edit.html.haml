@@ -1,0 +1,49 @@
+-#  Copyright (c) 2020, insieme Schweiz. This file is part of
+-#  hitobito_insieme and licensed under the Affero General Public License version 3
+-#  or later. See the COPYING file at the top-level directory or at
+-#  https://github.com/hitobito/hitobito_insieme.
+
+- @subtitle = I18n.t('crud.edit.title', model: entry)
+
+= reporting_frozen_message
+
+%p
+  = action_button(t('.export'),
+                  general_cost_allocation_group_events_path(group, year, format: :csv),
+                  :download)
+
+= crud_form(entry,
+            url: general_cost_allocation_group_events_path(group, year),
+            cancel_url: general_cost_allocation_group_events_path(group, year),
+            buttons_top: false,
+            buttons_bottom: !reporting_frozen?,
+            submit_label: t('.start_allocation'),
+            method: :put,
+            html: { class: 'report', data: { readonly: reporting_frozen? } }) do |f|
+
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.blockkurse'),
+           field: :general_costs_blockkurse,
+           lk: 'bk'
+
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.tageskurse'),
+           field: :general_costs_tageskurse,
+           lk: 'tk'
+
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.semesterkurse'),
+           field: :general_costs_semesterkurse,
+           lk: 'sk'
+
+  = render 'leistungskategorie_fields',
+           f: f,
+           caption: t('.treffpunkte'),
+           field: :general_costs_treffpunkte,
+           lk: 'tp'
+
+
+%p= t('.last_allocation', date: format_attr(entry, :updated_at)).html_safe
