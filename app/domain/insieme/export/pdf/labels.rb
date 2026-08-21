@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -9,9 +9,9 @@ module Insieme
   module Export
     module Pdf
       module Labels
-        def initialize(format, address_type = nil)
+        def initialize(format, category_key: nil)
           super(format)
-          @address_type = address_type if Person::ADDRESS_TYPES.include?(address_type.to_s)
+          @address_type = category_key if Person::ADDRESS_TYPES.include?(category_key.to_s)
         end
 
         def address(contactable, name)
