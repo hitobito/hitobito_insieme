@@ -6,5 +6,5 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 module HitobitoInsieme
-  VERSION = "2.10.5"
+  VERSION = "2.10.8"
 end
