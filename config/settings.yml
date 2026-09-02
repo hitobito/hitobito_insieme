@@ -34,34 +34,3 @@ people:
 
 custom_dashboard_page:
   enabled: true
-
-.common_contact_labels: &common_contact_labels
-  - "--"
-  - Privat
-  - Arbeit
-  - Vater
-  - Mutter
-  - Beistand
-  - Wohngruppe
-  - Wohnheim
-  - Andere
-
-additional_email:
-  predefined_labels: *common_contact_labels
-
-addresses:
-  predefined_labels: *common_contact_labels
-
-phone_number:
-  predefined_labels:
-    - --
-    - Privat
-    - Mobil
-    - Arbeit
-    - Vater
-    - Mutter
-    - Beistand
-    - Wohngruppe
-    - Wohnheim
-    - Fax
-    - Andere
