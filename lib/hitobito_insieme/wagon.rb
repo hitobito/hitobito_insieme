@@ -150,11 +150,11 @@ module HitobitoInsieme
       }
 
       %w[PhoneNumber AdditionalEmail AdditionalAddress].each do |contact_account_type|
-        insieme_contact_account_categories.each do |key, name|
-          ContactAccountCategorySeeder::CATEGORIES[contact_account_type]["Person"].push(
-            {key: key, unique_per_contactable: true, name: name}
-          )
+        categories = insieme_contact_account_categories.map do |key, name|
+          {key: key, unique_per_contactable: true, name: name}
         end
+        ContactAccountCategorySeeder.insert_before(contact_account_type, "Person", "other",
+          *categories)
       end
 
       label_key_mapping = ContactAccountCategoryMigrationJob::LABEL_KEY_MAPPING
