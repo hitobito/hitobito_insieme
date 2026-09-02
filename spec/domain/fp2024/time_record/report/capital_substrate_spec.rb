@@ -167,7 +167,8 @@ describe Fp2024::TimeRecord::Report::CapitalSubstrate do
       #
       # This differs from the VP2020 test, where no raumaufwand record exists and the value remains 1900.
       # rubocop:todo Layout/LineLength
-      expect(subject.iv_finanzierungsgrad_fp2024).to be_within(0.00001).of((1_000.0 / (2_000.0 - 100 + 100)) / anzahl_jahre)
+      expected = (1_000.0 / (2_000.0 - 100 + 100)) / anzahl_jahre
+      expect(subject.iv_finanzierungsgrad_fp2024).to be_within(0.00001).of(expected)
       # rubocop:enable Layout/LineLength
     end
 
