@@ -34,3 +34,6 @@ people:
 
 custom_dashboard_page:
   enabled: true
+
+additional_address:
+  enabled: true
