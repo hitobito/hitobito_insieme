@@ -28,8 +28,8 @@
       = pf.hidden_field :id
       = render 'contactable/address_fields', f: pf
 
-    - %w(correspondence_course billing_course).each do |prefix|
-      = render 'contactable/single_address_fields', f: pf, prefix: prefix
+    = pf.labeled_inline_fields_for :additional_addresses, 'contactable/additional_address_fields'
+
 
     = field_set_tag do
       = pf.labeled_string_field(:birthday,
@@ -37,4 +37,3 @@
                                 help_inline: t('people.fields.format_birthday'),
                                 class: 'd-inline')
       = pf.labeled_i18n_enum_field(:canton, Cantons.labels, class: 'form-select form-select-sm')
-

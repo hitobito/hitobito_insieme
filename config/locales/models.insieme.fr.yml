@@ -679,17 +679,6 @@ fr:
         billing_course_same_as_main: Même adresse de facturation que l'adresse principale
         billing_course_label: Label
 
-      contact_account:
-        predefined_labels:
-          privat: Personnel
-          arbeit: Professionnel
-          vater: Père
-          mutter: Mère
-          beistand: Curatelle
-          wohngruppe: Groupe d'habitation
-          wohnheim: Logement
-          andere: Autres
-
       reporting_parameter:
         year: Année
         vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP

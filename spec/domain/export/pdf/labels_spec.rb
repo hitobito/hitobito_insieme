@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2014-2024, Insieme Schweiz. This file is part of
+#  Copyright (c) 2014-2026, Insieme Schweiz. This file is part of
 #  hitobito and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -10,7 +10,7 @@ require "spec_helper"
 describe Export::Pdf::Labels do
   let(:person) { people(:top_leader) }
 
-  let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), address_type) }
+  let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), category_key: address_type) }
 
   subject { labels.address(person, to_name(person)) }
 

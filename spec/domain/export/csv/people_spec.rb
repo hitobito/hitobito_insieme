@@ -58,13 +58,13 @@ describe Export::Tabular::People do
         "Telefonnummer Andere",
         "Telefonnummer Arbeit",
         "Telefonnummer Beistand",
-        "Telefonnummer Fax",
         "Telefonnummer Mobil",
+        "Telefonnummer Festnetz",
         "Telefonnummer Mutter",
-        "Telefonnummer Privat",
         "Telefonnummer Vater",
         "Telefonnummer Wohngruppe",
         "Telefonnummer Wohnheim",
+        "Weitere E-Mail Rechnungsadresse",
         "Weitere E-Mail Andere",
         "Weitere E-Mail Arbeit",
         "Weitere E-Mail Beistand",
@@ -72,8 +72,7 @@ describe Export::Tabular::People do
         "Weitere E-Mail Privat",
         "Weitere E-Mail Vater",
         "Weitere E-Mail Wohngruppe",
-        "Weitere E-Mail Wohnheim",
-        "Weitere E-Mails Freitext"
+        "Weitere E-Mail Wohnheim"
       ]
   end
 
@@ -114,7 +113,6 @@ describe Export::Tabular::People do
 
     context "export" do
       its(:headers) do
-        is_expected.to match_array(simple_headers)
         is_expected.to match_array(simple_headers)
       end
 

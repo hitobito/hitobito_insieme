@@ -131,6 +131,40 @@ module HitobitoInsieme
           })
         ]
       }
+
+      # contact account categories (#4359): the insieme-specific categories
+      # listed in the issue (github.com/hitobito/hitobito/issues/4359),
+      # covering PhoneNumber/AdditionalEmail/AdditionalAddress for Person.
+      # Keys match the issue's table verbatim (the German label text itself,
+      # unlike core/youth's English keys) since hitobito_insieme#195 builds
+      # on top of ContactAccountCategory and may already assume these names.
+      require Rails.root.join("db", "seeds", "support", "contact_account_category_seeder.rb")
+
+      insieme_contact_account_categories = {
+        "vater" => {de: "Vater", fr: "Père", it: "Padre", en: "Father"},
+        "mutter" => {de: "Mutter", fr: "Mère", it: "Madre", en: "Mother"},
+        "beistand" => {de: "Beistand", fr: "Curatelle", it: "Tutore", en: "Guardian"},
+        "wohngruppe" => {de: "Wohngruppe", fr: "Groupe d'habitation", it: "Gruppo abitativo",
+                         en: "Living group"},
+        "wohnheim" => {de: "Wohnheim", fr: "Logement", it: "Residenza", en: "Residence"}
+      }
+
+      %w[PhoneNumber AdditionalEmail AdditionalAddress].each do |contact_account_type|
+        categories = insieme_contact_account_categories.map do |key, name|
+          {key: key, unique_per_contactable: true, name: name}
+        end
+        ContactAccountCategorySeeder.insert_before(contact_account_type, "Person", "other",
+          *categories)
+      end
+
+      label_key_mapping = ContactAccountCategoryMigrationJob::LABEL_KEY_MAPPING
+      insieme_label_mapping = insieme_contact_account_categories.keys.to_h { |key|
+        [key.to_sym, [key]]
+      }
+
+      label_key_mapping["PhoneNumber"]["Person"].merge!(insieme_label_mapping)
+      label_key_mapping["AdditionalEmail"]["Person"].merge!(insieme_label_mapping)
+      label_key_mapping["AdditionalAddress"]["Person"].merge!(insieme_label_mapping)
     end
 
     initializer "insieme.add_settings" do |_app|
