@@ -24,6 +24,10 @@ module HitobitoInsieme
       # extend application classes here
 
       # models
+      # "another" represents a participant/group deliberately not tied to a specific
+      # canton - distinct from a blank canton - and is real, live data read by
+      # CourseReporting::CourseNumbers#canton_counts. Core's i18n_enum reads this list
+      # via a lambda specifically so this mutation is honored.
       unless Cantons::SHORT_NAMES.include?(:another)
         Cantons::SHORT_NAMES << :another
       end
