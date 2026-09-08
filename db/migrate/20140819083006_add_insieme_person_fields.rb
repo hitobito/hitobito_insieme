@@ -8,7 +8,9 @@
 class AddInsiemePersonFields < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :salutation, :string
-    add_column :people, :canton, :string
+    unless ActiveRecord::Base.connection.column_exists?(:people, :canton)
+      add_column :people, :canton, :string
+    end
 
     unless ActiveRecord::Base.connection.column_exists?(:people, :language)
       add_column :people, :language, :string
