@@ -12,7 +12,7 @@ describe Export::Tabular::People do
     %w[Vorname Nachname Übername Firmenname Firma Haupt-E-Mail PLZ Ort Land
       Hausnummer Postfach Strasse
       Hauptebene Rollen Personnr. Anrede Korrespondenzsprache] +
-      ["zusätzliche Adresszeile"] +
+      ["c/o-Adresse"] +
       [
         "Anrede Korrespondenzadresse allgemein",
         "Vorname Korrespondenzadresse allgemein",
