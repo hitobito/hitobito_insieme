@@ -32,7 +32,7 @@ module Fp2020::CourseReporting
     end
 
     def cantons
-      Event::ParticipationCantonCount.column_names - %w[id]
+      Event::ParticipationCantonCount::CANTON_ATTRIBUTES
     end
 
     private

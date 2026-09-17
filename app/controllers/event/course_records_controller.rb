@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2020, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -40,8 +40,8 @@ class Event::CourseRecordsController < CrudController
     :beitraege_teilnehmende,
     :anzahl_kurse,
     :year,
-    challenged_canton_count_attributes: Cantons::SHORT_NAMES,
-    affiliated_canton_count_attributes: Cantons::SHORT_NAMES]
+    challenged_canton_count_attributes: Event::ParticipationCantonCount::CANTON_ATTRIBUTES,
+    affiliated_canton_count_attributes: Event::ParticipationCantonCount::CANTON_ATTRIBUTES]
 
   before_render_form :replace_decimal_with_integer
   before_render_form :set_numbers

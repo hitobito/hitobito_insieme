@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -126,13 +126,24 @@ module CourseReporting
     end
 
     def canton_counts(role)
-      counts = event.participations.includes(:roles)
+      event.participations.includes(:roles)
         .joins(:roles)
         .with_person_participants
         .where(event_roles: {type: role.sti_name})
-        .group("people.canton").count
-      counts["undefined"] = ((counts.delete(nil) || 0) + (counts.delete("") || 0))
-      counts
+        .group(Arel.sql(canton_grouping_sql)).count
+    end
+
+    # "another" is not a stored canton value: participants with a foreign
+    # address are counted as "another", those without any canton as
+    # "undefined". The non-swiss condition mirrors the AddCantonToPeople
+    # migration (Countries.default is always "ch" here).
+    def canton_grouping_sql
+      non_swiss = "people.country IS NOT NULL " \
+        "AND TRIM(UPPER(people.country)) NOT IN ('', 'CH')"
+
+      "CASE WHEN #{non_swiss} THEN 'another' " \
+        "WHEN NULLIF(TRIM(people.canton), '') IS NULL THEN 'undefined' " \
+        "ELSE people.canton END"
     end
   end
 end

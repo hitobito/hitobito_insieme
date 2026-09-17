@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2024-2023, insieme Schweiz. This file is part of
+#  Copyright (c) 2024-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -295,7 +295,7 @@ describe Fp2024::Export::Tabular::Statistics::GroupFigures do
         "Geschlüsseltes Kapitalsubstrat nach Art. 74" => 0.0,
         "IV-Beitrag" => 0.0,
         "IV-Finanzierungsgrad #{year}" => 0.0,
-        "Kanton" => nil,
+        "Kanton" => "",
         "LUFEB Stunden Angestellte: Allgemeine Medien & Öffentlichkeitsarbeit" => 0,
         "LUFEB Stunden Angestellte: Förderung der Selbsthilfe" => 0,
         "LUFEB Stunden Angestellte: Grundlagenarbeit zu LUFEB" => 0,
@@ -417,7 +417,7 @@ describe Fp2024::Export::Tabular::Statistics::GroupFigures do
     it "for insieme Schweiz" do
       expect(data.first).to include(empty_row.merge({
         "Vollständiger Name" => "insieme Schweiz",
-        "Kanton" => nil,
+        "Kanton" => "",
         "VID" => nil,
         "BSV Nummer" => 2343,
 

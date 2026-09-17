@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2020-2022, Insieme Schweiz. This file is part of
+#  Copyright (c) 2020-2026, Insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -78,7 +78,7 @@ describe Fp2020::Export::Tabular::CourseReporting::ClientStatistics do
         "LE Nicht Beitragsberechtigte",
         "Total"
       ]
-      expect(exporter.labels.size).to eq(prefix.size + Cantons.short_names.size)
+      expect(exporter.labels.size).to eq(prefix.size + stats.cantons.size)
     end
 
     it "contains translated headers" do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -24,14 +24,6 @@ module HitobitoInsieme
       # extend application classes here
 
       # models
-      # "another" represents a participant/group deliberately not tied to a specific
-      # canton - distinct from a blank canton - and is real, live data read by
-      # CourseReporting::CourseNumbers#canton_counts. Core's i18n_enum reads this list
-      # via a lambda specifically so this mutation is honored.
-      unless Cantons::SHORT_NAMES.include?(:another)
-        Cantons::SHORT_NAMES << :another
-      end
-
       Group.include Insieme::Group
       Person.include Insieme::Person
       Person.include Insieme::PersonNumber
