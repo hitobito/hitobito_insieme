@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2021, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -43,7 +43,10 @@ module Insieme::Group
 
     has_many :time_records, dependent: :destroy
 
-    validates :canton, inclusion: {in: Cantons.short_name_strings, allow_blank: true}
+    # Unlike Person, Group keeps "another" as a valid canton value for groups
+    # without a Swiss canton (e.g. foreign organizations).
+    i18n_enum :canton, Cantons.short_name_strings + %w[another],
+      i18n_prefix: "activerecord.attributes.cantons"
 
     def self.by_bsv_number
       where
@@ -56,9 +59,5 @@ module Insieme::Group
 
   def canton
     self[:canton]
-  end
-
-  def canton_label
-    Cantons.full_name(canton)
   end
 end

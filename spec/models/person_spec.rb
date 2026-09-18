@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -19,6 +19,14 @@ describe Person do
 
     it "is locale specific value for valid key" do
       expect(Fabricate.build(:person, canton: "be").canton_label).to eq "Bern"
+    end
+  end
+
+  context "canton" do
+    it "rejects another as value" do
+      person = Fabricate.build(:person, canton: "another")
+      expect(person).not_to be_valid
+      expect(person.errors[:canton]).to be_present
     end
   end
 

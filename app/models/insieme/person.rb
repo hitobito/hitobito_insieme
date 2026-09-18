@@ -24,7 +24,7 @@ module Insieme::Person
 
     Person::PUBLIC_ATTRS << :number << :salutation << :correspondence_language
 
-    Person::SEARCHABLE_ATTRS << :salutation << :canton
+    Person::SEARCHABLE_ATTRS << :salutation
 
     ADDRESS_TYPES.each do |prefix|
       ADDRESS_FIELDS.each do |field|
@@ -44,7 +44,6 @@ module Insieme::Person
     before_save :normalize_addresses
     before_save :normalize_disabled_person_reference
 
-    validates :canton, inclusion: {in: Cantons.short_name_strings, allow_blank: true}
     validates :number, presence: true, uniqueness: true
     validates :disabled_person_birthday,
       timeliness: {type: :date, allow_blank: true, before: Date.new(9999, 12, 31)}
@@ -59,10 +58,6 @@ module Insieme::Person
 
     validates :correspondence_language, presence: true, unless: :newly_registered
     validates :language, presence: true, unless: :newly_registered
-  end
-
-  def canton
-    self[:canton] || super
   end
 
   def reference_person
@@ -81,10 +76,6 @@ module Insieme::Person
       end
     end
     @grouped_active_membership_roles
-  end
-
-  def canton_label
-    Cantons.full_name(canton)
   end
 
   ADDRESS_TYPES.each do |prefix|
@@ -130,7 +121,6 @@ module Insieme::Person
   end
 
   def normalize_i18n_keys
-    canton.downcase! if canton?
     language.downcase! if language?
     correspondence_language.downcase! if correspondence_language?
   end

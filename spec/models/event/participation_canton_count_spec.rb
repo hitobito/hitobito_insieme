@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -50,7 +50,7 @@ describe Event::ParticipationCantonCount do
     end
 
     it "should sum all canton counts" do
-      Cantons::SHORT_NAMES.each do |attr|
+      Event::ParticipationCantonCount::CANTON_ATTRIBUTES.each do |attr|
         counts[attr] = 1
       end
       expect(counts.total).to eq 27

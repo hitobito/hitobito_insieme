@@ -29,7 +29,7 @@ module Fp2015::CourseReporting
     end
 
     def cantons
-      Event::ParticipationCantonCount.column_names - %w[id]
+      Event::ParticipationCantonCount::CANTON_ATTRIBUTES
     end
 
     def leistungskategorien

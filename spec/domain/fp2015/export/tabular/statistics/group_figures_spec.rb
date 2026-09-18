@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2016, insieme Schweiz. This file is part of
+#  Copyright (c) 2016-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -184,7 +184,7 @@ describe Fp2015::Export::Tabular::Statistics::GroupFigures do
     data.each { |d| d.collect! { |i| i.is_a?(BigDecimal) ? i.to_f.round(5) : i } }
 
     expect(data.first).to eq [
-      "insieme Schweiz", nil, nil, 2343,
+      "insieme Schweiz", "", nil, 2343,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0, 0.0, 0.0, 0.0, 0.0, 0.0,

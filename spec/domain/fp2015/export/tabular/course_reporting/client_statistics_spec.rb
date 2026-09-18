@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#  Copyright (c) 2015, insieme Schweiz. This file is part of
+#  Copyright (c) 2015-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -37,7 +37,7 @@ describe Fp2015::Export::Tabular::CourseReporting::ClientStatistics do
     let(:data) { exporter.data_rows.to_a }
 
     it "exports data for all cantons" do
-      expect(data.size).to eq(2 + Cantons.short_names.size + 1)
+      expect(data.size).to eq(2 + stats.cantons.size + 1)
     end
 
     it "contains correct sums" do

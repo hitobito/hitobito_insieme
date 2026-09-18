@@ -20,12 +20,12 @@ describe Event::ParticipationsController do
         # rubocop:enable Layout/LineLength
         participant_type: Person.sti_name,
         participant_attributes: {id: person.id,
-                                 canton: "Be",
+                                 canton: "be",
                                  birthday: "2014-09-22",
-                                 zip_code: "10115",
+                                 zip_code: "3000",
                                  town: "dummy",
                                  street: "dummy",
-                                 country: "DE",
+                                 country: "CH",
                                  correspondence_course_same_as_main: false,
                                  correspondence_course_salutation: "dummy",
                                  correspondence_course_first_name: "dummy",
@@ -51,7 +51,7 @@ describe Event::ParticipationsController do
 
     expect(person.reload.canton).to eq "be"
     expect(person.birthday).to eq Date.parse("2014-09-22")
-    expect(person.zip_code).to eq "10115"
+    expect(person.zip_code).to eq "3000"
 
     %w[billing_course_zip_code correspondence_course_zip_code].each do |attr|
       expect(person.send(attr.to_sym)).to eq 1234
@@ -79,7 +79,7 @@ describe Event::ParticipationsController do
       billing_course_town].each do |attr|
       expect(person.send(attr.to_sym)).to eq "dummy"
     end
-    expect(person.country).to eq "DE"
+    expect(person.country).to eq "CH"
     expect(person.correspondence_course_country).to eq "DE"
     expect(person.billing_course_country).to eq "DE"
   end

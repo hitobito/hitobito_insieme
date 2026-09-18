@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2014, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -136,11 +136,12 @@ describe CourseReporting::CourseNumbers do
     end
 
     context "canton counts" do
-      def create_participant(role, canton)
+      def create_participant(role, canton, country: "CH")
         Fabricate(role.name.to_sym,
           participation: Fabricate(:event_participation,
             event: event,
-            participant: Fabricate(:person, canton: canton)))
+            participant: Fabricate(:person, canton: canton, country: country,
+              zip_code: (country == "CH") ? "3007" : "12345")))
       end
 
       [[:challenged_canton_counts,
@@ -163,6 +164,19 @@ describe CourseReporting::CourseNumbers do
             expect(subject.send(assoc)).to eq("undefined" => 2,
               "be" => 2,
               "zh" => 1)
+          end
+
+          it "counts participants with foreign address as another" do
+            event.participations.destroy_all
+
+            create_participant(role, nil, country: "FR")
+            create_participant(role, nil, country: "DE")
+            create_participant(role, "be")
+            create_participant(role, nil)
+
+            expect(subject.send(assoc)).to eq("undefined" => 1,
+              "another" => 2,
+              "be" => 1)
           end
         end
       end

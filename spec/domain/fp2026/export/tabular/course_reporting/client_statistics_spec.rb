@@ -78,7 +78,7 @@ describe Fp2026::Export::Tabular::CourseReporting::ClientStatistics do
         "LE Nicht Beitragsberechtigte",
         "Total"
       ]
-      expect(exporter.labels.size).to eq(prefix.size + Cantons.short_names.size)
+      expect(exporter.labels.size).to eq(prefix.size + stats.cantons.size)
     end
 
     it "contains translated headers" do

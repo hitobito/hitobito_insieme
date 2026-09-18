@@ -36,10 +36,17 @@
 #  vs    :integer
 #  zg    :integer
 #  zh    :integer
-#  other :integer
+#  another :integer
 #
 
 class Event::ParticipationCantonCount < ActiveRecord::Base
+  # The count columns of this table: one per canton plus "another" for
+  # participants without a Swiss canton. "another" is a reporting
+  # category, not a valid Person#canton value. Static list (not
+  # column_names) so loading this class does not query the database,
+  # e.g. when compiling assets before migrations ran.
+  CANTON_ATTRIBUTES = Cantons.short_name_strings + %w[another]
+
   has_one :course_record_as_challenged_canton_count, foreign_key: :challenged_canton_count_id,
     inverse_of: :challenged_canton_count,
     dependent: :nullify,
@@ -50,10 +57,10 @@ class Event::ParticipationCantonCount < ActiveRecord::Base
     class_name: "Event::CourseRecord"
 
   validates_by_schema
-  validates(*Cantons.short_names,
+  validates(*CANTON_ATTRIBUTES,
     numericality: {greater_than_or_equal_to: 0, allow_blank: true})
 
   def total
-    Cantons.short_name_strings.inject(0) { |sum, c| sum + attributes[c].to_i }
+    CANTON_ATTRIBUTES.sum { |c| attributes[c].to_i }
   end
 end

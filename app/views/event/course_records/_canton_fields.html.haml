@@ -10,7 +10,7 @@
 .participation-canton-counts.mt-4.mb-5{id: "canton_counts_#{attr}", style: 'display: none;'}
   = f.fields_for(cantons_attr) do |nf|
     = nf.hidden_field(:id)
-    - Cantons::SHORT_NAMES.each do |a|
+    - Event::ParticipationCantonCount::CANTON_ATTRIBUTES.each do |a|
       = nf.labeled_input_field(a, help_inline: muted(cantons_suggestion[a.to_s]))
 
     = nf.content_tag(:div, class: 'control-group') do
