@@ -14,8 +14,6 @@ describe InvoicesController do
   context "new" do
     before do
       Fabricate(Group::Dachverein::BerechtigungRechnungen.sti_name, group:, person:)
-      # trigger address normalization
-      person.save!
     end
 
     it "GET#new uses normal address" do
@@ -31,22 +29,25 @@ describe InvoicesController do
       expect(assigns(:invoice).recipient_town).to eq("Bern")
     end
 
-    it "GET#new uses billing_general address if different from normal address" do
-      person.update(
-        billing_general_same_as_main: false,
-        billing_general_first_name: "Max",
-        billing_general_last_name: "Mustermann",
-        billing_general_address: "Musterweg 2",
-        billing_general_zip_code: "8000",
-        billing_general_town: "Hitobitingen"
-      )
+    it "GET#new uses invoice address if present" do
+      Fabricate(:additional_address,
+        contactable: person,
+        category: contact_account_categories(:additional_address_person_invoices),
+        uses_contactable_name: false,
+        first_name: "Max",
+        last_name: "Mustermann",
+        street: "Alte Bahnhofstrasse",
+        housenumber: "2",
+        zip_code: "8000",
+        town: "Hitobitingen",
+        country: "CH")
       get :new, params: {
         group_id: group.id,
         invoice: {recipient_type: "Person", recipient_id: person.id}
       }
       expect(response).to be_successful
       expect(assigns(:invoice).recipient_name).to eq("Max Mustermann")
-      expect(assigns(:invoice).recipient_street).to eq("Musterweg")
+      expect(assigns(:invoice).recipient_street).to eq("Alte Bahnhofstrasse")
       expect(assigns(:invoice).recipient_housenumber).to eq("2")
       expect(assigns(:invoice).recipient_zip_code).to eq("8000")
       expect(assigns(:invoice).recipient_town).to eq("Hitobitingen")

@@ -619,64 +619,6 @@ de:
         reference_person_additional_information: Zusätzliche Angaben Bezugsperson
         dossier: Dossierlink
 
-        address_labels:
-          Privat: Privat
-          Arbeit: Arbeit
-          Vater: Vater
-          Mutter: Mutter
-          Beistand: Beistand
-          Wohngruppe: Wohngruppe
-          Wohnheim: Wohnheim
-          Andere: Andere
-
-        correspondence_general_salutation: Anrede Korrespondenzadresse allgemein
-        correspondence_general_first_name: Vorname Korrespondenzadresse allgemein
-        correspondence_general_last_name: Nachname Korrespondenzadresse allgemein
-        correspondence_general_company_name: Firmenname Korrespondenzadresse allgemein
-        correspondence_general_company: Firma Korrespondenzadresse allgemein
-        correspondence_general_address: Adresse Korrespondenzadresse allgemein
-        correspondence_general_zip_code: PLZ Korrespondenzadresse allgemein
-        correspondence_general_town: Ort Korrespondenzadresse allgemein
-        correspondence_general_country: Land Korrespondenzadresse allgemein
-        correspondence_general_same_as_main: Korrespondenzadresse allgemein gleich Hauptadresse
-        correspondence_general_label: Label
-
-        billing_general_salutation: Anrede Rechnungsadresse allgemein
-        billing_general_first_name: Vorname Rechnungsadresse allgemein
-        billing_general_last_name: Nachname Rechnungsadresse allgemein
-        billing_general_company_name: Firmenname Rechnungsadresse allgemein
-        billing_general_company: Firma Rechnungsadresse allgemein
-        billing_general_address: Adresse Rechnungsadresse allgemein
-        billing_general_zip_code: PLZ Rechnungsadresse allgemein
-        billing_general_town: Ort Rechnungsadresse allgemein
-        billing_general_country: Land Rechnungsadresse allgemein
-        billing_general_same_as_main: Rechnungsadresse allgemein gleich Hauptadresse
-        billing_general_label: Label
-
-        correspondence_course_salutation: Anrede Korrespondenzadresse Kurs
-        correspondence_course_first_name: Vorname Korrespondenzadresse Kurs
-        correspondence_course_last_name: Nachname Korrespondenzadresse Kurs
-        correspondence_course_company_name: Firmenname Korrespondenzadresse Kurs
-        correspondence_course_company: Firma Korrespondenzadresse Kurs
-        correspondence_course_address: Adresse Korrespondenzadresse Kurs
-        correspondence_course_zip_code: PLZ Korrespondenzadresse Kurs
-        correspondence_course_town: Ort Korrespondenzadresse Kurs
-        correspondence_course_country: Land Korrespondenzadresse Kurs
-        correspondence_course_same_as_main: Korrespondenzadresse Kurs gleich Hauptadresse
-        correspondence_course_label: Label
-
-        billing_course_salutation: Anrede Rechnungsadresse Kurs
-        billing_course_first_name: Vorname Rechnungsadresse Kurs
-        billing_course_last_name: Nachname Rechnungsadresse Kurs
-        billing_course_company_name: Firmenname Rechnungsadresse Kurs
-        billing_course_company: Firma Rechnungsadresse Kurs
-        billing_course_address: Adresse Rechnungsadresse Kurs
-        billing_course_zip_code: PLZ Rechnungsadresse Kurs
-        billing_course_town: Ort Rechnungsadresse Kurs
-        billing_course_country: Land Rechnungsadresse Kurs
-        billing_course_same_as_main: Rechnungsadresse Kurs gleich Hauptadresse
-        billing_course_label: Label
-
       reporting_parameter:
         year: Jahr
         vollkosten_le_schwelle1_blockkurs: Blockkurs Schwellenwert 1 Vollkosten/LE

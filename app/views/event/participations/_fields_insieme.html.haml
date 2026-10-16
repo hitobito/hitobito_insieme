@@ -28,9 +28,6 @@
       = pf.hidden_field :id
       = render 'contactable/address_fields', f: pf
 
-    = pf.labeled_inline_fields_for :additional_addresses, 'contactable/additional_address_fields'
-
-
     = field_set_tag do
       = pf.labeled_string_field(:birthday,
                                 value: pf.date_value(:birthday),

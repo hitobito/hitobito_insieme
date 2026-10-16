@@ -179,35 +179,6 @@ describe Person do
     end
   end
 
-  context "updating addresses" do
-    it "sets blank address fields to main values" do
-      person = create
-
-      expect(person.reload.correspondence_general_first_name).to eq "John"
-      expect(person.reload.correspondence_general_last_name).to eq "Lennon"
-      expect(person.correspondence_course_address).to eq "Pennylane"
-      expect(person.billing_general_town).to eq "Liverpool"
-      expect(person.billing_course_zip_code).to eq 60601
-      expect(person.billing_course_country).to eq "US"
-    end
-
-    it "sets same_as_main according to values of address fields" do
-      person = create
-      person.update!(correspondence_general_same_as_main: false,
-        correspondence_general_first_name: "Working class hero")
-
-      expect(person.reload.full_name).to eq "John Lennon"
-      expect(person.correspondence_general_first_name).to eq "Working class hero"
-      expect(person.correspondence_general_same_as_main).to be_falsey
-    end
-
-    def create(attrs = {})
-      Fabricate(:person, attrs.merge(first_name: "John", last_name: "Lennon",
-        street: "Pennylane", housenumber: nil,
-        zip_code: "60601", town: "Liverpool", country: "US"))
-    end
-  end
-
   context "grouped_active_membership_roles" do
     it "should only include Group::Aktivmitglieder" do
       person = Fabricate.build(:person, first_name: "John")
@@ -258,26 +229,6 @@ describe Person do
       expect(person.disabled_person_zip_code).to be_nil
       expect(person.disabled_person_town).to be_nil
       expect(person.disabled_person_birthday).to be_nil
-    end
-  end
-
-  Person::ADDRESS_TYPES.each do |type|
-    context "#{type}_zip_code" do
-      let(:zip_code) { :"#{type}_zip_code" }
-      let(:country) { :"#{type}_country" }
-
-      it "allows more than 4 digits for international plz" do
-        expect(new_person(zip_code => 90210, country => "US")).to be_valid
-      end
-
-      it "rejects more than 4 digits for swiss plz" do
-        expect(new_person(zip_code => 90210)).to have(1).error_on(zip_code)
-        expect(new_person(zip_code => 9021)).to be_valid
-      end
-    end
-
-    def new_person(attrs)
-      Fabricate.build(:person, attrs.merge(first_name: "John")).tap { |p| p.valid? }
     end
   end
 

@@ -12,7 +12,7 @@ describe Export::Pdf::Labels do
 
   let(:labels) { Export::Pdf::Labels.new(Fabricate(:label_format), category_key: address_type) }
 
-  subject { labels.address(person, to_name(person)) }
+  subject { labels.send(:address, person, to_name(person)) }
 
   def to_name(contactable)
     Export::Tabular::People::HouseholdRow.new(contactable).name
@@ -23,16 +23,21 @@ describe Export::Pdf::Labels do
       street: "My Street",
       housenumber: nil,
       town: "Bern",
-      zip_code: "3007",
-      correspondence_course_same_as_main: false,
-      correspondence_course_first_name: "Course",
-      correspondence_course_last_name: "Leader",
-      correspondence_course_company_name: "Chiefs Inc",
-      correspondence_course_address: "Course Street",
-      correspondence_course_zip_code: "3030",
-      correspondence_course_town: "Wabern",
-      correspondence_course_country: "Schweiz"
+      zip_code: "3007"
     )
+    Fabricate(:additional_address,
+      contactable: person,
+      category: contact_account_categories(:additional_address_person_mutter),
+      uses_contactable_name: false,
+      first_name: "Course",
+      last_name: "Leader",
+      organization: true,
+      organization_name: "Chiefs Inc",
+      street: "Course Street",
+      housenumber: nil,
+      zip_code: "3030",
+      town: "Wabern",
+      country: "CH")
   end
 
   context "for person" do
@@ -44,8 +49,8 @@ describe Export::Pdf::Labels do
       end
     end
 
-    context "for correspondence course address" do
-      let(:address_type) { "correspondence_course" }
+    context "for additional address" do
+      let(:address_type) { "mutter" }
 
       it "renders correct address" do
         is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
@@ -115,8 +120,8 @@ describe Export::Pdf::Labels do
       end
     end
 
-    context "for correspondence course address" do
-      let(:address_type) { "correspondence_course" }
+    context "for additional address" do
+      let(:address_type) { "mutter" }
 
       it "renders correct address" do
         is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"

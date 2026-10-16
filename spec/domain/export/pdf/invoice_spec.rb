@@ -25,10 +25,6 @@ describe Export::Pdf::Invoice do
       }))
   end
 
-  before do
-    Person::AddressNormalizer.new(recipient).run
-  end
-
   subject do
     pdf = described_class.render(invoice, articles: true)
     PDF::Inspector::Text.analyze(pdf)
@@ -66,14 +62,17 @@ describe Export::Pdf::Invoice do
 
   context "with differing billing address" do
     before do
-      recipient.update(
-        billing_general_same_as_main: false,
-        billing_general_first_name: "Max",
-        billing_general_last_name: "Mustermann",
-        billing_general_address: "Musterweg 2",
-        billing_general_zip_code: "8000",
-        billing_general_town: "Hitobitingen"
-      )
+      Fabricate(:additional_address,
+        contactable: recipient,
+        category: contact_account_categories(:additional_address_person_invoices),
+        uses_contactable_name: false,
+        first_name: "Max",
+        last_name: "Mustermann",
+        street: "Musterweg",
+        housenumber: "2",
+        zip_code: "8000",
+        town: "Hitobitingen",
+        country: "CH")
     end
 
     it "renders Leistungsbezüger" do

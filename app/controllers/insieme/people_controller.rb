@@ -7,7 +7,7 @@
 
 module Insieme
   module PeopleController
-    def self.prepended(base) # rubocop:disable Metrics/MethodLength
+    def self.prepended(base)
       base.permitted_attrs +=
         [:salutation, :language, :correspondence_language,
           :number, :manual_number, :reference_person_number, :dossier,
@@ -15,15 +15,7 @@ module Insieme
           :disabled_person_last_name, :disabled_person_address,
           :disabled_person_zip_town, :disabled_person_zip_code,
           :disabled_person_town, :disabled_person_birthday,
-          :newly_registered, :correspondence_general_label, :billing_general_label,
-          :correspondence_course_label, :billing_course_label]
-
-      # Permit person address fields
-      Person::ADDRESS_TYPES.each do |prefix|
-        %w[same_as_main].concat(Person::ADDRESS_FIELDS).each do |field|
-          base.permitted_attrs << :"#{prefix}_#{field}"
-        end
-      end
+          :newly_registered]
     end
 
     def permitted_attrs

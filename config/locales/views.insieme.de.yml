@@ -49,17 +49,6 @@ de:
       iv_finanzierungsgrad_current: IV Finanzierungsgrad %{year}
       help_per_date: per %{date}
 
-  contactable:
-    address_fields_insieme:
-      main: Hauptadresse
-      correspondence_general: Korrespondenzadresse allgemein
-      billing_general: Rechnungsadresse allgemein
-      correspondence_course: Korrespondenzadresse Kurs
-      billing_course: Rechnungsadresse Kurs
-
-    single_address_fields:
-      same_as_main: Gleich wie Hauptadresse
-
   controlling:
     title: Controlling
     index:

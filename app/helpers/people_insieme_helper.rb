@@ -18,13 +18,6 @@ module PeopleInsiemeHelper
     person.correspondence_language_label
   end
 
-  def toggled_address_fields(prefix, person = entry)
-    display = person.send(:"#{prefix}_same_as_main?") ? "display: none;" : ""
-    content_tag(:div, id: "person_#{prefix}", style: display) do
-      yield
-    end
-  end
-
   def format_person_dossier(person)
     if person.dossier?
       auto_link(person.dossier, class: "ellipsis")

@@ -6,11 +6,13 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class MapAddressCountriesToTwoLetterCodes < ActiveRecord::Migration[4.2]
+  ADDRESS_TYPES = %w[correspondence_general billing_general correspondence_course
+    billing_course].freeze
 
   def up
     return if test_data?
 
-    Person::ADDRESS_TYPES.each do |type|
+    ADDRESS_TYPES.each do |type|
       say_with_time("updating people #{type}_country") do
         CountryMapper.new(type).update_and_persist
       end

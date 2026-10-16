@@ -9,14 +9,6 @@ describe PeopleController do
   let(:person) { people(:top_leader) }
   let(:group) { groups(:dachverein) }
 
-  it "should permit the prefixed address attributes" do
-    expect(PeopleController.permitted_attrs).to include(:correspondence_general_first_name)
-    expect(PeopleController.permitted_attrs).to include(:billing_general_first_name)
-    expect(PeopleController.permitted_attrs).to include(:correspondence_course_first_name)
-    expect(PeopleController.permitted_attrs).to include(:billing_course_first_name)
-    expect(PeopleController.permitted_attrs).to include(:correspondence_general_company_name)
-  end
-
   context "PUT update" do
     before { sign_in(person) }
 
