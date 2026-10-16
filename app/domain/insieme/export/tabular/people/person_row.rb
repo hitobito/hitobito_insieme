@@ -41,11 +41,5 @@ module Insieme::Export::Tabular::People
     def reference_person_additional_information
       entry.reference_person&.additional_information
     end
-
-    Person::ADDRESS_TYPES.each do |type|
-      define_method(:"#{type}_country") do
-        entry.send(:"#{type}_country_label")
-      end
-    end
   end
 end

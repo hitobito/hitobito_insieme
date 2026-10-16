@@ -25,27 +25,7 @@ describe Event::ParticipationsController do
                                  zip_code: "3000",
                                  town: "dummy",
                                  street: "dummy",
-                                 country: "CH",
-                                 correspondence_course_same_as_main: false,
-                                 correspondence_course_salutation: "dummy",
-                                 correspondence_course_first_name: "dummy",
-                                 correspondence_course_last_name: "dummy",
-                                 correspondence_course_company_name: "dummy",
-                                 correspondence_course_company: "1",
-                                 correspondence_course_address: "dummy",
-                                 correspondence_course_zip_code: "1234",
-                                 correspondence_course_town: "dummy",
-                                 correspondence_course_country: "DE",
-                                 billing_course_same_as_main: "0",
-                                 billing_course_salutation: "dummy",
-                                 billing_course_first_name: "dummy",
-                                 billing_course_last_name: "dummy",
-                                 billing_course_company_name: "dummy",
-                                 billing_course_company: "1",
-                                 billing_course_address: "dummy",
-                                 billing_course_zip_code: "1234",
-                                 billing_course_town: "dummy",
-                                 billing_course_country: "DE"}
+                                 country: "CH"}
       }}
     end.to change { Event::Participation.count }.by(1)
 
@@ -53,35 +33,9 @@ describe Event::ParticipationsController do
     expect(person.birthday).to eq Date.parse("2014-09-22")
     expect(person.zip_code).to eq "3000"
 
-    %w[billing_course_zip_code correspondence_course_zip_code].each do |attr|
-      expect(person.send(attr.to_sym)).to eq 1234
-    end
-
-    %w[correspondence_course_company billing_course_company].each do |attr|
-      expect(person.send(attr.to_sym)).to be_truthy
-    end
-
-    %w[town
-      street
-
-      correspondence_course_salutation
-      correspondence_course_first_name
-      correspondence_course_last_name
-      correspondence_course_company_name
-      correspondence_course_address
-      correspondence_course_town
-
-      billing_course_salutation
-      billing_course_first_name
-      billing_course_last_name
-      billing_course_company_name
-      billing_course_address
-      billing_course_town].each do |attr|
-      expect(person.send(attr.to_sym)).to eq "dummy"
-    end
+    expect(person.town).to eq "dummy"
+    expect(person.street).to eq "dummy"
     expect(person.country).to eq "CH"
-    expect(person.correspondence_course_country).to eq "DE"
-    expect(person.billing_course_country).to eq "DE"
   end
 
   # rubocop:todo Layout/LineLength

@@ -6,8 +6,11 @@
 #  https://github.com/hitobito/hitobito_insieme.
 
 class AddSameAsMainAddressFieldsToPerson < ActiveRecord::Migration[4.2]
+  ADDRESS_TYPES = %w[correspondence_general billing_general correspondence_course
+    billing_course].freeze
+
   def change
-    Person::ADDRESS_TYPES.each do |prefix|
+    ADDRESS_TYPES.each do |prefix|
       add_column :people, "#{prefix}_same_as_main", :boolean, default: true
     end
   end

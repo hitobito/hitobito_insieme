@@ -33,19 +33,10 @@ module Insieme
       private
 
       def additional_person_attributes
-        person_attributes = [:id, :canton, :birthday,
+        [:id, :canton, :birthday,
           :address,
           :address_care_of, :street, :housenumber, :postbox,
           :zip_code, :town, :country, :newly_registered]
-
-        Person::ADDRESS_TYPES.grep(/course/).each do |prefix|
-          person_attributes << :"#{prefix}_same_as_main"
-          Person::ADDRESS_FIELDS.each do |field|
-            person_attributes << :"#{prefix}_#{field}"
-          end
-        end
-
-        person_attributes
       end
     end
   end

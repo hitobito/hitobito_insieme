@@ -14,45 +14,14 @@ describe Export::Tabular::People do
       Hauptebene Rollen Personnr. Anrede Korrespondenzsprache] +
       ["c/o-Adresse"] +
       [
-        "Anrede Korrespondenzadresse allgemein",
-        "Vorname Korrespondenzadresse allgemein",
-        "Nachname Korrespondenzadresse allgemein",
-        "Firmenname Korrespondenzadresse allgemein",
-        "Firma Korrespondenzadresse allgemein",
-        "Adresse Korrespondenzadresse allgemein",
-        "PLZ Korrespondenzadresse allgemein",
-        "Ort Korrespondenzadresse allgemein",
-        "Land Korrespondenzadresse allgemein",
-
-        "Anrede Rechnungsadresse allgemein",
-        "Vorname Rechnungsadresse allgemein",
-        "Nachname Rechnungsadresse allgemein",
-        "Firmenname Rechnungsadresse allgemein",
-        "Firma Rechnungsadresse allgemein",
-        "Adresse Rechnungsadresse allgemein",
-        "PLZ Rechnungsadresse allgemein",
-        "Ort Rechnungsadresse allgemein",
-        "Land Rechnungsadresse allgemein",
-
-        "Anrede Korrespondenzadresse Kurs",
-        "Vorname Korrespondenzadresse Kurs",
-        "Nachname Korrespondenzadresse Kurs",
-        "Firmenname Korrespondenzadresse Kurs",
-        "Firma Korrespondenzadresse Kurs",
-        "Adresse Korrespondenzadresse Kurs",
-        "PLZ Korrespondenzadresse Kurs",
-        "Ort Korrespondenzadresse Kurs",
-        "Land Korrespondenzadresse Kurs",
-
-        "Anrede Rechnungsadresse Kurs",
-        "Vorname Rechnungsadresse Kurs",
-        "Nachname Rechnungsadresse Kurs",
-        "Firmenname Rechnungsadresse Kurs",
-        "Firma Rechnungsadresse Kurs",
-        "Adresse Rechnungsadresse Kurs",
-        "PLZ Rechnungsadresse Kurs",
-        "Ort Rechnungsadresse Kurs",
-        "Land Rechnungsadresse Kurs"
+        "Weitere Adresse Andere",
+        "Weitere Adresse Arbeit",
+        "Weitere Adresse Beistand",
+        "Weitere Adresse Mutter",
+        "Weitere Adresse Rechnungsadresse",
+        "Weitere Adresse Vater",
+        "Weitere Adresse Wohngruppe",
+        "Weitere Adresse Wohnheim"
       ] +
       [
         "Telefonnummer Andere",
@@ -87,9 +56,6 @@ describe Export::Tabular::People do
 
       person.country = "US"
       person.zip_code = 60601
-      person.correspondence_general_same_as_main = false
-      person.correspondence_general_first_name = "Töp"
-      person.correspondence_general_country = "FR"
 
       person.reference_person_number = "123"
 
@@ -102,6 +68,19 @@ describe Export::Tabular::People do
       person.disabled_person_birthday = "25.02.1943"
 
       person.save!
+
+      Fabricate(:additional_address,
+        contactable: person,
+        category: contact_account_categories(:additional_address_person_vater),
+        public: true,
+        uses_contactable_name: false,
+        first_name: "Töp",
+        last_name: "Vater",
+        street: "Rue de Rivoli",
+        housenumber: "1",
+        zip_code: "75001",
+        town: "Paris",
+        country: "FR")
     end
 
     let(:list) { [person] }
@@ -124,8 +103,9 @@ describe Export::Tabular::People do
         its(["Haupt-E-Mail"]) { is_expected.to eq person.email }
         its(["Ort"]) { is_expected.to eq person.town }
         its(["Land"]) { is_expected.to eq person.country_label }
-        its(["Vorname Korrespondenzadresse allgemein"]) { is_expected.to eq "Töp" }
-        its(["Land Korrespondenzadresse allgemein"]) { is_expected.to eq "Frankreich" }
+        its(["Weitere Adresse Vater"]) do
+          is_expected.to eq "Töp Vater, Rue de Rivoli 1, 75001 Paris, Frankreich"
+        end
         its(["Rollen"]) { is_expected.to eq "Berechtigung Admin insieme Schweiz" }
       end
     end

@@ -13,25 +13,6 @@ module Insieme
       def add_last_used_format_item(_parent)
         # feature not provided
       end
-
-      def add_label_format_items(parent)
-        LabelFormat.list.for_person(user).each do |label_format|
-          format_item = export_label_item(label_format.id, :main, label_format.to_s)
-          parent.sub_items << format_item
-
-          ([:main] + Person::ADDRESS_TYPES).each do |type|
-            format_item.sub_items << export_label_item(label_format.id, type)
-          end
-        end
-      end
-
-      def export_label_item(format_id, type, label = nil)
-        ::Dropdown::Item.new(label || I18n.t("contactable.address_fields_insieme.#{type}"),
-          params.merge(format: :pdf,
-            label_format_id: format_id,
-            category_key: type),
-          target: :_blank)
-      end
     end
   end
 end

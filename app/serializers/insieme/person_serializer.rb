@@ -15,12 +15,6 @@ module Insieme::PersonSerializer
         :language,
         :correspondence_language,
         :number
-
-      ::Person::ADDRESS_TYPES.each do |prefix|
-        ::Person::ADDRESS_FIELDS.each do |field|
-          map_properties :"#{prefix}_#{field}"
-        end
-      end
     end
   end
 end
