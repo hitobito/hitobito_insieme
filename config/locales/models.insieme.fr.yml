@@ -621,64 +621,6 @@ fr:
         reference_person_additional_information: Indications supplémentaires de la personne de référence
         dossier: Lien du dossier
 
-        address_labels:
-          Privat: Personnel
-          Arbeit: Professionnel
-          Vater: Père
-          Mutter: Mère
-          Beistand: Curatelle
-          Wohngruppe: Groupe d'habitation
-          Wohnheim: Logement
-          Andere: Autres
-
-        correspondence_general_salutation: Titre pour l'adresse de correspondance en général
-        correspondence_general_first_name: Prénom pour l'adresse de correspondance en général
-        correspondence_general_last_name: Nom de famille pour l'adresse de correspondance en général
-        correspondence_general_company_name: Noms de l'entreprise pour l'adresse de correspondance en général
-        correspondence_general_company: Entreprise pour l'adresse de correspondance en général
-        correspondence_general_address: Adresse pour l'adresse de correspondance en général
-        correspondence_general_zip_code: NPA pour l'adresse de correspondance en général
-        correspondence_general_town: Lieu pour l'adresse de correspondance en général
-        correspondence_general_country: Pays pour l'adresse de correspondance en général
-        correspondence_general_same_as_main: Même adresse de correspondance en général que l'adresse principale
-        correspondence_general_label: Label
-
-        billing_general_salutation: Titre pour l'adresse de facturation en général
-        billing_general_first_name: Prénom pour l'adresse de facturation en général
-        billing_general_last_name: Nom de famille pour l'adresse de facturation en général
-        billing_general_company_name: Noms de l'entreprise pour l'adresse de facturation en général
-        billing_general_company: Entreprise adresse de facturation en général
-        billing_general_address: Adresse pour l'adresse de facturation en général
-        billing_general_zip_code: NPA pour l'adresse de facturation en général
-        billing_general_town: Lieu pour l'adresse de facturation en général
-        billing_general_country: Pays pour l'adresse de facturation en général
-        billing_general_same_as_main: Même adresse de facturation en général que l'adresse principale
-        billing_general_label: Label
-
-        correspondence_course_salutation: Titre pour l'adresse de correspondance pour les cours
-        correspondence_course_first_name: Prénom pour l'adresse de correspondance pour les cours
-        correspondence_course_last_name: Nom de famille pour l'adresse de correspondance pour les cours
-        correspondence_course_company_name: Noms de l'entreprise pour l'adresse de correspondance pour les cours
-        correspondence_course_company: Entreprise adresse de correspondance pour les cours
-        correspondence_course_address: Adresse de l'adresse de correspondance pour les cours
-        correspondence_course_zip_code: NPA adresse de correspondance pour les cours
-        correspondence_course_town: Lieu adresse de correspondance pour les cours
-        correspondence_course_country: Pays adresse de correspondance pour les cours
-        correspondence_course_same_as_main: Même adresse de correspondance pour les cours que l'adresse principale
-        correspondence_course_label: Label
-
-        billing_course_salutation: Titre pour l'adresse de facturation pour les cours
-        billing_course_first_name: Prénom pour l'adresse de facturation pour les cours
-        billing_course_last_name: Nom de famille pour l'adresse de facturation pour les cours
-        billing_course_company_name: Noms de l'entreprise pour l'adresse de facturation pour les cours
-        billing_course_company: Entreprise adresse de facturation pour les cours
-        billing_course_address: Adresse pour l'adresse de facturation pour les cours
-        billing_course_zip_code: NPA adresse de facturation pour les cours
-        billing_course_town: Lieu adresse de facturation pour les cours
-        billing_course_country: Pays adresse de facturation pour les cours
-        billing_course_same_as_main: Même adresse de facturation que l'adresse principale
-        billing_course_label: Label
-
       reporting_parameter:
         year: Année
         vollkosten_le_schwelle1_blockkurs: Cours en bloc valeurs seuils 1 coûts complets/UP

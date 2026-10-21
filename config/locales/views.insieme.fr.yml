@@ -49,17 +49,6 @@ fr:
       iv_finanzierungsgrad_current: Taux de financement AI
       help_per_date: en %{date}
 
-  contactable:
-    address_fields_insieme:
-      main: Adresse principale
-      correspondence_general: Adresse de correspondance générale
-      billing_general: Adresse de facturation générale
-      correspondence_course: Adresse de correspondance pour les cours
-      billing_course: Adresse de facturation pour les cours
-
-    single_address_fields:
-      same_as_main: Même que l'adresse principale
-
   controlling:
     title: Controlling
     index:
