@@ -1,4 +1,4 @@
-#  Copyright (c) 2012-2024, insieme Schweiz. This file is part of
+#  Copyright (c) 2012-2026, insieme Schweiz. This file is part of
 #  hitobito_insieme and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_insieme.
@@ -12,7 +12,7 @@ describe Export::Tabular::People do
     %w[Vorname Nachname Übername Firmenname Firma Haupt-E-Mail PLZ Ort Land
       Hausnummer Postfach Strasse
       Hauptebene Rollen Personnr. Anrede Korrespondenzsprache] +
-      ["c/o-Adresse"] +
+      ["c/o-Adresse", "Adresszusatz"] +
       [
         "Weitere Adresse Andere",
         "Weitere Adresse Arbeit",

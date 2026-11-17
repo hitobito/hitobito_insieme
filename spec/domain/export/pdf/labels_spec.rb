@@ -45,7 +45,7 @@ describe Export::Pdf::Labels do
       let(:address_type) { "main" }
 
       it "renders correct address" do
-        is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
+        is_expected.to eq "Top Leader\nMy Street\n3007 Bern"
       end
     end
 
@@ -53,7 +53,7 @@ describe Export::Pdf::Labels do
       let(:address_type) { "mutter" }
 
       it "renders correct address" do
-        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
+        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern"
       end
     end
   end
@@ -85,7 +85,7 @@ describe Export::Pdf::Labels do
           let(:company) { true }
 
           it "renders company_name" do
-            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern"
           end
         end
 
@@ -93,7 +93,7 @@ describe Export::Pdf::Labels do
           let(:company) { false }
 
           it "does also render company_name" do
-            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern\n"
+            is_expected.to eq "Chiefs Incorporated\nTop Leader\nMy Street\n3007 Bern"
           end
         end
       end
@@ -106,7 +106,7 @@ describe Export::Pdf::Labels do
           let(:company) { true }
 
           it "does not render company_name" do
-            is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
+            is_expected.to eq "Top Leader\nMy Street\n3007 Bern"
           end
         end
 
@@ -114,7 +114,7 @@ describe Export::Pdf::Labels do
           let(:company) { false }
 
           it "does also not render company_name" do
-            is_expected.to eq "Top Leader\nMy Street\n3007 Bern\n"
+            is_expected.to eq "Top Leader\nMy Street\n3007 Bern"
           end
         end
       end
@@ -124,7 +124,7 @@ describe Export::Pdf::Labels do
       let(:address_type) { "mutter" }
 
       it "renders correct address" do
-        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern\n"
+        is_expected.to eq "Chiefs Inc\nCourse Leader\nCourse Street\n3030 Wabern"
       end
     end
   end
