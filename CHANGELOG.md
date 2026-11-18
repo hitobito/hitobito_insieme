@@ -2,6 +2,7 @@
 
 ## unreleased
 
+* Die Personennummer kann nicht mehr manuell überschrieben werden (#227)
 * Die insieme-spezifischen Korrespondenz- und Rechnungsadressen wurden in zusätzliche Adressen mit strukturierter Adresse überführt. Die Rechnungsadresse wird neu mit der Kategorie "Rechnungsadresse" erfasst. Die bisherigen Adressfelder sind auch aus dem JSON-API und den Exporten entfernt (hitobito_insieme#195)
 
 ## Version 2.8
