@@ -8,15 +8,3 @@ import './_cost_accounting_note_copier.js.coffee'
 
 $(document).on('click', '.cancel[href="#"]', (event) ->
   $(this).closest('form').get(0).reset())
-
-$(document).on('turbo:load', ->
-  $('#person_manual_number').on('change', (event) ->
-    $('#person_number').prop('disabled', !this.checked) )
-
-  $('form[data-readonly=true] input, ' +
-    'form[data-readonly=true] textarea, ' +
-    'form[data-readonly=true] select').attr('readonly', 'readonly')
-
-  $('form[data-readonly=true] input[type=checkbox], ' +
-    'form[data-readonly=true] input[type=radio]').attr('disabled', 'disabled')
-)
